@@ -1,0 +1,14 @@
+
+SELECT     try1_eval.PMP_ID,try1_eval.Main_Item_Id,try1_eval.main_name, try1_eval.Sub_Item_Id,
+try1_eval.sub_name,try1_eval.weight, 
+(SUM(try1_eval.direct_mng_value)/1) AS direct_mng_value ,
+(SUM(try1_eval.top_mng_value)/1) AS top_mng_value ,
+dbo.fun_eval_direct_Top_mng_Notes(try1_eval.PMP_ID, 1,Main_Item_Id, Sub_Item_Id) AS 'drct_mng_Notes' 
+    , dbo.fun_eval_direct_Top_mng_Notes_2(try1_eval.PMP_ID, 2,
+                      Main_Item_Id, Sub_Item_Id) AS 'Top_mng_Notes'  ,
+[dbo].[fun_eval_HR_Note](try1_eval.PMP_ID,Main_Item_Id,Sub_Item_Id)   as 'hr_note' 
+FROM         try1_eval INNER JOIN
+                      count_eval_View ON try1_eval.PMP_ID = count_eval_View.Pmp_Id
+where  (direct_mng_value is not null or top_mng_value is not null) and try1_eval.pmp_id=636
+GROUP BY try1_eval.Main_Item_Id, try1_eval.Sub_Item_Id, try1_eval.PMP_ID,count_direct_mng,
+count_top_mng,try1_eval.main_name,sub_name,weight

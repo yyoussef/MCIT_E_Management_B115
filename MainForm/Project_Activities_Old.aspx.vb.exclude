@@ -1,0 +1,1822 @@
+﻿Imports System.Data
+Imports VB_Classes
+Imports VB_Classes.Dates
+
+Partial Class WebForms_Project_Activities
+    Inherits System.Web.UI.Page
+
+
+    Public main_dt As New DataTable
+    Public final_dt As New DataTable
+    Public lvl_count As Integer = 0
+    Dim db As New DBLAYER.DBClass
+    Dim general_sql As String = ""
+    Public level As Integer = 0
+    Dim General_Helping As New General_Helping
+    Dim Nroot As Boolean = True
+    Dim tn As Integer
+    Dim sql_Connection As String = Database.ConnectionString
+
+#Region "On Init"
+
+    Protected Overrides Sub OnInitComplete(ByVal e As System.EventArgs)
+
+        Smart_Search_org.sql_Connection = sql_Connection
+        Smart_Search_org.Text_Field = "Org_Desc "
+        Smart_Search_org.Value_Field = "ORG_id "
+        Smart_Search_org.Query = "select ORG_id,Org_Desc from Organization"
+        Smart_Search_org.DataBind()
+
+
+        MyBase.OnInitComplete(e)
+
+        Smart_Search_chorg.sql_Connection = sql_Connection
+        Smart_Search_chorg.Text_Field = "Org_Desc "
+        Smart_Search_chorg.Value_Field = "ORG_id "
+        Smart_Search_chorg.Query = "select ORG_id,Org_Desc from Organization"
+        Smart_Search_chorg.DataBind()
+
+        Smart_Project_ID.sql_Connection = sql_Connection
+        Smart_Project_ID.Text_Field = "Proj_Title "
+        Smart_Project_ID.Value_Field = "Proj_id "
+        Smart_Project_ID.Query = "SELECT Proj_id, Proj_Title FROM Project"
+        Smart_Project_ID.DataBind()
+        AddHandler Me.Smart_Project_ID.Value_Handler, AddressOf Smart_Search_Selected
+
+
+
+        MyBase.OnInitComplete(e)
+    End Sub
+
+#End Region
+
+    Private Sub Smart_Search_Selected(ByVal Value As String)
+        If CDataConverter.ConvertToInt(Value) > 0 Then
+            PopulateRootLevel(CDataConverter.ConvertToInt(Value))
+            FillGrid()
+        End If
+
+    End Sub
+
+#Region "Load"
+    Public Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+
+        If Not IsPostBack Then
+            'Session_CS.Project_id = "200"
+            'Dim dt As New DataTable
+            'dt = VB_Classes.Activities.Activities_levels_DT(0, 1, 0)
+            PopulateRootLevel(CDataConverter.ConvertToInt(Session_CS.Project_id))
+            FillGrid()
+            FillDDL()
+            FillChkBoxTeam()
+            BtnSave.CommandArgument = "new"
+            BtnChildSave.CommandArgument = "new"
+            lblPageStatus.Text = ""
+            'ImgBtnResearch1.Attributes.Add("OnClick", Me.Obj_Browser_Side.ClientSideFunction)
+
+        End If
+    End Sub
+#End Region
+
+#Region "Fill Data"
+    Private Sub FillGrid()
+
+        If CDataConverter.ConvertToInt(Session_CS.Project_id) > 0 Then
+            If RblActType.SelectedValue = 0 Then
+                Dim sql As String = ""
+                Dim _dt As New DataTable
+
+                sql = "select Project_Activities.* from Project_Activities" _
+                    & " where PActv_parent = 0  and proj_proj_id=" & Session_CS.Project_id _
+                    & " order by Parent_Actv_Num"
+                _dt = General_Helping.GetDataTable(sql)
+
+                gvMain.DataSource = _dt
+                gvMain.DataBind()
+                Dim i As Integer = 0
+                For Each row1 As DataRow In _dt.Rows
+                    CType(gvMain.Rows(i).FindControl("MainPB"), ProgressBar).SetProgress(row1("PActv_wieght"), 100)
+                    i += 1
+                Next
+                gvSub.Visible = False
+                gvMain.Visible = True
+            Else
+
+                Dim dt_Level As DataTable = Activities_levels_for_Grid(Session_CS.Project_id)
+                ' Dim dt As DataTable = Activities_levels_DT(Session_CS.Project_id)
+                'Dim sql2 As String = ""
+                'sql2 = "select Project_Activities.* from Project_Activities" _
+                '   & " join Project on Proj_proj_id = Proj_id" _
+                '   & " join employee on Project.pmp_pmp_id = EMPLOYEE.PMP_ID" _
+                '   & " where PActv_parent <> 0  and   proj_proj_id=" & Session_CS.Project_id _
+                '   & " order by Parent_Actv_Num"
+                'dt_Level = General_Helping.GetDataTable(sql2)
+
+                gvSub.DataSource = dt_Level
+                gvSub.DataBind()
+
+                Dim rw_indx As Decimal = 0
+                For Each rw As DataRow In dt_Level.Rows
+                    CType(gvSub.Rows(CInt(rw_indx)).FindControl("SubPB"), ProgressBar).SetProgress(CInt(rw("PActv_wieght")), 100)
+                    'gvSub.Rows(CInt(rw_indx)).Cells(0).BackColor = Drawing.Color.FromArgb(255, 255, 153)
+
+                    rw_indx += 1
+                Next
+
+
+
+                gvMain.Visible = False
+                gvSub.Visible = True
+            End If
+        End If
+    End Sub
+
+    Private Sub go_level(ByVal activID As Int64)
+        For Each activRow As DataRow In main_dt.Rows
+
+            If activRow("PActv_Parent") = activID Then
+                level += 1
+                activRow("lvl") = level
+                final_dt.ImportRow(activRow)
+                final_dt.AcceptChanges()
+                go_level(activRow("PActv_ID"))
+
+            End If
+
+        Next
+        level -= 1
+    End Sub
+    Public Function Activities_levels_for_Grid(ByVal proj_ip As Integer) As DataTable
+        general_sql = "select Project_Activities.* from Project_Activities" _
+     & " where pActv_parent>=0 and proj_proj_id=" & proj_ip _
+     & " order by PActv_ID"
+        main_dt = General_Helping.GetDataTable(general_sql)
+        final_dt = main_dt.Clone()
+        level = 0
+        go_level(0)
+        Return final_dt
+
+    End Function
+    Private Sub go_update_level(ByVal activID As Int64)
+        For Each activRow As DataRow In main_dt.Rows
+
+            If activRow("PActv_Parent") = activID Then
+                General_Helping.ExcuteQuery("update Project_Activities set Parent_Pactv_Desc = '" & CType(txtDesc.Text, String) & "' where PActv_ID = " & activRow("PActv_ID"))
+                go_update_level(activRow("PActv_ID"))
+            End If
+
+        Next
+
+    End Sub
+    Private Sub FillChkBoxTeam()
+        Dim sql5 As String = ""
+        sql5 = "select * from Project_Team where proj_proj_id=" & CDataConverter.ConvertToInt(Session_CS.Project_id) _
+            & " and rol_rol_id <> 4"
+        Dim _dt5 As DataTable = General_Helping.GetDataTable(sql5)
+        chkBoxTeam.DataTextField = "PTem_Name"
+        chkBoxTeam.DataValueField = "pmp_pmp_id"
+        chkBoxTeam.DataSource = _dt5
+        chkBoxTeam.DataBind()
+        chkBoxTeamchild.DataTextField = "PTem_Name"
+        chkBoxTeamchild.DataValueField = "pmp_pmp_id"
+        chkBoxTeamchild.DataSource = _dt5
+        chkBoxTeamchild.DataBind()
+
+    End Sub
+    Private Sub FillDDL()
+
+        Dim sql3 As String = ""
+        sql3 = "select * from Active_Satatus"
+        Dim _dt3 As DataTable = General_Helping.GetDataTable(sql3)
+        General_Helping.SmartBindDDL(ddlActvSit, _dt3, "ActStat_ID", "ActStat_Desc", "اختر موقف التنفيذ")
+
+        Dim sql4 As String = ""
+        sql4 = "select * from Active_Satatus"
+        Dim _dt4 As DataTable = General_Helping.GetDataTable(sql4)
+        General_Helping.SmartBindDDL(ddlActivSitChild, _dt4, "ActStat_ID", "ActStat_Desc", "اختر موقف التنفيذ")
+
+    End Sub
+#End Region
+
+#Region "Clear"
+    Private Sub Clear()
+        txtDesc.Text = ""
+        txtStartDate.Text = ""
+        txtEndDate.Text = ""
+        txtPeriod.Text = ""
+        txtWight.Text = ""
+        'txtInd.Text = ""
+        'txtIndVal.Text = ""
+        'txtUnit.Text = ""
+        txtChildDesc.Text = ""
+        txtStartChildDate.Text = ""
+        txtEndChildDate.Text = ""
+        txtChildPeriod.Text = ""
+        txtChildWight.Text = ""
+        'txtchildUnit.Text = ""
+        'txtChildInd.Text = ""
+        ' txtExOrg.Text = ""
+        txtExPer.Text = ""
+        ' txtChildExOrg.Text = ""
+        txtChildExPer.Text = ""
+        txtActvNote.Text = ""
+        txtChilActvNote.Text = ""
+        txtActStartDate.Text = ""
+        txtActEndDate.Text = ""
+        txtActStartChildDate.Text = ""
+        txtActEndChildDate.Text = ""
+        For index As Integer = 0 To 28
+            chk_gov_list.Items(index).Selected = False
+        Next
+        If chk_gov_List1.Items.Count > 0 Then
+            For index As Integer = 0 To 28
+                chk_gov_List1.Items(index).Selected = False
+            Next
+        End If
+        Dim sql5 As String = ""
+        sql5 = "select * from Project_Team where proj_proj_id=" & CDataConverter.ConvertToInt(Session_CS.Project_id) _
+            & " and rol_rol_id <> 4"
+        Dim _dt5 As DataTable = General_Helping.GetDataTable(sql5)
+        If _dt5.Rows.Count > 0 Then
+            For index As Integer = 0 To _dt5.Rows.Count - 1
+                chkBoxTeam.Items(index).Selected = False
+                chkBoxTeamchild.Items(index).Selected = False
+            Next
+        End If
+        chkAll.Checked = False
+        chkAllMain.Checked = False
+        Smart_Search_org.Clear_Controls()
+        Smart_Search_chorg.Clear_Controls()
+        'DdlMainActv.SelectedValue = "اختر النشاط الرئيسى"
+        'ddlInd.SelectedValue = "النوع"
+        'ddlChildInd.SelectedValue = "النوع"
+        'ddlActivSitChild.SelectedValue = "اختر موقف التنفيذ"
+        'ddlActvSit.SelectedValue = "اختر موقف التنفيذ"
+        'lblPageStatus.Visible = False
+        'lblPageStatus.Text = ""
+    End Sub
+#End Region
+
+#Region "Validation"
+    Private Function Valid() As Boolean
+        If RblActType.SelectedValue = 0 Then
+            If txtDesc.Text = "" Then ' Or txtStartDate.Text = "" Or txtPeriod.Text = "" Or txtWight.Text = "" Then
+                lblPageStatus.Visible = True
+                lblPageStatus.Text = "عفوا يجب ادخال البيانات اولا"
+                Return False
+            Else
+                lblPageStatus.Visible = False
+                Return True
+            End If
+        Else
+            If txtChildDesc.Text = "" Or parent_activ.Text = "" Then ' Or txtStartChildDate.Text = "" Or txtChildPeriod.Text = "" Or txtChildWight.Text = "" Or txtEndChildDate.Text = "" Then
+                lblPageStatus.Visible = True
+                lblPageStatus.Text = "عفوا يجب ادخال البيانات اولا"
+                Return False
+            Else
+                lblPageStatus.Visible = False
+                Return True
+            End If
+        End If
+    End Function
+#End Region
+
+#Region "Save Data"
+    Private Sub SaveDataForClasses(Optional ByVal ID As Integer = 0)
+        Try
+            If ID = 0 Then
+                General_Helping.ExcuteQuery("insert into Project_Activities (Proj_Proj_Id) values (" & Session_CS.Project_id & ")")
+                Dim dt As New DataTable
+                Dim _dt As New DataTable
+                Dim sql As String = ""
+                sql = "SELECT MAX(PActv_ID) AS LargestPActv_ID FROM Project_Activities"
+                _dt = General_Helping.GetDataTable(sql)
+                General_Helping.ExcuteQuery("update Project_Activities set Pactv_Desc = '' where PActv_ID = " & _dt.Rows(0)("LargestPActv_ID"))
+                General_Helping.ExcuteQuery("update Project_Activities set Parent_Pactv_Desc = '" & CType(txtDesc.Text, String) & "' where PActv_ID = " & _dt.Rows(0)("LargestPActv_ID"))
+                dt = General_Helping.GetDataTable("select count(Parent_PActv_Desc) as CC from Project_Activities where Proj_Proj_Id=" & Session_CS.Project_id & " and PActv_Parent =" & 0)
+                Dim x As Integer = dt.Rows(0)("CC")
+                General_Helping.ExcuteQuery("update Project_Activities set Parent_Actv_Num = " & x + 1 & " where PActv_ID = " & _dt.Rows(0)("LargestPActv_ID"))
+                General_Helping.ExcuteQuery("update Project_Activities set PActv_Parent = " & 0 & " where PActv_ID = " & _dt.Rows(0)("LargestPActv_ID"))
+                If txtWight.Text <> "" Then
+                    General_Helping.ExcuteQuery("update Project_Activities set Pactv_Wieght = '" & Decimal.Parse(txtWight.Text) & "' where PActv_ID = " & _dt.Rows(0)("LargestPActv_ID"))
+                Else
+                    General_Helping.ExcuteQuery("update Project_Activities set Pactv_Wieght = '" & 0 & "' where PActv_ID = " & _dt.Rows(0)("LargestPActv_ID"))
+                End If
+                If txtStartDate.Text <> "" Then
+                    Dim validated_date As String = ""
+                    If date_validate(txtStartDate.Text) <> "" Then
+                        validated_date = date_validate(txtStartDate.Text)
+                        lblPageStatus.Visible = False
+                    Else
+                        lblPageStatus.Text = "أدخل التاريخ (يوم/شهر/سنة) "
+                        lblPageStatus.Visible = True
+                        Return
+                    End If
+                    General_Helping.ExcuteQuery("update Project_Activities set Pactv_Start_Date ='" & validated_date & "' where PActv_ID = " & _dt.Rows(0)("LargestPActv_ID"))
+                End If
+                If txtEndDate.Text <> "" Then
+                    Dim validated_date As String = ""
+                    If date_validate(txtEndDate.Text) <> "" Then
+                        validated_date = date_validate(txtEndDate.Text)
+                        lblPageStatus.Visible = False
+                    Else
+                        lblPageStatus.Text = "أدخل التاريخ (يوم/شهر/سنة) "
+                        lblPageStatus.Visible = True
+                        Return
+                    End If
+                    General_Helping.ExcuteQuery("update Project_Activities set PActv_End_Date = '" & validated_date & "' where PActv_ID = " & _dt.Rows(0)("LargestPActv_ID"))
+                End If
+                If txtPeriod.Text <> "" Then
+                    General_Helping.ExcuteQuery("update Project_Activities set Pactv_Period = " & Decimal.Parse(txtPeriod.Text) & " where PActv_ID = " & _dt.Rows(0)("LargestPActv_ID"))
+                End If
+                If txtActStartDate.Text <> "" Then
+                    Dim validated_date As String = ""
+                    If date_validate(txtActStartDate.Text) <> "" Then
+                        validated_date = date_validate(txtActStartDate.Text)
+                        lblPageStatus.Visible = False
+                    Else
+                        lblPageStatus.Text = "أدخل التاريخ (يوم/شهر/سنة) "
+                        lblPageStatus.Visible = True
+                        Return
+                    End If
+                    General_Helping.ExcuteQuery("update Project_Activities set PActv_Actual_Start_Date = '" & validated_date & "' where PActv_ID = " & _dt.Rows(0)("LargestPActv_ID"))
+                End If
+                If txtActEndDate.Text <> "" Then
+                    Dim validated_date As String = ""
+                    If date_validate(txtActEndDate.Text) <> "" Then
+                        validated_date = date_validate(txtActEndDate.Text)
+                        lblPageStatus.Visible = False
+                    Else
+                        lblPageStatus.Text = "أدخل التاريخ (يوم/شهر/سنة) "
+                        lblPageStatus.Visible = True
+                        Return
+                    End If
+                    General_Helping.ExcuteQuery("update Project_Activities set PActv_Actual_End_Date = '" & validated_date & "' where PActv_ID = " & _dt.Rows(0)("LargestPActv_ID"))
+                End If
+                If Smart_Search_org.SelectedValue <> "" Then
+                    General_Helping.ExcuteQuery("update Project_Activities set Excutive_responsible_Org_Org_id = '" & Smart_Search_org.SelectedValue & "' where PActv_ID = " & _dt.Rows(0)("LargestPActv_ID"))
+                    General_Helping.ExcuteQuery("update Project_Activities set PActv_Implementing_Location = '" & Smart_Search_org.SelectedText & "' where PActv_ID = " & _dt.Rows(0)("LargestPActv_ID"))
+                End If
+
+                If txtExPer.Text <> "" Then
+                    General_Helping.ExcuteQuery("update Project_Activities set PActv_Implementing_person = '" & txtExPer.Text & "' where PActv_ID = " & _dt.Rows(0)("LargestPActv_ID"))
+                End If
+
+
+                For index As Integer = 0 To 28
+                    If chk_gov_list.Items(index).Selected = True Then
+                        General_Helping.ExcuteQuery("insert into Project_Activities_gov (activity_id,gov_id) values (" & _dt.Rows(0)("LargestPActv_ID") & "," & chk_gov_list.Items(index).Value & ")")
+                    End If
+                Next
+
+                General_Helping.ExcuteQuery("delete from Activities_Assigned_team where activ_id=" & _dt.Rows(0)("LargestPActv_ID"))
+                Dim sql5 As String = ""
+                sql5 = "select * from Project_Team where proj_proj_id=" & CDataConverter.ConvertToInt(Session_CS.Project_id) _
+                    & " and rol_rol_id <> 4"
+                Dim _dt5 As DataTable = General_Helping.GetDataTable(sql5)
+                If _dt5.Rows.Count > 0 Then
+                    For index As Integer = 0 To _dt5.Rows.Count - 1
+                        If chkBoxTeam.Items(index).Selected = True Then
+                            General_Helping.ExcuteQuery("insert into Activities_Assigned_team (activ_id,emp_id) values (" & _dt.Rows(0)("LargestPActv_ID") & "," & chkBoxTeam.Items(index).Value & ")")
+                        End If
+                    Next
+
+                End If
+
+
+                General_Helping.ExcuteQuery("insert into Project_Activities_Indicators (pactv_pactv_id) values (" & _dt.Rows(0)("LargestPActv_ID") & ")")
+
+                General_Helping.ExcuteQuery("insert into Activity_sitiuation (project_activity_FK) values (" & _dt.Rows(0)("LargestPActv_ID") & ")")
+
+                'If txtInd.Text <> "" Then
+                '    General_Helping.ExcuteQuery("update Project_Activities_Indicators set PAI_Desc = '" & txtInd.Text & "' where pactv_pactv_id =" & _dt.Rows(0)("LargestPActv_ID"))
+                'End If
+                'If txtIndVal.Text <> "" Then
+                '    General_Helping.ExcuteQuery("update Project_Activities_Indicators set PAI_Wieght = '" & Decimal.Parse(txtIndVal.Text) & "' where pactv_pactv_id =" & _dt.Rows(0)("LargestPActv_ID"))
+                'End If
+                'If txtUnit.Text <> "" Then
+                '    General_Helping.ExcuteQuery("update Project_Activities_Indicators set PAI_Unit = '" & txtUnit.Text & "' where pactv_pactv_id =" & _dt.Rows(0)("LargestPActv_ID"))
+                'End If
+                'If ddlInd.SelectedIndex <> 0 Then
+                '    General_Helping.ExcuteQuery("update Project_Activities_Indicators set indt_indt_id = " & ddlInd.SelectedIndex & " where pactv_pactv_id =" & _dt.Rows(0)("LargestPActv_ID"))
+                'End If
+                If ddlActvSit.SelectedIndex <> 0 Then
+                    General_Helping.ExcuteQuery("update Project_Activities set ActStat_ActStat_id = " & ddlActvSit.SelectedIndex & " where PActv_ID=" & _dt.Rows(0)("LargestPActv_ID"))
+                End If
+                If txtActvNote.Text <> "" Then
+                    General_Helping.ExcuteQuery("update Activity_sitiuation set actv_sit_desc = '" & txtActvNote.Text & "' where project_activity_FK=" & _dt.Rows(0)("LargestPActv_ID"))
+                End If
+
+                lblPageStatus.Visible = True
+                lblPageStatus.Text = "تم الحفظ بنجاح"
+            Else
+
+                Dim dt As New DataTable
+                Dim sql As String = ""
+                General_Helping.ExcuteQuery("update Project_Activities set Parent_Pactv_Desc = '" & CType(txtDesc.Text, String) & "' where PActv_ID = " & PActv_ID.Value)
+                general_sql = "select Project_Activities.* from Project_Activities" _
+                 & " where proj_proj_id=" & Session_CS.Project_id _
+                 & " order by PActv_ID"
+                main_dt = General_Helping.GetDataTable(general_sql)
+                go_update_level(PActv_ID.Value)
+
+                If txtWight.Text <> "" Then
+                    General_Helping.ExcuteQuery("update Project_Activities set Pactv_Wieght = '" & Decimal.Parse(txtWight.Text) & "' where PActv_ID = " & PActv_ID.Value)
+                Else
+                    General_Helping.ExcuteQuery("update Project_Activities set Pactv_Wieght = '" & 0 & "' where PActv_ID = " & PActv_ID.Value)
+                End If
+                If txtStartDate.Text <> "" Then
+                    Dim validated_date As String = ""
+                    If date_validate(txtStartDate.Text) <> "" Then
+                        validated_date = date_validate(txtStartDate.Text)
+                        lblPageStatus.Visible = False
+                    Else
+                        lblPageStatus.Text = "أدخل التاريخ (يوم/شهر/سنة) "
+                        lblPageStatus.Visible = True
+                        Return
+                    End If
+                    General_Helping.ExcuteQuery("update Project_Activities set Pactv_Start_Date = '" & validated_date & "' where PActv_ID = " & PActv_ID.Value)
+                End If
+                If txtEndDate.Text <> "" Then
+                    Dim validated_date As String = ""
+                    If date_validate(txtEndDate.Text) <> "" Then
+                        validated_date = date_validate(txtEndDate.Text)
+                        lblPageStatus.Visible = False
+                    Else
+                        lblPageStatus.Text = "أدخل التاريخ (يوم/شهر/سنة) "
+                        lblPageStatus.Visible = True
+                        Return
+                    End If
+                    General_Helping.ExcuteQuery("update Project_Activities set Pactv_End_Date  = '" & validated_date & "' where PActv_ID = " & PActv_ID.Value)
+                End If
+                If txtPeriod.Text <> "" Then
+                    General_Helping.ExcuteQuery("update Project_Activities set Pactv_Period = " & Decimal.Parse(txtPeriod.Text) & " where PActv_ID = " & PActv_ID.Value)
+                End If
+                If txtActStartDate.Text <> "" Then
+                    Dim validated_date As String = ""
+                    If date_validate(txtActStartDate.Text) <> "" Then
+                        validated_date = date_validate(txtActStartDate.Text)
+                        lblPageStatus.Visible = False
+                    Else
+                        lblPageStatus.Text = "أدخل التاريخ (يوم/شهر/سنة) "
+                        lblPageStatus.Visible = True
+                        Return
+                    End If
+                    General_Helping.ExcuteQuery("update Project_Activities set PActv_Actual_Start_Date = '" & validated_date & "' where PActv_ID = " & PActv_ID.Value)
+                End If
+                If txtActEndDate.Text <> "" Then
+                    Dim validated_date As String = ""
+                    If date_validate(txtActEndDate.Text) <> "" Then
+                        validated_date = date_validate(txtActEndDate.Text)
+                        lblPageStatus.Visible = False
+                    Else
+                        lblPageStatus.Text = "أدخل التاريخ (يوم/شهر/سنة) "
+                        lblPageStatus.Visible = True
+                        Return
+                    End If
+                    General_Helping.ExcuteQuery("update Project_Activities set PActv_Actual_End_Date = '" & validated_date & "' where PActv_ID = " & PActv_ID.Value)
+                Else
+                    General_Helping.ExcuteQuery("update Project_Activities set PActv_Actual_End_Date = '' where PActv_ID = " & PActv_ID.Value)
+                End If
+                If Smart_Search_org.SelectedValue <> "" Then
+                    General_Helping.ExcuteQuery("update Project_Activities set Excutive_responsible_Org_Org_id = '" & Smart_Search_org.SelectedValue & "' where PActv_ID = " & PActv_ID.Value)
+                    General_Helping.ExcuteQuery("update Project_Activities set PActv_Implementing_Location = '" & Smart_Search_org.SelectedText & "' where PActv_ID = " & PActv_ID.Value)
+                End If
+
+                General_Helping.ExcuteQuery("update Project_Activities set PActv_Implementing_person = '" & txtExPer.Text & "' where PActv_ID = " & PActv_ID.Value)
+
+                General_Helping.ExcuteQuery("delete from Project_Activities_gov where activity_id=" & PActv_ID.Value)
+                For index As Integer = 0 To 28
+                    If chk_gov_list.Items(index).Selected = True Then
+                        General_Helping.ExcuteQuery("insert into Project_Activities_gov (activity_id,gov_id) values (" & PActv_ID.Value & "," & chk_gov_list.Items(index).Value & ")")
+                    End If
+                Next
+
+                General_Helping.ExcuteQuery("delete from Activities_Assigned_team where activ_id=" & PActv_ID.Value)
+                Dim sql5 As String = ""
+                sql5 = "select * from Project_Team where proj_proj_id=" & CDataConverter.ConvertToInt(Session_CS.Project_id) _
+                    & " and rol_rol_id <> 4"
+                Dim _dt5 As DataTable = General_Helping.GetDataTable(sql5)
+                If _dt5.Rows.Count > 0 Then
+                    For index As Integer = 0 To _dt5.Rows.Count - 1
+                        If chkBoxTeam.Items(index).Selected = True Then
+                            General_Helping.ExcuteQuery("insert into Activities_Assigned_team (activ_id,emp_id) values (" & PActv_ID.Value & "," & chkBoxTeam.Items(index).Value & ")")
+                        End If
+                    Next
+
+                End If
+                'If txtInd.Text <> "" Then
+                '    General_Helping.ExcuteQuery("update Project_Activities_Indicators set PAI_Desc = '" & txtInd.Text & "' where pactv_pactv_id =" & PActv_ID.Value)
+                'End If
+                'If txtIndVal.Text <> "" Then
+                '    General_Helping.ExcuteQuery("update Project_Activities_Indicators set PAI_Wieght = '" & Decimal.Parse(txtIndVal.Text) & "' where pactv_pactv_id =" & PActv_ID.Value)
+                'End If
+                'If txtUnit.Text <> "" Then
+                '    General_Helping.ExcuteQuery("update Project_Activities_Indicators set PAI_Unit = '" & txtUnit.Text & "' where pactv_pactv_id =" & PActv_ID.Value)
+                'End If
+                'If ddlInd.SelectedIndex <> 0 Then
+                '    General_Helping.ExcuteQuery("update Project_Activities_Indicators set indt_indt_id = " & ddlInd.SelectedIndex & " where pactv_pactv_id =" & PActv_ID.Value)
+                'End If
+                If ddlActvSit.SelectedIndex <> 0 Then
+                    General_Helping.ExcuteQuery("update Project_Activities set ActStat_ActStat_id = " & ddlActvSit.SelectedIndex & " where PActv_ID=" & PActv_ID.Value)
+                End If
+                If txtActvNote.Text <> "" Then
+                    General_Helping.ExcuteQuery("update Activity_sitiuation set actv_sit_desc = '" & txtActvNote.Text & "' where project_activity_FK=" & PActv_ID.Value)
+                End If
+                BtnSave.CommandArgument = "new"
+                lblPageStatus.Visible = True
+                lblPageStatus.Text = "تم التعديل بنجاح"
+            End If
+            FillGrid()
+            PopulateRootLevel(Session_CS.Project_id)
+            BtnSave.Text = "حفــــــظ"
+            Clear()
+
+        Catch ex As Exception
+            lblPageStatus.Visible = True
+            lblPageStatus.Text = ex.Message
+        End Try
+    End Sub
+
+    Private Sub SaveChildDataForClasses(Optional ByVal ID As Integer = 0)
+        Try
+            If ID = 0 Then
+                If Session("tn_id") = Nothing Then
+                    Return
+                End If
+                General_Helping.ExcuteQuery("insert into Project_Activities (Proj_Proj_Id) values (" & Session_CS.Project_id & ")")
+                Dim dt As New DataTable
+                Dim _dt As New DataTable
+                Dim dt1 As New DataTable
+                Dim sql1 As String = ""
+                Dim sql As String = ""
+                sql = "SELECT MAX(PActv_ID) AS LargestPActv_ID FROM Project_Activities"
+                _dt = General_Helping.GetDataTable(sql)
+                sql1 = "select Parent_Pactv_Desc from Project_Activities where PActv_ID =" & Session("tn_id")
+                dt1 = General_Helping.GetDataTable(sql1)
+                General_Helping.ExcuteQuery("update Project_Activities set Parent_Pactv_Desc = '" & dt1.Rows(0)("Parent_Pactv_Desc") & "' where PActv_ID = " & _dt.Rows(0)("LargestPActv_ID"))
+                txtDesc.Text = CType(txtChildDesc.Text, String)
+                General_Helping.ExcuteQuery("update Project_Activities set Pactv_Desc = '" & CType(txtChildDesc.Text, String) & "' where PActv_ID = " & _dt.Rows(0)("LargestPActv_ID"))
+                dt = General_Helping.GetDataTable("select count(PActv_Desc) as CC from Project_Activities where Proj_Proj_Id=" & Session_CS.Project_id & " and PActv_Parent =" & Session("tn_id"))
+                Dim x As Integer = dt.Rows(0)("CC")
+                General_Helping.ExcuteQuery("update Project_Activities set Child_Actv_Num = " & x + 1 & " where PActv_ID = " & _dt.Rows(0)("LargestPActv_ID"))
+                General_Helping.ExcuteQuery("update Project_Activities set PActv_Parent = " & Session("tn_id") & " where PActv_ID = " & _dt.Rows(0)("LargestPActv_ID"))
+
+
+                If txtChildPeriod.Text <> "" Then
+                    General_Helping.ExcuteQuery("update Project_Activities set Pactv_Period = '" & Decimal.Parse(txtChildPeriod.Text) & "' where PActv_ID = " & _dt.Rows(0)("LargestPActv_ID"))
+                End If
+                If txtChildWight.Text <> "" Then
+                    General_Helping.ExcuteQuery("update Project_Activities set Pactv_Wieght = '" & Decimal.Parse(txtChildWight.Text) & "' where PActv_ID = " & _dt.Rows(0)("LargestPActv_ID"))
+                Else
+                    General_Helping.ExcuteQuery("update Project_Activities set Pactv_Wieght = '" & 0 & "' where PActv_ID = " & _dt.Rows(0)("LargestPActv_ID"))
+                End If
+                If txtStartChildDate.Text <> "" Then
+                    Dim validated_date As String = ""
+                    If date_validate(txtStartChildDate.Text) <> "" Then
+                        validated_date = date_validate(txtStartChildDate.Text)
+                        lblPageStatus.Visible = False
+                    Else
+                        lblPageStatus.Text = "أدخل التاريخ (يوم/شهر/سنة) "
+                        lblPageStatus.Visible = True
+                        Return
+                    End If
+                    General_Helping.ExcuteQuery("update Project_Activities set Pactv_Start_Date = '" & validated_date & "' where PActv_ID = " & _dt.Rows(0)("LargestPActv_ID"))
+                End If
+                If txtEndChildDate.Text <> "" Then
+                    Dim validated_date As String = ""
+                    If date_validate(txtEndChildDate.Text) <> "" Then
+                        validated_date = date_validate(txtEndChildDate.Text)
+                        lblPageStatus.Visible = False
+                    Else
+                        lblPageStatus.Text = "أدخل التاريخ (يوم/شهر/سنة) "
+                        lblPageStatus.Visible = True
+                        Return
+                    End If
+                    General_Helping.ExcuteQuery("update Project_Activities set Pactv_End_Date  = '" & validated_date & "' where PActv_ID = " & _dt.Rows(0)("LargestPActv_ID"))
+                End If
+
+                If txtActStartChildDate.Text <> "" Then
+                    Dim validated_date As String = ""
+                    If date_validate(txtActStartChildDate.Text) <> "" Then
+                        validated_date = date_validate(txtActStartChildDate.Text)
+                        lblPageStatus.Visible = False
+                    Else
+                        lblPageStatus.Text = "أدخل التاريخ (يوم/شهر/سنة) "
+                        lblPageStatus.Visible = True
+                        Return
+                    End If
+                    General_Helping.ExcuteQuery("update Project_Activities set PActv_Actual_Start_Date = '" & validated_date & "' where PActv_ID = " & _dt.Rows(0)("LargestPActv_ID"))
+                End If
+                If txtActEndChildDate.Text <> "" Then
+                    Dim validated_date As String = ""
+                    If date_validate(txtActEndChildDate.Text) <> "" Then
+                        validated_date = date_validate(txtActEndChildDate.Text)
+                        lblPageStatus.Visible = False
+                    Else
+                        lblPageStatus.Text = "أدخل التاريخ (يوم/شهر/سنة) "
+                        lblPageStatus.Visible = True
+                        Return
+                    End If
+                    General_Helping.ExcuteQuery("update Project_Activities set PActv_Actual_End_Date = '" & validated_date & "' where PActv_ID = " & _dt.Rows(0)("LargestPActv_ID"))
+                End If
+                If Smart_Search_chorg.SelectedValue <> "" Then
+                    General_Helping.ExcuteQuery("update Project_Activities set Excutive_responsible_Org_Org_id = '" & Smart_Search_chorg.SelectedValue & "' where PActv_ID = " & _dt.Rows(0)("LargestPActv_ID"))
+                End If
+                If txtChildExPer.Text <> "" Then
+                    General_Helping.ExcuteQuery("update Project_Activities set PActv_Implementing_person = '" & txtChildExPer.Text & "' where PActv_ID = " & _dt.Rows(0)("LargestPActv_ID"))
+                End If
+
+                For index As Integer = 0 To 28
+                    If chk_gov_List1.Items(index).Selected = True Then
+                        General_Helping.ExcuteQuery("insert into Project_Activities_gov (activity_id,gov_id) values (" & _dt.Rows(0)("LargestPActv_ID") & "," & chk_gov_List1.Items(index).Value & ")")
+                    End If
+                Next
+
+                General_Helping.ExcuteQuery("delete from Activities_Assigned_team where activ_id=" & _dt.Rows(0)("LargestPActv_ID"))
+                Dim sql5 As String = ""
+                sql5 = "select * from Project_Team where proj_proj_id=" & CDataConverter.ConvertToInt(Session_CS.Project_id) _
+                    & " and rol_rol_id <> 4"
+                Dim _dt5 As DataTable = General_Helping.GetDataTable(sql5)
+                If _dt5.Rows.Count > 0 Then
+                    For index As Integer = 0 To _dt5.Rows.Count - 1
+                        If chkBoxTeamchild.Items(index).Selected = True Then
+                            General_Helping.ExcuteQuery("insert into Activities_Assigned_team (activ_id,emp_id) values (" & _dt.Rows(0)("LargestPActv_ID") & "," & chkBoxTeamchild.Items(index).Value & ")")
+                        End If
+                    Next
+
+                End If
+
+
+                General_Helping.ExcuteQuery("insert into Project_Activities_Indicators (pactv_pactv_id) values (" & _dt.Rows(0)("LargestPActv_ID") & ")")
+                General_Helping.ExcuteQuery("insert into Activity_sitiuation (project_activity_FK) values (" & _dt.Rows(0)("LargestPActv_ID") & ")")
+                'If txtChildInd.Text <> "" Then
+                '    General_Helping.ExcuteQuery("update Project_Activities_Indicators set PAI_Desc = '" & txtChildInd.Text & "' where pactv_pactv_id =" & _dt.Rows(0)("LargestPActv_ID"))
+                'End If
+                'If txtchildUnit.Text <> "" Then
+                '    General_Helping.ExcuteQuery("update Project_Activities_Indicators set PAI_Unit = '" & txtchildUnit.Text & "' where pactv_pactv_id =" & _dt.Rows(0)("LargestPActv_ID"))
+                'End If
+                'If ddlChildInd.SelectedIndex <> 0 Then
+                '    General_Helping.ExcuteQuery("update Project_Activities_Indicators set indt_indt_id = " & ddlChildInd.SelectedIndex & " where pactv_pactv_id =" & _dt.Rows(0)("LargestPActv_ID"))
+                'End If
+                If ddlActivSitChild.SelectedIndex <> 0 Then
+                    General_Helping.ExcuteQuery("update Project_Activities set ActStat_ActStat_id = " & ddlActivSitChild.SelectedIndex & " where PActv_ID=" & _dt.Rows(0)("LargestPActv_ID"))
+                End If
+                If txtChilActvNote.Text <> "" Then
+                    General_Helping.ExcuteQuery("update Activity_sitiuation set actv_sit_desc = '" & txtChilActvNote.Text & "' where project_activity_FK=" & _dt.Rows(0)("LargestPActv_ID"))
+                End If
+
+                lblPageStatus.Visible = True
+                lblPageStatus.Text = "تم الحفظ بنجاح"
+                PopulateRootLevel(CDataConverter.ConvertToInt(Session_CS.Project_id))
+            Else
+
+                Dim dt1 As New DataTable
+                Dim sql1 As String = ""
+
+
+                'sql1 = "select Parent_Pactv_Desc from Project_Activities where PActv_ID =" & Session("tn_id")
+                'dt1 = General_Helping.GetDataTable(sql1)
+                'General_Helping.ExcuteQuery("update Project_Activities set Parent_Pactv_Desc = '" & dt1.Rows(0)("Parent_Pactv_Desc") & "' where PActv_ID = " & PActv_ID.Value)
+                General_Helping.ExcuteQuery("update Project_Activities set Pactv_Desc = '" & CType(txtChildDesc.Text, String) & "' where PActv_ID = " & PActv_ID.Value)
+
+                'General_Helping.ExcuteQuery("update Project_Activities set PActv_Parent = " & Session("tn_id") & " where PActv_ID = " & PActv_ID.Value)
+                If txtChildPeriod.Text <> "" Then
+                    General_Helping.ExcuteQuery("update Project_Activities set Pactv_Period = '" & Decimal.Parse(txtChildPeriod.Text) & "' where PActv_ID = " & PActv_ID.Value)
+                End If
+                If txtChildWight.Text <> "" Then
+                    General_Helping.ExcuteQuery("update Project_Activities set Pactv_Wieght = '" & Decimal.Parse(txtChildWight.Text) & "' where PActv_ID = " & PActv_ID.Value)
+                Else
+                    General_Helping.ExcuteQuery("update Project_Activities set Pactv_Wieght = '" & 0 & "' where PActv_ID = " & PActv_ID.Value)
+                End If
+                If txtStartChildDate.Text <> "" Then
+                    Dim validated_date As String = ""
+                    If date_validate(txtStartChildDate.Text) <> "" Then
+                        validated_date = date_validate(txtStartChildDate.Text)
+                        lblPageStatus.Visible = False
+                    Else
+                        lblPageStatus.Text = "أدخل التاريخ (يوم/شهر/سنة) "
+                        lblPageStatus.Visible = True
+                        Return
+                    End If
+                    General_Helping.ExcuteQuery("update Project_Activities set Pactv_Start_Date = '" & validated_date & "' where PActv_ID = " & PActv_ID.Value)
+                End If
+                If txtEndChildDate.Text <> "" Then
+                    Dim validated_date As String = ""
+                    If date_validate(txtEndChildDate.Text) <> "" Then
+                        validated_date = date_validate(txtEndChildDate.Text)
+                        lblPageStatus.Visible = False
+                    Else
+                        lblPageStatus.Text = "أدخل التاريخ (يوم/شهر/سنة) "
+                        lblPageStatus.Visible = True
+                        Return
+                    End If
+                    General_Helping.ExcuteQuery("update Project_Activities set Pactv_End_Date  = '" & validated_date & "' where PActv_ID = " & PActv_ID.Value)
+                End If
+
+                If txtActStartChildDate.Text <> "" Then
+                    Dim validated_date As String = ""
+                    If date_validate(txtActStartChildDate.Text) <> "" Then
+                        validated_date = date_validate(txtActStartChildDate.Text)
+                        lblPageStatus.Visible = False
+                    Else
+                        lblPageStatus.Text = "أدخل التاريخ (يوم/شهر/سنة) "
+                        lblPageStatus.Visible = True
+                        Return
+                    End If
+                    General_Helping.ExcuteQuery("update Project_Activities set PActv_Actual_Start_Date = '" & validated_date & "' where PActv_ID = " & PActv_ID.Value)
+                End If
+                If txtActEndChildDate.Text <> "" Then
+                    Dim validated_date As String = ""
+                    If date_validate(txtActEndChildDate.Text) <> "" Then
+                        validated_date = date_validate(txtActEndChildDate.Text)
+                        lblPageStatus.Visible = False
+                    Else
+                        lblPageStatus.Text = "أدخل التاريخ (يوم/شهر/سنة) "
+                        lblPageStatus.Visible = True
+                        Return
+                    End If
+                    General_Helping.ExcuteQuery("update Project_Activities set PActv_Actual_End_Date = '" & validated_date & "' where PActv_ID = " & PActv_ID.Value)
+                Else
+                    General_Helping.ExcuteQuery("update Project_Activities set PActv_Actual_End_Date = '' where PActv_ID = " & PActv_ID.Value)
+                End If
+                If Smart_Search_chorg.SelectedValue <> "" Then
+                    General_Helping.ExcuteQuery("update Project_Activities set Excutive_responsible_Org_Org_id = '" & Smart_Search_chorg.SelectedValue & "' where PActv_ID = " & PActv_ID.Value)
+                End If
+
+                General_Helping.ExcuteQuery("update Project_Activities set PActv_Implementing_person = '" & txtChildExPer.Text & "' where PActv_ID = " & PActv_ID.Value)
+
+                General_Helping.ExcuteQuery("delete from Project_Activities_gov where activity_id=" & PActv_ID.Value)
+                For index As Integer = 0 To 28
+                    If chk_gov_List1.Items(index).Selected = True Then
+                        General_Helping.ExcuteQuery("insert into Project_Activities_gov (activity_id,gov_id) values (" & PActv_ID.Value & "," & chk_gov_List1.Items(index).Value & ")")
+                    End If
+                Next
+
+                General_Helping.ExcuteQuery("delete from Activities_Assigned_team where activ_id=" & PActv_ID.Value)
+                Dim sql5 As String = ""
+                sql5 = "select * from Project_Team where proj_proj_id=" & CDataConverter.ConvertToInt(Session_CS.Project_id) _
+                    & " and rol_rol_id <> 4"
+                Dim _dt5 As DataTable = General_Helping.GetDataTable(sql5)
+                If _dt5.Rows.Count > 0 Then
+                    For index As Integer = 0 To _dt5.Rows.Count - 1
+                        If chkBoxTeamchild.Items(index).Selected = True Then
+                            General_Helping.ExcuteQuery("insert into Activities_Assigned_team (activ_id,emp_id) values (" & PActv_ID.Value & "," & chkBoxTeamchild.Items(index).Value & ")")
+                        End If
+                    Next
+
+                End If
+                'If txtChildInd.Text <> "" Then
+                '    General_Helping.ExcuteQuery("update Project_Activities_Indicators set PAI_Desc = '" & txtChildInd.Text & "' where pactv_pactv_id =" & PActv_ID.Value)
+                'End If
+                'If txtchildUnit.Text <> "" Then
+                '    General_Helping.ExcuteQuery("update Project_Activities_Indicators set PAI_Unit = '" & txtchildUnit.Text & "' where pactv_pactv_id =" & PActv_ID.Value)
+                'End If
+                'If ddlChildInd.SelectedIndex <> 0 Then
+                '    General_Helping.ExcuteQuery("update Project_Activities_Indicators set indt_indt_id = " & ddlChildInd.SelectedIndex & " where pactv_pactv_id =" & PActv_ID.Value)
+                'End If
+                If ddlActivSitChild.SelectedIndex <> 0 Then
+                    General_Helping.ExcuteQuery("update Project_Activities set ActStat_ActStat_id = " & ddlActivSitChild.SelectedIndex & " where PActv_ID=" & PActv_ID.Value)
+                End If
+                If txtChilActvNote.Text <> "" Then
+                    General_Helping.ExcuteQuery("update Activity_sitiuation set actv_sit_desc = '" & txtChilActvNote.Text & "' where project_activity_FK=" & PActv_ID.Value)
+                End If
+
+                BtnChildSave.CommandArgument = "new"
+                lblPageStatus.Visible = True
+                lblPageStatus.Text = "تم التعديل بنجاح"
+                PopulateRootLevel(CDataConverter.ConvertToInt(Session_CS.Project_id))
+            End If
+            FillGrid()
+            BtnChildSave.Text = "حفــــــظ"
+            Clear()
+            For index As Integer = 0 To 28
+                chk_gov_List1.Items(index).Selected = False
+            Next
+        Catch ex As Exception
+            lblPageStatus.Visible = True
+            lblPageStatus.Text = ex.Message
+        End Try
+    End Sub
+#End Region
+
+#Region "Event Handler"
+    Protected Sub BtnSave_Click(ByVal sender As Object, ByVal e As EventArgs) Handles BtnSave.Click
+        If CDataConverter.ConvertToInt(Session_CS.Project_id) > 0 Then
+            If Valid() Then
+                If BtnSave.CommandArgument = "new" Then
+                    SaveDataForClasses()
+                Else
+                    SaveDataForClasses(PActv_ID.Value)
+                End If
+                ' FillGrid()
+            End If
+        Else
+            lblPageStatus.Visible = True
+            lblPageStatus.Text = "يجب اختيار المشروع أولا"
+        End If
+    End Sub
+
+    Private Sub BtnChildSave_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles BtnChildSave.Click
+        If Valid() Then
+            If BtnChildSave.CommandArgument = "new" Then
+                SaveChildDataForClasses()
+            Else
+                SaveChildDataForClasses(PActv_ID.Value)
+                PActv_ID.Value = Nothing
+            End If
+            'FillGrid()
+        End If
+    End Sub
+
+    Protected Sub ImgBtnEdit_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs)
+
+        BtnSave.CommandArgument = "edit"
+        lblPageStatus.Text = ""
+        lblPageStatus.Visible = False
+
+        Clear()
+        Dim _dt As New DataTable
+        Dim sql1 As String = "select * from project_Activities where PActv_ID=" & CType(sender, ImageButton).CommandArgument
+        _dt = General_Helping.GetDataTable(sql1)
+
+        If Not _dt.Rows(0)("Parent_PActv_Desc") Is DBNull.Value Then
+            txtDesc.Text = _dt.Rows(0)("Parent_PActv_Desc")
+        End If
+
+        If Not _dt.Rows(0)("PActv_Wieght") Is DBNull.Value Then
+            txtWight.Text = CType(_dt.Rows(0)("PActv_Wieght"), Integer)
+        End If
+
+        If Not _dt.Rows(0)("PActv_Period") Is DBNull.Value Then
+            txtPeriod.Text = CType(_dt.Rows(0)("PActv_Period"), Integer)
+        End If
+
+        If Not _dt.Rows(0)("PActv_Start_Date") Is DBNull.Value Then
+            txtStartDate.Text = _dt.Rows(0)("PActv_Start_Date")
+        End If
+
+        If Not _dt.Rows(0)("PActv_End_Date") Is DBNull.Value Then
+            txtEndDate.Text = _dt.Rows(0)("PActv_End_Date")
+        End If
+        If Not _dt.Rows(0)("PActv_Actual_Start_Date") Is DBNull.Value Then
+            txtActStartDate.Text = _dt.Rows(0)("PActv_Actual_Start_Date")
+        End If
+        If Not _dt.Rows(0)("PActv_Actual_End_Date") Is DBNull.Value Then
+            txtActEndDate.Text = _dt.Rows(0)("PActv_Actual_End_Date")
+        End If
+        If Not _dt.Rows(0)("ActStat_ActStat_id") Is DBNull.Value Then
+            ddlActvSit.SelectedIndex = _dt.Rows(0)("ActStat_ActStat_id")
+        End If
+        If Not _dt.Rows(0)("PActv_Implementing_person") Is DBNull.Value Then
+            txtExPer.Text = _dt.Rows(0)("PActv_Implementing_person")
+        End If
+        If Not _dt.Rows(0)("Excutive_responsible_Org_Org_id") Is DBNull.Value Then
+            Smart_Search_org.SelectedValue = _dt.Rows(0)("Excutive_responsible_Org_Org_id")
+        End If
+
+        Dim sql3 As String = "select gov_id from Project_Activities_gov where activity_id=" & _dt.Rows(0)("PActv_ID")
+        Dim dt3 As DataTable = General_Helping.GetDataTable(sql3)
+        If dt3.Rows.Count <> 0 Then
+            For index As Integer = 0 To dt3.Rows.Count - 1
+                chk_gov_list.Items(dt3.Rows(index)("gov_id") - 1).Selected = True
+            Next
+        End If
+
+
+        Dim sql5 As String = ""
+        sql5 = "select * from Activities_Assigned_team where activ_id=" & _dt.Rows(0)("PActv_ID")
+        Dim _dt5 As DataTable = General_Helping.GetDataTable(sql5)
+        If _dt5.Rows.Count > 0 Then
+            For DTindex As Integer = 0 To _dt5.Rows.Count - 1
+                For index As Integer = 0 To chkBoxTeam.Items.Count - 1
+
+                    If chkBoxTeam.Items(index).Value = _dt5.Rows(DTindex)("emp_id") Then
+                        chkBoxTeam.Items(index).Selected = True
+                        chkBoxTeam.Items(index).Attributes("style") = "color:red"
+                    End If
+
+                Next
+            Next
+
+        End If
+        'Dim sql As String = ""
+        'sql = "select * from Project_Activities_Indicators where pactv_pactv_id = " & _dt.Rows(0)("PActv_ID")
+        'Dim _dt1 As New DataTable
+        '_dt1 = General_Helping.GetDataTable(sql)
+        'If _dt1.Rows.Count <> 0 Then
+
+
+        '    If Not _dt1.Rows(0)("PAI_Desc") Is DBNull.Value Then
+        '        txtInd.Text = _dt1.Rows(0)("PAI_Desc")
+        '    End If
+
+        '    If Not _dt1.Rows(0)("PAI_Unit") Is DBNull.Value Then
+        '        txtUnit.Text = _dt1.Rows(0)("PAI_Unit")
+        '    End If
+        '    If Not _dt1.Rows(0)("PAI_Wieght") Is DBNull.Value Then
+        '        txtIndVal.Text = _dt1.Rows(0)("PAI_Wieght")
+        '    End If
+        '    If Not _dt1.Rows(0)("indt_indt_id") Is DBNull.Value Then
+        '        ddlInd.SelectedValue = _dt1.Rows(0)("indt_indt_id")
+        '    End If
+
+        'End If
+        Dim sql2 As String = "select * from Activity_sitiuation where project_activity_FK = " & _dt.Rows(0)("PActv_ID")
+        Dim dt2 As New DataTable
+        dt2 = General_Helping.GetDataTable(sql2)
+        If dt2.Rows.Count > 0 Then
+            If Not dt2.Rows(0)("actv_sit_desc") Is DBNull.Value Then
+                txtActvNote.Text = dt2.Rows(0)("actv_sit_desc")
+            End If
+
+        End If
+
+        PActv_ID.Value = CType(sender, ImageButton).CommandArgument
+        Dim i As Integer = 0
+        Dim id As Integer
+        For Each row As GridViewRow In gvMain.Rows
+            If CType(gvMain.Rows(i).FindControl("PActv_ID"), HtmlControls.HtmlInputHidden).Value = PActv_ID.Value Then
+                id = i
+            Else
+                gvMain.Rows(i).BackColor = Drawing.Color.White
+            End If
+            i += 1
+        Next
+        gvMain.Rows(id).BackColor = Drawing.Color.Lavender
+        BtnSave.Text = "تعديــــل"
+        lblPageStatus.Text = ""
+
+
+    End Sub
+
+    Protected Sub ImgBtnDelete_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs)
+        Try
+            lblPageStatus.Visible = False
+            lblPageStatus.Text = ""
+            Dim Sql As String = "select Project_Activities.* from Project_Activities" _
+                    & " join Project on Proj_proj_id = Proj_id" _
+                    & " join employee on Project.pmp_pmp_id = EMPLOYEE.PMP_ID" _
+                    & " where PActv_parent = " & CType(sender, ImageButton).CommandArgument & "  and proj_proj_id=" & Session_CS.Project_id _
+                    & " order by Parent_Actv_Num"
+            Dim _dt As DataTable = General_Helping.GetDataTable(Sql)
+            If _dt.Rows.Count > 0 Then
+                lblPageStatus.Visible = True
+                lblPageStatus.Text = "عفوا لا يمكن الحذف"
+            Else
+                Dim sql3 As String = "select Parent_Actv_Num from dbo.Project_Activities where PActv_ID=" & CType(sender, ImageButton).CommandArgument
+                Dim _dt3 As DataTable = General_Helping.GetDataTable(sql3)
+                Dim parent_num As Integer = _dt3.Rows(0)("Parent_Actv_Num")
+                'Dim Project_Activities_ENTITY As New BLL.Project_Activities(CType(sender, ImageButton).CommandArgument)
+                General_Helping.ExcuteQuery("DELETE FROM Activity_sitiuation WHERE project_activity_FK =" & CType(sender, ImageButton).CommandArgument)
+                Dim sql2 As String = "select PAI_ID from dbo.Project_Activities_Indicators where pactv_pactv_id=" & CType(sender, ImageButton).CommandArgument
+                Dim _dt2 As DataTable = General_Helping.GetDataTable(sql2)
+                If _dt2.Rows.Count > 0 Then
+                    General_Helping.ExcuteQuery("DELETE FROM Project_Activities_Indicators_History WHERE pai_pai_id =" & _dt2.Rows(0)("PAI_ID"))
+                End If
+                General_Helping.ExcuteQuery("DELETE FROM Project_Activities_Indicators WHERE pactv_pactv_id =" & CType(sender, ImageButton).CommandArgument)
+                General_Helping.ExcuteQuery("delete from Project_Activities_gov where activity_id=" & CType(sender, ImageButton).CommandArgument)
+                General_Helping.ExcuteQuery("delete from Activities_Assigned_team where activ_id=" & CType(sender, ImageButton).CommandArgument)
+                General_Helping.ExcuteQuery(" DELETE FROM Project_Activities WHERE PActv_ID=" & CType(sender, ImageButton).CommandArgument)
+
+                General_Helping.ExcuteQuery(" update Project_Activities set Parent_Actv_Num=Parent_Actv_Num-1 where proj_proj_id=" & Session_CS.Project_id _
+                                                & " and PActv_parent = 0 and Parent_Actv_Num > " & parent_num)
+                'Project_Activities_ENTITY.Delete()
+                'lblPageStatus.Visible = True
+                'lblPageStatus.Text = "لقد تم الحذف بنجاح"
+                PopulateRootLevel(CDataConverter.ConvertToInt(Session_CS.Project_id))
+            End If
+
+            FillGrid()
+            gvMain.Visible = True
+
+        Catch ex As Exception
+            lblPageStatus.Visible = True
+            lblPageStatus.Text = "عفوا لا يمكن الحذف"
+        End Try
+    End Sub
+
+    Private Sub gvMain_PreRender(ByVal sender As Object, ByVal e As System.EventArgs) Handles gvMain.PreRender
+        'DBL.Helper.MergeRows(gvMain)
+
+        Dim i As Integer = 0
+        For Each row As GridViewRow In gvMain.Rows
+            If CType(gvMain.Rows(i).FindControl("MainPB"), ProgressBar).MainValue = 100 Then
+                'row.BackColor = Drawing.Color.Chartreuse
+                'ElseIf CType(gvMain.Rows(i).FindControl("MainPB"), ProgressBar).MainValue > 50 Then
+                '    row.BackColor = Drawing.Color.Red
+            End If
+            i += 1
+        Next
+    End Sub
+
+    Private Sub gvSub_PreRender(ByVal sender As Object, ByVal e As System.EventArgs) Handles gvSub.PreRender
+
+        MergeRows_1cell(gvSub)
+        Dim i As Integer = 0
+        For Each row As GridViewRow In gvSub.Rows
+            If CType(gvSub.Rows(i).FindControl("SubPB"), ProgressBar).MainValue = 100 Then
+                ' row.BackColor = Drawing.Color.Chartreuse
+
+            End If
+            i += 1
+        Next
+    End Sub
+
+    Public Sub MergeRows_1cell(ByVal GridView As GridView)
+
+        If GridView.Rows.Count > 1 Then
+            For rowIndex As Integer = GridView.Rows.Count - 2 To rowIndex Step -1
+                Dim row As GridViewRow = GridView.Rows(rowIndex)
+                Dim previousRow As GridViewRow = GridView.Rows(rowIndex + 1)
+
+
+
+                If rowIndex = 0 Then
+                    row.Font.Bold = True
+                    row.Font.Size = 14
+                    row.BackColor = Drawing.Color.FromArgb(235, 236, 239) '121, 159, 186
+                    row.FindControl("ImgBtnEditChild").Visible = False
+                    row.FindControl("ImgBtnDeleteChild").Visible = False
+                    row.Cells(1).Visible = False
+                    row.ForeColor = Drawing.Color.Black
+                End If
+                If CInt(previousRow.Cells(1).Text) < 5 Then
+                    previousRow.Font.Size = 16 - (CInt(previousRow.Cells(1).Text) * 2)
+                Else
+                    previousRow.Font.Size = 8
+                End If
+                If CInt(previousRow.Cells(1).Text) = 1 Then
+                    previousRow.Font.Bold = True
+                    previousRow.ForeColor = Drawing.Color.Black
+                    previousRow.BackColor = Drawing.Color.FromArgb(235, 236, 239)
+                    previousRow.FindControl("ImgBtnEditChild").Visible = False
+                    previousRow.FindControl("ImgBtnDeleteChild").Visible = False
+                End If
+                If CInt(previousRow.Cells(1).Text) = 2 Then
+                    previousRow.BackColor = Drawing.Color.FromArgb(138, 173, 198)
+                End If
+                'If CInt(previousRow.Cells(1).Text) = 3 Then
+                '    previousRow.BackColor = Drawing.Color.FromArgb(152, 178, 203)
+                'End If
+                If CInt(previousRow.Cells(1).Text) = 3 Then
+                    previousRow.BackColor = Drawing.Color.FromArgb(175, 207, 229)
+                End If
+                If CInt(previousRow.Cells(1).Text) = 4 Then
+                    previousRow.BackColor = Drawing.Color.FromArgb(194, 221, 238)
+                End If
+                If CInt(previousRow.Cells(1).Text) = 5 Then
+                    previousRow.BackColor = Drawing.Color.FromArgb(212, 226, 243)
+                End If
+                If CInt(previousRow.Cells(1).Text) = 6 Then
+                    previousRow.BackColor = Drawing.Color.FromArgb(240, 226, 243) '194, 221, 238 '178, 207, 228
+                End If
+                If CInt(previousRow.Cells(1).Text) = 7 Then
+                    previousRow.BackColor = Drawing.Color.White
+                End If
+                If CInt(previousRow.Cells(1).Text) = 8 Then
+                    previousRow.BackColor = Drawing.Color.White
+                End If
+                If CInt(previousRow.Cells(1).Text) = 9 Then
+                    previousRow.BackColor = Drawing.Color.White
+                End If
+
+
+
+                If row.Cells(2).Text = previousRow.Cells(2).Text Then
+                    row.Cells(2).RowSpan = CInt(IIf(previousRow.Cells(2).RowSpan < 2, 2, previousRow.Cells(2).RowSpan + 1))
+                    previousRow.Cells(2).Visible = False
+
+                End If
+
+
+
+
+
+                previousRow.Cells(1).Visible = False
+
+
+            Next
+            GridView.HeaderRow.Cells(1).Visible = False
+
+        ElseIf GridView.Rows.Count = 1 Then
+            GridView.HeaderRow.Cells(1).Visible = False
+            GridView.Rows(0).Cells(1).Visible = False
+            GridView.Rows(0).FindControl("ImgBtnEditChild").Visible = False
+            GridView.Rows(0).FindControl("ImgBtnDeleteChild").Visible = False
+            GridView.Rows(0).Cells(2).Font.Bold = True
+            GridView.Rows(0).Cells(2).Font.Size = 14
+            GridView.Rows(0).BackColor = Drawing.Color.FromArgb(204, 235, 255)
+        End If
+
+
+        Dim i As Integer = 0
+        Dim id As Integer
+        For Each row As GridViewRow In gvSub.Rows
+            If CType(gvSub.Rows(i).FindControl("PActv_ID"), HtmlControls.HtmlInputHidden).Value = PActv_ID.Value Then
+                id = i
+            End If
+            i += 1
+        Next
+        gvSub.Rows(id).BackColor = Drawing.Color.Lavender
+
+
+    End Sub
+
+    Private Sub RblActType_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles RblActType.SelectedIndexChanged
+        lblPageStatus.Visible = False
+        lblPageStatus.Text = ""
+        Clear()
+        If RblActType.SelectedValue = 0 Then
+            tblSecAct.Visible = False
+            gvSub.Visible = False
+            tblMainActv.Visible = True
+            gvMain.Visible = True
+        Else
+            tblSecAct.Visible = True
+            gvSub.Visible = True
+            tblMainActv.Visible = False
+            gvMain.Visible = False
+
+            FillDDL()
+
+        End If
+        FillGrid()
+    End Sub
+
+    Protected Sub ImgBtnEditChild_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs)
+        BtnChildSave.CommandArgument = "edit"
+        lblPageStatus.Text = ""
+        lblPageStatus.Visible = False
+        Clear()
+        Dim _dt As New DataTable
+        Dim sql1 As String = "select *  from project_Activities where PActv_ID=" & CType(sender, ImageButton).CommandArgument
+        _dt = General_Helping.GetDataTable(sql1)
+
+
+        If Not _dt.Rows(0)("Parent_PActv_Desc") Is DBNull.Value Then
+            'txtActvSit.Text = _dt.Rows(0)("PActv_Parent")
+            parent_activ.Text = _dt.Rows(0)("Parent_PActv_Desc")
+        End If
+
+        If Not _dt.Rows(0)("PActv_Desc") Is DBNull.Value Then
+            txtChildDesc.Text = _dt.Rows(0)("PActv_Desc")
+        End If
+
+        If Not _dt.Rows(0)("PActv_Wieght") Is DBNull.Value Then
+            txtChildWight.Text = CType(_dt.Rows(0)("PActv_Wieght"), Integer)
+        End If
+
+        If Not _dt.Rows(0)("PActv_Period") Is DBNull.Value Then
+            txtChildPeriod.Text = CType(_dt.Rows(0)("PActv_Period"), Integer)
+        End If
+
+        If Not _dt.Rows(0)("PActv_Start_Date") Is DBNull.Value Then
+            txtStartChildDate.Text = _dt.Rows(0)("PActv_Start_Date")
+        End If
+
+        If Not _dt.Rows(0)("PActv_End_Date") Is DBNull.Value Then
+            txtEndChildDate.Text = _dt.Rows(0)("PActv_End_Date")
+        End If
+        If Not _dt.Rows(0)("PActv_Actual_Start_Date") Is DBNull.Value Then
+            txtActStartChildDate.Text = _dt.Rows(0)("PActv_Actual_Start_Date")
+        End If
+        If Not _dt.Rows(0)("PActv_Actual_End_Date") Is DBNull.Value Then
+            txtActEndChildDate.Text = _dt.Rows(0)("PActv_Actual_End_Date")
+        End If
+        If Not _dt.Rows(0)("ActStat_ActStat_id") Is DBNull.Value Then
+            ddlActivSitChild.SelectedIndex = _dt.Rows(0)("ActStat_ActStat_id")
+        End If
+        If Not _dt.Rows(0)("PActv_Implementing_person") Is DBNull.Value Then
+            txtChildExPer.Text = _dt.Rows(0)("PActv_Implementing_person")
+        End If
+        If Not _dt.Rows(0)("Excutive_responsible_Org_Org_id") Is DBNull.Value Then
+            Smart_Search_chorg.SelectedValue = _dt.Rows(0)("Excutive_responsible_Org_Org_id")
+        End If
+
+        Dim sql3 As String = "select gov_id from Project_Activities_gov where activity_id=" & _dt.Rows(0)("PActv_ID")
+        Dim dt3 As DataTable = General_Helping.GetDataTable(sql3)
+        If dt3.Rows.Count <> 0 Then
+            For index As Integer = 0 To dt3.Rows.Count - 1
+                chk_gov_List1.Items(dt3.Rows(index)("gov_id") - 1).Selected = True
+            Next
+        End If
+
+
+        Dim sql5 As String = ""
+        sql5 = "select * from Activities_Assigned_team where activ_id=" & _dt.Rows(0)("PActv_ID")
+        Dim _dt5 As DataTable = General_Helping.GetDataTable(sql5)
+        If _dt5.Rows.Count > 0 Then
+            For DTindex As Integer = 0 To _dt5.Rows.Count - 1
+                For index As Integer = 0 To chkBoxTeamchild.Items.Count - 1
+
+                    If chkBoxTeamchild.Items(index).Value = _dt5.Rows(DTindex)("emp_id") Then
+                        chkBoxTeamchild.Items(index).Selected = True
+                        chkBoxTeamchild.Items(index).Attributes("style") = "color:red"
+                    End If
+
+                Next
+            Next
+
+        End If
+        'Dim sql As String = ""
+        'sql = "select * from Project_Activities_Indicators where pactv_pactv_id = " & _dt.Rows(0)("PActv_ID")
+        'Dim _dt1 As New DataTable
+        '_dt1 = General_Helping.GetDataTable(sql)
+        'If _dt1.Rows.Count <> 0 Then
+        '    If Not _dt1.Rows(0)("PAI_Desc") Is DBNull.Value Then
+        '        txtChildInd.Text = _dt1.Rows(0)("PAI_Desc")
+        '    End If
+
+        '    If Not _dt1.Rows(0)("PAI_Unit") Is DBNull.Value Then
+        '        txtchildUnit.Text = _dt1.Rows(0)("PAI_Unit")
+        '    End If
+
+        '    If Not _dt1.Rows(0)("indt_indt_id") Is DBNull.Value Then
+        '        ddlChildInd.SelectedValue = _dt1.Rows(0)("indt_indt_id")
+        '    End If
+        'End If
+        Dim sql2 As String = "select * from Activity_sitiuation where project_activity_FK = " & _dt.Rows(0)("PActv_ID")
+        Dim dt2 As New DataTable
+        dt2 = General_Helping.GetDataTable(sql2)
+        If dt2.Rows.Count > 0 Then
+            If Not dt2.Rows(0)("actv_sit_desc") Is DBNull.Value Then
+                txtChilActvNote.Text = dt2.Rows(0)("actv_sit_desc")
+            End If
+
+        End If
+
+        PActv_ID.Value = CType(sender, ImageButton).CommandArgument
+        'Dim i As Integer = 0
+        'Dim id As Integer
+        'For Each row As GridViewRow In gvSub.Rows
+        '    If CType(gvSub.Rows(i).FindControl("PActv_ID"), HtmlControls.HtmlInputHidden).Value = PActv_ID.Value Then
+        '        id = i
+        '    Else
+        '        gvSub.Rows(i).BackColor = Drawing.Color.White
+        '    End If
+        '    i += 1
+        'Next
+        'gvSub.Rows(id).BackColor = Drawing.Color.Lavender
+        BtnChildSave.Text = "تعديــــل"
+        lblPageStatus.Text = ""
+
+    End Sub
+
+    Protected Sub ImgBtnDeleteChild_Click(ByVal sender As Object, ByVal e As System.Web.UI.ImageClickEventArgs)
+        Try
+            '''''''''''''
+            lblPageStatus.Visible = False
+            lblPageStatus.Text = ""
+            Dim Sql As String = "select Project_Activities.* from Project_Activities" _
+                    & " join Project on Proj_proj_id = Proj_id" _
+                    & " join employee on Project.pmp_pmp_id = EMPLOYEE.PMP_ID" _
+                    & " where PActv_parent = " & CType(sender, ImageButton).CommandArgument & "  and proj_proj_id=" & Session_CS.Project_id _
+                    & " order by Parent_Actv_Num"
+            Dim _dt As DataTable = General_Helping.GetDataTable(Sql)
+            If _dt.Rows.Count > 0 Then
+                lblPageStatus.Visible = True
+                lblPageStatus.Text = "عفوا لا يمكن الحذف"
+            Else
+                Dim sql3 As String = "select PActv_Parent,Child_Actv_Num from dbo.Project_Activities where PActv_ID=" & CType(sender, ImageButton).CommandArgument
+                Dim _dt3 As DataTable = General_Helping.GetDataTable(sql3)
+                Dim child_num As Integer = _dt3.Rows(0)("Child_Actv_Num")
+                Dim Parent_ID As Integer = _dt3.Rows(0)("PActv_Parent")
+                'Dim Project_Activities_ENTITY As New BLL.Project_Activities(CType(sender, ImageButton).CommandArgument)
+                General_Helping.ExcuteQuery("DELETE FROM Activity_sitiuation WHERE project_activity_FK =" & CType(sender, ImageButton).CommandArgument)
+                Dim sql2 As String = "select PAI_ID from dbo.Project_Activities_Indicators where pactv_pactv_id=" & CType(sender, ImageButton).CommandArgument
+                Dim _dt2 As DataTable = General_Helping.GetDataTable(sql2)
+                If _dt2.Rows.Count > 0 Then
+                    General_Helping.ExcuteQuery("DELETE FROM Project_Activities_Indicators_History WHERE pai_pai_id =" & _dt2.Rows(0)("PAI_ID"))
+                End If
+                General_Helping.ExcuteQuery("DELETE FROM Project_Activities_Indicators WHERE pactv_pactv_id =" & CType(sender, ImageButton).CommandArgument)
+                General_Helping.ExcuteQuery("delete from Project_Activities_gov where activity_id=" & CType(sender, ImageButton).CommandArgument)
+                General_Helping.ExcuteQuery("delete from Activities_Assigned_team where activ_id=" & CType(sender, ImageButton).CommandArgument)
+                General_Helping.ExcuteQuery(" DELETE FROM Project_Activities WHERE PActv_ID=" & CType(sender, ImageButton).CommandArgument)
+
+                General_Helping.ExcuteQuery(" update Project_Activities set Child_Actv_Num=Child_Actv_Num-1 where proj_proj_id=" & Session_CS.Project_id _
+                                                & " and PActv_parent = " & Parent_ID & " and Child_Actv_Num > " & child_num)
+                'Project_Activities_ENTITY.Delete()
+                'lblPageStatus.Visible = True
+                'lblPageStatus.Text = "لقد تم الحذف بنجاح"
+            End If
+            PopulateRootLevel(CDataConverter.ConvertToInt(Session_CS.Project_id))
+            FillGrid()
+            gvSub.Visible = True
+            ''''''''''''
+
+        Catch ex As Exception
+            lblPageStatus.Visible = True
+            lblPageStatus.Text = "عفوا لا يمكن الحذف"
+        End Try
+
+
+    End Sub
+
+    Protected Sub LinkButton1_Click(ByVal sender As Object, ByVal e As EventArgs)
+        Dim id As Integer = CType(sender.parent.parent.FindControl("PActv_ID"), HtmlControls.HtmlInputHidden).Value
+        Response.Redirect("../WebForms/Project_Activities_All.aspx?pactv_id=" & id)
+    End Sub
+
+
+#End Region
+
+
+
+
+    Protected Sub txtWight_TextChanged(ByVal sender As Object, ByVal e As EventArgs) Handles txtWight.TextChanged
+        lblPageStatus.Visible = False
+        lblPageStatus.Text = ""
+        If txtWight.Text.Length > 0 Then
+            If txtWight.Text = 0 Then
+                ddlActvSit.SelectedIndex = 1
+            ElseIf txtWight.Text > 0 And txtWight.Text < 100 Then
+                ddlActvSit.SelectedIndex = 2
+            ElseIf txtWight.Text = 100 Then
+                ddlActvSit.SelectedIndex = 3
+            End If
+            If txtWight.Text > 100 Then
+                lblPageStatus.Visible = True
+                lblPageStatus.Text = "ادخل النسبة بين 0 و 100"
+                Return
+            End If
+        End If
+    End Sub
+
+    Protected Sub txtChildWight_textChanged(ByVal sender As Object, ByVal e As EventArgs) Handles txtChildWight.TextChanged
+        lblPageStatus.Visible = False
+        lblPageStatus.Text = ""
+        If txtChildWight.Text.Length > 0 Then
+            If txtChildWight.Text = 0 Then
+                ddlActivSitChild.SelectedIndex = 1
+            ElseIf txtChildWight.Text > 0 And txtChildWight.Text < 100 Then
+                ddlActivSitChild.SelectedIndex = 2
+            ElseIf txtChildWight.Text = 100 Then
+                ddlActivSitChild.SelectedIndex = 3
+            End If
+            If txtChildWight.Text > 100 Then
+                lblPageStatus.Visible = True
+                lblPageStatus.Text = "ادخل النسبة بين 0 و 100"
+                Return
+            End If
+        End If
+    End Sub
+
+
+
+    Protected Sub ddlActvSit_SelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs) Handles ddlActvSit.SelectedIndexChanged
+        If ddlActvSit.SelectedIndex = 1 Then
+            txtWight.Text = 0
+        End If
+        If ddlActvSit.SelectedIndex = 3 Then
+            txtWight.Text = 100
+        End If
+        If ddlActvSit.SelectedIndex = 0 Then
+            txtWight.Text = ""
+        End If
+        If ddlActvSit.SelectedIndex = 2 Then
+            txtWight.Text = ""
+        End If
+
+    End Sub
+
+    Protected Sub ddlActivSitChild_SelectedIndexChanged(ByVal sender As Object, ByVal e As EventArgs) Handles ddlActivSitChild.SelectedIndexChanged
+        If ddlActivSitChild.SelectedIndex = 1 Then
+            txtChildWight.Text = 0
+        End If
+        If ddlActivSitChild.SelectedIndex = 3 Then
+            txtChildWight.Text = 100
+        End If
+        If ddlActivSitChild.SelectedIndex = 0 Then
+            txtChildWight.Text = ""
+        End If
+        If ddlActivSitChild.SelectedIndex = 2 Then
+            txtChildWight.Text = ""
+        End If
+    End Sub
+
+
+
+    Protected Sub txtStartDate_TextChanged(ByVal sender As Object, ByVal e As EventArgs) Handles txtStartDate.TextChanged
+        lblPageStatus.Text = ""
+        lblPageStatus.Visible = False
+        Dim validated_date As String = ""
+        'Dim test_string As String = date_validate(txtStartDate.Text)
+        If date_validate(txtStartDate.Text) <> "" Then
+            txtStartDate.Text = date_validate(txtStartDate.Text)
+            validated_date = date_validate(txtStartDate.Text)
+            lblPageStatus.Visible = False
+            If txtEndDate.Text <> "" Then
+                If date_validate(txtEndDate.Text) <> "" Then
+                    If Date_compare(date_validate(txtEndDate.Text), validated_date) = False Then
+                        lblPageStatus.Text = "تاريخ البداية  يجب أن يكون قبل تاريخ النهاية "
+                        lblPageStatus.Visible = True
+                        txtEndDate.Text = ""
+                        Return
+                    End If
+
+                    txtPeriod.Text = txtPeriod.Text
+
+                End If
+
+            ElseIf txtEndDate.Text = "" And txtPeriod.Text <> "" Then
+                txtEndDate.Text = DateTime.ParseExact(validated_date, "dd/MM/yyyy", Nothing).AddDays(1 * (Decimal.Parse(txtPeriod.Text))).ToString("dd/MM/yyyy")
+            End If
+        Else
+            lblPageStatus.Text = "أدخل التاريخ (يوم/شهر/سنة) "
+            lblPageStatus.Visible = True
+            txtStartDate.Text = ""
+            Return
+        End If
+    End Sub
+
+    Protected Sub txtEndDate_TextChanged(ByVal sender As Object, ByVal e As EventArgs) Handles txtEndDate.TextChanged
+        lblPageStatus.Text = ""
+        lblPageStatus.Visible = False
+        Dim validated_date As String = ""
+        If date_validate(txtEndDate.Text) <> "" Then
+            txtEndDate.Text = date_validate(txtEndDate.Text)
+            validated_date = date_validate(txtEndDate.Text)
+
+            lblPageStatus.Text = ""
+            lblPageStatus.Visible = False
+            If txtStartDate.Text <> "" Then
+                If date_validate(txtStartDate.Text) <> "" Then
+                    If Date_compare(date_validate(txtStartDate.Text), validated_date) = True Then
+                        lblPageStatus.Text = "تاريخ البداية  يجب أن يكون قبل تاريخ النهاية "
+                        lblPageStatus.Visible = True
+                        txtEndDate.Text = ""
+                        Return
+                    End If
+
+                    txtPeriod.Text = txtPeriod.Text
+
+                End If
+
+            ElseIf txtStartDate.Text = "" And txtPeriod.Text <> "" Then
+                txtStartDate.Text = DateTime.ParseExact(validated_date, "dd/MM/yyyy", Nothing).AddDays(-1 * (Decimal.Parse(txtPeriod.Text))).ToString("dd/MM/yyyy")
+            End If
+        Else
+            lblPageStatus.Text = "أدخل التاريخ (يوم/شهر/سنة) "
+            lblPageStatus.Visible = True
+            txtEndDate.Text = ""
+            Return
+        End If
+    End Sub
+
+    Protected Sub txtPeriod_TextChanged(ByVal sender As Object, ByVal e As EventArgs) Handles txtPeriod.TextChanged
+        lblPageStatus.Text = ""
+        lblPageStatus.Visible = False
+        If txtStartDate.Text <> "" And txtPeriod.Text <> "" Then
+            If date_validate(txtStartDate.Text) <> "" Then
+                Dim str As String = date_validate(txtStartDate.Text)
+                txtEndDate.Text = DateTime.ParseExact(str, "dd/MM/yyyy", Nothing).AddDays(Decimal.Parse(txtPeriod.Text)).ToString("dd/MM/yyyy")
+            End If
+        End If
+        If txtStartDate.Text = "" And txtEndDate.Text <> "" And txtPeriod.Text <> "" Then
+            If date_validate(txtEndDate.Text) <> "" Then
+                Dim str As String = date_validate(txtEndDate.Text)
+                txtStartDate.Text = DateTime.ParseExact(str, "dd/MM/yyyy", Nothing).AddDays(-1 * (Decimal.Parse(txtPeriod.Text))).ToString("dd/MM/yyyy")
+            End If
+        End If
+       
+        'If txtPeriod.Text = "" And txtStartDate.Text <> "" And txtEndDate.Text <> "" Then
+        '    txtPeriod.Text = CType(DateTime.ParseExact(txtEndDate.Text, "dd/MM/yyyy", Nothing).Subtract(DateTime.ParseExact(txtStartDate.Text, "dd/MM/yyyy", Nothing)).Days, String)
+        'End If
+
+    End Sub
+
+    Protected Sub txtStartChildDate_TextChanged(ByVal sender As Object, ByVal e As EventArgs) Handles txtStartChildDate.TextChanged
+        lblPageStatus.Text = ""
+        lblPageStatus.Visible = False
+        Dim validated_date As String = ""
+        If date_validate(txtStartChildDate.Text) <> "" Then
+            txtStartChildDate.Text = date_validate(txtStartChildDate.Text)
+            validated_date = date_validate(txtStartChildDate.Text)
+            lblPageStatus.Visible = False
+        Else
+            lblPageStatus.Text = "أدخل التاريخ (يوم/شهر/سنة) "
+            lblPageStatus.Visible = True
+            txtStartChildDate.Text = ""
+            Return
+        End If
+        lblPageStatus.Text = ""
+        lblPageStatus.Visible = False
+        If parent_activ.Text <> "" Then
+            If txtEndChildDate.Text <> "" Then
+                If date_validate(txtEndChildDate.Text) <> "" Then
+                    If Date_compare(date_validate(txtEndChildDate.Text), validated_date) = False Then
+                        lblPageStatus.Text = "تاريخ البداية يجب أن يكون قبل تاريخ النهاية "
+                        lblPageStatus.Visible = True
+                        txtStartChildDate.Text = ""
+                        Return
+                    End If
+
+                    txtChildPeriod.Text = txtChildPeriod.Text
+
+                End If
+
+            ElseIf txtEndChildDate.Text = "" And txtChildPeriod.Text <> "" Then
+                txtEndChildDate.Text = DateTime.ParseExact(validated_date, "dd/MM/yyyy", Nothing).AddDays(1 * (Decimal.Parse(txtChildPeriod.Text))).ToString("dd/MM/yyyy")
+            End If
+        Else
+            lblPageStatus.Text = "اختر نشاط رئيسى أولا"
+            lblPageStatus.Visible = True
+            txtStartChildDate.Text = ""
+            Return
+        End If
+    End Sub
+
+    Protected Sub txtEndChildDate_TextChanged(ByVal sender As Object, ByVal e As EventArgs) Handles txtEndChildDate.TextChanged
+        lblPageStatus.Text = ""
+        lblPageStatus.Visible = False
+        Dim validated_date As String = ""
+        If date_validate(txtEndChildDate.Text) <> "" Then
+            txtEndChildDate.Text = date_validate(txtEndChildDate.Text)
+            validated_date = date_validate(txtEndChildDate.Text)
+            lblPageStatus.Visible = False
+        Else
+            lblPageStatus.Text = "أدخل التاريخ (يوم/شهر/سنة) "
+            lblPageStatus.Visible = True
+            txtEndChildDate.Text = ""
+            Return
+        End If
+        lblPageStatus.Text = ""
+        lblPageStatus.Visible = False
+        If parent_activ.Text <> "" Then
+            If txtStartChildDate.Text <> "" Then
+                If date_validate(txtStartChildDate.Text) <> "" Then
+                    If Date_compare(date_validate(txtStartChildDate.Text), validated_date) = True Then
+                        lblPageStatus.Text = "تاريخ البداية  يجب أن يكون قبل تاريخ النهاية "
+                        lblPageStatus.Visible = True
+                        txtEndChildDate.Text = ""
+                        Return
+                    End If
+
+                    txtChildPeriod.Text = txtChildPeriod.Text
+
+                End If
+
+            ElseIf txtStartChildDate.Text = "" And txtChildPeriod.Text <> "" Then
+                txtStartChildDate.Text = DateTime.ParseExact(validated_date, "dd/MM/yyyy", Nothing).AddDays(-1 * (Decimal.Parse(txtChildPeriod.Text))).ToString("dd/MM/yyyy")
+            End If
+
+        Else
+            lblPageStatus.Text = "اختر نشاط رئيسى أولا"
+            lblPageStatus.Visible = True
+            txtEndChildDate.Text = ""
+            Return
+        End If
+    End Sub
+
+    Protected Sub txtChildPeriod_TextChanged(ByVal sender As Object, ByVal e As EventArgs) Handles txtChildPeriod.TextChanged
+        lblPageStatus.Text = ""
+        lblPageStatus.Visible = False
+       
+        If txtStartChildDate.Text <> "" And txtChildPeriod.Text <> "" Then
+            If date_validate(txtStartChildDate.Text) <> "" Then
+                Dim str As String = date_validate(txtStartChildDate.Text)
+                txtEndChildDate.Text = DateTime.ParseExact(str, "dd/MM/yyyy", Nothing).AddDays(Decimal.Parse(txtChildPeriod.Text)).ToString("dd/MM/yyyy")
+            End If
+        End If
+        If txtStartChildDate.Text = "" And txtEndChildDate.Text <> "" And txtChildPeriod.Text <> "" Then
+            If date_validate(txtEndChildDate.Text) <> "" Then
+                Dim str As String = date_validate(txtEndChildDate.Text)
+                txtStartChildDate.Text = DateTime.ParseExact(str, "dd/MM/yyyy", Nothing).AddDays(-1 * (Decimal.Parse(txtChildPeriod.Text))).ToString("dd/MM/yyyy")
+            End If
+        End If
+        'If txtChildPeriod.Text = "" And txtStartChildDate.Text <> "" And txtEndChildDate.Text <> "" Then
+        '    txtChildPeriod.Text = CType(DateTime.ParseExact(txtEndChildDate.Text, "dd/MM/yyyy", Nothing).Subtract(DateTime.ParseExact(txtStartChildDate.Text, "dd/MM/yyyy", Nothing)).Days, String)
+        'End If
+    End Sub
+
+
+
+    Protected Sub txtChildDesc_TextChanged(ByVal sender As Object, ByVal e As EventArgs) Handles txtChildDesc.TextChanged
+        lblPageStatus.Visible = False
+        lblPageStatus.Text = ""
+    End Sub
+
+    Protected Sub txtActStartDate_TextChanged(ByVal sender As Object, ByVal e As EventArgs) Handles txtActStartDate.TextChanged
+        lblPageStatus.Text = ""
+        lblPageStatus.Visible = False
+        Dim validated_date As String = ""
+        If date_validate(txtActStartDate.Text) <> "" Then
+            txtActStartDate.Text = date_validate(txtActStartDate.Text)
+            validated_date = date_validate(txtActStartDate.Text)
+            lblPageStatus.Visible = False
+        Else
+            lblPageStatus.Text = "أدخل التاريخ (يوم/شهر/سنة) "
+            lblPageStatus.Visible = True
+            txtActStartDate.Text = ""
+            Return
+        End If
+        If txtActEndDate.Text <> "" Then
+            If date_validate(txtActEndDate.Text) <> "" Then
+                If Date_compare(date_validate(txtActEndDate.Text), validated_date) = False Then
+                    lblPageStatus.Text = "تاريخ البداية الفعلى يجب أن يكون قبل تاريخ النهاية الفعلى"
+                    lblPageStatus.Visible = True
+                    txtActStartDate.Text = ""
+                End If
+            End If
+        End If
+
+    End Sub
+
+    Protected Sub txtActEndDate_TextChanged(ByVal sender As Object, ByVal e As EventArgs) Handles txtActEndDate.TextChanged
+        lblPageStatus.Text = ""
+        lblPageStatus.Visible = False
+        Dim validated_date As String = ""
+        If date_validate(txtActEndDate.Text) <> "" Then
+            txtActEndDate.Text = date_validate(txtActEndDate.Text)
+            validated_date = date_validate(txtActEndDate.Text)
+            lblPageStatus.Visible = False
+        Else
+            lblPageStatus.Text = "أدخل التاريخ (يوم/شهر/سنة) "
+            lblPageStatus.Visible = True
+            txtActEndDate.Text = ""
+            Return
+        End If
+        If txtActStartDate.Text <> "" Then
+            If date_validate(txtActStartDate.Text) <> "" Then
+                If Date_compare(date_validate(txtActStartDate.Text), validated_date) = True Then
+                    lblPageStatus.Text = "تاريخ البداية الفعلى يجب أن يكون قبل تاريخ النهاية الفعلى"
+                    lblPageStatus.Visible = True
+                    txtActEndDate.Text = ""
+                End If
+            End If
+        End If
+
+    End Sub
+
+    Protected Sub txtActStartChildDate_TextChanged(ByVal sender As Object, ByVal e As EventArgs) Handles txtActStartChildDate.TextChanged
+        lblPageStatus.Text = ""
+        lblPageStatus.Visible = False
+        Dim validated_date As String = ""
+        If date_validate(txtActStartChildDate.Text) <> "" Then
+            txtActStartChildDate.Text = date_validate(txtActStartChildDate.Text)
+            validated_date = date_validate(txtActStartChildDate.Text)
+            lblPageStatus.Visible = False
+        Else
+            lblPageStatus.Text = "أدخل التاريخ (يوم/شهر/سنة) "
+            lblPageStatus.Visible = True
+            txtActStartChildDate.Text = ""
+            Return
+        End If
+
+        If txtActEndChildDate.Text <> "" Then
+            If date_validate(txtActEndChildDate.Text) <> "" Then
+                If Date_compare(date_validate(txtActEndChildDate.Text), validated_date) = False Then
+                    lblPageStatus.Text = "تاريخ البداية الفعلى يجب أن يكون قبل تاريخ النهاية الفعلى"
+                    lblPageStatus.Visible = True
+                    txtActStartChildDate.Text = ""
+                End If
+            End If
+        End If
+
+
+
+
+
+    End Sub
+
+    Protected Sub txtActEndChildDate_TextChanged(ByVal sender As Object, ByVal e As EventArgs) Handles txtActEndChildDate.TextChanged
+        lblPageStatus.Text = ""
+        lblPageStatus.Visible = False
+        Dim validated_date As String = ""
+        If date_validate(txtActEndChildDate.Text) <> "" Then
+            txtActEndChildDate.Text = date_validate(txtActEndChildDate.Text)
+            validated_date = date_validate(txtActEndChildDate.Text)
+            lblPageStatus.Visible = False
+        Else
+            lblPageStatus.Text = "أدخل التاريخ (يوم/شهر/سنة) "
+            lblPageStatus.Visible = True
+            txtActEndChildDate.Text = ""
+            Return
+        End If
+
+        If txtActStartChildDate.Text <> "" Then
+            If date_validate(txtActStartChildDate.Text) <> "" Then
+                If Date_compare(date_validate(txtActStartChildDate.Text), validated_date) = True Then
+                    lblPageStatus.Text = "تاريخ البداية الفعلى يجب أن يكون قبل تاريخ النهاية الفعلى"
+                    lblPageStatus.Visible = True
+                    txtActEndChildDate.Text = ""
+                End If
+            End If
+        End If
+    End Sub
+
+#Region "TreeView Actions"
+    Private Sub PopulateRootLevel(ByVal Proj_id As Integer)
+
+        Dim dt As New DataTable()
+        Dim sql As String = ""
+        sql = "select PActv_ID,Parent_PActv_Desc,Parent_Actv_Num,(select count(*) FROM Project_Activities " _
+              & "WHERE PActv_Parent=PA.PActv_ID) childnodecount FROM Project_Activities PA where PActv_Parent = 0 and proj_proj_id = " & Proj_id _
+              & " order by Parent_Actv_Num"
+        dt = General_Helping.GetDataTable(sql)
+        Nroot = True
+        TreeView1.Nodes.Clear()
+        PopulateNodes(dt, TreeView1.Nodes)
+
+    End Sub
+
+    Private Sub PopulateSubLevel(ByVal parentid As Integer, ByVal parentNode As TreeNode)
+
+        'If General_Helping.OpenConnection() Then
+        Dim dt As New DataTable()
+        Dim sql As String = ""
+        sql = "select PActv_ID,pactv_desc,PActv_Parent,Child_Actv_Num,(select count(*) FROM Project_Activities " _
+            & "WHERE PActv_Parent=PA.PActv_ID) childnodecount FROM Project_Activities PA where PActv_Parent = " & parentid _
+            & " order by PActv_Parent,Child_Actv_Num"
+        dt = General_Helping.GetDataTable(sql)
+        Nroot = False
+        PopulateNodes(dt, parentNode.ChildNodes)
+        'End If
+    End Sub
+
+    Private Sub PopulateNodes(ByVal dt As DataTable, ByVal nodes As TreeNodeCollection)
+
+        If Nroot = True Then
+            If dt.Rows.Count <> 0 Then
+                For Each dr As DataRow In dt.Rows
+                    Dim tn As New TreeNode()
+                    tn.Text = dr("Parent_PActv_Desc").ToString()
+                    tn.Value = dr("PActv_ID").ToString()
+                    nodes.Add(tn)
+
+                    'If node has child nodes, then enable on-demand populating
+                    tn.PopulateOnDemand = (CInt(dr("childnodecount")) > 0)
+                Next
+            Else
+                TreeView1.Nodes.Clear()
+            End If
+
+        Else
+            If dt.Rows.Count <> 0 Then
+                For Each dr As DataRow In dt.Rows
+                    Dim tn As New TreeNode()
+                    tn.Text = dr("pactv_desc").ToString()
+                    tn.Value = dr("PActv_ID").ToString()
+                    nodes.Add(tn)
+
+                    'If node has child nodes, then enable on-demand populating
+                    tn.PopulateOnDemand = (CInt(dr("childnodecount")) > 0)
+                Next
+            Else
+                TreeView1.Nodes.Clear()
+            End If
+        End If
+    End Sub
+
+    Protected Sub TreeView1_TreeNodePopulate(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.TreeNodeEventArgs) Handles TreeView1.TreeNodePopulate
+        PopulateSubLevel(CInt(e.Node.Value), e.Node)
+    End Sub
+
+
+#End Region
+
+
+    Protected Sub TreeView1_SelectedNodeChanged(ByVal sender As Object, ByVal e As EventArgs) Handles TreeView1.SelectedNodeChanged
+
+        If TreeView1.SelectedNode.Selected = True Then
+            'For Each temp_tn As TreeNode In TreeView1.Nodes
+            '    If TreeView1.Nodes.IndexOf(temp_tn) = tn Then
+            '        temp_tn.Checked = True
+            '    Else
+            '        temp_tn.Checked = False
+            '    End If
+            'Next
+            tn = TreeView1.SelectedNode.Value
+            parent_activ.Text = TreeView1.SelectedNode.Text
+
+            Session("tn_id") = tn
+        End If
+
+    End Sub
+
+    Protected Sub chkAll_CheckedChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles chkAll.CheckedChanged
+        
+        If chkAll.Checked = True Then
+            For index As Integer = 0 To 28
+                chk_gov_List1.Items(index).Selected = True
+            Next
+        Else
+            For index As Integer = 0 To 28
+                chk_gov_List1.Items(index).Selected = False
+            Next
+        End If
+    End Sub
+
+    Protected Sub chkAllMain_CheckedChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles chkAllMain.CheckedChanged
+        If chkAllMain.Checked = True Then
+            For index As Integer = 0 To 28
+                chk_gov_list.Items(index).Selected = True
+            Next
+        Else
+            For index As Integer = 0 To 28
+                chk_gov_list.Items(index).Selected = False
+            Next
+        End If
+    End Sub
+End Class

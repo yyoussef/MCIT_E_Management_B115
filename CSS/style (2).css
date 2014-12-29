@@ -1,0 +1,802 @@
+
+/*
+By Herreman David
+http://www.free-css-templates.com
+StyleSheet for BinaryNews Template
+*/
+
+body
+{
+	background-color: #ffffff;
+	color: #ffffff;
+	padding: 0;
+	margin: 0;
+	font: 0.7em Arial, sans-serif;
+	line-height: 1.5em;
+}
+/* link in grd */
+a
+{
+	color: #2D5FF2; 
+	background: inherit;
+	margin-bottom: 0px;
+	font-size: bold;
+}
+.link linkbutton:hover
+{
+	color: #275078;
+	text-decoration: none;
+}
+a:hover
+{
+	color:#400000;
+	background: inherit;
+}
+
+h1
+{
+	font: bold 2em Arial, Sans-Serif;
+	letter-spacing: -1px;
+	padding: 16px 0 0 8px;
+	margin: 0;
+}
+h2
+{
+	margin: 0;
+	padding: 0;
+	font: normal 1.6em Arial, Sans-Serif;
+	letter-spacing: -1px;
+}
+h1 a
+{
+	color: #46574D;
+	background: inherit;
+}
+h1 a, h2 a
+{
+	text-decoration: none;
+}
+h1 a:hover, h2 a:hover
+{
+	color: #BFE1ED;
+	background: inherit;
+}
+h3
+{
+	font: 90% Arial, Sans-Serif;
+	margin: 0 0 10px 0;
+	padding: 0;
+	color: #46574D;
+	background: #FFF;
+}
+p
+{
+	margin: 0 0 0px 0;
+	line-height: 1.5em;
+}
+form
+{
+	margin: 0;
+}
+
+input.search
+{
+	width: 122px;
+	height: 15px;
+	border: 1px dashed #46574D;
+	background: #FFF url(../images/input.jpg) no-repeat;
+	padding: 3px;
+	color: #616161;
+	
+}
+input.submit
+{
+	width: 28px;
+	height: 20px;
+	font-weight: bold;
+	border: none;
+	background: #FFF;
+	padding: 3px;
+	color: #616161;
+}
+
+.border
+{
+border:1px;
+border-color:#436485;
+border-top-style:solid;
+border-right-style:solid;
+border-bottom-style:solid;
+border-left-style:solid;
+background-color :#F9fdff;
+
+}
+.borderControl
+{
+border:1px;
+border-color:#DBDFE6;
+border-top-style:solid;
+border-right-style:solid;
+border-bottom-style:solid;
+border-left-style:solid;
+background-color :#F9fdff;
+
+
+}
+
+.content
+{
+	background: #FFF;
+	margin: 0 auto;
+	padding: 0px;
+	width: 886px;
+	color: #000;
+}
+
+.preheader
+{
+	background: #000 url(../images/preheader.jpg) no-repeat center bottom;
+	color: #FFF;
+	width: 886px;
+	height: 71px;
+	margin: 0;
+	padding: 0;
+}
+
+.preheader a
+{
+	color: #FFF;
+	background: inherit;
+	text-decoration: none;
+}
+.preheader a:hover
+{
+	color: #FFF;
+	background: inherit;
+}
+
+.preheader .padding
+{
+	float: right;
+	padding: 52px 70px 0 0;
+	color: #FFF;
+}
+
+.header
+{
+	background:  url(..\new_images\bannercrop.jpg) no-repeat center bottom;
+	color: #ffffff;
+	width: 900px;
+	height: 200px;
+	margin: 0;
+	padding: 0;
+}
+
+.header .title
+{
+	float: right;
+	padding: 12px 0 0 84px;
+	color: #FFF;
+	font: bold 1.8em Arial, sans-serif;
+}
+.mastertitle
+{
+	float: left;
+	padding: 12px 0 10px 280px;
+	color: Navy;
+	font: bold 1.8em Arial, sans-serif;
+}
+
+.header .slogan
+{
+	float: left;
+	clear: both;
+	padding: 2px 0 0 84px;
+	color: #FFF;
+	font: bold 0.8em Arial, sans-serif;
+}
+
+#nav
+{
+	background: #000 url(../images/menu.jpg) no-repeat center bottom;
+	background-color: #000;
+	width: 1280;
+	height: 28px;
+	margin: 0;
+	padding: 0;
+}
+
+#nav ul
+{
+	float: right;
+	margin: 0;
+	list-style: none;
+	padding: 0px 80px 0 76px;
+}
+#nav a, #nav strong, #nav span
+{
+	float: left;
+	display: block;
+	color: #fff;
+	padding: 5px 10px 5px 10px;
+	background: #9e9e9e;
+	text-decoration: none;
+	font-weight: bold;
+}
+#nav a
+{
+	float: none;
+}
+#nav li
+{
+	float: left;
+	color: #FFF;
+	background: #9e9e9e;
+	margin: 0;
+	padding: 0 0 0 0px;
+}
+#nav #current
+{
+	float: left;
+	background: #aeaeae;
+	color: #FFF;
+}
+#nav #current a
+{
+	float: left;
+	background: #aeaeae;
+	padding: 5px 10px 5px 10px;
+	color: #FFF;
+}
+#nav a:hover
+{
+	float: left;
+	color: #FFF;
+	background: #aeaeae;
+}
+#nav .padding
+{
+	padding: 5px 0 0 10px;
+	font-weight: bold;
+}
+
+
+.main_content
+{
+	background: #FFF url(../images/bg.jpg) repeat-y right bottom;
+	background-color: #FFF;
+	margin: 0 auto;
+	padding: 0px;
+	width: 886px;
+}
+
+
+.sd_left
+{
+	background-image: url(../images/3-1.jpg);
+	background-repeat: no-repeat;
+	background-position: right;
+	background-color: #FFF;
+	color: #000;
+	margin: 0 0px 0px 65px;
+	padding: 0px 42px 0px 5px;
+	width: 710px;
+}
+
+.sd_right
+{
+	clear: both;
+	background-color: #FFF;
+	float: right;
+	color: #000;
+	margin: 0 90px 0 0;
+	padding: 0px 0px 0 15px;
+	width: 170px;
+	border-left: 1px dashed #ccc;
+}
+
+/* For IE... */
+* html .sd_right
+{
+	clear: both;
+	background-color: #FFF;
+	float: right;
+	color: #000;
+	margin: 0 40px 0 0;
+	padding: 0px 0px 0 15px;
+	width: 170px;
+	border-left: 1px dashed #ccc;
+}
+
+
+.text_padding
+{
+	padding: 0 0 0 0;
+}
+
+.main_content h2
+{
+	background-color: #FFF;
+	padding: 5px 0 5px 0;
+	color: #46574D;
+	font: bold 1.6em Arial, sans-serif;
+}
+
+
+.date
+{
+	color: #46574D;
+	background: #FFFFFF;
+	text-align: right;
+	margin: 10px 0 5px 0;
+	padding: 0.4em 0 0 0;
+	border-top: 1px solid #eee;
+	width: 117px;
+	height :26px
+}
+
+/*input.button
+{
+	background: #FFFFF4;
+	color: #808080;
+	border-right: 1px solid #ccc;
+	border-bottom: 1px solid #ccc;
+}*/
+
+.comments
+{
+	padding: 10px 10px 8px 10px;
+	margin: 0 0 7px 0;
+	background: #f8f8f8;
+	color: #000;
+}
+
+.commentsbox
+{
+	padding: 8px 0 10px 10px;
+	margin: 0 0 10px 0;
+	background: #f4f4f4;
+	color: #000;
+}
+
+.error
+{
+	color: #990000;
+	background-color: #FFF0F0;
+	padding: 7px;
+	margin-top: 5px;
+	margin-bottom: 10px;
+	border: 1px dashed #990000;
+}
+.error h2
+{
+	color: #990000;
+	background: inherit;
+}
+
+.success
+{
+	color: #000000;
+	background: #F5FBE1;
+	padding: 7px;
+	margin-top: 5px;
+	margin-bottom: 5px;
+	border: 1px dashed #7BA813;
+}
+.success h2
+{
+	color: #7BA813;
+	background: inherit;
+}
+
+.footer
+{
+	background: #000 url(../images/footer.jpg) center no-repeat;
+	width: 886px;
+	height: 78px;
+	color: #555;
+	font-size: 90%;
+	text-align: center;
+	clear: both;
+}
+
+.footer .padding
+{
+	padding: 40px 0 0 0;
+}
+
+.Label
+{
+	font-family: Arial;
+	font-weight: bold;
+	font-size: 18px;
+	color: #1F4569;
+	margin-left: 3px;
+} 
+
+.MenuLabel
+{
+	font-family: Arial;
+	font-weight: bold;
+	font-size: 15px;
+	color: #1F4569;
+}
+.Text
+{
+	font-family: Arial;
+	font-size: 19px;
+	height: 27px;
+	text-align: right;
+	
+}
+.GridTd
+{
+	font-family: Arial;
+	
+	font-size: 17px;
+	margin-right: 0px;
+	height: 27px;
+	text-align: right;
+
+}
+.drop
+{
+	font-family: Arial;
+	font-weight: 500;
+	font-size: large;
+	color:#1F4569;
+	background-color: #C2DDF0;
+	margin-right: 5px;
+	width :85%;
+	margin-bottom: 2px;
+	text-align: left;
+}
+
+.Button
+{
+	font-family: Arial;
+	font-weight: 500;
+	font-size: large;
+	color:#1F4569;
+	background-color: #C2DDF0;
+	width :85px;
+	
+}
+
+.ddl
+{
+	font-family: Arial;
+	font-weight: 500;
+	font-size: large;
+	color:#1F4569;
+	background-color: #C2DDF0;
+	margin-right: 0px;
+	width :80%;
+}
+
+.PageSetup
+{
+	font-family: Arial;
+	font-weight: bold;
+	font-size: 20px;
+	color: #CC3300;
+}
+.PageTitle
+{
+	
+	font-family: Arial;
+	font-size: 25px;
+	color: #275078;
+	font-weight: bold;
+	
+}
+/* for div where treeview is placed */
+div.ob_tree
+{
+	background-color: #3D63A4;
+	overflow: auto;
+	padding: 4px;
+}
+
+div.ob_d2
+{
+}
+
+/* for node text */
+td.ob_t2
+{
+	color: #ffffff;
+	font: 11px verdana;
+	vertical-align: middle;
+	background-color: transparent;
+	padding-left: 2px;
+	padding-right: 2px;
+}
+
+/* for node text highlighted/selected */
+td.ob_t3
+{
+	color: #ffffff;
+	font: 11px verdana;
+	vertical-align: middle;
+	background-color: #333366;
+	padding-left: 2px;
+	padding-right: 2px;
+}
+
+/* for node when edited */
+input.ob_t3
+{
+	font: 8pt Tahoma;
+}
+
+/* links in all nodes */
+td.ob_t2 A
+{
+	color: #3366cc;
+}
+
+/* link in selected node */
+td.ob_t3 A
+{
+	color: gray;
+}
+
+/* for icons */
+td.ob_t4
+{
+	display: none;
+	vertical-align: top;
+}
+
+/* for icons */
+div.ob_d4
+{
+	width: 18px;
+	font: 6pt Tahoma;
+}
+
+/* for vertical lines (indent) */
+div.ob_d5
+{
+	width: 15px;
+	vertical-align: top;
+	font: 5px Verdana;
+}
+
+td.ob_t5v
+{
+	background-image: url(vertical.gif);
+}
+
+/* for plus-minus images */
+td.ob_t6
+{
+	width: 16px;
+	vertical-align: top;
+}
+
+/* for plus-minus images */
+td.ob_t6v
+{
+	width: 16px;
+	vertical-align: top;
+	background-image: url(vertical.gif);
+}
+
+/* for plus-minus images of the root node*/
+td.ob_t8
+{
+	width: 16px;
+	vertical-align: top;
+}
+
+/* for message "Loading ..." */
+td.ob_t7
+{
+	font: 8pt Tahoma;
+	background-color: #ffffff;
+	border: 1px solid #666666;
+	color: #666666;
+	width: 80px;
+	text-align: center;
+	padding-left: 15px;
+}
+
+/* for links */
+A.ob_a2
+{
+	font: 11px verdana;
+	color: #bbddee;
+}
+
+.ob_t2c
+{
+	border-collapse: separate;
+	border-spacing: 0px;
+}
+
+.ob_t2b
+{
+	border-collapse: separate;
+	border-spacing: 0px;
+}
+
+.ob_t2g
+{
+	border-collapse: separate;
+	border-spacing: 0px;
+}
+.ob_t2g td
+{
+	padding: 0px;
+}
+
+.ob_t2b td
+{
+	padding: 0px;
+}
+
+.ob_t2c td
+{
+	padding: 0px;
+}
+.mGrid
+{
+	width: 100%;
+	background-color: #fff;
+	margin: 5px 5px 10px 0;
+	border: solid 1px #A1D4E9;
+	border-collapse: collapse;
+	text-align :right ;
+	
+	
+
+	
+}
+
+
+.mGrid td
+{
+	padding: 2px;
+	border: solid 1px #3A5976;
+	color: #2D5FF0;
+	text-align:center;
+	
+	
+	
+	
+}
+/* border header */
+.mGrid th
+{
+	padding: 4px 2px;
+	color:#000000 ;
+	background: #C2DDF0 url(../grd_head.png) repeat-x top;
+	border: solid 1px #3A5976;
+	font-size: 0.9em;
+	text-align:center;
+	
+}
+.mGrid .alt
+{
+	/*background-color: #EEEEEE;*/ background: #ffffff url(../grd_alt.png) repeat-x top;
+}
+
+.mGrid .pgr
+{
+	background: #C2DDF0  url(../grd_pgr.png) repeat-x top;
+	text-align:center;
+	
+}
+.mGrid .pgr table
+{
+	margin: 5px 0;
+	background-color:#F9fdff;
+}
+.mGrid .pgr td
+{
+	border-width: 0;
+	padding: 0 6px;
+	border: solid 1px #3A5976;
+	color: #C2DDF0;
+	line-height: 12px;
+	
+}
+
+.mGrid .pgr a
+{
+	color: #C2DDF0;
+	text-decoration: none;
+	
+}
+.mGrid .pgr a:hover
+{
+	color: #C2DDF0;
+	text-decoration: none;
+}
+/*D0D9DB*/
+
+
+
+.tbl
+{
+	/*border: 1px solid Black;width :925px;*/
+	
+	
+    background-color :#EBECEF;
+	height: 100px;
+}
+.tbl1
+{
+	font-family: 'Arial (Arabic)';
+	font-size: 12pt;
+	font-weight: bold;
+	font-style: normal;
+	color: #1B2327;
+	
+}
+
+.StickerLabel
+{
+	font-family: 'Arial (Arabic)';
+	font-size: 12pt;
+	font-weight: bold;
+	font-style: normal;
+	color: #244B6c;
+}
+
+.itemArea {
+	margin-left:0px;
+	font-family:Arial, Verdana, sans-serif;
+	font-size:1.3em;
+	text-align:right;
+	
+}
+.reorderCue {
+	border:dashed thin black;
+	width:100%;
+	height:25px;
+}
+.dragHandle {
+	width:10px;
+	height:15px;
+	background-color:Gray;
+	background-image:url(images/bg-menu-main.png);
+	cursor:move;
+	border:outset thin white;
+}
+.CustomTabStyle .ajax__tab_header 
+{
+    font-family:verdana,tahoma,helvetica;
+    font-size:11px;
+   
+}
+.tdLinkNew
+{
+	text-align:left;
+	padding-left:20px;
+ }
+ 
+ .tr
+{
+	background-color:white ;
+	height: 44px;
+}
+.tra
+{
+	background-color: #EEEEEE;
+	height: 44px;
+}
+.updateprogress
+{
+height:9000px;
+width:100%;
+left:0%;
+top:0%;
+position:fixed;
+background-color:Gray;
+filter:alpha(opacity=50);
+}
+ 
+                                          

@@ -1,0 +1,732 @@
+﻿<%@ Page Language="VB" MasterPageFile="~/Masters/MainformMaster.Master" AutoEventWireup="false"
+    CodeFile="Project_Activities_Old.aspx.vb" Inherits="WebForms_Project_Activities"
+    Title="أنشطة المشـروع" %>
+
+<%@ Register Src="../UserControls/Smart_Search.ascx" TagName="Smart_Search" TagPrefix="uc1" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<%@ Register Src="../UserControls/ProgressBar.ascx" TagName="ProgressBar" TagPrefix="uc1" %>
+<asp:Content ID="Content1" ContentPlaceHolderID="Masterhead" runat="server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+        <ContentTemplate>
+            <input id="child_ID" runat="server" type="hidden" />
+            <input id="PActv_ID" runat="server" type="hidden" />
+            <input id="proj_proj_id" runat="server" type="hidden" />
+            <table cellpadding="5px" align="center" style="height: 89px; width: 945px; line-height: 2;">
+                <tr>
+                    <td dir="rtl" align="center">
+                        <asp:Label ID="lblMastertitle" runat="server" CssClass="PageTitle" Font-Bold="true"
+                            Text="أنشطة المشـروع">
+                        </asp:Label>
+                    </td>
+                </tr>
+                <tr>
+                    <td dir="rtl" align="center">
+                        <asp:Label ID="lblPageStatus" runat="server" CssClass="Label" ForeColor="Red" Visible="false"></asp:Label>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="center">
+                        <asp:RadioButtonList ID="RblActType" runat="server" RepeatDirection="Horizontal"
+                            CssClass="Label" Width="600px" AutoPostBack="True" Visible="true">
+                            <asp:ListItem Text="نشاط رئيســـــــي" Value="0" Selected="True" />
+                            <asp:ListItem Text="نشاط فرعــــــــي" Value="1" />
+                        </asp:RadioButtonList>
+                    </td>
+                </tr>
+            </table>
+            <table id="tblMainActv" runat="server" style="line-height: 1.5; width: 945px;">
+                <tr visible="false">
+                    <td style="width: 99px">
+                        <asp:Label ID="Label36" runat="server" CssClass="Label" Text=" اسم المشروع : " />
+                    </td>
+                    <td align="right">
+                        <uc1:Smart_Search ID="Smart_Project_ID" runat="server" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" dir="rtl" style="width: 99px; height: 58px;">
+                        <asp:Label ID="lblDesc" runat="server" CssClass="Label" Text="وصـــف النشـاط :" 
+                            Height="30px" Width="123px" />
+                    </td>
+                    <td align="right" colspan="3" style="height: 58px" dir="rtl">
+                        <asp:TextBox ID="txtDesc" runat="server" CssClass="Text" Width="600px" Height="30px" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" dir="rtl" style="height: 58px; width: 99px;">
+                        <asp:Label ID="Label3" runat="server" CssClass="Label" Text="تاريخ البداية المخطط :"
+                            Width="156px" Height="25px" />
+                    </td>
+                    <td align="right" dir="rtl" style="width: 296px; height: 58px">
+                        <cc1:CalendarExtender ID="txtStartDate_CalendarExtender" runat="server" TargetControlID="txtStartDate"
+                            PopupButtonID="Image1" Format="dd/MM/yyyy">
+                        </cc1:CalendarExtender>
+                        <asp:TextBox ID="txtStartDate" runat="server" CssClass="Text" Width="100px" OnTextChanged="txtStartDate_TextChanged"
+                            AutoPostBack="True" />
+                        <asp:ImageButton runat="Server" ID="Image1" ImageUrl="~/images/Calendar_scheduleHS.png"
+                            AlternateText="اضغط لعرض النتيجة" Height="22px" Width="22px" ToolTip="تقويم" />
+                        <cc1:FilteredTextBoxExtender ID="txtStartDate_filtered" runat="server" FilterType="Custom"
+                            ValidChars="0987654321/\" TargetControlID="txtStartDate" />
+                    </td>
+                    <td align="right" style="height: 58px; width: 140px;" dir="rtl">
+                        <asp:Label ID="Label9" runat="server" CssClass="Label" Text="تاريخ النهاية المخطط  :"
+                            Height="25px" Width="169px" />
+                    </td>
+                    <td align="right" rowspan="1" colspan="1" dir="rtl" style="height: 58px">
+                        <asp:TextBox ID="txtEndDate" runat="server" CssClass="Text" Width="100px" AutoPostBack="True" />
+                        <asp:ImageButton ID="ImageButton3" runat="Server" ImageUrl="~/images/Calendar_scheduleHS.png"
+                            AlternateText="اضغط لعرض النتيجة" Height="22px" Width="22px" ToolTip="تقويم" />
+                        <cc1:CalendarExtender ID="CalendarExtender3" runat="server" TargetControlID="txtEndDate"
+                            PopupButtonID="ImageButton3" Format="dd/MM/yyyy" />
+                        <cc1:FilteredTextBoxExtender ID="txtEndDate_BoxExtender1" runat="server" FilterType="Custom"
+                            ValidChars="0987654321/\" TargetControlID="txtEndDate" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" dir="rtl" style="height: 66px; width: 99px;">
+                        <asp:Label ID="Label29" runat="server" CssClass="Label" Text="تاريخ البداية الفعلى :"
+                            Width="152px" Height="25px" />
+                    </td>
+                    <td align="right" style="height: 66px; width: 296px;" dir="rtl">
+                        <cc1:CalendarExtender ID="CalendarExtender4" runat="server" TargetControlID="txtActStartDate"
+                            PopupButtonID="Image111" Format="dd/MM/yyyy">
+                        </cc1:CalendarExtender>
+                        <asp:TextBox ID="txtActStartDate" runat="server" CssClass="Text" Width="100px" AutoPostBack="True" />
+                        <asp:ImageButton runat="Server" ID="Image111" ImageUrl="~/images/Calendar_scheduleHS.png"
+                            AlternateText="اضغط لعرض النتيجة" Height="22px" Width="22px" ToolTip="تقويم" />
+                        <cc1:FilteredTextBoxExtender ID="Filtered_txtActStartDate" runat="server" FilterType="Custom"
+                            ValidChars="0987654321/\" TargetControlID="txtActStartDate" />
+                    </td>
+                    <td align="right" style="height: 66px; width: 140px;" dir="rtl">
+                        <asp:Label ID="Label30" runat="server" CssClass="Label" Text="تاريخ النهاية الفعلى :"
+                            Height="25px" Width="160px" />
+                    </td>
+                    <td align="right" rowspan="1" colspan="1" dir="rtl" style="height: 66px">
+                        <asp:TextBox ID="txtActEndDate" runat="server" CssClass="Text" Width="100px" AutoPostBack="True" />
+                        <asp:ImageButton ID="ImageButton5" runat="Server" ImageUrl="~/images/Calendar_scheduleHS.png"
+                            AlternateText="اضغط لعرض النتيجة" Height="22px" Width="22px" ToolTip="تقويم" />
+                        <cc1:CalendarExtender ID="CalendarExtender5" runat="server" TargetControlID="txtActEndDate"
+                            PopupButtonID="ImageButton5" Format="dd/MM/yyyy" />
+                        <cc1:FilteredTextBoxExtender ID="FilteredTextBoxExtender1" runat="server" FilterType="Custom"
+                            ValidChars="0987654321/\" TargetControlID="txtActEndDate" />
+                    </td>
+                </tr>
+                <tr align="right" dir="rtl">
+                    <td align="right" colspan="1" dir="rtl" style="height: 39px; width: 99px;">
+                        <asp:Label ID="Label2" runat="server" align="left" CssClass="Label" Height="25px"
+                            Text="مدة التنفيذ :" Width="90px" />
+                    </td>
+                    <td align="right" style="height: 39px; width: 296px;" dir="rtl">
+                        <asp:TextBox ID="txtPeriod" runat="server" CssClass="Text" Height="30px" Width="75px"
+                            AutoPostBack="True" Font-Bold="False" />
+                        <cc1:FilteredTextBoxExtender ID="filteredtxtPeriod" runat="server" FilterType="Numbers"
+                            TargetControlID="txtPeriod" />
+                        <asp:Label ID="Label5" runat="server" CssClass="Label" Height="25px" Text="يوم" />
+                    </td>
+                    <td align="right" dir="rtl" style="width: 140px; height: 39px;">
+                        <asp:Label ID="Label6" runat="server" CssClass="Label" Height="25px" Text="نسبة الإنجاز :"
+                            Width="123px" />
+                    </td>
+                    <td align="right" style="height: 39px;" dir="rtl">
+                        <asp:TextBox ID="txtWight" runat="server" CssClass="Text" Height="30" Width="60px"
+                            AutoPostBack="true" OnTextChanged="txtWight_TextChanged" />
+                        <cc1:FilteredTextBoxExtender ID="txtWight_FilteredTextBoxExtender" runat="server"
+                            Enabled="True" FilterType="Numbers" TargetControlID="txtWight">
+                        </cc1:FilteredTextBoxExtender>
+                        <asp:Label ID="Label7" runat="server" CssClass="Label" Height="25px" Text="%" />
+                    </td>
+                </tr>
+                <%-- <tr>
+                    <td align="right" dir="rtl" style="height: 44px; width: 144px;">
+                        <asp:Label ID="Label16" runat="server" CssClass="Label" Text="نوع المؤشر :" Width="129px"
+                            Height="25px" />
+                    </td>
+                    <td align="char" style="width: 296px;" dir="rtl">
+                        <asp:DropDownList ID="ddlInd" runat="server" CssClass="Button" Width="52%" Height="30px" />
+                    </td>
+                    <td align="right" style="width: 140px; height: 44px;" colspan="1" dir="rtl">
+                        <asp:Label ID="Label18" runat="server" CssClass="Label" Text="وحدة القياس :" Height="25px" />
+                    </td>
+                    <td align="right" style="height: 44px">
+                        <asp:TextBox ID="txtUnit" runat="server" CssClass="Text" Width="100px" Height="30px" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" dir="rtl" style="width: 144px; height: 46px;">
+                        <asp:Label ID="Label17" runat="server" CssClass="Label" Text="     المؤشـر:" Width="90px"
+                            align="left" Height="25px" />
+                    </td>
+                    <td align="right" colspan="3" style="height: 46px">
+                        <asp:TextBox ID="txtInd" runat="server" CssClass="Text" Width="500px" Height="30px" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" dir="rtl" style="width: 144px;">
+                        <asp:Label ID="Label33" runat="server" CssClass="Label" Text="    قيمة المؤشر:" Width="90px"
+                            align="left" Height="25px" />
+                    </td>
+                    <td align="right" colspan="3" style="height: 50px">
+                        <asp:TextBox ID="txtIndVal" runat="server" CssClass="Text" Width="138px" Height="30px" />
+                        <cc1:FilteredTextBoxExtender ID="filter" runat="server" TargetControlID="txtIndVal"
+                            FilterType="Custom" ValidChars="0123456789." />
+                    </td>
+                </tr>--%>
+                <tr>
+                    <td align="right" colspan="1" dir="rtl" style="width: 99px; height: 36px;">
+                        <asp:Label ID="Label23" runat="server" CssClass="Label" Text="جهة التنفيذ :" Width="95px"
+                            Height="25px" />
+                    </td>
+                    <td align="right" dir="rtl" style="height: 51px" colspan="3">
+                        <uc1:Smart_Search ID="Smart_Search_org" runat="server" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" colspan="1" dir="rtl" style="width: 99px; height: 47px;">
+                        <asp:Label ID="Label24" runat="server" CssClass="Label" Text="مسئول التنفيذ :" Width="107px"
+                            Height="25px" />
+                    </td>
+                    <td colspan="3" style="height: 47px">
+                        <asp:TextBox ID="txtExPer" runat="server" CssClass="Text" Width="500px" />
+                    </td>
+                </tr>
+                 <tr>
+                    <td align="right" colspan="1" dir="rtl" style="width: 99px; height: 47px;">
+                        
+                    </td>
+                    <td valign="bottom">
+                        <asp:CheckBox ID="chkAllMain" runat="server" Text="اختر الكل" ForeColor="Black" 
+                            AutoPostBack="True" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" colspan="1" dir="rtl" style="width: 99px; height: 47px;">
+                        <asp:Label ID="Label34" runat="server" CssClass="Label" Text="النطاق الجغرافى :" Width="130px"
+                            Height="25px" />
+                    </td>
+                    <td colspan="3" style="height: 47px; width: 261px;">
+                        <%-- <asp:CheckBoxList ID="chk_gov_list" runat="server" />--%>
+                        <%--<asp:ListBox ID ="gov_lst_box" runat="server" DataSourceID="SqlDataSource1" 
+                            DataTextField="gov_name" DataValueField="gov_id" 
+                            Width="160px" AutoPostBack="True" SelectionMode="Multiple" />--%>
+                        <asp:Panel ID="chk_list_panel" runat="server" BorderColor="Black" BorderWidth="1px"
+                            Height="65px" Width="260%">
+                            <asp:CheckBoxList ID="chk_gov_list" runat="server" DataSourceID="SqlDataSource1"
+                                DataTextField="gov_name" DataValueField="gov_id" Width="100%" SelectionMode="Multiple"
+                                ForeColor="Black" Height="21px" RepeatLayout="Flow" RepeatDirection="Horizontal" />
+                            <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>"
+                                SelectCommand="SELECT * FROM [Governments ]"></asp:SqlDataSource>
+                        </asp:Panel>
+                    </td>
+                    <%-- <td colspan="1" style="height: 47px">
+                        <asp:ListBox ID="select_list" runat="server" Width="160px" 
+                            SelectionMode="Multiple" />
+                    </td>--%>
+                </tr>
+                <tr>
+                    <td align="right" colspan="1" dir="rtl" style="width: 99px; height: 41px;">
+                        <asp:Label ID="Label19" runat="server" CssClass="Label" Text="موقف التنفيذ :" Width="95px"
+                            Height="25px" />
+                    </td>
+                    <td colspan="3" style="height: 41px">
+                        <asp:DropDownList ID="ddlActvSit" runat="server" CssClass="Button" Width="150px"
+                            AutoPostBack="True" OnSelectedIndexChanged="ddlActvSit_SelectedIndexChanged" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" colspan="1" dir="rtl" style="width: 99px; height: 41px;">
+                        <asp:Label ID="Label16" runat="server" CssClass="Label" 
+                            Text="المسئول من فريق العمل:" Width="150px"
+                            Height="25px" />
+                    </td>
+                    <td colspan="3" style="height: 47px; width: 200px;">
+                        <asp:Panel ID="PanelAssignedTeam" runat="server" BorderColor="Black" BorderWidth="1px"
+                            Height="65px" Width="260%">
+                            <asp:CheckBoxList ID="chkBoxTeam" runat="server"  Width="100%" SelectionMode="Multiple"
+                                ForeColor="Black" Height="21px"  RepeatDirection="Vertical" />
+                           
+                        </asp:Panel>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" colspan="1" dir="rtl" style="width: 99px; height: 42px;">
+                        <asp:Label ID="Label27" runat="server" CssClass="Label" Text="ملاحظــــــات :" Width="95px"
+                            Height="25px" />
+                    </td>
+                    <td colspan="3" style="height: 42px">
+                        <asp:TextBox ID="txtActvNote" runat="server" CssClass="Text" Width="500px" TextMode="MultiLine"
+                            Height="40px" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="5" align="center">
+                        <asp:Button ID="BtnSave" runat="server" CssClass="Button" Text="حفــــــظ" />
+                    </td>
+                </tr>
+            </table>
+            <table id="tblSecAct" style="line-height: 1.5; width: 945px;" visible="false" runat="server">
+                <tr>
+                    <td align="right" dir="rtl" style="height: 47px;">
+                        <asp:Label ID="Label1" runat="server" CssClass="Label" Text="النشــاط التابع له:"
+                            Height="30px" Width="135px" />
+                    </td>
+                    <td align="right" colspan="4" style="height: 47px">
+                        <%--<asp:DropDownList ID="DdlMainActv" runat="server" CssClass="drop" 
+                            Height="30px" Width="306px" AutoPostBack="True" />
+                            <asp:ImageButton ID="ImgBtnResearch1" runat="server" Height="20px" 
+                                                    ImageUrl="~/Images/search.jpg" Style="height: 16px" Width="20px" />--%>
+                        <asp:Label ID="parent_activ" runat="server" CssClass="Button" />
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" align="right" dir="rtl">
+                        <table id="Table1" runat="server" width="99%">
+                            <tr>
+                                <td valign="top" colspan="1" align="right" dir="rtl" rowspan="1">
+                                    <div style="border: 1px solid #000000; overflow: scroll; background-color: #F9fdff; color: #000000; height: 189px"
+                                        dir="rtl" align="right">
+                                        <asp:TreeView ID="TreeView1" ExpandDepth="1" runat="server" ImageSet="Simple" Font-Bold="True"
+                                            ForeColor="Black" ShowCheckBoxes="None" Height="187px">
+                                            <NodeStyle ForeColor="#808080" Font-Bold="true" Font-Size="Medium" />
+                                            <SelectedNodeStyle BackColor="WhiteSmoke" ForeColor="Black" />
+                                            <ParentNodeStyle CssClass="Label" />
+                                        </asp:TreeView>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" dir="rtl">
+                        <asp:Label ID="Label12" runat="server" CssClass="Label" Text="وصـــف النشــــاط الفرعــي:"
+                            Width="184px" />
+                    </td>
+                    <td align="right" colspan="4" style="height: 50px">
+                        <asp:TextBox ID="txtChildDesc" runat="server" CssClass="Text" Width="550px" Height="30px"
+                            AutoPostBack="false" />
+                    </td>
+                </tr>
+                <tr dir="rtl">
+                    <td align="right" dir="rtl">
+                        <asp:Label ID="Label4" runat="server" CssClass="Label" Text="تاريخ البداية المخطط :"
+                            Width="156px" Height="25px" />
+                    </td>
+                    <td align="right" style="width: 270px; height: 50px;">
+                        <asp:TextBox ID="txtStartChildDate" runat="server" CssClass="Text" Width="100px"
+                            dir="rtl" AutoPostBack="True" />
+                        <asp:ImageButton runat="Server" ID="ImageButton1" ImageUrl="~/images/Calendar_scheduleHS.png"
+                            AlternateText="اضغط لعرض النتيجة" Height="22px" Width="22px" ToolTip="تقويم" />
+                        <cc1:CalendarExtender ID="CalendarExtender1" runat="server" TargetControlID="txtStartChildDate"
+                            PopupButtonID="ImageButton1" Format="dd/MM/yyyy">
+                        </cc1:CalendarExtender>
+                        <cc1:FilteredTextBoxExtender ID="FilteredTextBoxExtender4" runat="server" FilterType="Custom"
+                            ValidChars="0987654321/\" TargetControlID="txtStartChildDate" />
+                    </td>
+                    <td align="right" dir="rtl" style="width: 150px; height: 50px;">
+                        <asp:Label ID="Label8" runat="server" CssClass="Label" Text="تاريخ النهاية المخطط  :"
+                            Width="150px" Height="25px" />
+                    </td>
+                    <td align="right" style="height: 50px;">
+                        <asp:TextBox ID="txtEndChildDate" runat="server" CssClass="Text" Width="100px" dir="rtl"
+                            AutoPostBack="True" />
+                        <asp:ImageButton ID="ImageButton2" runat="Server" ImageUrl="~/images/Calendar_scheduleHS.png"
+                            AlternateText="اضغط لعرض النتيجة" Height="22px" Width="22px" ToolTip="تقويم" />
+                        <cc1:CalendarExtender ID="CalendarExtender2" runat="server" TargetControlID="txtEndChildDate"
+                            PopupButtonID="ImageButton2" Format="dd/MM/yyyy">
+                        </cc1:CalendarExtender>
+                        <cc1:FilteredTextBoxExtender ID="FilteredTextBoxExtender5" runat="server" FilterType="Custom"
+                            ValidChars="0987654321/\" TargetControlID="txtEndChildDate" />
+                    </td>
+                </tr>
+                <tr dir="rtl">
+                    <td align="right" dir="rtl">
+                        <asp:Label ID="Label31" runat="server" CssClass="Label" Text="تاريخ البداية الفعلى  :"
+                            Width="143px" Height="25px" />
+                    </td>
+                    <td align="right" style="width: 270px">
+                        <asp:TextBox ID="txtActStartChildDate" runat="server" CssClass="Text" Width="100px"
+                            dir="rtl" AutoPostBack="True" />
+                        <asp:ImageButton runat="Server" ID="ImageButton6" ImageUrl="~/images/Calendar_scheduleHS.png"
+                            AlternateText="اضغط لعرض النتيجة" Height="22px" Width="22px" ToolTip="تقويم" />
+                        <cc1:CalendarExtender ID="CalendarExtender6" runat="server" TargetControlID="txtActStartChildDate"
+                            PopupButtonID="ImageButton6" Format="dd/MM/yyyy">
+                        </cc1:CalendarExtender>
+                        <cc1:FilteredTextBoxExtender ID="FilteredTextBoxExtender6" runat="server" FilterType="Custom"
+                            ValidChars="0987654321/\" TargetControlID="txtActStartChildDate" />
+                    </td>
+                    <td align="right" dir="rtl" style="width: 150px">
+                        <asp:Label ID="Label32" runat="server" CssClass="Label" Text="تاريخ النهاية الفعلى :"
+                            Width="140px" Height="25px" />
+                    </td>
+                    <td align="right" style="height: 50px;">
+                        <asp:TextBox ID="txtActEndChildDate" runat="server" CssClass="Text" Width="100px"
+                            dir="rtl" AutoPostBack="True" />
+                        <asp:ImageButton ID="ImageButton7" runat="Server" ImageUrl="~/images/Calendar_scheduleHS.png"
+                            AlternateText="اضغط لعرض النتيجة" Height="22px" Width="22px" ToolTip="تقويم" />
+                        <cc1:CalendarExtender ID="CalendarExtender7" runat="server" TargetControlID="txtActEndChildDate"
+                            PopupButtonID="ImageButton7" Format="dd/MM/yyyy">
+                        </cc1:CalendarExtender>
+                        <cc1:FilteredTextBoxExtender ID="FilteredTextBoxExtender7" runat="server" FilterType="Custom"
+                            ValidChars="0987654321/\" TargetControlID="txtActEndChildDate" />
+                    </td>
+                </tr>
+                <tr align="right" dir="rtl">
+                    <td align="right" dir="rtl">
+                        <asp:Label ID="Label13" runat="server" CssClass="Label" Text="مدة التنفيذ :" Height="25px" />
+                    </td>
+                    <td align="right" dir="rtl" style="width: 270px">
+                        <asp:TextBox ID="txtChildPeriod" runat="server" CssClass="Text" Width="75px" AutoPostBack="True" />
+                        <cc1:FilteredTextBoxExtender ID="filteredtxtChildPeriod" runat="server" FilterType="Numbers"
+                            TargetControlID="txtChildPeriod" />
+                        <asp:Label ID="Label14" runat="server" CssClass="Label" Height="25px" Text="يوم"
+                            Width="23px" />
+                        <cc1:FilteredTextBoxExtender ID="FilteredTextBoxExtender3" runat="server" Enabled="True"
+                            FilterType="Numbers" TargetControlID="txtChildPeriod" />
+                    </td>
+                    <td align="right" colspan="1" dir="rtl" style="width: 150px">
+                        <asp:Label ID="Label10" runat="server" CssClass="Label" Text="نسبة الإنجاز :" Width="95px"
+                            Height="25px" />
+                    </td>
+                    <td align="right" style="height: 50px" dir="rtl">
+                        <asp:TextBox ID="txtChildWight" runat="server" CssClass="Text" Width="67px" OnTextChanged="txtChildWight_textChanged"
+                            AutoPostBack="True" />
+                        <cc1:FilteredTextBoxExtender ID="FilteredTextBoxExtender2" runat="server" Enabled="True"
+                            FilterType="Numbers" TargetControlID="txtChildWight" />
+                        <asp:Label ID="Label11" runat="server" CssClass="Label" Text="%" Height="25px" />
+                    </td>
+                </tr>
+                <%--     <tr>
+                    <td align="right" dir="rtl">
+                        <asp:Label ID="Label20" runat="server" CssClass="Label" Text="نوع المؤشر :" Height="25px" />
+                    </td>
+                    <td align="right" style="width: 270px; height: 60px;">
+                        <asp:DropDownList ID="ddlChildInd" runat="server" Height="31px" Width="111px" CssClass="Button" />
+                    </td>
+                    <td align="right" dir="rtl" style="width: 150px">
+                        <asp:Label ID="Label21" runat="server" CssClass="Label" Text="وحده القياس :" Width="95px"
+                            Height="25px" />
+                    </td>
+                    <td align="right" style="height: 60px" dir="rtl">
+                        <asp:TextBox ID="txtchildUnit" runat="server" CssClass="Text" Width="100px" Height="30px" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" dir="rtl">
+                        <asp:Label ID="Label22" runat="server" CssClass="Label" Text="     الموشـــــــر:"
+                            Width="90px" align="left" Height="25px" />
+                    </td>
+                    <td align="right" colspan="4" style="height: 50px" dir="rtl">
+                        <asp:TextBox ID="txtChildInd" runat="server" CssClass="Text" Width="500px" Height="30px" />
+                    </td>
+                </tr>--%>
+                <tr>
+                    <td align="right" colspan="1" dir="rtl">
+                        <asp:Label ID="Label25" runat="server" CssClass="Label" Text="جهة التنفيذ :" Width="95px"
+                            Height="25px" />
+                    </td>
+                    <td align="right" dir="rtl" style="height: 51px" colspan="3">
+                        <uc1:Smart_Search ID="Smart_Search_chorg" runat="server" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" colspan="1" dir="rtl">
+                        <asp:Label ID="Label26" runat="server" CssClass="Label" Text="مسئول التنفيذ :" Width="102px"
+                            Height="25px" />
+                    </td>
+                    <td colspan="4" style="height: 50px">
+                        <asp:TextBox ID="txtChildExPer" runat="server" CssClass="Text" Width="500px" />
+                        4
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" colspan="1" dir="rtl" style="width: 137px; height: 47px;">
+                        
+                    </td>
+                    <td valign="bottom">
+                        <asp:CheckBox ID="chkAll" runat="server" Text="اختر الكل" ForeColor="Black" 
+                            AutoPostBack="True" />
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" colspan="1" dir="rtl" style="width: 137px; height: 47px;">
+                        <asp:Label ID="Label35" runat="server" CssClass="Label" Text="النظاق الجغرافى :" Width="130px"
+                            Height="25px" />
+                    </td>
+                    <td colspan="3" style="height: 47px; width: 198px;">
+                        <%-- <asp:CheckBoxList ID="chk_gov_list" runat="server" />--%>
+                        <%--<asp:ListBox ID ="gov_lst_box" runat="server" DataSourceID="SqlDataSource1" 
+                            DataTextField="gov_name" DataValueField="gov_id" 
+                            Width="160px" AutoPostBack="True" SelectionMode="Multiple" />--%>
+                        <asp:Panel ID="chk_list_Panel1" runat="server" BorderColor="Black" BorderWidth="1px"
+                            Height="65px" Width="330%">
+                            <asp:CheckBoxList ID="chk_gov_List1" runat="server" Width="100%" SelectionMode="Multiple"
+                                ForeColor="Black" Height="20px" RepeatLayout="Flow" DataSourceID="SqlDataSource2"
+                                DataTextField="gov_name" DataValueField="gov_id" RepeatDirection="Horizontal" />
+                            <asp:SqlDataSource ID="SqlDataSource2" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>"
+                                SelectCommand="SELECT * FROM [Governments ]"></asp:SqlDataSource>
+                            <%-- <asp:SqlDataSource ID="SqlDataSource2" runat="server" 
+                            ConnectionString="<%$ ConnectionStrings:ConnectionString2 %>" 
+                            SelectCommand="SELECT * FROM [Governments ]"></asp:SqlDataSource>--%></asp:Panel>
+                    </td>
+                    <%-- <td colspan="1" style="height: 47px">
+                        <asp:ListBox ID="select_list" runat="server" Width="160px" 
+                            SelectionMode="Multiple" />
+                    </td>--%>
+                </tr>
+                <tr>
+                    <td align="right" colspan="1" dir="rtl" style="width: 137px;">
+                        <asp:Label ID="Label15" runat="server" CssClass="Label" Text="موقف التنفيذ :" Width="95px"
+                            Height="25px" />
+                    </td>
+                    <td colspan="3" style="height: 50px">
+                        <asp:DropDownList ID="ddlActivSitChild" runat="server" CssClass="Button" Width="150px"
+                            Height="30px" AutoPostBack="True" OnSelectedIndexChanged="ddlActivSitChild_SelectedIndexChanged" />
+                        4
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" colspan="1" dir="rtl" style="width: 99px; height: 41px;">
+                        <asp:Label ID="Label17" runat="server" CssClass="Label" 
+                            Text="المسئول من فريق العمل:" Width="150px"
+                            Height="25px" />
+                    </td>
+                    <td colspan="3" style="height: 47px; width: 200px;">
+                        <asp:Panel ID="PanelChildTeam" runat="server" BorderColor="Black" BorderWidth="1px"
+                            Height="65px" Width="260%">
+                            <asp:CheckBoxList ID="chkBoxTeamchild" runat="server"  Width="100%" SelectionMode="Multiple"
+                                ForeColor="Black" Height="21px"  RepeatDirection="Vertical" />
+                           
+                        </asp:Panel>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" colspan="1" dir="rtl" style="width: 137px;">
+                        <asp:Label ID="Label28" runat="server" CssClass="Label" Text="ملاحظــــــات :" Width="95px"
+                            Height="25px" />
+                    </td>
+                    <td colspan="3" style="height: 50px">
+                        <asp:TextBox ID="txtChilActvNote" runat="server" CssClass="Text" Width="500px" TextMode="MultiLine"
+                            Height="40px" />
+                        4
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4" align="center">
+                        <asp:Button ID="BtnChildSave" runat="server" CssClass="Button" Text="حفــــــظ" />
+                    </td>
+                </tr>
+            </table>
+            <table style="width: 945px">
+                <tr>
+                    <td align="center" class="Text" dir="rtl">
+                        <asp:GridView ID="gvMain" runat="server" AlternatingRowStyle-CssClass="alt" AutoGenerateColumns="False"
+                            BackColor="White" BorderColor="#999999" BorderStyle="Solid" BorderWidth="1px"
+                            CellPadding="3" CssClass="mGrid" EmptyDataText="... عفوا لا يوجد بيانات ..."
+                            ForeColor="Black" PagerStyle-CssClass="pgr" Visible="False" 
+                            Font-Size="10pt" GridLines="Vertical">
+                            <Columns>
+                                <%--<asp:TemplateField HeaderText="النشاط الرئيسى">
+                                    <ItemTemplate>
+                                    
+                                        
+                                        <asp:LinkButton ID="LinkButton1" runat="server" Text='<%# Eval("Parent_PActv_Desc") %>'
+                                            OnClick="LinkButton1_Click" />
+                                    </ItemTemplate>
+                                </asp:TemplateField>--%>
+                                <asp:TemplateField HeaderText="م" ItemStyle-Width="3px" HeaderStyle-Width="3px" HeaderStyle-Font-Size="Large"
+                                    ItemStyle-Font-Size="Large">
+                                    <ItemTemplate>
+                                        <input id="pactv_id" runat="server" type="hidden" value='<%# Eval("PActv_ID") %>' />
+                                        <%#Container.DataItemIndex + 1%>
+                                    </ItemTemplate>
+                                    <HeaderStyle Font-Size="Large" Width="3px" />
+                                    <ItemStyle Font-Size="Large" Width="3px" />
+                                </asp:TemplateField>
+                                <asp:BoundField DataField="Parent_PActv_Desc" HeaderText="النشاط الرئيسى" HeaderStyle-Width="300px"
+                                    HeaderStyle-HorizontalAlign="Center" ItemStyle-Width="250px" HeaderStyle-Font-Size="Large"
+                                    ItemStyle-Font-Size="Large" ItemStyle-Wrap="true">
+                                    <HeaderStyle Width="300px" />
+                                    <ItemStyle Font-Size="Large" Width="250px" Wrap="True" />
+                                </asp:BoundField>
+                                <asp:BoundField DataField="PActv_Start_Date" HeaderText="تاريخ البدايه" DataFormatString="{0:dd/MM/yyyy}"
+                                    HeaderStyle-Font-Size="Large" ItemStyle-Font-Size="Large" 
+                                    ItemStyle-Width="90px" >
+                                    <HeaderStyle Font-Size="Large" />
+                                    <ItemStyle Font-Size="Large" Width="90px" />
+                                </asp:BoundField>
+                                <asp:BoundField DataField="PActv_End_Date" HeaderText="تاريخ الانتهاء" DataFormatString="{0:dd/MM/yyyy}"
+                                    HeaderStyle-Font-Size="Large" ItemStyle-Font-Size="Large" 
+                                    ItemStyle-Width="90px" >
+                                    <HeaderStyle Font-Size="Large" />
+                                    <ItemStyle Font-Size="Large" Width="90px" />
+                                </asp:BoundField>
+                                <asp:BoundField DataField="PActv_Period" HeaderText="المــــــــده" HeaderStyle-Font-Size="Large"
+                                    ItemStyle-Font-Size="Large" ItemStyle-Width="50px" >
+                                    <HeaderStyle Font-Size="Large" />
+                                    <ItemStyle Font-Size="Large" Width="50px" />
+                                </asp:BoundField>
+                                <asp:TemplateField HeaderText="نسبة الانجاز %" ItemStyle-Width="100px" HeaderStyle-Font-Size="Large"
+                                    ItemStyle-Font-Size="Large" ItemStyle-HorizontalAlign="Center">
+                                    <ItemTemplate>
+                                        <uc1:ProgressBar ID="MainPB" runat="server" MainValue='<%# Eval("PActv_wieght") %>' />
+                                    </ItemTemplate>
+                                    <HeaderStyle Font-Size="Large" />
+                                    <ItemStyle HorizontalAlign="Center" />
+                                </asp:TemplateField>
+                                <asp:BoundField DataField="PActv_Implementing_person" HeaderText="مسئول التنفيذ"
+                                    HeaderStyle-Font-Size="Large" ItemStyle-Font-Size="Large" ItemStyle-Width="150px"
+                                    ItemStyle-Wrap="true" >
+                                    <HeaderStyle Font-Size="Large" />
+                                    <ItemStyle Font-Size="Large" Width="150px" Wrap="True" />
+                                </asp:BoundField>
+                                <asp:TemplateField HeaderText="تعديل" HeaderStyle-Font-Size="Large" ItemStyle-Font-Size="Large"
+                                    ItemStyle-Width="25px">
+                                    <ItemTemplate>
+                                        <asp:ImageButton ID="ImgBtnEdit" runat="server" CommandArgument='<%# Eval("PActv_ID") %>'
+                                            ImageUrl="../Images/Edit.jpg" OnClick="ImgBtnEdit_Click" />
+                                    </ItemTemplate>
+                                    <HeaderStyle Font-Size="Large" />
+                                    <ItemStyle Font-Size="Large" Width="25px" />
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderText="حذف" HeaderStyle-Font-Size="Large" ItemStyle-Font-Size="Large"
+                                    ItemStyle-Width="25px">
+                                    <ItemTemplate>
+                                        <asp:ImageButton ID="ImgBtnDelete" runat="server" CommandArgument='<%# Eval("PActv_ID") %>'
+                                            ImageUrl="../Images/delete.gif" OnClick="ImgBtnDelete_Click" Style="height: 22px"
+                                            OnClientClick="if (confirm('هل تود الحذف نهائياً') == false) return false;" />
+                                    </ItemTemplate>
+                                    <HeaderStyle Font-Size="Large" />
+                                    <ItemStyle Font-Size="Large" Width="25px" />
+                                </asp:TemplateField>
+                            </Columns>
+                            <FooterStyle BackColor="#CCCCCC" />
+                            <PagerStyle CssClass="pgr" BackColor="#999999" ForeColor="Black" 
+                                HorizontalAlign="Center" />
+                            <SelectedRowStyle BackColor="#000099" Font-Bold="True" ForeColor="White" />
+                            <HeaderStyle BackColor="Black" Font-Bold="True" ForeColor="White" />
+                            <AlternatingRowStyle CssClass="alt" BackColor="#CCCCCC" />
+                        </asp:GridView>
+                    </td>
+                </tr>
+            </table>
+            <table style="width: 945px">
+                <tr>
+                    <td align="center" class="Text" dir="rtl">
+                        <asp:GridView ID="gvSub" runat="server" AlternatingRowStyle-CssClass="alt" 
+                            AutoGenerateColumns="False" BackColor="White" BorderColor="#999999" 
+                            BorderStyle="Solid" BorderWidth="1px" CaptionAlign="Top" CellPadding="3" 
+                            CssClass="mGrid" EmptyDataText="... عفوا لا يوجد بيانات ..." Font-Size="10pt" 
+                            Font-Strikeout="False" Font-Underline="False" ForeColor="Black" 
+                            GridLines="Vertical" PagerStyle-CssClass="pgr" Visible="False" Width="100%">
+                            <Columns>
+                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderStyle-Width="3px" 
+                                    HeaderText="م" ItemStyle-HorizontalAlign="Center" ItemStyle-Width="3px">
+                                    <ItemTemplate>
+                                        <%#Eval("Parent_Actv_Num")%>
+                                    </ItemTemplate>
+                                    <HeaderStyle HorizontalAlign="Center" Width="3px" />
+                                    <ItemStyle HorizontalAlign="Center" Width="3px" />
+                                </asp:TemplateField>
+                                <asp:BoundField DataField="lvl" HeaderStyle-Width="3px" ItemStyle-Width="3px">
+                                    <HeaderStyle Width="3px" />
+                                    <ItemStyle Width="3px" />
+                                </asp:BoundField>
+                                <asp:BoundField DataField="Parent_PActv_Desc" 
+                                    HeaderStyle-HorizontalAlign="Center" HeaderStyle-Width="180px" 
+                                    HeaderText="النشاط الرئيسى" ItemStyle-Width="180px">
+                                    <HeaderStyle Width="180px" />
+                                    <ItemStyle Width="180px" />
+                                </asp:BoundField>
+                                <asp:BoundField DataField="PActv_Desc" HeaderStyle-HorizontalAlign="Center" 
+                                    HeaderStyle-Width="200px" HeaderText=" النشاط الفرعى" ItemStyle-Width="200px">
+                                    <HeaderStyle Width="200px" />
+                                    <ItemStyle Width="200px" />
+                                </asp:BoundField>
+                                <asp:BoundField DataField="PActv_Start_Date" DataFormatString="{0:dd/MM/yyyy}" 
+                                    HeaderStyle-HorizontalAlign="Center" HeaderStyle-Width="75px" 
+                                    HeaderText="تاريخ البدايه" ItemStyle-Width="75px">
+                                    <HeaderStyle Width="75px" />
+                                    <ItemStyle Width="75px" />
+                                </asp:BoundField>
+                                <asp:BoundField DataField="PActv_End_Date" DataFormatString="{0:dd/MM/yyyy}" 
+                                    HeaderStyle-HorizontalAlign="Center" HeaderStyle-Width="75px" 
+                                    HeaderText="تاريخ الانتهاء" ItemStyle-Width="75px">
+                                    <HeaderStyle Width="75px" />
+                                    <ItemStyle Width="75px" />
+                                </asp:BoundField>
+                                <asp:BoundField DataField="PActv_Period" HeaderStyle-HorizontalAlign="Center" 
+                                    HeaderStyle-Width="50px" HeaderText="المـده" ItemStyle-Width="50px">
+                                    <HeaderStyle Width="50px" />
+                                    <ItemStyle Width="50px" />
+                                </asp:BoundField>
+                                <asp:BoundField DataField="PActv_Actual_Start_Date" 
+                                    DataFormatString="{0:dd/MM/yyyy}" HeaderStyle-HorizontalAlign="Center" 
+                                    HeaderStyle-Width="75px" HeaderText="تاريخ البدايه الفعلى" 
+                                    ItemStyle-Width="75px">
+                                    <HeaderStyle Width="75px" />
+                                    <ItemStyle Width="75px" />
+                                </asp:BoundField>
+                                <asp:BoundField DataField="PActv_Actual_End_Date" 
+                                    DataFormatString="{0:dd/MM/yyyy}" HeaderStyle-HorizontalAlign="Center" 
+                                    HeaderStyle-Width="75px" HeaderText="تاريخ الانتهاء الفعلى" 
+                                    ItemStyle-Width="75px">
+                                    <HeaderStyle Width="75px" />
+                                    <ItemStyle Width="75px" />
+                                </asp:BoundField>
+                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" 
+                                    HeaderText="نسبة الانجاز %" ItemStyle-HorizontalAlign="Center" 
+                                    ItemStyle-Width="50px">
+                                    <ItemTemplate>
+                                        <uc1:ProgressBar ID="SubPB" runat="server" 
+                                            MainValue='<%# Eval("PActv_wieght") %>' />
+                                    </ItemTemplate>
+                                    <HeaderStyle HorizontalAlign="Center" />
+                                    <ItemStyle Width="50px" />
+                                </asp:TemplateField>
+                                <asp:BoundField DataField="PActv_Implementing_person" 
+                                    HeaderStyle-HorizontalAlign="Center" HeaderStyle-Width="100px" 
+                                    HeaderText="مسئول التنفيذ" ItemStyle-Width="100px">
+                                    <HeaderStyle Width="100px" />
+                                    <ItemStyle Width="100px" />
+                                </asp:BoundField>
+                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="تعديل" 
+                                    ItemStyle-Width="25px">
+                                    <ItemTemplate>
+                                        <input id="pactv_id" runat="server" type="hidden" 
+                                            value='<%# Eval("PActv_ID") %>' />
+                                        <asp:ImageButton ID="ImgBtnEditChild" runat="server" 
+                                            CommandArgument='<%# Eval("PActv_ID") %>' ImageUrl="../Images/Edit.jpg" 
+                                            OnClick="ImgBtnEditChild_Click" />
+                                    </ItemTemplate>
+                                    <HeaderStyle HorizontalAlign="Center" />
+                                    <ItemStyle Width="25px" />
+                                </asp:TemplateField>
+                                <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderText="حذف" 
+                                    ItemStyle-Width="25px">
+                                    <ItemTemplate>
+                                        <asp:ImageButton ID="ImgBtnDeleteChild" runat="server" 
+                                            CommandArgument='<%# Eval("PActv_ID") %>' ImageUrl="../Images/delete.gif" 
+                                            OnClick="ImgBtnDeleteChild_Click" 
+                                            OnClientClick="if (confirm('هل تود الحذف نهائياً') == false) return false;" 
+                                            Style="height: 22px" />
+                                    </ItemTemplate>
+                                    <HeaderStyle HorizontalAlign="Center" />
+                                    <ItemStyle Width="25px" />
+                                </asp:TemplateField>
+                            </Columns>
+                            <FooterStyle BackColor="#CCCCCC" />
+                            <PagerStyle CssClass="pgr" BackColor="#999999" ForeColor="Black" 
+                                HorizontalAlign="Center" />
+                            <SelectedRowStyle BackColor="#000099" Font-Bold="True" ForeColor="White" />
+                            <HeaderStyle BackColor="Black" Font-Bold="True" ForeColor="White" />
+                            <AlternatingRowStyle CssClass="alt" BackColor="#CCCCCC" />
+                        </asp:GridView>
+                    </td>
+                </tr>
+               
+            </table>
+        </ContentTemplate>
+    </asp:UpdatePanel>
+</asp:Content>

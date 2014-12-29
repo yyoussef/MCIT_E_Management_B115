@@ -1,0 +1,234 @@
+/* Datagrid style*/
+.GridSearch
+{
+	border-right: #436485 1px solid;
+	padding-right: 5px;
+	border-top: #436485 1px solid;
+	padding-left: 5px;
+	padding-bottom: 5px;
+	border-left: #436485 1px solid;
+	padding-top: 5px;
+	border-bottom: #436485 1px solid;
+	border-collapse: collapse;
+	direction: rtl;
+	border-color: #436485;
+}
+
+.Header
+{
+	font-weight: bold;
+	font-size: small;
+	color: #FFFFEE;
+	direction: rtl;
+	font-family: Verdana;
+	height: 30px;
+	background-color: #C2DDF0;
+	text-align: center;
+	direction: rtl;
+}
+
+.Header A:visited
+{
+	font-weight: bold;
+	color:#C2DDF0;
+	font-family: Arial;
+	text-decoration: underline;
+	direction: rtl;
+	background-color: #ffffff;
+}
+
+.Item
+{
+	font-size: x-small;
+	color: #000000;
+	font-family: Arial;
+	background-color: #ffffff;
+	text-align: center;
+	height: 25px;
+	direction: rtl;
+}
+
+.AlternatingItem
+{
+	font-size: x-small;
+	color: #000000;
+	font-family: Arial;
+	background-color: #ffffff;
+	text-align: center;
+	height: 25px;
+	direction: rtl;
+}
+
+.Footer
+{
+	font-weight: bold;
+	font-size: small;
+	color: #FFFFEE;
+	font-family: Verdana;
+	height: 30px;
+	background-color:#C2DDF0;
+	text-align: center;
+	direction: rtl;
+	border-right: #ffff66 1px solid;
+	border-top: #ffff66 1px solid;
+	border-left: #ffff66 1px solid;
+	border-bottom: #ffff66 1px solid;
+}
+
+.Footer A:visited
+{
+	font-weight: bold;
+	color: #ff6666;
+	font-family: Arial;
+	text-decoration: underline;
+	direction: rtl;
+	background-color: #ffffff;
+}
+
+.Pager
+{
+	border-top-width: thick;
+	font-weight: bold;
+	border-left-width: thick;
+	font-size: small;
+	color: #FFFFEE;
+	font-family: Verdana;
+	height: 30px;
+	background-color: #3781a8;
+	text-align: center;
+	direction: rtl;
+}
+
+.Text
+{
+	border-right: #99ccff 1px solid;
+	border-top: #99ccff 1px solid;
+	border-left: #99ccff 1px solid;
+	border-bottom: #99ccff 1px solid;
+	direction: rtl;
+}
+
+.Button-Search
+{
+	border-right: #C2DDF0 1px solid;
+	border-top: #C2DDF0 1px solid;
+	border-left: #C2DDF0 1px solid;
+	width: 25px;
+	border-bottom: #C2DDF0 1px solid;
+	font-weight: bold;
+}
+
+.AlignedItem
+{
+	direction: rtl;
+	text-align: right;
+}
+
+.InverselyAlignedItem
+{
+	direction: rtl;
+	text-align: left;
+}
+
+/* HTML elements style */
+HTML
+{
+	direction: rtl;
+}
+
+body
+{
+	background-color: #ffffff;
+	color: #ffffff;
+
+	direction: rtl;
+}
+
+TABLE
+{
+	direction: inherit;
+}
+
+INPUT
+{
+	direction: inherit;
+}
+
+H1
+{
+	display: block;
+	font-size: x-large;
+	color: #3333cc;
+	border-bottom: #cccccc 1px dotted;
+	font-family: Arial;
+}
+
+H2
+{
+	font-weight: bold;
+	font-size: large;
+	text-transform: capitalize;
+	color: #3781a8;
+	font-family: Verdana;
+	text-align: center;
+	direction: inherit;
+}
+
+H3
+{
+	font-weight: bold;
+	font-size: medium;
+	text-transform: capitalize;
+	color: #3781a8;
+	font-family: Verdana;
+	text-align: center;
+	direction: inherit;
+}
+
+
+
+P
+{
+	font-size: x-small;
+	color: #3781a8;
+	font-family: Arial;
+	direction: inherit;
+}
+
+SPAN
+{
+	color: #0a246a;
+	font-family: Arial;
+	direction: inherit;
+}
+
+STRONG, LABEL
+{
+	font-size: x-small;
+	color: #3781a8;
+	font-family: Arial;
+	direction: inherit;
+}
+
+HR
+{
+	width: 100%;
+	color: #add8e6;
+	height: 2px;
+	background-color: #add8e6;
+	direction: inherit;
+}
+
+IMG
+{
+	padding-right: 0px;
+	padding-left: 0px;
+	padding-bottom: 0px;
+	margin: 0px;
+	border-top-style: none;
+	padding-top: 0px;
+	border-right-style: none;
+	border-left-style: none;
+	border-bottom-style: none;
+	direction: inherit;
+}

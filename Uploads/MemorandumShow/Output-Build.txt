@@ -1,0 +1,12 @@
+------ Build started: Project: D:\workshop_vss\Tracking_Telv_Prog\, Configuration: Debug .NET ------
+Validating Web Site
+Building directory '/Tracking_Telv_Prog/admin/'.
+Building directory '/Tracking_Telv_Prog/App_Data/General_layer/'.
+Building directory '/Tracking_Telv_Prog/Masters/'.
+Building directory '/Tracking_Telv_Prog/Prog_Track/'.
+Building directory '/Tracking_Telv_Prog/Script/'.
+Building directory '/Tracking_Telv_Prog/UserControls/'.
+Building directory '/Tracking_Telv_Prog/'.
+
+Validation Complete
+========== Build: 1 succeeded or up-to-date, 0 failed, 0 skipped ==========

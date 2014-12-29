@@ -1,0 +1,140 @@
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="Training_UpdateUserCourse.ascx.cs" Inherits="UserControls_Training_UpdateUserCourse" %>
+<%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
+<table>
+  <cc1:TabContainer runat="server" ID="TabPanel_All" Height="1500px" 
+                ActiveTabIndex="0">
+                <cc1:TabPanel ID="TabPanel_dtl" runat="server">
+                    <HeaderTemplate>
+                        <asp:Label ID="Label14" runat="server" CssClass="Label" Font-Size="11px" Text="بيانات الدوره التدريبيه"/>
+                        <input type="hidden" runat="server" id="hidden_Id" />
+                        <input type="hidden" runat="server" id="hidden_Proj_id" />
+                    </HeaderTemplate>
+                    <ContentTemplate>
+                         <table dir="rtl">
+                          <tr>
+                          <td>
+                          <asp:label id="label1" runat="server"  text="اسم الدوره التدريبييه"></asp:label>
+                          </td>
+                          <td>
+                          <asp:TextBox ID="tx_coursename"  runat="server"></asp:TextBox>
+                          </td>
+                          </tr>
+                          <tr>
+                          <td>
+                           <asp:label id="label2" runat="server"  text="مكان اللانعقاد"></asp:label>
+                         
+                          </td>
+                          <td>
+                           <asp:TextBox ID="tx_courseplace"  runat="server"></asp:TextBox>
+                         
+                          </td>
+                          </tr>
+                          <tr>
+                          <td>
+                           <asp:label id="label3" runat="server"  text="الهيئه المانحه"></asp:label>
+                         
+                          </td>
+                          <td>
+                           <asp:TextBox ID="tx_organization"  runat="server"></asp:TextBox>
+                         
+                          </td>
+                          </tr>
+                          <tr>
+                          <td>
+                           <asp:label id="label4" runat="server"  text="اخر تاريخ للتسجيل"></asp:label>
+                         
+                          </td>
+                          <td>
+                           <asp:TextBox ID="tx_lastgenertiondate"  runat="server"></asp:TextBox>
+                         
+                          </td>
+                          </tr>
+                            <tr>
+                          <td>
+                           <asp:label id="label5" runat="server"  text="عدد الموظفين المطلوب"></asp:label>
+                         
+                          </td>
+                          <td>
+                           <asp:TextBox ID="tx_noofemployee"  runat="server"></asp:TextBox>
+                         
+                          </td>
+                          </tr>
+                          <tr>
+                          <td>
+                          <asp:Button ID="nextbutton" Text="التالي" runat="server" 
+                                  onclick="nextbutton_Click" />
+                          </td>
+                          </tr>
+                           </table>
+                    </ContentTemplate>
+                </cc1:TabPanel>
+                <cc1:TabPanel ID="TabPanel_Files" runat="server">
+                    <HeaderTemplate>
+                        <asp:Label ID="Label18" runat="server" CssClass="Label" Font-Size="11px" Text="مواعيد الدوره التدريبيه" />
+                    </HeaderTemplate>
+                    <ContentTemplate>
+                     <table dir="rtl">
+                          <tr>
+                          <td>  <asp:label id="label6" runat="server"  text="تاريخ البديء"></asp:label>
+                         </td>
+                          <td><asp:TextBox ID="tx_startdate"  runat="server"></asp:TextBox>
+                         </td>
+                          <td>  <asp:label id="label7" runat="server"  text="تاريخ الانتهاء"></asp:label>
+                         </td>
+                          <td><asp:TextBox ID="tx_enddate"  runat="server"></asp:TextBox>
+                         </td>
+                          </tr>
+                          <tr>
+                            <asp:Button ID="Button1" Text="اضف موعد" runat="server" />
+                       
+                          </tr>
+                          <tr>
+                              <asp:GridView ID="gv_dates" runat="server" AutoGenerateColumns="False">
+                                  <Columns>
+                                      <asp:BoundField DataField="start_date" HeaderText="تاريخ البديء" />
+                                      <asp:BoundField DataField="end_date" HeaderText="تاريخ الانتهاء" />
+                                      <asp:HyperLinkField HeaderText="حذف" Text="حذف" />
+                                  </Columns>
+                              </asp:GridView>
+                          </tr>
+                           <td>
+                          <asp:Button ID="btn_adddates" Text="التالي" runat="server"  OnClick="btn_adddates_Click"/>
+                          </td>
+                          </table>
+                    </ContentTemplate>
+                </cc1:TabPanel>
+                <cc1:TabPanel ID="TabPanel_Visa" runat="server">
+                    <HeaderTemplate>
+                        <asp:Label ID="Label24" runat="server" CssClass="Label" Font-Size="11px" Text="ملفات الدوره التدريبيه" />
+                    </HeaderTemplate>
+                    <ContentTemplate>
+                       <table dir="rtl">
+                          <tr>
+                          <td>  <asp:label id="label8" runat="server"  text="اختر  ملف"></asp:label>
+                         </td>
+                              <asp:FileUpload ID="FileUpload1" runat="server" />
+                          </tr>
+                          <tr>
+                            <asp:Button ID="Button2" Text="اضف ملف" runat="server" />
+                       
+                          </tr>
+                          <tr>
+                            <asp:GridView ID="gv_files" runat="server" AutoGenerateColumns="False">
+                                  <Columns>
+                                      <asp:HyperLinkField DataNavigateUrlFields="file_path" HeaderText="الملف" />
+                                      <asp:HyperLinkField DataNavigateUrlFields="id" 
+                                          DataNavigateUrlFormatString="~/WebForms/Training_UserDeleteCourseRequest.aspx?course_file_id={0}" 
+                                          HeaderText="حذف" NavigateUrl="~/WebForms/Training_UserDeleteCourseRequest.aspx" 
+                                          Text="حذف" />
+                                  </Columns>
+                              </asp:GridView>
+                          </tr>
+                           <td>
+                          <asp:Button ID="Button3" Text="تسجيل" runat="server" />
+                          </td>
+                          </table>
+                    </ContentTemplate>
+                </cc1:TabPanel>
+                
+            </cc1:TabContainer>
+</table>

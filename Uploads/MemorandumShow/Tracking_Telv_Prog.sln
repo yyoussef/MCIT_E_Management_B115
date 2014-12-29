@@ -1,0 +1,48 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Tracking_Telv_Prog", "D:\workshop_vss\Tracking_Telv_Prog", "{9D945BCE-09AD-4EA5-8EC3-D5A71609524A}"
+	ProjectSection(WebsiteProperties) = preProject
+		SccProjectName = ""$/Tracking_Telv_Prog", YXFAAAAA"
+		SccAuxPath = ""
+		SccLocalPath = "."
+		SccProvider = "MSSCCI:Microsoft Visual SourceSafe"
+		TargetFramework = "3.5"
+		Debug.AspNetCompiler.VirtualPath = "/Tracking_Telv_Prog"
+		Debug.AspNetCompiler.PhysicalPath = "D:\workshop_vss\Tracking_Telv_Prog\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\Tracking_Telv_Prog\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/Tracking_Telv_Prog"
+		Release.AspNetCompiler.PhysicalPath = "D:\workshop_vss\Tracking_Telv_Prog\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\Tracking_Telv_Prog\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "49589"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SourceCodeControl) = preSolution
+		SccNumberOfProjects = 1
+		SccWebProject0 = true
+		SccProjectUniqueName0 = D:\\workshop_vss\\Tracking_Telv_Prog
+		SccProjectName0 = \u0022$/Tracking_Telv_Prog\u0022,\u0020YXFAAAAA
+		SccLocalPath0 = D:\\workshop_vss\\Tracking_Telv_Prog
+		SccProvider0 = MSSCCI:Microsoft\u0020Visual\u0020SourceSafe
+		SccProjectEnlistmentChoice0 = 2
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|.NET = Debug|.NET
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9D945BCE-09AD-4EA5-8EC3-D5A71609524A}.Debug|.NET.ActiveCfg = Debug|.NET
+		{9D945BCE-09AD-4EA5-8EC3-D5A71609524A}.Debug|.NET.Build.0 = Debug|.NET
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

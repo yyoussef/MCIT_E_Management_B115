@@ -1,0 +1,297 @@
+﻿<%@ Master Language="VB" AutoEventWireup="false" CodeFile="MainformMaster.Master.vb"
+    Inherits="Masters_MainformMaster"   %>
+
+<%@ Register Src="~/UserControls/Sticker.ascx" TagName="Sticker" TagPrefix="uc3" %>
+<%@ Register Src="~/UserControls/Site_Menu3.ascx" TagName="Site_Menu" TagPrefix="uc4" %>
+<%--<%@ Register Src="../UserControls/slidingmenu.ascx" TagName="slidingmenu" TagPrefix="uc5" %>
+--%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<meta http-equiv="X-UA-Compatible" content="IE=7;" />
+<meta http-equiv="X-UA-Compatible" content="chrome=1;" />
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head id="Head1" runat="server">
+    <%--<META http-equiv="Content-Type" content="text/html; charset=utf-8">   --%>
+    <title></title>
+    <link rel="stylesheet" href="../css/style (2).css" type="text/css" />
+    <link rel="stylesheet" href="../css/Arcssverticalmenu.css" type="text/css" />
+
+    <script type="text/javascript" src="../Script/stmenu.js"></script>
+
+    <script type="text/javascript" src="../Script/AC_RunActiveContent.js"></script>
+
+    <script type="text/javascript" src="../Script/Arcssverticalmenu.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+    <script src="../Script/jquery.toastmessage.js" type="text/javascript"></script>
+    <link href="../CSS/jquery.toastmessage.css" rel="stylesheet" type="text/css" />
+  <%-- <script type="text/javascript">
+        (function($) {
+            var settings = {
+                inEffect: { opacity: 'show' }, // in effect
+                inEffectDuration: 600, 			// in effect duration in miliseconds
+                stayTime: 3000, 			// time in miliseconds before the item has to disappear
+                text: '', 				// content of the item. Might be a string or a jQuery object. Be aware that any jQuery object which is acting as a message will be deleted when the toast is fading away.
+                sticky: false, 			// should the toast item sticky or not?
+                type: 'notice', 			// notice, warning, error, success
+                position: 'bottom-left',        // top-left, top-center, top-right, middle-left, middle-center, middle-right ... Position of the toast container holding different toast. Position can be set only once at the very first call, changing the position after the first call does nothing
+                closeText: '',                 // text which will be shown as close button, set to '' when you want to introduce an image via css
+                close: null                // callback function when the toastmessage is closed
+            };
+
+            var methods = {
+                init: function(options) {
+                    if (options) {
+                        $.extend(settings, options);
+                    }
+                },
+
+                showToast: function(options) {
+                    var localSettings = {};
+                    $.extend(localSettings, settings, options);
+
+                    // declare variables
+                    var toastWrapAll, toastItemOuter, toastItemInner, toastItemClose, toastItemImage;
+
+                    toastWrapAll = (!$('.toast-container').length) ? $('<div></div>').addClass('toast-container').addClass('toast-position-' + localSettings.position).appendTo('body') : $('.toast-container');
+                    toastItemOuter = $('<div></div>').addClass('toast-item-wrapper');
+                    toastItemInner = $('<div></div>').hide().addClass('toast-item toast-type-' + localSettings.type).appendTo(toastWrapAll).html($('<p>').append(localSettings.text)).animate(localSettings.inEffect, localSettings.inEffectDuration).wrap(toastItemOuter);
+                    toastItemClose = $('<div></div>').addClass('toast-item-close').prependTo(toastItemInner).html(localSettings.closeText).click(function() { $().toastmessage('removeToast', toastItemInner, localSettings) });
+                    toastItemImage = $('<div></div>').addClass('toast-item-image').addClass('toast-item-image-' + localSettings.type).prependTo(toastItemInner);
+
+                    if (navigator.userAgent.match(/MSIE 6/i)) {
+                        toastWrapAll.css({ top: document.documentElement.scrollTop });
+                    }
+
+                    if (!localSettings.sticky) {
+                        setTimeout(function() {
+                            $().toastmessage('removeToast', toastItemInner, localSettings);
+                        },
+				localSettings.stayTime);
+                    }
+                    return toastItemInner;
+                },
+
+                showNoticeToast: function(message) {
+                var options = { text: message, type: 'notice', position: 'top-left' };
+                    return $().toastmessage('showToast', options);
+                },
+
+                showSuccessToast: function(message) {
+                    var options = { text: message, type: 'success' };
+                    return $().toastmessage('showToast', options);
+                },
+
+                showErrorToast: function(message) {
+                    var options = { text: message, type: 'error' };
+                    return $().toastmessage('showToast', options);
+                },
+
+                showWarningToast: function(message) {
+                    var options = { text: message, type: 'warning' };
+                    return $().toastmessage('showToast', options);
+                },
+
+                removeToast: function(obj, options) {
+                    obj.animate({ opacity: '0' }, 600, function() {
+                        obj.parent().animate({ height: '0px' }, 300, function() {
+                            obj.parent().remove();
+                        });
+                    });
+                    // callback
+                    if (options && options.close !== null) {
+                        options.close();
+                    }
+                }
+            };
+
+            $.fn.toastmessage = function(method) {
+
+                // Method calling logic
+                if (methods[method]) {
+                    return methods[method].apply(this, Array.prototype.slice.call(arguments, 1));
+                } else if (typeof method === 'object' || !method) {
+                    return methods.init.apply(this, arguments);
+                } else {
+                    $.error('Method ' + method + ' does not exist on jQuery.toastmessage');
+                }
+            };
+
+        })(jQuery);
+    </script>
+    <style type="text/css">
+        #Table_01
+        {
+            width: 997px;
+        }
+        </style>--%>
+</head>
+<body dir="rtl" >
+    <form id="form1" runat="server">
+    <div>
+        <asp:ScriptManager ID="ScriptManager1" runat="server" EnableScriptGlobalization="true"
+            EnableScriptLocalization="true" EnablePartialRendering="true" />
+            
+            <%--  <asp:UpdatePanel ID="UpdatePanel1" runat="server" >
+            <ContentTemplate >
+                <asp:Timer ID="ChatTimer" runat="server" ontick="Timer1_Tick" Interval="6000"   >
+                </asp:Timer>
+            </ContentTemplate>
+        </asp:UpdatePanel>--%>
+    </div>
+    <table width="100%">
+        <tr>
+            <td width="990px" bgcolor="#C2DDF0">
+                <table id="Table_01" border="0" align="right" dir="rtl" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td align="right" dir="rtl">
+                            <asp:Image ID="headerImage" runat="server" Height="120px" Width="1000px" />
+                        </td>
+                        <td dir="rtl" bgcolor="#C2DDF0" align="center" valign="top">
+                            <br />
+                            <asp:Label ID="lblUserName" runat="server" Font-Size="16px" Font-Names="arial" Font-Bold="True"
+                                ForeColor="#436485"></asp:Label>
+                            <br />
+                            <br />
+                            <asp:Label ID="lblDepts" align="right" runat="server" Font-Size="16px" Font-Bold="True"
+                                Font-Names="arial" ForeColor="#436485" Width="154px"></asp:Label>
+                            <br />
+                            <br />
+                        </td>
+                        <td dir="ltr" align="center" bgcolor="#C2DDF0" width="60px" valign="bottom">
+                            <br />
+                            <asp:LinkButton ID="LinkMain" runat="server" Text="الرئيسية" Font-Bold="True" ForeColor="#436485"
+                                align="right" BackColor="#F9FDFF" PostBackUrl="~/MainForm/Default.aspx" Width="48px"
+                                valign="bottom" Font-Names="arial" Font-Size="16px" />
+                            <br />
+                            <br />
+                            <asp:LinkButton ID="lnklogin" runat="server" Text="خروج" Font-Bold="True" ForeColor="#436485"
+                                BackColor="#F9FDFF" OnClick="lnklogin_Click" Width="44px" valign="bottom"
+                                Font-Names="arial" Font-Size="16px" />
+                            <%-- <asp:LoginStatus ID="MasterLoginStatus" runat="server" LoginText="" LogoutText="خروج"
+                                Font-Bold="True" ForeColor="#436485" BackColor="#F9FDFF" LogoutAction="Redirect"
+                                LogoutPageUrl="~/WebForm2.aspx"  Width="44px" valign="bottom" Font-Names="arial"
+                                Font-Size="16px" />
+                                --%>
+                            <br />
+                            <br />
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div>
+                    <uc3:Sticker ID="Sticker1" runat="server" />
+                    <asp:ContentPlaceHolder ID="Masterhead" runat="server">
+                    </asp:ContentPlaceHolder>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table align="center" style="width: 100%; height: 550px">
+                    <tr>
+                        <td align="right" width="20%" valign="top">
+                            <uc4:Site_Menu ID="Site_Menu1" runat="server" Visible="true" />
+                        </td>
+                        <td class="border" style="width: 80%; height: 550px;" valign="top">
+                            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                            </asp:ContentPlaceHolder>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <table border="0" align="center" cellpadding="0" cellspacing="0" style="width: 100%;">
+                    <tr align="center">
+                        <td valign="top" dir="ltr" bgcolor="#C2DDF0">
+                            <marquee behavior="scroll" direction="right">
+                        <asp:Label runat="server" ID="Footerlab" Text="حقوق النسخ محفوظة للإدارة المركزية للإستشارات الفنية وتطوير النظم بقطاع البنية المعلوماتية بوزارة الاتصالات وتكنولوجيا المعلومات  ... "
+                            Style="text-align: center" ForeColor="#244A6F" Width="100%" Font-Size="12pt"
+                            Font-Bold="True" Font-Names="Times New Roman"></asp:Label></marquee>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <br />
+    </form>
+    <%--
+      <script type="text/javascript">
+
+          function showSuccessToast() {
+              $().toastmessage('showSuccessToast', "Success Dialog which is fading away ...");
+          }
+          function showStickySuccessToast() {
+
+              $().toastmessage('showToast', {
+                  text: 'Success Dialog which is sticky',
+                  sticky: true,
+                  position: 'bottom-right',
+                  type: 'success',
+                  closeText: '',
+                  close: function() {
+                      console.log("toast is closed ...");
+                  }
+              });
+
+          }
+          function showNoticeToast(message) {
+              //alert(message);
+              try {
+                  $().toastmessage('showNoticeToast', message);
+              }
+              catch (e) { alert(e.message) }
+          }
+          function showStickyNoticeToast() {
+
+              $().toastmessage('showToast', {
+                  text: 'Notice Dialog which is sticky',
+                  sticky: true,
+                  position: 'bottom-left',
+                  type: 'notice',
+                  closeText: '',
+                  close: function() { console.log("toast is closed ..."); }
+              });
+          }
+          function showWarningToast() {
+
+              $().toastmessage('showWarningToast', "Warning Dialog which is fading away ...");
+          }
+          function showStickyWarningToast() {
+              $().toastmessage('showToast', {
+                  text: 'Warning Dialog which is sticky',
+                  sticky: true,
+                  position: 'bottom-right',
+                  type: 'warning',
+                  closeText: '',
+                  close: function() {
+                      console.log("toast is closed ...");
+                  }
+              });
+          }
+          function showErrorToast() {
+
+              $().toastmessage('showErrorToast', "Error Dialog which is fading away ...");
+          }
+          function showStickyErrorToast() {
+
+              $().toastmessage('showToast', {
+                  text: 'Error Dialog which is sticky',
+                  sticky: true,
+                  position: 'center',
+                  type: 'error',
+                  closeText: '',
+                  close: function() {
+                      console.log("toast is closed ...");
+                  }
+              });
+          }
+ 
+    </script>--%>
+    
+</body>
+</html>

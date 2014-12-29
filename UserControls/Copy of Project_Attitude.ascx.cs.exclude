@@ -1,0 +1,130 @@
+﻿using System;
+using System.Collections;
+using System.Configuration;
+using System.Data;
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Xml.Linq;
+
+public partial class UserControls_Project_Attitude : System.Web.UI.UserControl
+{
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+
+            FillGrid();
+
+        }
+    }
+    protected void FillGrid()
+    {
+        string sql = "";
+
+
+        sql = "select id,last_attitude_desc,last_attitude_date from Project_Attitude  where Proj_id='" + CDataConverter.ConvertToInt(Session_CS.Project_id.ToString()) + "' order by convert(datetime, last_attitude_date,103) desc ";
+
+        DataTable dt = General_Helping.GetDataTable(sql);
+
+        gvMain.DataSource = dt;
+        gvMain.DataBind();
+
+    }
+
+    protected void btn_Save_Click(object sender, EventArgs e)
+    {
+        string t1;
+        if (att_desc.Text != "" && VB_Classes.Dates.Dates_Operation.date_validate(txtattdate.Text.Trim()) != "")
+        {
+            t1 = VB_Classes.Dates.Dates_Operation.date_validate(txtattdate .Text.Trim());
+            if (btn_Save.CommandArgument == "edit")
+            {
+                General_Helping.ExcuteQuery("update Project_Attitude set last_attitude_desc ='" + att_desc.Text + "',last_attitude_date='" + txtattdate.Text + "' where id=" + CMT_ID.Value);
+                btn_Save.CommandArgument = "new";
+                btn_Save.Text = "حفظ";
+                Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('تم التعديل بنجاح')</script>");
+                att_desc.Text = "";
+                txtattdate.Text = "";
+
+            }
+            else
+            {
+                string sql = " insert into Project_Attitude (last_attitude_desc,last_attitude_date,Proj_id) VALUES ('" + att_desc.Text + "','" + txtattdate.Text + "','"+ CDataConverter.ConvertToInt(Session_CS.Project_id.ToString())+"')";
+                General_Helping.ExcuteQuery(sql);
+                Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('تم الحفظ بنجاح')</script>");
+                att_desc.Text = "";
+                txtattdate.Text = "";
+
+            }
+
+            FillGrid();
+        }
+        else
+        {
+            Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('تأكد من ادخال البيانات بطريقة صحيحة')</script>");
+
+        }
+        //else
+        //{
+        //    Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('يجب ادخال البيانات كاملة')</script>");
+
+        //}
+        
+
+      //  string sql = " insert into Project_Attitude (last_attitude_desc,last_attitude_date) VALUES ('" + att_desc .Text + "','"+txtattdate.Text +"')";
+      //   General_Helping.ExcuteQuery(sql);
+      //   Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('تم الحفظ بنجاح')</script>");
+      //      FillGrid();
+      //   att_desc.Text = "";
+      //   txtattdate.Text = "";
+      //}
+      //  else 
+      //{
+      //   Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('يجب ادخال البيانات كاملة اولا')</script>");
+
+      //}
+    }
+
+
+
+
+     protected void ImgBtnDelete_Click(object sender, System.Web.UI.ImageClickEventArgs e)
+    {
+        string Sql = "delete from Project_Attitude where id = " + ((ImageButton)sender).CommandArgument;
+        General_Helping.ExcuteQuery(Sql);
+        
+        FillGrid();
+    }
+     protected void ImgBtnEdit_Click(object sender, System.Web.UI.ImageClickEventArgs e)
+     {
+         btn_Save.CommandArgument = "edit";
+         btn_Save.Text = "تعديل";
+       string Sql = "select last_attitude_desc,last_attitude_date from Project_Attitude where id = " + ((ImageButton)sender).CommandArgument;
+      DataTable _dt = General_Helping.GetDataTable(Sql);
+       att_desc.Text = _dt.Rows[0]["last_attitude_desc"].ToString();
+
+        txtattdate.Text = _dt.Rows[0]["last_attitude_date"].ToString();
+        CMT_ID.Value = ((ImageButton)sender).CommandArgument;
+
+        int i = 0, id = 0;
+        foreach (GridViewRow row in gvMain.Rows)
+        {
+            if (((TextBox)row.FindControl("txtid")).Text == CMT_ID.Value)
+                id = i;
+            else
+                gvMain.Rows[i].BackColor = System.Drawing.Color.White;
+
+
+            i += 1;
+        }
+
+        gvMain.Rows[id].BackColor = System.Drawing.Color.Lavender;
+
+     }
+    
+}

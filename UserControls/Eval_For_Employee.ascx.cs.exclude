@@ -1,0 +1,686 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+using System.Data;
+using CrystalDecisions.Shared;
+using CrystalDecisions.CrystalReports.Engine;
+
+public partial class UserControls_Eval_For_Employee : System.Web.UI.UserControl
+{
+    private string sql_Connection = Database.ConnectionString;
+
+    protected void Page_Load(object sender, EventArgs e)
+    {
+        if (!IsPostBack)
+        {
+
+            if (Request["PMP_id"] != null)
+            {
+                DataTable dt = Evaluation_For_Employee_DB.Select_Emp_Info(CDataConverter.ConvertToInt(Request["PMP_id"].ToString()));
+                DataRow dr = dt.Rows[0];
+                if (dt.Rows.Count > 0)
+                {
+                    Ddl_Sectors.DataBind();
+                    Ddl_Sectors.SelectedValue = dr["sec_sec_id"].ToString();
+                    fil_Departements();
+                    Smart_Search_Departments.SelectedValue = dr["Dept_Dept_id"].ToString();
+                    fil_employee();
+                    Smart_Pmp_Id.SelectedValue = Request["PMP_id"].ToString();
+                }
+
+            }
+            else
+            {
+                Ddl_Sectors.DataBind();
+                Ddl_Sectors.SelectedValue = Session_CS.sec_id.ToString();
+                fil_Departements();
+
+            }
+            
+
+
+        }
+    }
+
+    protected override void OnInit(EventArgs e)
+    {
+
+        this.Smart_Search_Departments.Value_Handler += new Smart_Search.Delegate_Selected_Value(MOnMember_Data_Depart);
+        this.Smart_Pmp_Id.Value_Handler += new Smart_Search.Delegate_Selected_Value(MOnMember_Data_Emp);
+    }
+
+    void fil_Departements()
+    {
+
+        Smart_Search_Departments.sql_Connection = sql_Connection;
+
+        Smart_Search_Departments.Query = " select distinct Dept_ID,Dept_name from Employee_Departments WHERE sec_sec_id =  " + Ddl_Sectors.SelectedValue;
+        if (Session_CS.Hr_Eval.ToString() != "1")
+            Smart_Search_Departments.Query += " and  pmp_id = " + Session_CS.pmp_id.ToString();
+
+        Smart_Search_Departments.Value_Field = "Dept_ID";
+        Smart_Search_Departments.Text_Field = "Dept_name";
+        Smart_Search_Departments.DataBind();
+        this.Smart_Search_Departments.Value_Handler += new Smart_Search.Delegate_Selected_Value(MOnMember_Data_Depart);
+        Smart_Search_Departments.SelectedValue = Session_CS.dept_id.ToString();
+
+        //fil_employee();
+    }
+
+    private void MOnMember_Data_Depart(string Value)
+    {
+        if (Value != "")
+        {
+            fil_employee();
+        }
+        else
+        {
+            Smart_Pmp_Id.Clear_Controls();
+            MOnMember_Data_Emp("");
+        }
+    }
+
+
+    public bool Get_Enabled_Direct_mngr()
+    {
+        if (hidden_direct_mngr.Value == "1")
+            return true;
+        else
+            return false;
+
+
+    }
+
+    public bool Get_Enabled_Top_mngr()
+    {
+        if (hidden_top_mngr.Value == "1")
+            return true;
+        else
+            return false;
+
+    }
+    public bool Get_Enabled_Hr()
+    {
+        if (hidden_hr.Value == "1")
+            return true;
+        else
+            return false;
+
+    }
+
+    void fil_employee()
+    {
+        Smart_Pmp_Id.sql_Connection = sql_Connection;
+
+        Smart_Pmp_Id.Query = "SELECT pmp_id, pmp_name FROM employee where pmp_id not in ( 68,596,597 ) and Dept_Dept_id =  " + Smart_Search_Departments.SelectedValue;
+        if (Session_CS.Hr_Eval.ToString() != "1")
+            // Smart_Pmp_Id.Query += " and ( direct_manager= " + Session_CS.pmp_id.ToString() + " or  higher_manager = " + Session_CS.pmp_id.ToString() + ")";
+            Smart_Pmp_Id.Query += " and (Direct_manager =" + Session_CS.pmp_id.ToString() + " ) or pmp_id in (SELECT Evaluation_For_Employee.Pmp_Id FROM Evaluation_For_Employee inner join employee on Evaluation_For_Employee.Pmp_Id =employee.Pmp_Id where  (higher_manager =" + Session_CS.pmp_id.ToString() + " )  )";
+        Smart_Pmp_Id.Show_Code = false;
+        Smart_Pmp_Id.Value_Field = "pmp_id";
+        Smart_Pmp_Id.Text_Field = "pmp_name";
+        Smart_Pmp_Id.DataBind();
+        this.Smart_Pmp_Id.Value_Handler += new Smart_Search.Delegate_Selected_Value(MOnMember_Data_Emp);
+    }
+
+    private void MOnMember_Data_Emp(string Value)
+    {
+        if (Value != "")
+        {
+            DataTable dt = Evaluation_For_Employee_DB.Select_Emp_Info(CDataConverter.ConvertToInt(Value));
+            if (dt.Rows.Count > 0)
+            {
+                DataRow dr = dt.Rows[0];
+
+                //txt_dept_name.Text = Convert.ToString(dr["Dept_name"].ToString());
+                //txt_sec.Text = Convert.ToString(dr["Sec_name"].ToString());
+                txt_Hire_date.Text = Convert.ToString(dr["Hire_date"].ToString());
+                txt_pmp_title.Text = Convert.ToString(dr["pmp_title"].ToString());
+                txt_job_no.Text = Convert.ToString(dr["job_no"].ToString());
+
+
+                tr_Grid.Visible = true;
+                hidden_Evaluation_id.Value = "";
+                if (CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()) == CDataConverter.ConvertToInt(dr["direct_manager"].ToString()))
+                    hidden_direct_mngr.Value = "1";
+                else
+                    hidden_direct_mngr.Value = "0";
+
+                if (CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()) == CDataConverter.ConvertToInt(dr["higher_manager"].ToString()))
+                    hidden_top_mngr.Value = "1";
+                else
+                    hidden_top_mngr.Value = "0";
+
+                if (Session_CS.Hr_Eval.ToString() == "1")
+                    hidden_hr.Value = "1";
+                else
+                    hidden_hr.Value = "0";
+
+
+                fil_grid();
+
+                DataTable dt_btn = General_Helping.GetDataTable("select * from Evaluation_For_Employee where Pmp_Id = " + Smart_Pmp_Id.SelectedValue);
+                if (dt_btn.Rows.Count>0)
+                {
+                    if (hidden_direct_mngr.Value == "1")
+                    {
+                        if (dt_btn.Rows[0]["Direct_Mng_Finished"].ToString() == "True")
+                        {
+                            btn_finish.Enabled = false;
+                            btn_Save.Enabled = false;
+                        }
+                        else
+                        {
+                            btn_finish.Enabled = true;
+                            btn_Save.Enabled = true;
+                        }
+                    }
+                    else if (hidden_top_mngr.Value == "1")
+                    {
+                        if (dt_btn.Rows[0]["Top_Mng_Finished"].ToString() == "True")
+                        {
+                            btn_finish.Enabled = false;
+                            btn_Save.Enabled = false;
+                        }
+                        else
+                        {
+                            btn_finish.Enabled = true;
+                            btn_Save.Enabled = true;
+                        }
+                    }
+                }
+               
+                fill_Grid_weeknes();
+                fill_Grid_Training();
+
+
+            }
+        }
+        else
+        {
+            //Smart_Pmp_Id.Clear_Selected();
+            txt_Hire_date.Text =
+            txt_pmp_title.Text =
+            txt_job_no.Text = "";
+
+
+            tr_Grid.Visible = false;
+            hidden_Evaluation_id.Value = "";
+
+        }
+       
+    }
+
+    private void fil_grid()
+    {
+        DataTable dt = Evaluation_For_Employee_DB.Select_Evaluation_For_Employee(CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue), CDataConverter.ConvertToInt(Smart_Search_Departments.SelectedValue));
+        Gridview1.DataSource = dt;
+        Gridview1.DataBind();
+        Set_Selected_DDL(dt);
+    }
+
+    private void fill_Grid_weeknes()
+    {
+        DataTable dt = Evaluation_Strengths_weaknesses_DB.Select_Evaluation_For_Employee(CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue), 1);
+        DataTable dtW = Evaluation_Strengths_weaknesses_DB.Select_Evaluation_For_Employee(CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue), 0);
+        //if (Flag)
+        //{
+        if (dt.Rows.Count <= 1)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                DataRow dr = null;
+                dr = dt.NewRow();
+                dt.Rows.Add(dr);
+            }
+        }
+
+        ViewState["dt_week"] = dt;
+        Gridview_ٍstrength.DataSource = ViewState["dt_week"];
+        Gridview_ٍstrength.DataBind();
+
+        if (dtW.Rows.Count <= 1)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                DataRow dr = null;
+                dr = dtW.NewRow();
+                dtW.Rows.Add(dr);
+            }
+        }
+
+        GridWeaknes.DataSource = dtW;
+        GridWeaknes.DataBind();
+
+        // SetInitialRow();
+        //
+    }
+
+
+    private void fill_Grid_Training()
+    {
+
+
+        DataTable dt = Evaluation_Training_Needs_DB.Select_Evaluation_For_Employee(CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue));
+
+        //if (Flag)
+        //{
+        if (dt.Rows.Count <= 1)
+        {
+            for (int i = 0; i < 6; i++)
+            {
+                DataRow dr = null;
+
+                dr = dt.NewRow();
+                //dr["Top_Emp_Agree"] = false;
+                dt.Rows.Add(dr);
+            }
+        }
+
+        ViewState["dt_train"] = dt;
+        Gridview_training.DataSource = ViewState["dt_train"];
+        Gridview_training.DataBind();
+
+        // SetInitialRow();
+        //
+    }
+
+    protected void ButtonAdd_Click(object sender, EventArgs e)
+    {
+        AddNewRowTo_week_Grid();
+    }
+
+    private void AddNewRowTo_week_Grid()
+    {
+        // int rowIndex = 0;
+        //save_data_To_ViewState();
+        if (ViewState["dt_week"] != null)
+        {
+
+            DataTable dtCurrentTable = (DataTable)ViewState["dt_week"];
+            DataRow dr = null;
+            dr = dtCurrentTable.NewRow();
+            dtCurrentTable.Rows.Add(dr);
+
+            ViewState["CurrentTable"] = dtCurrentTable;
+            //Rebind the Grid with the current data
+            Gridview_ٍstrength.DataSource = dtCurrentTable;
+            Gridview_ٍstrength.DataBind();
+
+        }
+    }
+
+    private void Set_Selected_DDL(DataTable dt)
+    {
+        for (int i = 0; i < dt.Rows.Count; i++)
+        {
+            //dt.Rows[i]["RowNumber"] = i + 1;
+            //((DropDownList)Gridview1.Rows[i].FindControl("ddl_ket")).SelectedValue = dt.Rows[i]["keta"].ToString();
+            //((DropDownList)Gridview1.Rows[i].FindControl("ddl_Org")).SelectedValue = dt.Rows[i]["Organization"].ToString();
+            ((DropDownList)Gridview1.Rows[i].FindControl("ddl_Direct_Emp_Degree_Id")).SelectedValue = dt.Rows[i]["Direct_Emp_Degree_Id"].ToString();
+            ((DropDownList)Gridview1.Rows[i].FindControl("ddl_Top_Emp_Degree_Id")).SelectedValue = dt.Rows[i]["Top_Emp_Degree_Id"].ToString();
+
+
+        }
+    }
+
+    //protected void btn_Save_Training_Click(object sender, EventArgs e)
+    //{
+
+    //}
+
+    //protected void btn_Save_week_Click(object sender, EventArgs e)
+    //{
+
+    //}
+    void Load_Report(ReportDocument rd)
+    {
+        ConnectionInfo coninfo = new ConnectionInfo();
+        TableLogOnInfos crTableLogonInfos = new TableLogOnInfos();
+        coninfo.ServerName = System.Configuration.ConfigurationSettings.AppSettings["ServerName"].ToString();
+
+        coninfo.DatabaseName = System.Configuration.ConfigurationSettings.AppSettings["DatabaseName"].ToString();
+        coninfo.UserID = System.Configuration.ConfigurationSettings.AppSettings["UserID"].ToString();
+        coninfo.Password = System.Configuration.ConfigurationSettings.AppSettings["Password"].ToString();
+
+        foreach (CrystalDecisions.CrystalReports.Engine.Table table in rd.Database.Tables)
+        {
+
+            TableLogOnInfo crTableLogonInfo = new TableLogOnInfo();
+
+            crTableLogonInfo.TableName = table.Name;
+
+            crTableLogonInfo.ConnectionInfo = coninfo;
+
+            crTableLogonInfos.Add(crTableLogonInfo);
+
+            table.ApplyLogOnInfo(crTableLogonInfo);
+
+        }
+        for (int i = 0; i < rd.Subreports.Count; i++)
+        {
+            foreach (CrystalDecisions.CrystalReports.Engine.Table table222 in rd.Subreports[i].Database.Tables)
+            {
+
+                TableLogOnInfo crTableLogonInfo = new TableLogOnInfo();
+
+                crTableLogonInfo.TableName = table222.Name;
+
+                crTableLogonInfo.ConnectionInfo = coninfo;
+
+                crTableLogonInfos.Add(crTableLogonInfo);
+
+                table222.ApplyLogOnInfo(crTableLogonInfo);
+
+                //rd.Subreports[i].SetDatabaseLogon(coninfo.UserID, coninfo.Password, coninfo.ServerName, coninfo.DatabaseName);
+            }
+
+            rd.Subreports[i].SetDatabaseLogon(coninfo.UserID, coninfo.Password, coninfo.ServerName, coninfo.DatabaseName);
+        }
+
+    }
+    public string IpAddress()
+    {
+        string name = "";
+        string ip = "";
+        try
+        {
+            name = System.Net.Dns.GetHostName();
+            ip = System.Net.Dns.GetHostAddresses(name).GetValue(1).ToString();
+            return ip;
+        }
+        catch
+        {
+            name = System.Net.Dns.GetHostName();
+            ip = System.Net.Dns.GetHostAddresses(name).GetValue(0).ToString();
+            return ip;
+        }
+    }
+    protected void btn_Save_Click(object sender, EventArgs e)
+    {
+        if (Check_Main_Valid())
+        {
+
+            Evaluation_For_Employee_DB.Clear_for_emp(CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue));
+            Evaluation_For_Employee_DT obj = Evaluation_For_Employee_DB.SelectBypmpID(CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue));
+            if (obj.Evaluation_id <= 0)
+            {
+                obj.Evaluation_id = CDataConverter.ConvertToInt(hidden_Evaluation_id.Value);
+                obj.Month = DateTime.Now.Month; //CDataConverter.ConvertToInt(ddl_month.SelectedItem.Text);
+                obj.Year = DateTime.Now.Year;// CDataConverter.ConvertToInt(ddl_year.SelectedItem.Text);
+                obj.Pmp_Id = CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue);
+                // if (hidden_direct_mngr.Value == "1")
+                //{
+                obj.Direct_Mng_Finished = false;
+                //Evaluation_For_Employee_DT obj = Evaluation_For_Employee_DB.SelectBypmpID(CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue));
+
+                //}
+                //else if (hidden_top_mngr.Value == "1")
+                //{
+                obj.Top_Mng_Finished = false;
+
+                //}
+
+                //obj.Top_Mng_Finished = false;
+                hidden_Evaluation_id.Value = Evaluation_For_Employee_DB.Save(obj).ToString();
+            }
+            else
+            {
+                hidden_Evaluation_id.Value = obj.Evaluation_id.ToString();
+            }
+            //obj.Evaluation_id = CDataConverter.ConvertToInt(hidden_Evaluation_id.Value);
+            //obj.Month = DateTime.Now.Month; //CDataConverter.ConvertToInt(ddl_month.SelectedItem.Text);
+            //obj.Year = DateTime.Now.Year;// CDataConverter.ConvertToInt(ddl_year.SelectedItem.Text);
+            //obj.Pmp_Id = CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue);
+            //if (hidden_direct_mngr.Value=="1")
+            //{
+            //    obj.Direct_Mng_Finished = false;
+            //    //Evaluation_For_Employee_DT obj = Evaluation_For_Employee_DB.SelectBypmpID(CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue));
+                
+            //}
+            //else if (hidden_top_mngr.Value=="1")
+            //{
+            //    obj.Top_Mng_Finished = false;
+
+            //}
+            
+            ////obj.Top_Mng_Finished = false;
+            //hidden_Evaluation_id.Value = Evaluation_For_Employee_DB.Save(obj).ToString();
+
+            ////////////////////////////////////////////////
+           // DataTable dt_btn = General_Helping.GetDataTable("select * from Evaluation_For_Employee where Pmp_Id = " + Smart_Pmp_Id.SelectedValue);
+           
+                // Evaluation_For_Employee_DT obj = Evaluation_For_Employee_DB.SelectBypmpID(CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue));
+                //if (hidden_direct_mngr.Value == "1")
+                //{
+                //    if (obj.Direct_Mng_Finished.ToString() == "True")
+                //    {
+                //        obj.Direct_Mng_Finished = true;
+                //    }
+                   
+                //}
+                //else if (hidden_top_mngr.Value == "1")
+                //{
+                //    if (obj.Top_Mng_Finished.ToString()="True")
+                //    {
+                //        obj.Top_Mng_Finished = true;
+                //    }
+                   
+                //}
+            
+            /////////////////////////////////////
+
+            foreach (GridViewRow row in Gridview1.Rows)
+            {
+                DropDownList ddl_Direct_Emp_Degree_Id = ((DropDownList)row.FindControl("ddl_Direct_Emp_Degree_Id"));
+                DropDownList ddl_Top_Emp_Degree_Id = ((DropDownList)row.FindControl("ddl_Top_Emp_Degree_Id"));
+
+                Label lbl_Main_Item_Id = ((Label)row.FindControl("lbl_Main_Item_Id"));
+                Label lbl_Sub_Item_Id = ((Label)row.FindControl("lbl_Sub_Item_Id"));
+
+                TextBox txt_Direct_Emp_Note = ((TextBox)row.FindControl("txt_Direct_Emp_Note"));
+                TextBox txt_Top_Emp_Note = ((TextBox)row.FindControl("txt_Top_Emp_Note"));
+
+                TextBox txt_HR_Note = ((TextBox)row.FindControl("txt_HR_Note"));
+
+                Evaluation_Main_DT obj_Main = new Evaluation_Main_DT();
+                obj_Main.Evaluation_id = CDataConverter.ConvertToInt(hidden_Evaluation_id.Value);
+                obj_Main.Main_Item_Id = CDataConverter.ConvertToInt(lbl_Main_Item_Id.Text);
+                obj_Main.Sub_Item_Id = CDataConverter.ConvertToInt(lbl_Sub_Item_Id.Text);
+                obj_Main.Direct_Emp_Degree_Id = CDataConverter.ConvertToInt(ddl_Direct_Emp_Degree_Id.SelectedValue);
+                obj_Main.Direct_Emp_Note = txt_Direct_Emp_Note.Text;
+
+                obj_Main.Top_Emp_Degree_Id = CDataConverter.ConvertToInt(ddl_Top_Emp_Degree_Id.SelectedValue);
+                obj_Main.Top_Emp_Note = txt_Top_Emp_Note.Text;
+                obj_Main.HR_Note = txt_HR_Note.Text;
+
+                Evaluation_Main_DB.Save(obj_Main);
+
+            }
+
+
+            foreach (GridViewRow row in Gridview_ٍstrength.Rows)
+            {
+
+                TextBox txt_Direct_Emp_Note = ((TextBox)row.FindControl("txt_Direct_Emp_Note"));
+                TextBox txt_Top_Emp_Note = ((TextBox)row.FindControl("txt_Top_Emp_Note"));
+
+
+                Evaluation_Strengths_weaknesses_DT obj_Main = new Evaluation_Strengths_weaknesses_DT();
+                obj_Main.Evaluation_id = CDataConverter.ConvertToInt(hidden_Evaluation_id.Value);
+
+                obj_Main.Direct_Emp_Note = txt_Direct_Emp_Note.Text;
+
+                obj_Main.Top_Emp_Note = txt_Top_Emp_Note.Text;
+                obj_Main.type = 1;
+
+                Evaluation_Strengths_weaknesses_DB.Save(obj_Main);
+
+
+            }
+
+
+            foreach (GridViewRow row in GridWeaknes.Rows)
+            {
+
+                TextBox txt_WDirect_Emp_Note = ((TextBox)row.FindControl("txt_WDirect_Emp_Note"));
+                TextBox txt_WTop_Emp_Note = ((TextBox)row.FindControl("txt_WTop_Emp_Note"));
+
+
+                Evaluation_Strengths_weaknesses_DT obj_Main = new Evaluation_Strengths_weaknesses_DT();
+                obj_Main.Evaluation_id = CDataConverter.ConvertToInt(hidden_Evaluation_id.Value);
+
+                obj_Main.Direct_Emp_Note = txt_WDirect_Emp_Note.Text;
+
+                obj_Main.Top_Emp_Note = txt_WTop_Emp_Note.Text;
+                obj_Main.type = 0;
+
+                Evaluation_Strengths_weaknesses_DB.Save(obj_Main);
+
+
+            }
+
+
+            foreach (GridViewRow row in Gridview_training.Rows)
+            {
+
+
+                TextBox txt_Name = ((TextBox)row.FindControl("txt_Name"));
+                TextBox txt_WDirect_Emp_Note = ((TextBox)row.FindControl("txt_WDirect_Emp_Note"));
+                TextBox txt_WTop_Emp_Note = ((TextBox)row.FindControl("txt_WTop_Emp_Note"));
+                TextBox txt_HR_Note = ((TextBox)row.FindControl("txt_HR_Note"));
+
+                Evaluation_Training_Needs_DT obj_Main = new Evaluation_Training_Needs_DT();
+                obj_Main.Evaluation_id = CDataConverter.ConvertToInt(hidden_Evaluation_id.Value);
+
+                obj_Main.Name = txt_Name.Text;
+                obj_Main.Direct_Emp_Note = txt_WDirect_Emp_Note.Text;
+                obj_Main.HR_Note = txt_HR_Note.Text;
+                obj_Main.Top_Emp_Note = txt_WTop_Emp_Note.Text;
+
+
+
+                Evaluation_Training_Needs_DB.Save(obj_Main);
+
+
+
+            }
+
+
+
+
+            Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('لقد تم الحفظ بنجاح')</script>");
+            //Fil_Grid_Main();
+        }
+
+    }
+    protected void btn_report_Click(object sender, EventArgs e)
+    {
+
+        int group = CDataConverter.ConvertToInt(Session_CS.group_id.ToString());
+        ReportDocument rd = new ReportDocument();
+        string s = "";
+       
+
+
+            string user = Session_CS.pmp_name.ToString();
+            if (group == 12)
+            {
+                s = Server.MapPath("../Reports/Evaluation_Report_All.rpt");
+            }
+            else
+            {
+                s = Server.MapPath("../Reports/Evaluation_Report_All_nocolum.rpt");
+            }
+
+            rd.Load(s);
+
+            Load_Report(rd);
+            //rd.SetParameterValue("@pmp_id", CDataConverter.ConvertToInt(smart_employee.SelectedValue));
+            // rd.("@pmp_id", CDataConverter.ConvertToInt(smart_employee.SelectedValue));
+
+            rd.SetParameterValue("@pmp_id", CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue), "Header_Eval_Report.rpt");
+            if (group == 12)
+            {
+                rd.SetParameterValue("@pmp_id", CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue), "sub_Evaluation_Rep_first.rpt");
+            }
+            else
+            {
+                rd.SetParameterValue("@pmp_id", CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue), "sub_Evaluation_Rep_first_nocolm.rpt");
+            }
+
+
+            rd.SetParameterValue("@pmp_id", CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue), "sub_Evaluation_Rep_Total_grades.rpt");
+            rd.SetParameterValue("@pmp_id", CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue), "sub_Evaluation_Rep_strengh.rpt");
+            rd.SetParameterValue("@pmp_id", CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue), "sub_Evaluation_Rep_weakness.rpt");
+            rd.SetParameterValue("@pmp_id", CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue), "sub_Evaluation_Rep_Needs.rpt");
+            rd.SetParameterValue("@pmp_id", CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue), "signatures_Eval_Report.rpt");
+            rd.SetParameterValue("@ip", IpAddress(), "footerRep.rpt");
+            rd.SetParameterValue("@user", user, "footerRep.rpt");
+         
+            rd.ExportToHttpResponse(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, Response, true, "Report");
+           
+        
+       
+    }
+    protected void btn_finish_Click(object sender, EventArgs e)
+    {
+
+        
+
+        Evaluation_For_Employee_DT obj = Evaluation_For_Employee_DB.SelectBypmpID(CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue));
+        if (obj.Evaluation_id > 0)
+        {
+            if (hidden_direct_mngr.Value == "1")
+            {
+                obj.Direct_Mng_Finished = true;
+            }
+            else
+                obj.Top_Mng_Finished = true;
+
+
+            Evaluation_For_Employee_DB.Save(obj).ToString();
+            Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('تم انهاء التقييم')</script>");
+            btn_finish.Enabled = false;
+            btn_Save.Enabled = false;
+        }
+        else
+        {
+            Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('لم يتم حفظ التقييم ليتم الانتهاء')</script>");
+            return;
+        }
+
+    }
+    private bool Check_Main_Valid()
+    {
+        if (Smart_Pmp_Id.SelectedValue != "")
+            return true;
+        else
+        {
+            Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('يجب إختيار الموظف اولا')</script>");
+            return false;
+        }
+    }
+
+    //private void Fil_Grid_Main()
+    //{
+    //}
+
+    protected void Ddl_Sectors_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        fil_Departements();
+        //  Ddl_Department.DataBind();
+    }
+
+    protected void Ddl_Department_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        //ddl_Sub_Item_Id.DataBind();
+        fil_employee();
+    }
+
+
+
+}
