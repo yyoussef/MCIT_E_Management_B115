@@ -24,6 +24,7 @@ public partial class UserControls_Add_Dept : System.Web.UI.UserControl
         if (!IsPostBack)
         {
 
+
             FillGrid();
             Fill_sector();
 
