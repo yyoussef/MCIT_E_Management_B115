@@ -17,7 +17,7 @@ using System.IO;
 
 public partial class UserControls_permission_request : System.Web.UI.UserControl
 {
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
 
     string InsideMCIT = System.Configuration.ConfigurationManager.AppSettings["InsideMCIT"].ToString();
 

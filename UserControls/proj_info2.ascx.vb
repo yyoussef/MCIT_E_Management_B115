@@ -28,7 +28,7 @@ Partial Class UserControls_proj_info
     Private Const _ENGLISH As String = "ENGL"
     Dim Obj_General_Helping As New General_Helping
     Dim sql_Connection As String = DBL.Universal.GetConnectionString()
-    Dim Session_CS As New Session_CS
+    ''Session_CS Session_CS
 #End Region
 
 #Region "BROWSER FOR departments"

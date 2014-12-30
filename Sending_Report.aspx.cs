@@ -29,7 +29,7 @@ public partial class Sending_Report : System.Web.UI.Page
     const string asalaheldin = "asalaheldin@mcit.gov.eg";
     const string rabdelghafar = "rabdelghafar@mcit.gov.eg";
     const string Sbeih = "Sbeih@mcit.gov.eg";
-    Session_CS Session_CS = new Session_CS();
+//    Session_CS Session_CS = new Session_CS();
     private string sql_Connection = Database.ConnectionString;
     // private string sql_Connection = Universal.GetConnectionString();
 

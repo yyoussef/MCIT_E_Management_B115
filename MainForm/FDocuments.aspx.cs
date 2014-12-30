@@ -17,7 +17,7 @@ using System.Text;
 
 public partial class MainForm_FDocuments : System.Web.UI.Page
 {
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     string sql_Connection = Universal.GetConnectionString();
     string Str =""; 
     protected void Page_Load(object sender, EventArgs e)

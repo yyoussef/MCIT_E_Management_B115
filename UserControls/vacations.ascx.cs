@@ -18,7 +18,7 @@ using System.Data.SqlClient;
 public partial class UserControls_vacations : System.Web.UI.UserControl
 {
     private string sql_Connection = Database.ConnectionString;
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)

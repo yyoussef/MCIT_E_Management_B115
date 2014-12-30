@@ -22,7 +22,7 @@ using ReportsClass;
 public partial class Admin_Admin_Report : System.Web.UI.Page
 {
     string sql;
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
 
     SqlDataAdapter da;
     DataSet ds;

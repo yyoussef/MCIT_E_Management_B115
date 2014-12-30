@@ -15,7 +15,7 @@ using DBL;
 public partial class WebForms_Protocol_Project_Search : System.Web.UI.Page
 {
     SqlConnection con;
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     private string sql_Connection = Universal.GetConnectionString(); 
      
     protected void Page_Load(object sender, EventArgs e)

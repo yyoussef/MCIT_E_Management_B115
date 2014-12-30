@@ -18,7 +18,7 @@ using System;
 
 public partial class UserControls_Project_Activities_Months : System.Web.UI.UserControl
 {
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)

@@ -19,7 +19,7 @@ using DBL;
 public partial class UserControls_project_followup : System.Web.UI.UserControl
 {
     SqlConnection conn;
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     private string sql_Connection = Universal.GetConnectionString();
 
     protected override void OnInit(EventArgs e)

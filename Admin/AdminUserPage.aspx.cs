@@ -18,7 +18,7 @@ using DBL;
 public partial class WebForms_AdminUserPage : System.Web.UI.Page
 {
     private string SqlConnection = Universal.GetConnectionString();
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     protected void Page_Load(object sender, EventArgs e)
     {
         lblMessage.Text = "";

@@ -14,7 +14,7 @@ using System.Data.SqlClient;
 
 public partial class UserControls_vacations_errand_old : System.Web.UI.UserControl
 {
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     private string sql_Connection = Database.ConnectionString;
     protected void Page_Load(object sender, EventArgs e)
     {

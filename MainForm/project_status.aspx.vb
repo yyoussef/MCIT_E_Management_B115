@@ -2,7 +2,7 @@
 
 Partial Class WebForms_project_status
     Inherits System.Web.UI.Page
-    Dim Session_CS As New Session_CS
+    'Session_CS Session_CS
 
 
 

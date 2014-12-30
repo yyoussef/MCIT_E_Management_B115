@@ -17,7 +17,7 @@ using ReportsClass;
 
 public partial class WebForms_MainReport : System.Web.UI.Page
 {
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     string sql, sqlnewt;
     SqlConnection conn;
     SqlDataAdapter da;

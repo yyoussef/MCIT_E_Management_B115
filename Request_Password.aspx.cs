@@ -18,7 +18,7 @@ using System.Net.Mail;
 
 public partial class Request_Password : System.Web.UI.Page
 {
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     protected void Page_Load(object sender, EventArgs e)
     {
 

@@ -18,7 +18,7 @@ using CrystalDecisions.CrystalReports.Engine;
 
 public partial class UserControls_Add_inbox_Sub_cat : System.Web.UI.UserControl
 {
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     public static bool flage = false;
     public static int service_id = 0;
     General_Helping Obj_General_Helping = new General_Helping();

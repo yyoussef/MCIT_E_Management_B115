@@ -16,7 +16,7 @@ using System.Text;
 
 public partial class UserControls_Protocol_Main_Details : System.Web.UI.UserControl
 {
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     General_Helping Obj_General_Helping = new General_Helping();
     private string sql_Connection = Database.ConnectionString;
 

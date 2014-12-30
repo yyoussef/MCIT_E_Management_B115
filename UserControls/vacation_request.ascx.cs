@@ -22,7 +22,7 @@ public partial class UserControls_vacation_request : System.Web.UI.UserControl
     int operation;
     private string sql_Connection = Database.ConnectionString;
     int group_id;
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)

@@ -13,7 +13,7 @@ using System.Xml.Linq;
 using System.IO;
 public partial class UserControls_Foundations_Followup : System.Web.UI.UserControl
 {
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)

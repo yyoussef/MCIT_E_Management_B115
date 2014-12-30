@@ -13,7 +13,7 @@ using System.Xml.Linq;
 
 public partial class MainForm_AssignedActivities : System.Web.UI.Page
 {
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     protected void Page_Load(object sender, EventArgs e)
     {
         //////Proj Assigned Activities from view /////

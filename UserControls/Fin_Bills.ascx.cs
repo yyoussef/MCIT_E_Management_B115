@@ -20,7 +20,7 @@ public partial class UserControls_Fin_Bills : System.Web.UI.UserControl
 {
     General_Helping Obj_General_Helping = new General_Helping();
     private string sql_Connection = Database.ConnectionString;
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     protected override void OnInit(EventArgs e)
     {
         #region BROWSER FOR departments

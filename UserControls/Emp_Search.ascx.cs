@@ -25,7 +25,7 @@ public partial class Emp_Search : System.Web.UI.UserControl
     //DataSet ds;
     //SqlCommand cmd;
 
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     private string sql_Connection = Database.ConnectionString;
 
     protected void Page_Load(object sender, EventArgs e)

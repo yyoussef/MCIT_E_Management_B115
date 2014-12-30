@@ -21,7 +21,7 @@ using ReportsClass;
 
 public partial class WebForms_DepartmentmngallReports : System.Web.UI.Page
 {
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     string sql;
     SqlConnection conn;
     SqlDataAdapter da;

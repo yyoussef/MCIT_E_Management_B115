@@ -15,7 +15,7 @@ public partial class ProjectGeneralData : System.Web.UI.Page
 {
    
     public string strdisplay = string.Empty;
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
 
     protected void Page_Load(object sender, EventArgs e)
     {

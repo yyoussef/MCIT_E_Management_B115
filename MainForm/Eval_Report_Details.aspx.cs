@@ -17,7 +17,7 @@ using System.Collections.Generic;
 
 public partial class MainForm_Eval_Report_Details : System.Web.UI.Page
 {
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)

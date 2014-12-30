@@ -22,12 +22,12 @@ using System.Text;
 
 public partial class _Default : System.Web.UI.Page
 {
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     protected void Page_Load(object sender, EventArgs e)
     {
     
         if (!IsPostBack)
-        {
+        { 
             if (!IsCookieDisabled())
             {
                 Footerlab.Text = Footerlab.Text + DateTime.Now.Year.ToString();

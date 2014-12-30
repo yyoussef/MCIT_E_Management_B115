@@ -18,7 +18,7 @@ using System.IO;
 public partial class WebForms_Protocol_Def_New : System.Web.UI.Page
 {
     General_Helping Obj_General_Helping = new General_Helping();
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)

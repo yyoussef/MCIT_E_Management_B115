@@ -15,7 +15,7 @@ using System.Text;
 
 public partial class UserControls_Site_Menu : System.Web.UI.UserControl
 {
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)

@@ -19,7 +19,7 @@ using CrystalDecisions.CrystalReports.Engine;
 
 public partial class WebForms2_Search_ALL_Documents : System.Web.UI.Page
 {
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     string sql, sql1;
     SqlConnection conn;
     SqlDataAdapter da;

@@ -20,7 +20,7 @@ using System.Web;
 /// <summary>
 /// Summary description for Sessions
 /// </summary>
-public class Session_CS
+public static  class Session_CS
 {
 
     //private  HttpCookie cook_parent_id = new HttpCookie("parent_id");
@@ -67,7 +67,7 @@ public class Session_CS
 
 
 
-    public Int32 parent_id
+    public static Int32 parent_id
     {
         get
         {
@@ -110,7 +110,7 @@ public class Session_CS
 
 
 
-    public Int32 foundation_id
+    public static Int32 foundation_id
     {
         get
         {
@@ -139,7 +139,7 @@ public class Session_CS
         }
 
     }
-    public Int32 code_archiving
+    public static Int32 code_archiving
     {
 
         get
@@ -168,7 +168,7 @@ public class Session_CS
         }
 
     }
-    public Int32 Port
+    public static Int32 Port
     {
         get
         {
@@ -197,7 +197,7 @@ public class Session_CS
         }
 
     }
-    public string Host
+    public static string Host
     {
 
         get
@@ -228,7 +228,7 @@ public class Session_CS
         }
 
     }
-    public string FromAddress
+    public static string FromAddress
     {
 
 
@@ -258,7 +258,7 @@ public class Session_CS
             HttpContext.Current.Response.Cookies.Add(cook_FromAddress);
         }
     }
-    public string UserName_mail
+    public static string UserName_mail
     {
 
         get
@@ -289,7 +289,7 @@ public class Session_CS
 
 
     }
-    public string Password
+    public static string Password
     {
         get
         {
@@ -320,7 +320,7 @@ public class Session_CS
 
     }
 
-    public Int32 child_emp
+    public static Int32 child_emp
     {
 
         get
@@ -351,7 +351,7 @@ public class Session_CS
 
 
     }
-    public Int32 Project_id
+    public static Int32 Project_id
     {
 
         get
@@ -383,7 +383,7 @@ public class Session_CS
 
 
     }
-    public Int32 System_ID
+    public static Int32 System_ID
     {
 
         get
@@ -415,7 +415,7 @@ public class Session_CS
 
 
     }
-    public Int32 group_id
+    public static Int32 group_id
     {
         get
         {
@@ -445,7 +445,7 @@ public class Session_CS
 
 
     }
-    public string UserName
+    public static string UserName
     {
 
 
@@ -475,7 +475,7 @@ public class Session_CS
             HttpContext.Current.Response.Cookies.Add(cook_UserName);
         }
     }
-    public string Usr_Name
+    public static string Usr_Name
     {
 
         get
@@ -506,7 +506,7 @@ public class Session_CS
 
 
     }
-    public Int32 pmp_id
+    public static Int32 pmp_id
     {
 
         get
@@ -542,7 +542,7 @@ public class Session_CS
         }
 
     }
-    public string dept
+    public static string dept
     {
 
         get
@@ -572,7 +572,7 @@ public class Session_CS
 
 
     }
-    public Int32 dept_id
+    public static Int32 dept_id
     {
 
         get
@@ -601,7 +601,7 @@ public class Session_CS
         }
 
     }
-    public Int32 UROL_UROL_ID
+    public static Int32 UROL_UROL_ID
     {
         get
         {
@@ -628,7 +628,7 @@ public class Session_CS
             HttpContext.Current.Response.Cookies.Add(cook_UROL_UROL_ID);
         }
     }
-    public Int32 vacation_mng
+    public static Int32 vacation_mng
     {
 
         get
@@ -657,7 +657,7 @@ public class Session_CS
         }
 
     }
-    public Int32 sec_id
+    public static Int32 sec_id
     {
 
 
@@ -689,7 +689,7 @@ public class Session_CS
 
 
     }
-    public string pmp_name
+    public static string pmp_name
     {
 
 
@@ -719,7 +719,7 @@ public class Session_CS
         }
     }
 
-    public string parentbychild
+    public static string parentbychild
     {
 
         get
@@ -749,7 +749,7 @@ public class Session_CS
 
     }
 
-    public string e_signature
+    public static string e_signature
     {
 
         get
@@ -779,7 +779,7 @@ public class Session_CS
 
     }
 
-    public string Site_Name
+    public static string Site_Name
     {
 
         get
@@ -809,7 +809,7 @@ public class Session_CS
 
     }
 
-    //public  Int32 is_vacation_mng
+    //public static  Int32 is_vacation_mng
     //{
 
 
@@ -837,7 +837,7 @@ public class Session_CS
 
     //}
 
-    //public  Int32 Eval_mng
+    //public static  Int32 Eval_mng
     //{
 
 
@@ -865,7 +865,7 @@ public class Session_CS
 
     //}
 
-    public Int32 Hr_Eval
+    public static Int32 Hr_Eval
     {
 
 
@@ -903,7 +903,7 @@ public class Session_CS
 
 
 
-    public Int32 Dept_parent_id
+    public static Int32 Dept_parent_id
     {
 
         get
@@ -934,7 +934,7 @@ public class Session_CS
 
     }
 
-    public Boolean local_filesave
+    public static Boolean local_filesave
     {
 
         get
@@ -967,7 +967,7 @@ public class Session_CS
     }
 
 
-    public string local_connectionstring
+    public static string local_connectionstring
     {
 
         get

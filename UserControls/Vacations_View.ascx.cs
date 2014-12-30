@@ -14,7 +14,7 @@ using System.Xml.Linq;
 public partial class UserControls_Vacations_View : System.Web.UI.UserControl
 {
 
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     protected void Page_Load(object sender, EventArgs e)
     {
 

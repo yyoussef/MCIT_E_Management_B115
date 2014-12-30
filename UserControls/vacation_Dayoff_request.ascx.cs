@@ -16,7 +16,7 @@ public partial class UserControls_vacation_Dayoff_request : System.Web.UI.UserCo
 {
 
     string InsideMCIT = System.Configuration.ConfigurationManager.AppSettings["InsideMCIT"].ToString();
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     private string sql_Connection = Database.ConnectionString;
     protected void Page_Load(object sender, EventArgs e)
     {

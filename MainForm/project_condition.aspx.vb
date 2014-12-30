@@ -2,7 +2,7 @@
 
 Partial Class WebForms_project_condition
     Inherits System.Web.UI.Page
-    Dim Session_CS As New Session_CS
+    'Session_CS Session_CS
 
     Dim Obj_General_Helping As New General_Helping
     Dim sql_Connection As String = Database.ConnectionString

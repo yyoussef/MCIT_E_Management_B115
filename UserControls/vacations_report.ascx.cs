@@ -28,7 +28,7 @@ public partial class UserControls_vacations_report : System.Web.UI.UserControl
     //hta5dy start///////////////
     //private cBrowser obj_Browserdept, obj_Browsermanage;
     //private SqlConnection obj_Sql_Con;
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     private string sql_Connection = Universal.GetConnectionString();
 
     protected override void OnInit(EventArgs e)

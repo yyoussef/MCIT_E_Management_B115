@@ -13,7 +13,7 @@ namespace Geekees.Common.Controls.Demo
 {
 	public partial class Header : System.Web.UI.UserControl
     {
-        Session_CS Session_CS = new Session_CS();
+        //Session_CS Session_CS = new Session_CS();
 		protected string ASTreeViewVersion
 		{
 			get

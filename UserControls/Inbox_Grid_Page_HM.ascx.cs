@@ -17,7 +17,7 @@ using System.Drawing;
 
 public partial class UserControls_Inbox_Grid_Page_HM : System.Web.UI.UserControl
 {
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)

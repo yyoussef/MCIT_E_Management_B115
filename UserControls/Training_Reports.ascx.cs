@@ -22,7 +22,7 @@ using ReportsClass;
 public partial class UserControls_Training_Reports : System.Web.UI.UserControl
 {
     General_Helping Obj_General_Helping = new General_Helping();
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     string sql;
     SqlConnection conn;
     SqlDataAdapter da;

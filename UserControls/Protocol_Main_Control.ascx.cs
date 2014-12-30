@@ -23,7 +23,7 @@ public partial class UserControls_Protocol_Main_Control : System.Web.UI.UserCont
       SqlConnection conn;
     SqlDataAdapter da;
     DataSet ds;
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     protected override void OnInit(EventArgs e)
     {
         fill_smart();

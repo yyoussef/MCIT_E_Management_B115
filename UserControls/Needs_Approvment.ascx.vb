@@ -9,7 +9,7 @@ Partial Class UserControls_Needs_Approvment
     Public con As New SqlClient.SqlConnection
     Dim fmt As DateTimeFormatInfo = (New CultureInfo("en-US")).DateTimeFormat
     Dim provider As CultureInfo = CultureInfo.InvariantCulture
-    Dim Session_CS As New Session_CS
+    '    'Session_CS Session_CS
 
 #Region "Variables"
     Dim Project_Needs_ENTITY As New BLL.Project_Needs

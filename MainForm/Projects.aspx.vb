@@ -6,7 +6,7 @@ Imports System.Collections
 
 Partial Class MainForm_Projects
     Inherits System.Web.UI.Page
-    Dim Session_CS As New Session_CS
+    'Session_CS Session_CS
 
 
 

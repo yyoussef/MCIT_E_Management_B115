@@ -31,7 +31,7 @@ namespace ReportsClass
     
     public class Reports : System.Web.UI.Page
     {
-        Session_CS Session_CS = new Session_CS();
+        //Session_CS Session_CS = new Session_CS();
         string sql;
         static SqlConnection conn;
         SqlDataAdapter da;

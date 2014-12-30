@@ -152,7 +152,7 @@ public class User_info
         
         get
         {
-            Session_CS Session_CS = new Session_CS();
+            //Session_CS Session_CS = new Session_CS();
             //Page obj = new Page();
 
             //if (obj.Session["Arr_User_Permission"] == null)

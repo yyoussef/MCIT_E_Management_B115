@@ -17,7 +17,7 @@ using System.Text;
 using System.IO;
 public partial class MainForm_Default2 : System.Web.UI.Page
 {
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     private string sql_Connection = Database.ConnectionString;
     protected void Page_Load(object sender, EventArgs e)
     {

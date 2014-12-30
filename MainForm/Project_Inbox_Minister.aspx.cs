@@ -20,7 +20,7 @@ using System.Net.Mail;
 
 public partial class WebForms_Project_Inbox_Minister : System.Web.UI.Page
 {
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     private string sql_Connection = Database.ConnectionString;
     General_Helping Obj_General_Helping = new General_Helping();
 

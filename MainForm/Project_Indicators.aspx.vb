@@ -4,7 +4,7 @@ Imports CrystalDecisions.Shared
 
 Partial Class WebForms_Project_Indicators
     Inherits System.Web.UI.Page
-    Dim Session_CS As New Session_CS
+    'Session_CS Session_CS
 
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load

@@ -22,7 +22,7 @@ public class BasePage : System.Web.UI.Page
 
     protected override void OnLoad(EventArgs e)
     {
-        Session_CS Session_CS = new Session_CS();
+        //Session_CS Session_CS = new Session_CS();
         base.OnLoad(e);
             this.MaintainScrollPositionOnPostBack = true;
             

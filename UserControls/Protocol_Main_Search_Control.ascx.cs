@@ -25,7 +25,7 @@ public partial class UserControls_Protocol_Main_Search_Control : System.Web.UI.U
     General_Helping Obj_General_Helping = new General_Helping();
     private string sql_Connection = Database.ConnectionString;
 
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     protected override void OnInit(EventArgs e)
     {
         string Query = "";

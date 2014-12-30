@@ -23,7 +23,7 @@ using System.Reflection;
 using System.Data.Sql;
 public partial class MainForm_org_structure : System.Web.UI.Page
 {
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)

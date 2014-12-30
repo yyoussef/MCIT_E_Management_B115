@@ -6,7 +6,7 @@ Partial Class UserControls_Project_Team
 
 #Region "Variables"
     Dim Project_Team_ENTITY As New BLL.Project_Team
-    Dim Session_CS As New Session_CS
+    ''Session_CS Session_CS
     Dim Obj_General_Helping As New General_Helping
     Dim sql_Connection As String = DBL.Universal.GetConnectionString()
     'Private Obj_Browser_Side As New cBrowser(Me, "select JTIT_ID,JTIT_Desc from job_title where JTIT_ID >" & 5, "الفئه", 4)

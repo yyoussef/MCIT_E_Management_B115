@@ -16,7 +16,7 @@ using System.IO;
 
 public partial class WebForms_Project_presentation_search : System.Web.UI.Page
 {
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     protected void Page_Load(object sender, EventArgs e)
     {
 

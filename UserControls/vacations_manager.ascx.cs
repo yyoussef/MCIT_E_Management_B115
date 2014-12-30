@@ -22,7 +22,7 @@ using System.IO;
 
 public partial class UserControls_vacations_manager : System.Web.UI.UserControl
 {
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     SqlConnection conn;
     private string sql_Connection = Database.ConnectionString;
     Thread t1;

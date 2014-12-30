@@ -28,7 +28,7 @@ using System.Data.Sql;
 
 public partial class WebForms2_Department_manage : System.Web.UI.Page
 {
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     private string sql_Connection = Database.ConnectionString;
     General_Helping Obj_General_Helping = new General_Helping();
 

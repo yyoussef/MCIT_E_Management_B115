@@ -30,7 +30,7 @@ public partial class UserControls_MMallReports : System.Web.UI.UserControl
     SqlConnection conn;
     SqlDataAdapter da;
     DataSet ds;
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     //hta5dy start///////////////
     //private cBrowser obj_Browserdept, obj_Browsermanage;
     //private SqlConnection obj_Sql_Con;

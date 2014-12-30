@@ -21,7 +21,7 @@ using Geekees.Common.Controls;
 
 public partial class WebForms_Deprt_Documnts : System.Web.UI.Page
 {
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     General_Helping Obj_General_Helping = new General_Helping();
     #region overrided methods
     /// <summary>
