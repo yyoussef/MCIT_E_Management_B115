@@ -15,7 +15,7 @@ using ReportsClass;
 public partial class UserControls_Eval_For_Employee : System.Web.UI.UserControl
 {
     private string sql_Connection = Database.ConnectionString;
-    //Session_CS Session_CS = new Session_CS();
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -35,7 +35,7 @@ public partial class UserControls_Eval_For_Employee : System.Web.UI.UserControl
 
     #region Methods
 
- 
+
 
     private void MOnMember_Data_Depart(string Value)
     {
@@ -55,7 +55,7 @@ public partial class UserControls_Eval_For_Employee : System.Web.UI.UserControl
         Smart_Pmp_Id.sql_Connection = sql_Connection;
 
         string Query = " SELECT  distinct   EMPLOYEE.PMP_ID, EMPLOYEE.pmp_name, Employee_Managers.Mngr_Emp_ID FROM         EMPLOYEE INNER JOIN                       Employee_Managers ON EMPLOYEE.PMP_ID = Employee_Managers.Emp_ID WHERE     (EMPLOYEE.workstatus = 1) AND (EMPLOYEE.PMP_ID NOT IN (68, 596, 597))  ";
-         Query += " and  Mngr_Emp_ID=" + Session_CS.pmp_id.ToString();
+        Query += " and  Mngr_Emp_ID=" + Session_CS.pmp_id.ToString();
         Smart_Pmp_Id.datatble = General_Helping.GetDataTable(Query);
         Smart_Pmp_Id.Show_Code = false;
         Smart_Pmp_Id.Value_Field = "pmp_id";
@@ -123,9 +123,9 @@ public partial class UserControls_Eval_For_Employee : System.Web.UI.UserControl
 
                 fil_grid();//fill evaluation gridview
 
-               
-              
-                DataTable dt_btn = Evaluation_Main_DB.Evaluation_Employee_Finished(CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue),CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()));
+
+
+                DataTable dt_btn = Evaluation_Main_DB.Evaluation_Employee_Finished(CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue), CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()));
                 if (dt_btn.Rows.Count > 0)
                 {
                     if (hidden_direct_mngr.Value == "1")
@@ -213,7 +213,7 @@ public partial class UserControls_Eval_For_Employee : System.Web.UI.UserControl
             sub_id = CDataConverter.ConvertToInt(EvalItems_Managernotexis_dt.Rows[0]["Sub_Item_Id"].ToString());
 
 
-        
+
             Evaluation_Main_DT obj = new Evaluation_Main_DT();
             obj.Id = 0;
             obj.Evaluation_id = eval_id;
@@ -228,13 +228,13 @@ public partial class UserControls_Eval_For_Employee : System.Web.UI.UserControl
             obj.Sub_Item_Id = sub_id;
             Evaluation_Main_DB.Save(obj);
 
-  
+
 
         }
 
 
 
-       
+
 
 
 
@@ -255,7 +255,7 @@ public partial class UserControls_Eval_For_Employee : System.Web.UI.UserControl
 
     private void fill_Grid_weeknes()
     {
-        
+
         DataTable dt = Get_Weekness_Strengths(1, CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()));
         if (dt.Rows.Count <= 1)
         {
@@ -278,7 +278,7 @@ public partial class UserControls_Eval_For_Employee : System.Web.UI.UserControl
 
 
         }
-    
+
         DataTable dtW = Get_Weekness_Strengths(0, CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()));
         if (dtW.Rows.Count <= 1)
         {
@@ -300,13 +300,13 @@ public partial class UserControls_Eval_For_Employee : System.Web.UI.UserControl
 
 
         }
-       
+
     }
 
     private void fill_Grid_Training()
     {
 
-      
+
         DataTable dt = Get_Training_Needs(CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()));
         if (dt.Rows.Count <= 1)
         {
@@ -333,10 +333,10 @@ public partial class UserControls_Eval_For_Employee : System.Web.UI.UserControl
         }
 
 
-       
+
     }
 
-   
+
 
     private void Set_Selected_DDL(DataTable dt)
     {
@@ -389,7 +389,7 @@ public partial class UserControls_Eval_For_Employee : System.Web.UI.UserControl
         }
     }
 
-    
+
 
 
 
@@ -402,8 +402,8 @@ public partial class UserControls_Eval_For_Employee : System.Web.UI.UserControl
         }
     }
 
-  
-    
+
+
 
     private void ReadPdfFile()
     {
@@ -540,7 +540,7 @@ public partial class UserControls_Eval_For_Employee : System.Web.UI.UserControl
 
     #endregion
 
-    
+
 
     #region Event Handlers
 
@@ -550,7 +550,7 @@ public partial class UserControls_Eval_For_Employee : System.Web.UI.UserControl
         {
             if (Check_Main_Valid())
             {
-                
+
                 Evaluation_For_Employee_DB.Clear_for_emp(CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue), CDataConverter.ConvertToInt(Session_CS.pmp_id));
                 //commented by Eng.:MaHmOuD
                 Evaluation_For_Employee_DT obj = Evaluation_For_Employee_DB.Select_By_EmpID_And_MngrID(CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue), CDataConverter.ConvertToInt(Session_CS.pmp_id));
@@ -562,17 +562,17 @@ public partial class UserControls_Eval_For_Employee : System.Web.UI.UserControl
                     //obj.Month = DateTime.Now.Month; //CDataConverter.ConvertToInt(ddl_month.SelectedItem.Text);
                     //obj.Year = DateTime.Now.Year;// CDataConverter.ConvertToInt(ddl_year.SelectedItem.Text);
 
-                    obj.Month = CDataConverter.ConvertDateTimeNowRtnDt().Month ; //CDataConverter.ConvertToInt(ddl_month.SelectedItem.Text);
+                    obj.Month = CDataConverter.ConvertDateTimeNowRtnDt().Month; //CDataConverter.ConvertToInt(ddl_month.SelectedItem.Text);
                     obj.Year = CDataConverter.ConvertDateTimeNowRtnDt().Year;// CDataConverter.ConvertToInt(ddl_year.SelectedItem.Text);
                     obj.Pmp_Id = CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue);
-                  
+
                     obj.Direct_Mng_Finished = false;
-                 
+
                     obj.Top_Mng_Finished = false;
 
-                   
+
                     obj.Evaluator_emp_ID = CDataConverter.ConvertToInt(Session_CS.pmp_id);
-                  
+
                     hidden_Evaluation_id.Value = Evaluation_For_Employee_DB.Save(obj).ToString();
 
 
@@ -612,54 +612,54 @@ public partial class UserControls_Eval_For_Employee : System.Web.UI.UserControl
         int group = CDataConverter.ConvertToInt(Session_CS.group_id.ToString());
         ReportDocument rd = new ReportDocument();
         string s = "";
-      
-            int direct_empId = 0;
-            DataTable dt = Employee_Managers_DB.Selectby_EmpId(CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue), 1);
-            if (dt.Rows.Count > 0)
-            {
-                direct_empId = CDataConverter.ConvertToInt(dt.Rows[0]["Mngr_Emp_ID"].ToString());
-            }
 
-            s = Server.MapPath("../Reports/Evaluation_Report_All.rpt");
-            rd.Load(s);
+        int direct_empId = 0;
+        DataTable dt = Employee_Managers_DB.Selectby_EmpId(CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue), 1);
+        if (dt.Rows.Count > 0)
+        {
+            direct_empId = CDataConverter.ConvertToInt(dt.Rows[0]["Mngr_Emp_ID"].ToString());
+        }
 
-            Reports.Load_Report(rd);
+        s = Server.MapPath("../Reports/Evaluation_Report_All.rpt");
+        rd.Load(s);
 
-            rd.SetParameterValue("@pmp_id", CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue), "Header_Eval_Report.rpt");
+        Reports.Load_Report(rd);
 
-            rd.SetParameterValue("@pmp_id", CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue), "sub_Evaluation_Rep_first.rpt");
-            rd.SetParameterValue("@pmp_id", CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue), "sub_Evaluation_Rep_strengh_amira.rpt");
-            rd.SetParameterValue("@pmp_id", CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue), "sub_Evaluation_Rep_weakness_amira.rpt");
-            rd.SetParameterValue("@pmp_id", CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue), "sub_Evaluation_Rep_Needs.rpt");
-            rd.SetParameterValue("@pmp_id", CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue), "signatures_Eval_Report.rpt");
-            rd.SetParameterValue("@ip", IpAddress(), "footerRep.rpt");
-            rd.SetParameterValue("@user", user, "footerRep.rpt");
+        rd.SetParameterValue("@pmp_id", CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue), "Header_Eval_Report.rpt");
+
+        rd.SetParameterValue("@pmp_id", CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue), "sub_Evaluation_Rep_first.rpt");
+        rd.SetParameterValue("@pmp_id", CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue), "sub_Evaluation_Rep_strengh_amira.rpt");
+        rd.SetParameterValue("@pmp_id", CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue), "sub_Evaluation_Rep_weakness_amira.rpt");
+        rd.SetParameterValue("@pmp_id", CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue), "sub_Evaluation_Rep_Needs.rpt");
+        rd.SetParameterValue("@pmp_id", CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue), "signatures_Eval_Report.rpt");
+        rd.SetParameterValue("@ip", IpAddress(), "footerRep.rpt");
+        rd.SetParameterValue("@user", user, "footerRep.rpt");
 
 
-            if (Session_CS.pmp_id >0 && CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()) == direct_empId)
-            {
-                rd.SetParameterValue("mng_type", 1, "sub_Evaluation_Rep_first.rpt");
+        if (Session_CS.pmp_id > 0 && CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()) == direct_empId)
+        {
+            rd.SetParameterValue("mng_type", 1, "sub_Evaluation_Rep_first.rpt");
 
-                rd.SetParameterValue("mng_type", 1, "sub_Evaluation_Rep_strengh_amira.rpt");
+            rd.SetParameterValue("mng_type", 1, "sub_Evaluation_Rep_strengh_amira.rpt");
 
-                rd.SetParameterValue("mng_type", 1, "sub_Evaluation_Rep_weakness_amira.rpt");
+            rd.SetParameterValue("mng_type", 1, "sub_Evaluation_Rep_weakness_amira.rpt");
 
-                rd.SetParameterValue("mng_type", 1, "sub_Evaluation_Rep_Needs.rpt");
+            rd.SetParameterValue("mng_type", 1, "sub_Evaluation_Rep_Needs.rpt");
 
-            }
-            else
-            {
-                rd.SetParameterValue("mng_type", 2, "sub_Evaluation_Rep_first.rpt");
+        }
+        else
+        {
+            rd.SetParameterValue("mng_type", 2, "sub_Evaluation_Rep_first.rpt");
 
-                rd.SetParameterValue("mng_type", 2, "sub_Evaluation_Rep_strengh_amira.rpt");
+            rd.SetParameterValue("mng_type", 2, "sub_Evaluation_Rep_strengh_amira.rpt");
 
-                rd.SetParameterValue("mng_type", 2, "sub_Evaluation_Rep_weakness_amira.rpt");
+            rd.SetParameterValue("mng_type", 2, "sub_Evaluation_Rep_weakness_amira.rpt");
 
-                rd.SetParameterValue("mng_type", 2, "sub_Evaluation_Rep_Needs.rpt");
+            rd.SetParameterValue("mng_type", 2, "sub_Evaluation_Rep_Needs.rpt");
 
-            }
+        }
 
-            rd.ExportToHttpResponse(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, Response, true, "Report");
+        rd.ExportToHttpResponse(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat, Response, true, "Report");
 
     }
 
@@ -694,7 +694,7 @@ public partial class UserControls_Eval_For_Employee : System.Web.UI.UserControl
 
     protected void Ddl_Sectors_SelectedIndexChanged(object sender, EventArgs e)
     {
-      
+
         if (CDataConverter.ConvertToInt(Ddl_Sectors.SelectedValue) > 0)
         {
             if (Request["pmp_id"] != null)
@@ -713,13 +713,13 @@ public partial class UserControls_Eval_For_Employee : System.Web.UI.UserControl
         }
     }
 
-  
+
 
     #endregion
 
     #region Functions
 
-  
+
 
     public string IpAddress()
     {
@@ -788,7 +788,7 @@ public partial class UserControls_Eval_For_Employee : System.Web.UI.UserControl
                 txtbox.Enabled = false;
             }
 
-       
+
             return true;
         }
         else
@@ -807,9 +807,9 @@ public partial class UserControls_Eval_For_Employee : System.Web.UI.UserControl
 
     private bool Check_Main_Valid()
     {
-        DataTable dt = Evaluation_Main_DB.check_dept_category(CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue ));
+        DataTable dt = Evaluation_Main_DB.check_dept_category(CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue));
 
-        if (Smart_Pmp_Id.SelectedValue != "" && dt.Rows.Count > 0 )
+        if (Smart_Pmp_Id.SelectedValue != "" && dt.Rows.Count > 0)
             return true;
         else
         {
@@ -820,32 +820,32 @@ public partial class UserControls_Eval_For_Employee : System.Web.UI.UserControl
 
     private DataTable Get_Weekness_Strengths(int type, int Evaluator_emp_ID)
     {
-      
+
         DataTable dt = Evaluation_Main_DB.Get_Weakness_Strengths(CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue), type, Evaluator_emp_ID);
-      
+
         return dt;
 
     }
 
     private DataTable Get_Training_Needs(int Evaluator_emp_ID)
     {
-       
-       DataTable dt = Evaluation_Main_DB.Get_Training_Needs(CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue),Evaluator_emp_ID);
 
-        return dt;      
+        DataTable dt = Evaluation_Main_DB.Get_Training_Needs(CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue), Evaluator_emp_ID);
+
+        return dt;
     }
 
     #endregion
 
     #region Methods
 
-    
+
 
     private void Set_Hr_Last_Eval_ID()
     {
 
         DataTable dt = Evaluation_Main_DB.Set_Hr_Last_Eval_ID(CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue));
-   
+
         if (dt.Rows.Count > 0)
         {
 
@@ -854,7 +854,7 @@ public partial class UserControls_Eval_For_Employee : System.Web.UI.UserControl
         }
         else
             hidden_Evaluation_id.Value = "";
-       
+
     }
 
     private void SaveHrNotes()
@@ -871,20 +871,20 @@ public partial class UserControls_Eval_For_Employee : System.Web.UI.UserControl
         //obj.Month = DateTime.Now.Month; //CDataConverter.ConvertToInt(ddl_month.SelectedItem.Text);
         //obj.Year = DateTime.Now.Year;// CDataConverter.ConvertToInt(ddl_year.SelectedItem.Text);
 
-        obj.Month = CDataConverter.ConvertDateTimeNowRtnDt().Month ; //CDataConverter.ConvertToInt(ddl_month.SelectedItem.Text);
-        obj.Year = CDataConverter.ConvertDateTimeNowRtnDt().Year ;// CDataConverter.ConvertToInt(ddl_year.SelectedItem.Text);
+        obj.Month = CDataConverter.ConvertDateTimeNowRtnDt().Month; //CDataConverter.ConvertToInt(ddl_month.SelectedItem.Text);
+        obj.Year = CDataConverter.ConvertDateTimeNowRtnDt().Year;// CDataConverter.ConvertToInt(ddl_year.SelectedItem.Text);
 
         obj.Pmp_Id = CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue);
         obj.Top_Mng_Finished = false;
         obj.Evaluator_emp_ID = 0;
         hidden_Evaluation_id.Value = Evaluation_For_Employee_DB.Save(obj).ToString();
         //clear previous hr evaluation id
-        ClearPrevHrEvaluation(CDataConverter.ConvertToInt( hidden_Evaluation_id.Value));
+        ClearPrevHrEvaluation(CDataConverter.ConvertToInt(hidden_Evaluation_id.Value));
 
-       
+
     }
 
-  
+
 
     private void Fill_Grid_weeknes_Hr()
     {
@@ -896,18 +896,18 @@ public partial class UserControls_Eval_For_Employee : System.Web.UI.UserControl
     private void Fill_Grid_Strangths_Hr()
     {
         DataTable dt = Evaluation_Main_DB.Get_Eval_Employee_Strengths(CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue));
-     
+
         ViewState["dt_week"] = dt;
         Gridview_ٍstrength.DataSource = ViewState["dt_week"];
         Gridview_ٍstrength.DataBind();
 
     }
 
-  
+
 
     private void ClearPrevHrEvaluation(int eval_ID)
     {
-     
+
 
         Evaluation_Main_DB.Evaluation_Main_DeletebyID(eval_ID);
 
