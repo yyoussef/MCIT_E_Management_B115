@@ -657,11 +657,11 @@ public partial class Smart_Search : System.Web.UI.UserControl
             string[] arrstr = str.Split(',');
             this.lbl_Value.Text = hidden_Value.Value = txt_Id.Text = arrstr[0].ToString();
             txt_Name.Text = arrstr[1].ToString();
-            //if (Value_Handler != null)
-              //  Value_Handler(txt_Id.Text);
-
+            if (Value_Handler != null)
+                Value_Handler(txt_Id.Text);
+            //Div_Grid.Visible = false;
             hidden_Searched.Value = "2";
-
+            // Search_Grid();
             Div_Grid.Style.Add("display", "none");
             Set_Color_Selected_Value();
 

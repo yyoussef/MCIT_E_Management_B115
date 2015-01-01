@@ -24,6 +24,7 @@ public partial class UserControls_Eval_For_Employee : System.Web.UI.UserControl
             Ddl_Sectors.DataBind();
             Ddl_Sectors_SelectedIndexChanged(sender, e);
             Ddl_Sectors.Enabled = false;
+            
         }
     }
 
@@ -31,6 +32,7 @@ public partial class UserControls_Eval_For_Employee : System.Web.UI.UserControl
     {
 
         this.Smart_Pmp_Id.Value_Handler += new Smart_Search.Delegate_Selected_Value(MOnMember_Data_Emp);
+        
     }
 
     #region Methods
@@ -42,6 +44,7 @@ public partial class UserControls_Eval_For_Employee : System.Web.UI.UserControl
         if (Value != "")
         {
             fil_employee();
+
         }
         else
         {
@@ -54,7 +57,7 @@ public partial class UserControls_Eval_For_Employee : System.Web.UI.UserControl
     {
         Smart_Pmp_Id.sql_Connection = sql_Connection;
 
-        string Query = " SELECT  distinct   EMPLOYEE.PMP_ID, EMPLOYEE.pmp_name, Employee_Managers.Mngr_Emp_ID FROM         EMPLOYEE INNER JOIN                       Employee_Managers ON EMPLOYEE.PMP_ID = Employee_Managers.Emp_ID WHERE     (EMPLOYEE.workstatus = 1) AND (EMPLOYEE.PMP_ID NOT IN (68, 596, 597))  ";
+        string Query = " SELECT  distinct   EMPLOYEE.PMP_ID, EMPLOYEE.pmp_name, Employee_Managers.Mngr_Emp_ID FROM         EMPLOYEE INNER JOIN                       Employee_Managers ON EMPLOYEE.PMP_ID = Employee_Managers.Emp_ID WHERE     (EMPLOYEE.workstatus = 1)  ";
         Query += " and  Mngr_Emp_ID=" + Session_CS.pmp_id.ToString();
         Smart_Pmp_Id.datatble = General_Helping.GetDataTable(Query);
         Smart_Pmp_Id.Show_Code = false;
