@@ -14,7 +14,7 @@ using Dates;
 
 public partial class MainForm_ActivitiesEditing : System.Web.UI.Page
 {
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     public string startDate = "";
     public string endDate = "";
     public string period = "";

@@ -2,7 +2,7 @@
 
 Partial Public Class UserControls_Sticker
     Inherits System.Web.UI.UserControl
-    Dim Session_CS As New Session_CS
+    ''Session_CS Session_CS
 
 
 

@@ -5,7 +5,7 @@ Partial Public Class Masters_MainformMaster
 
     Inherits System.Web.UI.MasterPage
 
-dim Session_CS as new Session_CS 
+    'dim Session_CS as new Session_CS 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         If Not IsPostBack Then
             'If Session_CS.Project_id = Nothing Then

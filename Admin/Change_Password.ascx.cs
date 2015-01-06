@@ -22,7 +22,7 @@ public partial class UserControls_Change_Password : System.Web.UI.UserControl
     DataSet ds, ds_total;
     SqlCommand cmd;
     private string sql_Connection = Database.ConnectionString;
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)

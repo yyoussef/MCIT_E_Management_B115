@@ -18,7 +18,7 @@ using System.Net.Mail;
 public partial class UserControls_Training_userresult : System.Web.UI.UserControl
 {
     int course_employee_id;
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!Page.IsPostBack)

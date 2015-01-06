@@ -22,7 +22,7 @@ Partial Class UserControls_proj_info
 
 #Region "Variables"
     Dim Project_ENTITY As New BLL.Project
-    Dim Session_CS As New Session_CS
+    '    'Session_CS Session_CS
     Dim previousCat As String = ""
     Dim firstRow As Integer = -1
     Public con As New SqlConnection

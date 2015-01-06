@@ -14,7 +14,7 @@ using System.IO;
 
 public partial class WebForms_Open_Documents : System.Web.UI.Page
 {
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)

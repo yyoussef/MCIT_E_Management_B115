@@ -2,7 +2,7 @@
 
 Partial Class WebForms_Peoject_Document_Details
     Inherits System.Web.UI.Page
-    Dim Session_CS As New Session_CS
+    'Session_CS Session_CS
 
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load

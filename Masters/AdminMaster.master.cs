@@ -13,7 +13,7 @@ using System.Xml.Linq;
 
 public partial class Admin_master : System.Web.UI.MasterPage
 {
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     protected void Page_Load(object sender, EventArgs e)
     {
         //if (Session["ID"] == null || CDataConverter.ConvertToInt(Session["ID"]) < 0)

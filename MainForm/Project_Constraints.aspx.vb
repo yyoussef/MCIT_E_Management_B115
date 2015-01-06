@@ -14,7 +14,7 @@ Partial Class WebForms_Project_Constraints
 #Region "Variables"
     'Dim str As String = Session_CS.Project_id.ToString()
     Dim Project_CONS_ENTITY As New BLL.Project_Constraints
-    Dim Session_CS As New Session_CS
+    'Session_CS Session_CS
     Dim Obj_General_Helping As New General_Helping
     Dim sql_Connection As String = DBL.Universal.GetConnectionString()
 #End Region

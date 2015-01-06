@@ -15,7 +15,7 @@ using Dates;
 
 public partial class WebForms2_project_Achievements : System.Web.UI.Page
 {
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     General_Helping Obj_General_Helping = new General_Helping();
     public void Page_Load(object sender, EventArgs e)
     {

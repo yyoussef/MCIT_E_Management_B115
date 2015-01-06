@@ -35,7 +35,7 @@ public class SendingMailthread_class
 
     public static void Sendingmail(MailMessage _Message, string subject, string body, string mail, MemoryStream ms, string file, string encrypted_id, string cc_mail)
     {
-        Session_CS Session_CS = new Session_CS();
+       // Session_CS Session_CS = new Session_CS();
         
         try
         {

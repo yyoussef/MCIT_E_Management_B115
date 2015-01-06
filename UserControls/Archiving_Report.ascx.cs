@@ -28,7 +28,7 @@ public partial class UserControls_Eval_Emp_Report : System.Web.UI.UserControl
     DataSet ds;
     private string sql_Connection = Universal.GetConnectionString();
     string InsideMCIT = System.Configuration.ConfigurationManager.AppSettings["InsideMCIT"].ToString();
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     protected override void OnInit(EventArgs e)
     {
         

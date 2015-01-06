@@ -8,7 +8,7 @@ Partial Class UserControls_Project_Organizations
     Dim Obj_General_Helping As New General_Helping
     Dim org_entity As New BLL.Organization
     Dim sql_Connection As String = DBL.Universal.GetConnectionString()
-    Dim Session_CS As New Session_CS
+    ''Session_CS Session_CS
     Private mOrgType As Integer
 
 #End Region

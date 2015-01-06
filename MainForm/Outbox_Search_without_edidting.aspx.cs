@@ -19,7 +19,7 @@ using CrystalDecisions.CrystalReports.Engine;
 
 public partial class WebForms_Outbox_Search_without_edidting : System.Web.UI.Page
 {
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     string sql;
     SqlConnection conn;
     SqlDataAdapter da;

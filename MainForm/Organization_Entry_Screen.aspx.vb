@@ -2,7 +2,7 @@
 
 Partial Class WebForms_Organization_Entry_Screen
     Inherits System.Web.UI.Page
-    Dim Session_CS As New Session_CS
+    'Session_CS Session_CS
 
 #Region "Variables"
     Dim ORGINIZATION_ENTITY As New BLL.Organization

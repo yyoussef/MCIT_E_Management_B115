@@ -3,7 +3,7 @@ Imports System.Data
 
 Partial Class WebForms_Project_Document
     Inherits System.Web.UI.Page
-    Dim Session_CS As New Session_CS
+    'Session_CS Session_CS
     Public con As New SqlConnection
 
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load

@@ -6,7 +6,7 @@ Imports System.Collections.Generic
 
 Partial Class MainForm_Need_Recieve
     Inherits System.Web.UI.Page
-    Dim Session_CS As New Session_CS
+    'Session_CS Session_CS
     Public con As New SqlConnection
     Dim fmt As DateTimeFormatInfo = (New CultureInfo("en-US")).DateTimeFormat
     Dim provider As CultureInfo = CultureInfo.InvariantCulture

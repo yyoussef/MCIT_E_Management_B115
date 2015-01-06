@@ -15,7 +15,7 @@ using System.Data.SqlClient;
 
 public partial class WebForms_SiteUpload : System.Web.UI.Page
 {
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     static string img_src_path = "";
     protected void Page_Load(object sender, EventArgs e)
     {

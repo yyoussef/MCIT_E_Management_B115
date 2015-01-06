@@ -19,7 +19,7 @@ using CrystalDecisions.CrystalReports.Engine;
 
 public partial class UserControls_Add_Org : System.Web.UI.UserControl
 {
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)

@@ -59,14 +59,14 @@ public partial class SuperAdmin_Foundations : System.Web.UI.Page
     {
         Foundations_DT obj = new Foundations_DT();
 
-        DataTable select_dt = Foundations_DB.SelectAll();
+        DataTable select_dt = Foundations_DB.foundation_exist(CDataConverter.ConvertToInt( found_id.Value ));
         DataTable resultDT = select_dt.Clone();
       
         string temp = getNormalizedName(txtBox_FoundName.Text.Trim());
 
         foreach (DataRow dr in select_dt.Rows)
         {
-            if (getNormalizedName(dr["Foundation_Name"].ToString()).Contains(temp))
+            if (getNormalizedName(dr["Foundation_Name"].ToString()).Contains(temp) )
             {
                 resultDT.ImportRow(dr);
                 resultDT.AcceptChanges();
@@ -78,7 +78,7 @@ public partial class SuperAdmin_Foundations : System.Web.UI.Page
 
             }
         }
-        if (resultDT.Rows.Count == 0)
+        if (resultDT.Rows.Count == 0  )
         {
             obj.Foundation_ID = CDataConverter.ConvertToInt(found_id.Value);
             obj.Foundation_Name = txtBox_FoundName.Text;
@@ -107,6 +107,9 @@ public partial class SuperAdmin_Foundations : System.Web.UI.Page
                 obj.connection_string = "";
             }
             obj.Foundation_ID = Foundations_DB.Save(obj);
+            found_id.Value =
+            txtBox_FoundName.Text = "";
+
             if (obj.Foundation_ID > 0)
             {
 
@@ -157,8 +160,7 @@ public partial class SuperAdmin_Foundations : System.Web.UI.Page
         if (e.CommandName == "Show")
         {
             Foundations_DT obj = Foundations_DB.SelectByID(CDataConverter.ConvertToInt(e.CommandArgument));
-            if (obj != null)
-            {
+           
                 txtBox_FoundName.Text = obj.Foundation_Name.ToString();
                 txtBox_Port.Text = obj.Port.ToString();
                 txtBox_Host.Text = obj.Host.ToString();
@@ -186,7 +188,7 @@ public partial class SuperAdmin_Foundations : System.Web.UI.Page
                 found_id.Value = obj.Foundation_ID.ToString();
             }
 
-        }
+       
 
         else if (e.CommandName == "dlt")
         {

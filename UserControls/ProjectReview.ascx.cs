@@ -26,7 +26,7 @@ public partial class UserControls_ProjectReview : System.Web.UI.UserControl
     private string sql_Connection = Database.ConnectionString;
 
     General_Helping Obj_General_Helping = new General_Helping();
-    int id; Session_CS Session_CS = new Session_CS();
+    int id; //Session_CS Session_CS = new Session_CS();
 
     protected void Page_Load(object sender, EventArgs e)
     {

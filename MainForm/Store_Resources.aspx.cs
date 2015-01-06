@@ -21,7 +21,7 @@ public partial class WebForms_Store_Resources : System.Web.UI.Page
     DataSet ds;
     string sql;
     DataTable dt;
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
    
     
     

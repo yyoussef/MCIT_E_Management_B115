@@ -170,7 +170,7 @@ public partial class UserControls_Reports_accord_categories : System.Web.UI.User
     /// <param name="sender"></param> 
     /// <param name="e"></param>
 
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     protected void Page_Load(object sender, EventArgs e)
     {
         conn = new SqlConnection(sql_Connection);

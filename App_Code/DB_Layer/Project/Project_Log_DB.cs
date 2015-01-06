@@ -51,7 +51,7 @@ public class Project_Log_DB
         try
 
         {
-            Session_CS Session_CS = new Session_CS();
+            //Session_CS Session_CS = new Session_CS();
             string dateNow = CDataConverter.ConvertDateTimeNowRtrnString();
             int Pmp_id = 0;
             if (HttpContext.Current.Session["pmp_id"] != null && CDataConverter.ConvertToInt(HttpContext.Current.Session["pmp_id"]) > 0)

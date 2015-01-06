@@ -18,7 +18,7 @@ using DBL;
 public partial class WebForms_Project_protocol : System.Web.UI.Page
 {
     string sql_Connection = Universal.GetConnectionString();
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     protected void Page_Load(object sender, EventArgs e)
     {
 

@@ -13,7 +13,7 @@ using System.Xml.Linq;
 
 public partial class WebForms_Grids_International_Relations : System.Web.UI.Page
 {
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)

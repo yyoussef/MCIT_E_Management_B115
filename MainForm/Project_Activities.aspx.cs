@@ -25,10 +25,10 @@ using System.Reflection;
 
 public partial class WebForms2_Project_Activities : System.Web.UI.Page
 {
-    Session_CS Session_CS = new Session_CS();
     private string sql_Connection = Database.ConnectionString;
 
     General_Helping Obj_General_Helping = new General_Helping();
+   // Session_CS Session_CS = new Session_CS();
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -38,10 +38,10 @@ public partial class WebForms2_Project_Activities : System.Web.UI.Page
             FillDDL();
             FillGrid();
             FillChkBoxTeam();
-          
+
         }
     }
-  
+
 
     private void FillGrid()
     {
@@ -67,7 +67,7 @@ public partial class WebForms2_Project_Activities : System.Web.UI.Page
                 lblProgProgress.Text = (projProgress).ToString("#.00") + "%";
             else
                 lblProgProgress.Text = (projProgress).ToString() + "%";
-            
+
         }
         else
         {
@@ -76,7 +76,7 @@ public partial class WebForms2_Project_Activities : System.Web.UI.Page
 
     }
     private void FillDDL()
-     {
+    {
         string sql5 = "SELECT PActv_ID,PActv_Desc FROM Project_Activities where proj_proj_id=" + CDataConverter.ConvertToInt(Session_CS.Project_id) + " order by PActv_ID";
         DataTable _dt5 = General_Helping.GetDataTable(sql5);
 
@@ -87,18 +87,18 @@ public partial class WebForms2_Project_Activities : System.Web.UI.Page
 
         Obj_General_Helping.SmartBindDDL(ddlActvSit, _dt4, "ActStat_ID", "ActStat_Desc", "اختر موقف التنفيذ");
 
-      }           
+    }
     private void FillChkBoxTeam()
     {
-        string sql5   = "";
+        string sql5 = "";
         sql5 = "select * from Project_Team where proj_proj_id=" + CDataConverter.ConvertToInt(Session_CS.Project_id);
-           sql5+= " and rol_rol_id <> 4";
-        DataTable _dt5   = General_Helping.GetDataTable(sql5);
+        sql5 += " and rol_rol_id <> 4";
+        DataTable _dt5 = General_Helping.GetDataTable(sql5);
         chkBoxTeam.DataTextField = "PTem_Name";
         chkBoxTeam.DataValueField = "pmp_pmp_id";
         chkBoxTeam.DataSource = _dt5;
         chkBoxTeam.DataBind();
-       
+
     }
     protected override void OnPreRender(EventArgs e)
     {
@@ -112,20 +112,20 @@ public partial class WebForms2_Project_Activities : System.Web.UI.Page
 
     }
 
-    
+
 
     protected override void OnInit(EventArgs e)
     {
         #region BROWSER FOR departments
 
         Smart_Search_org.sql_Connection = sql_Connection;
-       // Smart_Search_org.Query = "SELECT Org_ID, Org_Desc FROM Organization";
+        // Smart_Search_org.Query = "SELECT Org_ID, Org_Desc FROM Organization";
         string Query = "SELECT Org_ID, Org_Desc FROM Organization";
         Smart_Search_org.datatble = General_Helping.GetDataTable(Query);
         Smart_Search_org.Value_Field = "ORG_id";
         Smart_Search_org.Text_Field = "Org_Desc";
         Smart_Search_org.DataBind();
-        
+
 
         #endregion
         base.OnInit(e);
@@ -210,96 +210,7 @@ public partial class WebForms2_Project_Activities : System.Web.UI.Page
 
     protected void btnPostBackTrigger2_Click(object sender, EventArgs e)
     {
-        string curNodeValue = this.txtCurrentNode.Text;
-        this.txtCurrentNode.BackColor = System.Drawing.Color.SkyBlue;
-        ASTreeViewNode node = this.astvMyTree.FindByValue(curNodeValue);
-
-        // show activity details
-
-        //if (astvMyTree.GetSelectedNode() == null)
-        //    Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('يجب إختيار النشاط أولا')</script>");
-        //else if (CDataConverter.ConvertToInt(astvMyTree.GetSelectedNode().NodeValue) <= 0)
-        //    Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('يجب إختيار النشاط أولا')</script>");
-        Clear_Control();
-        //if (node.ChildNodes.Count > 0)
-        //    //txt_Progress.Enabled = false;
-
-        Project_Activities_DT obj = Project_Activities_DB.SelectByID(CDataConverter.ConvertToInt(txtCurrentNode.Text));
-        txtDesc.Text = obj.PActv_Desc;
-        //txt_PActv_wieght.Text = CDataConverter.ConvertToInt(obj.PActv_wieght).ToString();
-        //txt_Progress.Text = CDataConverter.ConvertToInt(obj.PActv_Progress).ToString();
-        txtStartDate.Text = obj.PActv_Start_Date;
-        txtEndDate.Text = obj.PActv_End_Date;
-        txtPeriod.Text = obj.PActv_Period.ToString();
-        txtActStartDate.Text = obj.PActv_Actual_Start_Date.ToString();
-        txtActEndDate.Text = obj.PActv_Actual_End_Date.ToString();
-        txtPeriod.Text = obj.PActv_Actual_Period.ToString();
-        if (obj.ActStat_ActStat_id > 0)
-            ddlActvSit.SelectedValue = obj.ActStat_ActStat_id.ToString();
-        Smart_Search_org.SelectedValue = obj.Excutive_responsible_Org_Org_id.ToString();
-        txtExPer.Text = obj.PActv_Implementing_person;
-        txtActvNote.Text = obj.Notes;
-        txtSummery.Text = obj.summery;
-        if (obj.priorities > 0)
-        ddlPriorities.SelectedValue = obj.priorities.ToString();
-
-        Show_Gov(obj.PActv_ID);
-
-        string sql5 = "";
-        sql5 = "select * from Activities_Assigned_team where activ_id=" + CDataConverter.ConvertToInt(txtCurrentNode.Text);
-        DataTable _dt5 = General_Helping.GetDataTable(sql5);
-        if (_dt5.Rows.Count > 0)
-        {
-            for (int DTindex = 0; DTindex < _dt5.Rows.Count; DTindex++)
-            {
-                for (int index = 0; index < chkBoxTeam.Items.Count; index++)
-                {
-
-                    if (CDataConverter.ConvertToInt(chkBoxTeam.Items[index].Value) == CDataConverter.ConvertToInt(_dt5.Rows[DTindex]["emp_id"].ToString()))
-                    {
-                        chkBoxTeam.Items[index].Selected = true;
-                        chkBoxTeam.Items[index].Attributes["style"] = "color:red";
-                    }
-
-                }
-            }
-
-        }
-        ddlActivities.Items.Clear();
-        string sql55 = "SELECT PActv_ID,PActv_Desc FROM Project_Activities where proj_proj_id=" + CDataConverter.ConvertToInt(Session_CS.Project_id) + " and PActv_ID<>" + CDataConverter.ConvertToInt(txtCurrentNode.Text) + " order by PActv_ID";
-        DataTable _dt55 = General_Helping.GetDataTable(sql55);
-        if (_dt55.Rows.Count>0)
-        Obj_General_Helping.SmartBindDDL(ddlActivities, _dt55, "PActv_ID", "PActv_Desc", "اختر النشاط");
-        DataTable dt6 = General_Helping.GetDataTable("select * from Activities_Relations where current_activ =" + CDataConverter.ConvertToInt(txtCurrentNode.Text));
-        if (dt6.Rows.Count > 0)
-        {
-            ddlRelation.SelectedIndex = CDataConverter.ConvertToInt(dt6.Rows[0]["relation"].ToString());
-            ddlActivities.SelectedValue = dt6.Rows[0]["related_activ"].ToString();
-        }
-        else
-        {
-            ddlRelation.SelectedIndex = 0;
-            if (_dt55.Rows.Count > 0)
-            ddlActivities.SelectedIndex = 0;
-        }
-    
-
-        //
-
-
-        if (node.ParentNode != null)
-            this.txtNewParentNode.Text = node.ParentNode.NodeValue;
-        //
-        //if (node.ChildNodes.Count > 0)
-        //    txt_Progress.Enabled = false;
-
-        //string curNodeValue = this.txtCurrentNode.Text;
-
-        //if (CDataConverter.ConvertToInt(curNodeValue) > 0)
-        //{
-        //    btn_Doc.Text = "تعديل";
-        //    Fill_Controll(CDataConverter.ConvertToInt(curNodeValue));
-        //}
+        fill_actv_details();
     }
 
     protected void btnPostBackTrigger3_Click(object sender, EventArgs e)
@@ -319,7 +230,7 @@ public partial class WebForms2_Project_Activities : System.Web.UI.Page
             item.Selected = chkAllMain.Checked;
         }
     }
-   
+
     protected void BtnSave_Click(object sender, EventArgs e)
     {
         int operation;
@@ -353,26 +264,28 @@ public partial class WebForms2_Project_Activities : System.Web.UI.Page
             Project_Activities_Versions_DB.Save(obj, DateTime.Now.Month.ToString(), CDataConverter.ConvertDateTimeNowRtnDt().Year.ToString());
             Save_Gov(obj.PActv_ID);
             Project_Log_DB.FillLog(CDataConverter.ConvertToInt(obj.PActv_ID), operation, Project_Log_DB.operation.Project_Activities);
-            
+
             GenerateTree();
 
             if (obj.PActv_ID > 0)
-            { 
+            {
                 //ASTreeViewNode node = this.astvMyTree.FindByValue(obj.PActv_ID.ToString());
                 //if (node != null && node.ChildNodes.Count == 0 && !string.IsNullOrEmpty(txt_Progress.Text) && !string.IsNullOrEmpty(txt_PActv_wieght.Text))
                 //{
-                    Project_Activities_DB.Increase_Recurcive_Activites(obj.PActv_ID);
+                Project_Activities_DB.Increase_Recurcive_Activites(obj.PActv_ID);
                 //}
                 //save assigned team
                 General_Helping.ExcuteQuery("delete from Activities_Assigned_team where activ_id=" + obj.PActv_ID);
-                string sql5   = "";
+                string sql5 = "";
                 sql5 = "select * from Project_Team where proj_proj_id=" + CDataConverter.ConvertToInt(Session_CS.Project_id);
-                   sql5+=  " and rol_rol_id <> 4";
-                DataTable _dt5   = General_Helping.GetDataTable(sql5);
-                if( _dt5.Rows.Count > 0 ){
-                    for (int index = 0;index<_dt5.Rows.Count;index++)
+                sql5 += " and rol_rol_id <> 4";
+                DataTable _dt5 = General_Helping.GetDataTable(sql5);
+                if (_dt5.Rows.Count > 0)
+                {
+                    for (int index = 0; index < _dt5.Rows.Count; index++)
                     {
-                        if( chkBoxTeam.Items[index].Selected == true){
+                        if (chkBoxTeam.Items[index].Selected == true)
+                        {
                             General_Helping.ExcuteQuery("insert into Activities_Assigned_team (activ_id,emp_id) values (" + obj.PActv_ID + "," + chkBoxTeam.Items[index].Value + ")");
                         }
                     }
@@ -381,27 +294,27 @@ public partial class WebForms2_Project_Activities : System.Web.UI.Page
                 //
                 // save activity relation with another avtivity
                 if (ddlActivities.SelectedIndex != 0 && ddlRelation.SelectedIndex != 0)
-                    {
-                        General_Helping.ExcuteQuery("delete from Activities_Relations where current_activ=" + obj.PActv_ID);
-                        General_Helping.ExcuteQuery("insert into Activities_Relations (current_activ,related_activ,relation) values (" + obj.PActv_ID + "," + CDataConverter.ConvertToInt(ddlActivities.SelectedValue) + "," + ddlRelation.SelectedIndex+ ")");
-                    }
+                {
+                    General_Helping.ExcuteQuery("delete from Activities_Relations where current_activ=" + obj.PActv_ID);
+                    General_Helping.ExcuteQuery("insert into Activities_Relations (current_activ,related_activ,relation) values (" + obj.PActv_ID + "," + CDataConverter.ConvertToInt(ddlActivities.SelectedValue) + "," + ddlRelation.SelectedIndex + ")");
+                }
                 //
                 FillGrid();
                 //txtCurrentNode.Text =
                 //txtNewParentNode.Text = "";
                 Clear_Control();
-                
+
                 Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('لقد تم الحفظ بنجاح')</script>");
             }
-            
+
         }
     }
 
-    
+
     private bool Check_Valid()
     {
         bool Flag = true;
-       
+
         int PActv_Parent = CDataConverter.ConvertToInt(txtNewParentNode.Text);
         int PActv_ID = CDataConverter.ConvertToInt(txtCurrentNode.Text);
 
@@ -411,7 +324,7 @@ public partial class WebForms2_Project_Activities : System.Web.UI.Page
         //if (Dates_operations.date_validate(txtStartDate.Text) != "")
         //{
         //    txtStartDate.Text = Dates_operations.date_validate(txtStartDate.Text);
-     if (txtStartDate.Text != "")
+        if (txtStartDate.Text != "")
         {
             txtStartDate.Text = CDataConverter.ConvertDateTimeToFormatdmy(CDataConverter.ConvertToDate(txtStartDate.Text));
         }
@@ -426,7 +339,7 @@ public partial class WebForms2_Project_Activities : System.Web.UI.Page
         // validate end date
 
         if (txtEndDate.Text != "")
-            //if (Dates_operations.date_validate(txtEndDate.Text) != "")
+        //if (Dates_operations.date_validate(txtEndDate.Text) != "")
         {
             //txtEndDate.Text = Dates_operations.date_validate(txtEndDate.Text);
             txtEndDate.Text = CDataConverter.ConvertDateTimeToFormatdmy(CDataConverter.ConvertToDate(txtEndDate.Text));
@@ -453,7 +366,7 @@ public partial class WebForms2_Project_Activities : System.Web.UI.Page
         // validate actual start date
 
         if (txtActStartDate.Text != "")
-           // if (Dates_operations.date_validate(txtActStartDate.Text) != "")
+        // if (Dates_operations.date_validate(txtActStartDate.Text) != "")
         {
             //txtActStartDate.Text = Dates_operations.date_validate(txtActStartDate.Text);
             txtActStartDate.Text = CDataConverter.ConvertDateTimeToFormatdmy(CDataConverter.ConvertToDate(txtActStartDate.Text));
@@ -469,7 +382,7 @@ public partial class WebForms2_Project_Activities : System.Web.UI.Page
         ////
         // validate actual end date
 
-       // if (Dates_operations.date_validate(txtActEndDate.Text) != "")
+        // if (Dates_operations.date_validate(txtActEndDate.Text) != "")
 
         if (txtActEndDate.Text != "")
         {
@@ -618,7 +531,7 @@ public partial class WebForms2_Project_Activities : System.Web.UI.Page
     }
     protected void btn_New_Click(object sender, EventArgs e)
     {
-        
+
         txtCurrentNode.Text =
             txtNewParentNode.Text = "";
         astvMyTree.ClearNodesSelection();
@@ -629,7 +542,7 @@ public partial class WebForms2_Project_Activities : System.Web.UI.Page
     private void Clear_Control()
     {
         //  txtCurrentNode.Text =
-        
+
         //txt_PActv_wieght.Text =
         txtDesc.Text =
         txtStartDate.Text =
@@ -638,7 +551,7 @@ public partial class WebForms2_Project_Activities : System.Web.UI.Page
         txtActStartDate.Text =
         txtActEndDate.Text =
         txtPeriod.Text =
-        //txt_Progress.Text =
+            //txt_Progress.Text =
             // txtNewParentNode.Text =
          txtExPer.Text =
         txtActvNote.Text = "";
@@ -646,16 +559,17 @@ public partial class WebForms2_Project_Activities : System.Web.UI.Page
         ddlPriorities.SelectedIndex = 0;
         ddlActvSit.SelectedIndex = 0;
         //txt_Progress.Enabled = true;    
-        for(int index = 0 ;index< chkBoxTeam.Items.Count ; index++){
+        for (int index = 0; index < chkBoxTeam.Items.Count; index++)
+        {
             chkBoxTeam.Items[index].Selected = false;
             chkBoxTeam.Items[index].Attributes["style"] = "color:black";
-            
+
         }
         chkAllMain.Checked = false;
         for (int index = 0; index < chk_gov_list.Items.Count; index++)
         {
             chk_gov_list.Items[index].Selected = false;
-           
+
 
         }
         if (ddlActivities.Items.Count > 0)
@@ -668,7 +582,7 @@ public partial class WebForms2_Project_Activities : System.Web.UI.Page
     {
         if (astvMyTree.GetSelectedNode() == null)
             Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('يجب إختيار النشاط أولا')</script>");
-        else            if (CDataConverter.ConvertToInt(astvMyTree.GetSelectedNode().NodeValue) <= 0)
+        else if (CDataConverter.ConvertToInt(astvMyTree.GetSelectedNode().NodeValue) <= 0)
             Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('يجب إختيار النشاط أولا')</script>");
 
         else
@@ -696,7 +610,7 @@ public partial class WebForms2_Project_Activities : System.Web.UI.Page
 
     protected void btn_New_Show_Click(object sender, EventArgs e)
     {
-        
+
     }
 
     private void Show_Gov(long activity_id)
@@ -720,9 +634,9 @@ public partial class WebForms2_Project_Activities : System.Web.UI.Page
         else
         {
             ASTreeViewNode node = this.astvMyTree.FindByValue(txtCurrentNode.Text);
-            
 
-            if (node != null && node.ChildNodes.Count == 0 )
+
+            if (node != null && node.ChildNodes.Count == 0)
             {
                 Project_Activities_DT obj = Project_Activities_DB.SelectByID(CDataConverter.ConvertToInt(txtCurrentNode.Text));
                 obj.PActv_Progress = 0;
@@ -764,10 +678,10 @@ public partial class WebForms2_Project_Activities : System.Web.UI.Page
     protected void gvSub_PreRender1(object sender, EventArgs e)
     {
         MergeRows(gvSub);
-        
-        
+
+
     }
-    
+
     protected void MergeRows(GridView GridView)
     {
         //DataTable dt_Level = activityLeveling.ActivLevls.leveling(CDataConverter.ConvertToInt(Session_CS.Project_id), 0, 0);
@@ -851,8 +765,8 @@ public partial class WebForms2_Project_Activities : System.Web.UI.Page
     }
     protected void ddlRelation_SelectedIndexChanged(object sender, EventArgs e)
     {
-       // buildRelation();
-       // FillDDL();
+        // buildRelation();
+        // FillDDL();
     }
     protected void ddlActivities_SelectedIndexChanged(object sender, EventArgs e)
     {
@@ -862,12 +776,12 @@ public partial class WebForms2_Project_Activities : System.Web.UI.Page
     {
         if (ddlRelation.SelectedIndex != 0 && ddlActivities.SelectedIndex != 0)
         {
-            if (ddlRelation.SelectedIndex == 1  )
+            if (ddlRelation.SelectedIndex == 1)
             {
                 txtStartDate.Text = (General_Helping.GetDataTable("select PActv_Start_Date from Project_Activities where PActv_ID=" + CDataConverter.ConvertToInt(ddlActivities.SelectedValue)).Rows[0]["PActv_Start_Date"]).ToString();
-                
-                
-                
+
+
+
             }
             else if (ddlRelation.SelectedIndex == 2)
             {
@@ -881,14 +795,14 @@ public partial class WebForms2_Project_Activities : System.Web.UI.Page
             {
                 txtEndDate.Text = (General_Helping.GetDataTable("select PActv_End_Date from Project_Activities where PActv_ID=" + CDataConverter.ConvertToInt(ddlActivities.SelectedValue)).Rows[0]["PActv_End_Date"]).ToString();
             }
-        
+
         }
     }
 
     protected void btn_Mpp_Create_Click(object sender, EventArgs e)
-     {
-         Create_MPP();
-     }
+    {
+        Create_MPP();
+    }
     private void Create_MPP()
     {
         string File_Name; //= "D://Test_Project.mpp";
@@ -987,7 +901,90 @@ public partial class WebForms2_Project_Activities : System.Web.UI.Page
 
     }
 
-    
+    protected void astvMyTree_OnSelectedNodeChanged(object src, ASTreeViewNodeSelectedEventArgs e)
+    {
+
+        txtCurrentNode.Text = e.NodeValue.ToString();
+
+        fill_actv_details();
+
+
+
+    }
+
+    private void fill_actv_details()
+    {
+        string curNodeValue = this.txtCurrentNode.Text;
+        this.txtCurrentNode.BackColor = System.Drawing.Color.SkyBlue;
+        ASTreeViewNode node = this.astvMyTree.FindByValue(curNodeValue);
+
+        Clear_Control();
+
+
+        Project_Activities_DT obj = Project_Activities_DB.SelectByID(CDataConverter.ConvertToInt(txtCurrentNode.Text));
+        txtDesc.Text = obj.PActv_Desc;
+
+        txtStartDate.Text = obj.PActv_Start_Date;
+        txtEndDate.Text = obj.PActv_End_Date;
+        txtPeriod.Text = obj.PActv_Period.ToString();
+        txtActStartDate.Text = obj.PActv_Actual_Start_Date.ToString();
+        txtActEndDate.Text = obj.PActv_Actual_End_Date.ToString();
+        txtPeriod.Text = obj.PActv_Actual_Period.ToString();
+        if (obj.ActStat_ActStat_id > 0)
+            ddlActvSit.SelectedValue = obj.ActStat_ActStat_id.ToString();
+        Smart_Search_org.SelectedValue = obj.Excutive_responsible_Org_Org_id.ToString();
+        txtExPer.Text = obj.PActv_Implementing_person;
+        txtActvNote.Text = obj.Notes;
+        txtSummery.Text = obj.summery;
+        if (obj.priorities > 0)
+            ddlPriorities.SelectedValue = obj.priorities.ToString();
+
+        Show_Gov(obj.PActv_ID);
+
+        string sql5 = "";
+        sql5 = "select * from Activities_Assigned_team where activ_id=" + CDataConverter.ConvertToInt(txtCurrentNode.Text);
+        DataTable _dt5 = General_Helping.GetDataTable(sql5);
+        if (_dt5.Rows.Count > 0)
+        {
+            for (int DTindex = 0; DTindex < _dt5.Rows.Count; DTindex++)
+            {
+                for (int index = 0; index < chkBoxTeam.Items.Count; index++)
+                {
+
+                    if (CDataConverter.ConvertToInt(chkBoxTeam.Items[index].Value) == CDataConverter.ConvertToInt(_dt5.Rows[DTindex]["emp_id"].ToString()))
+                    {
+                        chkBoxTeam.Items[index].Selected = true;
+                        chkBoxTeam.Items[index].Attributes["style"] = "color:red";
+                    }
+
+                }
+            }
+
+        }
+        ddlActivities.Items.Clear();
+        string sql55 = "SELECT PActv_ID,PActv_Desc FROM Project_Activities where proj_proj_id=" + CDataConverter.ConvertToInt(Session_CS.Project_id) + " and PActv_ID<>" + CDataConverter.ConvertToInt(txtCurrentNode.Text) + " order by PActv_ID";
+        DataTable _dt55 = General_Helping.GetDataTable(sql55);
+        if (_dt55.Rows.Count > 0)
+            Obj_General_Helping.SmartBindDDL(ddlActivities, _dt55, "PActv_ID", "PActv_Desc", "اختر النشاط");
+        DataTable dt6 = General_Helping.GetDataTable("select * from Activities_Relations where current_activ =" + CDataConverter.ConvertToInt(txtCurrentNode.Text));
+        if (dt6.Rows.Count > 0)
+        {
+            ddlRelation.SelectedIndex = CDataConverter.ConvertToInt(dt6.Rows[0]["relation"].ToString());
+            ddlActivities.SelectedValue = dt6.Rows[0]["related_activ"].ToString();
+        }
+        else
+        {
+            ddlRelation.SelectedIndex = 0;
+            if (_dt55.Rows.Count > 0)
+                ddlActivities.SelectedIndex = 0;
+        }
+
+
+        if (node.ParentNode != null)
+            this.txtNewParentNode.Text = node.ParentNode.NodeValue;
+    }
+
+
 }
 
 

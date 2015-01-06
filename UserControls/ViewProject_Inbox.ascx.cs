@@ -29,7 +29,7 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
     int id;
     Thread threadObj;
 
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
 
     protected void Page_Load(object sender, EventArgs e)
     {

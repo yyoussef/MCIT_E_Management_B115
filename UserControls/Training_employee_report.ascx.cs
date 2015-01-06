@@ -16,7 +16,7 @@ using ReportsClass;
 
 public partial class UserControls_Training_employee_report : System.Web.UI.UserControl
 {
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     protected void Page_Load(object sender, EventArgs e)
     {
         string user = Session_CS.pmp_name.ToString();

@@ -23,7 +23,7 @@ public partial class UserControls_Memo_Upload : System.Web.UI.UserControl
     SqlDataAdapter da;
     DataSet ds;
     SqlCommand cmd;
-    private string sql_Connection = Database.ConnectionString; Session_CS Session_CS = new Session_CS();
+    private string sql_Connection = Database.ConnectionString; //Session_CS Session_CS = new Session_CS();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)

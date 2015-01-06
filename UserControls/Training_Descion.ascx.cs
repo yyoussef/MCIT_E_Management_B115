@@ -17,7 +17,7 @@ using System.IO;
 public partial class UserControls_Training_Descion : System.Web.UI.UserControl
 {
     string PMP_ID;
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!Page.IsPostBack)

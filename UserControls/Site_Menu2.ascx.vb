@@ -2,7 +2,7 @@
 
 Partial Public Class UserControls_Site_Menu2
     Inherits System.Web.UI.UserControl
-    Dim Session_CS As New Session_CS
+    ' 'Session_CS Session_CS
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Div_Usual_User.Visible = True
 

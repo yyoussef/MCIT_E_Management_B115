@@ -15,7 +15,7 @@ using System.Drawing;
 public partial class WebForms2_Project_Activity_Count : System.Web.UI.Page
 {
     // Developed by nora //
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)

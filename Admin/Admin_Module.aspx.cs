@@ -19,6 +19,7 @@ public partial class Admin_Admin_Module : System.Web.UI.Page
         if (!IsPostBack)
         {
             Get_Module();
+      //
         }
 
     }

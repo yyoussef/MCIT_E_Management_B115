@@ -20,7 +20,7 @@ using CrystalDecisions.CrystalReports.Engine;
 public partial class UserControls_Add_inbox_Sub_cat : System.Web.UI.UserControl
 {
     General_Helping Obj_General_Helping = new General_Helping();
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)

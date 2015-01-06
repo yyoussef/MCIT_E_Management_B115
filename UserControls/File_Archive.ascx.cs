@@ -24,7 +24,7 @@ public partial class UserControls_Project_Attitude : System.Web.UI.UserControl
     int rows;
     int x;
     string sql_Connection = Universal.GetConnectionString();
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)

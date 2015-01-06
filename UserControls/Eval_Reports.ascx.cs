@@ -27,7 +27,7 @@ public partial class UserControls_Eval_Reports : System.Web.UI.UserControl
     DataSet ds;
    
     private string sql_Connection = Universal.GetConnectionString();
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     protected override void OnInit(EventArgs e)
     {
        

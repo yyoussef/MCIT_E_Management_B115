@@ -33,7 +33,7 @@ public partial class UserControls_Training_PlanReports : System.Web.UI.UserContr
     private string sql_Connection = Universal.GetConnectionString();
 
 
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
 
     protected void Page_Load(object sender, EventArgs e)
     {

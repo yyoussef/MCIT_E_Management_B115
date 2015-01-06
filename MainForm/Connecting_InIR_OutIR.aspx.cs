@@ -19,7 +19,7 @@ using CrystalDecisions.CrystalReports.Engine;
 
 public partial class WebForms_Connecting_InIR_OutIR : System.Web.UI.Page
 {
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     string sql, sql1;
     SqlConnection conn;
     SqlDataAdapter da;

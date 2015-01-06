@@ -29,7 +29,7 @@ public partial class Sending_Report : System.Web.UI.Page
     const string asalaheldin = "asalaheldin@mcit.gov.eg";
     const string rabdelghafar = "rabdelghafar@mcit.gov.eg";
     const string Sbeih = "Sbeih@mcit.gov.eg";
-    Session_CS Session_CS = new Session_CS();
+//    Session_CS Session_CS = new Session_CS();
     private string sql_Connection = Database.ConnectionString;
     // private string sql_Connection = Universal.GetConnectionString();
 
@@ -961,6 +961,51 @@ public partial class Sending_Report : System.Web.UI.Page
         }
 
     }
+
+
+    /* ضبط الرصيد السنوي للاجازات مع يداية كل سنة 
+     * اول خطوة 
+     *  insert into Vacations_summary (emp_id,unusual ,exhibitor , sick ,hajj,birth,year,repeat,day_off_no,permission 
+ , unusual_total ,exhibitor_total) 
+select emp_id,unusual_total,exhibitor_total,0,30,90,2015,0,0,2 , unusual_total,exhibitor_total
+  from Vacations_summary where year = 2014
+     * 
+     * ثاني خطوة   
+     * 
+     * 
+     * 
+     * 
+     * 
+     * 
+
+
+declare @emp_id int
+Declare @old_unusual int
+
+Declare @year int
+
+
+
+
+DECLARE MY_CURSOR CURSOR 
+  LOCAL STATIC READ_ONLY FORWARD_ONLY
+FOR 
+SELECT DISTINCT Vacations_summary.emp_id,  Vacations_summary.unusual   from Projects_Management.dbo.Vacations_summary 
+where Vacations_summary.year=2014
+
+OPEN MY_CURSOR
+FETCH NEXT FROM MY_CURSOR INTO @emp_id,@old_unusual
+WHILE @@FETCH_STATUS = 0
+BEGIN 
+   
+   update Vacations_summary set unusual=unusual +@old_unusual where emp_id =@emp_id and year=2015
     
+    FETCH NEXT FROM MY_CURSOR INTO @emp_id,@old_unusual
+END
+CLOSE MY_CURSOR
+DEALLOCATE MY_CURSOR
+     * 
+     
+     */
 
 }

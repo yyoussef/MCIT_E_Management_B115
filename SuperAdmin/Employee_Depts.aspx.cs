@@ -16,7 +16,7 @@ public partial class WebForms2_Employee_Depts : System.Web.UI.Page
 {
     private string sql_Connection = Database.ConnectionString;
     General_Helping Obj_General_Helping = new General_Helping();
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     protected override void OnInit(EventArgs e)
     {
         string Query = "";

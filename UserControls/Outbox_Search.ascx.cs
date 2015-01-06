@@ -19,7 +19,7 @@ using CrystalDecisions.CrystalReports.Engine;
 
 public partial class UserControls_Outbox_Search : System.Web.UI.UserControl
 {
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     string sql;
     SqlConnection conn;
     SqlDataAdapter da;

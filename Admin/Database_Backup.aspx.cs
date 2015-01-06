@@ -24,7 +24,7 @@ using System.Windows;
 #endregion
 public partial class Database_Backup : System.Web.UI.Page
 {
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     #region "Members"
     string newdatabase_Name;
     string Olddatabase_Name;

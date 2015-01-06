@@ -8,7 +8,7 @@ using System.Data;
 
 public partial class UserControls_Project_Exchange : System.Web.UI.UserControl
 {
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     protected void Page_Load(object sender, EventArgs e)
     {
         if(! IsPostBack )

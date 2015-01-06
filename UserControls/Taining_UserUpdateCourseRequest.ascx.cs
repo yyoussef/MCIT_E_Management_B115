@@ -13,7 +13,7 @@ using System.Xml.Linq;
 
 public partial class UserControls_Taining_UserUpdateCourseRequest : System.Web.UI.UserControl
 {
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     int radiobuttonselectedvalu=0;
     protected void Page_Load(object sender, EventArgs e)
     {

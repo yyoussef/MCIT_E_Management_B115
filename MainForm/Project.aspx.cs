@@ -16,7 +16,7 @@ using System.Text;
 
 public partial class WebForms_Project : System.Web.UI.Page
 {
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     General_Helping Obj_General_Helping = new General_Helping();
     private string sql_Connection = Database.ConnectionString;
 

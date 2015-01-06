@@ -17,7 +17,7 @@ Imports System.Xml.Linq
 
 Partial Class MainForm_Project_Details
     Inherits System.Web.UI.Page
-    Dim Session_CS As New Session_CS()
+    'Session_CS Session_CS()
     Dim Obj_General_Helping As New General_Helping
     Dim general_sql As String = ""
     ' Dim PMreports As New ReportsClass.Reports

@@ -5,7 +5,7 @@ Imports System.Data.SqlClient
 
 Partial Class WebForms_Project_Organizations
     Inherits System.Web.UI.Page
-    Dim Session_CS As New Session_CS
+    'Session_CS Session_CS
 
 
 #Region "Variables"

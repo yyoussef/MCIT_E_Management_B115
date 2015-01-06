@@ -18,7 +18,7 @@ public partial class UserControls_Training_view_userrequest : System.Web.UI.User
     string txt_course;
     int PMP_ID;
     int c_id;
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)

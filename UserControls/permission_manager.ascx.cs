@@ -24,7 +24,7 @@ public partial class UserControls_permission_manager : System.Web.UI.UserControl
     string start_date;
     int month;
     int year;
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)

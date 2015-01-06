@@ -2,7 +2,7 @@
 
 Partial Class WebForms_Project_Activities_All
     Inherits System.Web.UI.Page
-    Dim Session_CS As New Session_CS
+    'Session_CS Session_CS
 
     Dim Nroot As Boolean = True
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load

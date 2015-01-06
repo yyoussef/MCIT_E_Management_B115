@@ -20,7 +20,7 @@ public partial class UserControls_Project_services : System.Web.UI.UserControl
 {
     string sql_Connection = Universal.GetConnectionString();
 
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
 
     protected void Page_Load(object sender, EventArgs e)
     {

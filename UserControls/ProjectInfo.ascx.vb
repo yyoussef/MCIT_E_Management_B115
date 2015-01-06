@@ -28,7 +28,7 @@ Partial Class UserControls_ProjectInfo
     Public con As New SqlConnection
     Private Const _ENGLISH As String = "ENGL"
     Dim Obj_General_Helping As New General_Helping
-    Dim Session_CS As New Session_CS
+    ''Session_CS Session_CS
     Dim sql_Connection As String = DBL.Universal.GetConnectionString()
 #End Region
 

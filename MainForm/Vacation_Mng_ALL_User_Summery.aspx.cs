@@ -9,7 +9,7 @@ using System.Data.SqlClient;
 
 public partial class WebForms_Vacation_Mng_ALL_User_Summery : System.Web.UI.Page
 {
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     private string sql_Connection = Database.ConnectionString;
     protected void Page_Load(object sender, EventArgs e)
     {

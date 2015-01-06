@@ -3,7 +3,7 @@ Partial Class UserControls_Project_Objective
     Inherits System.Web.UI.UserControl
 #Region "Variables"
     Dim Project_Obj_ENTITY As New BLL.Project_Objective
-    Dim Session_CS As New Session_CS
+    ''Session_CS Session_CS
 #End Region
 
 #Region "Load"

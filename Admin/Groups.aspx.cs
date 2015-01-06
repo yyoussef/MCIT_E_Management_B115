@@ -14,7 +14,7 @@ using System.Xml.Linq;
 public partial class WebForms2_Groups : System.Web.UI.Page
 {
     static long id;
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     protected void Page_Load(object sender, EventArgs e)
     {
         fillgrid();

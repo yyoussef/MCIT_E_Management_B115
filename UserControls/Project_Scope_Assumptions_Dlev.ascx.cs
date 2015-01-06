@@ -23,7 +23,7 @@ public partial class UserControls_Project_Scope_Assumptions_Dlev : System.Web.UI
     int i;
 
     private int mType;
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     protected void Page_Load(object sender, EventArgs e)
     {
 

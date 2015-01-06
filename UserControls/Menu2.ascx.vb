@@ -1,6 +1,6 @@
 ﻿Partial Public Class UserControls_Menu2
     Inherits System.Web.UI.UserControl
-    Dim Session_CS As New Session_CS
+    ''Session_CS Session_CS
     Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
         Dim SQL As String = _
          "<a href=""http://www.dhtml-menu-builder.com""  style=""display:none;visibility:hidden;"">Javascript DHTML Drop Down Menu Powered by dhtml-menu-builder.com</a>" + vbCrLf + _

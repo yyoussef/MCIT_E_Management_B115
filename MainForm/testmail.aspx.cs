@@ -24,7 +24,7 @@ using System.Globalization;
 public partial class testmail : System.Web.UI.Page
 {
 
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     private string sql_Connection = Database.ConnectionString;
     // private string sql_Connection = Universal.GetConnectionString();
 

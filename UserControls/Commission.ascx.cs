@@ -27,7 +27,7 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
     General_Helping Obj_General_Helping = new General_Helping();
     DateTime str_deadline;
     int id;
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     protected void Page_Load(object sender, EventArgs e)
     {
         Smart_Search_dept.Show_OrgTree = true;

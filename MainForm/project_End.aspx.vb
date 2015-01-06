@@ -4,7 +4,7 @@ Imports VB_Classes.Dates
 
 Partial Class WebForms_project_End
     Inherits System.Web.UI.Page
-    Dim Session_CS As New Session_CS
+    'Session_CS Session_CS
     Public con As New SqlConnection
     Dim Obj_General_Helping As New General_Helping
 

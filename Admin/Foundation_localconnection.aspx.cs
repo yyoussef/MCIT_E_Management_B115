@@ -16,7 +16,7 @@ using System.Text;
 
 public partial class Admin_Foundation_localconnection : System.Web.UI.Page
 {
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)

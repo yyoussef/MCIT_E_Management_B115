@@ -18,7 +18,7 @@ using System.IO;
 public partial class UserControls_Training_Add_NewCourse : System.Web.UI.UserControl
 {
 
-    Session_CS Session_CS = new Session_CS();
+    //Session_CS Session_CS = new Session_CS();
     protected void Page_Load(object sender, EventArgs e)
     {
 
