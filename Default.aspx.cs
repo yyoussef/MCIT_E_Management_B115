@@ -265,10 +265,11 @@ public partial class _Default : System.Web.UI.Page
     }
     void fill_localfile_savesession(DataTable dtable)
     {
-        
-        
+
+       
         Session_CS.local_filesave = Convert.ToBoolean(dtable.Rows[0]["islocal"].ToString());
         Session_CS.local_connectionstring = dtable.Rows[0]["connection_string"].ToString();
+        
     }
 
     void Fill_Session(DataTable dt)
@@ -298,7 +299,7 @@ public partial class _Default : System.Web.UI.Page
         //Session_CS.Password = CDataConverter.ConvertToInt(dt.Rows[0]["Password"].ToString());
         Session_CS.Password = dt.Rows[0]["Password"].ToString();
 
-        //if (dt.Rows[0]["islocal"].ToString() !=""   && Convert.ToBoolean(dt.Rows[0]["islocal"].ToString())  == true)
+        //if (dt.Rows[0]["islocal"].ToString() != "" && Convert.ToBoolean(dt.Rows[0]["islocal"].ToString()) == true)
         //{
         //    Session_CS.local_filesave = Convert.ToBoolean(dt.Rows[0]["islocal"].ToString());
         //    Session_CS.local_connectionstring = dt.Rows[0]["connection_string"].ToString();

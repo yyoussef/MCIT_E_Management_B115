@@ -7,7 +7,8 @@
 <%@ Register Assembly="ASTreeView" Namespace="Geekees.Common.Controls" TagPrefix="ct" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="Masterhead" runat="Server">
-    <link href="<%=ResolveUrl("~/javascript/astreeview/astreeview.css")%>" type="text/css"
+ 
+ <link href="<%=ResolveUrl("~/javascript/astreeview/astreeview.css")%>" type="text/css"
         rel="stylesheet" />
     <link href="<%=ResolveUrl("~/javascript/contextmenu/contextmenu.css")%>" type="text/css"
         rel="stylesheet" />
@@ -18,37 +19,32 @@
 
     <script type="text/javascript">
 
-	function dndStartHandler(elem) 
-	{
-	
-	}
-	function dndCompletingHandler(elem, newParent) 
-	{
-		
-	}
-	function dndCompletedHandler2(elem) 
-	{
-		var curNodeValue = elem.parentNode.getAttribute("treeNodeValue");
-        document.getElementById('<%=txtCurrentNode.ClientID %>').value = curNodeValue;
-        document.getElementById('<%=btnPostBackTrigger2.ClientID %>').click();
-	}
-	function dndCompletedHandler(elem, newParent) 
-	{
-        var curNodeValue = elem.getAttribute("treeNodeValue");
-        var newParentValue = newParent.getAttribute("treeNodeValue");
-        document.getElementById('<%=txtCurrentNode.ClientID %>').value = curNodeValue;
-        document.getElementById('<%=txtNewParentNode.ClientID %>').value = newParentValue;
-        document.getElementById('<%=btnPostBackTrigger.ClientID %>').click();
-    }
-    
-    function fireClick() 
-	{
-	    alert('');
-        document.getElementById('<%=btnPostBackTrigger3.ClientID %>').click();
-        alert('');
-    }
-    
-    
+        function dndStartHandler(elem) {
+
+        }
+        function dndCompletingHandler(elem, newParent) {
+
+        }
+        function dndCompletedHandler2(elem) {
+            var curNodeValue = elem.parentNode.getAttribute("treeNodeValue");
+            document.getElementById('<%=txtCurrentNode.ClientID %>').value = curNodeValue;
+            document.getElementById('<%=btnPostBackTrigger2.ClientID %>').click();
+        }
+        function dndCompletedHandler(elem, newParent) {
+            var curNodeValue = elem.getAttribute("treeNodeValue");
+            var newParentValue = newParent.getAttribute("treeNodeValue");
+            document.getElementById('<%=txtCurrentNode.ClientID %>').value = curNodeValue;
+            document.getElementById('<%=txtNewParentNode.ClientID %>').value = newParentValue;
+            document.getElementById('<%=btnPostBackTrigger.ClientID %>').click();
+        }
+
+        function fireClick() {
+            alert('');
+            document.getElementById('<%=btnPostBackTrigger3.ClientID %>').click();
+            alert('');
+        }
+
+ 
     </script>
 
 </asp:Content>
@@ -67,7 +63,7 @@
                     <asp:TextBox ID="txtCurrentNode" runat="server"></asp:TextBox>
                     <asp:TextBox ID="txtNewParentNode" runat="server"></asp:TextBox>
                     <asp:Button ID="btnPostBackTrigger" runat="server" OnClick="btnPostBackTrigger_Click" />
-                    <asp:Button ID="btnPostBackTrigger2" runat="server" OnClick="btnPostBackTrigger2_Click" />
+                    <asp:Button ID="btnPostBackTrigger2" runat="server" OnClick="btnPostBackTrigger2_Click"  />
                     <asp:Button ID="btnPostBackTrigger3" runat="server" OnClick="btnPostBackTrigger3_Click" />
                 </div>
             </td>
@@ -78,10 +74,10 @@
                     DataTableRootNodeValue="0" EnableRoot="false" EnableNodeSelection="true" EnableCheckbox="false"
                     EnableDragDrop="true" EnableTreeLines="true" EnableNodeIcon="true" BackColor="#F9FDFF"
                     EnableCustomizedNodeIcon="true" EnableContextMenu="true" EnableDebugMode="false"
-                    EnableContextMenuAdd="false" OnNodeDragAndDropCompletingScript="dndCompletingHandler( elem, newParent )"
-                    OnNodeSelectedScript="dndCompletedHandler2(elem)" OnNodeDragAndDropCompletedScript="dndCompletedHandler( elem, newParent )"
-                    OnNodeDragAndDropStartScript="dndStartHandler( elem )" EnableMultiLineEdit="false"
-                    EnableEscapeInput="false" ForeColor="#F9FDFF" />
+                    EnableContextMenuAdd="false" OnNodeDragAndDropCompletingScript="dndCompletingHandler(elem, newParent)"
+                    OnNodeSelectedScript="dndCompletedHandler2(elem)" OnNodeDragAndDropCompletedScript="dndCompletedHandler(elem, newParent)"
+                    OnNodeDragAndDropStartScript="dndStartHandler(elem)" EnableMultiLineEdit="false"
+                    EnableEscapeInput="false" ForeColor="#F9FDFF" OnOnSelectedNodeChanged="astvMyTree_OnSelectedNodeChanged"  />
             </td>
         </tr>
         <tr>
