@@ -24,7 +24,6 @@ using System.Windows;
 #endregion
 public partial class Database_Backup : System.Web.UI.Page
 {
-    //Session_CS Session_CS = new Session_CS();
     #region "Members"
     string newdatabase_Name;
     string Olddatabase_Name;
@@ -62,10 +61,46 @@ public partial class Database_Backup : System.Web.UI.Page
 
     protected void ImgBtnEdit_Click(object sender, ImageClickEventArgs e)
     {
-        string file_Name = Convert.ToString(((ImageButton)sender).CommandArgument);
-        //string path = "D://NEW" + "/" + file_Name;
-        string path = "~/Uploads/DBBackup/" + file_Name;
-        Response.Redirect(path);
+        //string File_Name = "";
+       // File_Name = Convert.ToString(((ImageButton)sender).CommandArgument);
+
+        //string New_File_Path =Server.MapPath("~/Uploads/DBBackup/" + File_Name) ;
+
+                               // FileStream fs = new FileStream(New_File_Path, FileMode.Open, FileAccess.Read);
+
+                                //byte[] bytes = new byte[fs.Length];
+
+                                //fs.Read(bytes, 0, System.Convert.ToInt32(fs.Length));
+
+                               // fs.Close();
+
+
+
+       // Response.ContentType = "application/x-unknown";
+       
+        //Response.AddHeader("Content-Disposition", "attachment; filename=" + Server.UrlPathEncode(File_Name));
+       // Response.BinaryWrite(bytes);
+       // Response.Flush();
+        //Response.Close();
+
+
+
+
+ string file_Name = Convert.ToString(((ImageButton)sender).CommandArgument);
+        System.IO.FileInfo Dfile = new System.IO.FileInfo(Server.MapPath("~/Uploads/DBBackup/" + file_Name));
+        Response.ContentType = "APPLICATION/OCTET-STREAM";
+        String Header = "Attachment; Filename=" + file_Name;
+        Response.AppendHeader("Content-Disposition", Header);
+      
+        Response.WriteFile(Dfile.FullName);
+      
+        Response.End();
+
+
+     //  string file_Name = Convert.ToString(((ImageButton)sender).CommandArgument);
+       //string path = "D://NEW" + "/" + file_Name;
+       // string path = "~/Uploads/DBBackup/" + file_Name;
+       // Response.Redirect(path);
 
     }
   
@@ -200,11 +235,13 @@ public partial class Database_Backup : System.Web.UI.Page
 
         gvMain.DataSource = dt2;
         gvMain.DataBind();
+       
         foreach (GridViewRow row in gvMain.Rows)
         {
             Label LabStatus = (Label)row.FindControl("LabStatus");
             ImageButton ImgBtnEdit = (ImageButton)row.FindControl("ImgBtnEdit");
             Label Labelwait = (Label)row.FindControl("Labelwait");
+           
             if (LabStatus.Text.ToString() == "2")
             {
                 Labelwait.Visible = false;
@@ -514,7 +551,7 @@ public partial class Database_Backup : System.Web.UI.Page
         custom_copy_command += " exec dynamic_Custom_copy_Data Admin_Users," + olddbname + "," + newdbname + ",'and foundation_id = " + found_id + "','',0";
         custom_copy_command += " exec dynamic_Custom_copy_Data Site_Upload," + olddbname + "," + newdbname + ",'and foundation_id = " + found_id + "','',0";
         custom_copy_command += " exec dynamic_Custom_copy_Data Sectors," + olddbname + "," + newdbname + ",'and foundation_id = " + found_id + "','',0";
-        custom_copy_command += " exec dynamic_Custom_copy_Data Departments," + olddbname + "," + newdbname + ",'and foundation_id = " + found_id + "','INNER JOIN Sectors ON Departments.Sec_sec_id = Sectors.Sec_id',0";
+        custom_copy_command += " exec dynamic_Custom_copy_Data Departments," + olddbname + "," + newdbname + ",'and Departments.foundation_id = " + found_id + "','INNER JOIN Sectors ON Departments.Sec_sec_id = Sectors.Sec_id',0";
         custom_copy_command += " exec dynamic_Custom_copy_Data Commitee," + olddbname + "," + newdbname + ",'and foundation_id = " + found_id + "','',0";
 
         custom_copy_command += " exec dynamic_Custom_copy_Data Employee_Groups," + olddbname + "," + newdbname + ",'and foundation_id = " + found_id + "','',0";
