@@ -947,5 +947,6 @@
      <Triggers>
 
       <asp:PostBackTrigger ControlID="Button1" />
+     <asp:PostBackTrigger ControlID="btn_Visa_Follow" />
     </Triggers>
 </asp:UpdatePanel>
