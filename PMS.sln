@@ -1,13 +1,9 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "PMS", "..\PMS", "{0A7B84CF-6204-4456-ACF1-FC8B0786BBAF}"
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "PMS", ".", "{3E7EF28A-AA68-4261-8E92-F14BBA567AF3}"
 	ProjectSection(WebsiteProperties) = preProject
-		SccProjectName = ""$/PMS", BAAAAAAA"
-		SccAuxPath = ""
-		SccLocalPath = "."
-		SccProvider = "MSSCCI:Microsoft Visual SourceSafe"
-		TargetFramework = "3.5"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv3.5"
 		Debug.AspNetCompiler.VirtualPath = "/PMS"
 		Debug.AspNetCompiler.PhysicalPath = "..\PMS\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\PMS\"
@@ -22,24 +18,16 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "PMS", "..\PMS", "{0A7B84CF-
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "62055"
+		VWDPort = "60811"
 	EndProjectSection
 EndProject
 Global
-	GlobalSection(SourceCodeControl) = preSolution
-		SccNumberOfProjects = 2
-		SccLocalPath0 = .
-		SccWebProject1 = true
-		SccProjectUniqueName1 = .
-		SccLocalPath1 = D:\\WorkShop_VSS\\PMS
-		SccProjectEnlistmentChoice1 = 2
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|.NET = Debug|.NET
+		Debug|Any CPU = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0A7B84CF-6204-4456-ACF1-FC8B0786BBAF}.Debug|.NET.ActiveCfg = Debug|Any CPU
-		{0A7B84CF-6204-4456-ACF1-FC8B0786BBAF}.Debug|.NET.Build.0 = Debug|Any CPU
+		{3E7EF28A-AA68-4261-8E92-F14BBA567AF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E7EF28A-AA68-4261-8E92-F14BBA567AF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
