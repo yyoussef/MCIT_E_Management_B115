@@ -39,6 +39,7 @@ Partial Public Class Masters_MainformMaster
             '    Response.Redirect("~/Default.aspx")
             'Else
             If Request.QueryString("LogOut") <> 1 Then
+                Response.Write(Session_CS.pmp_name)
                 lblUserName.Text = Session_CS.pmp_name
                 lblDepts.Text = Session_CS.dept
 

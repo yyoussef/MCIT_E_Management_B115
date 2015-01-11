@@ -32,7 +32,7 @@ using System.Data;
         obj_Foundations_DT.Password = dr[Foundations_DT.Enum_Foundations_DT.Password.ToString()] == DBNull.Value ? string.Empty : Convert.ToString(dr[Foundations_DT.Enum_Foundations_DT.Password.ToString()]);
         obj_Foundations_DT.FromAddress = dr[Foundations_DT.Enum_Foundations_DT.FromAddress.ToString()] == DBNull.Value ? string.Empty : Convert.ToString(dr[Foundations_DT.Enum_Foundations_DT.FromAddress.ToString()]);
        // obj_Foundations_DT.code_archiving = dr[Foundations_DT.Enum_Foundations_DT.code_archiving.ToString()] == DBNull.Value ? 0 : Convert.ToInt32(dr[Foundations_DT.Enum_Foundations_DT.code_archiving.ToString()]);
-        obj_Foundations_DT.islocal = Convert.ToBoolean(dr[Foundations_DT.Enum_Foundations_DT.islocal.ToString()]);
+        obj_Foundations_DT.islocal = Convert.ToBoolean(dr[Foundations_DT.Enum_Foundations_DT.islocal.ToString()] == DBNull.Value ? false  : Convert.ToBoolean(dr[Foundations_DT.Enum_Foundations_DT.islocal.ToString()]));
 
         obj_Foundations_DT.connection_string  = dr[Foundations_DT.Enum_Foundations_DT.connection_string .ToString()] == DBNull.Value ? string.Empty : Convert.ToString(dr[Foundations_DT.Enum_Foundations_DT.connection_string.ToString()]);
 
@@ -105,6 +105,20 @@ using System.Data;
             {
 				 return SqlHelper.ExecuteDataset(Database.ConnectionString, "Foundations_Select", 0).Tables[0];
 		
+            }
+            catch (Exception ex)
+            {
+
+                return null;
+            }
+        }
+
+        public static DataTable foundation_exist(int  found_id )
+        {
+            try
+            {
+                return SqlHelper.ExecuteDataset(Database.ConnectionString, "foundations_selectall", found_id).Tables[0];
+
             }
             catch (Exception ex)
             {

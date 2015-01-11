@@ -7,7 +7,7 @@
     {
         width: 397px;
     }
-</style>
+</style> 
 
 <script language="javascript" type="text/javascript">
 

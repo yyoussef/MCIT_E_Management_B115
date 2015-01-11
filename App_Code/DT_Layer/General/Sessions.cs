@@ -970,21 +970,36 @@ public static  class Session_CS
     public static string local_connectionstring
     {
 
+
+    
+
         get
         {
-            if (!string.IsNullOrEmpty(HttpContext.Current.Request.Cookies["cook_local_connectionstring"].Value))
+            try
             {
-                return HttpContext.Current.Request.Cookies["cook_local_connectionstring"].Value;
+                if (!string.IsNullOrEmpty(HttpContext.Current.Request.Cookies["cook_local_connectionstring"].Value))
+                {
+                    return HttpContext.Current.Request.Cookies["cook_local_connectionstring"].Value;
 
-                //return CDataConverter.ConvertToInt(HttpContext.Current.Session["foundation_id"]);
+                    //return CDataConverter.ConvertToInt(HttpContext.Current.Session["foundation_id"]);
 
 
+                }
+                else
+                {
+                    // HttpContext.Current.Response.Redirect("~/default.aspx");
+                    return "";
+                }
             }
-            else
-            {
-                // HttpContext.Current.Response.Redirect("~/default.aspx");
-                return "";
-            }
+              
+                catch(Exception ex )
+
+               {
+        
+                       return ""; 
+        
+               }
+
         }
 
         set
@@ -995,6 +1010,7 @@ public static  class Session_CS
             cook_local_connectionstring.Expires = DateTime.Now.AddDays(1);
             HttpContext.Current.Response.Cookies.Add(cook_local_connectionstring);
         }
+  
 
     }
 
