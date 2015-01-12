@@ -1,0 +1,454 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Projects_Management" Class="OutboxDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=10.100.121.22;Initial Catalog=Projects_Management;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="Projects_ManagementConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Project" Member="Projects">
+    <Type Name="Project">
+      <Column Name="Proj_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Proj_Title" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Proj_Brief" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Proj_InitValue" Type="System.Decimal" DbType="Decimal(18,3)" CanBeNull="true" />
+      <Column Name="Dept_Dept_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="pmp_pmp_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Proj_is_commit" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Proj_End_Document" Type="System.Data.Linq.Binary" DbType="Image" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Proj_Code" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="Proj_Creation_Date" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="proj_start_date" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Proj_End_Date" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Proj_is_refused" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Proj_is_repeated" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Proj_Notes" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="prio_prio_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Proj_End_Note" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Proj_End_Document_Name" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Proj_End_Document_Type" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Protocol_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="proj_sug_type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="opportunities" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="dangers" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="strengths" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="weaknesses" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Class_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="internal_external" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="connected_to_proj" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="methodology" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="proj_gov_desc" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Balance_Suggest_Initial" Type="System.Decimal" DbType="Decimal(18,3)" CanBeNull="true" />
+      <Column Name="Balance_Suggest_Finial" Type="System.Decimal" DbType="Decimal(18,3)" CanBeNull="true" />
+      <Column Name="Balance_Suggest_Approved" Type="System.Decimal" DbType="Decimal(18,3)" CanBeNull="true" />
+      <Column Name="project_cause" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="project_innovation" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.pmp_fav_View" Member="pmp_fav_Views">
+    <Type Name="pmp_fav_View">
+      <Column Name="pmp_name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="PMP_ID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="employee_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Dept_Dept_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="sec_sec_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Department_pmp_fav_View" Member="Department" ThisKey="Dept_Dept_id" OtherKey="Dept_id" Type="Department" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Outbox_Track_Manager" Member="Outbox_Track_Managers">
+    <Type Name="Outbox_Track_Manager">
+      <Column Name="Outbox_id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IS_New_Mail" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Have_Follow" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Have_Visa" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Visa_Desc" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="IS_Old_Mail" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="pmp_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="parent_pmp_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Type_Track" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="All_visa_sent" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Outbox_Outbox_Track_Manager" Member="Outbox" ThisKey="Outbox_id" OtherKey="ID" Type="Outbox" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Departments" Member="Departments">
+    <Type Name="Department">
+      <Column Name="Dept_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Dept_name" Type="System.String" DbType="NVarChar(3000)" CanBeNull="true" />
+      <Column Name="Dept_type" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Dept_parent_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Sec_sec_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="foundation_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Department_pmp_fav_View" Member="pmp_fav_Views" ThisKey="Dept_id" OtherKey="Dept_Dept_id" Type="pmp_fav_View" />
+      <Association Name="Sector_Department" Member="Sector" ThisKey="Sec_sec_id" OtherKey="Sec_id" Type="Sector" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EMPLOYEE" Member="EMPLOYEEs">
+    <Type Name="EMPLOYEE" Id="ID1">
+      <Column Name="PMP_ID" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Dept_Dept_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="pmp_name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="rol_rol_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="mail" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Group_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="english" Type="System.String" DbType="NChar(10)" CanBeNull="true" />
+      <Column Name="vacation_mng_pmp_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="contact_person" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="sec_sec_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Hire_date" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="pmp_title" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="job_no" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="direct_manager" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="higher_manager" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Report_dept_manage" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="workstatus" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="category" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="university_degree" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="university_name" Type="System.String" DbType="NVarChar(350)" CanBeNull="true" />
+      <Column Name="major" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Token_User_pin" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="national_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="qualification_date" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="job_title_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="LastName" Type="System.String" DbType="VarChar(50)" CanBeNull="true" />
+      <Column Name="foundation_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Sectors" Member="Sectors">
+    <Type Name="Sector">
+      <Column Name="Sec_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Sec_name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="foundation_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Sector_Department" Member="Departments" ThisKey="Sec_id" OtherKey="Sec_sec_id" Type="Department" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Outbox_Visa_Follows" Member="Outbox_Visa_Follows">
+    <Type Name="Outbox_Visa_Follow">
+      <Column Name="Follow_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Outbox_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Descrption" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Date" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="File_data" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="File_name" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="File_ext" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Visa_Emp_id" Type="System.Int32" DbType="BigInt " CanBeNull="true" />
+      <Column Name="entery_pmp_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="time_follow" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Type_Follow" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Outbox_Outbox_Visa_Follow" Member="Outbox" ThisKey="Outbox_ID" OtherKey="ID" Type="Outbox" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.parent_employee" Member="parent_employees">
+    <Type Name="parent_employee">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="pmp_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="parent_pmp_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Type" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Inbox_Visa_Follows" Member="Inbox_Visa_Follows">
+    <Type Name="Inbox_Visa_Follow">
+      <Column Name="Follow_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Inbox_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Descrption" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Date" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="File_data" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="File_name" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="File_ext" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Visa_Emp_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="entery_pmp_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="time_follow" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Type_Follow" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Entery_Date" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Outbox_Visa_Emp" Member="Outbox_Visa_Emps">
+    <Type Name="Outbox_Visa_Emp">
+      <Column Name="Visa_Emp_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Visa_Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Emp_ID" Type="System.Int32" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Sender_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Outbox_Visa_Outbox_Visa_Emp" Member="Outbox_Visa" ThisKey="Visa_Id" OtherKey="Visa_Id" Type="Outbox_Visa" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Outbox_Visa" Member="Outbox_Visas">
+    <Type Name="Outbox_Visa">
+      <Column Name="Visa_Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Outbox_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Visa_date" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Important_Degree" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Dept_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Emp_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Important_Degree_Txt" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="Dept_ID_Txt" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="Emp_ID_Txt" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="Visa_Desc" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Visa_Period" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="Visa_Satus" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Follow_Up_Dept_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Follow_Up_Emp_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Follow_Up_Notes" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="saving_file" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Dead_Line_DT" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Visa_Goal_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="mail_sent" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Outbox_Visa_Outbox_Visa_Emp" Member="Outbox_Visa_Emps" ThisKey="Visa_Id" OtherKey="Visa_Id" Type="Outbox_Visa_Emp" />
+      <Association Name="Outbox_Outbox_Visa" Member="Outbox" ThisKey="Outbox_ID" OtherKey="ID" Type="Outbox" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Outbox" Member="Outboxes">
+    <Type Name="Outbox">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Proj_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Code" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Date" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Dept_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Emp_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Org_Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Org_Name" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Org_Out_Box_Code" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Org_Out_Box_DT" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Org_Out_Box_Person" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Subject" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Related_Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Related_Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Notes" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Paper_No" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Paper_Attached" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Follow_Up_Dept_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Follow_Up_Emp_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Dept_Desc" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="Source_Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Org_Dept_Name" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Enter_Date" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Dept_Dept_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Group_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="pmp_pmp_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="sub_Cat_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="finished" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="foundation_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="Outbox_Outbox_Visa" Member="Outbox_Visas" ThisKey="ID" OtherKey="Outbox_ID" Type="Outbox_Visa" />
+      <Association Name="Outbox_Outbox_Track_Manager" Member="Outbox_Track_Managers" ThisKey="ID" OtherKey="Outbox_id" Type="Outbox_Track_Manager" />
+      <Association Name="Outbox_Outbox_Visa_Follow" Member="Outbox_Visa_Follows" ThisKey="ID" OtherKey="Outbox_ID" Type="Outbox_Visa_Follow" />
+    </Type>
+  </Table>
+  <Table Name="dbo.inbox_Main_Categories" Member="inbox_Main_Categories">
+    <Type Name="inbox_Main_Category">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="group_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.inbox_sub_categories" Member="inbox_sub_categories">
+    <Type Name="inbox_sub_category">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="main_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.outbox_cat" Member="outbox_cats">
+    <Type Name="outbox_cat">
+      <Column Name="outbox_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Cat_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="outbox_type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Inbox_OutBox_Files" Member="Inbox_OutBox_Files">
+    <Type Name="Inbox_OutBox_File">
+      <Column Name="Inbox_OutBox_File_ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Inbox_Outbox_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Inbox_Or_Outbox" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Original_Or_Attached" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="File_data" Type="System.Data.Linq.Binary" DbType="VarBinary(MAX)" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="File_name" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="File_ext" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Inbox_Relations" Member="Inbox_Relations">
+    <Type Name="Inbox_Relation">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="inbox_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="inbox_id_type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Related_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Related_ID_Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="foundation_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Inbox" Member="Inboxes">
+    <Type Name="Inbox">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Proj_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Code" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Date" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Dept_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Emp_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Org_Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Org_Name" Type="System.String" DbType="NVarChar(2000)" CanBeNull="true" />
+      <Column Name="Org_Out_Box_Code" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Org_Out_Box_DT" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Org_Out_Box_Person" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Subject" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Related_Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Related_Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Notes" Type="System.String" DbType="NText" CanBeNull="true" UpdateCheck="Never" />
+      <Column Name="Paper_No" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Paper_Attached" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Follow_Up_Dept_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Follow_Up_Emp_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Dept_Desc" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="Source_Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Org_Dept_Name" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Enter_Date" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Dept_Dept_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Group_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="pmp_pmp_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="sub_Cat_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="finished" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="foundation_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.vw_outbox_DateSubject" Member="vw_outbox_DateSubjects">
+    <Type Name="vw_outbox_DateSubject">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Proj_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Code" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="con" Type="System.String" DbType="NVarChar(203)" CanBeNull="true" />
+      <Column Name="Group_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Date" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Organization" Member="Organizations">
+    <Type Name="Organization">
+      <Column Name="Org_ID" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Org_Desc" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="New_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="foundation_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.vw_inbox_DateSubject" Member="vw_inbox_DateSubjects">
+    <Type Name="vw_inbox_DateSubject">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Proj_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Code" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="con" Type="System.String" DbType="NVarChar(304)" CanBeNull="true" />
+      <Column Name="Group_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Date" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.vw_inbox_minister_DateSubject" Member="vw_inbox_minister_DateSubjects">
+    <Type Name="vw_inbox_minister_DateSubject">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Proj_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Code" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="con" Type="System.String" DbType="NVarChar(304)" CanBeNull="true" />
+      <Column Name="Group_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Outbox_Track_Emp" Member="Outbox_Track_Emps">
+    <Type Name="Outbox_Track_Emp">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Outbox_id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Emp_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Outbox_Status" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Type_Track_emp" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.commitee_presidents" Member="commitee_presidents">
+    <Type Name="commitee_president">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="pmp_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="comt_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="dept_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Function Name="dbo.get_employee_accoording_to_radiochek" Method="get_employee_accoording_to_radiochek">
+    <Parameter Name="radiocheck" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="pmp_id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="dept_id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="found_id" Type="System.Int32" DbType="Int" />
+    <ElementType IdRef="ID1" />
+  </Function>
+  <Function Name="dbo.outboxinside_data" Method="outboxinside_data">
+    <Parameter Name="outbox_id" Type="System.Int32" DbType="Int" />
+    <ElementType Name="outboxinside_dataResult">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Proj_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Code" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Date" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Group_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="pmp_pmp_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="incombination" Type="System.String" DbType="NVarChar(101)" CanBeNull="true" />
+      <Column Name="Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Emp_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Related_Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Related_Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Paper_No" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Paper_Attached" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Org_Dept_Name" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Org_Out_Box_Code" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="outcombination" Type="System.String" DbType="NVarChar(101)" CanBeNull="true" />
+      <Column Name="Org_Desc" Type="System.String" DbType="NVarChar(3000)" CanBeNull="true" />
+      <Column Name="Org_Id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+      <Column Name="Subject" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Org_Out_Box_DT" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="valid_date" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="out_valid_date" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Dept_Dept_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="finished" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="notes" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="foundation_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Dept_name" Type="System.String" DbType="NVarChar(3000)" CanBeNull="true" />
+      <Column Name="Sec_sec_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_vw_inbox_DateSubject" Method="SP_vw_inbox_DateSubject">
+    <Parameter Name="groupID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ProjectID" Parameter="projectID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="SP_vw_inbox_DateSubjectResult">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Proj_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Code" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="con" Type="System.String" DbType="NVarChar(304)" CanBeNull="true" />
+      <Column Name="Group_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Date" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="date1" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_vw_outbox_DateSubject" Method="SP_vw_outbox_DateSubject">
+    <Parameter Name="groupID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ProjectID" Parameter="projectID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="SP_vw_outbox_DateSubjectResult">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Proj_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Code" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="con" Type="System.String" DbType="NVarChar(203)" CanBeNull="true" />
+      <Column Name="Group_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Date" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="date1" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.SP_vw_inbox_minister_DateSubject" Method="SP_vw_inbox_minister_DateSubject">
+    <Parameter Name="groupID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="ProjectID" Parameter="projectID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="SP_vw_inbox_minister_DateSubjectResult">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Proj_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Code" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="con" Type="System.String" DbType="NVarChar(304)" CanBeNull="true" />
+      <Column Name="Group_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.outbox_cat_select" Method="outbox_cat_select">
+    <Parameter Name="Outbox_id" Parameter="outbox_id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Type" Parameter="type" Type="System.Int32" DbType="Int" />
+    <ElementType Name="outbox_cat_selectResult1">
+      <Column Name="outbox_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Cat_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="outbox_type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+</Database>
