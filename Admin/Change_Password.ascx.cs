@@ -50,8 +50,8 @@ public partial class UserControls_Change_Password : System.Web.UI.UserControl
 
        // sql = " Select * from Admin_Users where name = '" + Session_CS.pmp_name.ToString() + "'";
 
-        DataTable dt = SqlHelper.ExecuteDataset(Database.ConnectionString, "AdminUsers_SelectName", Session_CS.pmp_name.ToString()).Tables[0];
-
+//        DataTable dt = SqlHelper.ExecuteDataset(Database.ConnectionString, "AdminUsers_SelectName", Session_CS.pmp_name.ToString()).Tables[0];
+        DataTable dt = SqlHelper.ExecuteDataset(Database.ConnectionString, "AdminUsers_Selectuser", CDataConverter.ConvertToInt(Session["ID"].ToString())).Tables[0];
 
       //  SqlDataAdapter da = new SqlDataAdapter(sql, conn);
       //  ds = new DataSet();
