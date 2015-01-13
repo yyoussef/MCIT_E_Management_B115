@@ -546,6 +546,9 @@
                                     <a href="Training_view_userrequest.aspx">الدورات السابقة </a></li>
                             </ul>
                         </li>
+                         <li style="background-image: url('../new_images/top2.gif')"><a href="../MainForm/Eval_Report_Manager.aspx">
+                             تقرير تقييم الأداء الوظيفي</a> </li>
+                        
                         <li id="Mod_Evaluation_11" runat="server" style="background-image: url('../new_images/top2.gif')">
                             <a href="javascript: void(0);">تقييم الأداء</a>
                             <%--  <input type="hidden" runat="server" id="hidden71" value="85" />--%>
