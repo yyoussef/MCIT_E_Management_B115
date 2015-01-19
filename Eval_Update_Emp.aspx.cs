@@ -12,7 +12,11 @@ public partial class Eval_Update_Emp : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
+<<<<<<< HEAD
             string Sql = " select * from Evaluation_For_Employee where year = 2015 ";
+=======
+            string Sql = " select * from Evaluation_For_Employee where year =2015 ";
+>>>>>>> fca6932fb7a32ee4497efbe02084f7b3e62e4cdb
             DataTable dt = General_Helping.GetDataTable(Sql);
             foreach (DataRow dr in dt.Rows)
             {
