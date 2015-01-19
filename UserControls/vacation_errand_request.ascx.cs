@@ -134,6 +134,18 @@ public partial class UserControls_vacation_errand_request : System.Web.UI.UserCo
             ScriptManager.RegisterStartupScript(page, page.GetType(), "err_msg", "alert('" + error + "');", true);
         }
     }
+    private void calc_noofdays()
+
+    {
+        
+        DateTime dt1;
+        DateTime dt2;
+        dt1 = CDataConverter.ConvertToDate(txtStartDate.Text);
+        dt2 = CDataConverter.ConvertToDate(txtEndDate.Text);
+        int i = dt2.Subtract(dt1).Days + 1; 
+        txt_no_days.Text  = i.ToString();
+
+    }
 
     protected void BtnVacationRequest_Click(object sender, EventArgs e)
     {
