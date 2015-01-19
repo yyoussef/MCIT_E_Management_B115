@@ -122,7 +122,7 @@
 <ItemStyle Wrap="False" Font-Size="Large" ></ItemStyle>
                         </asp:TemplateField>
                         
-          <asp:TemplateField HeaderText="إجمالي المأموريات التي تم الموافقة عليها  " HeaderStyle-Wrap="false" ItemStyle-Wrap="false"  HeaderStyle-Font-Size="Large"
+          <asp:TemplateField HeaderText="إجمالي ما تم الموافقة عليها " HeaderStyle-Wrap="false" ItemStyle-Wrap="false"  HeaderStyle-Font-Size="Large"
                             ItemStyle-Font-Size="Large">
                             <ItemTemplate>
                                 <%# Eval("Errand_Approved_count")%>
@@ -133,7 +133,7 @@
 <ItemStyle Wrap="False" Font-Size="Large" ></ItemStyle>
                         </asp:TemplateField>
                         
-                          <asp:TemplateField HeaderText="عدد المأموريات المنتظر الموافقة عليها" HeaderStyle-Wrap="false" ItemStyle-Wrap="false"  HeaderStyle-Font-Size="Large"
+                          <asp:TemplateField HeaderText=" المنتظر الموافقة عليها" HeaderStyle-Wrap="false" ItemStyle-Wrap="false"  HeaderStyle-Font-Size="Large"
                             ItemStyle-Font-Size="Large">
                             <ItemTemplate>
                                 <%# Eval("Errand_Approved_Waiting")%>
