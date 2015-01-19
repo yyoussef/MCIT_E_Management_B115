@@ -63,6 +63,8 @@
                     <asp:Button ID="btnPostBackTrigger" runat="server" OnClick="btnPostBackTrigger_Click" />
                     <asp:Button ID="btnPostBackTrigger2" runat="server" OnClick="btnPostBackTrigger2_Click" />
                     <asp:Button ID="btnPostBackTrigger3" runat="server" OnClick="btnPostBackTrigger3_Click" />
+                    
+                    <asp:TextBox ID="txt_update" runat="server" Visible="false" ></asp:TextBox>
                 </div>
             </td>
         </tr>
@@ -75,7 +77,7 @@
                     EnableContextMenuAdd="false" OnNodeDragAndDropCompletingScript="dndCompletingHandler( elem, newParent )"
                     OnNodeSelectedScript="dndCompletedHandler2(elem)" OnNodeDragAndDropCompletedScript="dndCompletedHandler( elem, newParent )"
                     OnNodeDragAndDropStartScript="dndStartHandler( elem )" EnableMultiLineEdit="false"
-                    EnableEscapeInput="false" ForeColor="#F9FDFF" />
+                    EnableEscapeInput="false" ForeColor="#F9FDFF"  OnOnSelectedNodeChanged="astvMyTree_OnSelectedNodeChanged"/>
             </td>
         </tr>
         <tr>
@@ -87,10 +89,10 @@
         <asp:Button ID="btn_New" runat="server" CssClass="Button" Text="جديد" OnClick="btn_New_Click"  />
          </td>
                      
-          <%-- <td>
-              <asp:Button ID="btn_New_Under" runat="server" Width="150px" CssClass="Button" Text="جديد أسفل المستوى"
-                     OnClick="btn_New_Under_Click" />
-            </td>--%>
+           <td>
+              <asp:Button ID="btn_Update" runat="server" Width="150px" CssClass="Button" Text="تعديل "
+                     OnClick="btn_Update_Click" />
+            </td>
            <td>
                <asp:Button ID="btn_New_Delete" runat="server" CssClass="Button" Text="حذف" OnClientClick="javascript:return confirm('هل أنت متأكد من الحذف')" OnClick="btn_New_Delete_Click" />
            </td>
