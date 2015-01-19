@@ -91,7 +91,7 @@
                         </cc1:CalendarExtender>
                         <cc1:FilteredTextBoxExtender ID="FilteredTextBoxExtender2" runat="server" FilterType="Custom"
                             ValidChars="0987654321/\" TargetControlID="txtEndDate" />
-                        <asp:TextBox ID="txtEndDate" runat="server" CssClass="Text" Enabled="true" />
+                        <asp:TextBox ID="txtEndDate" runat="server" CssClass="Text" Enabled="true"  OnTextChanged="txtEndDate_TextChanged"/>
                         <asp:ImageButton runat="Server" ID="ImageButton2" ImageUrl="~/images/Calendar_scheduleHS.png"
                             AlternateText="اضغط لعرض النتيجة" Height="22px" Width="22px" ToolTip="تقويم" />
                             
@@ -179,7 +179,7 @@
                 ErrorMessage="*" ValidationExpression="^[0-9]*$" ValidationGroup="Group1"></asp:RegularExpressionValidator>
         </td>
         <td align="right" style="height: 51px">
-            <asp:TextBox ID="txt_no_days" runat="server" CssClass="Text" Width="230px" Enabled="False">1</asp:TextBox>
+            <asp:TextBox ID="txt_no_days" runat="server" CssClass="Text" Width="230px" >1</asp:TextBox>
             <cc1:FilteredTextBoxExtender ID="no_days_filtered" runat="server" FilterType="Custom"
                 ValidChars="0123456789" TargetControlID="txt_no_days" />
         </td>

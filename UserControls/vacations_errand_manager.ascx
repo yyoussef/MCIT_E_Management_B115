@@ -82,13 +82,13 @@
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="الجهة" HeaderStyle-Wrap="false" ItemStyle-Width="40%" HeaderStyle-Width="40%" HeaderStyle-Font-Size="Large"
                             ItemStyle-Font-Size="Large">
-                            <ItemTemplate>
+                            <ItemTemplate   >
                                 <%# Eval("location")%>
                             </ItemTemplate>
 
-<HeaderStyle Wrap="False" Font-Size="Large" Width="40%"></HeaderStyle>
+<HeaderStyle Wrap="False" Font-Size="Large" Width="60%"></HeaderStyle>
 
-<ItemStyle Font-Size="Large" Width="40%"></ItemStyle>
+<ItemStyle Font-Size="Large" Width="100%"></ItemStyle>
                         </asp:TemplateField>
                         <asp:TemplateField HeaderText="المطلوب مقابلته" HeaderStyle-Wrap="false" ItemStyle-Width="25%" HeaderStyle-Width="25%" HeaderStyle-Font-Size="Large"
                             ItemStyle-Font-Size="Large">
@@ -115,12 +115,34 @@
                             <ItemTemplate>
                                 <%# Eval("end_date")%>
                             </ItemTemplate>
+                            
 
-<HeaderStyle Wrap="False" Font-Size="Large" Width="5%"></HeaderStyle>
+<HeaderStyle Wrap="False" Font-Size="Large" ></HeaderStyle>
 
-<ItemStyle Wrap="False" Font-Size="Large" Width="5%"></ItemStyle>
+<ItemStyle Wrap="False" Font-Size="Large" ></ItemStyle>
                         </asp:TemplateField>
                         
+          <asp:TemplateField HeaderText="إجمالي المأموريات التي تم الموافقة عليها  " HeaderStyle-Wrap="false" ItemStyle-Wrap="false"  HeaderStyle-Font-Size="Large"
+                            ItemStyle-Font-Size="Large">
+                            <ItemTemplate>
+                                <%# Eval("Errand_Approved_count")%>
+                            </ItemTemplate>
+
+<HeaderStyle Wrap="False" Font-Size="Large" ></HeaderStyle>
+
+<ItemStyle Wrap="False" Font-Size="Large" ></ItemStyle>
+                        </asp:TemplateField>
+                        
+                          <asp:TemplateField HeaderText="عدد المأموريات المنتظر الموافقة عليها" HeaderStyle-Wrap="false" ItemStyle-Wrap="false"  HeaderStyle-Font-Size="Large"
+                            ItemStyle-Font-Size="Large">
+                            <ItemTemplate>
+                                <%# Eval("Errand_Approved_Waiting")%>
+                            </ItemTemplate>
+
+<HeaderStyle Wrap="False" Font-Size="Large" ></HeaderStyle>
+
+<ItemStyle Wrap="False" Font-Size="Large" ></ItemStyle>
+                        </asp:TemplateField>
                         
                         
                         <asp:TemplateField HeaderText="قبول/رفض">

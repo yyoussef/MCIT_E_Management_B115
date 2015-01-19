@@ -147,6 +147,41 @@ public partial class UserControls_vacation_errand_request : System.Web.UI.UserCo
 
     }
 
+    protected void txtStartDate_TextChanged(object sender, EventArgs e)
+    {
+        if (!(txtStartDate.Text.Trim() != "" && txtEndDate.Text.Trim() != ""))
+        {
+
+        }
+        else if (!(VB_Classes.Dates.Dates_Operation.Date_compare(txtEndDate.Text.Trim(), txtStartDate.Text.Trim())))
+        {
+            txtEndDate.Text = txtStartDate.Text;
+            calc_noofdays();
+        }
+        else
+        {
+
+            calc_noofdays();
+        }
+
+    }
+
+    protected void txtEndDate_TextChanged(object sender, EventArgs e)
+    {
+        if (!(txtStartDate.Text.Trim() != "" && txtEndDate.Text.Trim() != ""))
+        {
+
+        }
+        else if (!(VB_Classes.Dates.Dates_Operation.Date_compare(txtEndDate.Text.Trim(), txtStartDate.Text.Trim())))
+        {
+
+        }
+        else
+        {
+            calc_noofdays();
+        }
+    }
+
     protected void BtnVacationRequest_Click(object sender, EventArgs e)
     {
         lblPageStatus.Visible = false;
