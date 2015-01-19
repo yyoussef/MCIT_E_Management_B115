@@ -225,7 +225,7 @@ public partial class WebForms2_Department_manage : System.Web.UI.Page
                 }
                 else
                 {
-                    // Departments_DB.Delete(CDataConverter.ConvertToInt(txtCurrentNode.Text));
+                     Departments_DB.Delete(CDataConverter.ConvertToInt(txtCurrentNode.Text));
 
                     Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('لقد تم الحذف بنجاح')</script>");
                 }

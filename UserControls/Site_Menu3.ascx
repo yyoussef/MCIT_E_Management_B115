@@ -546,8 +546,7 @@
                                     <a href="Training_view_userrequest.aspx">الدورات السابقة </a></li>
                             </ul>
                         </li>
-                         <li style="background-image: url('../new_images/top2.gif')"><a href="../MainForm/Eval_Report_Manager.aspx">
-                             تقرير تقييم الأداء الوظيفي</a> </li>
+                       
                         
                         <li id="Mod_Evaluation_11" runat="server" style="background-image: url('../new_images/top2.gif')">
                             <a href="javascript: void(0);">تقييم الأداء</a>
@@ -555,10 +554,13 @@
                             <ul class="newclass">
                                 <li style="background-image: url('../new_images/toptany.gif')"><a href="Eval_For_Employee.aspx">
                                     تقييم أداء موظف</a></li>
+
                                 <%-- <li style="background-image: url('../new_images/toptany.gif')"><a href="Eval_Reports.aspx">
                                     تقارير تقييم أداء موظف</a></li>--%>
                                 <li id="LI85" runat="server" style="background-image: url('../new_images/top2.gif')">
                                     <a href="../MainForm/Eval_For_Manager.aspx">تقييم أداء مدير</a> </li>
+                                      <li style="background-image: url('../new_images/top2.gif')"><a href="../MainForm/Eval_Report_Manager.aspx">
+                             تقرير تقييم الأداء الوظيفي</a> </li> 
                             </ul>
                         </li>
                         <li id="Mod_Vacation_9" runat="server" style="background-image: url('../new_images/top2.gif')">
