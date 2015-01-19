@@ -24,7 +24,8 @@
                             <input type="hidden" runat="server" id="hidden64" value="79" />
                         </li>
                         <li id="Li83" runat="server" visible="false" style="background-image: url('../new_images/top2.gif')">
-                            <a runat="server" id="ahref">البيانات الاساسيه للمشروع</a>
+                            <a href='<%="ProjectGeneralData.aspx?mode=edit&Proj_id=" + Session_CS.Project_id.ToString()%>'>
+                                البيانات الاساسيه للمشروع</a>
                             <input type="hidden" runat="server" id="hidden71" value="101" />
                         </li>
                         <li id="Li20" runat="server" visible="false" style="background-image: url('../new_images/top2.gif')">

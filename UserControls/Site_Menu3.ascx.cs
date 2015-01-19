@@ -22,7 +22,7 @@ public partial class UserControls_Site_Menu : System.Web.UI.UserControl
         {
 
 
-            ahref.HRef = "ProjectGeneralData.aspx?mode=edit&Proj_id=" + Session_CS.Project_id.ToString();
+            //ahref.HRef = "ProjectGeneralData.aspx?mode=edit&Proj_id=" + Session_CS.Project_id.ToString();
             /*if (Session_CS.Eval_mng.ToString() == "1")
             {
                 LI_Eval_Emp.Visible = true;
