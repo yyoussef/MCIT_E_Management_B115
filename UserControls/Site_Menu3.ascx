@@ -560,8 +560,8 @@
                                     تقارير تقييم أداء موظف</a></li>--%>
                                 <li id="LI85" runat="server" style="background-image: url('../new_images/top2.gif')">
                                     <a href="../MainForm/Eval_For_Manager.aspx">تقييم أداء مدير</a> </li>
-                                      <li style="background-image: url('../new_images/top2.gif')"><a href="../MainForm/Eval_Report_Manager.aspx">
-                             تقرير تقييم الأداء الوظيفي</a> </li> 
+                                 <%--     <li style="background-image: url('../new_images/top2.gif')"><a href="../MainForm/Eval_Report_Manager.aspx">
+                             تقرير تقييم الأداء الوظيفي</a> </li> --%>
                             </ul>
                         </li>
                         <li id="Mod_Vacation_9" runat="server" style="background-image: url('../new_images/top2.gif')">

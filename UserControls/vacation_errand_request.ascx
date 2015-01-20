@@ -75,7 +75,7 @@
                         </cc1:CalendarExtender>
                         <cc1:FilteredTextBoxExtender ID="FilteredTextBoxExtender1" runat="server" FilterType="Custom"
                             ValidChars="0987654321/\" TargetControlID="txtStartDate" />
-                        <asp:TextBox ID="txtStartDate" runat="server" CssClass="Text" Enabled="true" />
+                        <asp:TextBox ID="txtStartDate" runat="server" CssClass="Text" Enabled="true" AutoPostBack="True"   OnTextChanged="txtStartDate_TextChanged"/>
                         <asp:ImageButton runat="Server" ID="ImageButton1" ImageUrl="~/images/Calendar_scheduleHS.png"
                             AlternateText="اضغط لعرض النتيجة" Height="22px" Width="22px" ToolTip="تقويم" />
                             
@@ -91,7 +91,7 @@
                         </cc1:CalendarExtender>
                         <cc1:FilteredTextBoxExtender ID="FilteredTextBoxExtender2" runat="server" FilterType="Custom"
                             ValidChars="0987654321/\" TargetControlID="txtEndDate" />
-                        <asp:TextBox ID="txtEndDate" runat="server" CssClass="Text" Enabled="true" />
+                        <asp:TextBox ID="txtEndDate" runat="server" CssClass="Text" Enabled="true"  AutoPostBack="True" OnTextChanged="txtEndDate_TextChanged"/>
                         <asp:ImageButton runat="Server" ID="ImageButton2" ImageUrl="~/images/Calendar_scheduleHS.png"
                             AlternateText="اضغط لعرض النتيجة" Height="22px" Width="22px" ToolTip="تقويم" />
                             
@@ -170,6 +170,21 @@
             </table>
         </td>
     </tr>
+    
+      <tr>
+        <td align="right" width="20%">
+            <asp:Label ID="Label10" runat="server" CssClass="Label" Text="عدد أيام المأمورية :"
+                Height="25px" />
+            <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" ControlToValidate="txt_no_days"
+                ErrorMessage="*" ValidationExpression="^[0-9]*$" ValidationGroup="Group1"></asp:RegularExpressionValidator>
+        </td>
+        <td align="right" style="height: 51px">
+            <asp:TextBox ID="txt_no_days" runat="server" CssClass="Text" Width="230px"  >1</asp:TextBox>
+            <cc1:FilteredTextBoxExtender ID="no_days_filtered" runat="server" FilterType="Custom"
+                ValidChars="0123456789" TargetControlID="txt_no_days" />
+        </td>
+    </tr>
+    
     <tr>
         <td align="right"  width="20%">
             <asp:Label ID="Label5" runat="server" CssClass="Label" Text="الغرض :" Width="95px"
