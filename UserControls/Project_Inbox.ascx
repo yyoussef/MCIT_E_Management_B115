@@ -854,12 +854,11 @@
     </ContentTemplate>
     <Triggers>
         <asp:PostBackTrigger ControlID="TabPanel_All$TabPanel_Files$btn_Doc" />
-    </Triggers>
-    <Triggers>
         <asp:PostBackTrigger ControlID="TabPanel_All$TabPanel_Visa$Button1" />
-    </Triggers>
-    <Triggers>
         <asp:PostBackTrigger ControlID="TabPanel_All$TabPanel_Visa_Folow$btn_Visa_Follow" />
         <asp:PostBackTrigger ControlID="TabPanel_All$TabPanel_Visa_Folow$btn_print_report" />
+        
+
+        
     </Triggers>
 </asp:UpdatePanel>
