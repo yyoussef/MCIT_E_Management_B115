@@ -857,7 +857,7 @@
         <asp:PostBackTrigger ControlID="TabPanel_All$TabPanel_Visa$Button1" />
         <asp:PostBackTrigger ControlID="TabPanel_All$TabPanel_Visa_Folow$btn_Visa_Follow" />
         <asp:PostBackTrigger ControlID="TabPanel_All$TabPanel_Visa_Folow$btn_print_report" />
-        <asp:PostBackTrigger ControlID="TabPanel_All$TabPanel_Visa_Folow$btn_print_report" />
+        
 
         
     </Triggers>
