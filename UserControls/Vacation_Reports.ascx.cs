@@ -2278,17 +2278,6 @@ public partial class UserControls_Vacation_Reports : System.Web.UI.UserControl
             // sql = "set dateformat dmy SELECT dbo.Vacations.vacation_title, dbo.Vacations_users.start_date, CONVERT(datetime, dbo.datevalid(dbo.Vacations_users.start_date)) AS start_date, dbo.Vacations_users.end_date, CONVERT(datetime, dbo.datevalid(dbo.Vacations_users.end_date)) AS end_date, dbo.Vacations_users.no_days, dbo.Departments.Dept_ID, dbo.Departments.Dept_name, dbo.Vacations_users.manager_approve, dbo.Vacations_users.general_manager_approve, dbo.EMPLOYEE.pmp_name, dbo.Vacations_users.request_date AS request_date, CONVERT(datetime, dbo.datevalid(dbo.Vacations_users.request_date)) AS request_date, dbo.EMPLOYEE.PMP_ID, dbo.Vacations_summary.unusual, dbo.Vacations_summary.exhibitor, dbo.Vacations_summary.sick, dbo.Vacations_summary.hajj, dbo.Vacations_summary.birth, dbo.Vacations_summary.year, dbo.Vacations_summary.repeat FROM dbo.Vacations_users INNER JOIN  dbo.EMPLOYEE INNER JOIN dbo.Departments ON dbo.EMPLOYEE.Dept_Dept_id = dbo.Departments.Dept_ID ON dbo.Vacations_users.user_id = dbo.EMPLOYEE.PMP_ID INNER JOIN dbo.Vacations ON dbo.Vacations_users.vacation_id = dbo.Vacations.id  LEFT OUTER JOIN dbo.Vacations_summary ON dbo.Vacations_users.id = dbo.Vacations_summary.id AND dbo.EMPLOYEE.PMP_ID = dbo.Vacations_summary.emp_id where 1=1";
             sql = "set dateformat dmy SELECT * from Vac_permonth  where 1=1   and Sec_id='"+CDataConverter.ConvertToInt(Session_CS.sec_id )+"'";
 
-            //sql = "set dateformat dmy SELECT  distinct TOP (100)  PERCENT dbo.Vacations.vacation_title, dbo.Vacations_users.start_date, ";
-            //sql += " CONVERT(datetime, dbo.datevalid(dbo.Vacations_users.start_date)) AS start_date, dbo.Vacations_users.end_date,";
-            //sql += " CONVERT(datetime, dbo.datevalid(dbo.Vacations_users.end_date)) AS end_date, dbo.Vacations_users.no_days, ";
-            //sql += " dbo.Departments.Dept_ID, dbo.Departments.Dept_name, dbo.Vacations_users.manager_approve, ";
-            //sql += " dbo.Vacations_users.general_manager_approve, dbo.EMPLOYEE.pmp_name, dbo.Vacations_users.request_date, ";
-            //sql += " CONVERT(datetime, dbo.datevalid(dbo.Vacations_users.request_date)) AS request_date, dbo.EMPLOYEE.PMP_ID, ";
-            //sql += " dbo.Vacations_summary.unusual, dbo.Vacations_summary.exhibitor, dbo.Vacations_summary.sick, ";
-            //sql += " dbo.Vacations_summary.hajj, dbo.Vacations_summary.birth, dbo.Vacations_summary.year, ";
-            //sql += " dbo.Vacations_summary.repeat FROM dbo.Vacations_users INNER JOIN dbo.EMPLOYEE INNER JOIN dbo.Departments ON dbo.EMPLOYEE.Dept_Dept_id = dbo.Departments.Dept_ID ON dbo.Vacations_users.user_id = dbo.EMPLOYEE.PMP_ID INNER JOIN dbo.Vacations ON dbo.Vacations_users.vacation_id = dbo.Vacations.id LEFT OUTER JOIN dbo.Vacations_summary ON dbo.EMPLOYEE.PMP_ID = dbo.Vacations_summary.emp_id WHERE (1 = 1)  and Vacations.id in (1,2) and  dbo.Vacations_users.manager_approve=1 and EMPLOYEE.group_id <>3 and (EMPLOYEE.status not in ( 2,1) or EMPLOYEE.status is null )  ";
-
-
             if (CDataConverter.ConvertToInt(Session_CS.group_id.ToString()) != 14)
             {
                 sql += " AND Dept_ID = " + CDataConverter.ConvertToInt(Session_CS.dept_id.ToString());
@@ -2298,12 +2287,12 @@ public partial class UserControls_Vacation_Reports : System.Web.UI.UserControl
             {
                 if(ddl_empstatus.SelectedValue =="2")
                 {
-                     sql += "and status=2";
+                    sql += "and vacation_id=1";
 
                 }
                 else 
                 {
-                    sql += "and status !=2 ";
+                    sql += "and vacation_id =2 ";
 
                 }
 
@@ -2423,21 +2412,17 @@ public partial class UserControls_Vacation_Reports : System.Web.UI.UserControl
             string s = "";
 
 
-
-
-
             string user = Session_CS.pmp_name.ToString();
             ReportDocument rd = new ReportDocument();
 
             if (ddl_empstatus.SelectedValue == "2")
             {
-                 s = Server.MapPath("../Reports/Vacation_Detail_Dr_Hesham.rpt");
+                s = Server.MapPath("../Reports/Vacation_Detailnew.rpt");
  
-
             }
             else
             {
-                 s = Server.MapPath("../Reports/Vacation_Detail_DrHesham.rpt");
+                s = Server.MapPath("../Reports/Vacation_Detail_without_sick_new.rpt");
 
             }
 
