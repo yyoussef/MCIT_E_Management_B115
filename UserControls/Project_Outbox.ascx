@@ -503,7 +503,8 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                             <asp:RadioButtonList ID="radlst_Type" runat="server" OnSelectedIndexChanged="radlst_Type_SelectedIndexChanged"
                                                 AutoPostBack="True" CssClass="Label" Font-Bold="True" CellPadding="2" CellSpacing="1"
                                                 RepeatColumns="6" RepeatDirection="Horizontal">
-                                                <asp:ListItem Text="المفضلة" Value="1" Selected="True"></asp:ListItem>
+                                                 <asp:ListItem Text="اختر" Value="7" Selected="True"></asp:ListItem>
+                                                <asp:ListItem Text="المفضلة" Value="1" ></asp:ListItem>
                                                 <asp:ListItem Text="الكل" Value="2"></asp:ListItem>
                                                 <asp:ListItem Text="مديري الادارات" Value="3"></asp:ListItem>
                                                 <asp:ListItem Text="مسئولي الاتصال" Value="4"></asp:ListItem>
@@ -541,7 +542,7 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr id="tr_old_emp" runat="server">
+                                    <%--<tr id="tr_old_emp" runat="server">
                                         <td id="Td7" runat="server">
                                             <asp:Label ID="Label31" runat="server" CssClass="Label" Text="المسئول عن التنفيذ :" />
                                         </td>
@@ -554,7 +555,7 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                                 </asp:CheckBoxList>
                                             </div>
                                         </td>
-                                    </tr>
+                                    </tr>--%>
                                     <tr>
                                         <td colspan="4">
                                             <asp:Label ID="Label29" runat="server" CssClass="Label" Width="293px"></asp:Label>

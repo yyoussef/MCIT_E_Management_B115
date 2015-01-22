@@ -1,12 +1,30 @@
 ﻿using System;
-using System.Data.SqlClient;
+using System.Collections;
+using System.Configuration;
 using System.Data;
-
+using System.Linq;
+using System.Web;
+using System.Web.Security;
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
+using System.Web.UI.WebControls.WebParts;
+using System.Xml.Linq;
+using System.Data.Linq;
+using System.Text;
+using System.Data.SqlClient;
+using System.IO;
+using System.Net.Mail;
+using CrystalDecisions.CrystalReports.Engine;
+using CrystalDecisions.Shared;
+using ReportsClass;
+using System.Collections.Generic;
 /// <summary>
 /// Summary description for Outbox_DB
 /// </summary>
 public static class Outbox_DB
 {
+    
     #region "Private methods"
 
     private static Outbox_DT FillInfoObject(SqlDataReader dr)
@@ -239,22 +257,7 @@ public static class Outbox_DB
         }
 
     }
-    public static void update_Outbox_Track_Emp(string Outbox_id, string Emp_ID, int Outbox_Status, int Type)
-    {
-        DataTable DT = General_Helping.GetDataTable("select * from Outbox_Track_Emp where Outbox_id = " + Outbox_id + " and Emp_ID =" + Emp_ID);
-        if (DT.Rows.Count > 0)
-        {
-
-            string sql = "update Outbox_Track_Emp set Outbox_Status= " + Outbox_Status + " where Outbox_id =" + Outbox_id + " and Emp_ID =" + Emp_ID;
-            General_Helping.ExcuteQuery(sql);
-        }
-        else
-        {
-            string sql = "insert into Outbox_Track_Emp (Outbox_id,Emp_ID,Outbox_Status,Type_Track_emp) values ( " + Outbox_id + "," + Emp_ID + "," + Outbox_Status + "," + "1" + ")";
-            General_Helping.ExcuteQuery(sql);
-        }
-
-    }
+   
     public static void update_Outbox_Track_Manager(string Outbox_id, int Status)
     {
         DataTable DT = General_Helping.GetDataTable("select * from Outbox_Track_Manager where Outbox_id = " + Outbox_id );

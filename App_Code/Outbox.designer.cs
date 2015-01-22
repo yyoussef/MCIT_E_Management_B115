@@ -307,13 +307,6 @@ public partial class OutboxDataContext : System.Data.Linq.DataContext
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.get_employee_accoording_to_radiochek")]
-	public ISingleResult<EMPLOYEE> get_employee_accoording_to_radiochek([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(20)")] string radiocheck, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> pmp_id, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> dept_id, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> found_id)
-	{
-		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), radiocheck, pmp_id, dept_id, found_id);
-		return ((ISingleResult<EMPLOYEE>)(result.ReturnValue));
-	}
-	
 	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.outboxinside_data")]
 	public ISingleResult<outboxinside_dataResult> outboxinside_data([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> outbox_id)
 	{
@@ -347,6 +340,55 @@ public partial class OutboxDataContext : System.Data.Linq.DataContext
 	{
 		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), outbox_id, type);
 		return ((ISingleResult<outbox_cat_selectResult1>)(result.ReturnValue));
+	}
+	
+	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Outbox_cat_save")]
+	public int Outbox_cat_save([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Outbox_id", DbType="Int")] System.Nullable<int> outbox_id, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Cat_id", DbType="Int")] System.Nullable<int> cat_id, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Type", DbType="Int")] System.Nullable<int> type, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Outbox_type", DbType="Int")] System.Nullable<int> outbox_type)
+	{
+		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), outbox_id, cat_id, type, outbox_type);
+		return ((int)(result.ReturnValue));
+	}
+	
+	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.Outbox_visa_emp_save")]
+	public int Outbox_visa_emp_save([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Visa_Id", DbType="Int")] System.Nullable<int> visa_Id, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Emp_ID", DbType="Int")] System.Nullable<int> emp_ID, [global::System.Data.Linq.Mapping.ParameterAttribute(Name="Sender_ID", DbType="Int")] System.Nullable<int> sender_ID)
+	{
+		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), visa_Id, emp_ID, sender_ID);
+		return ((int)(result.ReturnValue));
+	}
+	
+	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.get_employee_accoording_to_radiochek")]
+	public ISingleResult<get_employee_accoording_to_radiochekResult> get_employee_accoording_to_radiochek([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="NVarChar(20)")] string radiocheck, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> pmp_id, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> dept_id, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> found_id)
+	{
+		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), radiocheck, pmp_id, dept_id, found_id);
+		return ((ISingleResult<get_employee_accoording_to_radiochekResult>)(result.ReturnValue));
+	}
+	
+	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.get_employee_from_Outbox_Visa_Follows")]
+	public ISingleResult<get_employee_from_Outbox_Visa_FollowsResult> get_employee_from_Outbox_Visa_Follows([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Outbox_ID", DbType="Int")] System.Nullable<int> outbox_ID)
+	{
+		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), outbox_ID);
+		return ((ISingleResult<get_employee_from_Outbox_Visa_FollowsResult>)(result.ReturnValue));
+	}
+	
+	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.get_OutboxVisaEmps")]
+	public ISingleResult<get_OutboxVisaEmpsResult> get_OutboxVisaEmps([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> visa_ID)
+	{
+		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), visa_ID);
+		return ((ISingleResult<get_OutboxVisaEmpsResult>)(result.ReturnValue));
+	}
+	
+	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.OutboxVisaEmpSelect")]
+	public ISingleResult<OutboxVisaEmpSelectResult> OutboxVisaEmpSelect([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Visa_Id", DbType="Int")] System.Nullable<int> visa_Id)
+	{
+		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), visa_Id);
+		return ((ISingleResult<OutboxVisaEmpSelectResult>)(result.ReturnValue));
+	}
+	
+	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.OutboxVisaEmpSelectOutboxId")]
+	public ISingleResult<OutboxVisaEmpSelectOutboxIdResult> OutboxVisaEmpSelectOutboxId([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Outbox_Id", DbType="Int")] System.Nullable<int> outbox_Id)
+	{
+		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), outbox_Id);
+		return ((ISingleResult<OutboxVisaEmpSelectOutboxIdResult>)(result.ReturnValue));
 	}
 }
 
@@ -1688,8 +1730,6 @@ public partial class Department : INotifyPropertyChanging, INotifyPropertyChange
 	
 	private System.Nullable<int> _foundation_id;
 	
-	private EntityRef<Sector> _Sector;
-	
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -1710,7 +1750,6 @@ public partial class Department : INotifyPropertyChanging, INotifyPropertyChange
 	
 	public Department()
 	{
-		this._Sector = default(EntityRef<Sector>);
 		OnCreated();
 	}
 	
@@ -1805,10 +1844,6 @@ public partial class Department : INotifyPropertyChanging, INotifyPropertyChange
 		{
 			if ((this._Sec_sec_id != value))
 			{
-				if (this._Sector.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
 				this.OnSec_sec_idChanging(value);
 				this.SendPropertyChanging();
 				this._Sec_sec_id = value;
@@ -1834,40 +1869,6 @@ public partial class Department : INotifyPropertyChanging, INotifyPropertyChange
 				this._foundation_id = value;
 				this.SendPropertyChanged("foundation_id");
 				this.Onfoundation_idChanged();
-			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Sector_Department", Storage="_Sector", ThisKey="Sec_sec_id", OtherKey="Sec_id", IsForeignKey=true)]
-	public Sector Sector
-	{
-		get
-		{
-			return this._Sector.Entity;
-		}
-		set
-		{
-			Sector previousValue = this._Sector.Entity;
-			if (((previousValue != value) 
-						|| (this._Sector.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._Sector.Entity = null;
-					previousValue.Departments.Remove(this);
-				}
-				this._Sector.Entity = value;
-				if ((value != null))
-				{
-					value.Departments.Add(this);
-					this._Sec_sec_id = value.Sec_id;
-				}
-				else
-				{
-					this._Sec_sec_id = default(Nullable<long>);
-				}
-				this.SendPropertyChanged("Sector");
 			}
 		}
 	}
@@ -2615,8 +2616,6 @@ public partial class Sector : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private System.Nullable<int> _foundation_id;
 	
-	private EntitySet<Department> _Departments;
-	
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -2631,7 +2630,6 @@ public partial class Sector : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	public Sector()
 	{
-		this._Departments = new EntitySet<Department>(new Action<Department>(this.attach_Departments), new Action<Department>(this.detach_Departments));
 		OnCreated();
 	}
 	
@@ -2695,19 +2693,6 @@ public partial class Sector : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Sector_Department", Storage="_Departments", ThisKey="Sec_id", OtherKey="Sec_sec_id")]
-	public EntitySet<Department> Departments
-	{
-		get
-		{
-			return this._Departments;
-		}
-		set
-		{
-			this._Departments.Assign(value);
-		}
-	}
-	
 	public event PropertyChangingEventHandler PropertyChanging;
 	
 	public event PropertyChangedEventHandler PropertyChanged;
@@ -2726,18 +2711,6 @@ public partial class Sector : INotifyPropertyChanging, INotifyPropertyChanged
 		{
 			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 		}
-	}
-	
-	private void attach_Departments(Department entity)
-	{
-		this.SendPropertyChanging();
-		entity.Sector = this;
-	}
-	
-	private void detach_Departments(Department entity)
-	{
-		this.SendPropertyChanging();
-		entity.Sector = null;
 	}
 }
 
@@ -4352,11 +4325,11 @@ public partial class Outbox : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private System.Nullable<int> _foundation_id;
 	
-	private EntitySet<Outbox_Visa> _Outbox_Visas;
-	
 	private EntitySet<Outbox_Track_Manager> _Outbox_Track_Managers;
 	
 	private EntitySet<Outbox_Visa_Follow> _Outbox_Visa_Follows;
+	
+	private EntitySet<Outbox_Visa> _Outbox_Visas;
 	
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -4430,9 +4403,9 @@ public partial class Outbox : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	public Outbox()
 	{
-		this._Outbox_Visas = new EntitySet<Outbox_Visa>(new Action<Outbox_Visa>(this.attach_Outbox_Visas), new Action<Outbox_Visa>(this.detach_Outbox_Visas));
 		this._Outbox_Track_Managers = new EntitySet<Outbox_Track_Manager>(new Action<Outbox_Track_Manager>(this.attach_Outbox_Track_Managers), new Action<Outbox_Track_Manager>(this.detach_Outbox_Track_Managers));
 		this._Outbox_Visa_Follows = new EntitySet<Outbox_Visa_Follow>(new Action<Outbox_Visa_Follow>(this.attach_Outbox_Visa_Follows), new Action<Outbox_Visa_Follow>(this.detach_Outbox_Visa_Follows));
+		this._Outbox_Visas = new EntitySet<Outbox_Visa>(new Action<Outbox_Visa>(this.attach_Outbox_Visas), new Action<Outbox_Visa>(this.detach_Outbox_Visas));
 		OnCreated();
 	}
 	
@@ -5076,19 +5049,6 @@ public partial class Outbox : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Outbox_Outbox_Visa", Storage="_Outbox_Visas", ThisKey="ID", OtherKey="Outbox_ID")]
-	public EntitySet<Outbox_Visa> Outbox_Visas
-	{
-		get
-		{
-			return this._Outbox_Visas;
-		}
-		set
-		{
-			this._Outbox_Visas.Assign(value);
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Outbox_Outbox_Track_Manager", Storage="_Outbox_Track_Managers", ThisKey="ID", OtherKey="Outbox_id")]
 	public EntitySet<Outbox_Track_Manager> Outbox_Track_Managers
 	{
@@ -5115,6 +5075,19 @@ public partial class Outbox : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
+	[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Outbox_Outbox_Visa", Storage="_Outbox_Visas", ThisKey="ID", OtherKey="Outbox_ID")]
+	public EntitySet<Outbox_Visa> Outbox_Visas
+	{
+		get
+		{
+			return this._Outbox_Visas;
+		}
+		set
+		{
+			this._Outbox_Visas.Assign(value);
+		}
+	}
+	
 	public event PropertyChangingEventHandler PropertyChanging;
 	
 	public event PropertyChangedEventHandler PropertyChanged;
@@ -5133,18 +5106,6 @@ public partial class Outbox : INotifyPropertyChanging, INotifyPropertyChanged
 		{
 			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 		}
-	}
-	
-	private void attach_Outbox_Visas(Outbox_Visa entity)
-	{
-		this.SendPropertyChanging();
-		entity.Outbox = this;
-	}
-	
-	private void detach_Outbox_Visas(Outbox_Visa entity)
-	{
-		this.SendPropertyChanging();
-		entity.Outbox = null;
 	}
 	
 	private void attach_Outbox_Track_Managers(Outbox_Track_Manager entity)
@@ -5166,6 +5127,18 @@ public partial class Outbox : INotifyPropertyChanging, INotifyPropertyChanged
 	}
 	
 	private void detach_Outbox_Visa_Follows(Outbox_Visa_Follow entity)
+	{
+		this.SendPropertyChanging();
+		entity.Outbox = null;
+	}
+	
+	private void attach_Outbox_Visas(Outbox_Visa entity)
+	{
+		this.SendPropertyChanging();
+		entity.Outbox = this;
+	}
+	
+	private void detach_Outbox_Visas(Outbox_Visa entity)
 	{
 		this.SendPropertyChanging();
 		entity.Outbox = null;
@@ -8332,6 +8305,352 @@ public partial class outbox_cat_selectResult1
 			if ((this._outbox_type != value))
 			{
 				this._outbox_type = value;
+			}
+		}
+	}
+}
+
+public partial class get_employee_accoording_to_radiochekResult
+{
+	
+	private long _pmp_id;
+	
+	public get_employee_accoording_to_radiochekResult()
+	{
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_pmp_id", DbType="BigInt NOT NULL")]
+	public long pmp_id
+	{
+		get
+		{
+			return this._pmp_id;
+		}
+		set
+		{
+			if ((this._pmp_id != value))
+			{
+				this._pmp_id = value;
+			}
+		}
+	}
+}
+
+public partial class get_employee_from_Outbox_Visa_FollowsResult
+{
+	
+	private int _Follow_ID;
+	
+	private string _File_name;
+	
+	private string _time_follow;
+	
+	private System.Nullable<int> _Outbox_ID;
+	
+	private string _Descrption;
+	
+	private string _Date;
+	
+	private System.Nullable<int> _Visa_Emp_id;
+	
+	private string _pmp_name;
+	
+	public get_employee_from_Outbox_Visa_FollowsResult()
+	{
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Follow_ID", DbType="Int NOT NULL")]
+	public int Follow_ID
+	{
+		get
+		{
+			return this._Follow_ID;
+		}
+		set
+		{
+			if ((this._Follow_ID != value))
+			{
+				this._Follow_ID = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_File_name", DbType="NVarChar(1000)")]
+	public string File_name
+	{
+		get
+		{
+			return this._File_name;
+		}
+		set
+		{
+			if ((this._File_name != value))
+			{
+				this._File_name = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_time_follow", DbType="NVarChar(50)")]
+	public string time_follow
+	{
+		get
+		{
+			return this._time_follow;
+		}
+		set
+		{
+			if ((this._time_follow != value))
+			{
+				this._time_follow = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Outbox_ID", DbType="Int")]
+	public System.Nullable<int> Outbox_ID
+	{
+		get
+		{
+			return this._Outbox_ID;
+		}
+		set
+		{
+			if ((this._Outbox_ID != value))
+			{
+				this._Outbox_ID = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Descrption", DbType="NVarChar(500)")]
+	public string Descrption
+	{
+		get
+		{
+			return this._Descrption;
+		}
+		set
+		{
+			if ((this._Descrption != value))
+			{
+				this._Descrption = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date", DbType="NVarChar(50)")]
+	public string Date
+	{
+		get
+		{
+			return this._Date;
+		}
+		set
+		{
+			if ((this._Date != value))
+			{
+				this._Date = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Visa_Emp_id", DbType="Int")]
+	public System.Nullable<int> Visa_Emp_id
+	{
+		get
+		{
+			return this._Visa_Emp_id;
+		}
+		set
+		{
+			if ((this._Visa_Emp_id != value))
+			{
+				this._Visa_Emp_id = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_pmp_name", DbType="NVarChar(255)")]
+	public string pmp_name
+	{
+		get
+		{
+			return this._pmp_name;
+		}
+		set
+		{
+			if ((this._pmp_name != value))
+			{
+				this._pmp_name = value;
+			}
+		}
+	}
+}
+
+public partial class get_OutboxVisaEmpsResult
+{
+	
+	private string _pmp_name;
+	
+	public get_OutboxVisaEmpsResult()
+	{
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_pmp_name", DbType="NVarChar(255)")]
+	public string pmp_name
+	{
+		get
+		{
+			return this._pmp_name;
+		}
+		set
+		{
+			if ((this._pmp_name != value))
+			{
+				this._pmp_name = value;
+			}
+		}
+	}
+}
+
+public partial class OutboxVisaEmpSelectResult
+{
+	
+	private int _Visa_Emp_ID;
+	
+	private System.Nullable<int> _Visa_Id;
+	
+	private System.Nullable<int> _Emp_ID;
+	
+	private System.Nullable<int> _Sender_ID;
+	
+	public OutboxVisaEmpSelectResult()
+	{
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Visa_Emp_ID", DbType="Int NOT NULL")]
+	public int Visa_Emp_ID
+	{
+		get
+		{
+			return this._Visa_Emp_ID;
+		}
+		set
+		{
+			if ((this._Visa_Emp_ID != value))
+			{
+				this._Visa_Emp_ID = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Visa_Id", DbType="Int")]
+	public System.Nullable<int> Visa_Id
+	{
+		get
+		{
+			return this._Visa_Id;
+		}
+		set
+		{
+			if ((this._Visa_Id != value))
+			{
+				this._Visa_Id = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Emp_ID", DbType="Int")]
+	public System.Nullable<int> Emp_ID
+	{
+		get
+		{
+			return this._Emp_ID;
+		}
+		set
+		{
+			if ((this._Emp_ID != value))
+			{
+				this._Emp_ID = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Sender_ID", DbType="Int")]
+	public System.Nullable<int> Sender_ID
+	{
+		get
+		{
+			return this._Sender_ID;
+		}
+		set
+		{
+			if ((this._Sender_ID != value))
+			{
+				this._Sender_ID = value;
+			}
+		}
+	}
+}
+
+public partial class OutboxVisaEmpSelectOutboxIdResult
+{
+	
+	private long _PMP_ID;
+	
+	private string _pmp_name;
+	
+	private System.Nullable<int> _Outbox_ID;
+	
+	public OutboxVisaEmpSelectOutboxIdResult()
+	{
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PMP_ID", DbType="BigInt NOT NULL")]
+	public long PMP_ID
+	{
+		get
+		{
+			return this._PMP_ID;
+		}
+		set
+		{
+			if ((this._PMP_ID != value))
+			{
+				this._PMP_ID = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_pmp_name", DbType="NVarChar(255)")]
+	public string pmp_name
+	{
+		get
+		{
+			return this._pmp_name;
+		}
+		set
+		{
+			if ((this._pmp_name != value))
+			{
+				this._pmp_name = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Outbox_ID", DbType="Int")]
+	public System.Nullable<int> Outbox_ID
+	{
+		get
+		{
+			return this._Outbox_ID;
+		}
+		set
+		{
+			if ((this._Outbox_ID != value))
+			{
+				this._Outbox_ID = value;
 			}
 		}
 	}

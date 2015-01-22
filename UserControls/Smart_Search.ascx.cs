@@ -235,11 +235,16 @@ public partial class Smart_Search : System.Web.UI.UserControl
         if (hidden_Searched.Value == "2")
         {
             Clear_Controls();
-            Grdvew_Search.DataSource = datatble;
-
+           
+                Grdvew_Search.DataSource = datatble;
+          
         }
         else
-            Grdvew_Search.DataSource = datatble_Searched;
+        {
+           
+                Grdvew_Search.DataSource = datatble_Searched;
+           
+        }
 
 
 
@@ -368,7 +373,6 @@ public partial class Smart_Search : System.Web.UI.UserControl
 
 
     }
-
     public DataTable datatble_Searched
     {
         get
@@ -382,6 +386,8 @@ public partial class Smart_Search : System.Web.UI.UserControl
 
 
     }
+
+  
 
 
 
@@ -401,7 +407,10 @@ public partial class Smart_Search : System.Web.UI.UserControl
     protected void btn_Search_Click(object sender, EventArgs e)
     {
         hidden_Searched.Value = "1";
-        Search_Grid();
+      
+            Search_Grid();
+     
+       
 
     }
 
@@ -490,7 +499,7 @@ public partial class Smart_Search : System.Web.UI.UserControl
         {
         }
     }
-
+  
     private void Search_Grid()
     {
         string value = rdl_Search.SelectedValue;

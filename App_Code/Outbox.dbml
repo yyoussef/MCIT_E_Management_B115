@@ -74,11 +74,10 @@
       <Column Name="Sec_sec_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
       <Column Name="foundation_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Department_pmp_fav_View" Member="pmp_fav_Views" ThisKey="Dept_id" OtherKey="Dept_Dept_id" Type="pmp_fav_View" />
-      <Association Name="Sector_Department" Member="Sector" ThisKey="Sec_sec_id" OtherKey="Sec_id" Type="Sector" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.EMPLOYEE" Member="EMPLOYEEs">
-    <Type Name="EMPLOYEE" Id="ID1">
+    <Type Name="EMPLOYEE">
       <Column Name="PMP_ID" Type="System.Int64" DbType="BigInt NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
       <Column Name="Dept_Dept_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
       <Column Name="pmp_name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
@@ -114,7 +113,6 @@
       <Column Name="Sec_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Sec_name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Column Name="foundation_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="Sector_Department" Member="Departments" ThisKey="Sec_id" OtherKey="Sec_sec_id" Type="Department" />
     </Type>
   </Table>
   <Table Name="dbo.Outbox_Visa_Follows" Member="Outbox_Visa_Follows">
@@ -225,9 +223,9 @@
       <Column Name="sub_Cat_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="finished" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="foundation_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Association Name="Outbox_Outbox_Visa" Member="Outbox_Visas" ThisKey="ID" OtherKey="Outbox_ID" Type="Outbox_Visa" />
       <Association Name="Outbox_Outbox_Track_Manager" Member="Outbox_Track_Managers" ThisKey="ID" OtherKey="Outbox_id" Type="Outbox_Track_Manager" />
       <Association Name="Outbox_Outbox_Visa_Follow" Member="Outbox_Visa_Follows" ThisKey="ID" OtherKey="Outbox_ID" Type="Outbox_Visa_Follow" />
+      <Association Name="Outbox_Outbox_Visa" Member="Outbox_Visas" ThisKey="ID" OtherKey="Outbox_ID" Type="Outbox_Visa" />
     </Type>
   </Table>
   <Table Name="dbo.inbox_Main_Categories" Member="inbox_Main_Categories">
@@ -363,13 +361,6 @@
       <Column Name="dept_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
-  <Function Name="dbo.get_employee_accoording_to_radiochek" Method="get_employee_accoording_to_radiochek">
-    <Parameter Name="radiocheck" Type="System.String" DbType="NVarChar(20)" />
-    <Parameter Name="pmp_id" Type="System.Int32" DbType="Int" />
-    <Parameter Name="dept_id" Type="System.Int32" DbType="Int" />
-    <Parameter Name="found_id" Type="System.Int32" DbType="Int" />
-    <ElementType IdRef="ID1" />
-  </Function>
   <Function Name="dbo.outboxinside_data" Method="outboxinside_data">
     <Parameter Name="outbox_id" Type="System.Int32" DbType="Int" />
     <ElementType Name="outboxinside_dataResult">
@@ -449,6 +440,64 @@
       <Column Name="Cat_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="outbox_type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.Outbox_cat_save" Method="Outbox_cat_save">
+    <Parameter Name="Outbox_id" Parameter="outbox_id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Cat_id" Parameter="cat_id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Type" Parameter="type" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Outbox_type" Parameter="outbox_type" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.Outbox_visa_emp_save" Method="Outbox_visa_emp_save">
+    <Parameter Name="Visa_Id" Parameter="visa_Id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Emp_ID" Parameter="emp_ID" Type="System.Int32" DbType="Int" />
+    <Parameter Name="Sender_ID" Parameter="sender_ID" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.get_employee_accoording_to_radiochek" Method="get_employee_accoording_to_radiochek">
+    <Parameter Name="radiocheck" Type="System.String" DbType="NVarChar(20)" />
+    <Parameter Name="pmp_id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="dept_id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="found_id" Type="System.Int32" DbType="Int" />
+    <ElementType Name="get_employee_accoording_to_radiochekResult">
+      <Column Name="pmp_id" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.get_employee_from_Outbox_Visa_Follows" Method="get_employee_from_Outbox_Visa_Follows">
+    <Parameter Name="Outbox_ID" Parameter="outbox_ID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="get_employee_from_Outbox_Visa_FollowsResult">
+      <Column Name="Follow_ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="File_name" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="time_follow" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Outbox_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Descrption" Type="System.String" DbType="NVarChar(500)" CanBeNull="true" />
+      <Column Name="Date" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Visa_Emp_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="pmp_name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.get_OutboxVisaEmps" Method="get_OutboxVisaEmps">
+    <Parameter Name="visa_ID" Type="System.Int32" DbType="Int" />
+    <ElementType Name="get_OutboxVisaEmpsResult">
+      <Column Name="pmp_name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.OutboxVisaEmpSelect" Method="OutboxVisaEmpSelect">
+    <Parameter Name="Visa_Id" Parameter="visa_Id" Type="System.Int32" DbType="Int" />
+    <ElementType Name="OutboxVisaEmpSelectResult">
+      <Column Name="Visa_Emp_ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Visa_Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Emp_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Sender_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.OutboxVisaEmpSelectOutboxId" Method="OutboxVisaEmpSelectOutboxId">
+    <Parameter Name="Outbox_Id" Parameter="outbox_Id" Type="System.Int32" DbType="Int" />
+    <ElementType Name="OutboxVisaEmpSelectOutboxIdResult">
+      <Column Name="PMP_ID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="pmp_name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Outbox_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
   </Function>
 </Database>

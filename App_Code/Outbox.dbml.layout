@@ -38,14 +38,7 @@
         <elementListCompartment Id="6794b058-f13f-4462-bbbe-fd5b4b46ec02" absoluteBounds="0.51500000000000057, 8.71, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(2.5 : 9.38064697265625); (2.875 : 9.38064697265625)]" fixedFrom="Algorithm" fixedTo="Algorithm">
-      <AssociationMoniker Name="/OutboxDataContext/Sector/Sector_Department" />
-      <nodes>
-        <classShapeMoniker Id="05c0a8a4-a213-468a-8f78-2dff527de46f" />
-        <classShapeMoniker Id="f7c92e26-89cb-4f09-8f61-c30b09e793c8" />
-      </nodes>
-    </associationConnector>
-    <associationConnector edgePoints="[(4.875 : 10.1354484049479); (5.125 : 10.1354484049479)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(4.875 : 10.1354484049479); (5.125 : 10.1354484049479)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/OutboxDataContext/Department/Department_pmp_fav_View" />
       <nodes>
         <classShapeMoniker Id="f7c92e26-89cb-4f09-8f61-c30b09e793c8" />
@@ -82,7 +75,7 @@
         <elementListCompartment Id="3689d724-5a0a-43a2-b233-cd96fe92105e" absoluteBounds="7.39, 0.96, 1.9700000000000002, 3.903116861979167" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(8.375 : 0.5); (8.375 : 0.3464); (9.26306666666667 : 0.346399999999999 : JumpStart); (9.42973333333333 : 0.3464 : JumpEnd); (12.6024 : 0.3464); (12.6024 : 8.48219537760417); (10.75 : 8.48219537760417); (10.75 : 8.32859537760417)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(8.375 : 0.5); (8.375 : 0.3464); (9.26306666666667 : 0.346399999999999 : JumpStart); (9.42973333333333 : 0.3464 : JumpEnd); (12.6024 : 0.3464); (12.6024 : 8.48219537760417); (10.75 : 8.48219537760417); (10.75 : 8.32859537760417)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/OutboxDataContext/Outbox_Visa/Outbox_Visa_Outbox_Visa_Emp" />
       <nodes>
         <classShapeMoniker Id="5283f931-a5c7-4ca7-9c20-8b7eaff48ca7" />
@@ -95,14 +88,14 @@
         <elementListCompartment Id="dfa59754-4138-48ab-a438-3e3ef8e39209" absoluteBounds="5.015, 0.96, 1.9700000000000002, 6.403035481770833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(7 : 2.73155843098958); (7.375 : 2.73155843098958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(7 : 2.73155843098958); (7.375 : 2.73155843098958)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/OutboxDataContext/Outbox/Outbox_Outbox_Visa" />
       <nodes>
         <classShapeMoniker Id="eb997d76-e103-4c7e-8499-6b5f5a0fd12a" />
         <classShapeMoniker Id="5283f931-a5c7-4ca7-9c20-8b7eaff48ca7" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(7 : 5.16905843098958); (10.5 : 5.16905843098958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(7 : 5.16905843098958); (10.5 : 5.16905843098958)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/OutboxDataContext/Outbox/Outbox_Outbox_Track_Manager" />
       <nodes>
         <classShapeMoniker Id="eb997d76-e103-4c7e-8499-6b5f5a0fd12a" />

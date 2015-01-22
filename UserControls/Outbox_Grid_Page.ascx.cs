@@ -14,6 +14,7 @@ using System.Xml.Linq;
 public partial class UserControls_Outbox_Grid_Page : System.Web.UI.UserControl
 {
     //Session_CS Session_CS = new Session_CS();
+    OutboxDataContext outboxDBContext = new OutboxDataContext();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -187,6 +188,38 @@ public partial class UserControls_Outbox_Grid_Page : System.Web.UI.UserControl
         }
 
     }
+    public void update_Outbox_Track_Emp(string Outbox_id, int Emp_ID, int Outbox_Status, int Type)
+    {
+        ////DataTable DT = General_Helping.GetDataTable("select * from Outbox_Track_Emp where Outbox_id = " + Outbox_id + " and Emp_ID =" + Emp_ID);
+        var Outbox_Track_Emps = outboxDBContext.Outbox_Track_Emps.Where(x => x.Outbox_id == CDataConverter.ConvertToInt(Outbox_id) && x.Emp_ID == Emp_ID);
+        if (Outbox_Track_Emps.Count() > 0)
+        {
+
+            ////string sql = "update Outbox_Track_Emp set Outbox_Status= " + Outbox_Status + " where Outbox_id =" + Outbox_id + " and Emp_ID =" + Emp_ID;
+            ////General_Helping.ExcuteQuery(sql);
+            foreach (var Outbox_Track_Emp in Outbox_Track_Emps)
+            {
+                Outbox_Track_Emp.Outbox_Status = Outbox_Status;
+            }
+        }
+        else
+        {
+            ////string sql = "insert into Outbox_Track_Emp (Outbox_id,Emp_ID,Outbox_Status,Type_Track_emp) values ( " + Outbox_id + "," + Emp_ID + "," + Outbox_Status + "," + "1" + ")";
+            ////General_Helping.ExcuteQuery(sql);
+            Outbox_Track_Emp OutboxTrackEmp = new Outbox_Track_Emp
+            {
+                Outbox_id = CDataConverter.ConvertToInt(Outbox_id),
+                Emp_ID = Emp_ID,
+                Outbox_Status = Outbox_Status,
+                Type_Track_emp = 1
+
+            };
+            outboxDBContext.Outbox_Track_Emps.InsertOnSubmit(OutboxTrackEmp);
+
+        }
+        outboxDBContext.SubmitChanges();
+
+    }
     protected void btn_close_Outbox_Click(object sender, EventArgs e)
     {
         foreach (GridViewRow grdrow in gvMain.Rows)
@@ -208,7 +241,7 @@ public partial class UserControls_Outbox_Grid_Page : System.Web.UI.UserControl
                     DataTable dt_Inbox_Visa = General_Helping.GetDataTable("select * from Outbox_Track_Emp where Outbox_id =" + hidden_Id);
                     foreach (DataRow item in dt_Inbox_Visa.Rows)
                     {
-                        Outbox_DB.update_Outbox_Track_Emp(hidden_Id, item["Emp_ID"].ToString(), 3, 1);
+                        update_Outbox_Track_Emp(hidden_Id,CDataConverter.ConvertToInt(item["Emp_ID"].ToString()), 3, 1);
                     }
 
                     Outbox_Visa_Follows_DT obj = new Outbox_Visa_Follows_DT();// Inbox_Visa_Follows_DB.SelectByID(CDataConverter.ConvertToInt(hidden_Follow_ID.Value));
@@ -496,7 +529,7 @@ public partial class UserControls_Outbox_Grid_Page : System.Web.UI.UserControl
            else
            {
 
-               Outbox_DB.update_Outbox_Track_Emp(id.ToString(), Session_CS.pmp_id.ToString(), 2, 1);
+               update_Outbox_Track_Emp(id.ToString(),CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()), 2, 1);
            }
 
            url = "~/MainForm/ViewProjectOutbox.aspx?id=" + Encryption.Encrypt(id.ToString());

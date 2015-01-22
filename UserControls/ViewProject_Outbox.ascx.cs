@@ -24,6 +24,7 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
     private string sql_Connection = Database.ConnectionString;
     General_Helping Obj_General_Helping = new General_Helping();
     int id;
+    OutboxDataContext outboxDBContext = new OutboxDataContext();
     //Session_CS Session_CS = new Session_CS();
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -1162,6 +1163,38 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
 
 
     }
+    public void update_Outbox_Track_Emp(string Outbox_id, int Emp_ID, int Outbox_Status, int Type)
+    {
+        ////DataTable DT = General_Helping.GetDataTable("select * from Outbox_Track_Emp where Outbox_id = " + Outbox_id + " and Emp_ID =" + Emp_ID);
+        var Outbox_Track_Emps = outboxDBContext.Outbox_Track_Emps.Where(x => x.Outbox_id == CDataConverter.ConvertToInt(Outbox_id) && x.Emp_ID == Emp_ID);
+        if (Outbox_Track_Emps.Count() > 0)
+        {
+
+            ////string sql = "update Outbox_Track_Emp set Outbox_Status= " + Outbox_Status + " where Outbox_id =" + Outbox_id + " and Emp_ID =" + Emp_ID;
+            ////General_Helping.ExcuteQuery(sql);
+            foreach (var Outbox_Track_Emp in Outbox_Track_Emps)
+            {
+                Outbox_Track_Emp.Outbox_Status = Outbox_Status;
+            }
+        }
+        else
+        {
+            ////string sql = "insert into Outbox_Track_Emp (Outbox_id,Emp_ID,Outbox_Status,Type_Track_emp) values ( " + Outbox_id + "," + Emp_ID + "," + Outbox_Status + "," + "1" + ")";
+            ////General_Helping.ExcuteQuery(sql);
+            Outbox_Track_Emp OutboxTrackEmp = new Outbox_Track_Emp
+            {
+                Outbox_id = CDataConverter.ConvertToInt(Outbox_id),
+                Emp_ID = Emp_ID,
+                Outbox_Status = Outbox_Status,
+                Type_Track_emp = 1
+
+            };
+            outboxDBContext.Outbox_Track_Emps.InsertOnSubmit(OutboxTrackEmp);
+
+        }
+        outboxDBContext.SubmitChanges();
+
+    }
     protected void btn_close_Outbox_Click(object sender, EventArgs e)
     {
 
@@ -1178,7 +1211,7 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
         DataTable dt_Outbox_Visa = General_Helping.GetDataTable("select * from Outbox_Track_Emp where Outbox_id =" + hidden_Id.Value);
         foreach (DataRow item in dt_Outbox_Visa.Rows)
         {
-            Outbox_DB.update_Outbox_Track_Emp(hidden_Id.Value, item["Emp_ID"].ToString(), 3, 1);
+            update_Outbox_Track_Emp(hidden_Id.Value, CDataConverter.ConvertToInt(item["Emp_ID"].ToString()), 3, 1);
         }
 
         Outbox_Visa_Follows_DT obj = Outbox_Visa_Follows_DB.SelectByID(CDataConverter.ConvertToInt(hidden_Follow_ID.Value));
@@ -1646,7 +1679,7 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
         DataTable dt_Outbox_Visa = General_Helping.GetDataTable("select * from Outbox_Visa_Emp where Visa_Id =" + Visa_ID);
         foreach (DataRow item in dt_Outbox_Visa.Rows)
         {
-            Outbox_DB.update_Outbox_Track_Emp(hidden_Id.Value, item["Emp_ID"].ToString(), 1, 1);
+            update_Outbox_Track_Emp(hidden_Id.Value, CDataConverter.ConvertToInt(item["Emp_ID"].ToString()), 1, 1);
             string sqlformail = "SELECT * from employee ";
             sqlformail += " where pmp_id= " + item["Emp_ID"].ToString();
             DataTable ds = General_Helping.GetDataTable(sqlformail);
