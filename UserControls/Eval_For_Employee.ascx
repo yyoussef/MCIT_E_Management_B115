@@ -436,7 +436,7 @@
                         <asp:Button ID="btn_Save" OnClick="btn_Save_Click" Text="حفظ " runat="server" ValidationGroup="C"
                             CssClass="Button" />
                         <asp:Button ID="btn_report" OnClick="btn_report_Click" Text="طباعة تقرير التقييم "
-                            Visible="true" runat="server" CssClass="Button" Width="150px" />
+                            Visible="false"  runat="server" CssClass="Button" Width="150px" />
                         <asp:Button ID="btn_finish" OnClick="btn_finish_Click" Text="انهاء التقييم " runat="server"
                             Visible="false" CssClass="Button" Width="150px" />
                     </td>

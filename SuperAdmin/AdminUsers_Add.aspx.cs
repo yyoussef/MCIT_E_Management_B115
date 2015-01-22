@@ -29,7 +29,7 @@ public partial class SuperAdmin_Foundations : System.Web.UI.Page
 
     protected void btnSave_Click(object sender, EventArgs e)
     {
-        DataTable dt = SqlHelper.ExecuteDataset(Database.ConnectionString, "AdminUsers_SelectName", txt_loginname.Text).Tables[0];
+        DataTable dt = SqlHelper.ExecuteDataset(Database.ConnectionString, "AdminUsers_SelectName_Exsit", txt_loginname.Text).Tables[0];
 
 
         if (ddl_Foundation.SelectedValue != "" && ddl_Foundation.SelectedValue != "0")

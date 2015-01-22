@@ -88,7 +88,7 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
 
             txt_Visa_date.Text = CDataConverter.ConvertDateTimeNowRtrnString();
             txt_Follow_Date.Text = CDataConverter.ConvertDateTimeNowRtrnString();
-            txt_Dead_Line_DT.Text = CDataConverter.ConvertDateTimeNowRtrnString();
+            txt_Dead_Line_DT.Text = CDataConverter.ConvertDateTimeToFormatdmy(str_deadline);
             int period = str_deadline.Subtract(str).Days + 1;
             lbl_period.Text = period.ToString();
 
@@ -748,7 +748,7 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
 
         Smart_Search_dept.sql_Connection = sql_Connection;
         //Smart_Search_dept.Query = "SELECT Dept_id, Dept_name FROM Departments ";
-        string Query = "SELECT Dept_id, Dept_name ,Dept_parent_id FROM Departments ";
+        string Query = "SELECT Dept_id, Dept_name ,Dept_parent_id FROM Departments where foundation_id='" + Session_CS.foundation_id + "'";
         Smart_Search_dept.datatble = General_Helping.GetDataTable(Query);
         Smart_Search_dept.Value_Field = "Dept_id";
         Smart_Search_dept.Text_Field = "Dept_name";

@@ -545,6 +545,11 @@
                                 Font-Bold="False" OnClick="vocation_Details_drhesham_LB_Click">الإجازات المقبولة</asp:LinkButton>
                         </td>
                     </tr>
+                    
+                    
+                    
+                    
+                    
                  <%--   <tr id="dept_mng_report" runat="server">
                         <td width="28">
                         </td>
@@ -899,10 +904,10 @@
             <td align="right" valign="middle" style="height: 44px" dir="rtl">
                 <asp:DropDownList ID="ddl_empstatus" runat="server" AutoPostBack="False" Font-Bold="False"
                     CssClass="drop" Width="337px" Height="39px">
-                    <asp:ListItem Text=".....اختر الحالة...." Value="0"></asp:ListItem>
+                    <asp:ListItem Text=".....اختر نوع الآجازة...." Value="0"></asp:ListItem>
                     
-                    <asp:ListItem Text="معين" Value="2"></asp:ListItem>
-                    <asp:ListItem Text="غير معين" Value="1"></asp:ListItem>
+                    <asp:ListItem Text="إعتيادي" Value="2"></asp:ListItem>
+                    <asp:ListItem Text=" عارضة " Value="1"></asp:ListItem>
                   
                 </asp:DropDownList>
             </td>

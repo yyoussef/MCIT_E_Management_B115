@@ -34,250 +34,256 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
     protected void Page_Load(object sender, EventArgs e)
     {
         Smart_Search_dept.Show_OrgTree = true;
-        if (!string.IsNullOrEmpty(hidden_Number.Value))
-        {
-            string Div = "div" + hidden_Number.Value;
-            string image = "image" + hidden_Number.Value;
-         ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(),"success", "<script language=javascript>ChangeMeCase('" + Div + "','" + image + "','" + hidden_Number.Value + "');</script>",true);
-        Page.RegisterStartupScript("Sucess", "<script language=javascript>ChangeMeCase('" + Div + "','" + image + "','" + hidden_Number.Value + "');</script>");
+        //if (!string.IsNullOrEmpty(hidden_Number.Value))
+        //{
+        //    string Div = "div" + hidden_Number.Value;
+        //    string image = "image" + hidden_Number.Value;
+        // ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(),"success", "<script language=javascript>ChangeMeCase('" + Div + "','" + image + "','" + hidden_Number.Value + "');</script>",true);
+        //Page.RegisterStartupScript("Sucess", "<script language=javascript>ChangeMeCase('" + Div + "','" + image + "','" + hidden_Number.Value + "');</script>");
 
+        //}
 
-           
-
-        }
-
-        if (!IsPostBack)
-        {
-            //threadObj = new Thread(new ThreadStart(MyWorkerThreadMethod));
-            //threadObj.Start();
-
-
-          //  fill_sectors();
-
-
-            if (Request.QueryString["id"] != null)
+         if (!IsPostBack)
             {
-                //string s = Request.Url.ToString();
-                //string query = QueryStringModule.Encrypt(s);
-
-                DateTime str = CDataConverter.ConvertDateTimeNowRtnDt();
-                DateTime str_dead = CDataConverter.ConvertDateTimeNowRtnDt().AddDays(7);
-                txt_Visa_date.Text = CDataConverter.ConvertDateTimeToFormatdmy(str);
-                txt_Dead_Line_DT.Text = CDataConverter.ConvertDateTimeToFormatdmy(str_dead);
-                txt_Follow_Date.Text = CDataConverter.ConvertDateTimeToFormatdmy(str);
-                txt_time_follow.Text = CDataConverter.ConvertTimeNowRtnLongTimeFormat();
-
-
-                //string encrypted_id = Encrypt(id.ToString());
-                //String decrypted_id = Decrypt(Session["encrypted"].ToString());
-
-                String decrypted_id = Encryption.Decrypt(Request.QueryString["id"].ToString());
-                id = Convert.ToInt16(decrypted_id);
-                hidden_Id.Value = id.ToString();
-                int pmp = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
-
-
-                DataTable dt_closing = Inbox_DB.inbox_getparent_certainInbox(id);
-                if (dt_closing.Rows.Count>0)
-                {
-                    if (CDataConverter.ConvertToInt(dt_closing.Rows[0]["parent_pmp_id"].ToString()) == pmp)
-                    {
-                        btn_close_inbox.Visible = true;
-                        btn_end_late.Visible = true;
-                        lnkBtnUnderStudy.Visible = true;
-
-                    }  
-                }
                
 
-
-
-                if (CDataConverter.ConvertToInt(Session_CS.child_emp.ToString()) > 0)
+                if (Request.QueryString["id"] != null)
                 {
-                    DataTable dt_mng = Inbox_DB.getparent(Session_CS.child_emp, 1);
-                    if (dt_mng.Rows.Count > 0)
-                    //DataTable dt_mng = General_Helping.GetDataTable("SELECT distinct EMPLOYEE.PMP_ID, EMPLOYEE.foundation_id, EMPLOYEE.pmp_name, parent_employee.pmp_id AS child_id FROM EMPLOYEE INNER JOIN parent_employee ON EMPLOYEE.PMP_ID = parent_employee.parent_pmp_id where parent_employee.pmp_id =" + CDataConverter.ConvertToInt(Session_CS.child_emp.ToString()));
+                    //string s = Request.Url.ToString();
+                    //string query = QueryStringModule.Encrypt(s);
+
+                    DateTime str = CDataConverter.ConvertDateTimeNowRtnDt();
+                    DateTime str_dead = CDataConverter.ConvertDateTimeNowRtnDt().AddDays(7);
+                    txt_Visa_date.Text = CDataConverter.ConvertDateTimeToFormatdmy(str);
+                    txt_Dead_Line_DT.Text = CDataConverter.ConvertDateTimeToFormatdmy(str_dead);
+                    txt_Follow_Date.Text = CDataConverter.ConvertDateTimeToFormatdmy(str);
+                    txt_time_follow.Text = CDataConverter.ConvertTimeNowRtnLongTimeFormat();
+
+
+                    //string encrypted_id = Encrypt(id.ToString());
+                    //String decrypted_id = Decrypt(Session["encrypted"].ToString());
+
+                    String decrypted_id = Encryption.Decrypt(Request.QueryString["id"].ToString());
+                    id = Convert.ToInt16(decrypted_id);
+                    hidden_Id.Value = id.ToString();
+                    int pmp = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
+
+
+                    DataTable dt_closing = Inbox_DB.inbox_getparent_certainInbox(id);
+                    if (dt_closing.Rows.Count > 0)
                     {
-                        ListItem obj = new ListItem(dt_mng.Rows[0]["pmp_name"].ToString(), dt_mng.Rows[0]["parent_pmp_id"].ToString());
-                        lst_emp.Items.Add(obj);
+                        if (CDataConverter.ConvertToInt(dt_closing.Rows[0]["parent_pmp_id"].ToString()) == pmp)
+                        {
+                            btn_close_inbox.Visible = true;
+                            btn_end_late.Visible = true;
+                            lnkBtnUnderStudy.Visible = true;
+
+                        }
                     }
-                }
 
-                tr_old_emp.Visible = false;
-                tr_old_emp_resp.Visible = false;
-                string sql_for_chklist_emp = " select * from pmp_fav_View where pmp_fav_View.employee_id = " + CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()) + " ORDER BY LTRIM(pmp_name)";
-                DataTable dt_emp_fav = General_Helping.GetDataTable(sql_for_chklist_emp);
-                chklst_Visa_Emp_All.DataSource = dt_emp_fav;
-                chklst_Visa_Emp_All.DataBind();
-                //if (Session_CS.pmp_id.ToString() == "57")
-                DataTable dt = General_Helping.GetDataTable("select parent_pmp_id,pmp_id from parent_employee where pmp_id = " + CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()) + "or parent_pmp_id = " + CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()));
-                if (dt.Rows.Count > 0)
-                {
-                    if (CDataConverter.ConvertToInt(dt.Rows[0]["parent_pmp_id"].ToString()) == CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()))
+
+
+
+                    if (CDataConverter.ConvertToInt(Session_CS.child_emp.ToString()) > 0)
                     {
-                        Trfollow.Visible = false;
+                        DataTable dt_mng = Inbox_DB.getparent(Session_CS.child_emp, 1);
+                        if (dt_mng.Rows.Count > 0)
+                        //DataTable dt_mng = General_Helping.GetDataTable("SELECT distinct EMPLOYEE.PMP_ID, EMPLOYEE.foundation_id, EMPLOYEE.pmp_name, parent_employee.pmp_id AS child_id FROM EMPLOYEE INNER JOIN parent_employee ON EMPLOYEE.PMP_ID = parent_employee.parent_pmp_id where parent_employee.pmp_id =" + CDataConverter.ConvertToInt(Session_CS.child_emp.ToString()));
+                        {
+                            ListItem obj = new ListItem(dt_mng.Rows[0]["pmp_name"].ToString(), dt_mng.Rows[0]["parent_pmp_id"].ToString());
+                           // lst_emp.Items.Add(obj);
+                        }
+                    }
 
-                        tr_follow_date.Visible = false;
-                        tr_follow_desc.Visible = false;
-                        tr_follow_doc.Visible = false;
-                        tr_follow_person.Visible = false;
-                        tr_follow_save.Visible = false;
-                        tr_follow_proj.Visible = false;
-                        tr_follow_time.Visible = false;
-                        SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
-                        DataTable DT = new DataTable();
-                        DT = General_Helping.GetDataTable("select * from Inbox_Track_Manager where inbox_id = " + id);
-                        //if (DT.Rows.Count > 0)
+                   // tr_old_emp.Visible = false;
+                   // tr_old_emp_resp.Visible = false;
+                    string sql_for_chklist_emp = " select * from pmp_fav_View where pmp_fav_View.employee_id = " + CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()) + " ORDER BY LTRIM(pmp_name)";
+                    DataTable dt_emp_fav = General_Helping.GetDataTable(sql_for_chklist_emp);
+                    chklst_Visa_Emp_All.DataSource = dt_emp_fav;
+                    chklst_Visa_Emp_All.DataBind();
+                    //if (Session_CS.pmp_id.ToString() == "57")
+                    DataTable dt = General_Helping.GetDataTable("select parent_pmp_id,pmp_id from parent_employee where pmp_id = " + CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()) + "or parent_pmp_id = " + CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()));
+                    //if (dt.Rows.Count > 0)
+
+                    if(Session_CS.pmp_id > 0)
+                    {
+                       // if (CDataConverter.ConvertToInt(dt.Rows[0]["parent_pmp_id"].ToString()) == CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()))
+                       // {
+                            Trfollow.Visible = true;
+                            tr_follow_proj.Visible = true;
+                            //tr_follow_date.Visible = false;
+                            //tr_follow_desc.Visible = false;
+                            //tr_follow_doc.Visible = false;
+                            //tr_follow_person.Visible = false;
+                            //tr_follow_save.Visible = false;
+                            //tr_follow_proj.Visible = false;
+                            //tr_follow_time.Visible = false;
+                           // SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
+                           // DataTable DT = new DataTable();
+                          //  DT = General_Helping.GetDataTable("select * from Inbox_Track_Manager where inbox_id = " + id);
+                            //if (DT.Rows.Count > 0)
+                            //{
+                            //    //foreach (DataRow rw in DT.Rows)
+                            //    //{
+                            //    DataRow rw = DT.Rows[0];
+                            //    if (rw["status"].ToString() != "2")
+                            //    {
+                            //        if (rw["Have_visa"].ToString() != "1")
+                            //            lnkBtnUnderStudy.Visible = true;
+
+                            //    }
+                            //    //if (CDataConverter.ConvertToInt(Session_CS.group_id.ToString()) == 3)
+                            //    //{
+                            //    //    if (rw["IS_New_Mail"].ToString() != "3")
+                            //    //    {
+                            //    //        conn.Open();
+                            //    //        string sql = "update Inbox_Track_Manager set status=0,Have_Follow=0 where inbox_id =" + id;
+                            //    //        SqlCommand cmd = new SqlCommand(sql, conn);
+                            //    //        cmd.ExecuteNonQuery();
+                            //    //        conn.Close();
+                            //    //    }
+                            //    //}
+
+                            //    // }
+
+                            //}
+                        }
+                        //else
                         //{
-                        //    //foreach (DataRow rw in DT.Rows)
-                        //    //{
-                        //    DataRow rw = DT.Rows[0];
-                        //    if (rw["status"].ToString() != "2")
-                        //    {
-                        //        if (rw["Have_visa"].ToString() != "1")
-                        //            lnkBtnUnderStudy.Visible = true;
-
-                        //    }
-                        //    //if (CDataConverter.ConvertToInt(Session_CS.group_id.ToString()) == 3)
-                        //    //{
-                        //    //    if (rw["IS_New_Mail"].ToString() != "3")
-                        //    //    {
-                        //    //        conn.Open();
-                        //    //        string sql = "update Inbox_Track_Manager set status=0,Have_Follow=0 where inbox_id =" + id;
-                        //    //        SqlCommand cmd = new SqlCommand(sql, conn);
-                        //    //        cmd.ExecuteNonQuery();
-                        //    //        conn.Close();
-                        //    //    }
-                        //    //}
-
-                        //    // }
+                        //    tr_mngr1.Visible =
+                        //   tr_mngr2.Visible = false;
+                        //    GridView_Visa.Columns[6].Visible = false;
 
                         //}
-                    }
-                    //else
-                    //{
-                    //    tr_mngr1.Visible =
-                    //   tr_mngr2.Visible = false;
-                    //    GridView_Visa.Columns[6].Visible = false;
-
-                    //}
-                }
-                else
-                {
-                    // tr_mngr1.Visible =
-                    //tr_mngr2.Visible = false;
-
-                    // GridView_Visa.Columns[6].Visible = false;
-                    DataTable dt_proj = General_Helping.GetDataTable(" select Proj_id from inbox where ID = " + id);
-                    Smart_Search_proj.sql_Connection = sql_Connection;
-                    if (dt_proj.Rows.Count > 0 && CDataConverter.ConvertToInt(dt_proj.Rows[0]["Proj_id"].ToString()) > 0)
-                    {
-
-
-                        Smart_Search_proj.SelectedValue = dt_proj.Rows[0]["Proj_id"].ToString();
-
-                    }
+                   // }
                     else
                     {
-                        string sql = "";
-                        string Main_sql = " SELECT  dbo.Project.Proj_id, dbo.Project.pmp_pmp_id, dbo.Project.Proj_Title, dbo.EMPLOYEE.pmp_name, dbo.Project.Proj_InitValue, dbo.Project.Proj_Notes,dbo.Protocol_Main_Def.Name, dbo.Protocol_Main_Def.Protocol_ID FROM dbo.Project LEFT OUTER JOIN dbo.Protocol_Main_Def ON dbo.Project.Protocol_ID = dbo.Protocol_Main_Def.Protocol_ID LEFT OUTER JOIN dbo.EMPLOYEE ON dbo.Project.pmp_pmp_id = dbo.EMPLOYEE.PMP_ID where 1=1  ";
-                        if (Session_CS.UROL_UROL_ID != null && Session_CS.UROL_UROL_ID.ToString() == "4")
-                        {
-                            string Sql_Edit_Project = " or (Project.Proj_id IN (SELECT     Project_Team.proj_proj_id FROM Project_Team INNER JOIN Project ON Project_Team.proj_proj_id = Project.Proj_id  WHERE     (Edit_Project = 'true') AND (Project.Proj_is_commit = 2) and(Project_Team.pmp_pmp_id = " + Session_CS.pmp_id.ToString() + "))) ";
-                            sql = Main_sql + " and Proj_is_commit = 2  and   pmp_pmp_id = " + Session_CS.pmp_id.ToString() + Sql_Edit_Project;
-                        }
-                        else if (Session_CS.UROL_UROL_ID != null && Session_CS.UROL_UROL_ID.ToString() == "3")
+                        // tr_mngr1.Visible =
+                        //tr_mngr2.Visible = false;
+
+                        // GridView_Visa.Columns[6].Visible = false;
+                        DataTable dt_proj = General_Helping.GetDataTable(" select Proj_id from inbox where ID = " + id);
+                        Smart_Search_proj.sql_Connection = sql_Connection;
+                        if (dt_proj.Rows.Count > 0 && CDataConverter.ConvertToInt(dt_proj.Rows[0]["Proj_id"].ToString()) > 0)
                         {
 
-                            string Sql_Edit_Project = " or (Project.Proj_id IN (SELECT Project_Team.proj_proj_id FROM  Project_Team INNER JOIN Project ON Project_Team.proj_proj_id = Project.Proj_id  WHERE     (Edit_Project = 'true') AND (Project.Proj_is_commit = 2) and(Project_Team.pmp_pmp_id = " + Session_CS.pmp_id.ToString() + "))) ";
-                            string sql_Proj_Deprts = " or Project.Dept_Dept_id in (select Dept_id from EMPLOYEE_Departemnts where PMP_ID = " + Session_CS.pmp_id.ToString() + ") and Proj_is_commit = 2 ";
-                            sql = Main_sql + " and Proj_is_commit = 2 and  (pmp_pmp_id = " + Session_CS.pmp_id.ToString() + " or Project.Dept_Dept_id = " + Session_CS.dept_id.ToString() + ")" + sql_Proj_Deprts + Sql_Edit_Project;
+
+                           // Smart_Search_proj.SelectedValue = dt_proj.Rows[0]["Proj_id"].ToString();
+
                         }
-                        else if (Session_CS.UROL_UROL_ID != null && Session_CS.UROL_UROL_ID.ToString() == "2")
-                        {
-                            sql = Main_sql + "and Proj_is_commit = 2 ";
-                        }
-                        if (sql!="")
-                        {
-                            Smart_Search_proj.datatble = General_Helping.GetDataTable(sql);
-                            Smart_Search_proj.Value_Field = "Proj_id";
-                            Smart_Search_proj.Text_Field = "Proj_Title";
-                            Smart_Search_proj.DataBind();
-                        }
-                      
-                        if (pmp == 70)
-                        {
-                            //Trfollow.Visible = false;
-                            tr_follow_date.Visible = false;
-                            tr_follow_desc.Visible = false;
-                            tr_follow_doc.Visible = false;
-                            tr_follow_person.Visible = false;
-                            tr_follow_save.Visible = false;
-                            tr_follow_proj.Visible = false;
-                            //     tr_mngr1.Visible =
-                            //tr_mngr2.Visible = true;
-                            //     GridView_Visa.Columns[6].Visible = true;
-                        }
+                        ///////// commented By nora //////////////
+                        //else
+                        //{
+                        //    string sql = "";
+                        //    string Main_sql = " SELECT  dbo.Project.Proj_id, dbo.Project.pmp_pmp_id, dbo.Project.Proj_Title, dbo.EMPLOYEE.pmp_name, dbo.Project.Proj_InitValue, dbo.Project.Proj_Notes,dbo.Protocol_Main_Def.Name, dbo.Protocol_Main_Def.Protocol_ID FROM dbo.Project LEFT OUTER JOIN dbo.Protocol_Main_Def ON dbo.Project.Protocol_ID = dbo.Protocol_Main_Def.Protocol_ID LEFT OUTER JOIN dbo.EMPLOYEE ON dbo.Project.pmp_pmp_id = dbo.EMPLOYEE.PMP_ID where 1=1  ";
+                        //    if (Session_CS.UROL_UROL_ID != null && Session_CS.UROL_UROL_ID.ToString() == "4")
+                        //    {
+                        //        string Sql_Edit_Project = " or (Project.Proj_id IN (SELECT     Project_Team.proj_proj_id FROM Project_Team INNER JOIN Project ON Project_Team.proj_proj_id = Project.Proj_id  WHERE     (Edit_Project = 'true') AND (Project.Proj_is_commit = 2) and(Project_Team.pmp_pmp_id = " + Session_CS.pmp_id.ToString() + "))) ";
+                        //        sql = Main_sql + " and Proj_is_commit = 2  and   pmp_pmp_id = " + Session_CS.pmp_id.ToString() + Sql_Edit_Project;
+                        //    }
+                        //    else if (Session_CS.UROL_UROL_ID != null && Session_CS.UROL_UROL_ID.ToString() == "3")
+                        //    {
+
+                        //        string Sql_Edit_Project = " or (Project.Proj_id IN (SELECT Project_Team.proj_proj_id FROM  Project_Team INNER JOIN Project ON Project_Team.proj_proj_id = Project.Proj_id  WHERE     (Edit_Project = 'true') AND (Project.Proj_is_commit = 2) and(Project_Team.pmp_pmp_id = " + Session_CS.pmp_id.ToString() + "))) ";
+                        //        string sql_Proj_Deprts = " or Project.Dept_Dept_id in (select Dept_id from EMPLOYEE_Departemnts where PMP_ID = " + Session_CS.pmp_id.ToString() + ") and Proj_is_commit = 2 ";
+                        //        sql = Main_sql + " and Proj_is_commit = 2 and  (pmp_pmp_id = " + Session_CS.pmp_id.ToString() + " or Project.Dept_Dept_id = " + Session_CS.dept_id.ToString() + ")" + sql_Proj_Deprts + Sql_Edit_Project;
+                        //    }
+                        //    else if (Session_CS.UROL_UROL_ID != null && Session_CS.UROL_UROL_ID.ToString() == "2")
+                        //    {
+                        //        sql = Main_sql + "and Proj_is_commit = 2 ";
+                        //    }
+                        //    if (sql != "")
+                        //    {
+                        //        Smart_Search_proj.datatble = General_Helping.GetDataTable(sql);
+                        //        Smart_Search_proj.Value_Field = "Proj_id";
+                        //        Smart_Search_proj.Text_Field = "Proj_Title";
+                        //        Smart_Search_proj.DataBind();
+                        //    }
+
+                        //    //if (pmp == 70)
+                        //    //{
+                        //    //    //Trfollow.Visible = false;
+                        //    //    tr_follow_date.Visible = false;
+                        //    //    tr_follow_desc.Visible = false;
+                        //    //    tr_follow_doc.Visible = false;
+                        //    //    tr_follow_person.Visible = false;
+                        //    //    tr_follow_save.Visible = false;
+                        //    //    tr_follow_proj.Visible = false;
+                        //    //    //     tr_mngr1.Visible =
+                        //    //    //tr_mngr2.Visible = true;
+                        //    //    //     GridView_Visa.Columns[6].Visible = true;
+                        //    //}
+                        //}
                     }
+                    //}
+                    //else
+                    //{
+                    //tr_mngr1.Visible =
+                    //    tr_mngr2.Visible = true;
+                    //GridView_Visa.Columns[6].Visible = false;
+                    // }
+                    //DataTable dt_follow = General_Helping.GetDataTable("select * from inbox_follow_emp where inbox_id=" + id + "AND pmp_id = " + pmp);
+                    //if (dt_follow.Rows.Count > 0)
+                    //{
+                    //    SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
+                    //    conn.Open();
+
+                   SqlParameter[] sqlParams = new SqlParameter[] 
+                {
+                   new SqlParameter("@inbox_id", id),
+                  
+                   new SqlParameter("@pmp",pmp)        
+               };
+
+              int row =  DatabaseFunctions.UpdateData(sqlParams,"update_inbox_follow");
+              if (row > 0)
+              { }
+                    //string sql_update = "update inbox_follow_emp set Have_follow = 0";
+                    //sql_update += " where ( inbox_follow_emp.pmp_id =" + pmp;
+                    //sql_update += " AND inbox_follow_emp.inbox_id = " + id;
+                    //sql_update += ")";
+                    //General_Helping.ExcuteQuery(sql_update);
+                    //    SqlCommand cmd = new SqlCommand(sql_update, conn);
+                    //    cmd.ExecuteNonQuery();
+                    //    conn.Close();
+
+                    //}
+                    Fill_Controll(id);
+                    Fil_Grid_Documents();
+                    Fil_Grid_Visa_Follow();
+                    Fil_Dll();
+                    //fil_emp_Visa();
+                    Fil_Emp_Visa_Follow();
+                    Fil_Grid_Visa();
+                    //if (CDataConverter.ConvertToInt(Session_CS.group_id.ToString()) == 3)
+                    //{
+                    //    Smart_Search_dept.SelectedValue = "15";
+                    //}
+
                 }
+
+                //if (CDataConverter.ConvertToInt(Session_CS.parent_id.ToString()) > 0)
+                //{
+                //    lnkBtnUnderStudy.Visible = true;
                 //}
                 //else
-                //{
-                //tr_mngr1.Visible =
-                //    tr_mngr2.Visible = true;
-                //GridView_Visa.Columns[6].Visible = false;
-                // }
-                //DataTable dt_follow = General_Helping.GetDataTable("select * from inbox_follow_emp where inbox_id=" + id + "AND pmp_id = " + pmp);
-                //if (dt_follow.Rows.Count > 0)
-                //{
-                //    SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
-                //    conn.Open();
-                string sql_update = "update inbox_follow_emp set Have_follow = 0";
-                sql_update += " where ( inbox_follow_emp.pmp_id =" + pmp;
-                sql_update += " AND inbox_follow_emp.inbox_id = " + id;
-                sql_update += ")";
-                General_Helping.ExcuteQuery(sql_update);
-                //    SqlCommand cmd = new SqlCommand(sql_update, conn);
-                //    cmd.ExecuteNonQuery();
-                //    conn.Close();
-
-                //}
-                Fill_Controll(id);
-                Fil_Grid_Documents();
-                Fil_Grid_Visa_Follow();
-                Fil_Dll();
-                //fil_emp_Visa();
-                Fil_Emp_Visa_Follow();
-                Fil_Grid_Visa();
-                //if (CDataConverter.ConvertToInt(Session_CS.group_id.ToString()) == 3)
-                //{
-                //    Smart_Search_dept.SelectedValue = "15";
-                //}
-
-            }
-
-            //if (CDataConverter.ConvertToInt(Session_CS.parent_id.ToString()) > 0)
-            //{
-            //    lnkBtnUnderStudy.Visible = true;
-            //}
-            //else
-            //    lnkBtnUnderStudy.Visible = false;
+                //    lnkBtnUnderStudy.Visible = false;
 
 
 
-            if (Session_CS.pmp_id > 0)
-            {
-                //drop_sectors.SelectedValue = Session_CS.sec_id.ToString();
-                fill_depts();
+                if (Session_CS.pmp_id > 0)
+                {
+                    //drop_sectors.SelectedValue = Session_CS.sec_id.ToString();
+                    fill_depts();
 
+
+
+                }
 
 
             }
-
 
         }
-
-    }
 
 
     private void fill_sectors()
@@ -369,93 +375,56 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
     private void fill_resp_Emp()
     {
         //this.Smart_Search_dept.Value_Handler += new Smart_Search.Delegate_Selected_Value(MOnMember_Data);
-        tr_emp_list.Visible = true;
-        string sql, sql_emp = "";
+       
+            //= SqlHelper.ExecuteDataset(Database.ConnectionString, "get_employee_accoording_to_radiochek", radlst_Type.SelectedValue, Session_CS.pmp_id, Session_CS.dept_id, Session_CS.foundation_id).Tables[0];
+
+       
 
 
-        if (radlst_Type.SelectedValue == "1")
+
+        //SqlParameter[] sqlParams = new SqlParameter[] 
+        //        {
+        //            new SqlParameter("@radiocheck", radlst_Type.SelectedValue),
+                  
+        //          new SqlParameter("@pmp_id",Session_CS.pmp_id),
+        //           new SqlParameter("@dept_id",CDataConverter.ConvertToInt( Smart_Search_dept.SelectedValue)),
+        //           new SqlParameter("@found_id",Session_CS.foundation_id)
+        //           //if(CDataConverter.ConvertToInt( Smart_Search_dept.SelectedValue) > 0)
+                       
+                   
+         //  };
+        chklst_Visa_Emp_All.Items.Clear();
+        lst_emp.Items.Clear();
+        //chklst_Visa_Emp_All.DataBind();
+
+
+        if (radlst_Type.SelectedValue != "7")
         {
-            sql_emp = " select * from pmp_fav_View where pmp_fav_View.employee_id = " + CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
-            if (Smart_Search_dept.SelectedValue != "")
+            
+
+            //tr_emp_list.Visible = true;
+            DataTable DT_emp;
+            //= SqlHelper.ExecuteDataset(Database.ConnectionString, "get_employee_accoording_to_radiochek", radlst_Type.SelectedValue, Session_CS.pmp_id, Session_CS.dept_id, Session_CS.foundation_id).Tables[0];
+
+            SqlParameter[] sqlParams = new SqlParameter[4];
+
+            sqlParams[0] = new SqlParameter("@radiocheck", radlst_Type.SelectedValue);
+            sqlParams[1] = new SqlParameter("@pmp_id", Session_CS.pmp_id);
+
+            if (CDataConverter.ConvertToInt(Smart_Search_dept.SelectedValue) > 0)
+                sqlParams[2] = new SqlParameter("@dept_id", CDataConverter.ConvertToInt(Smart_Search_dept.SelectedValue));
+            else
+                sqlParams[2] = new SqlParameter("@dept_id", CDataConverter.ConvertToInt(DBNull.Value));
+
+            sqlParams[3] = new SqlParameter("@found_id", Session_CS.foundation_id);
+
+            DT_emp = DatabaseFunctions.SelectDataByParam(sqlParams, "get_employee_accoording_to_radiochek");
+            if (DT_emp.Rows.Count > 0)
             {
-                sql_emp += " AND Dept_Dept_id = " + Smart_Search_dept.SelectedValue;
+                chklst_Visa_Emp_All.DataSource = DT_emp;
+                chklst_Visa_Emp_All.DataBind();
             }
-            //if (ddl_sectors2.SelectedValue != "" && ddl_sectors2.SelectedValue != "0")
-            //{
-            sql_emp += "  and  sec_sec_id=0";
-            //}
-
-
-
         }
-        else if (radlst_Type.SelectedValue == "2")
-        {
-            // sql_emp = " select * from employee where dbo.EMPLOYEE.workstatus = 1";
-
-
-            sql_emp = "SELECT     EMPLOYEE.*,Departments.* FROM Departments  INNER JOIN EMPLOYEE ON Departments.Dept_id = EMPLOYEE.Dept_Dept_id where  EMPLOYEE.PMP_ID not in(select parent_pmp_id from dbo.parent_employee) and dbo.EMPLOYEE.workstatus = 1 and EMPLOYEE.foundation_id='" + Session_CS.foundation_id + "'";
-
-            if (Smart_Search_dept.SelectedValue != "")
-            {
-                sql_emp += " and Dept_Dept_id = " + Smart_Search_dept.SelectedValue;
-            }
-            //// if (ddl_sectors2.SelectedValue != "" && ddl_sectors2.SelectedValue != "0")
-            //// {
-            //     sql_emp += "and  Sectors.Sec_id=0"; //+ ddl_sectors2.SelectedValue;
-            //// }
-
-        }
-        else if (radlst_Type.SelectedValue == "3")
-        {
-            // sql_emp = " select * from employee where rol_rol_id=3  and dbo.EMPLOYEE.workstatus = 1";
-
-            sql_emp = "SELECT     EMPLOYEE.*,Departments.* FROM Departments  INNER JOIN EMPLOYEE ON Departments.Dept_id = EMPLOYEE.Dept_Dept_id where dbo.EMPLOYEE.workstatus = 1 and rol_rol_id=3 and EMPLOYEE.foundation_id='" + Session_CS.foundation_id + "'";
-
-
-            if (Smart_Search_dept.SelectedValue != "")
-            {
-                sql_emp += " AND Dept_Dept_id = " + Smart_Search_dept.SelectedValue;
-            }
-
-            //  //if (ddl_sectors2.SelectedValue != "" && ddl_sectors2.SelectedValue != "0")
-            ////  {
-            //  sql_emp += "and  Sectors.Sec_id="; +ddl_sectors2.SelectedValue;
-            // // }
-
-        }
-        else if (radlst_Type.SelectedValue == "4")
-        {
-            // sql_emp = " select * from employee where contact_person=1 and dbo.EMPLOYEE.workstatus = 1 ";
-
-            sql_emp = "SELECT     EMPLOYEE.*,Departments.* FROM Departments  INNER JOIN EMPLOYEE ON Departments.Dept_id = EMPLOYEE.Dept_Dept_id where dbo.EMPLOYEE.workstatus = 1 and contact_person=1 and EMPLOYEE.foundation_id='" + Session_CS.foundation_id + "'";
-
-            if (Smart_Search_dept.SelectedValue != "")
-            {
-                sql_emp += " AND Dept_Dept_id = " + Smart_Search_dept.SelectedValue;
-            }
-
-            //// if (ddl_sectors2.SelectedValue != "" && ddl_sectors2.SelectedValue != "0")
-            // //{
-            //     sql_emp += "and  Sectors.Sec_id="; + ddl_sectors2.SelectedValue;
-            // //}
-
-        }
-
-        else if (radlst_Type.SelectedValue == "5")
-        {
-            sql_emp = "  select EMPLOYEE.pmp_name + ' - رئيس ' + +' '+ Commitee.Commitee_Title as pmp_name ,EMPLOYEE.PMP_ID from EMPLOYEE inner join commitee_presidents on  EMPLOYEE.PMP_ID=commitee_presidents.pmp_id inner join Commitee on commitee_presidents.comt_id = Commitee.ID where  Commitee.foundation_id='" + Session_CS.foundation_id + "'";
-
-        }
-
-        else if (radlst_Type.SelectedValue == "6")
-        {
-
-            sql_emp = "select EMPLOYEE.pmp_name COLLATE DATABASE_DEFAULT  + ' -  ' + Departments.Dept_name  as pmp_name,EMPLOYEE.PMP_ID from EMPLOYEE inner join commitee_presidents on  EMPLOYEE.PMP_ID=commitee_presidents.pmp_id inner join Departments on  commitee_presidents.dept_id = Departments.Dept_id   inner join Sectors  on Sectors.Sec_id = Departments.Sec_sec_id where Sectors.foundation_id='" + Session_CS.foundation_id + "'";
-        }
-        sql_emp += " ORDER BY LTRIM(pmp_name)";
-        DataTable dt_emp_fav = General_Helping.GetDataTable(sql_emp);
-        chklst_Visa_Emp_All.DataSource = dt_emp_fav;
-        chklst_Visa_Emp_All.DataBind();
     }
 
     protected void btn_add_Click(object sender, EventArgs e)
@@ -517,42 +486,62 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
         foreach (ListItem item in chklst_Visa_Emp_All.Items)
         {
             item.Selected = chk_ALL.Checked;
+       
         }
         //TabPanel_All.ActiveTab = TabPanel_Visa;
     }
     protected override void OnInit(EventArgs e)
     {
         #region BROWSER FOR departments
-
-        //Smart_Org_ID.sql_Connection = sql_Connection;
-        //Smart_Org_ID.Query = "SELECT Org_ID, Org_Desc FROM Organization";
-        //Smart_Org_ID.Value_Field = "Org_ID";
-        //Smart_Org_ID.Text_Field = "Org_Desc";
-        //Smart_Org_ID.DataBind();
-
-        //fil_emp();
-        //Smart_Emp_ID.sql_Connection = sql_Connection;
-        //Smart_Emp_ID.Query = "SELECT PMP_ID, pmp_name FROM EMPLOYEE ";
-        //Smart_Emp_ID.Value_Field = "PMP_ID";
-        //Smart_Emp_ID.Text_Field = "pmp_name";
-        //Smart_Emp_ID.DataBind();
-
-        //this.Smrt_Srch_DropDep.Value_Handler += new Smart_Search.Delegate_Selected_Value(MOnMember_Data);
-        //Inbox_organization.SelectedValue;
-        // fill project
+        //string Query = "";
 
         Smart_Search_proj.sql_Connection = sql_Connection;
-        //Smart_Search_proj.Query = "SELECT Proj_id, Proj_Title FROM Project ";
-        string Query = "SELECT Proj_id, Proj_Title FROM Project ";
-        Smart_Search_proj.datatble = General_Helping.GetDataTable(Query);
-        Smart_Search_proj.Value_Field = "Proj_id";
-        Smart_Search_proj.Text_Field = "Proj_Title";
-        Smart_Search_proj.DataBind();
+        string InsideMCIT = System.Configuration.ConfigurationManager.AppSettings["InsideMCIT"].ToString();
+        if (InsideMCIT == "1")
+        {
+
+            string sql = "";
+            string Main_sql = " SELECT  dbo.Project.Proj_id, dbo.Project.pmp_pmp_id, dbo.Project.Proj_Title, dbo.EMPLOYEE.pmp_name, dbo.Project.Proj_InitValue, dbo.Project.Proj_Notes,dbo.Protocol_Main_Def.Name, dbo.Protocol_Main_Def.Protocol_ID FROM dbo.Project LEFT OUTER JOIN dbo.Protocol_Main_Def ON dbo.Project.Protocol_ID = dbo.Protocol_Main_Def.Protocol_ID LEFT OUTER JOIN dbo.EMPLOYEE ON dbo.Project.pmp_pmp_id = dbo.EMPLOYEE.PMP_ID where 1=1  ";
+            if (Session_CS.UROL_UROL_ID != null && Session_CS.UROL_UROL_ID.ToString() == "4")
+            {
+                string Sql_Edit_Project = " or (Project.Proj_id IN (SELECT Project_Team.proj_proj_id FROM Project_Team INNER JOIN Project ON Project_Team.proj_proj_id = Project.Proj_id  WHERE     (Edit_Project = 'true') AND (Project.Proj_is_commit = 2) and(Project_Team.pmp_pmp_id = " + Session_CS.pmp_id.ToString() + "))) ";
+                sql = Main_sql + " and Proj_is_commit = 2  and   pmp_pmp_id = " + Session_CS.pmp_id.ToString() + Sql_Edit_Project;
+            }
+            else if (Session_CS.UROL_UROL_ID != null && Session_CS.UROL_UROL_ID.ToString() == "3")
+            {
+
+                string Sql_Edit_Project = " or (Project.Proj_id IN (SELECT Project_Team.proj_proj_id FROM  Project_Team INNER JOIN Project ON Project_Team.proj_proj_id = Project.Proj_id  WHERE     (Edit_Project = 'true') AND (Project.Proj_is_commit = 2) and(Project_Team.pmp_pmp_id = " + Session_CS.pmp_id.ToString() + "))) ";
+                string sql_Proj_Deprts = " or Project.Dept_Dept_id in (select Dept_id from EMPLOYEE_Departemnts where PMP_ID = " + Session_CS.pmp_id.ToString() + ") and Proj_is_commit = 2 ";
+                sql = Main_sql + " and Proj_is_commit = 2 and  (pmp_pmp_id = " + Session_CS.pmp_id.ToString() + " or Project.Dept_Dept_id = " + Session_CS.dept_id.ToString() + ")" + sql_Proj_Deprts + Sql_Edit_Project;
+            }
+            else if (Session_CS.UROL_UROL_ID != null && Session_CS.UROL_UROL_ID.ToString() == "2")
+            {
+                sql = Main_sql + "and Proj_is_commit = 2 ";
+            }
+            if (sql != "")
+            {
+                Smart_Search_proj.datatble = General_Helping.GetDataTable(sql);
+                Smart_Search_proj.Value_Field = "Proj_id";
+                Smart_Search_proj.Text_Field = "Proj_Title";
+                Smart_Search_proj.DataBind();
+            }
+
+        }
+
+
+        //Smart_Search_proj.sql_Connection = sql_Connection;
+        ////Smart_Search_proj.Query = "SELECT Proj_id, Proj_Title FROM Project ";
+        //string Query = "SELECT Proj_id, Proj_Title FROM Project ";
+        //Smart_Search_proj.datatble = General_Helping.GetDataTable(Query);
+        //Smart_Search_proj.Value_Field = "Proj_id";
+        //Smart_Search_proj.Text_Field = "Proj_Title";
+        //Smart_Search_proj.DataBind();
 
         Smart_Search_dept.sql_Connection = sql_Connection;
         //Smart_Search_dept.Query = "SELECT Dept_id, Dept_name FROM Departments ";
-        Query = "SELECT Dept_id, Dept_name FROM Departments"; 
-        Smart_Search_dept.datatble = General_Helping.GetDataTable(Query);
+        // Query = "SELECT Dept_id, Dept_name FROM Departments"; 
+
+        Smart_Search_dept.datatble = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_all_departments").Tables[0];
         Smart_Search_dept.Value_Field = "Dept_id";
         Smart_Search_dept.Text_Field = "Dept_name";
         Smart_Search_dept.DataBind();
@@ -568,10 +557,7 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
     }
     protected void dropdept_fun()
     {
-
-
-
-        fil_emp_Visa();
+        //fil_emp_Visa();
         fill_resp_Emp();
 
 
@@ -587,18 +573,17 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
 
     private void fil_emp_Visa()
     {
-        int Dept_ID = CDataConverter.ConvertToInt(Smart_Search_dept.SelectedValue);
-        string sql = "SELECT PMP_ID, pmp_name FROM EMPLOYEE ";
-        if (Dept_ID > 0)
-        {
-            sql += " where Dept_Dept_id = " + Dept_ID;
+        //int Dept_ID = CDataConverter.ConvertToInt(Smart_Search_dept.SelectedValue);
+        //string sql = "SELECT PMP_ID, pmp_name FROM EMPLOYEE ";
+        //if (Dept_ID > 0)
+        //{
+        //    sql += " where Dept_Dept_id = " + Dept_ID;
 
-        }
-        sql += " order by pmp_name asc";
-        chklst_Visa_Emp_All.DataSource = General_Helping.GetDataTable(sql);
-        chklst_Visa_Emp_All.DataBind();
+        //}
+        //sql += " order by pmp_name asc";
+        //chklst_Visa_Emp_All.DataSource = General_Helping.GetDataTable(sql);
+        //chklst_Visa_Emp_All.DataBind();
         // this.Smart_Search_dept.Value_Handler += new Smart_Search.Delegate_Selected_Value(MOnMember_Data);
-
 
     }
 
@@ -606,8 +591,6 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
     {
         //fil_emp_Visa();
     }
-
-
 
     private void Fill_Controll(int id)
     {
@@ -652,6 +635,8 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
             lbl_att_no.Text = inall["Paper_Attached"].ToString();
             txt_subject.Text = inall["Subject"].ToString();
             txt_notes.Text = inall["Notes"].ToString();
+
+            Smart_Search_proj.SelectedValue = inall["Proj_id"].ToString();
             if (inall["Related_Type"].ToString() != "")
             {
                 if (inall["Related_Type"].ToString() == "1")
@@ -1759,7 +1744,7 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
         if (e.CommandName == "EditItem")
         {
             Fil_Visa_Control(CDataConverter.ConvertToInt(e.CommandArgument));
-            Fil_Visa_Lst(CDataConverter.ConvertToInt(e.CommandArgument));
+            //Fil_Visa_Lst(CDataConverter.ConvertToInt(e.CommandArgument));
             Fil_Visa_Lstbox(CDataConverter.ConvertToInt(e.CommandArgument));
 
         }
@@ -1979,20 +1964,20 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
 
 
     }
-    private void Fil_Visa_Lst(int ID)
-    {
-        string Sql_Delete = "select * from Inbox_Visa_Emp where Visa_Id =" + ID;
-        DataTable DT = General_Helping.GetDataTable(Sql_Delete);
-        foreach (DataRow dr in DT.Rows)
-        {
-            string Value = dr["Emp_ID"].ToString();
-            ListItem item = chklst_Visa_Emp.Items.FindByValue(Value);
-            if (item != null)
-                item.Selected = true;
-        }
+    //private void Fil_Visa_Lst(int ID)
+    //{
+    //    string Sql_Delete = "select * from Inbox_Visa_Emp where Visa_Id =" + ID;
+    //    DataTable DT = General_Helping.GetDataTable(Sql_Delete);
+    //    foreach (DataRow dr in DT.Rows)
+    //    {
+    //        string Value = dr["Emp_ID"].ToString();
+    //        ListItem item = chklst_Visa_Emp.Items.FindByValue(Value);
+    //        if (item != null)
+    //            item.Selected = true;
+    //    }
 
 
-    }
+    //}
 
     private void Fil_Visa_Control(int ID)
     {
@@ -2010,13 +1995,13 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
                 else
                     txt_Important_Degree_Txt.Text = obj.Important_Degree_Txt;
                 fil_emp_Visa();
-                if (obj.Emp_ID > 0)
-                {
-                    ListItem item = chklst_Visa_Emp.Items.FindByValue(obj.Emp_ID.ToString());
-                    if (item != null)
-                        item.Selected = true;
+                //if (obj.Emp_ID > 0)
+                //{
+                //    ListItem item = chklst_Visa_Emp.Items.FindByValue(obj.Emp_ID.ToString());
+                //    if (item != null)
+                //        item.Selected = true;
 
-                }
+                //}
                 txt_Visa_Desc.Text = obj.Visa_Desc;
                 txt_Dead_Line_DT.Text = obj.Dead_Line_DT;
                 ddl_Visa_Goal_ID.SelectedValue = obj.Visa_Goal_ID.ToString();

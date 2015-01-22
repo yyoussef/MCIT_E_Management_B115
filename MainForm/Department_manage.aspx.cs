@@ -28,30 +28,30 @@ using System.Data.Sql;
 
 public partial class WebForms2_Department_manage : System.Web.UI.Page
 {
-    //Session_CS Session_CS = new Session_CS();
+
     private string sql_Connection = Database.ConnectionString;
     General_Helping Obj_General_Helping = new General_Helping();
-
+    //Session_CS Session_CS = new Session_CS(); 
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
             GenerateTree();
-          //  Fillddl();
-            
+            //  Fillddl();
+
         }
     }
 
-   
+
     protected override void OnPreRender(EventArgs e)
     {
         base.OnPreRender(e);
 
         //link the css file
-     // this.lASTreeViewThemeCssFile.Text = "<link id='astreeviewcssfile' href='' type='text/css' rel='stylesheet' />";
+        // this.lASTreeViewThemeCssFile.Text = "<link id='astreeviewcssfile' href='' type='text/css' rel='stylesheet' />";
 
-      //  string script = string.Format("document.getElementById('astreeviewcss').href='{0}'", this.astvMyTree.ThemeCssFile);
-     //   this.ClientScript.RegisterStartupScript(this.GetType(), "js" + Guid.NewGuid().ToString(), script, true);
+        //  string script = string.Format("document.getElementById('astreeviewcss').href='{0}'", this.astvMyTree.ThemeCssFile);
+        //   this.ClientScript.RegisterStartupScript(this.GetType(), "js" + Guid.NewGuid().ToString(), script, true);
 
     }
 
@@ -89,18 +89,19 @@ public partial class WebForms2_Department_manage : System.Web.UI.Page
     }
     private void Clear_Control()
     {
-        
-        hid_id.Value=
+
+        hid_id.Value =
         txt_name.Text = "";
         txtCurrentNode.Text = "";
         txtNewParentNode.Text = "";
+        txt_update.Text = "";
 
     }
 
     protected void btnPostBackTrigger2_Click(object sender, EventArgs e)
     {
-  
-      
+
+
     }
 
     protected void btnPostBackTrigger3_Click(object sender, EventArgs e)
@@ -114,42 +115,69 @@ public partial class WebForms2_Department_manage : System.Web.UI.Page
         txtCurrentNode.Text =
         txtNewParentNode.Text = "";
         astvMyTree.ClearNodesSelection();
-   
+
         Clear_Control();
     }
 
-    //protected void btn_New_Under_Click(object sender, EventArgs e)
-    //{
-    //    if (astvMyTree.GetSelectedNode() == null)
-    //        Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('يجب عنصر  من الشجرة أولا')</script>");
-    //    else if (CDataConverter.ConvertToInt(astvMyTree.GetSelectedNode().NodeValue) <= 0)
-    //        Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('يجب عنصر من الشجرة أولا')</script>");
+    protected void btn_Update_Click(object sender, EventArgs e)
+    {
 
-    //    else
-    //    {
-    //        txtNewParentNode.Text = txtCurrentNode.Text;
-    //        txtCurrentNode.Text = "0";
-    //        Clear_Control();
-    //    }
-    //}
+        ASTreeViewNode node = this.astvMyTree.FindByValue(txtCurrentNode.Text);
+
+
+        if (node != null)
+        {
+            fill_actv_details();
+
+            //if(txt_name.Text != "")
+            //{
+            //Departments_DT obj = new Departments_DT();
+            //obj.Dept_id = CDataConverter.ConvertToInt(txtCurrentNode.Text);
+            //obj.Dept_name = txt_name.Text;
+            //obj.foundation_id = Session_CS.foundation_id;
+            //obj.Dept_id = Departments_DB.Save(obj);
+            //GenerateTree();
+            //Clear_Control();
+            //}
+            //else 
+            //{
+            //      Page.RegisterStartupScript("Sucess", "<script language=javascript>alert(' يجب إستكمال البيانات أولا')</script>");
+            //}
+        }
+        else
+        {
+            Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('يجب إختيار عنصر  من الشجرة أولا')</script>");
+
+        }
+    }
     protected void BtnSave_Click(object sender, EventArgs e)
     {
         //if (txt_name.Text != "" && ddltype.SelectedValue!="" && ddltype.SelectedValue!="0")
-
-            if (txt_name.Text != "" )
-                
+        if (txt_name.Text != "")
         {
             Departments_DT obj = new Departments_DT();
             obj.Dept_id = CDataConverter.ConvertToInt(hid_id.Value);
             obj.Dept_name = txt_name.Text;
-           // obj.Dept_type = CDataConverter.ConvertToInt(ddltype.SelectedValue);
+            //   obj.Dept_type = CDataConverter.ConvertToInt(ddltype.SelectedValue);
             obj.Dept_type = 0;
-            obj.Dept_parent_id = CDataConverter.ConvertToInt(txtCurrentNode.Text);
+            if (obj.Dept_id == 0 && obj.Dept_id != null)
+            {
+                obj.Dept_parent_id = CDataConverter.ConvertToInt(txtCurrentNode.Text);
+            }
+            else
+            {
+                obj.Dept_parent_id = CDataConverter.ConvertToInt(txt_update.Text);
+            }
             obj.foundation_id = Session_CS.foundation_id;
-            Departments_DB.Save(obj);
+
+            obj.Dept_id = Departments_DB.Save(obj);
             GenerateTree();
             Clear_Control();
+
+
             Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('لقد تم الحفظ بنجاح')</script>");
+
+
 
         }
         else
@@ -163,7 +191,7 @@ public partial class WebForms2_Department_manage : System.Web.UI.Page
 
     //protected void Fillddl()
     //{
-      
+
 
 
 
@@ -189,13 +217,21 @@ public partial class WebForms2_Department_manage : System.Web.UI.Page
 
             if (node != null && node.ChildNodes.Count == 0)
             {
-            
+                Employee_Data_DT dt = Employee_Data_DB.Select_EmployeeByDeptID(CDataConverter.ConvertToInt(txtCurrentNode.Text));
 
-                Departments_DB.Delete(CDataConverter.ConvertToInt(txtCurrentNode.Text));
+                if (dt != null && dt.PMP_ID > 0)
+                {
+                    Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('لا يمكن حذف هذه الإدارة حيث أن لديها موظفين')</script>");
+                }
+                else
+                {
+                     Departments_DB.Delete(CDataConverter.ConvertToInt(txtCurrentNode.Text));
+
+                    Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('لقد تم الحذف بنجاح')</script>");
+                }
+
                 Clear_Control();
                 GenerateTree();
-             
-                Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('لقد تم الحذف بنجاح')</script>");
             }
 
             if (node.ChildNodes.Count != 0)
@@ -206,6 +242,24 @@ public partial class WebForms2_Department_manage : System.Web.UI.Page
         }
     }
 
+    protected void astvMyTree_OnSelectedNodeChanged(object src, ASTreeViewNodeSelectedEventArgs e)
+    {
+        //  fill_actv_details();
+    }
 
-    
+    private void fill_actv_details()
+    {
+        string curNodeValue = this.txtCurrentNode.Text;
+        this.txtCurrentNode.BackColor = System.Drawing.Color.SkyBlue;
+        ASTreeViewNode node = this.astvMyTree.FindByValue(curNodeValue);
+
+        Departments_DT obj = Departments_DB.SelectByID(CDataConverter.ConvertToInt(txtCurrentNode.Text));
+        txt_name.Text = obj.Dept_name;
+        hid_id.Value = obj.Dept_id.ToString();
+        txt_update.Text = obj.Dept_parent_id.ToString();
+
+    }
+
+
+
 }

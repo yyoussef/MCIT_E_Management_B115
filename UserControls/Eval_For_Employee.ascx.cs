@@ -596,7 +596,7 @@ public partial class UserControls_Eval_For_Employee : System.Web.UI.UserControl
                 Save_Weekness();
                 Save_Training();
 
-
+                calculate_Grade();
 
                 Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('لقد تم الحفظ بنجاح')</script>");
 
@@ -1015,6 +1015,30 @@ public partial class UserControls_Eval_For_Employee : System.Web.UI.UserControl
             }
         }
 
+    }
+
+
+    private void calculate_Grade()
+
+    {
+
+        string Sql = " select * from Evaluation_For_Employee where year =2015 and Pmp_Id='"+CDataConverter.ConvertToInt(Smart_Pmp_Id.SelectedValue)+"' ";
+        DataTable dt = General_Helping.GetDataTable(Sql);
+        foreach (DataRow dr in dt.Rows)
+        {
+            DataTable DT_eval = SqlHelper.ExecuteDataset(Database.ConnectionString, "Eval_Calc_Emp_Select", CDataConverter.ConvertToInt(dr["Pmp_Id"].ToString())).Tables[0];
+            if (DT_eval.Rows.Count > 0)
+            {
+                string sql_update = " update Evaluation_For_Employee set Direct_Mng_Eval =" + CDataConverter.ConvertToDecimal(DT_eval.Rows[0]["Direct_Mng_Eval"]) +
+                                    " , Top_Mng_Eval = " + CDataConverter.ConvertToDecimal(DT_eval.Rows[0]["Top_Mng_Eval"]) +
+                                    " , Final_Eval_Degree = " + CDataConverter.ConvertToDecimal(DT_eval.Rows[0]["Final_Eval_Degree"]) +
+                                    " where Evaluation_id = " + CDataConverter.ConvertToInt(dr["Evaluation_id"].ToString());
+                General_Helping.ExcuteQuery(sql_update);
+
+
+            }
+
+        }
     }
 
 

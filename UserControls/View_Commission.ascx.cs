@@ -556,7 +556,8 @@ public partial class UserControls_View_Commission : System.Web.UI.UserControl
             obj.Commission_ID = CDataConverter.ConvertToInt(hidden_Id.Value);
             obj.Descrption = txt_Descrption.Text;
             obj.Date = txt_Follow_Date.Text;
-            obj.time_follow = txt_time_follow.Text;
+           obj.time_follow = txt_time_follow.Text;
+   
             obj.entery_pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
             obj.Visa_Emp_id = CDataConverter.ConvertToInt(ddl_Visa_Emp_id.SelectedValue);
             obj.Follow_ID = Commission_Visa_Follows_DB.Save(obj);
@@ -1064,7 +1065,7 @@ public partial class UserControls_View_Commission : System.Web.UI.UserControl
             obj_follow.Descrption = txt_Visa_Desc.Text;
             string date = CDataConverter.ConvertDateTimeToFormatdmy(CDataConverter.ConvertDateTimeNowRtnDt());
             obj_follow.Date = date;
-            obj_follow.time_follow = CDataConverter.ConvertDateTimeNowRtnDt().ToLocalTime().ToLongTimeString();
+            obj_follow.time_follow = CDataConverter.ConvertTimeNowRtnLongTimeFormat();
             obj_follow.entery_pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
             obj_follow.Visa_Emp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
             obj_follow.Follow_ID = Commission_Visa_Follows_DB.Save(obj_follow);

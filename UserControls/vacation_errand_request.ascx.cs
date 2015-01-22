@@ -20,6 +20,7 @@ public partial class UserControls_vacation_errand_request : System.Web.UI.UserCo
     string InsideMCIT = System.Configuration.ConfigurationManager.AppSettings["InsideMCIT"].ToString();
     //Session_CS Session_CS = new Session_CS();
     private string sql_Connection = Database.ConnectionString;
+     bool index = true;
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -28,6 +29,10 @@ public partial class UserControls_vacation_errand_request : System.Web.UI.UserCo
             //txtEndDate.Text = DateTime.Today.ToShortDateString();
 
            // DateTime str = System.DateTime.Now;
+
+          
+
+
             txtStartDate.Text = CDataConverter.ConvertDateTimeNowRtrnString(); ;
             txtEndDate.Text = CDataConverter.ConvertDateTimeNowRtrnString(); ;
 
@@ -35,6 +40,8 @@ public partial class UserControls_vacation_errand_request : System.Web.UI.UserCo
                 FillControls(Request.QueryString["vacation_id"]);
             else
                 Smrt_Srch_user.SelectedValue = Session_CS.pmp_id.ToString();
+      
+            
         }
     }
     private void FillControls(string vacation_id)
@@ -134,6 +141,102 @@ public partial class UserControls_vacation_errand_request : System.Web.UI.UserCo
             ScriptManager.RegisterStartupScript(page, page.GetType(), "err_msg", "alert('" + error + "');", true);
         }
     }
+    private void calc_noofdays()
+    {
+        int no_days = 0;
+        DateTime dt1;
+        DateTime dt2;
+        dt1 = CDataConverter.ConvertToDate(txtStartDate.Text);
+        dt2 = CDataConverter.ConvertToDate(txtEndDate.Text);
+
+        if (ChkdayOff.Checked == true)
+        {
+          
+            int i = dt2.Subtract(dt1).Days + 1;
+           
+            no_days = i;
+         
+
+        }
+        else
+        {
+            TimeSpan diff = dt2 - dt1;
+            int days = diff.Days;
+            for (var i = 0; i <= days; i++)
+            {
+                var testDate = dt1.AddDays(i);
+                if (testDate.DayOfWeek != DayOfWeek.Friday && testDate.DayOfWeek != DayOfWeek.Saturday)
+                {
+                    no_days++;
+
+                }
+            }
+
+        }
+
+     
+        //int i = dt2.Subtract(dt1).Days + 1; 
+        //txt_no_days.Text  = i.ToString();
+
+      
+    
+        txt_no_days.Text  = no_days.ToString();
+
+    }
+
+   
+    
+      
+
+
+    protected void txtStartDate_TextChanged(object sender, EventArgs e)
+    {
+        if (!(txtStartDate.Text.Trim() != "" && txtEndDate.Text.Trim() != ""))
+        {
+
+        }
+        else if (!(VB_Classes.Dates.Dates_Operation.Date_compare(txtEndDate.Text.Trim(), txtStartDate.Text.Trim())))
+        {
+            txtEndDate.Text = txtStartDate.Text;
+            calc_noofdays();
+        }
+        else
+        {
+
+            calc_noofdays();
+        }
+
+    }
+
+    protected void txtEndDate_TextChanged(object sender, EventArgs e)
+    {
+        if (!(txtStartDate.Text.Trim() != "" && txtEndDate.Text.Trim() != ""))
+        {
+
+        }
+        else if (!(VB_Classes.Dates.Dates_Operation.Date_compare(txtEndDate.Text.Trim(), txtStartDate.Text.Trim())))
+        {
+
+        }
+        else
+        {
+            calc_noofdays();
+        }
+    }
+    protected void ChkdayOff_checkedChanged(object sender, EventArgs e)
+
+    {
+        calc_noofdays();
+
+        if(ChkdayOff.Checked==false )
+
+        {
+            check_errand_days(CDataConverter.ConvertToDate(txtStartDate.Text), CDataConverter.ConvertToDate(txtEndDate.Text));
+
+        }
+
+
+    }
 
     protected void BtnVacationRequest_Click(object sender, EventArgs e)
     {
@@ -157,19 +260,19 @@ public partial class UserControls_vacation_errand_request : System.Web.UI.UserCo
             VacObj.purpose = purpose.Text;
             VacObj.person_to_meet = person_to_meet.Text;
             VacObj.notes = notes.Text;
-            if (ChkdayOff.Checked == true)
-            {
-                dtone = CDataConverter.ConvertToDate(txtStartDate.Text);
-                dtone2 = CDataConverter.ConvertToDate(txtEndDate.Text);
-                int i = dtone2.Subtract(dtone).Days + 1;
-                VacObj.no_days = i;
-                no_days.Value = i.ToString();
-            }
-            else
-            { VacObj.no_days = 0;
-        
-                     
-            }
+            //if (ChkdayOff.Checked == true)
+            //{
+            //    dtone = CDataConverter.ConvertToDate(txtStartDate.Text);
+            //    dtone2 = CDataConverter.ConvertToDate(txtEndDate.Text);
+            //    int i = dtone2.Subtract(dtone).Days + 1;
+            //    VacObj.no_days = i;
+            //    no_days.Value = i.ToString();
+            //}
+            //else
+            //{
+                VacObj.no_days = CDataConverter.ConvertToInt(txt_no_days.Text);
+           // }
+
             VacObj.day_off = ChkdayOff.Checked;
             VacObj.start_hour = start_hour.SelectedValue;
             VacObj.end_hour = end_hour.SelectedValue;
@@ -285,6 +388,7 @@ public partial class UserControls_vacation_errand_request : System.Web.UI.UserCo
 
     private bool CheckValidate()
     {
+
         bool isValid = true;
         if (!(txtStartDate.Text.Trim() != "" && txtEndDate.Text.Trim() != ""))
         {
@@ -334,11 +438,52 @@ public partial class UserControls_vacation_errand_request : System.Web.UI.UserCo
             }
         }
 
-
       
     returnPart:
         return isValid;
     }
+
+    private bool  check_errand_days(DateTime startDate, DateTime endDate)
+    {
+      
+        TimeSpan diff = endDate - startDate;
+        int days = diff.Days;
+        for (var i = 0; i <= days; i++)
+        {
+            var testDate = startDate.AddDays(i);
+            switch (testDate.DayOfWeek)
+            {
+                case DayOfWeek.Saturday:
+                    ShowAlertMessage("برجاء تعديل فترة المأمورية ");
+                    index = false;
+                    break;
+
+                case DayOfWeek.Friday:
+                    ShowAlertMessage("برجاء تعديل فترة المأمورية");
+                    index = false;
+                    break;
+            }
+        }
+        return index;
+   }
+    private int calculate_errand_days(DateTime startDate, DateTime endDate)
+    {
+        int no_days = 0;
+         TimeSpan diff = endDate - startDate;
+        int days = diff.Days;
+        for (var i = 0; i <= days; i++)
+        {
+            var testDate = startDate.AddDays(i);
+            if(testDate.DayOfWeek!=DayOfWeek.Friday || testDate.DayOfWeek!=DayOfWeek.Saturday )
+            {
+                no_days++;
+
+            }
+        }
+        return no_days;
+
+    }
+
 
     
 }
