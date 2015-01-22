@@ -2432,8 +2432,8 @@ public partial class UserControls_Vacation_Reports : System.Web.UI.UserControl
             Reports.Load_Report(rd);
             rd.SetParameterValue("@start_Date", txt_take_date_from.Text);
             rd.SetParameterValue("@End_Date", txt_take_date_to.Text);
-            rd.SetParameterValue("@ip", IpAddress(), "footerRep.rpt");
-            rd.SetParameterValue("@user", user, "footerRep.rpt");
+            //rd.SetParameterValue("@ip", IpAddress(), "footerRep.rpt");
+            //rd.SetParameterValue("@user", user, "footerRep.rpt");
             if (rd.Rows.Count == 0)
             {
                 ShowAlertMessage("هذا التقرير لا يوجد به بيانات للعرض !!!!");
