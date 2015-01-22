@@ -85,8 +85,8 @@ public partial class OutboxDataContext : System.Data.Linq.DataContext
   partial void Deletecommitee_president(commitee_president instance);
   #endregion
 	
-	public OutboxDataContext() : 
-			base(global::System.Configuration.ConfigurationManager.ConnectionStrings["Projects_ManagementConnectionString"].ConnectionString, mappingSource)
+	public OutboxDataContext() :
+      base(global::System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString, mappingSource)
 	{
 		OnCreated();
 	}
@@ -385,10 +385,24 @@ public partial class OutboxDataContext : System.Data.Linq.DataContext
 	}
 	
 	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.OutboxVisaEmpSelectOutboxId")]
-	public ISingleResult<OutboxVisaEmpSelectOutboxIdResult> OutboxVisaEmpSelectOutboxId([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Outbox_Id", DbType="Int")] System.Nullable<int> outbox_Id)
+    public ISingleResult<OutboxVisaEmpSelectOutboxIdResult> OutboxVisaEmpSelectOutboxId([global::System.Data.Linq.Mapping.ParameterAttribute(Name = "ID", DbType = "Int")] System.Nullable<int> ID)
+	{
+        IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), ID);
+		return ((ISingleResult<OutboxVisaEmpSelectOutboxIdResult>)(result.ReturnValue));
+	}
+	
+	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.OutboxVisaEmpSelectVisa_Id")]
+	public ISingleResult<OutboxVisaEmpSelectVisa_IdResult> OutboxVisaEmpSelectVisa_Id([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Visa_Id", DbType="Int")] System.Nullable<int> visa_Id)
+	{
+		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), visa_Id);
+		return ((ISingleResult<OutboxVisaEmpSelectVisa_IdResult>)(result.ReturnValue));
+	}
+	
+	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.OutboxVisaEmpSelectOutboxId1")]
+	public ISingleResult<OutboxVisaEmpSelectOutboxId1Result> OutboxVisaEmpSelectOutboxId1([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Outbox_Id", DbType="Int")] System.Nullable<int> outbox_Id)
 	{
 		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), outbox_Id);
-		return ((ISingleResult<OutboxVisaEmpSelectOutboxIdResult>)(result.ReturnValue));
+		return ((ISingleResult<OutboxVisaEmpSelectOutboxId1Result>)(result.ReturnValue));
 	}
 }
 
@@ -8604,6 +8618,130 @@ public partial class OutboxVisaEmpSelectOutboxIdResult
 	private System.Nullable<int> _Outbox_ID;
 	
 	public OutboxVisaEmpSelectOutboxIdResult()
+	{
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PMP_ID", DbType="BigInt NOT NULL")]
+	public long PMP_ID
+	{
+		get
+		{
+			return this._PMP_ID;
+		}
+		set
+		{
+			if ((this._PMP_ID != value))
+			{
+				this._PMP_ID = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_pmp_name", DbType="NVarChar(255)")]
+	public string pmp_name
+	{
+		get
+		{
+			return this._pmp_name;
+		}
+		set
+		{
+			if ((this._pmp_name != value))
+			{
+				this._pmp_name = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Outbox_ID", DbType="Int")]
+	public System.Nullable<int> Outbox_ID
+	{
+		get
+		{
+			return this._Outbox_ID;
+		}
+		set
+		{
+			if ((this._Outbox_ID != value))
+			{
+				this._Outbox_ID = value;
+			}
+		}
+	}
+}
+
+public partial class OutboxVisaEmpSelectVisa_IdResult
+{
+	
+	private string _pmp_name;
+	
+	private System.Nullable<int> _Emp_ID;
+	
+	private System.Nullable<int> _Visa_Id;
+	
+	public OutboxVisaEmpSelectVisa_IdResult()
+	{
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_pmp_name", DbType="NVarChar(255)")]
+	public string pmp_name
+	{
+		get
+		{
+			return this._pmp_name;
+		}
+		set
+		{
+			if ((this._pmp_name != value))
+			{
+				this._pmp_name = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Emp_ID", DbType="Int")]
+	public System.Nullable<int> Emp_ID
+	{
+		get
+		{
+			return this._Emp_ID;
+		}
+		set
+		{
+			if ((this._Emp_ID != value))
+			{
+				this._Emp_ID = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Visa_Id", DbType="Int")]
+	public System.Nullable<int> Visa_Id
+	{
+		get
+		{
+			return this._Visa_Id;
+		}
+		set
+		{
+			if ((this._Visa_Id != value))
+			{
+				this._Visa_Id = value;
+			}
+		}
+	}
+}
+
+public partial class OutboxVisaEmpSelectOutboxId1Result
+{
+	
+	private long _PMP_ID;
+	
+	private string _pmp_name;
+	
+	private System.Nullable<int> _Outbox_ID;
+	
+	public OutboxVisaEmpSelectOutboxId1Result()
 	{
 	}
 	

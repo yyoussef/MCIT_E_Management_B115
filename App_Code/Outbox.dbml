@@ -500,4 +500,20 @@
       <Column Name="Outbox_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
   </Function>
+  <Function Name="dbo.OutboxVisaEmpSelectVisa_Id" Method="OutboxVisaEmpSelectVisa_Id">
+    <Parameter Name="Visa_Id" Parameter="visa_Id" Type="System.Int32" DbType="Int" />
+    <ElementType Name="OutboxVisaEmpSelectVisa_IdResult">
+      <Column Name="pmp_name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Emp_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Visa_Id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.OutboxVisaEmpSelectOutboxId1" Method="OutboxVisaEmpSelectOutboxId1">
+    <Parameter Name="Outbox_Id" Parameter="outbox_Id" Type="System.Int32" DbType="Int" />
+    <ElementType Name="OutboxVisaEmpSelectOutboxId1Result">
+      <Column Name="PMP_ID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="pmp_name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Outbox_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
 </Database>
