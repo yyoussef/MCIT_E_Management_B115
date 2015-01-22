@@ -61,7 +61,7 @@
                 Height="25px" style="direction: ltr" />
         </td>
         <td align="right" dir="rtl">
-            <asp:CheckBox ID="ChkdayOff"  runat="server" />
+            <asp:CheckBox ID="ChkdayOff"  runat="server" AutoPostBack="true"  OnCheckedChanged="ChkdayOff_checkedChanged" />
         </td>
     </tr>
     <tr>
@@ -179,7 +179,7 @@
                 ErrorMessage="*" ValidationExpression="^[0-9]*$" ValidationGroup="Group1"></asp:RegularExpressionValidator>
         </td>
         <td align="right" style="height: 51px">
-            <asp:TextBox ID="txt_no_days" runat="server" CssClass="Text" Width="230px"  >1</asp:TextBox>
+            <asp:TextBox ID="txt_no_days" runat="server" CssClass="Text" Width="230px" Enabled="false"   >1</asp:TextBox>
             <cc1:FilteredTextBoxExtender ID="no_days_filtered" runat="server" FilterType="Custom"
                 ValidChars="0123456789" TargetControlID="txt_no_days" />
         </td>
