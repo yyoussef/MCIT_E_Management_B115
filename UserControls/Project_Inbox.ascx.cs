@@ -212,8 +212,6 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
     private void MOnMember_Data_Depart(string Value)
     {
 
-
-       
             if (Value != "")
             {
 
@@ -229,7 +227,6 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
             }
         
-
     }
 
     private void MOnMember_Data_Depart2(string Value)
@@ -2942,95 +2939,41 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
     private void fill_resp_Emp()
     {
 
-        DataTable DT_emp = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_employee_accoording_to_radiochek", radlst_Type.SelectedValue, Session_CS.pmp_id, Session_CS.dept_id, Session_CS.foundation_id).Tables[0];
-        tr_emp_list.Visible = true;
-        //string sql, sql_emp = "";
-
-        //if (radlst_Type.SelectedValue == "1")
-        //{
-        //    sql_emp = " select * from pmp_fav_View where pmp_fav_View.employee_id = " + CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
-        //    if (Smart_Search_structure2.SelectedValue != "")
-        //    {
-        //        sql_emp += " AND Dept_Dept_id = " + Smart_Search_structure2.SelectedValue;
-        //    }
-        //   // if (ddl_sectors2.SelectedValue != "" && ddl_sectors2.SelectedValue != "0")
-        //   // {
-        //   // sql_emp += "  and  sec_sec_id=0";// +ddl_sectors2.SelectedValue;
-        //   // }
+        chklst_Visa_Emp_All.Items.Clear();
+        lst_emp.Items.Clear();
+        //chklst_Visa_Emp_All.DataBind();
 
 
-
-        //}
-        //else if (radlst_Type.SelectedValue == "2")
-        //{
-        //    // sql_emp = " select * from employee where dbo.EMPLOYEE.workstatus = 1";
+        if (radlst_Type.SelectedValue != "7")
+        {
 
 
-        //    sql_emp = "SELECT     EMPLOYEE.*,Departments.* FROM Departments  INNER JOIN EMPLOYEE ON Departments.Dept_id = EMPLOYEE.Dept_Dept_id where  EMPLOYEE.PMP_ID not in(select parent_pmp_id from dbo.parent_employee) and dbo.EMPLOYEE.workstatus = 1 and EMPLOYEE.foundation_id='" + Session_CS.foundation_id + "'";
+            //tr_emp_list.Visible = true;
+            DataTable DT_emp;
+            //= SqlHelper.ExecuteDataset(Database.ConnectionString, "get_employee_accoording_to_radiochek", radlst_Type.SelectedValue, Session_CS.pmp_id, Session_CS.dept_id, Session_CS.foundation_id).Tables[0];
 
-        //    if (Smart_Search_structure2.SelectedValue != "")
-        //    {
-        //        sql_emp += " and Dept_Dept_id = " + Smart_Search_structure2.SelectedValue;
-        //    }
-        //   //// if (ddl_sectors2.SelectedValue != "" && ddl_sectors2.SelectedValue != "0")
-        //   // //{
-        //   // sql_emp += "and  Sectors.Sec_id=0"; +ddl_sectors2.SelectedValue;
-        //   //// }
+            SqlParameter[] sqlParams = new SqlParameter[4];
 
-        //}
-        //else if (radlst_Type.SelectedValue == "3")
-        //{
-        //    // sql_emp = " select * from employee where rol_rol_id=3  and dbo.EMPLOYEE.workstatus = 1";
+            sqlParams[0] = new SqlParameter("@radiocheck", radlst_Type.SelectedValue);
+            sqlParams[1] = new SqlParameter("@pmp_id", Session_CS.pmp_id);
 
-        //    sql_emp = "SELECT     EMPLOYEE.*,Departments.* FROM Departments  INNER JOIN EMPLOYEE ON Departments.Dept_id = EMPLOYEE.Dept_Dept_id where dbo.EMPLOYEE.workstatus = 1 and rol_rol_id=3 and EMPLOYEE.foundation_id='" + Session_CS.foundation_id + "'";
+            if (CDataConverter.ConvertToInt(Smart_Search_structure2.SelectedValue) > 0)
+                sqlParams[2] = new SqlParameter("@dept_id", CDataConverter.ConvertToInt(Smart_Search_structure2.SelectedValue));
+            else
+                sqlParams[2] = new SqlParameter("@dept_id", CDataConverter.ConvertToInt(DBNull.Value));
 
+            sqlParams[3] = new SqlParameter("@found_id", Session_CS.foundation_id);
 
-        //    if (Smart_Search_structure2.SelectedValue != "")
-        //    {
-        //        sql_emp += " AND Dept_Dept_id = " + Smart_Search_structure2.SelectedValue;
-        //    }
-
-        //   // //if (ddl_sectors2.SelectedValue != "" && ddl_sectors2.SelectedValue != "0")
-        //   //// {
-        //   // sql_emp += "and  Sectors.Sec_id="+ddl_sectors2.SelectedValue;
-        //   // //}
-
-        //}
-        //else if (radlst_Type.SelectedValue == "4")
-        //{
-        //    // sql_emp = " select * from employee where contact_person=1 and dbo.EMPLOYEE.workstatus = 1 ";
-
-        //    sql_emp = "SELECT     EMPLOYEE.*, Departments.* FROM Departments  INNER JOIN EMPLOYEE ON Departments.Dept_id = EMPLOYEE.Dept_Dept_id where dbo.EMPLOYEE.workstatus = 1 and contact_person=1 and EMPLOYEE.foundation_id='" + Session_CS.foundation_id + "'";
-
-        //    if (Smart_Search_structure2.SelectedValue != "")
-        //    {
-        //        sql_emp += " AND Dept_Dept_id = " + Smart_Search_structure2.SelectedValue;
-        //    }
-
-        //   //// if (ddl_sectors2.SelectedValue != "" && ddl_sectors2.SelectedValue != "0")
-        //   //// {
-        //   // sql_emp += "and  Sectors.Sec_id=0";// +ddl_sectors2.SelectedValue;
-        //   //// }
-
-        //}
-
-        //else if (radlst_Type.SelectedValue == "5")
-        //{
-        //    sql_emp = "  select EMPLOYEE.pmp_name + ' - رئيس ' + +' '+ Commitee.Commitee_Title as pmp_name ,EMPLOYEE.PMP_ID from EMPLOYEE inner join commitee_presidents on  EMPLOYEE.PMP_ID=commitee_presidents.pmp_id inner join Commitee on commitee_presidents.comt_id = Commitee.ID where  Commitee.foundation_id='" + Session_CS.foundation_id + "' ";
-
-        //}
-
-        //else if (radlst_Type.SelectedValue == "6")
-        //{
-
-        //    sql_emp = "select EMPLOYEE.pmp_name COLLATE DATABASE_DEFAULT  + ' -  ' + Departments.Dept_name  as pmp_name,EMPLOYEE.PMP_ID from EMPLOYEE inner join commitee_presidents on  EMPLOYEE.PMP_ID=commitee_presidents.pmp_id inner join Departments on  commitee_presidents.dept_id = Departments.Dept_id   inner join Sectors  on Sectors.Sec_id = Departments.Sec_sec_id where Sectors.foundation_id='" + Session_CS.foundation_id + "'";
-        //}
-
-        //sql_emp += " ORDER BY LTRIM(pmp_name)";
+            DT_emp = DatabaseFunctions.SelectDataByParam(sqlParams, "get_employee_accoording_to_radiochek");
+            if (DT_emp.Rows.Count > 0)
+            {
+                chklst_Visa_Emp_All.DataSource = DT_emp;
+                chklst_Visa_Emp_All.DataBind();
+            }
+        }
         TabPanel_All.ActiveTab = TabPanel_Visa;
         //DataTable dt_emp_fav = General_Helping.GetDataTable(sql_emp);
-        chklst_Visa_Emp_All.DataSource = DT_emp;
-        chklst_Visa_Emp_All.DataBind();
+       
         TabPanel_All.ActiveTab = TabPanel_Visa;
     }
     protected void Chk_main_cat_SelectedIndexChanged(object sender, EventArgs e)
