@@ -20,8 +20,6 @@
 <script language="javascript" type="text/javascript">
 
 
-
-
     function ChangeMeCase(divid, imgid, Number) {
 
         var divname = document.getElementById(divid);
@@ -65,7 +63,7 @@
      </asp:UpdateProgress>
 
 
-<asp:UpdatePanel ID="UpdatePanel1" runat="server">
+<asp:UpdatePanel ID="UpdatePanel1" runat="server"  UpdateMode="Conditional">
     <ContentTemplate>
         <table dir="rtl" style="line-height: 2; width: 99%;">
             <tr>
@@ -484,7 +482,8 @@
                                                 <asp:RadioButtonList ID="radlst_Type" runat="server" OnSelectedIndexChanged="radlst_Type_SelectedIndexChanged"
                                                     AutoPostBack="True" CssClass="Label" Font-Bold="True" CellPadding="2" CellSpacing="1"
                                                     RepeatColumns="6" RepeatDirection="Horizontal">
-                                                    <asp:ListItem Text="المفضلة" Value="1" Selected="True"></asp:ListItem>
+                                                     <asp:ListItem Text="اختر" Value="7" selected="True"></asp:ListItem>
+                                                    <asp:ListItem Text="المفضلة" Value="1"></asp:ListItem>
                                                     <asp:ListItem Text="الكل" Value="2"></asp:ListItem>
                                                     <asp:ListItem Text="مديري الادارات" Value="3"></asp:ListItem>
                                                     <asp:ListItem Text="مسئولي الاتصال" Value="4"></asp:ListItem>
@@ -501,28 +500,28 @@
                                         </asp:RadioButtonList>--%>
                                             </td>
                                         </tr>
-                                        <tr id="tr_emp_list" runat="server">
-                                            <td runat="server">
+                                        <tr >
+                                            <td >
                                                 <asp:Label ID="Label47" runat="server" CssClass="Label" Text="الموظف المسئول  :" />
                                             </td>
                                             <td align="right" runat="server">
-                                                <div style="overflow: scroll; background-color: #F9fdff; color: #000000; height: 289px;
+                                              <div style="overflow: scroll; background-color: #F9fdff; color: #000000; height: 289px;
                                                     width: 300px" dir="rtl" class="borderControl">
                                                     <asp:CheckBox ID="chk_ALL" CssClass="Label" Font-Size="Small" RepeatDirection="Horizontal"
                                                         Text="اختر الكل" AutoPostBack="True" runat="server" OnCheckedChanged="chk_ALL_CheckedChanged">
                                                     </asp:CheckBox>
-                                                    <asp:CheckBoxList ID="chklst_Visa_Emp_All" CellPadding="5" CellSpacing="2" RepeatColumns="2"
+                                                    <asp:CheckBoxList  ID="chklst_Visa_Emp_All" CellPadding="5" CellSpacing="2" RepeatColumns="2"
                                                         CssClass="Label" Font-Size="Small" RepeatDirection="Horizontal" DataTextField="pmp_name"
                                                         DataValueField="PMP_ID" runat="server">
                                                     </asp:CheckBoxList>
                                                 </div>
                                             </td>
-                                            <td runat="server">
+                                            <td >
                                                 <asp:Button ID="btn_add" OnClick="btn_add_Click" Text="إضافة" runat="server" CssClass="Button" />
                                                 <asp:Button ID="btn_delete" OnClick="btn_delete_Click" Text="مسح" runat="server"
                                                     CssClass="Button" />
                                             </td>
-                                            <td runat="server">
+                                            <td >
                                                 <div style="overflow: scroll; background-color: #F9fdff; color: #000000; height: 289px"
                                                     dir="rtl" class="borderControl">
                                                     <asp:ListBox ID="lst_emp" runat="server" Height="289px" Width="300px" Font-Size="Small">
@@ -530,35 +529,8 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        <tr id="tr_old_emp" runat="server">
-                                            <td>
-                                                <asp:Label ID="Label10" runat="server" CssClass="Label" Text="المسئول عن التنفيذ :" />
-                                            </td>
-                                            <td align="right" colspan="3">
-                                                <div style="overflow: scroll; background-color: #F9fdff; color: #000000; height: 289px"
-                                                    dir="rtl">
-                                                    <asp:CheckBoxList ID="CheckBoxList1" CellPadding="5" CellSpacing="5" RepeatColumns="6"
-                                                        CssClass="Label" Font-Size="Small" RepeatDirection="Horizontal" DataTextField="pmp_name"
-                                                        DataValueField="PMP_ID" runat="server">
-                                                    </asp:CheckBoxList>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                        <tr id="tr_old_emp_resp" runat="server">
-                                            <td>
-                                                <asp:Label ID="Label31" runat="server" CssClass="Label" Text="المسئول عن التنفيذ :" />
-                                            </td>
-                                            <td align="right" width="100%" colspan="3">
-                                                <div style="overflow: scroll; background-color: #F9fdff; color: #000000; height: 289px;
-                                                    width: 100%" dir="rtl" class="borderControl">
-                                                    <asp:CheckBoxList ID="chklst_Visa_Emp" CellPadding="5" CellSpacing="5" RepeatColumns="4"
-                                                        CssClass="Label" Font-Size="Small" RepeatDirection="Horizontal" RepeatLayout="Table"
-                                                        TextAlign="Right" DataTextField="pmp_name" DataValueField="PMP_ID" runat="server"
-                                                        Width="97%">
-                                                    </asp:CheckBoxList>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                      
+                                      
                                         <tr>
                                             <td align="right" width="150px">
                                                 <asp:Label ID="Label15" runat="server" CssClass="Label" Text="تاريخ التاشيرة :" Width="135px" />
@@ -942,11 +914,22 @@
       
         <asp:PostBackTrigger ControlID="btn_Visa_Follow$btn_print_report" />
 
-    </Triggers>
-    
-     <Triggers>
+<asp:PostBackTrigger ControlID="btn_add"></asp:PostBackTrigger>
+<asp:PostBackTrigger ControlID="btn_delete"></asp:PostBackTrigger>
+<asp:PostBackTrigger ControlID="Button1"></asp:PostBackTrigger>
+<asp:PostBackTrigger ControlID="btn_Visa_Follow"></asp:PostBackTrigger>
 
+    </Triggers>
+     <Triggers>
+           <asp:PostBackTrigger ControlID="btn_add" />
+
+          <asp:PostBackTrigger ControlID="btn_delete" />
+         </Triggers> 
+     <Triggers>
+         
+        
       <asp:PostBackTrigger ControlID="Button1" />
      <asp:PostBackTrigger ControlID="btn_Visa_Follow" />
+        
     </Triggers>
 </asp:UpdatePanel>
