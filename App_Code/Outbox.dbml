@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Projects_Management" Class="OutboxDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=10.100.121.22;Initial Catalog=Projects_Management;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="Projects_ManagementConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="WebSettings" ConnectionString="Data Source=10.100.121.22;Initial Catalog=Projects_Management;Persist Security Info=True;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="Projects_ManagementConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Project" Member="Projects">
     <Type Name="Project">
       <Column Name="Proj_id" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -515,5 +515,13 @@
       <Column Name="pmp_name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Column Name="Outbox_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </ElementType>
+  </Function>
+  <Function Name="dbo.SPOutboxCatDelete" Method="SPOutboxCatDelete">
+    <Parameter Name="outbox_id" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
+  </Function>
+  <Function Name="dbo.SPOutbox_Visa_EmpDelete" Method="SPOutbox_Visa_EmpDelete">
+    <Parameter Name="Visa_Id" Parameter="visa_Id" Type="System.Int32" DbType="Int" />
+    <Return Type="System.Int32" />
   </Function>
 </Database>

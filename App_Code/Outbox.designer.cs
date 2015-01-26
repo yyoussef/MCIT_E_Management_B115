@@ -85,8 +85,8 @@ public partial class OutboxDataContext : System.Data.Linq.DataContext
   partial void Deletecommitee_president(commitee_president instance);
   #endregion
 	
-	public OutboxDataContext() :
-      base(global::System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString, mappingSource)
+	public OutboxDataContext() : 
+			base(global::System.Configuration.ConfigurationManager.ConnectionStrings["Projects_ManagementConnectionString"].ConnectionString, mappingSource)
 	{
 		OnCreated();
 	}
@@ -385,9 +385,9 @@ public partial class OutboxDataContext : System.Data.Linq.DataContext
 	}
 	
 	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.OutboxVisaEmpSelectOutboxId")]
-    public ISingleResult<OutboxVisaEmpSelectOutboxIdResult> OutboxVisaEmpSelectOutboxId([global::System.Data.Linq.Mapping.ParameterAttribute(Name = "ID", DbType = "Int")] System.Nullable<int> ID)
+	public ISingleResult<OutboxVisaEmpSelectOutboxIdResult> OutboxVisaEmpSelectOutboxId([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Outbox_Id", DbType="Int")] System.Nullable<int> outbox_Id)
 	{
-        IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), ID);
+		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), outbox_Id);
 		return ((ISingleResult<OutboxVisaEmpSelectOutboxIdResult>)(result.ReturnValue));
 	}
 	
@@ -403,6 +403,20 @@ public partial class OutboxDataContext : System.Data.Linq.DataContext
 	{
 		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), outbox_Id);
 		return ((ISingleResult<OutboxVisaEmpSelectOutboxId1Result>)(result.ReturnValue));
+	}
+	
+	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SPOutboxCatDelete")]
+	public int SPOutboxCatDelete([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> outbox_id)
+	{
+		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), outbox_id);
+		return ((int)(result.ReturnValue));
+	}
+	
+	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.SPOutbox_Visa_EmpDelete")]
+	public int SPOutbox_Visa_EmpDelete([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Visa_Id", DbType="Int")] System.Nullable<int> visa_Id)
+	{
+		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), visa_Id);
+		return ((int)(result.ReturnValue));
 	}
 }
 
