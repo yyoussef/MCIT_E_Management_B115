@@ -816,7 +816,7 @@ public partial class WebForms2_Project_Activities : System.Web.UI.Page
 
 
         appclass.Visible = false;
-        Project proj = appclass.ActiveProject;
+        Microsoft.Office.Interop.MSProject.Project proj = appclass.ActiveProject;
         for (int z = 1; z <= 3; z++)
             foreach (Microsoft.Office.Interop.MSProject.Task task_old in proj.Tasks)
                 task_old.Delete();
@@ -872,7 +872,7 @@ public partial class WebForms2_Project_Activities : System.Web.UI.Page
 
     }
 
-    private void Load_Rec(Project proj, int OutlineLevel, string PActv_ID)
+    private void Load_Rec(Microsoft.Office.Interop.MSProject.Project proj, int OutlineLevel, string PActv_ID)
     {
         Microsoft.Office.Interop.MSProject.Task task;
         DataTable DT_Proj_Activitess = new DataTable();
@@ -881,7 +881,7 @@ public partial class WebForms2_Project_Activities : System.Web.UI.Page
         if (DT_Proj_Activitess.Rows.Count != 0)
         {
             for (int i = 0; i < DT_Proj_Activitess.Rows.Count; i++)
-            {
+            { 
 
                 DataRow row = DT_Proj_Activitess.Rows[i];
                 task = proj.Tasks.Add(row["PActv_Desc"].ToString(), OutlineLevel + 1);

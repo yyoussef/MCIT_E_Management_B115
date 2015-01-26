@@ -39,7 +39,7 @@ public partial class WebForms2_Import_From_MPP : System.Web.UI.Page
 
 
         appclass.Visible = false;
-        Project proj = appclass.ActiveProject;
+        Microsoft.Office.Interop.MSProject.Project proj = appclass.ActiveProject;
         for (int z = 1; z <= 3; z++)
             foreach (Microsoft.Office.Interop.MSProject.Task task_old in proj.Tasks)
                 task_old.Delete();
@@ -95,7 +95,7 @@ public partial class WebForms2_Import_From_MPP : System.Web.UI.Page
 
     }
 
-    private void Load_Rec(Project proj, int OutlineLevel, string PActv_ID)
+    private void Load_Rec(Microsoft.Office.Interop.MSProject.Project proj, int OutlineLevel, string PActv_ID)
     {
         Microsoft.Office.Interop.MSProject.Task task;
         DataTable DT_Proj_Activitess = new DataTable();
@@ -171,7 +171,7 @@ public partial class WebForms2_Import_From_MPP : System.Web.UI.Page
         PjPoolOpen.pjDoNotOpenPool, Missing.Value, Missing.Value, Missing.Value, Missing.Value);
 
         // Get the active project 
-        Project proj = projectApp.ActiveProject;
+        Microsoft.Office.Interop.MSProject.Project proj = projectApp.ActiveProject;
         int parent_count = 0;
         foreach (Task task in proj.Tasks)
         {
