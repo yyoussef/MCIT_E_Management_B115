@@ -208,7 +208,7 @@ public partial class UserControls_Inbox_Search : System.Web.UI.UserControl
             subcat = CDataConverter.ConvertToInt(ddlSubCat.SelectedValue);
         }
 
-        SqlParameter[] parms = new SqlParameter[17];
+        SqlParameter[] parms = new SqlParameter[18];
         if (CDataConverter.ConvertToInt(Session_CS.parent_id.ToString()) > 0 || CDataConverter.ConvertToInt(Session_CS.child_emp.ToString()) > 0)
         {
             parms[0] = new SqlParameter("@group_id", int.Parse(Session_CS.group_id.ToString()));
@@ -280,6 +280,16 @@ public partial class UserControls_Inbox_Search : System.Web.UI.UserControl
         parms[15] = new SqlParameter("@visa_emp", CDataConverter.ConvertToInt(Smart_Emp_ID.SelectedValue));
         parms[16] = new SqlParameter("@found_id", Session_CS.foundation_id);
 
+
+        if (Smart_Search_depts.SelectedValue == "")
+        {
+            parms[17] = new SqlParameter("@Dept_Dept_ID", CDataConverter.ConvertToInt(DBNull.Value));
+        }
+        else
+        {
+            parms[17] = new SqlParameter("@Dept_Dept_ID", CDataConverter.ConvertToInt(Smart_Search_depts.SelectedValue));
+        }
+     
          
         DataTable dt = new DataTable();
         dt = DatabaseFunctions.SelectDataByParam(parms, "inbox_search_par");

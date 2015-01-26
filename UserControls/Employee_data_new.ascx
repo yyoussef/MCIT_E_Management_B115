@@ -7,7 +7,29 @@
     {
         width: 100%;
     }
+    
+.divWaiting{
+   
+position: absolute;
+background-color: #FAFAFA;
+z-index: 2147483647 !important;
+opacity: 0.8;
+overflow: hidden;
+text-align: center; top: 0; left: 0;
+height: 100%;
+width: 100%;
+padding-top:20%;
+}
 </style>
+
+    <asp:UpdateProgress ID="UpdateProgress1" runat="server" DisplayAfter="30" AssociatedUpdatePanelID="panl">
+                    <ProgressTemplate>
+                      <div class="divWaiting">            
+	
+	                     <asp:Image ID="imgWait" runat="server" ImageAlign="Middle" ImageUrl="~/Images/icon-loading.gif"/>
+                    </div>
+                    </ProgressTemplate>
+     </asp:UpdateProgress>
 <asp:UpdatePanel ID="panl" runat="server">
     <ContentTemplate>
         <table dir="rtl" style="line-height: 2; width: 99%;">
@@ -40,7 +62,7 @@
                                                 Visible="false" ForeColor="Red" Font-Bold="true"></asp:Label>
                                         </td>
                                     </tr>
-                                 <%--   <tr>
+                                    <tr>
                                         <td>
                                         </td>
                                         <td>
@@ -49,7 +71,7 @@
                                             <asp:Label ID="Label41" runat="server" CssClass="Label" Visible="false" Text=" إجمالي عدد الموظفين :"></asp:Label>
                                             <asp:Label ID="lbl_total_emp" runat="server" CssClass="Label" Visible="false"></asp:Label>
                                         </td>
-                                    </tr>--%>
+                                    </tr>
                                     <tr>
                                       <td>
                                             <asp:Label ID="Label6" runat="server" Text="   الإدارة :" CssClass="Label" Font-Underline="False"></asp:Label>
@@ -57,10 +79,10 @@
                                      <td>
                                           <uc1:Smart_Search ID="Smrt_Srch_structure" runat="server"  />
                                     </td>
-                                 <%--   <td>  
+                                    <td>  
                                      <asp:Label ID="Label39" runat="server" CssClass="Label" Visible="false" Text="  إجمالي عدد الموظفين بالإدارة :"></asp:Label>
                                             <asp:Label ID="Lbl_count" runat="server" CssClass="Label" Visible="false"></asp:Label>
-                                            </td>--%>
+                                            </td>
                                     </tr>
                                     <tr>
                                        <%-- <td>
