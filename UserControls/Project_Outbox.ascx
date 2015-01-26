@@ -824,13 +824,13 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                                                     <%# Eval("File_name")%></a>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText=" ارسال إيميل">
+                                                      <%--  <asp:TemplateField HeaderText=" ارسال إيميل">
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="ImgBtnEdit123" CommandName="SendItem" runat="server" ImageUrl="../Images/Edit.jpg"
                                                                     CommandArgument='<%# Eval("Follow_ID") %>' />
                                                             </ItemTemplate>
                                                             <ItemStyle Width="20px" />
-                                                        </asp:TemplateField>
+                                                        </asp:TemplateField>--%>
                                                     </Columns>
                                                     <FooterStyle BackColor="#CCCCCC" />
                                                     <PagerStyle CssClass="pgr" BackColor="#999999" ForeColor="Black" HorizontalAlign="Center" />

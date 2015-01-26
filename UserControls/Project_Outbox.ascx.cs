@@ -39,7 +39,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         string Query = "";
         ///Smart_Org_ID.sql_Connection = sql_Connection;
         Query = "SELECT Org_ID, Org_Desc FROM Organization where foundation_id = " + found_id;
-     
+
         //this.Smrt_Srch_DropDep.Value_Handler += new Smart_Search.Delegate_Selected_Value(MOnMember_Data);
         //Inbox_organization.SelectedValue;
         ////Smart_Emp_ID.sql_Connection = sql_Connection;
@@ -82,8 +82,8 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
     }
     protected void Page_Load(object sender, EventArgs e)
     {
-      
-       
+
+
         Smrt_Srch_structure.Show_OrgTree = true;
         Smrt_Srch_structure2.Show_OrgTree = true;
         if (!IsPostBack)
@@ -97,8 +97,8 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                 if (Session_CS.UROL_UROL_ID != null && CDataConverter.ConvertToInt(Session_CS.UROL_UROL_ID) == 3)
                 {
                     IEnumerable<Project> proj = from project in outboxDBContext.Projects
-                                  where project.Proj_id == Session_CS.Project_id && project.pmp_pmp_id == Session_CS.pmp_id
-                                  select project;
+                                                where project.Proj_id == Session_CS.Project_id && project.pmp_pmp_id == Session_CS.pmp_id
+                                                select project;
                     //Refactored by hafs
                     //string sql1 = " SELECT Proj_id ,pmp_pmp_id " +
                     //   " FROM     Project     " +
@@ -122,14 +122,14 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
             //                                       select favView;
             //chklst_Visa_Emp_All.DataSource = pmpFavView;
             //chklst_Visa_Emp_All.DataBind();
-            
+
             //Refactored by hafs
             //string sql_for_chklist_emp = " select * from pmp_fav_View where pmp_fav_View.employee_id = " + CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()) + " ORDER BY LTRIM(pmp_name)";
             //DataTable dt_emp_fav = General_Helping.GetDataTable(sql_for_chklist_emp);
             //chklst_Visa_Emp_All.DataSource = dt_emp_fav;
             //chklst_Visa_Emp_All.DataBind();
 
-    
+
             TabPanel_Visa_Folow.Visible = true;
             TabPanel_Visa.Visible = true;
             Button2.Visible = true;
@@ -160,13 +160,13 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
             Fill_main_Category();
             //fill_sectors();
             fill_structure();
-            
+
             //refactored by hafs
             //fill_structure2();
 
             //refactored by hafs
-           // chklst_Visa_Emp.DataSource = fil_emp_by_Dept(CDataConverter.ConvertToInt(Smrt_Srch_structure.SelectedValue));//fil_emp_Visa();
-          //  chklst_Visa_Emp.DataBind();
+            // chklst_Visa_Emp.DataSource = fil_emp_by_Dept(CDataConverter.ConvertToInt(Smrt_Srch_structure.SelectedValue));//fil_emp_Visa();
+            //  chklst_Visa_Emp.DataBind();
 
             if (Request["id"] != null)
             {
@@ -210,7 +210,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
 
     }
     #endregion
-   
+
     #region "Fills"
     protected void fill_structure()
     {
@@ -265,43 +265,43 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         //if (Smrt_Srch_structure2.SelectedValue != "0")
         //{
         //    Smrt_Srch_structure2.sql_Connection = sql_Connection;
-            //    Smart_Search_mang.Query = "select Dept_ID,Dept_name from Departments where sec_sec_id='" + drop_sectors.SelectedValue + "' ";
-       //     Query = "select Dept_ID,Dept_name from Departments where sec_sec_id='" + CDataConverter.ConvertToInt("0") + "' ";
-       //     Smrt_Srch_structure2.datatble = General_Helping.GetDataTable(Query);
+        //    Smart_Search_mang.Query = "select Dept_ID,Dept_name from Departments where sec_sec_id='" + drop_sectors.SelectedValue + "' ";
+        //     Query = "select Dept_ID,Dept_name from Departments where sec_sec_id='" + CDataConverter.ConvertToInt("0") + "' ";
+        //     Smrt_Srch_structure2.datatble = General_Helping.GetDataTable(Query);
         //    Smrt_Srch_structure2.Value_Field = "Dept_ID";
         //    Smrt_Srch_structure2.Text_Field = "Dept_name";
-       //     Smrt_Srch_structure2.Orderby = "ORDER BY LTRIM(Dept_name)";
-       //     Smrt_Srch_structure2.DataBind();
-       // }
-       // else
-      //  {
-      //      Smrt_Srch_structure2.Clear_Controls();
-      //  }
+        //     Smrt_Srch_structure2.Orderby = "ORDER BY LTRIM(Dept_name)";
+        //     Smrt_Srch_structure2.DataBind();
+        // }
+        // else
+        //  {
+        //      Smrt_Srch_structure2.Clear_Controls();
+        //  }
 
         //////////////////////////////////////////////////////////
 
-     //   if (Smrt_Srch_structure.SelectedValue != "0")
-      //  {
-            //Smart_Search_dept.Query = "select Dept_ID,Dept_name from Departments where sec_sec_id='" + ddl_sectors2.SelectedValue + "' ";
-     //       Query = "select Dept_ID,Dept_name from Departments where sec_sec_id='" + CDataConverter.ConvertToInt("0") + "' ";
-     //       Smrt_Srch_structure.datatble = General_Helping.GetDataTable(Query);
-      //      Smrt_Srch_structure.Value_Field = "Dept_ID";
-      //      Smrt_Srch_structure.Text_Field = "Dept_name";
-      //      Smrt_Srch_structure.Orderby = "ORDER BY LTRIM(Dept_name)";
-      //      Smrt_Srch_structure.DataBind();
-     //   }
-     //   else
-     //   {
-     //       Smrt_Srch_structure.Clear_Controls();
-     //   }
+        //   if (Smrt_Srch_structure.SelectedValue != "0")
+        //  {
+        //Smart_Search_dept.Query = "select Dept_ID,Dept_name from Departments where sec_sec_id='" + ddl_sectors2.SelectedValue + "' ";
+        //       Query = "select Dept_ID,Dept_name from Departments where sec_sec_id='" + CDataConverter.ConvertToInt("0") + "' ";
+        //       Smrt_Srch_structure.datatble = General_Helping.GetDataTable(Query);
+        //      Smrt_Srch_structure.Value_Field = "Dept_ID";
+        //      Smrt_Srch_structure.Text_Field = "Dept_name";
+        //      Smrt_Srch_structure.Orderby = "ORDER BY LTRIM(Dept_name)";
+        //      Smrt_Srch_structure.DataBind();
+        //   }
+        //   else
+        //   {
+        //       Smrt_Srch_structure.Clear_Controls();
+        //   }
 
 
-      //  Smart_Emp_ID.sql_Connection = sql_Connection;
-       //  Smart_Emp_ID.Query = "SELECT PMP_ID, pmp_name,Dept_Dept_id,Sec_id FROM EMPLOYEE inner join dbo.Departments on EMPLOYEE.Dept_Dept_id=Departments.Dept_id inner join Sectors on Sectors.Sec_id=Departments.Sec_sec_id where Sectors.Sec_id='" + drop_sectors.SelectedValue + "' ";
-       //Query = "SELECT PMP_ID, pmp_name,Dept_Dept_id,Sec_id FROM EMPLOYEE inner join dbo.Departments on EMPLOYEE.Dept_Dept_id=Departments.Dept_id inner join Sectors on Sectors.Sec_id=Departments.Sec_sec_id where Sectors.Sec_id='" + CDataConverter.ConvertToInt("0") + "' ";
-       // Smart_Emp_ID.datatble = General_Helping.GetDataTable(Query);
+        //  Smart_Emp_ID.sql_Connection = sql_Connection;
+        //  Smart_Emp_ID.Query = "SELECT PMP_ID, pmp_name,Dept_Dept_id,Sec_id FROM EMPLOYEE inner join dbo.Departments on EMPLOYEE.Dept_Dept_id=Departments.Dept_id inner join Sectors on Sectors.Sec_id=Departments.Sec_sec_id where Sectors.Sec_id='" + drop_sectors.SelectedValue + "' ";
+        //Query = "SELECT PMP_ID, pmp_name,Dept_Dept_id,Sec_id FROM EMPLOYEE inner join dbo.Departments on EMPLOYEE.Dept_Dept_id=Departments.Dept_id inner join Sectors on Sectors.Sec_id=Departments.Sec_sec_id where Sectors.Sec_id='" + CDataConverter.ConvertToInt("0") + "' ";
+        // Smart_Emp_ID.datatble = General_Helping.GetDataTable(Query);
         DataTable EMPLOYEEdt = extentionMethods.ToDataTable<EMPLOYEE>(fil_emp_by_Dept(0));
-        Smart_Emp_ID.datatble = EMPLOYEEdt; 
+        Smart_Emp_ID.datatble = EMPLOYEEdt;
         Smart_Emp_ID.Value_Field = "PMP_ID";
         Smart_Emp_ID.Text_Field = "pmp_name";
         Smart_Emp_ID.DataBind();
@@ -339,41 +339,41 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
     {
 
 
-        Obj_General_Helping.SmartBindDDL(ddl_Visa_Emp_id, Fil_Emp_Visa() , "PMP_ID", "pmp_name", "....اختر اسم الموظف ....");
-        
+        Obj_General_Helping.SmartBindDDL(ddl_Visa_Emp_id, Fil_Emp_Visa(), "PMP_ID", "pmp_name", "....اختر اسم الموظف ....");
+
     }
     private DataTable Fil_Emp_Visa()
     {
-           
+
         DataTable resultDT = new DataTable();
         //EmpDT.Columns.Add("PMP_ID", typeof(int));
         //EmpDT.Columns.Add("pmp_name", typeof(string));
         //EmpDT.Columns.Add("Outbox_ID", typeof(int));
-      
+
         if (CDataConverter.ConvertToInt(hidden_Id.Value) > 0)
-                {
-                    //DataTable DT = new DataTable();
-                    //string sql = " SELECT   distinct EMPLOYEE.PMP_ID, EMPLOYEE.pmp_name, Outbox_Visa.Outbox_ID " +
-                    //             " FROM   Outbox_Visa_Emp INNER JOIN  EMPLOYEE ON Outbox_Visa_Emp.Emp_ID = EMPLOYEE.PMP_ID " +
-                    //             " INNER JOIN  Outbox_Visa ON Outbox_Visa_Emp.Visa_Id = Outbox_Visa.Visa_Id " +
-                    //             " INNER JOIN  Outbox ON Outbox_Visa.Outbox_ID = Outbox.ID " +
-                    //             " where Outbox_ID=" + hidden_Id.Value;
-                    //DT = General_Helping.GetDataTable(sql);
-                    ////var OutboxVisaEmpDT = (from OutboxVisaEmp in outboxDBContext.Outbox_Visa_Emps
-                    ////                       join EMP in outboxDBContext.EMPLOYEEs on (Int64)OutboxVisaEmp.Emp_ID equals EMP.PMP_ID
-                    ////                       join OutboxVisa in outboxDBContext.Outbox_Visas on OutboxVisaEmp.Visa_Id equals OutboxVisa.Visa_Id
-                    ////                       join Outbx in outboxDBContext.Outboxes on OutboxVisa.Outbox_ID equals Outbx.ID
-                    ////                       where OutboxVisa.Outbox_ID == CDataConverter.ConvertToInt(hidden_Id.Value)
-                    ////                       select EmpDT.LoadDataRow(
-                    ////                     new object[]  {
-                    ////                        EMP.PMP_ID,
-                    ////                          EMP.pmp_name,
-                    ////                          OutboxVisa.Outbox_ID
-                    ////                       }, false)).Distinct();
-                    var OutboxVisaEmpDT = outboxDBContext.OutboxVisaEmpSelectOutboxId(CDataConverter.ConvertToInt(hidden_Id.Value));
-                    resultDT = extentionMethods.ToDataTable<OutboxVisaEmpSelectOutboxIdResult>(OutboxVisaEmpDT);
-                   
-                }
+        {
+            //DataTable DT = new DataTable();
+            //string sql = " SELECT   distinct EMPLOYEE.PMP_ID, EMPLOYEE.pmp_name, Outbox_Visa.Outbox_ID " +
+            //             " FROM   Outbox_Visa_Emp INNER JOIN  EMPLOYEE ON Outbox_Visa_Emp.Emp_ID = EMPLOYEE.PMP_ID " +
+            //             " INNER JOIN  Outbox_Visa ON Outbox_Visa_Emp.Visa_Id = Outbox_Visa.Visa_Id " +
+            //             " INNER JOIN  Outbox ON Outbox_Visa.Outbox_ID = Outbox.ID " +
+            //             " where Outbox_ID=" + hidden_Id.Value;
+            //DT = General_Helping.GetDataTable(sql);
+            ////var OutboxVisaEmpDT = (from OutboxVisaEmp in outboxDBContext.Outbox_Visa_Emps
+            ////                       join EMP in outboxDBContext.EMPLOYEEs on (Int64)OutboxVisaEmp.Emp_ID equals EMP.PMP_ID
+            ////                       join OutboxVisa in outboxDBContext.Outbox_Visas on OutboxVisaEmp.Visa_Id equals OutboxVisa.Visa_Id
+            ////                       join Outbx in outboxDBContext.Outboxes on OutboxVisa.Outbox_ID equals Outbx.ID
+            ////                       where OutboxVisa.Outbox_ID == CDataConverter.ConvertToInt(hidden_Id.Value)
+            ////                       select EmpDT.LoadDataRow(
+            ////                     new object[]  {
+            ////                        EMP.PMP_ID,
+            ////                          EMP.pmp_name,
+            ////                          OutboxVisa.Outbox_ID
+            ////                       }, false)).Distinct();
+            var OutboxVisaEmpDT = outboxDBContext.OutboxVisaEmpSelectOutboxId1(CDataConverter.ConvertToInt(hidden_Id.Value));
+            resultDT = extentionMethods.ToDataTable<OutboxVisaEmpSelectOutboxId1Result>(OutboxVisaEmpDT);
+
+        }
         return resultDT;
     }
     private void Fill_main_Category()
@@ -443,7 +443,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
 
             //refactored by hafs
             fill_emplyees();
-           
+
 
             if (OutboxObj.Emp_ID > 0)
                 Smart_Emp_ID.SelectedValue = OutboxObj.Emp_ID.ToString();
@@ -551,7 +551,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         Smart_Emp_ID.Value_Field = "pmp_id";
         Smart_Emp_ID.Text_Field = "pmp_name";
         Smart_Emp_ID.DataBind();
-        
+
 
     }
     private IEnumerable<EMPLOYEE> fil_emp_by_Dept(int DeptID)
@@ -560,14 +560,15 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         IEnumerable<EMPLOYEE> Employees;
         if (DeptID > 0)
         {
-             Employees = from Emps in outboxDBContext.EMPLOYEEs
-                                              where Emps.Dept_Dept_id == DeptID
-                                              orderby Emps.pmp_name
-                                              select Emps;
+            Employees = from Emps in outboxDBContext.EMPLOYEEs
+                        where Emps.Dept_Dept_id == DeptID
+                        orderby Emps.pmp_name
+                        select Emps;
 
 
         }
-        else {
+        else
+        {
             Employees = from Emps in outboxDBContext.EMPLOYEEs
                         orderby Emps.pmp_name
                         select Emps;
@@ -637,25 +638,26 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         GridView_Visa.DataBind();
 
     }
-    
+
     private void Fil_Visa_Lstbox(int ID)
     {
-       // string sql = "SELECT dbo.EMPLOYEE.pmp_name, dbo.Outbox_Visa_Emp.Emp_ID, dbo.Outbox_Visa_Emp.Visa_Id FROM  dbo.EMPLOYEE INNER JOIN dbo.Outbox_Visa_Emp ON dbo.EMPLOYEE.PMP_ID = dbo.Outbox_Visa_Emp.Emp_ID where dbo.Outbox_Visa_Emp.Visa_Id = " + ID;
-                        
-        var OutboxVisaEmps = from EMPLOYEES in outboxDBContext.EMPLOYEEs
-                            join OutboxVisaEmp in outboxDBContext.Outbox_Visa_Emps on EMPLOYEES.PMP_ID equals (long)OutboxVisaEmp.Emp_ID 
-                            where OutboxVisaEmp.Visa_Id == ID
-                            select new {
-                            EMPs = EMPLOYEES,
-                            OVEmp = OutboxVisaEmp
-                            };
+        // string sql = "SELECT dbo.EMPLOYEE.pmp_name, dbo.Outbox_Visa_Emp.Emp_ID, dbo.Outbox_Visa_Emp.Visa_Id FROM  dbo.EMPLOYEE INNER JOIN dbo.Outbox_Visa_Emp ON dbo.EMPLOYEE.PMP_ID = dbo.Outbox_Visa_Emp.Emp_ID where dbo.Outbox_Visa_Emp.Visa_Id = " + ID;
+
+        //var OutboxVisaEmps = from EMPLOYEES in outboxDBContext.EMPLOYEEs
+        //                    join OutboxVisaEmp in outboxDBContext.Outbox_Visa_Emps on EMPLOYEES.PMP_ID equals (long)OutboxVisaEmp.Emp_ID 
+        //                    where OutboxVisaEmp.Visa_Id == ID
+        //                    select new {
+        //                    EMPs = EMPLOYEES,
+        //                    OVEmp = OutboxVisaEmp
+        //                    };
 
         //// DataTable dt = Fil_Emp_Visa();
+        var OutboxVisaEmps = outboxDBContext.OutboxVisaEmpSelectVisa_Id(ID).ToList();
         if (OutboxVisaEmps.Count() > 0)
         {
             foreach (var OutboxVisaEmp in OutboxVisaEmps)
             {
-                ListItem obj = new ListItem(OutboxVisaEmp.EMPs.pmp_name, OutboxVisaEmp.EMPs.PMP_ID.ToString());
+                ListItem obj = new ListItem(OutboxVisaEmp.pmp_name, OutboxVisaEmp.Emp_ID.ToString());
                 lst_emp.Items.Add(obj);
 
 
@@ -738,7 +740,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
 
 
     }
-   
+
     #endregion
 
     #region "events handler"
@@ -794,7 +796,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
     {
         ////string sqlformail = "SELECT parent_pmp_id from parent_employee where pmp_id =  " + int.Parse(Session_CS.pmp_id.ToString());
         ////DataTable ds = General_Helping.GetDataTable(sqlformail);
-        
+
         //var parent_pmp = from parentemp in outboxDBContext.parent_employees ////int.Parse(ds.Rows[0]["parent_pmp_id"].ToString());
         //                 where parentemp.pmp_id == int.Parse(Session_CS.pmp_id.ToString())
         //                 select parentemp;
@@ -803,8 +805,8 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         {
 
             ////Outbox_Visa_Follows_DT obj = Outbox_Visa_Follows_DB.SelectByID(CDataConverter.ConvertToInt(e.CommandArgument));
-          Outbox_Visa_Follow OutboxVisaFollowObj = outboxDBContext.Outbox_Visa_Follows.Where(x => x.Follow_ID == CDataConverter.ConvertToInt(e.CommandArgument)).SingleOrDefault();
-         
+            Outbox_Visa_Follow OutboxVisaFollowObj = outboxDBContext.Outbox_Visa_Follows.Where(x => x.Follow_ID == CDataConverter.ConvertToInt(e.CommandArgument)).SingleOrDefault();
+
             if (OutboxVisaFollowObj.Follow_ID > 0)
             {
                 hidden_Follow_ID.Value = OutboxVisaFollowObj.Follow_ID.ToString();
@@ -841,7 +843,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
             string mail;
             string parent_name;
             get_emplyee_mail_pmp_name(parentPmpID, out mail, out parent_name);
-           
+
 
 
             MailMessage _Message = new MailMessage();
@@ -878,9 +880,9 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
             String encrypted_id = Encryption.Encrypt(hidden_Id.Value);
 
             ////string Sql = "SELECT     Inbox_Visa_Follows.Follow_ID, Inbox_Visa_Follows.File_data,Inbox_Visa_Follows.File_name,Inbox_Visa_Follows.File_ext,Inbox_Visa_Follows.Inbox_ID, Inbox_Visa_Follows.Descrption, Inbox_Visa_Follows.Date, Inbox_Visa_Follows.Visa_Emp_id, EMPLOYEE.pmp_name " +
-             ////            " FROM         Inbox_Visa_Follows INNER JOIN EMPLOYEE ON Inbox_Visa_Follows.Visa_Emp_id = EMPLOYEE.PMP_ID where Inbox_ID =" + hidden_Id.Value;
+            ////            " FROM         Inbox_Visa_Follows INNER JOIN EMPLOYEE ON Inbox_Visa_Follows.Visa_Emp_id = EMPLOYEE.PMP_ID where Inbox_ID =" + hidden_Id.Value;
 
-           ///// DataTable dt = General_Helping.GetDataTable(Sql);
+            ///// DataTable dt = General_Helping.GetDataTable(Sql);
             var InboxVisaFollows = from IVF in outboxDBContext.Inbox_Visa_Follows
                                    join emps in outboxDBContext.EMPLOYEEs on (long)IVF.Visa_Emp_id equals emps.PMP_ID
                                    where IVF.Inbox_ID == CDataConverter.ConvertToInt(hidden_Id.Value)
@@ -909,7 +911,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                 if (inboxvisafollows.IVF.Follow_ID == CDataConverter.ConvertToInt(e.CommandArgument.ToString()))
                 {
                     _Message.Body += " <h3 > فقد أفاد السيد  " + inboxvisafollows.employee.pmp_name + "  فى تاريخ " + inboxvisafollows.IVF.Date + " بالتالى  </h3>";
-                    _Message.Body += " <h3 > " + inboxvisafollows.IVF.Descrption  + "  </h3>";
+                    _Message.Body += " <h3 > " + inboxvisafollows.IVF.Descrption + "  </h3>";
                 }
             }
 
@@ -959,7 +961,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
     private int get_parent_emp()
     {
         var parentpmp = outboxDBContext.parent_employees.Where(x => x.pmp_id == int.Parse(Session_CS.pmp_id.ToString())).FirstOrDefault();
-       
+
         return parentpmp.parent_pmp_id;
     }
     protected void btnSend_Click(object sender, EventArgs e)
@@ -967,7 +969,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         if (CDataConverter.ConvertToInt(hidden_Id.Value) > 0)
         {
             ////// get Parent 
-           int  parentPmpID = get_parent_emp();
+            int parentPmpID = get_parent_emp();
             //string sqlformail = "SELECT parent_pmp_id from parent_employee where pmp_id =  " + int.Parse(Session_CS.pmp_id.ToString());
             //DataTable ds = General_Helping.GetDataTable(sqlformail);
             //int parent_pmp = int.Parse(ds.Rows[0]["parent_pmp_id"].ToString());
@@ -975,12 +977,12 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
 
 
 
-           //// SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
-           //// DataTable DT = new DataTable();
-           //// DT = General_Helping.GetDataTable("select * from Outbox_Track_Manager where Outbox_id = " + hidden_Id.Value);
+            //// SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
+            //// DataTable DT = new DataTable();
+            //// DT = General_Helping.GetDataTable("select * from Outbox_Track_Manager where Outbox_id = " + hidden_Id.Value);
             var OutboxTrackManager = from outboxtrackmanager in outboxDBContext.Outbox_Track_Managers
-                                           where outboxtrackmanager.Outbox_id == CDataConverter.ConvertToInt(hidden_Id.Value)
-                                           select outboxtrackmanager;
+                                     where outboxtrackmanager.Outbox_id == CDataConverter.ConvertToInt(hidden_Id.Value)
+                                     select outboxtrackmanager;
             ////DataTable OutboxTrackManagerDT = OutboxTrackManager as DataTable;
             if (OutboxTrackManager.Count() > 0)
             {
@@ -997,22 +999,22 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
             }
             else
             {
-              
-                    Outbox_Track_Manager OutboxTrackManagerObj = new Outbox_Track_Manager
-                    {
-                        Outbox_id = CDataConverter.ConvertToInt(hidden_Id.Value),
-                        Have_Visa = 0,
-                        Have_Follow = 0,
-                        IS_New_Mail = 1,
-                        status = 1,
-                        IS_Old_Mail = 0,
-                        Visa_Desc = "",
-                        Type_Track = 1,
-                        pmp_id = int.Parse(Session_CS.pmp_id.ToString()),
-                        parent_pmp_id = parentPmpID
-                    };
-                    
-                
+
+                Outbox_Track_Manager OutboxTrackManagerObj = new Outbox_Track_Manager
+                {
+                    Outbox_id = CDataConverter.ConvertToInt(hidden_Id.Value),
+                    Have_Visa = 0,
+                    Have_Follow = 0,
+                    IS_New_Mail = 1,
+                    status = 1,
+                    IS_Old_Mail = 0,
+                    Visa_Desc = "",
+                    Type_Track = 1,
+                    pmp_id = int.Parse(Session_CS.pmp_id.ToString()),
+                    parent_pmp_id = parentPmpID
+                };
+
+
                 try
                 {
                     outboxDBContext.Outbox_Track_Managers.InsertOnSubmit(OutboxTrackManagerObj);
@@ -1020,7 +1022,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                 }
                 catch (Exception ex)
                 {
-                    ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('" + ex.Message + "');", true); 
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('" + ex.Message + "');", true);
                 }
                 //Outbox_Track_Manager_DT obj = new Outbox_Track_Manager_DT();
                 //obj.Outbox_id = CDataConverter.ConvertToInt(hidden_Id.Value);
@@ -1037,7 +1039,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                 //if (obj.Outbox_id > 0)
                 //    //Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('لقد تم الارسال بنجاح')</script>");
 
-                   ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('لقد تم الارسال بنجاح ');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('لقد تم الارسال بنجاح ');", true);
 
             }
 
@@ -1048,14 +1050,14 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
             ///////////////  to store that mohammed eid send to dr hesham the mail
             string date = CDataConverter.ConvertDateTimeToFormatdmy(CDataConverter.ConvertDateTimeNowRtnDt());
             Outbox_Visa_Follow OutboxVisaFollows = outboxDBContext.Outbox_Visa_Follows.Where(x => x.Follow_ID == CDataConverter.ConvertToInt(hidden_Follow_ID.Value)).SingleOrDefault();
-           ////Outbox_Visa_Follows_DT obj_follow = Outbox_Visa_Follows_DB.SelectByID(CDataConverter.ConvertToInt(hidden_Follow_ID.Value));
+            ////Outbox_Visa_Follows_DT obj_follow = Outbox_Visa_Follows_DB.SelectByID(CDataConverter.ConvertToInt(hidden_Follow_ID.Value));
             if (OutboxVisaFollows != null)
             {
                 OutboxVisaFollows.Follow_ID = CDataConverter.ConvertToInt(hidden_Follow_ID.Value);
                 OutboxVisaFollows.Outbox_ID = CDataConverter.ConvertToInt(hidden_Id.Value);
 
                 OutboxVisaFollows.Descrption = "تم الارسال الي المدير المختص";
-                
+
                 OutboxVisaFollows.Date = date;
                 OutboxVisaFollows.time_follow = CDataConverter.ConvertDateTimeNowRtnDt().ToLocalTime().ToLongTimeString();
                 OutboxVisaFollows.entery_pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
@@ -1063,14 +1065,15 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
             }
             else
             {
-                Outbox_Visa_Follow OutboxVisaFollowsnew = new Outbox_Visa_Follow { 
-                     Follow_ID = CDataConverter.ConvertToInt(hidden_Follow_ID.Value),
-                Outbox_ID = CDataConverter.ConvertToInt(hidden_Id.Value),
-                Descrption = "تم الارسال الي المدير المختص",
-                Date = date,
-                time_follow = CDataConverter.ConvertDateTimeNowRtnDt().ToLocalTime().ToLongTimeString(),
-                entery_pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()),
-                Visa_Emp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString())
+                Outbox_Visa_Follow OutboxVisaFollowsnew = new Outbox_Visa_Follow
+                {
+                    Follow_ID = CDataConverter.ConvertToInt(hidden_Follow_ID.Value),
+                    Outbox_ID = CDataConverter.ConvertToInt(hidden_Id.Value),
+                    Descrption = "تم الارسال الي المدير المختص",
+                    Date = date,
+                    time_follow = CDataConverter.ConvertDateTimeNowRtnDt().ToLocalTime().ToLongTimeString(),
+                    entery_pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()),
+                    Visa_Emp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString())
                 };
                 outboxDBContext.Outbox_Visa_Follows.InsertOnSubmit(OutboxVisaFollowsnew);
             }
@@ -1138,12 +1141,12 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
             byte[] files = new byte[0];
             MemoryStream ms = new MemoryStream();
             IEnumerable<Inbox_OutBox_File> InboxOutBoxFile = outboxDBContext.Inbox_OutBox_Files.Where(x => x.Inbox_Outbox_ID == CDataConverter.ConvertToInt(hidden_Id.Value) && x.Inbox_Or_Outbox == 2);
-                                  
+
             ////DataTable dt = General_Helping.GetDataTable("select * from Inbox_OutBox_Files where Inbox_Outbox_ID =" + hidden_Id.Value + " and Inbox_Or_Outbox =2 ");
             foreach (Inbox_OutBox_File inboxoutBoxfile in InboxOutBoxFile)
             {
 
-                if (!Equals(inboxoutBoxfile.File_data,DBNull.Value))
+                if (!Equals(inboxoutBoxfile.File_data, DBNull.Value))
                 {
 
                     file = inboxoutBoxfile.File_name + inboxoutBoxfile.File_ext;
@@ -1200,7 +1203,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
             catch (Exception ex)
             {
 
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('"+ ex.Message +"');", true);
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('" + ex.Message + "');", true);
 
             }
             // Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('لقد تم ارسال الايميل بنجاح')</script>");
@@ -1221,15 +1224,15 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         }
 
     }
-      protected void btnSave_Click(object sender, EventArgs e)
+    protected void btnSave_Click(object sender, EventArgs e)
     {
         if ((CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 2 && CDataConverter.ConvertToInt(Smart_Org_ID.SelectedValue) > 0) || CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 1)
         {
             string datenow = "";
-            int dept_id=0;
-            int Org_Id=0;
+            int dept_id = 0;
+            int Org_Id = 0;
             datenow = CDataConverter.ConvertDateTimeNowRtnDt().ToString();
-             if (CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 1)
+            if (CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 1)
             {
                 if (CDataConverter.ConvertToInt(Smrt_Srch_structure2.SelectedValue) > 0)
                 {
@@ -1245,72 +1248,112 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
             {
                 Org_Id = CDataConverter.ConvertToInt(Smart_Org_ID.SelectedValue);
             }
-             Outbox OutboxObj = new Outbox
-             {
-                 ID = CDataConverter.ConvertToInt(hidden_Id.Value),
-                 Proj_id = int.Parse(Session_CS.Project_id.ToString()),
-                 Name = txt_Name.Text,
-                 Code = txt_Code.Text,
-                 Date = txt_Date.Text,
-                 Enter_Date = datenow,
-                 Dept_Dept_ID = int.Parse(Session_CS.dept_id.ToString()),
-                 pmp_pmp_id = int.Parse(Session_CS.pmp_id.ToString()),
-                 Group_id = int.Parse(Session_CS.group_id.ToString()),
-                 Type = CDataConverter.ConvertToInt(ddl_Type.SelectedValue),
-                 Dept_ID = dept_id,
-                 Org_Id = Org_Id,
-                 Emp_ID = CDataConverter.ConvertToInt(Smart_Emp_ID.SelectedValue),
-                 Org_Out_Box_Code = txt_Org_Out_Box_Code.Text,
-                 Org_Out_Box_DT = txt_Org_Out_Box_DT.Text,
-                 Org_Out_Box_Person = txt_Org_Out_Box_Person.Text,
-                 Subject = txt_Subject.Text,
-                 Related_Type = CDataConverter.ConvertToInt(ddl_Related_Type.SelectedValue),
-                 Related_Id = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue),
-                 Notes = txt_Notes.Text,
-                 Paper_No = txt_Paper_No.Text,
-                 Paper_Attached = txt_Paper_Attached.Text,
-                 Follow_Up_Dept_ID = 0,
-                 Follow_Up_Emp_ID = 0,
-                 Dept_Desc = txt_Dept_Desc.Text,
-                 Source_Type = CDataConverter.ConvertToInt(ddl_Source_Type.SelectedValue),
-                 Status = 0,
-                 finished = 0,
-                 Org_Dept_Name = txt_Org_Dept_Name.Text,
-                 foundation_id = CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString()),
-             };
-             outboxDBContext.Outboxes.InsertOnSubmit(OutboxObj);
-             outboxDBContext.SubmitChanges();
+            if (CDataConverter.ConvertToInt(hidden_Id.Value) > 0)
+            {
+                Outbox OutboxObj = outboxDBContext.Outboxes.SingleOrDefault(x => x.ID == CDataConverter.ConvertToInt(hidden_Id.Value));
+                OutboxObj.Proj_id = int.Parse(Session_CS.Project_id.ToString());
+                OutboxObj.Name = txt_Name.Text;
+                OutboxObj.Code = txt_Code.Text;
+                OutboxObj.Date = txt_Date.Text;
+                OutboxObj.Enter_Date = datenow;
+                OutboxObj.Dept_Dept_ID = int.Parse(Session_CS.dept_id.ToString());
+                OutboxObj.pmp_pmp_id = int.Parse(Session_CS.pmp_id.ToString());
+                OutboxObj.Group_id = int.Parse(Session_CS.group_id.ToString());
+                OutboxObj.Type = CDataConverter.ConvertToInt(ddl_Type.SelectedValue);
+                OutboxObj.Dept_ID = dept_id;
+                OutboxObj.Org_Id = Org_Id;
+                OutboxObj.Emp_ID = CDataConverter.ConvertToInt(Smart_Emp_ID.SelectedValue);
+                OutboxObj.Org_Out_Box_Code = txt_Org_Out_Box_Code.Text;
+                OutboxObj.Org_Out_Box_DT = txt_Org_Out_Box_DT.Text;
+                OutboxObj.Org_Out_Box_Person = txt_Org_Out_Box_Person.Text;
+                OutboxObj.Subject = txt_Subject.Text;
+                OutboxObj.Related_Type = CDataConverter.ConvertToInt(ddl_Related_Type.SelectedValue);
+                OutboxObj.Related_Id = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue);
+                OutboxObj.Notes = txt_Notes.Text;
+                OutboxObj.Paper_No = txt_Paper_No.Text;
+                OutboxObj.Paper_Attached = txt_Paper_Attached.Text;
+                OutboxObj.Follow_Up_Dept_ID = 0;
+                OutboxObj.Follow_Up_Emp_ID = 0;
+                OutboxObj.Dept_Desc = txt_Dept_Desc.Text;
+                OutboxObj.Source_Type = CDataConverter.ConvertToInt(ddl_Source_Type.SelectedValue);
+                OutboxObj.Status = 0;
+                OutboxObj.finished = 0;
+                OutboxObj.Org_Dept_Name = txt_Org_Dept_Name.Text;
+                OutboxObj.foundation_id = CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString());
+                outboxDBContext.SubmitChanges();
+            }
+            else
+            {
+                Outbox OutboxObj = new Outbox
+                    {
+                        ID = CDataConverter.ConvertToInt(hidden_Id.Value),
+                        Proj_id = int.Parse(Session_CS.Project_id.ToString()),
+                        Name = txt_Name.Text,
+                        Code = txt_Code.Text,
+                        Date = txt_Date.Text,
+                        Enter_Date = datenow,
+                        Dept_Dept_ID = int.Parse(Session_CS.dept_id.ToString()),
+                        pmp_pmp_id = int.Parse(Session_CS.pmp_id.ToString()),
+                        Group_id = int.Parse(Session_CS.group_id.ToString()),
+                        Type = CDataConverter.ConvertToInt(ddl_Type.SelectedValue),
+                        Dept_ID = dept_id,
+                        Org_Id = Org_Id,
+                        Emp_ID = CDataConverter.ConvertToInt(Smart_Emp_ID.SelectedValue),
+                        Org_Out_Box_Code = txt_Org_Out_Box_Code.Text,
+                        Org_Out_Box_DT = txt_Org_Out_Box_DT.Text,
+                        Org_Out_Box_Person = txt_Org_Out_Box_Person.Text,
+                        Subject = txt_Subject.Text,
+                        Related_Type = CDataConverter.ConvertToInt(ddl_Related_Type.SelectedValue),
+                        Related_Id = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue),
+                        Notes = txt_Notes.Text,
+                        Paper_No = txt_Paper_No.Text,
+                        Paper_Attached = txt_Paper_Attached.Text,
+                        Follow_Up_Dept_ID = 0,
+                        Follow_Up_Emp_ID = 0,
+                        Dept_Desc = txt_Dept_Desc.Text,
+                        Source_Type = CDataConverter.ConvertToInt(ddl_Source_Type.SelectedValue),
+                        Status = 0,
+                        finished = 0,
+                        Org_Dept_Name = txt_Org_Dept_Name.Text,
+                        foundation_id = CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString())
+                    };
+                outboxDBContext.Outboxes.InsertOnSubmit(OutboxObj);
+                outboxDBContext.SubmitChanges();
+                hidden_Id.Value = OutboxObj.ID.ToString();
+
+            }
 
 
-             hidden_Id.Value = OutboxObj.ID.ToString();
-             var outboxCats = outboxDBContext.outbox_cats.Where(x => x.outbox_id == OutboxObj.ID);
-             if (outboxCats.Count() > 0)
-             {
-                 foreach (var outboxCat in outboxCats)
-                 {
-                     outboxDBContext.outbox_cats.DeleteOnSubmit(outboxCat);
-                     outboxDBContext.SubmitChanges();
-                 }
-             }////string Sql_Delete = "delete from  outbox_cat where  outbox_id = " + lastOutboxObj.ID;
-             ////General_Helping.ExcuteQuery(Sql_Delete);
+
+            outboxDBContext.SPOutboxCatDelete(CDataConverter.ConvertToInt(hidden_Id.Value));
+            //var outboxCats = outboxDBContext.outbox_cats.Where(x => x.outbox_id == CDataConverter.ConvertToInt(hidden_Id.Value));
+            //if (outboxCats.Count() > 0)
+            //{
+            //    foreach (var outboxCat in outboxCats)
+            //    {
+            //        outboxDBContext.outbox_cats.DeleteOnSubmit(outboxCat);
+            //        outboxDBContext.SubmitChanges();
+            //    }
+            //}////string Sql_Delete = "delete from  outbox_cat where  outbox_id = " + lastOutboxObj.ID;
+            ////General_Helping.ExcuteQuery(Sql_Delete);
 
             foreach (ListItem item in Chk_main_cat.Items)
             {
                 if (item.Selected)
                 {
                     ////Outbox_DB.Outbox_cat_save(CDataConverter.ConvertToInt(lastOutboxObj.ID), CDataConverter.ConvertToInt(item.Value), 1, 1);
-                    outboxDBContext.Outbox_cat_save(CDataConverter.ConvertToInt(OutboxObj.ID), CDataConverter.ConvertToInt(item.Value), 1, 1);
+                    outboxDBContext.Outbox_cat_save(CDataConverter.ConvertToInt(CDataConverter.ConvertToInt(hidden_Id.Value)), CDataConverter.ConvertToInt(item.Value), 1, 1);
                 }
             }
             foreach (ListItem item in Chk_sub_cat.Items)
             {
                 if (item.Selected)
                 {
-                    outboxDBContext.Outbox_cat_save(CDataConverter.ConvertToInt(OutboxObj.ID), CDataConverter.ConvertToInt(item.Value), 2, 1);
+                    outboxDBContext.Outbox_cat_save(CDataConverter.ConvertToInt(CDataConverter.ConvertToInt(hidden_Id.Value)), CDataConverter.ConvertToInt(item.Value), 2, 1);
                 }
             }
             int found = Session_CS.foundation_id;
-            if (OutboxObj.ID > 0)
+            if (CDataConverter.ConvertToInt(hidden_Id.Value) > 0)
             {
 
                 if (ddl_Related_Type.SelectedValue == "2")
@@ -1319,7 +1362,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                     //sql_related = "insert into Inbox_Relations values ( " + obj.ID + "," + CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue) + ",1,2," + found + " )";
                     Inbox_Relation InboxRelation1 = new Inbox_Relation
                     {
-                        inbox_id = OutboxObj.ID,
+                        inbox_id = CDataConverter.ConvertToInt(hidden_Id.Value),
                         inbox_id_type = 2,
                         Related_ID = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue),
                         Related_ID_Type = 1,
@@ -1329,23 +1372,23 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                     {
                         inbox_id = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue),
                         inbox_id_type = 1,
-                        Related_ID = OutboxObj.ID,
+                        Related_ID = CDataConverter.ConvertToInt(hidden_Id.Value),
                         Related_ID_Type = 2,
                         foundation_id = found
                     };
                     outboxDBContext.Inbox_Relations.InsertOnSubmit(InboxRelation1);
                     outboxDBContext.Inbox_Relations.InsertOnSubmit(InboxRelation2);
                     outboxDBContext.SubmitChanges();
-                   //// sql_related = "insert into Inbox_Relations values ( " + obj.ID + ",2," + CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue) + ",1," + found + " )";
-                   ///// sql_related += " insert into Inbox_Relations values ( " + CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue) + ",1," + obj.ID + ",2," + found + " )";
-                  //// General_Helping.ExcuteQuery(sql_related);
+                    //// sql_related = "insert into Inbox_Relations values ( " + obj.ID + ",2," + CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue) + ",1," + found + " )";
+                    ///// sql_related += " insert into Inbox_Relations values ( " + CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue) + ",1," + obj.ID + ",2," + found + " )";
+                    //// General_Helping.ExcuteQuery(sql_related);
                 }
                 else if (ddl_Related_Type.SelectedValue == "3")
                 {
                     // sql_related = "insert into Inbox_Relations values ( " + obj.ID + "," + CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue) + ",2,2," + found + " )";
                     Inbox_Relation InboxRelation3 = new Inbox_Relation
                     {
-                        inbox_id = OutboxObj.ID,
+                        inbox_id = CDataConverter.ConvertToInt(hidden_Id.Value),
                         inbox_id_type = 2,
                         Related_ID = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue),
                         Related_ID_Type = 2,
@@ -1353,8 +1396,8 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                     };
                     outboxDBContext.Inbox_Relations.InsertOnSubmit(InboxRelation3);
                     outboxDBContext.SubmitChanges();
-                   //// sql_related = "insert into Inbox_Relations values ( " + obj.ID + ",2," + CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue) + ",2," + found + " )";
-                   //// General_Helping.ExcuteQuery(sql_related);
+                    //// sql_related = "insert into Inbox_Relations values ( " + obj.ID + ",2," + CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue) + ",2," + found + " )";
+                    //// General_Helping.ExcuteQuery(sql_related);
                 }
 
                 // Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('لقد تم الحفظ بنجاح')</script>");
@@ -1396,26 +1439,26 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         orgsdt.Columns.Add("id", typeof(int));
         orgsdt.Columns.Add("con", typeof(string));
         var orgsDT = from orgs in outboxDBContext.SP_vw_outbox_DateSubject(int.Parse(Session_CS.group_id.ToString()), CDataConverter.ConvertToInt(Session_CS.Project_id.ToString()))
-            select orgsdt.LoadDataRow(
-                     new object[] {
+                     select orgsdt.LoadDataRow(
+                              new object[] {
                                      orgs.ID,
                                     orgs.con
                                 }, false);
 
         Fil_Smrt_From(orgsdt);
-        
+
 
     }
     private void MOnMember_Data(string Value)
     {
         dropdept_fun();
-       //// fill_emplyees();
+        //// fill_emplyees();
     }
     private void MOnMember_Data2(string Value)
     {
 
         fill_emplyees();
-       //// fill_resp_Emp();
+        //// fill_resp_Emp();
     }
     protected void dropdept_fun()
     {
@@ -1464,7 +1507,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         }
 
 
-        
+
 
     }
     protected void ddl_Type_SelectedIndexChanged(object sender, EventArgs e)
@@ -1476,7 +1519,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
     {
         ////fil_emp_Folow_Up();
     }
-    
+
     protected void ddl_Related_Type_SelectedIndexChanged(object sender, EventArgs e)
     {
         Related_type_Changed();
@@ -1497,7 +1540,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
             DataTable orgsdt = new DataTable();
             orgsdt.Columns.Add("id", typeof(int));
             orgsdt.Columns.Add("con", typeof(string));
-            var orgsDT = from orgs in (outboxDBContext.SP_vw_inbox_DateSubject(int.Parse(Session_CS.group_id.ToString()), CDataConverter.ConvertToInt(Session_CS.Project_id.ToString()))) 
+            var orgsDT = from orgs in (outboxDBContext.SP_vw_inbox_DateSubject(int.Parse(Session_CS.group_id.ToString()), CDataConverter.ConvertToInt(Session_CS.Project_id.ToString())))
                          select orgsdt.LoadDataRow(
                                   new object[] {
                                      orgs.ID,
@@ -1516,7 +1559,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
             DataTable orgsdt = new DataTable();
             orgsdt.Columns.Add("id", typeof(int));
             orgsdt.Columns.Add("con", typeof(string));
-            var orgsDT = from orgs in outboxDBContext.SP_vw_outbox_DateSubject(int.Parse(Session_CS.group_id.ToString()), CDataConverter.ConvertToInt(Session_CS.Project_id.ToString())) 
+            var orgsDT = from orgs in outboxDBContext.SP_vw_outbox_DateSubject(int.Parse(Session_CS.group_id.ToString()), CDataConverter.ConvertToInt(Session_CS.Project_id.ToString()))
                          select orgsdt.LoadDataRow(
                                   new object[] {
                                      orgs.ID,
@@ -1554,7 +1597,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
             ImageButton imgEdit = (ImageButton)row.FindControl("ImgBtnEdit");
             Label lbl_desc = (Label)row.FindControl("lbl_desc");
             string Id = imgEdit.CommandArgument.ToString();
-            
+
             ////Outbox_Visa_Follows_DT obj_follow = Outbox_Visa_Follows_DB.SelectByID(CDataConverter.ConvertToInt(hidden_Follow_ID.Value));
             Outbox_Visa_Follow OutboxVisaFollow = outboxDBContext.Outbox_Visa_Follows.Where(x => x.Follow_ID == CDataConverter.ConvertToInt(hidden_Follow_ID.Value)).FirstOrDefault();
             if (OutboxVisaFollow != null)
@@ -1573,7 +1616,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                 OutboxVisa.mail_sent = 1;
                 outboxDBContext.SubmitChanges();
             }
-            
+
             ////Outbox_Visa_DB.Save(obj);
             Update_Have_Visa(Id);
 
@@ -1598,7 +1641,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
             ////Dt = General_Helping.GetDataTable(temp_sql);
 
             var OutboxVisa = outboxDBContext.Outbox_Visas.Where(x => x.Visa_Id == CDataConverter.ConvertToInt(id));
-            
+
             if (OutboxVisa.Count() > 0)
             {
                 if (OutboxVisa.FirstOrDefault().mail_sent == 1)
@@ -1610,35 +1653,36 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
             }
         }
     }
-    private void Save_inox_Visa(Outbox_Visa obj)
+    private void Save_inox_Visa(int visaID)
     {
-        var OutboxVisaEmps = outboxDBContext.Outbox_Visa_Emps.Where(x => x.Visa_Id == obj.Visa_Id);
-        foreach (var OutboxVisaEmp in OutboxVisaEmps)
-        {
-            outboxDBContext.Outbox_Visa_Emps.DeleteOnSubmit(OutboxVisaEmp);
-        }
-        outboxDBContext.SubmitChanges();
-       //// string Sql_Delete = "delete from Outbox_Visa_Emp where Visa_Id =" + obj.Visa_Id;
+        //var OutboxVisaEmps = outboxDBContext.Outbox_Visa_Emps.Where(x => x.Visa_Id == visaID);
+        //foreach (var OutboxVisaEmp in OutboxVisaEmps)
+        //{
+        //    outboxDBContext.Outbox_Visa_Emps.DeleteOnSubmit(OutboxVisaEmp);
+        //}
+        outboxDBContext.SPOutbox_Visa_EmpDelete(visaID);
+        //outboxDBContext.SubmitChanges();
+        //// string Sql_Delete = "delete from Outbox_Visa_Emp where Visa_Id =" + obj.Visa_Id;
         ////General_Helping.ExcuteQuery(Sql_Delete);
         parent_employee parent_employee = outboxDBContext.parent_employees.Where(x => x.pmp_id == CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()) && x.Type == 2).SingleOrDefault();
-       
+
         foreach (ListItem item in lst_emp.Items)
         {
-            
-           //// DataTable dt = General_Helping.GetDataTable("select * from parent_employee where pmp_id = " + CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()));
+
+            //// DataTable dt = General_Helping.GetDataTable("select * from parent_employee where pmp_id = " + CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()));
             if (parent_employee != null)
             {
                 // Sql_insert = "insert into outbox_Visa_Emp ( Visa_Id , Emp_ID ,Sender_id) values ( " + obj.Visa_Id + "," + item.Value + "," + CDataConverter.ConvertToInt(dt.Rows[0]["parent_pmp_id"].ToString()) + ")";
 
-                outboxDBContext.Outbox_visa_emp_save(CDataConverter.ConvertToInt(obj.Visa_Id), CDataConverter.ConvertToInt(item.Value), parent_employee.parent_pmp_id);
+                outboxDBContext.Outbox_visa_emp_save(visaID, CDataConverter.ConvertToInt(item.Value), parent_employee.parent_pmp_id);
                 ////Outbox_DB.Outbox_visa_emp_save(CDataConverter.ConvertToInt(obj.Visa_Id), CDataConverter.ConvertToInt(item.Value), CDataConverter.ConvertToInt(dt.Rows[0]["parent_pmp_id"].ToString()));
-               
+
             }
             else
             {
                 // Sql_insert = "insert into outbox_Visa_Emp ( Visa_Id , Emp_ID ,Sender_id) values ( " + obj.Visa_Id + "," + item.Value + "," + CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()) + ")";
                 ////Outbox_DB.Outbox_visa_emp_save(CDataConverter.ConvertToInt(obj.Visa_Id), CDataConverter.ConvertToInt(item.Value), CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()));
-                outboxDBContext.Outbox_visa_emp_save(CDataConverter.ConvertToInt(obj.Visa_Id), CDataConverter.ConvertToInt(item.Value), CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()));
+                outboxDBContext.Outbox_visa_emp_save(visaID, CDataConverter.ConvertToInt(item.Value), CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()));
             }
 
         }
@@ -1709,12 +1753,12 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
             var OutboxVisaEmps = outboxDBContext.OutboxVisaEmpSelect(CDataConverter.ConvertToInt(e.CommandArgument.ToString()));
             foreach (var OutboxVisaEmp in OutboxVisaEmps)
             {
-                update_Outbox_Track_Emp(hidden_Id.Value,CDataConverter.ConvertToInt(OutboxVisaEmp.Emp_ID), 1, 1);
+                update_Outbox_Track_Emp(hidden_Id.Value, CDataConverter.ConvertToInt(OutboxVisaEmp.Emp_ID), 1, 1);
                 ////string sqlformail = "SELECT * from employee ";
                 ////sqlformail += " where pmp_id= " + item["Emp_ID"].ToString();
                 ////DataTable ds = General_Helping.GetDataTable(sqlformail);
                 EMPLOYEE emp = outboxDBContext.EMPLOYEEs.Where(x => x.PMP_ID == CDataConverter.ConvertToInt(OutboxVisaEmp.Emp_ID)).SingleOrDefault();
-                
+
                 //DataTable DT = General_Helping.GetDataTable(sqlformail);
                 string mail = emp.mail;
 
@@ -1767,7 +1811,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                 MemoryStream ms = new MemoryStream();
                 ////DataTable dt = General_Helping.GetDataTable("select * from Inbox_OutBox_Files where Inbox_Outbox_ID =" + hidden_Id.Value + " and Inbox_Or_Outbox =2 ");
                 IEnumerable<Inbox_OutBox_File> InboxOutBoxFile = outboxDBContext.Inbox_OutBox_Files.Where(x => x.Inbox_Outbox_ID == CDataConverter.ConvertToInt(hidden_Id.Value) && x.Inbox_Or_Outbox == 2);
-           
+
                 ////foreach (DataRow dr in dt.Rows)
                 ////{
 
@@ -1859,7 +1903,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                     SendingMailthread_class.Sendingmail(_Message, _Message.Subject, _Message.Body, mail, ms, file, encrypted_id, "");
 
                     Succ_names += name + ",";
-                    
+
 
                 }
                 catch (Exception ex)
@@ -1895,7 +1939,8 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
 
                     OutboxVisaFollow.Visa_Emp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
                 }
-                else {
+                else
+                {
                     Outbox_Visa_Follow OutboxVisaFollowNew = new Outbox_Visa_Follow
                     {
                         Outbox_ID = CDataConverter.ConvertToInt(hidden_Id.Value),
@@ -1936,7 +1981,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         Chk_sub_cat.Visible = true;
         Chk_sub_cat.Items.Clear();
         ListItem obj;
-      
+
         foreach (ListItem item in Chk_main_cat.Items)
         {
             var subInboxCat = from InboxCat in outboxDBContext.inbox_sub_categories
@@ -1944,7 +1989,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                               select InboxCat;
             if (item.Selected)
             {
-             
+
                 foreach (var drs in subInboxCat)
                 {
                     obj = new ListItem(drs.name, drs.id.ToString());
@@ -1954,7 +1999,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                         Chk_sub_cat.Items.Add(obj);
                     }
                 }
-               //// dt = General_Helping.GetDataTable(" select * from inbox_Sub_Categories where main_id = " + item.Value);
+                //// dt = General_Helping.GetDataTable(" select * from inbox_Sub_Categories where main_id = " + item.Value);
 
                 ////for (int i = 0; i < dt.Rows.Count; i++)
                 ////{
@@ -2023,7 +2068,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                 myStream = FileUpload1.FileContent;
                 myStream.Read(Input, 0, fileLen);
 
-                
+
                 ////cmd.Parameters.Add("@Inbox_Or_Outbox", SqlDbType.Int);
                 ////cmd.Parameters.Add("@Inbox_Outbox_ID", SqlDbType.Int);
                 ////cmd.Parameters.Add("@Inbox_OutBox_File_ID", SqlDbType.Int);
@@ -2040,11 +2085,11 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                 ////cmd.CommandType = CommandType.Text;
 
 
-                 
+
                 if (CDataConverter.ConvertToInt(hidden_Inbox_OutBox_File_ID.Value) > 0)
                 {
                     Inbox_OutBox_File InboxOutBoxFile = outboxDBContext.Inbox_OutBox_Files.Where(x => x.Inbox_OutBox_File_ID == CDataConverter.ConvertToInt(hidden_Inbox_OutBox_File_ID.Value)).SingleOrDefault();
-               
+
                     InboxOutBoxFile.Original_Or_Attached = CDataConverter.ConvertToInt(ddl_Original_Or_Attached.SelectedValue);
                     InboxOutBoxFile.File_ext = type;
                     InboxOutBoxFile.File_name = txtFileName.Text;
@@ -2091,12 +2136,12 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                     ////    }
                     ////}
 
-                   
+
                 }
 
                 else
                 {
-                   // cmd.CommandText = " insert into Inbox_OutBox_Files ( Inbox_Outbox_ID, Inbox_Or_Outbox, Original_Or_Attached, File_data,File_name, File_ext) VALUES ( @Inbox_Outbox_ID, @Inbox_Or_Outbox, @Original_Or_Attached, @File_data, @File_name, @File_ext) select @@identity";
+                    // cmd.CommandText = " insert into Inbox_OutBox_Files ( Inbox_Outbox_ID, Inbox_Or_Outbox, Original_Or_Attached, File_data,File_name, File_ext) VALUES ( @Inbox_Outbox_ID, @Inbox_Or_Outbox, @Original_Or_Attached, @File_data, @File_name, @File_ext) select @@identity";
                     Inbox_OutBox_File InboxOutBoxFile = new Inbox_OutBox_File
                     {
                         Inbox_Outbox_ID = CDataConverter.ConvertToInt(hidden_Id.Value),
@@ -2106,9 +2151,9 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                         Inbox_Or_Outbox = 2,
                         File_data = Input
                     };
-                   outboxDBContext.Inbox_OutBox_Files.InsertOnSubmit(InboxOutBoxFile);
-                
-                   
+                    outboxDBContext.Inbox_OutBox_Files.InsertOnSubmit(InboxOutBoxFile);
+
+
                 }
                 outboxDBContext.SubmitChanges();
                 txtFileName.Text = hidden_Inbox_OutBox_File_ID.Value = "";
@@ -2139,28 +2184,57 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
             {
                 if (lst_emp.Items.Count > 0)
                 {
-                    Outbox_Visa OutboxVisa = new Outbox_Visa
+                    if (CDataConverter.ConvertToInt(hidden_Visa_Id.Value) > 0)
                     {
-                        Visa_Id = CDataConverter.ConvertToInt(hidden_Visa_Id.Value),
-                        Outbox_ID = CDataConverter.ConvertToInt(hidden_Id.Value),
-                        Visa_date = txt_Visa_date.Text,
-                        Important_Degree = CDataConverter.ConvertToInt(ddl_Important_Degree.SelectedValue),
-                        Important_Degree_Txt = (string.IsNullOrEmpty(txt_Important_Degree_Txt.Text) ? ddl_Important_Degree.SelectedItem.Text : txt_Important_Degree_Txt.Text),
-                        Dept_ID = CDataConverter.ConvertToInt(Smrt_Srch_structure.SelectedValue),
-                        Dept_ID_Txt = Smrt_Srch_structure.SelectedText,
-                        Emp_ID = 0,
-                        Emp_ID_Txt = txt_Emp_ID_Txt.Text,
-                        Visa_Desc = txt_Visa_Desc.Text,
-                        Visa_Period = txt_Visa_Period.Text,
-                        Visa_Satus = CDataConverter.ConvertToInt(ddl_Visa_Satus.SelectedValue),
-                        Follow_Up_Notes = txt_Follow_Up_Notes.Text,
-                        saving_file = txt_saving_file.Text,
-                        Dead_Line_DT = txt_Dead_Line_DT.Text,
-                        Visa_Goal_ID = CDataConverter.ConvertToInt(ddl_Visa_Goal_ID.SelectedValue),
-                        mail_sent = 0
-                    };
-                    outboxDBContext.Outbox_Visas.InsertOnSubmit(OutboxVisa);
-                    outboxDBContext.SubmitChanges();
+                        Outbox_Visa OutboxVisaObj = outboxDBContext.Outbox_Visas.SingleOrDefault(x => x.Visa_Id == CDataConverter.ConvertToInt(hidden_Visa_Id.Value));
+                        OutboxVisaObj.Outbox_ID = CDataConverter.ConvertToInt(hidden_Id.Value);
+                        OutboxVisaObj.Visa_date = txt_Visa_date.Text;
+                        OutboxVisaObj.Important_Degree = CDataConverter.ConvertToInt(ddl_Important_Degree.SelectedValue);
+                        OutboxVisaObj.Important_Degree_Txt = (string.IsNullOrEmpty(txt_Important_Degree_Txt.Text) ? ddl_Important_Degree.SelectedItem.Text : txt_Important_Degree_Txt.Text);
+                        OutboxVisaObj.Dept_ID = CDataConverter.ConvertToInt(Smrt_Srch_structure.SelectedValue);
+                        OutboxVisaObj.Dept_ID_Txt = Smrt_Srch_structure.SelectedText;
+                        OutboxVisaObj.Emp_ID = 0;
+                        OutboxVisaObj.Emp_ID_Txt = txt_Emp_ID_Txt.Text;
+                        OutboxVisaObj.Visa_Desc = txt_Visa_Desc.Text;
+                        OutboxVisaObj.Visa_Period = txt_Visa_Period.Text;
+                        OutboxVisaObj.Visa_Satus = CDataConverter.ConvertToInt(ddl_Visa_Satus.SelectedValue);
+                        OutboxVisaObj.Follow_Up_Notes = txt_Follow_Up_Notes.Text;
+                        OutboxVisaObj.saving_file = txt_saving_file.Text;
+                        OutboxVisaObj.Dead_Line_DT = txt_Dead_Line_DT.Text;
+                        OutboxVisaObj.Visa_Goal_ID = CDataConverter.ConvertToInt(ddl_Visa_Goal_ID.SelectedValue);
+                        OutboxVisaObj.mail_sent = 0;
+                        outboxDBContext.SubmitChanges();
+                        Save_inox_Visa(CDataConverter.ConvertToInt(hidden_Visa_Id.Value));
+                        
+                    }
+                    else
+                    {
+                        Outbox_Visa OutboxVisa = new Outbox_Visa
+                        {
+                            Visa_Id = CDataConverter.ConvertToInt(hidden_Visa_Id.Value),
+                            Outbox_ID = CDataConverter.ConvertToInt(hidden_Id.Value),
+                            Visa_date = txt_Visa_date.Text,
+                            Important_Degree = CDataConverter.ConvertToInt(ddl_Important_Degree.SelectedValue),
+                            Important_Degree_Txt = (string.IsNullOrEmpty(txt_Important_Degree_Txt.Text) ? ddl_Important_Degree.SelectedItem.Text : txt_Important_Degree_Txt.Text),
+                            Dept_ID = CDataConverter.ConvertToInt(Smrt_Srch_structure.SelectedValue),
+                            Dept_ID_Txt = Smrt_Srch_structure.SelectedText,
+                            Emp_ID = 0,
+                            Emp_ID_Txt = txt_Emp_ID_Txt.Text,
+                            Visa_Desc = txt_Visa_Desc.Text,
+                            Visa_Period = txt_Visa_Period.Text,
+                            Visa_Satus = CDataConverter.ConvertToInt(ddl_Visa_Satus.SelectedValue),
+                            Follow_Up_Notes = txt_Follow_Up_Notes.Text,
+                            saving_file = txt_saving_file.Text,
+                            Dead_Line_DT = txt_Dead_Line_DT.Text,
+                            Visa_Goal_ID = CDataConverter.ConvertToInt(ddl_Visa_Goal_ID.SelectedValue),
+                            mail_sent = 0
+                        };
+                        outboxDBContext.Outbox_Visas.InsertOnSubmit(OutboxVisa);
+                        outboxDBContext.SubmitChanges();
+                        hidden_Visa_Id.Value = OutboxVisa.Visa_Id.ToString();
+                        Save_inox_Visa(CDataConverter.ConvertToInt(hidden_Visa_Id.Value));
+                        
+                    }
                     ////Outbox_Visa_DT obj = new Outbox_Visa_DT();
                     ////obj.Visa_Id = CDataConverter.ConvertToInt(hidden_Visa_Id.Value);
                     ////obj.Outbox_ID = CDataConverter.ConvertToInt(hidden_Id.Value);
@@ -2194,14 +2268,14 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
 
                     //obj.Visa_Id = Outbox_Visa_DB.Save(obj);
 
-                    Save_inox_Visa(OutboxVisa);
+                    
                     Clear_Visa_Cntrl();
                     Fil_Grid_Visa();
                     ////fil_emp_Folow_Up();
                     Fil_Emp_Visa_Follow();
                     ///////////////////////// update have visa = 1/////////////////////////////////////////////
 
-                    Update_Have_Visa_all_emp(CDataConverter.ConvertToInt(OutboxVisa.Outbox_ID));
+                    Update_Have_Visa_all_emp(CDataConverter.ConvertToInt(hidden_Id.Value));
                     lst_emp.Items.Clear();
                 }
                 else
@@ -2236,8 +2310,8 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
     }
     protected void btn_Visa_Follow_Click(object sender, EventArgs e)
     {
-        string DocName = "" ;
-         string type = "" ;
+        string DocName = "";
+        string type = "";
         Byte[] Input = new Byte[0];
         if (CDataConverter.ConvertToDate(txt_Follow_Date.Text) >= CDataConverter.ConvertToDate(txt_Date.Text))
         {
@@ -2246,18 +2320,18 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                 Outbox_Visa_Follow Outbox_Visa_Follow = outboxDBContext.Outbox_Visa_Follows.Where(x => x.Follow_ID == CDataConverter.ConvertToInt(hidden_Follow_ID.Value)).SingleOrDefault();
                 ////Outbox_Visa_Follows_DT obj = Outbox_Visa_Follows_DB.SelectByID(CDataConverter.ConvertToInt(hidden_Follow_ID.Value));
                 if (FileUpload_Visa_Follow.HasFile)
-                    {
-                         DocName = FileUpload_Visa_Follow.FileName;
-                        int dotindex = DocName.LastIndexOf(".");
-                         type = DocName.Substring(dotindex, DocName.Length - dotindex);
+                {
+                    DocName = FileUpload_Visa_Follow.FileName;
+                    int dotindex = DocName.LastIndexOf(".");
+                    type = DocName.Substring(dotindex, DocName.Length - dotindex);
 
-                        Stream myStream;
-                        int fileLen;
-                        StringBuilder displayString = new StringBuilder();
-                        fileLen = FileUpload_Visa_Follow.PostedFile.ContentLength;
-                       Input = new Byte[fileLen];
-                        myStream = FileUpload_Visa_Follow.FileContent;
-                        myStream.Read(Input, 0, fileLen);
+                    Stream myStream;
+                    int fileLen;
+                    StringBuilder displayString = new StringBuilder();
+                    fileLen = FileUpload_Visa_Follow.PostedFile.ContentLength;
+                    Input = new Byte[fileLen];
+                    myStream = FileUpload_Visa_Follow.FileContent;
+                    myStream.Read(Input, 0, fileLen);
                 }
                 if (Outbox_Visa_Follow != null)
                 {
@@ -2407,10 +2481,10 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
     {
         var OutboxVisa = outboxDBContext.Outbox_Visas.Where(x => x.mail_sent == 1 && x.Visa_Id != CDataConverter.ConvertToInt(Visa_Id) && x.Outbox_ID == CDataConverter.ConvertToInt(hidden_Id.Value));
         ////string Sql_Visa_Sent = "select Visa_Id from Outbox_Visa where mail_sent = 1 and Visa_Id !=" + Visa_Id + " and Outbox_id = " + hidden_Id.Value;
-       //// int Visa_Sent_Count = General_Helping.GetDataTable(Sql_Visa_Sent).Rows.Count;
+        //// int Visa_Sent_Count = General_Helping.GetDataTable(Sql_Visa_Sent).Rows.Count;
         if (OutboxVisa.Count() == GridView_Visa.Rows.Count - 1)
         {
-           //// DataTable DT = General_Helping.GetDataTable("select * from Outbox_Track_Manager where Outbox_id = " + hidden_Id.Value);
+            //// DataTable DT = General_Helping.GetDataTable("select * from Outbox_Track_Manager where Outbox_id = " + hidden_Id.Value);
             var OutboxTrackManagers = outboxDBContext.Outbox_Track_Managers.Where(x => x.Outbox_id == CDataConverter.ConvertToInt(hidden_Id.Value));
             if (OutboxTrackManagers.Count() > 0)
             {
@@ -2461,7 +2535,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
             OutboxTrackManagerObj.Have_Visa = 1;
             OutboxTrackManagerObj.Visa_Desc = txt_Visa_Desc.Text;
         }
-        
+
         ////string sql = "update Outbox_Track_Manager set status=0,Have_Follow=0,Have_visa=1 , ";
         ////sql += "Visa_Desc = '" + txt_Visa_Desc.Text + "'";
         ////sql += " where Outbox_id =" + outbox_ID;
@@ -2482,7 +2556,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
     }
     private void Save_trackmanager(int id)
     {
-        var parent_employees = outboxDBContext.parent_employees.Where(x => x.Type ==2);
+        var parent_employees = outboxDBContext.parent_employees.Where(x => x.Type == 2);
         ////DataTable dt = General_Helping.GetDataTable("select * from parent_employee where Type=2 ");
         if (parent_employees.Count() > 0)
         {
@@ -2508,7 +2582,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                             parent_pmp_id = CDataConverter.ConvertToInt(item.Value),
                             All_visa_sent = 0
                         };
-                       
+
                         ////Outbox_Track_Manager_DT obj = new Outbox_Track_Manager_DT();
                         ////obj.Outbox_id = CDataConverter.ConvertToInt(hidden_Id.Value);
                         ////obj.Have_Visa = 0;
@@ -2539,8 +2613,8 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         }
         TabPanel_All.ActiveTab = TabPanel_Visa;
     }
-   
-   
+
+
     #endregion
 
 
@@ -2718,7 +2792,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
     {
         string visa_ID = obj.ToString();
         string emp_name = "";
-      
+
         ////DataTable DT = new DataTable();
         //var OutboxVisaEmps = from OutboxVisaEmp in outboxDBContext.Outbox_Visa_Emps
         //                     join EMPLOYEES in outboxDBContext.EMPLOYEEs on (long)OutboxVisaEmp.Emp_ID equals EMPLOYEES.PMP_ID
@@ -2728,7 +2802,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         //                         EMPs = EMPLOYEES,
         //                         OVEmp = OutboxVisaEmp
         //                     };
-       
+
         //// DT = General_Helping.GetDataTable("SELECT EMPLOYEE.pmp_name FROM Outbox_Visa_Emp INNER JOIN EMPLOYEE ON Outbox_Visa_Emp.Emp_ID = EMPLOYEE.PMP_ID WHERE Outbox_Visa_Emp.Visa_Id  =" + visa_ID);
         var OutboxVisaEmps = outboxDBContext.get_OutboxVisaEmps(CDataConverter.ConvertToInt(visa_ID));
         foreach (var OutboxVisaEmp in OutboxVisaEmps)
@@ -2736,7 +2810,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
 
             emp_name += OutboxVisaEmp.pmp_name + ",";
         }
-        int lastindx=emp_name.LastIndexOf(',');
+        int lastindx = emp_name.LastIndexOf(',');
         string result = emp_name.Substring(0, lastindx);
         return result;
 
@@ -2786,100 +2860,100 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
     //    chklst_Visa_Emp_All.DataBind();
     //    //TabPanel_All.ActiveTab = TabPanel_Visa;
     //    tr_emp_list.Visible = true;
-        //refactored by hafs
-        //DataTable DT_emp = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_employee_accoording_to_radiochek", radlst_Type.SelectedValue, Session_CS.pmp_id, Session_CS.dept_id, Session_CS.foundation_id).Tables[0];
-        //tr_emp_list.Visible = true;
-        //string sql, sql_emp = "";
+    //refactored by hafs
+    //DataTable DT_emp = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_employee_accoording_to_radiochek", radlst_Type.SelectedValue, Session_CS.pmp_id, Session_CS.dept_id, Session_CS.foundation_id).Tables[0];
+    //tr_emp_list.Visible = true;
+    //string sql, sql_emp = "";
 
-        //if (radlst_Type.SelectedValue == "1")
-        //{
-        //    sql_emp = " select * from pmp_fav_View where pmp_fav_View.employee_id = " + CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
-        //    if (Smrt_Srch_structure.SelectedValue != "")
-        //    {
-        //        sql_emp += " AND Dept_Dept_id = " + Smrt_Srch_structure.SelectedValue;
-        //        // sql_emp += "  and  sec_sec_id=" + CDataConverter.ConvertToInt("0");
-        //    }
-        //    //if (ddl_sectors2.SelectedValue != "" && ddl_sectors2.SelectedValue != "0")
-        //    //{
-        //    //    sql_emp += "  and  sec_sec_id=" + ddl_sectors2.SelectedValue;
-        //    //}
-
-
-
-        //}
-        //else if (radlst_Type.SelectedValue == "2")
-        //{
-        //    // sql_emp = " select * from employee where dbo.EMPLOYEE.workstatus = 1";
+    //if (radlst_Type.SelectedValue == "1")
+    //{
+    //    sql_emp = " select * from pmp_fav_View where pmp_fav_View.employee_id = " + CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
+    //    if (Smrt_Srch_structure.SelectedValue != "")
+    //    {
+    //        sql_emp += " AND Dept_Dept_id = " + Smrt_Srch_structure.SelectedValue;
+    //        // sql_emp += "  and  sec_sec_id=" + CDataConverter.ConvertToInt("0");
+    //    }
+    //    //if (ddl_sectors2.SelectedValue != "" && ddl_sectors2.SelectedValue != "0")
+    //    //{
+    //    //    sql_emp += "  and  sec_sec_id=" + ddl_sectors2.SelectedValue;
+    //    //}
 
 
-        //    sql_emp = "SELECT     EMPLOYEE.*,Departments.* FROM Departments  INNER JOIN EMPLOYEE ON Departments.Dept_id = EMPLOYEE.Dept_Dept_id where  EMPLOYEE.PMP_ID not in(select parent_pmp_id from dbo.parent_employee) and dbo.EMPLOYEE.workstatus = 1 and EMPLOYEE.foundation_id='" + Session_CS.foundation_id + "'";
 
-        //    if (Smrt_Srch_structure.SelectedValue != "")
-        //    {
-        //        sql_emp += " and Dept_Dept_id = " + Smrt_Srch_structure.SelectedValue;
-        //        // sql_emp += "  and  sec_sec_id=" + CDataConverter.ConvertToInt("0");
-        //    }
-        //    //if (ddl_sectors2.SelectedValue != "" && ddl_sectors2.SelectedValue != "0")
-        //    //{
-        //    //    sql_emp += "and  Sectors.Sec_id=" + ddl_sectors2.SelectedValue;
-        //    //}
-
-        //}
-        //else if (radlst_Type.SelectedValue == "3")
-        //{
-        //    // sql_emp = " select * from employee where rol_rol_id=3  and dbo.EMPLOYEE.workstatus = 1";
-
-        //    sql_emp = "SELECT     EMPLOYEE.*,Departments.* FROM Departments  INNER JOIN EMPLOYEE ON Departments.Dept_id = EMPLOYEE.Dept_Dept_id where dbo.EMPLOYEE.workstatus = 1 and rol_rol_id=3 and EMPLOYEE.foundation_id='" + Session_CS.foundation_id + "'";
+    //}
+    //else if (radlst_Type.SelectedValue == "2")
+    //{
+    //    // sql_emp = " select * from employee where dbo.EMPLOYEE.workstatus = 1";
 
 
-        //    if (Smrt_Srch_structure.SelectedValue != "")
-        //    {
-        //        sql_emp += " AND Dept_Dept_id = " + Smrt_Srch_structure.SelectedValue;
-        //        // sql_emp += "  and  sec_sec_id=" + CDataConverter.ConvertToInt("0");
-        //    }
+    //    sql_emp = "SELECT     EMPLOYEE.*,Departments.* FROM Departments  INNER JOIN EMPLOYEE ON Departments.Dept_id = EMPLOYEE.Dept_Dept_id where  EMPLOYEE.PMP_ID not in(select parent_pmp_id from dbo.parent_employee) and dbo.EMPLOYEE.workstatus = 1 and EMPLOYEE.foundation_id='" + Session_CS.foundation_id + "'";
 
-        //    //if (ddl_sectors2.SelectedValue != "" && ddl_sectors2.SelectedValue != "0")
-        //    //{
-        //    //    sql_emp += "and  Sectors.Sec_id=" + ddl_sectors2.SelectedValue;
-        //    //}
+    //    if (Smrt_Srch_structure.SelectedValue != "")
+    //    {
+    //        sql_emp += " and Dept_Dept_id = " + Smrt_Srch_structure.SelectedValue;
+    //        // sql_emp += "  and  sec_sec_id=" + CDataConverter.ConvertToInt("0");
+    //    }
+    //    //if (ddl_sectors2.SelectedValue != "" && ddl_sectors2.SelectedValue != "0")
+    //    //{
+    //    //    sql_emp += "and  Sectors.Sec_id=" + ddl_sectors2.SelectedValue;
+    //    //}
 
-        //}
-        //else if (radlst_Type.SelectedValue == "4")
-        //{
-        //    // sql_emp = " select * from employee where contact_person=1 and dbo.EMPLOYEE.workstatus = 1 ";
+    //}
+    //else if (radlst_Type.SelectedValue == "3")
+    //{
+    //    // sql_emp = " select * from employee where rol_rol_id=3  and dbo.EMPLOYEE.workstatus = 1";
 
-        //    sql_emp = "SELECT     EMPLOYEE.*,  Sectors.*,Departments.* FROM Departments INNER JOIN Sectors ON Departments.Sec_sec_id = Sectors.Sec_id INNER JOIN EMPLOYEE ON Departments.Dept_id = EMPLOYEE.Dept_Dept_id where dbo.EMPLOYEE.workstatus = 1 and contact_person=1 and EMPLOYEE.foundation_id='" + Session_CS.foundation_id + "'";
+    //    sql_emp = "SELECT     EMPLOYEE.*,Departments.* FROM Departments  INNER JOIN EMPLOYEE ON Departments.Dept_id = EMPLOYEE.Dept_Dept_id where dbo.EMPLOYEE.workstatus = 1 and rol_rol_id=3 and EMPLOYEE.foundation_id='" + Session_CS.foundation_id + "'";
 
-        //    if (Smrt_Srch_structure.SelectedValue != "")
-        //    {
-        //        sql_emp += " AND Dept_Dept_id = " + Smrt_Srch_structure.SelectedValue;
-        //        //sql_emp += "  and  sec_sec_id=" + CDataConverter.ConvertToInt("0");
-        //    }
 
-        //    //if (ddl_sectors2.SelectedValue != "" && ddl_sectors2.SelectedValue != "0")
-        //    //{
-        //    //    sql_emp += "and  Sectors.Sec_id=" + ddl_sectors2.SelectedValue;
-        //    //}
+    //    if (Smrt_Srch_structure.SelectedValue != "")
+    //    {
+    //        sql_emp += " AND Dept_Dept_id = " + Smrt_Srch_structure.SelectedValue;
+    //        // sql_emp += "  and  sec_sec_id=" + CDataConverter.ConvertToInt("0");
+    //    }
 
-        //}
+    //    //if (ddl_sectors2.SelectedValue != "" && ddl_sectors2.SelectedValue != "0")
+    //    //{
+    //    //    sql_emp += "and  Sectors.Sec_id=" + ddl_sectors2.SelectedValue;
+    //    //}
 
-        //else if (radlst_Type.SelectedValue == "5")
-        //{
-        //    sql_emp = "  select EMPLOYEE.pmp_name + ' - رئيس ' + +' '+ Commitee.Commitee_Title as pmp_name ,EMPLOYEE.PMP_ID from EMPLOYEE inner join commitee_presidents on  EMPLOYEE.PMP_ID=commitee_presidents.pmp_id inner join Commitee on commitee_presidents.comt_id = Commitee.ID where  Commitee.foundation_id='" + Session_CS.foundation_id + "'";
+    //}
+    //else if (radlst_Type.SelectedValue == "4")
+    //{
+    //    // sql_emp = " select * from employee where contact_person=1 and dbo.EMPLOYEE.workstatus = 1 ";
 
-        //}
+    //    sql_emp = "SELECT     EMPLOYEE.*,  Sectors.*,Departments.* FROM Departments INNER JOIN Sectors ON Departments.Sec_sec_id = Sectors.Sec_id INNER JOIN EMPLOYEE ON Departments.Dept_id = EMPLOYEE.Dept_Dept_id where dbo.EMPLOYEE.workstatus = 1 and contact_person=1 and EMPLOYEE.foundation_id='" + Session_CS.foundation_id + "'";
 
-        //else if (radlst_Type.SelectedValue == "6")
-        //{
+    //    if (Smrt_Srch_structure.SelectedValue != "")
+    //    {
+    //        sql_emp += " AND Dept_Dept_id = " + Smrt_Srch_structure.SelectedValue;
+    //        //sql_emp += "  and  sec_sec_id=" + CDataConverter.ConvertToInt("0");
+    //    }
 
-        //    sql_emp = "select EMPLOYEE.pmp_name COLLATE DATABASE_DEFAULT  + ' -  ' + Departments.Dept_name  as pmp_name,EMPLOYEE.PMP_ID from EMPLOYEE inner join commitee_presidents on  EMPLOYEE.PMP_ID=commitee_presidents.pmp_id inner join Departments on  commitee_presidents.dept_id = Departments.Dept_id   inner join Sectors  on Sectors.Sec_id = Departments.Sec_sec_id where Sectors.foundation_id='" + Session_CS.foundation_id + "'";
-        //}
+    //    //if (ddl_sectors2.SelectedValue != "" && ddl_sectors2.SelectedValue != "0")
+    //    //{
+    //    //    sql_emp += "and  Sectors.Sec_id=" + ddl_sectors2.SelectedValue;
+    //    //}
 
-        //sql_emp += " ORDER BY LTRIM(pmp_name)";
-        //TabPanel_All.ActiveTab = TabPanel_Visa;
-        //DataTable dt_emp_fav = General_Helping.GetDataTable(sql_emp);
-        //chklst_Visa_Emp_All.DataSource = dt_emp_fav;
-        //chklst_Visa_Emp_All.DataBind();
+    //}
+
+    //else if (radlst_Type.SelectedValue == "5")
+    //{
+    //    sql_emp = "  select EMPLOYEE.pmp_name + ' - رئيس ' + +' '+ Commitee.Commitee_Title as pmp_name ,EMPLOYEE.PMP_ID from EMPLOYEE inner join commitee_presidents on  EMPLOYEE.PMP_ID=commitee_presidents.pmp_id inner join Commitee on commitee_presidents.comt_id = Commitee.ID where  Commitee.foundation_id='" + Session_CS.foundation_id + "'";
+
+    //}
+
+    //else if (radlst_Type.SelectedValue == "6")
+    //{
+
+    //    sql_emp = "select EMPLOYEE.pmp_name COLLATE DATABASE_DEFAULT  + ' -  ' + Departments.Dept_name  as pmp_name,EMPLOYEE.PMP_ID from EMPLOYEE inner join commitee_presidents on  EMPLOYEE.PMP_ID=commitee_presidents.pmp_id inner join Departments on  commitee_presidents.dept_id = Departments.Dept_id   inner join Sectors  on Sectors.Sec_id = Departments.Sec_sec_id where Sectors.foundation_id='" + Session_CS.foundation_id + "'";
+    //}
+
+    //sql_emp += " ORDER BY LTRIM(pmp_name)";
+    //TabPanel_All.ActiveTab = TabPanel_Visa;
+    //DataTable dt_emp_fav = General_Helping.GetDataTable(sql_emp);
+    //chklst_Visa_Emp_All.DataSource = dt_emp_fav;
+    //chklst_Visa_Emp_All.DataBind();
     //}
     ////////refactored by hafs
     //private void fil_emp()
@@ -2967,7 +3041,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
     //    Smart_Related_Id.Text_Field = "con";
     //    Smart_Related_Id.DataBind();
     //}
-   
-   
+
+
     #endregion
 }
