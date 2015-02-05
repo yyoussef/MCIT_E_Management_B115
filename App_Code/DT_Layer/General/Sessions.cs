@@ -182,7 +182,7 @@ public static  class Session_CS
             }
             else
             {
-                HttpContext.Current.Response.Redirect("~/default.aspx");
+                //HttpContext.Current.Response.Redirect("~/default.aspx");
                 return 0;
             }
         }
@@ -213,7 +213,7 @@ public static  class Session_CS
             }
             else
             {
-                HttpContext.Current.Response.Redirect("~/default.aspx");
+               // HttpContext.Current.Response.Redirect("~/default.aspx");
                 return "";
             }
         }
@@ -244,7 +244,7 @@ public static  class Session_CS
             }
             else
             {
-                HttpContext.Current.Response.Redirect("~/default.aspx");
+                //HttpContext.Current.Response.Redirect("~/default.aspx");
                 return "";
             }
         }
@@ -273,7 +273,7 @@ public static  class Session_CS
             }
             else
             {
-                HttpContext.Current.Response.Redirect("~/default.aspx");
+               // HttpContext.Current.Response.Redirect("~/default.aspx");
                 return "";
             }
         }
