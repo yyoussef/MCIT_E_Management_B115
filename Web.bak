@@ -18,7 +18,7 @@
     <add key="CrystalImageCleaner-Sleep" value="60000" />
     <add key="CrystalImageCleaner-Age" value="120000" />
 
-    <!--mail configeration  -->
+    <!--mail configeration  test by youssef  -->
     <add key="SMTP_Port" value="25" />
     <add key="SMTP_Host" value="mailout.mcit.gov.eg" />
     <add key="SMTP_UserName" value="mosalama@mcit.gov.eg" />
