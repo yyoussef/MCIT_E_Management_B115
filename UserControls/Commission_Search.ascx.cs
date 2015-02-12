@@ -77,7 +77,7 @@ public partial class UserControls_Commission_Search : System.Web.UI.UserControl
         string t2 = "";
 
         int pmp = int.Parse(Session_CS.pmp_id.ToString());
-
+        
 
         int group = 0;
 
@@ -194,7 +194,7 @@ public partial class UserControls_Commission_Search : System.Web.UI.UserControl
 
             //if (dt.Rows.Count > 0)
             //{
-            Response.Redirect("Commission.aspx?id=" + encrypted);
+            Response.Redirect("Commission_new.aspx?id=" + encrypted);
             //}
             //else
 

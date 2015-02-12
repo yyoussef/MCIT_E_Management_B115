@@ -1363,7 +1363,7 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
             obj_follow.Descrption = txt_Visa_Desc.Text;
             string date = CDataConverter.ConvertDateTimeToFormatdmy(CDataConverter.ConvertDateTimeNowRtnDt());
             obj_follow.Date = date;
-            obj_follow.time_follow = CDataConverter.ConvertDateTimeNowRtnDt().ToLocalTime().ToLongTimeString();
+            obj_follow.time_follow = CDataConverter.ConvertTimeNowRtnLongTimeFormat(); 
             obj_follow.entery_pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
             obj_follow.Visa_Emp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
             obj_follow.Follow_ID = Outbox_Visa_Follows_DB.Save(obj_follow);

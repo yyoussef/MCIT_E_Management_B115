@@ -11,15 +11,18 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 
+
 public partial class SuperAdmin_Foundations : System.Web.UI.Page
 {
+    
+ 
     protected void Page_Load(object sender, EventArgs e)
     {
 
         if (!IsPostBack)
         {
             fillgrid();
-
+            
         }
 
     }
@@ -57,8 +60,10 @@ public partial class SuperAdmin_Foundations : System.Web.UI.Page
     }
     protected void btnSave_Click(object sender, EventArgs e)
     {
+        
+        
         Foundations_DT obj = new Foundations_DT();
-
+      
         DataTable select_dt = Foundations_DB.foundation_exist(CDataConverter.ConvertToInt( found_id.Value ));
         DataTable resultDT = select_dt.Clone();
       

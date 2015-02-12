@@ -109,12 +109,15 @@ public partial class UserControls_proj_classification : System.Web.UI.UserContro
     {
        // int pmp = int.Parse(Session_CS.pmp_id.ToString());
         DataTable dt = General_Helping.GetDataTable("SELECT  * from proj_class_view where proj_class_view.proj_id= " + CDataConverter.ConvertToInt(Session_CS.Project_id.ToString()));
-        if (dt.Rows[0]["id"].ToString()=="")
+        if (dt.Rows.Count > 0)
         {
-            Drop_class.SelectedValue = "0";
+            if (dt.Rows[0]["id"].ToString() == "")
+            {
+                Drop_class.SelectedValue = "0";
+            }
+            else
+                Drop_class.SelectedValue = dt.Rows[0]["id"].ToString();
         }
-        else
-        Drop_class.SelectedValue = dt.Rows[0]["id"].ToString();
 
        
     }
@@ -122,14 +125,17 @@ public partial class UserControls_proj_classification : System.Web.UI.UserContro
     {
         //int pmp = int.Parse(Session_CS.pmp_id.ToString());
         DataTable dt = General_Helping.GetDataTable("SELECT  * from proj_Type_view where proj_Type_view.proj_id= " + CDataConverter.ConvertToInt(Session_CS.Project_id.ToString()));
-        if (dt.Rows[0]["Type_id"].ToString() == "")
+        if (dt.Rows.Count > 0)
         {
-            drop_type.SelectedValue = "0";
-        }
-        else
-        {
-            drop_type.SelectedValue = dt.Rows[0]["Type_id"].ToString();
-            Smart_Search_Proj.SelectedValue = dt.Rows[0]["connected_to_proj"].ToString();
+            if (dt.Rows[0]["Type_id"].ToString() == "")
+            {
+                drop_type.SelectedValue = "0";
+            }
+            else
+            {
+                drop_type.SelectedValue = dt.Rows[0]["Type_id"].ToString();
+                Smart_Search_Proj.SelectedValue = dt.Rows[0]["connected_to_proj"].ToString();
+            }
         }
 
       

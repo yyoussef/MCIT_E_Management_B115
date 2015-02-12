@@ -1616,7 +1616,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
             obj_follow.Date = date;
             obj_follow.Entery_Date = datenow;
-            obj_follow.time_follow = CDataConverter.ConvertDateTimeNowRtnDt().ToLocalTime().ToLongTimeString();
+            obj_follow.time_follow = CDataConverter.ConvertTimeNowRtnLongTimeFormat();
             obj_follow.entery_pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
             obj_follow.Visa_Emp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
             obj_follow.Follow_ID = Inbox_Visa_Follows_DB.Save(obj_follow);
