@@ -127,8 +127,20 @@ warning 6002: The table/view 'Projects_Management.dbo.Commission_follow_emp' doe
           <Property Name="time_follow" Type="nvarchar" MaxLength="50" />
           <Property Name="Type_Follow" Type="int" />
         </EntityType>
+        <Function Name="Fil_Visa_foremployee" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Visa_Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="get_comm_infor_formail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Commission_ID" Type="int" Mode="In" />
+        </Function>
         <Function Name="get_Emp_Visa_Follow" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Commission_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="get_Visa_Follow" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Commission_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Get_Visa_foremployee" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Visa_Id" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="Projects_ManagementModelStoreContainer">
           <EntitySet Name="Commission" EntityType="Self.Commission" Schema="dbo" store:Type="Tables" />
@@ -279,13 +291,44 @@ warning 6002: The table/view 'Projects_Management.dbo.Commission_follow_emp' doe
           <EntitySet Name="Commission_Visa_Follows" EntityType="Self.Commission_Visa_Follows" />
           <EntitySet Name="Commission_follow_emp" EntityType="Self.Commission_follow_emp" />
           <FunctionImport Name="get_Emp_Visa_Follow" ReturnType="Collection(Projects_ManagementModel.com_get_emp_visa)">
-            <Parameter Name="Commission_ID" Mode="In" Type="Int32" />
+          <Parameter Name="Commission_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="get_Visa_Follow" ReturnType="Collection(Projects_ManagementModel.get_Visa_Follow)">
+          <Parameter Name="Commission_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="get_comm_infor_formail" ReturnType="Collection(Projects_ManagementModel.get_comm_infor_formail)">
+          <Parameter Name="Commission_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Fil_Visa_foremployee" ReturnType="Collection(Projects_ManagementModel.Fil_Visa_foremployee)">
+          <Parameter Name="Visa_Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Get_Visa_foremployee" ReturnType="Collection(Projects_ManagementModel.Get_Visa_foremployee)">
+            <Parameter Name="Visa_Id" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="com_get_emp_visa" >
           <Property Type="Int64" Name="PMP_ID" Nullable="false" />
           <Property Type="String" Name="pmp_name" Nullable="false" />
           <Property Type="Int32" Name="Commission_ID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="get_Visa_Follow" >
+          <Property Type="Int32" Name="Follow_ID" Nullable="false" />
+          <Property Type="String" Name="File_name" Nullable="false" />
+          <Property Type="String" Name="time_follow" Nullable="false" />
+          <Property Type="Int32" Name="Commission_ID" Nullable="false" />
+          <Property Type="String" Name="Descrption" Nullable="false" />
+          <Property Type="String" Name="Date" Nullable="false" />
+          <Property Type="Int32" Name="Visa_Emp_id" Nullable="false" />
+          <Property Type="String" Name="pmp_name" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="get_comm_infor_formail" >
+          <Property Type="Int32" Name="Commission_ID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="Fil_Visa_foremployee" >
+          <Property Type="Int32" Name="Visa_Id" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="Get_Visa_foremployee" >
+          <Property Type="Int32" Name="Visa_Id" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -426,6 +469,41 @@ warning 6002: The table/view 'Projects_Management.dbo.Commission_follow_emp' doe
                 <ScalarProperty Name="PMP_ID" ColumnName="PMP_ID" />
                 <ScalarProperty Name="pmp_name" ColumnName="pmp_name" />
                 <ScalarProperty Name="Commission_ID" ColumnName="Commission_ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_Visa_Follow" FunctionName="Projects_ManagementModel.Store.get_Visa_Follow">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Projects_ManagementModel.get_Visa_Follow">
+                <ScalarProperty Name="Follow_ID" ColumnName="Follow_ID" />
+                <ScalarProperty Name="File_name" ColumnName="File_name" />
+                <ScalarProperty Name="time_follow" ColumnName="time_follow" />
+                <ScalarProperty Name="Commission_ID" ColumnName="Commission_ID" />
+                <ScalarProperty Name="Descrption" ColumnName="Descrption" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Visa_Emp_id" ColumnName="Visa_Emp_id" />
+                <ScalarProperty Name="pmp_name" ColumnName="pmp_name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_comm_infor_formail" FunctionName="Projects_ManagementModel.Store.get_comm_infor_formail">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Projects_ManagementModel.get_comm_infor_formail">
+                <ScalarProperty Name="Commission_ID" ColumnName="Commission_ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Fil_Visa_foremployee" FunctionName="Projects_ManagementModel.Store.Fil_Visa_foremployee">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Projects_ManagementModel.Fil_Visa_foremployee">
+                <ScalarProperty Name="Visa_Id" ColumnName="Visa_Id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Get_Visa_foremployee" FunctionName="Projects_ManagementModel.Store.Get_Visa_foremployee">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Projects_ManagementModel.Get_Visa_foremployee">
+                <ScalarProperty Name="Visa_Id" ColumnName="Visa_Id" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

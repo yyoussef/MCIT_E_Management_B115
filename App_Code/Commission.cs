@@ -129,3 +129,30 @@ public partial class com_get_emp_visa
     public string pmp_name { get; set; }
     public int Commission_ID { get; set; }
 }
+
+public partial class Fil_Visa_foremployee
+{
+    public int Visa_Id { get; set; }
+}
+
+public partial class get_comm_infor_formail
+{
+    public int Commission_ID { get; set; }
+}
+
+public partial class get_Visa_Follow
+{
+    public int Follow_ID { get; set; }
+    public string File_name { get; set; }
+    public string time_follow { get; set; }
+    public int Commission_ID { get; set; }
+    public string Descrption { get; set; }
+    public string Date { get; set; }
+    public int Visa_Emp_id { get; set; }
+    public string pmp_name { get; set; }
+}
+
+public partial class Get_Visa_foremployee
+{
+    public int Visa_Id { get; set; }
+}

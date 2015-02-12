@@ -41,4 +41,40 @@ public partial class Projects_ManagementEntities10 : DbContext
 
         return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<com_get_emp_visa>("get_Emp_Visa_Follow", commission_IDParameter);
     }
+
+    public virtual ObjectResult<get_Visa_Follow> get_Visa_Follow(Nullable<int> commission_ID)
+    {
+        var commission_IDParameter = commission_ID.HasValue ?
+            new ObjectParameter("Commission_ID", commission_ID) :
+            new ObjectParameter("Commission_ID", typeof(int));
+
+        return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_Visa_Follow>("get_Visa_Follow", commission_IDParameter);
+    }
+
+    public virtual ObjectResult<get_comm_infor_formail> get_comm_infor_formail(Nullable<int> commission_ID)
+    {
+        var commission_IDParameter = commission_ID.HasValue ?
+            new ObjectParameter("Commission_ID", commission_ID) :
+            new ObjectParameter("Commission_ID", typeof(int));
+
+        return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_comm_infor_formail>("get_comm_infor_formail", commission_IDParameter);
+    }
+
+    public virtual ObjectResult<Fil_Visa_foremployee> Fil_Visa_foremployee(Nullable<int> visa_Id)
+    {
+        var visa_IdParameter = visa_Id.HasValue ?
+            new ObjectParameter("Visa_Id", visa_Id) :
+            new ObjectParameter("Visa_Id", typeof(int));
+
+        return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Fil_Visa_foremployee>("Fil_Visa_foremployee", visa_IdParameter);
+    }
+
+    public virtual ObjectResult<Get_Visa_foremployee> Get_Visa_foremployee(Nullable<int> visa_Id)
+    {
+        var visa_IdParameter = visa_Id.HasValue ?
+            new ObjectParameter("Visa_Id", visa_Id) :
+            new ObjectParameter("Visa_Id", typeof(int));
+
+        return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Get_Visa_foremployee>("Get_Visa_foremployee", visa_IdParameter);
+    }
 }
