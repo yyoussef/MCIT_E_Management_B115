@@ -952,113 +952,145 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
        // string sql, sql_emp = "";
         int dept_selected = CDataConverter.ConvertToInt(Smart_Search_dept.SelectedValue);
         int session_found = CDataConverter.ConvertToInt(Session_CS.foundation_id);
-        var emp_query = default(object);
+     //   var emp_query = default(object);
 
-        if (radlst_Type.SelectedValue == "1")
+
+        if (radlst_Type.SelectedValue != "7")
         {
-            sql_emp = " select * from pmp_fav_View where pmp_fav_View.employee_id = " + CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
 
-            int pmp = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
 
-          //  emp_query = from emmp in pmentity.pmp_fav_View where emmp.employee_id == pmp select emmp;
+            DataTable DT_emp;
 
-            if (Smart_Search_dept.SelectedValue != "")
+            SqlParameter[] sqlParams = new SqlParameter[4];
+
+            sqlParams[0] = new SqlParameter("@radiocheck", radlst_Type.SelectedValue);
+            sqlParams[1] = new SqlParameter("@pmp_id", Session_CS.pmp_id);
+
+            if (CDataConverter.ConvertToInt(Smart_Search_dept.SelectedValue) > 0)
+                sqlParams[2] = new SqlParameter("@dept_id", CDataConverter.ConvertToInt(Smart_Search_dept.SelectedValue));
+            else
+                sqlParams[2] = new SqlParameter("@dept_id", CDataConverter.ConvertToInt(DBNull.Value));
+
+            sqlParams[3] = new SqlParameter("@found_id", Session_CS.foundation_id);
+
+            DT_emp = DatabaseFunctions.SelectDataByParam(sqlParams, "get_employee_accoording_to_radiochek");
+            if (DT_emp.Rows.Count > 0)
             {
-                sql_emp += " AND Dept_Dept_id = " + Smart_Search_dept.SelectedValue;
-
-               // emp_query = from emmp in pmentity.pmp_fav_View where emmp.employee_id == pmp && emmp.Dept_Dept_id == dept_selected select emmp;
+                chklst_Visa_Emp_All.DataSource = DT_emp;
+                chklst_Visa_Emp_All.DataBind();
             }
-
-
-
-
-        }
-        else if (radlst_Type.SelectedValue == "2")
-        {
-
-            sql_emp = "SELECT     EMPLOYEE.*,Departments.* FROM Departments  INNER JOIN EMPLOYEE ON Departments.Dept_id = EMPLOYEE.Dept_Dept_id where  EMPLOYEE.PMP_ID not in(select parent_pmp_id from dbo.parent_employee) and dbo.EMPLOYEE.workstatus = 1 and EMPLOYEE.foundation_id='" + Session_CS.foundation_id + "'";
-
-            //emp_query = (from empp in pmgeneralentity.EMPLOYEE
-            //             join deppp in pmgeneralentity.Departments on empp.Dept_Dept_id equals deppp.Dept_id
-            //             where empp.foundation_id == session_found
-            //             select new
-            //             {
-
-            //             }
-
-
-            //            );
-
-            if (Smart_Search_dept.SelectedValue != "")
-            {
-                 sql_emp += " and Dept_Dept_id = " + Smart_Search_dept.SelectedValue;
-
-                //emp_query = (from empp in pmgeneralentity.EMPLOYEE
-                //             join deppp in pmgeneralentity.Departments on empp.Dept_Dept_id equals deppp.Dept_id
-                //             where empp.foundation_id == session_found && empp.Dept_Dept_id == dept_selected
-                //             select new
-                //             {
-
-                //             }
-
-
-                //   );
-            }
-
-        }
-        else if (radlst_Type.SelectedValue == "3")
-        {
-            // sql_emp = " select * from employee where rol_rol_id=3  and dbo.EMPLOYEE.workstatus = 1";
-
-            sql_emp = "SELECT     EMPLOYEE.*,Departments.* FROM Departments  INNER JOIN EMPLOYEE ON Departments.Dept_id = EMPLOYEE.Dept_Dept_id where dbo.EMPLOYEE.workstatus = 1 and rol_rol_id=3 and EMPLOYEE.foundation_id='" + Session_CS.foundation_id + "'";
-
-
-            if (Smart_Search_dept.SelectedValue != "")
-            {
-                sql_emp += " AND Dept_Dept_id = " + Smart_Search_dept.SelectedValue;
-            }
-
-            //if (drop_sectors.SelectedValue != "" && drop_sectors.SelectedValue != "0")
-            //{
-            //    sql_emp += "and  Sectors.Sec_id=" + drop_sectors.SelectedValue;
-            //}
-
-        }
-        else if (radlst_Type.SelectedValue == "4")
-        {
-            // sql_emp = " select * from employee where contact_person=1 and dbo.EMPLOYEE.workstatus = 1 ";
-
-            sql_emp = "SELECT     EMPLOYEE.*,  Sectors.*,Departments.* FROM Departments INNER JOIN Sectors ON Departments.Sec_sec_id = Sectors.Sec_id INNER JOIN EMPLOYEE ON Departments.Dept_id = EMPLOYEE.Dept_Dept_id where dbo.EMPLOYEE.workstatus = 1 and contact_person=1 and EMPLOYEE.foundation_id='" + Session_CS.foundation_id + "' ";
-
-            if (Smart_Search_dept.SelectedValue != "")
-            {
-                sql_emp += " AND Dept_Dept_id = " + Smart_Search_dept.SelectedValue;
-            }
-
-            //if (drop_sectors.SelectedValue != "" && drop_sectors.SelectedValue != "0")
-            //{
-            //    sql_emp += "and  Sectors.Sec_id=" + drop_sectors.SelectedValue;
-            //}
-
-        }
-
-        else if (radlst_Type.SelectedValue == "5")
-        {
-            sql_emp = "  select EMPLOYEE.pmp_name + ' - رئيس ' + +' '+ Commitee.Commitee_Title as pmp_name ,EMPLOYEE.PMP_ID from EMPLOYEE inner join commitee_presidents on  EMPLOYEE.PMP_ID=commitee_presidents.pmp_id inner join Commitee on commitee_presidents.comt_id = Commitee.ID where  Commitee.foundation_id='" + Session_CS.foundation_id + "'";
-
-        }
-
-        else if (radlst_Type.SelectedValue == "6")
-        {
-
-            sql_emp = "select EMPLOYEE.pmp_name COLLATE DATABASE_DEFAULT  + ' -  ' + Departments.Dept_name  as pmp_name,EMPLOYEE.PMP_ID from EMPLOYEE inner join commitee_presidents on  EMPLOYEE.PMP_ID=commitee_presidents.pmp_id inner join Departments on  commitee_presidents.dept_id = Departments.Dept_id   inner join Sectors  on Sectors.Sec_id = Departments.Sec_sec_id where Sectors.foundation_id='" + Session_CS.foundation_id + "'";
         }
 
         TabPanel_All.ActiveTab = TabPanel_Visa;
-        DataTable dt_emp_fav = General_Helping.GetDataTable(sql_emp);
-        chklst_Visa_Emp_All.DataSource = dt_emp_fav;
-        chklst_Visa_Emp_All.DataBind();
-        TabPanel_All.ActiveTab = TabPanel_Visa;
+
+
+        //if (radlst_Type.SelectedValue == "1")
+        //{
+        //    sql_emp = " select * from pmp_fav_View where pmp_fav_View.employee_id = " + CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
+
+        //    int pmp = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
+
+        //  //  emp_query = from emmp in pmentity.pmp_fav_View where emmp.employee_id == pmp select emmp;
+
+        //    if (Smart_Search_dept.SelectedValue != "")
+        //    {
+        //        sql_emp += " AND Dept_Dept_id = " + Smart_Search_dept.SelectedValue;
+
+        //       // emp_query = from emmp in pmentity.pmp_fav_View where emmp.employee_id == pmp && emmp.Dept_Dept_id == dept_selected select emmp;
+        //    }
+
+
+
+
+        //}
+        //else if (radlst_Type.SelectedValue == "2")
+        //{
+
+        //    sql_emp = "SELECT     EMPLOYEE.*,Departments.* FROM Departments  INNER JOIN EMPLOYEE ON Departments.Dept_id = EMPLOYEE.Dept_Dept_id where  EMPLOYEE.PMP_ID not in(select parent_pmp_id from dbo.parent_employee) and dbo.EMPLOYEE.workstatus = 1 and EMPLOYEE.foundation_id='" + Session_CS.foundation_id + "'";
+
+        //    //emp_query = (from empp in pmgeneralentity.EMPLOYEE
+        //    //             join deppp in pmgeneralentity.Departments on empp.Dept_Dept_id equals deppp.Dept_id
+        //    //             where empp.foundation_id == session_found
+        //    //             select new
+        //    //             {
+
+        //    //             }
+
+
+        //    //            );
+
+        //    if (Smart_Search_dept.SelectedValue != "")
+        //    {
+        //         sql_emp += " and Dept_Dept_id = " + Smart_Search_dept.SelectedValue;
+
+        //        //emp_query = (from empp in pmgeneralentity.EMPLOYEE
+        //        //             join deppp in pmgeneralentity.Departments on empp.Dept_Dept_id equals deppp.Dept_id
+        //        //             where empp.foundation_id == session_found && empp.Dept_Dept_id == dept_selected
+        //        //             select new
+        //        //             {
+
+        //        //             }
+
+
+        //        //   );
+        //    }
+
+        //}
+        //else if (radlst_Type.SelectedValue == "3")
+        //{
+        //    // sql_emp = " select * from employee where rol_rol_id=3  and dbo.EMPLOYEE.workstatus = 1";
+
+        //    sql_emp = "SELECT     EMPLOYEE.*,Departments.* FROM Departments  INNER JOIN EMPLOYEE ON Departments.Dept_id = EMPLOYEE.Dept_Dept_id where dbo.EMPLOYEE.workstatus = 1 and rol_rol_id=3 and EMPLOYEE.foundation_id='" + Session_CS.foundation_id + "'";
+
+
+        //    if (Smart_Search_dept.SelectedValue != "")
+        //    {
+        //        sql_emp += " AND Dept_Dept_id = " + Smart_Search_dept.SelectedValue;
+        //    }
+
+        //    //if (drop_sectors.SelectedValue != "" && drop_sectors.SelectedValue != "0")
+        //    //{
+        //    //    sql_emp += "and  Sectors.Sec_id=" + drop_sectors.SelectedValue;
+        //    //}
+
+        //}
+        //else if (radlst_Type.SelectedValue == "4")
+        //{
+        //    // sql_emp = " select * from employee where contact_person=1 and dbo.EMPLOYEE.workstatus = 1 ";
+
+        //    sql_emp = "SELECT     EMPLOYEE.*,  Sectors.*,Departments.* FROM Departments INNER JOIN Sectors ON Departments.Sec_sec_id = Sectors.Sec_id INNER JOIN EMPLOYEE ON Departments.Dept_id = EMPLOYEE.Dept_Dept_id where dbo.EMPLOYEE.workstatus = 1 and contact_person=1 and EMPLOYEE.foundation_id='" + Session_CS.foundation_id + "' ";
+
+        //    if (Smart_Search_dept.SelectedValue != "")
+        //    {
+        //        sql_emp += " AND Dept_Dept_id = " + Smart_Search_dept.SelectedValue;
+        //    }
+
+        //    //if (drop_sectors.SelectedValue != "" && drop_sectors.SelectedValue != "0")
+        //    //{
+        //    //    sql_emp += "and  Sectors.Sec_id=" + drop_sectors.SelectedValue;
+        //    //}
+
+        //}
+
+        //else if (radlst_Type.SelectedValue == "5")
+        //{
+        //    sql_emp = "  select EMPLOYEE.pmp_name + ' - رئيس ' + +' '+ Commitee.Commitee_Title as pmp_name ,EMPLOYEE.PMP_ID from EMPLOYEE inner join commitee_presidents on  EMPLOYEE.PMP_ID=commitee_presidents.pmp_id inner join Commitee on commitee_presidents.comt_id = Commitee.ID where  Commitee.foundation_id='" + Session_CS.foundation_id + "'";
+
+        //}
+
+        //else if (radlst_Type.SelectedValue == "6")
+        //{
+
+        //    sql_emp = "select EMPLOYEE.pmp_name COLLATE DATABASE_DEFAULT  + ' -  ' + Departments.Dept_name  as pmp_name,EMPLOYEE.PMP_ID from EMPLOYEE inner join commitee_presidents on  EMPLOYEE.PMP_ID=commitee_presidents.pmp_id inner join Departments on  commitee_presidents.dept_id = Departments.Dept_id   inner join Sectors  on Sectors.Sec_id = Departments.Sec_sec_id where Sectors.foundation_id='" + Session_CS.foundation_id + "'";
+        //}
+
+        //TabPanel_All.ActiveTab = TabPanel_Visa;
+        //DataTable dt_emp_fav = General_Helping.GetDataTable(sql_emp);
+        //chklst_Visa_Emp_All.DataSource = dt_emp_fav;
+        //chklst_Visa_Emp_All.DataBind();
+
+
+       
 
     }
 
@@ -1147,12 +1179,12 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
     protected void btn_Doc_Click(object sender, EventArgs e)
     {
 
-        SqlCommand cmd = new SqlCommand();
-        SqlConnection con = new SqlConnection();
-        SqlCommand cmd_local = new SqlCommand();
-        SqlConnection con_local = new SqlConnection();
-        con = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
-        con_local = new SqlConnection(Session_CS.local_connectionstring);
+        //SqlCommand cmd = new SqlCommand();
+        //SqlConnection con = new SqlConnection();
+        //SqlCommand cmd_local = new SqlCommand();
+        //SqlConnection con_local = new SqlConnection();
+        //con = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
+        //con_local = new SqlConnection(Session_CS.local_connectionstring);
         int out_box = 0;
 
         if (CDataConverter.ConvertToInt(hidden_Id.Value) > 0)
@@ -1171,113 +1203,140 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
                 myStream = FileUpload1.FileContent;
                 myStream.Read(Input, 0, fileLen);
 
-                cmd.Parameters.Add("@File_data", SqlDbType.VarBinary);
-                cmd.Parameters.Add("@Commission_File_ID", SqlDbType.Int);
-                cmd.Parameters.Add("@Original_Or_Attached", SqlDbType.Int);
-                cmd.Parameters.Add("@File_name", SqlDbType.NVarChar);
-                cmd.Parameters.Add("@File_ext", SqlDbType.NVarChar);
-                cmd.Parameters.Add("@Inbox_Or_Outbox", SqlDbType.Int);
-                cmd.Parameters.Add("@Commission_ID", SqlDbType.Int);
-                cmd.Parameters["@Commission_File_ID"].Value = CDataConverter.ConvertToInt(hidden_Inbox_OutBox_File_ID.Value);
-                cmd.Parameters["@Original_Or_Attached"].Value = CDataConverter.ConvertToInt(ddl_Original_Or_Attached.SelectedValue);
-                cmd.Parameters["@File_ext"].Value = type;
-                cmd.Parameters["@File_name"].Value = txtFileName.Text;
-                cmd.Parameters["@Inbox_Or_Outbox"].Value = 1;
+                //cmd.Parameters.Add("@File_data", SqlDbType.VarBinary);
+                //cmd.Parameters.Add("@Commission_File_ID", SqlDbType.Int);
+                //cmd.Parameters.Add("@Original_Or_Attached", SqlDbType.Int);
+                //cmd.Parameters.Add("@File_name", SqlDbType.NVarChar);
+                //cmd.Parameters.Add("@File_ext", SqlDbType.NVarChar);
+                //cmd.Parameters.Add("@Inbox_Or_Outbox", SqlDbType.Int);
+                //cmd.Parameters.Add("@Commission_ID", SqlDbType.Int);
+                //cmd.Parameters["@Commission_File_ID"].Value = CDataConverter.ConvertToInt(hidden_Inbox_OutBox_File_ID.Value);
+                //cmd.Parameters["@Original_Or_Attached"].Value = CDataConverter.ConvertToInt(ddl_Original_Or_Attached.SelectedValue);
+                //cmd.Parameters["@File_ext"].Value = type;
+                //cmd.Parameters["@File_name"].Value = txtFileName.Text;
+                //cmd.Parameters["@Inbox_Or_Outbox"].Value = 1;
+
+
                 if (CDataConverter.ConvertToInt(hidden_Inbox_OutBox_File_ID.Value) > 0)
                 {
-                   
-                  con = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
-                    cmd.Connection = con;
-                    cmd.CommandType = CommandType.Text;
-                    //cmd.CommandText = "Commission_Files_Save";
+                    int xx =CDataConverter.ConvertToInt(hidden_Inbox_OutBox_File_ID.Value);
 
-                    cmd.CommandText = " update Commission_Files set Original_Or_Attached=@Original_Or_Attached ,File_data=@File_data ,File_name=@File_name,File_ext=@File_ext where Commission_File_ID =@Commission_File_ID";
+                    Commission_Files  commFile = pmentity.Commission_Files.Where(x => x.Commission_File_ID ==xx ).SingleOrDefault();
 
-                    if (string.IsNullOrEmpty(Session_CS.local_connectionstring))
-                    {
-                        cmd.Connection = con;
-                        cmd.Parameters["@File_data"].Value = Input;
-                        con.Open();
-                        cmd.ExecuteScalar();
-                        con.Close();
+                    commFile.Original_Or_Attached = CDataConverter.ConvertToInt(ddl_Original_Or_Attached.SelectedValue);
+                    commFile.File_ext = type;
+                    commFile.File_name = txtFileName.Text;
+                    commFile.Inbox_Or_Outbox = 1;
+                    commFile.File_data = Input;
 
-                    }
-                    else
-                    {
+                  //con = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
+                  //  cmd.Connection = con;
+                  //  cmd.CommandType = CommandType.Text;
+                  //  //cmd.CommandText = "Commission_Files_Save";
 
-                        cmd.Connection = con;
-                        cmd.Parameters["@File_data"].Value = DBNull.Value;
-                        con.Open();
-                        cmd.ExecuteScalar();
-                        con.Close();
-                        try
-                        {
-                            cmd.Connection = con_local;
-                            cmd.Parameters["@File_data"].Value = Input;
+                  //  cmd.CommandText = " update Commission_Files set Original_Or_Attached=@Original_Or_Attached ,File_data=@File_data ,File_name=@File_name,File_ext=@File_ext where Commission_File_ID =@Commission_File_ID";
 
-                            con_local.Open();
-                            cmd.ExecuteScalar();
-                            con_local.Close();
+                  //  if (string.IsNullOrEmpty(Session_CS.local_connectionstring))
+                  //  {
+                  //      cmd.Connection = con;
+                  //      cmd.Parameters["@File_data"].Value = Input;
+                  //      con.Open();
+                  //      cmd.ExecuteScalar();
+                  //      con.Close();
+
+                  //  }
+                  //  else
+                  //  {
+
+                  //      cmd.Connection = con;
+                  //      cmd.Parameters["@File_data"].Value = DBNull.Value;
+                  //      con.Open();
+                  //      cmd.ExecuteScalar();
+                  //      con.Close();
+                  //      try
+                  //      {
+                  //          cmd.Connection = con_local;
+                  //          cmd.Parameters["@File_data"].Value = Input;
+
+                  //          con_local.Open();
+                  //          cmd.ExecuteScalar();
+                  //          con_local.Close();
 
 
-                        }
-                        catch
-                        {
-                            // can't connect to sql local, we should show message here
-                            ShowAlertMessage(" عفوا لم يتم الإتصال بقاعدة البيانات الداخلية");
+                  //      }
+                  //      catch
+                  //      {
+                  //          // can't connect to sql local, we should show message here
+                  //          ShowAlertMessage(" عفوا لم يتم الإتصال بقاعدة البيانات الداخلية");
 
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('عفوا لم يتم الإتصال بقاعدة البيانات الداخلية');", true);
+                  //          ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('عفوا لم يتم الإتصال بقاعدة البيانات الداخلية');", true);
 
-                        }
-                    }
+                  //      }
+                  //  }
+                    
 
                     txtFileName.Text =
                     hidden_Inbox_OutBox_File_ID.Value = "";
+                    InsertOrUpdate_Commission_files(commFile);
                 }
                 else
                 {
 
-                    cmd.CommandText = " insert into Commission_Files ( Commission_ID, Inbox_Or_Outbox, Original_Or_Attached, File_data, File_name, File_ext) VALUES ( @Commission_ID, @Inbox_Or_Outbox, @Original_Or_Attached, @File_data, @File_name, @File_ext) select @@identity";
+                    Commission_Files comFile = new Commission_Files();
+                   
+                       comFile.Commission_ID  = CDataConverter.ConvertToInt(hidden_Id.Value);
+                       comFile.Original_Or_Attached  = CDataConverter.ConvertToInt(ddl_Original_Or_Attached.SelectedValue);
+                       comFile. File_ext = type;
+                       comFile.File_name = txtFileName.Text;
+                       comFile.Inbox_Or_Outbox = 1;
+                       comFile. File_data = Input;
+                    
 
-                    if (string.IsNullOrEmpty(Session_CS.local_connectionstring))
-                    {
-                        cmd.Connection = con;
-                        cmd.Parameters["@File_data"].Value = Input;
-                        cmd.Parameters["@Commission_ID"].Value = CDataConverter.ConvertToInt(hidden_Id.Value);
-                        con.Open();
-                        cmd.ExecuteScalar();
-                        con.Close();
-
-                    }
-                    else
-                    {
-
-                        cmd.Connection = con;
-                        cmd.Parameters["@File_data"].Value = DBNull.Value;
-                        cmd.Parameters["@Commission_ID"].Value = CDataConverter.ConvertToInt(hidden_Id.Value);
-                        con.Open();
-                        out_box = CDataConverter.ConvertToInt(cmd.ExecuteScalar());
-                        con.Close();
-                        try
-                        {
-                            cmd.CommandText = " insert into Commission_Files ( Commission_File_ID,Commission_ID, Inbox_Or_Outbox, Original_Or_Attached, File_data, File_name, File_ext) VALUES ( @Commission_File_ID,@Commission_ID, @Inbox_Or_Outbox, @Original_Or_Attached, @File_data, @File_name, @File_ext) select @@identity";
-                            cmd.Connection = con_local;
-                            cmd.Parameters["@File_data"].Value = Input;
-                            cmd.Parameters["@Commission_File_ID"].Value = out_box;
-                            con_local.Open();
-                            cmd.ExecuteScalar();
-                            con_local.Close();
+                    InsertOrUpdate_Commission_files(comFile);
 
 
-                        }
-                        catch
-                        {
-                            // can't connect to sql local, we should show message here
-                            //ShowAlertMessage(" عفوا لم يتم الإتصال بقاعدة البيانات الداخلية");
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('عفوا لم يتم الإتصال بقاعدة البيانات الداخلية');", true);
 
-                        }
-                    }
+                    //cmd.CommandText = " insert into Commission_Files ( Commission_ID, Inbox_Or_Outbox, Original_Or_Attached, File_data, File_name, File_ext) VALUES ( @Commission_ID, @Inbox_Or_Outbox, @Original_Or_Attached, @File_data, @File_name, @File_ext) select @@identity";
+
+                    //if (string.IsNullOrEmpty(Session_CS.local_connectionstring))
+                    //{
+                    //    cmd.Connection = con;
+                    //    cmd.Parameters["@File_data"].Value = Input;
+                    //    cmd.Parameters["@Commission_ID"].Value = CDataConverter.ConvertToInt(hidden_Id.Value);
+                    //    con.Open();
+                    //    cmd.ExecuteScalar();
+                    //    con.Close();
+
+                    //}
+                    //else
+                    //{
+
+                    //    cmd.Connection = con;
+                    //    cmd.Parameters["@File_data"].Value = DBNull.Value;
+                    //    cmd.Parameters["@Commission_ID"].Value = CDataConverter.ConvertToInt(hidden_Id.Value);
+                    //    con.Open();
+                    //    out_box = CDataConverter.ConvertToInt(cmd.ExecuteScalar());
+                    //    con.Close();
+                    //    try
+                    //    {
+                    //        cmd.CommandText = " insert into Commission_Files ( Commission_File_ID,Commission_ID, Inbox_Or_Outbox, Original_Or_Attached, File_data, File_name, File_ext) VALUES ( @Commission_File_ID,@Commission_ID, @Inbox_Or_Outbox, @Original_Or_Attached, @File_data, @File_name, @File_ext) select @@identity";
+                    //        cmd.Connection = con_local;
+                    //        cmd.Parameters["@File_data"].Value = Input;
+                    //        cmd.Parameters["@Commission_File_ID"].Value = out_box;
+                    //        con_local.Open();
+                    //        cmd.ExecuteScalar();
+                    //        con_local.Close();
+
+
+                    //    }
+                    //    catch
+                    //    {
+                    //        // can't connect to sql local, we should show message here
+                    //        //ShowAlertMessage(" عفوا لم يتم الإتصال بقاعدة البيانات الداخلية");
+                    //        ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('عفوا لم يتم الإتصال بقاعدة البيانات الداخلية');", true);
+
+                    //    }
+                    //}
 
                     txtFileName.Text =
                     hidden_Inbox_OutBox_File_ID.Value = "";
@@ -1286,14 +1345,11 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
 
 
 
+                Fil_Grid_Documents();
+
             }
 
-
-
-
-
-            // Clear_Cntrl();
-            Fil_Grid_Documents();
+           
         }
         else
         {
@@ -1421,6 +1477,21 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
            
             context.SaveChanges();
             
+        }
+    }
+
+    public void InsertOrUpdate_Commission_files(Commission_Files blog)
+    {
+
+
+        using (var context = new Projects_ManagementEntities10())
+        {
+            context.Entry(blog).State = blog.Commission_File_ID == 0 ?
+                                      System.Data.Entity.EntityState.Added :
+                                      System.Data.Entity.EntityState.Modified;
+
+            context.SaveChanges();
+
         }
     }
 
@@ -1813,7 +1884,7 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
 
               //  obj.Follow_ID = Commission_Visa_Follows_DB.Save(obj);
 
-                InsertOrUpdate_Commission_Visa_follows(obj);
+               
 
                 if (FileUpload_Visa_Follow.HasFile)
                 {
@@ -1828,89 +1899,83 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
                     Byte[] Input = new Byte[fileLen];
                     myStream = FileUpload_Visa_Follow.FileContent;
                     myStream.Read(Input, 0, fileLen);
-                    SqlCommand cmd = new SqlCommand();
-                    SqlConnection con = new SqlConnection();
-                    SqlCommand cmd_local = new SqlCommand();
-                    SqlConnection con_local = new SqlConnection();
-                    con = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
-                    con_local = new SqlConnection(Session_CS.local_connectionstring);
-                    cmd.Parameters.Add("@File_data", SqlDbType.VarBinary);
-                    cmd.Parameters.Add("@File_name", SqlDbType.NVarChar);
-                    cmd.Parameters.Add("@File_ext", SqlDbType.NVarChar);
-                    cmd.Parameters.Add("@Follow_ID", SqlDbType.BigInt);
 
-                   // cmd.Parameters["@File_data"].Value = Input;
-                    cmd.Parameters["@File_name"].Value = DocName;
-                    cmd.Parameters["@File_ext"].Value = type;
-                    cmd.Parameters["@Follow_ID"].Value = obj.Follow_ID;
+                   // SqlCommand cmd = new SqlCommand();
+                   // SqlConnection con = new SqlConnection();
+                   // SqlCommand cmd_local = new SqlCommand();
+                   // SqlConnection con_local = new SqlConnection();
+                   // con = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
+                   // con_local = new SqlConnection(Session_CS.local_connectionstring);
+                   // cmd.Parameters.Add("@File_data", SqlDbType.VarBinary);
+                   // cmd.Parameters.Add("@File_name", SqlDbType.NVarChar);
+                   // cmd.Parameters.Add("@File_ext", SqlDbType.NVarChar);
+                   // cmd.Parameters.Add("@Follow_ID", SqlDbType.BigInt);
+
+                   //// cmd.Parameters["@File_data"].Value = Input;
+                   // cmd.Parameters["@File_name"].Value = DocName;
+                   // cmd.Parameters["@File_ext"].Value = type;
+                   // cmd.Parameters["@Follow_ID"].Value = obj.Follow_ID;
 
                    
-                    cmd.CommandType = CommandType.Text;
-                    cmd.CommandText = " update Commission_Visa_Follows set File_data =@File_data ,File_name=@File_name,File_ext=@File_ext where Follow_ID =@Follow_ID";
+                    obj.File_name = DocName;
+                    obj.File_ext = type;
+                    obj.Follow_ID = obj.Follow_ID;
+                    obj.File_data = Input;
+
+                   // cmd.CommandType = CommandType.Text;
+                  //  cmd.CommandText = " update Commission_Visa_Follows set File_data =@File_data ,File_name=@File_name,File_ext=@File_ext where Follow_ID =@Follow_ID";
+                    //if (string.IsNullOrEmpty(Session_CS.local_connectionstring))
+                    //{
+                    //    cmd.Connection = con;
+                    //    cmd.Parameters["@File_data"].Value = Input;
+                    //    con.Open();
+                    //    cmd.ExecuteScalar();
+                    //    con.Close();
+
+                    //}
+                    //else
+                    //{
+
+                    //    cmd.Connection = con;
+                    //    cmd.Parameters["@File_data"].Value = DBNull.Value;
+                    //    con.Open();
+                    //    cmd.ExecuteScalar();
+                    //    con.Close();
+                    //    try
+                    //    {
+                    //        cmd.Connection = con_local;
+                    //        cmd.Parameters["@File_data"].Value = Input;
+
+                    //        con_local.Open();
+                    //        cmd.ExecuteScalar();
+                    //        con_local.Close();
 
 
-                    if (string.IsNullOrEmpty(Session_CS.local_connectionstring))
-                    {
-                        cmd.Connection = con;
-                        cmd.Parameters["@File_data"].Value = Input;
-                        con.Open();
-                        cmd.ExecuteScalar();
-                        con.Close();
+                    //    }
+                    //    catch
+                    //    {
+                    //        // can't connect to sql local, we should show message here
 
-                    }
-                    else
-                    {
-
-                        cmd.Connection = con;
-                        cmd.Parameters["@File_data"].Value = DBNull.Value;
-                        con.Open();
-                        cmd.ExecuteScalar();
-                        con.Close();
-                        try
-                        {
-                            cmd.Connection = con_local;
-                            cmd.Parameters["@File_data"].Value = Input;
-
-                            con_local.Open();
-                            cmd.ExecuteScalar();
-                            con_local.Close();
+                    //     //   ShowAlertMessage("   عفوا لم يتم الإتصال بقاعدة البيانات الداخلية");
 
 
-                        }
-                        catch
-                        {
-                            // can't connect to sql local, we should show message here
+                    //        ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('عفوا لم يتم الإتصال بقاعدة البيانات الداخلية');", true);
 
-                         //   ShowAlertMessage("   عفوا لم يتم الإتصال بقاعدة البيانات الداخلية");
+                    //    }
+                    //}
 
 
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('عفوا لم يتم الإتصال بقاعدة البيانات الداخلية');", true);
+                  //  InsertOrUpdate_Commission_Visa_follows(com);
 
-                        }
-                    }
+                    InsertOrUpdate_Commission_Visa_follows(obj);
 
-
-
+                    Fil_Grid_Visa_Follow();
                 }
-                ///////////// change have follow = 1/////////////////////////////////////////////
-
-                //SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
-                //DataTable DT = new DataTable();
-                //DT = General_Helping.GetDataTable("select * from Inbox_Track_Manager where inbox_id = " + hidden_Id.Value);
-                //if (DT.Rows.Count > 0)
-                //{
-                //    conn.Open();
-                //    string sql = "update Inbox_Track_Manager set Have_Follow=1 where inbox_id =" + hidden_Id.Value;
-                //    SqlCommand cmd = new SqlCommand(sql, conn);
-                //    cmd.ExecuteNonQuery();
-                //    conn.Close();
-
-                //}
 
 
                 Clear_visa_Follow();
 
-                Fil_Grid_Visa_Follow();
+            
             }
             else
             {
@@ -2384,7 +2449,7 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
        DataTable dt = pmentity.Fil_Visa_foremployee(visaid).ToDataTable();
 
         //DataTable dt = General_Helping.GetDataTable(sql);
-
+     
         for (int i = 0; i < dt.Rows.Count; i++)
         {
             ListItem obj = new ListItem(dt.Rows[i]["pmp_name"].ToString(), dt.Rows[i]["Emp_ID"].ToString());
@@ -2520,8 +2585,8 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
         int pmp = CDataConverter.ConvertToInt(Session_CS.pmp_id);
         string visa_ID = obj.ToString();
         string emp_name = "";
-        DataTable DT = new DataTable();
-        string sql = "SELECT EMPLOYEE.pmp_name FROM Commission_Visa_Emp INNER JOIN EMPLOYEE ON Commission_Visa_Emp.Emp_ID = EMPLOYEE.PMP_ID WHERE Commission_Visa_Emp.Visa_Id  =" + visa_ID;
+       DataTable DT = new DataTable();
+     //   string sql = "SELECT EMPLOYEE.pmp_name FROM Commission_Visa_Emp INNER JOIN EMPLOYEE ON Commission_Visa_Emp.Emp_ID = EMPLOYEE.PMP_ID WHERE Commission_Visa_Emp.Visa_Id  =" + visa_ID;
      //   DataTable dt_new = General_Helping.GetDataTable("select * from parent_employee where pmp_id = " + CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()));
 
         var query = from par_emp in outboxDBContext.parent_employees where par_emp.pmp_id == pmp select pmp;
@@ -2533,16 +2598,22 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
         if (dt_new.Rows.Count > 0)
         {
 
-           sql += " and Commission_Visa_Emp.Emp_id <> " + CDataConverter.ConvertToInt(dt_new.Rows[0]["parent_pmp_id"].ToString());
+          // sql += " and Commission_Visa_Emp.Emp_id <> " + CDataConverter.ConvertToInt(dt_new.Rows[0]["parent_pmp_id"].ToString());
 
 
+            DT = (pmentity.get_commission_visa_emp(CDataConverter.ConvertToInt(dt_new.Rows[0]["parent_pmp_id"].ToString())).ToDataTable());
         }
         else
         {
-            sql += " and Commission_Visa_Emp.Emp_id <> " + CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
+       //     sql += " and Commission_Visa_Emp.Emp_id <> " + CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
+
+
+            DT = (pmentity.get_commission_visa_emp( CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString())).ToDataTable());
 
         }
-        DT = General_Helping.GetDataTable(sql);
+
+    //    DT = General_Helping.GetDataTable(sql);
+
         foreach (DataRow dr in DT.Rows)
         {
             emp_name += dr["pmp_name"].ToString() + ",";
@@ -2663,111 +2734,145 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
         string sql, sql_emp = "";
         int dept_selected = CDataConverter.ConvertToInt(Smart_Search_dept.SelectedValue);
         int session_found = CDataConverter.ConvertToInt(Session_CS.foundation_id);
-        var emp_query = default(object);
 
-        if (radlst_Type.SelectedValue == "1")
+
+
+        if (radlst_Type.SelectedValue != "7")
         {
-            sql_emp = " select * from pmp_fav_View where pmp_fav_View.employee_id = " + CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
 
-            int pmp = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
 
-          //  emp_query = from emmp in pmentity.pmp_fav_View where emmp.employee_id == pmp select emmp;  
+            DataTable DT_emp;
 
-            if (Smart_Search_dept.SelectedValue != "")
+            SqlParameter[] sqlParams = new SqlParameter[4];
+
+            sqlParams[0] = new SqlParameter("@radiocheck", radlst_Type.SelectedValue);
+            sqlParams[1] = new SqlParameter("@pmp_id", Session_CS.pmp_id);
+
+            if (CDataConverter.ConvertToInt(Smart_Search_dept.SelectedValue) > 0)
+                sqlParams[2] = new SqlParameter("@dept_id", CDataConverter.ConvertToInt(Smart_Search_dept.SelectedValue));
+            else
+                sqlParams[2] = new SqlParameter("@dept_id", CDataConverter.ConvertToInt(DBNull.Value));
+
+            sqlParams[3] = new SqlParameter("@found_id", Session_CS.foundation_id);
+
+            DT_emp = DatabaseFunctions.SelectDataByParam(sqlParams, "get_employee_accoording_to_radiochek");
+            if (DT_emp.Rows.Count > 0)
             {
-               sql_emp += " AND Dept_Dept_id = " + Smart_Search_dept.SelectedValue;
-
-               // emp_query = from emmp in pmentity.pmp_fav_View where emmp.employee_id == pmp && emmp.Dept_Dept_id == dept_selected  select emmp; 
+                chklst_Visa_Emp_All.DataSource = DT_emp;
+                chklst_Visa_Emp_All.DataBind();
             }
+        }
+        TabPanel_All.ActiveTab = TabPanel_Visa;
+
+
+
+        //var emp_query = default(object);
+
+        //if (radlst_Type.SelectedValue == "1")
+        //{
+        //    sql_emp = " select * from pmp_fav_View where pmp_fav_View.employee_id = " + CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
+
+        //    int pmp = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
+
+        //  //  emp_query = from emmp in pmentity.pmp_fav_View where emmp.employee_id == pmp select emmp;  
+
+        //    if (Smart_Search_dept.SelectedValue != "")
+        //    {
+        //       sql_emp += " AND Dept_Dept_id = " + Smart_Search_dept.SelectedValue;
+
+        //       // emp_query = from emmp in pmentity.pmp_fav_View where emmp.employee_id == pmp && emmp.Dept_Dept_id == dept_selected  select emmp; 
+        //    }
 
           
 
 
-        }
-        else if (radlst_Type.SelectedValue == "2")
-        {
+        //}
+        //else if (radlst_Type.SelectedValue == "2")
+        //{
 
-            sql_emp = "SELECT     EMPLOYEE.*,Departments.* FROM Departments  INNER JOIN EMPLOYEE ON Departments.Dept_id = EMPLOYEE.Dept_Dept_id where  EMPLOYEE.PMP_ID not in(select parent_pmp_id from dbo.parent_employee) and dbo.EMPLOYEE.workstatus = 1 and EMPLOYEE.foundation_id='" + Session_CS.foundation_id + "'";
+        //    sql_emp = "SELECT     EMPLOYEE.*,Departments.* FROM Departments  INNER JOIN EMPLOYEE ON Departments.Dept_id = EMPLOYEE.Dept_Dept_id where  EMPLOYEE.PMP_ID not in(select parent_pmp_id from dbo.parent_employee) and dbo.EMPLOYEE.workstatus = 1 and EMPLOYEE.foundation_id='" + Session_CS.foundation_id + "'";
 
-            //emp_query = (from empp in pmentity.EMPLOYEE
-            //             join deppp in pmentity.Departments on empp.Dept_Dept_id equals deppp.Dept_id
-            //             where empp.foundation_id == session_found
-            //             select new
-            //             {
+        //    //emp_query = (from empp in pmentity.EMPLOYEE
+        //    //             join deppp in pmentity.Departments on empp.Dept_Dept_id equals deppp.Dept_id
+        //    //             where empp.foundation_id == session_found
+        //    //             select new
+        //    //             {
 
-            //             }
-
-
-            //            );
-
-            if (Smart_Search_dept.SelectedValue != "")
-            {
-               sql_emp += " and Dept_Dept_id = " + Smart_Search_dept.SelectedValue;
-
-                //emp_query = (from empp in pmentity.EMPLOYEE
-                //             join deppp in pmentity.Departments on empp.Dept_Dept_id equals deppp.Dept_id
-                //             where empp.foundation_id == session_found && empp.Dept_Dept_id == dept_selected
-                //             select new
-                //             {
-
-                //             }
+        //    //             }
 
 
-                //   );
-            }
+        //    //            );
+
+        //    if (Smart_Search_dept.SelectedValue != "")
+        //    {
+        //       sql_emp += " and Dept_Dept_id = " + Smart_Search_dept.SelectedValue;
+
+        //        //emp_query = (from empp in pmentity.EMPLOYEE
+        //        //             join deppp in pmentity.Departments on empp.Dept_Dept_id equals deppp.Dept_id
+        //        //             where empp.foundation_id == session_found && empp.Dept_Dept_id == dept_selected
+        //        //             select new
+        //        //             {
+
+        //        //             }
+
+
+        //        //   );
+        //    }
      
-        }
-        else if (radlst_Type.SelectedValue == "3")
-        {
-            // sql_emp = " select * from employee where rol_rol_id=3  and dbo.EMPLOYEE.workstatus = 1";
+        //}
+        //else if (radlst_Type.SelectedValue == "3")
+        //{
+        //    // sql_emp = " select * from employee where rol_rol_id=3  and dbo.EMPLOYEE.workstatus = 1";
 
-            sql_emp = "SELECT     EMPLOYEE.*,Departments.* FROM Departments  INNER JOIN EMPLOYEE ON Departments.Dept_id = EMPLOYEE.Dept_Dept_id where dbo.EMPLOYEE.workstatus = 1 and rol_rol_id=3 and EMPLOYEE.foundation_id='" + Session_CS.foundation_id + "'";
+        //    sql_emp = "SELECT     EMPLOYEE.*,Departments.* FROM Departments  INNER JOIN EMPLOYEE ON Departments.Dept_id = EMPLOYEE.Dept_Dept_id where dbo.EMPLOYEE.workstatus = 1 and rol_rol_id=3 and EMPLOYEE.foundation_id='" + Session_CS.foundation_id + "'";
 
 
-            if (Smart_Search_dept.SelectedValue != "")
-            {
-                sql_emp += " AND Dept_Dept_id = " + Smart_Search_dept.SelectedValue;
-            }
+        //    if (Smart_Search_dept.SelectedValue != "")
+        //    {
+        //        sql_emp += " AND Dept_Dept_id = " + Smart_Search_dept.SelectedValue;
+        //    }
 
-            //if (drop_sectors.SelectedValue != "" && drop_sectors.SelectedValue != "0")
-            //{
-            //    sql_emp += "and  Sectors.Sec_id=" + drop_sectors.SelectedValue;
-            //}
+        //    //if (drop_sectors.SelectedValue != "" && drop_sectors.SelectedValue != "0")
+        //    //{
+        //    //    sql_emp += "and  Sectors.Sec_id=" + drop_sectors.SelectedValue;
+        //    //}
 
-        }
-        else if (radlst_Type.SelectedValue == "4")
-        {
-            // sql_emp = " select * from employee where contact_person=1 and dbo.EMPLOYEE.workstatus = 1 ";
+        //}
+        //else if (radlst_Type.SelectedValue == "4")
+        //{
+        //    // sql_emp = " select * from employee where contact_person=1 and dbo.EMPLOYEE.workstatus = 1 ";
 
-            sql_emp = "SELECT     EMPLOYEE.*,  Sectors.*,Departments.* FROM Departments INNER JOIN Sectors ON Departments.Sec_sec_id = Sectors.Sec_id INNER JOIN EMPLOYEE ON Departments.Dept_id = EMPLOYEE.Dept_Dept_id where dbo.EMPLOYEE.workstatus = 1 and contact_person=1 and EMPLOYEE.foundation_id='" + Session_CS.foundation_id + "'";
+        //    sql_emp = "SELECT     EMPLOYEE.*,  Sectors.*,Departments.* FROM Departments INNER JOIN Sectors ON Departments.Sec_sec_id = Sectors.Sec_id INNER JOIN EMPLOYEE ON Departments.Dept_id = EMPLOYEE.Dept_Dept_id where dbo.EMPLOYEE.workstatus = 1 and contact_person=1 and EMPLOYEE.foundation_id='" + Session_CS.foundation_id + "'";
 
-            if (Smart_Search_dept.SelectedValue != "")
-            {
-                sql_emp += " AND Dept_Dept_id = " + Smart_Search_dept.SelectedValue;
-            }
+        //    if (Smart_Search_dept.SelectedValue != "")
+        //    {
+        //        sql_emp += " AND Dept_Dept_id = " + Smart_Search_dept.SelectedValue;
+        //    }
 
-            //if (drop_sectors.SelectedValue != "" && drop_sectors.SelectedValue != "0")
-            //{
-            //    sql_emp += "and  Sectors.Sec_id=" + drop_sectors.SelectedValue;
-            //}
+        //    //if (drop_sectors.SelectedValue != "" && drop_sectors.SelectedValue != "0")
+        //    //{
+        //    //    sql_emp += "and  Sectors.Sec_id=" + drop_sectors.SelectedValue;
+        //    //}
 
-        }
-        else if (radlst_Type.SelectedValue == "5")
-        {
-            sql_emp = "  select EMPLOYEE.pmp_name + ' - رئيس ' + +' '+ Commitee.Commitee_Title as pmp_name ,EMPLOYEE.PMP_ID from EMPLOYEE inner join commitee_presidents on  EMPLOYEE.PMP_ID=commitee_presidents.pmp_id inner join Commitee on commitee_presidents.comt_id = Commitee.ID where  Commitee.foundation_id='" + Session_CS.foundation_id + "'";
+        //}
+        //else if (radlst_Type.SelectedValue == "5")
+        //{
+        //    sql_emp = "  select EMPLOYEE.pmp_name + ' - رئيس ' + +' '+ Commitee.Commitee_Title as pmp_name ,EMPLOYEE.PMP_ID from EMPLOYEE inner join commitee_presidents on  EMPLOYEE.PMP_ID=commitee_presidents.pmp_id inner join Commitee on commitee_presidents.comt_id = Commitee.ID where  Commitee.foundation_id='" + Session_CS.foundation_id + "'";
 
-        }
+        //}
 
-        else if (radlst_Type.SelectedValue == "6")
-        {
+        //else if (radlst_Type.SelectedValue == "6")
+        //{
 
-            sql_emp = "select EMPLOYEE.pmp_name COLLATE DATABASE_DEFAULT  + ' -  ' + Departments.Dept_name  as pmp_name,EMPLOYEE.PMP_ID from EMPLOYEE inner join commitee_presidents on  EMPLOYEE.PMP_ID=commitee_presidents.pmp_id inner join Departments on  commitee_presidents.dept_id = Departments.Dept_id   inner join Sectors  on Sectors.Sec_id = Departments.Sec_sec_id where Sectors.foundation_id='" + Session_CS.foundation_id + "'";
-        }
+        //    sql_emp = "select EMPLOYEE.pmp_name COLLATE DATABASE_DEFAULT  + ' -  ' + Departments.Dept_name  as pmp_name,EMPLOYEE.PMP_ID from EMPLOYEE inner join commitee_presidents on  EMPLOYEE.PMP_ID=commitee_presidents.pmp_id inner join Departments on  commitee_presidents.dept_id = Departments.Dept_id   inner join Sectors  on Sectors.Sec_id = Departments.Sec_sec_id where Sectors.foundation_id='" + Session_CS.foundation_id + "'";
+        //}
 
-        TabPanel_All.ActiveTab = TabPanel_Visa;
-        DataTable dt_emp_fav = General_Helping.GetDataTable(sql_emp);
-        chklst_Visa_Emp_All.DataSource = dt_emp_fav;
-        chklst_Visa_Emp_All.DataBind();
+       
+        //DataTable dt_emp_fav = General_Helping.GetDataTable(sql_emp);
+        //chklst_Visa_Emp_All.DataSource = dt_emp_fav;
+        //chklst_Visa_Emp_All.DataBind();
+
+       
     }
     protected void Chk_main_cat_SelectedIndexChanged(object sender, EventArgs e)
     {

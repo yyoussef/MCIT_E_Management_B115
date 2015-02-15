@@ -77,4 +77,18 @@ public partial class Projects_ManagementEntities10 : DbContext
 
         return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Get_Visa_foremployee>("Get_Visa_foremployee", visa_IdParameter);
     }
+
+    public virtual ObjectResult<get_commission_visa_emp> get_commission_visa_emp(Nullable<int> visa_Id)
+    {
+        var visa_IdParameter = visa_Id.HasValue ?
+            new ObjectParameter("Visa_Id", visa_Id) :
+            new ObjectParameter("Visa_Id", typeof(int));
+
+        return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_commission_visa_emp>("get_commission_visa_emp", visa_IdParameter);
+    }
+
+  
+
+
+
 }

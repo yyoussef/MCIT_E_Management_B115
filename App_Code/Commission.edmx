@@ -133,6 +133,9 @@ warning 6002: The table/view 'Projects_Management.dbo.Commission_follow_emp' doe
         <Function Name="get_comm_infor_formail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Commission_ID" Type="int" Mode="In" />
         </Function>
+        <Function Name="get_commission_visa_emp" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Visa_Id" Type="int" Mode="In" />
+        </Function>
         <Function Name="get_Emp_Visa_Follow" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Commission_ID" Type="int" Mode="In" />
         </Function>
@@ -303,6 +306,9 @@ warning 6002: The table/view 'Projects_Management.dbo.Commission_follow_emp' doe
           <Parameter Name="Visa_Id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Get_Visa_foremployee" ReturnType="Collection(Projects_ManagementModel.Get_Visa_foremployee)">
+          <Parameter Name="Visa_Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="get_commission_visa_emp" ReturnType="Collection(Projects_ManagementModel.get_commission_visa_emp)">
             <Parameter Name="Visa_Id" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
@@ -323,12 +329,26 @@ warning 6002: The table/view 'Projects_Management.dbo.Commission_follow_emp' doe
         </ComplexType>
         <ComplexType Name="get_comm_infor_formail" >
           <Property Type="Int32" Name="Commission_ID" Nullable="false" />
+          <Property Type="Int32" Name="Follow_ID" Nullable="false" />
+          <Property Type="Binary" Name="File_data" Nullable="false" />
+          <Property Type="String" Name="File_name" Nullable="false" />
+          <Property Type="String" Name="File_ext" Nullable="false" />
+          <Property Type="String" Name="Descrption" Nullable="false" />
+          <Property Type="String" Name="Date" Nullable="false" />
+          <Property Type="Int32" Name="Visa_Emp_id" Nullable="false" />
+          <Property Type="String" Name="pmp_name" Nullable="false" />
         </ComplexType>
         <ComplexType Name="Fil_Visa_foremployee" >
           <Property Type="Int32" Name="Visa_Id" Nullable="false" />
+          <Property Type="String" Name="pmp_name" Nullable="false" />
+          <Property Type="Int32" Name="Emp_ID" Nullable="false" />
         </ComplexType>
         <ComplexType Name="Get_Visa_foremployee" >
           <Property Type="Int32" Name="Visa_Id" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="get_commission_visa_emp" >
+          <Property Type="Int32" Name="Visa_Id" Nullable="false" />
+          <Property Type="String" Name="pmp_name" Nullable="false" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -503,6 +523,13 @@ warning 6002: The table/view 'Projects_Management.dbo.Commission_follow_emp' doe
           <FunctionImportMapping FunctionImportName="Get_Visa_foremployee" FunctionName="Projects_ManagementModel.Store.Get_Visa_foremployee">
             <ResultMapping>
               <ComplexTypeMapping TypeName="Projects_ManagementModel.Get_Visa_foremployee">
+                <ScalarProperty Name="Visa_Id" ColumnName="Visa_Id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_commission_visa_emp" FunctionName="Projects_ManagementModel.Store.get_commission_visa_emp">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Projects_ManagementModel.get_commission_visa_emp">
                 <ScalarProperty Name="Visa_Id" ColumnName="Visa_Id" />
               </ComplexTypeMapping>
             </ResultMapping>
