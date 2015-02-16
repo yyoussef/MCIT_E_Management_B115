@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="Copy of Commission_Search.ascx.cs"
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="Commission_Search_New.ascx.cs"
     Inherits="UserControls_Commission_Search" %>
 <%@ Register Src="Smart_Search.ascx" TagName="Smart_Search" TagPrefix="uc1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>

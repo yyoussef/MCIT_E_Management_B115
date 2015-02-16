@@ -28,6 +28,9 @@ public partial class UserControls_Commission_Search : System.Web.UI.UserControl
     private string sql_Connection = Database.ConnectionString;
     General_Helping Obj_General_Helping = new General_Helping();
     //Session_CS Session_CS = new Session_CS();
+
+    OutboxDataContext outboxDBContext = new OutboxDataContext();
+    Projects_ManagementEntities10 pmentity = new Projects_ManagementEntities10();
     protected void Page_Load(object sender, EventArgs e)
     {
 
@@ -43,10 +46,20 @@ public partial class UserControls_Commission_Search : System.Web.UI.UserControl
     {
       
 
-        Smart_Emp_ID.sql_Connection = sql_Connection;
-      string  Query = "SELECT EMPLOYEE.PMP_ID, EMPLOYEE.pmp_name FROM EMPLOYEE  where foundation_id='" + Session_CS.foundation_id + "' and EMPLOYEE.workstatus!=4";
+      //  Smart_Emp_ID.sql_Connection = sql_Connection;
+      //string  Query = "SELECT EMPLOYEE.PMP_ID, EMPLOYEE.pmp_name FROM EMPLOYEE  where foundation_id='" + Session_CS.foundation_id + "' and EMPLOYEE.workstatus!=4";
 
-        Smart_Emp_ID.datatble = General_Helping.GetDataTable(Query);
+      //  Smart_Emp_ID.datatble = General_Helping.GetDataTable(Query);
+      //  Smart_Emp_ID.Value_Field = "pmp_id";
+      //  Smart_Emp_ID.Text_Field = "pmp_name";
+      //  Smart_Emp_ID.Orderby = "ORDER BY LTRIM(pmp_name)";
+      //  Smart_Emp_ID.DataBind();
+
+        int empid = CDataConverter.ConvertToInt(Session_CS.foundation_id);
+
+        var query = from emp in outboxDBContext.EMPLOYEEs where emp.foundation_id == empid && emp.workstatus != 4 select emp;
+        DataTable dt = query.ToDataTable();
+        Smart_Emp_ID.datatble = dt;
         Smart_Emp_ID.Value_Field = "pmp_id";
         Smart_Emp_ID.Text_Field = "pmp_name";
         Smart_Emp_ID.Orderby = "ORDER BY LTRIM(pmp_name)";
