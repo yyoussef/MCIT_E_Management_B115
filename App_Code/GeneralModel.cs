@@ -10,6 +10,34 @@
 using System;
 using System.Collections.Generic;
 
+public partial class Admin_Module
+{
+    public int pk_ID { get; set; }
+    public string Name { get; set; }
+    public Nullable<bool> Active { get; set; }
+
+    public virtual Admin_Module Admin_Module1 { get; set; }
+    public virtual Admin_Module Admin_Module2 { get; set; }
+}
+
+public partial class Admin_Module_Found
+{
+    public int ID { get; set; }
+    public Nullable<int> Mod_ID { get; set; }
+    public Nullable<bool> Mod_status { get; set; }
+    public Nullable<int> found_id { get; set; }
+}
+
+public partial class Admin_Users
+{
+    public int ID { get; set; }
+    public string Name { get; set; }
+    public string User_name { get; set; }
+    public string Password { get; set; }
+    public Nullable<int> foundation_id { get; set; }
+    public Nullable<bool> account_active { get; set; }
+}
+
 public partial class Foundations
 {
     public int Foundation_ID { get; set; }
@@ -22,4 +50,35 @@ public partial class Foundations
     public string FromAddress { get; set; }
     public string connection_string { get; set; }
     public Nullable<bool> islocal { get; set; }
+}
+
+public partial class AdminUsers_SelectName_Exsit_Result
+{
+    public int ID { get; set; }
+    public string Name { get; set; }
+    public string User_name { get; set; }
+    public string Password { get; set; }
+    public Nullable<int> foundation_id { get; set; }
+    public Nullable<bool> account_active { get; set; }
+}
+
+public partial class Foundations_Followup_Result
+{
+    public Nullable<int> Inbox_count { get; set; }
+    public Nullable<int> outbox_count { get; set; }
+    public Nullable<int> Employee_count { get; set; }
+    public string found_name { get; set; }
+    public Nullable<int> Visa_count { get; set; }
+    public Nullable<int> Follows_count { get; set; }
+    public Nullable<int> Visaoutbox_count { get; set; }
+    public Nullable<int> Followsoutbox_count { get; set; }
+}
+
+public partial class SuperAdminUsers_SelectName_Result
+{
+    public int ID { get; set; }
+    public string Name { get; set; }
+    public string User_name { get; set; }
+    public string Password { get; set; }
+    public Nullable<bool> account_active { get; set; }
 }

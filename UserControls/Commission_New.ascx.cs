@@ -1385,7 +1385,7 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
         {
            
             
-            Commission_Files_DB.Delete(CDataConverter.ConvertToInt(e.CommandArgument));
+            //Commission_Files_DB.Delete(CDataConverter.ConvertToInt(e.CommandArgument));
 
             int com_file_id = CDataConverter.ConvertToInt(e.CommandArgument);
 

@@ -10,6 +10,8 @@
 using System;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Core.Objects;
+using System.Linq;
 
 public partial class Projects_ManagementEntities : DbContext
 {
@@ -24,4 +26,34 @@ public partial class Projects_ManagementEntities : DbContext
     }
 
     public virtual DbSet<Foundations> Foundations { get; set; }
+    public virtual DbSet<Admin_Users> Admin_Users { get; set; }
+    public virtual DbSet<Admin_Module> Admin_Module { get; set; }
+    public virtual DbSet<Admin_Module_Found> Admin_Module_Found { get; set; }
+
+    public virtual ObjectResult<AdminUsers_SelectName_Exsit_Result> AdminUsers_SelectName_Exsit(string user_name)
+    {
+        var user_nameParameter = user_name != null ?
+            new ObjectParameter("User_name", user_name) :
+            new ObjectParameter("User_name", typeof(string));
+
+        return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<AdminUsers_SelectName_Exsit_Result>("AdminUsers_SelectName_Exsit", user_nameParameter);
+    }
+
+    public virtual ObjectResult<Foundations_Followup_Result> Foundations_Followup(Nullable<int> foundation_id)
+    {
+        var foundation_idParameter = foundation_id.HasValue ?
+            new ObjectParameter("foundation_id", foundation_id) :
+            new ObjectParameter("foundation_id", typeof(int));
+
+        return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Foundations_Followup_Result>("Foundations_Followup", foundation_idParameter);
+    }
+
+    public virtual ObjectResult<SuperAdminUsers_SelectName_Result> SuperAdminUsers_SelectName(string user_name)
+    {
+        var user_nameParameter = user_name != null ?
+            new ObjectParameter("User_name", user_name) :
+            new ObjectParameter("User_name", typeof(string));
+
+        return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SuperAdminUsers_SelectName_Result>("SuperAdminUsers_SelectName", user_nameParameter);
+    }
 }
