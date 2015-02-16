@@ -94,61 +94,87 @@ public partial class UserControls_Commission_Search : System.Web.UI.UserControl
 
         int group = 0;
 
-        if (CDataConverter.ConvertToInt(Session_CS.parent_id.ToString()) > 0 || CDataConverter.ConvertToInt(Session_CS.child_emp.ToString()) > 0)
-        {
-            group = int.Parse(Session_CS.group_id.ToString());
+        //if (CDataConverter.ConvertToInt(Session_CS.parent_id.ToString()) > 0 || CDataConverter.ConvertToInt(Session_CS.child_emp.ToString()) > 0)
+        //{
+        //    group = int.Parse(Session_CS.group_id.ToString());
 
-        }
-        else
-        {
+        //}
+        //else
+        //{
 
-            group = CDataConverter.ConvertToInt(DBNull.Value);
-        }
+        //    group = CDataConverter.ConvertToInt(DBNull.Value);
+        //}
        
         
 
-        SqlParameter[] parms = new SqlParameter[9];
-        if (CDataConverter.ConvertToInt(Session_CS.parent_id.ToString()) > 0 || CDataConverter.ConvertToInt(Session_CS.child_emp.ToString()) > 0)
-        {
-            parms[0] = new SqlParameter("@group_id", int.Parse(Session_CS.group_id.ToString()));
-        }
-        else
-        {
-            parms[0] = new SqlParameter("@group_id", CDataConverter.ConvertToInt(DBNull.Value));
-        }
-        parms[1] = new SqlParameter("@pmp", int.Parse(Session_CS.pmp_id.ToString()));
+        //SqlParameter[] parms = new SqlParameter[9];
+        //if (CDataConverter.ConvertToInt(Session_CS.parent_id.ToString()) > 0 || CDataConverter.ConvertToInt(Session_CS.child_emp.ToString()) > 0)
+        //{
+        //    parms[0] = new SqlParameter("@group_id", int.Parse(Session_CS.group_id.ToString()));
+        //}
+        //else
+        //{
+        //    parms[0] = new SqlParameter("@group_id", CDataConverter.ConvertToInt(DBNull.Value));
+        //}
+        //parms[1] = new SqlParameter("@pmp", int.Parse(Session_CS.pmp_id.ToString()));
 
 
-        parms[2] = new SqlParameter("@subject", Com_name_text.Text);
+        //parms[2] = new SqlParameter("@subject", Com_name_text.Text);
 
 
-        if (Com_date_from.Text == "")
-        {
-            parms[3] = new SqlParameter("@com_date_from","01/01/1900");
-        }
-        else
-            parms[3] = new SqlParameter("@com_date_from", Com_date_from.Text);
-        if (Com_date_to.Text == "")
-        {
-            parms[4] = new SqlParameter("@com_date_to", DateTime.MaxValue.ToString("dd/MM/yyyy"));
-        }
-        else
-            parms[4] = new SqlParameter("@com_date_to", Com_date_to.Text);
+        //if (Com_date_from.Text == "")
+        //{
+        //    parms[3] = new SqlParameter("@com_date_from","01/01/1900");
+        //}
+        //else
+        //    parms[3] = new SqlParameter("@com_date_from", Com_date_from.Text);
+        //if (Com_date_to.Text == "")
+        //{
+        //    parms[4] = new SqlParameter("@com_date_to", DateTime.MaxValue.ToString("dd/MM/yyyy"));
+        //}
+        //else
+        //    parms[4] = new SqlParameter("@com_date_to", Com_date_to.Text);
 
        
        
 
-        parms[5] = new SqlParameter("@visa_desc", txt_word_visa.Text);
-        parms[6] = new SqlParameter("@notes_word", txt_word_notes.Text);
+        //parms[5] = new SqlParameter("@visa_desc", txt_word_visa.Text);
+        //parms[6] = new SqlParameter("@notes_word", txt_word_notes.Text);
        
 
-        parms[7] = new SqlParameter("@visa_emp", CDataConverter.ConvertToInt(Smart_Emp_ID.SelectedValue));
+        //parms[7] = new SqlParameter("@visa_emp", CDataConverter.ConvertToInt(Smart_Emp_ID.SelectedValue));
 
-        parms[8] = new SqlParameter("@found_id", Session_CS.foundation_id);
+        //parms[8] = new SqlParameter("@found_id", Session_CS.foundation_id);
 
+
+        int gr;
+        string com_Dat;
+        string com_Dat_to;
+          if (Com_date_from.Text == "")
+        {
+            com_Dat = "01/01/1900";
+        }
+        else
+          com_Dat =  Com_date_from.Text;
+
+            if (Com_date_to.Text == "")
+        {
+           com_Dat_to =  DateTime.MaxValue.ToString("dd/MM/yyyy");
+        }
+        else
+            com_Dat_to =  Com_date_to.Text;
 
         DataTable dt = new DataTable();
-        dt = DatabaseFunctions.SelectDataByParam(parms, "commission_search_par");
+           if (CDataConverter.ConvertToInt(Session_CS.parent_id.ToString()) > 0 || CDataConverter.ConvertToInt(Session_CS.child_emp.ToString()) > 0)
+        {
+               gr=int.Parse(Session_CS.group_id.ToString());            
+        }
+        else
+        {
+               gr= CDataConverter.ConvertToInt(DBNull.Value);
+        }
+
+           dt = pmentity.commission_search_par_new(gr, int.Parse(Session_CS.pmp_id.ToString()), Com_name_text.Text, com_Dat, com_Dat_to, txt_word_visa.Text, txt_word_notes.Text, CDataConverter.ConvertToInt(Smart_Emp_ID.SelectedValue), CDataConverter.ConvertToInt(Session_CS.foundation_id)).ToDataTable();
 
 
         if (dt.Rows.Count == 0)
@@ -183,38 +209,31 @@ public partial class UserControls_Commission_Search : System.Web.UI.UserControl
     }
     protected void gvMain_RowCommand(object sender, GridViewCommandEventArgs e)
     {
-        int pmp = int.Parse(Session_CS.pmp_id.ToString());
-        DataTable dt = General_Helping.GetDataTable("select * from parent_employee where pmp_id = " + pmp);
+
+        //int pmp = int.Parse(Session_CS.pmp_id.ToString());
+        //DataTable dt = General_Helping.GetDataTable("select * from parent_employee where pmp_id = " + pmp);
+
         string encrypted = Encryption.Encrypt(e.CommandArgument.ToString());
+
+
         if (e.CommandName == "showItem")
         {
 
 
-            //DataTable dt = General_Helping.GetDataTable("select * from parent_employee where pmp_id = " + pmp);
 
-            //if (dt.Rows.Count > 0)
-            //{
-            //    Response.Redirect("Commission.aspx?id=" + e.CommandArgument);
-            //}
-            //else
 
             Response.Redirect("View_Commission.aspx?id=" + encrypted);
         }
+
         if (e.CommandName == "EditItem")
         {
 
-            //DataTable dt = General_Helping.GetDataTable("select * from parent_employee where pmp_id = " + pmp);
 
-            //if (dt.Rows.Count > 0)
-            //{
             Response.Redirect("Commission_new.aspx?id=" + encrypted);
-            //}
-            //else
-
-            //    Response.Redirect("View_Commission.aspx?id=" + e.CommandArgument);
+          
         }
 
-        //
+ 
 
 
 

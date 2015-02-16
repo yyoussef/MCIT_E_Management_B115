@@ -87,8 +87,44 @@ public partial class Projects_ManagementEntities10 : DbContext
         return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_commission_visa_emp>("get_commission_visa_emp", visa_IdParameter);
     }
 
-  
+    public virtual ObjectResult<commission_search_par_new> commission_search_par_new(Nullable<int> group_id, Nullable<int> pmp, string subject, string com_date_from, string com_date_to, string visa_desc, string notes_word, Nullable<int> visa_emp, Nullable<int> found_id)
+    {
+        var group_idParameter = group_id.HasValue ?
+            new ObjectParameter("group_id", group_id) :
+            new ObjectParameter("group_id", typeof(int));
 
+        var pmpParameter = pmp.HasValue ?
+            new ObjectParameter("pmp", pmp) :
+            new ObjectParameter("pmp", typeof(int));
 
+        var subjectParameter = subject != null ?
+            new ObjectParameter("subject", subject) :
+            new ObjectParameter("subject", typeof(string));
 
+        var com_date_fromParameter = com_date_from != null ?
+            new ObjectParameter("com_date_from", com_date_from) :
+            new ObjectParameter("com_date_from", typeof(string));
+
+        var com_date_toParameter = com_date_to != null ?
+            new ObjectParameter("com_date_to", com_date_to) :
+            new ObjectParameter("com_date_to", typeof(string));
+
+        var visa_descParameter = visa_desc != null ?
+            new ObjectParameter("visa_desc", visa_desc) :
+            new ObjectParameter("visa_desc", typeof(string));
+
+        var notes_wordParameter = notes_word != null ?
+            new ObjectParameter("notes_word", notes_word) :
+            new ObjectParameter("notes_word", typeof(string));
+
+        var visa_empParameter = visa_emp.HasValue ?
+            new ObjectParameter("visa_emp", visa_emp) :
+            new ObjectParameter("visa_emp", typeof(int));
+
+        var found_idParameter = found_id.HasValue ?
+            new ObjectParameter("found_id", found_id) :
+            new ObjectParameter("found_id", typeof(int));
+
+        return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<commission_search_par_new>("commission_search_par_new", group_idParameter, pmpParameter, subjectParameter, com_date_fromParameter, com_date_toParameter, visa_descParameter, notes_wordParameter, visa_empParameter, found_idParameter);
+    }
 }

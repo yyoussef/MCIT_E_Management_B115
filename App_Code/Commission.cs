@@ -130,6 +130,21 @@ public partial class com_get_emp_visa
     public int Commission_ID { get; set; }
 }
 
+public partial class commission_search_par_new
+{
+    public int ID { get; set; }
+    public string Code { get; set; }
+    public string Date { get; set; }
+    public int Group_id { get; set; }
+    public int pmp_pmp_id { get; set; }
+    public string incombination { get; set; }
+    public string Subject { get; set; }
+    public int Dept_Dept_ID { get; set; }
+    public string notes { get; set; }
+    public System.DateTime Property { get; set; }
+    public System.DateTime valid_date { get; set; }
+}
+
 public partial class Fil_Visa_foremployee
 {
     public int Visa_Id { get; set; }

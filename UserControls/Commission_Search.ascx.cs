@@ -194,7 +194,7 @@ public partial class UserControls_Commission_Search : System.Web.UI.UserControl
 
             //if (dt.Rows.Count > 0)
             //{
-            Response.Redirect("Commission_new.aspx?id=" + encrypted);
+            Response.Redirect("Commission.aspx?id=" + encrypted);
             //}
             //else
 
