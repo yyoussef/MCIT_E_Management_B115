@@ -142,8 +142,8 @@ public partial class SuperAdmin_Foundations : System.Web.UI.Page
     {
         var foud_query = from foundd in pmgenentity.Foundations select foundd;
 
-        List<Foundations> foud1 = foud_query.ToList();
-        gvMain.DataSource = foud1;
+        DataTable  dt = foud_query.ToDataTable();
+        gvMain.DataSource = dt;
         gvMain.DataBind();
 
 
