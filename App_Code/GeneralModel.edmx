@@ -48,6 +48,20 @@
           <Property Name="connection_string" Type="nvarchar(max)" />
           <Property Name="islocal" Type="bit" />
         </EntityType>
+        <EntityType Name="Site_Upload">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Site_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="File_Name" Type="nvarchar" MaxLength="4000" />
+          <Property Name="File_Ext" Type="nvarchar" MaxLength="50" />
+          <Property Name="logo_file_name" Type="nvarchar" MaxLength="4000" />
+          <Property Name="logo_file_Ext" Type="nvarchar" MaxLength="50" />
+          <Property Name="logo_image" Type="image" />
+          <Property Name="e_signature" Type="nvarchar" MaxLength="150" />
+          <Property Name="foundation_id" Type="int" />
+        </EntityType>
         <EntityType Name="super_admin">
           <Key>
             <PropertyRef Name="ID" />
@@ -84,6 +98,7 @@
           <EntitySet Name="Admin_Module_Found" EntityType="Self.Admin_Module_Found" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Admin_Users" EntityType="Self.Admin_Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Foundations" EntityType="Self.Foundations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Site_Upload" EntityType="Self.Site_Upload" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="super_admin" EntityType="Self.super_admin" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Admin_Module_Admin_Module" Association="Self.FK_Admin_Module_Admin_Module">
             <End Role="Admin_Module" EntitySet="Admin_Module" />
@@ -128,6 +143,7 @@
           <Parameter Name="User_name" Mode="In" Type="String" />
           </FunctionImport>
           <EntitySet Name="super_admin" EntityType="Projects_ManagementModel1.super_admin" />
+          <EntitySet Name="Site_Upload" EntityType="Projects_ManagementModel1.Site_Upload" />
         </EntityContainer>
         <EntityType Name="Admin_Users">
           <Key>
@@ -205,6 +221,20 @@
           <Property Name="User_name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="account_active" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Site_Upload">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Site_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="File_Name" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="File_Ext" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="logo_file_name" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="logo_file_Ext" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="logo_image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="e_signature" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="foundation_id" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -303,6 +333,21 @@
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="User_name" ColumnName="User_name" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Site_Upload">
+            <EntityTypeMapping TypeName="Projects_ManagementModel1.Site_Upload">
+              <MappingFragment StoreEntitySet="Site_Upload">
+                <ScalarProperty Name="foundation_id" ColumnName="foundation_id" />
+                <ScalarProperty Name="e_signature" ColumnName="e_signature" />
+                <ScalarProperty Name="logo_image" ColumnName="logo_image" />
+                <ScalarProperty Name="logo_file_Ext" ColumnName="logo_file_Ext" />
+                <ScalarProperty Name="logo_file_name" ColumnName="logo_file_name" />
+                <ScalarProperty Name="File_Ext" ColumnName="File_Ext" />
+                <ScalarProperty Name="File_Name" ColumnName="File_Name" />
+                <ScalarProperty Name="Site_Name" ColumnName="Site_Name" />
                 <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>

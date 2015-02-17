@@ -52,6 +52,19 @@ public partial class Foundations
     public Nullable<bool> islocal { get; set; }
 }
 
+public partial class Site_Upload
+{
+    public int ID { get; set; }
+    public string Site_Name { get; set; }
+    public string File_Name { get; set; }
+    public string File_Ext { get; set; }
+    public string logo_file_name { get; set; }
+    public string logo_file_Ext { get; set; }
+    public byte[] logo_image { get; set; }
+    public string e_signature { get; set; }
+    public Nullable<int> foundation_id { get; set; }
+}
+
 public partial class super_admin
 {
     public int ID { get; set; }

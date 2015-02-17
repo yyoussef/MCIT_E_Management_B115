@@ -30,6 +30,7 @@ public partial class Projects_ManagementEntities : DbContext
     public virtual DbSet<Admin_Module> Admin_Module { get; set; }
     public virtual DbSet<Admin_Module_Found> Admin_Module_Found { get; set; }
     public virtual DbSet<super_admin> super_admin { get; set; }
+    public virtual DbSet<Site_Upload> Site_Upload { get; set; }
 
     public virtual ObjectResult<AdminUsers_SelectName_Exsit_Result> AdminUsers_SelectName_Exsit(string user_name)
     {

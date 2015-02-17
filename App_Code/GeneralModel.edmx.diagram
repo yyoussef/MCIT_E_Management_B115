@@ -11,6 +11,7 @@
         <AssociationConnector Association="Projects_ManagementModel1.FK_Admin_Module_Admin_Module" />
         <EntityTypeShape EntityType="Projects_ManagementModel1.Admin_Module_Found" Width="2.375" PointX="6.25" PointY="1.375" />
         <EntityTypeShape EntityType="Projects_ManagementModel1.super_admin" Width="1.5" PointX="3.375" PointY="3.75" />
+        <EntityTypeShape EntityType="Projects_ManagementModel1.Site_Upload" Width="1.5" PointX="5.375" PointY="4.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
