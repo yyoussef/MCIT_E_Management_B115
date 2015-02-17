@@ -48,6 +48,16 @@
           <Property Name="connection_string" Type="nvarchar(max)" />
           <Property Name="islocal" Type="bit" />
         </EntityType>
+        <EntityType Name="super_admin">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="250" />
+          <Property Name="User_name" Type="nvarchar" MaxLength="250" />
+          <Property Name="Password" Type="nvarchar" MaxLength="250" />
+          <Property Name="account_active" Type="bit" />
+        </EntityType>
         <Association Name="FK_Admin_Module_Admin_Module">
           <End Role="Admin_Module" Type="Self.Admin_Module" Multiplicity="1" />
           <End Role="Admin_Module1" Type="Self.Admin_Module" Multiplicity="0..1" />
@@ -74,6 +84,7 @@
           <EntitySet Name="Admin_Module_Found" EntityType="Self.Admin_Module_Found" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Admin_Users" EntityType="Self.Admin_Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Foundations" EntityType="Self.Foundations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="super_admin" EntityType="Self.super_admin" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Admin_Module_Admin_Module" Association="Self.FK_Admin_Module_Admin_Module">
             <End Role="Admin_Module" EntitySet="Admin_Module" />
             <End Role="Admin_Module1" EntitySet="Admin_Module" />
@@ -114,8 +125,9 @@
           <Parameter Name="foundation_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="SuperAdminUsers_SelectName" ReturnType="Collection(Projects_ManagementModel1.SuperAdminUsers_SelectName_Result)">
-            <Parameter Name="User_name" Mode="In" Type="String" />
+          <Parameter Name="User_name" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="super_admin" EntityType="Projects_ManagementModel1.super_admin" />
         </EntityContainer>
         <EntityType Name="Admin_Users">
           <Key>
@@ -184,6 +196,16 @@
           <Property Type="String" Name="Password" Nullable="true" MaxLength="250" />
           <Property Type="Boolean" Name="account_active" Nullable="true" />
         </ComplexType>
+        <EntityType Name="super_admin">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="User_name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="account_active" Type="Boolean" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -274,6 +296,17 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="super_admin">
+            <EntityTypeMapping TypeName="Projects_ManagementModel1.super_admin">
+              <MappingFragment StoreEntitySet="super_admin">
+                <ScalarProperty Name="account_active" ColumnName="account_active" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="User_name" ColumnName="User_name" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

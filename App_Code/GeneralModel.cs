@@ -52,6 +52,15 @@ public partial class Foundations
     public Nullable<bool> islocal { get; set; }
 }
 
+public partial class super_admin
+{
+    public int ID { get; set; }
+    public string Name { get; set; }
+    public string User_name { get; set; }
+    public string Password { get; set; }
+    public Nullable<bool> account_active { get; set; }
+}
+
 public partial class AdminUsers_SelectName_Exsit_Result
 {
     public int ID { get; set; }

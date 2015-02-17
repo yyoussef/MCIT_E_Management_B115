@@ -64,16 +64,32 @@ public partial class UserControls_Change_Password : System.Web.UI.UserControl
             ScriptManager.RegisterStartupScript(page, page.GetType(), "err_msg", "alert('" + error + "');", true);
         }
     }
+
+
+    public void InsertOrUpdate(super_admin  blog)
+    {
+
+
+        using (var context = new Projects_ManagementEntities())
+        {
+            context.Entry(blog).State = blog.ID == 0 ?
+                                      System.Data.Entity.EntityState.Added :
+                                      System.Data.Entity.EntityState.Modified;
+
+            context.SaveChanges();
+
+        }
+    }
+
+
     protected void SaveButton_Click(object sender, EventArgs e)
     {
 
-      
 
-        
-     // DataTable dt=  General_Helping.GetDataTable("Select *  from super_admin  where User_name = '" + Session["UserName"].ToString() + "'");
 
-        DataTable dt = SqlHelper.ExecuteDataset(Database.ConnectionString, "SuperAdminUsers_SelectName", Session["UserName"].ToString()).Tables[0];
+      //  DataTable dt = SqlHelper.ExecuteDataset(Database.ConnectionString, "SuperAdminUsers_SelectName", Session["UserName"].ToString()).Tables[0];
 
+        DataTable dt = pmgenentity.SuperAdminUsers_SelectName(Session["UserName"].ToString()).ToDataTable();
 
         if (TxtRecentPass.Text == dt.Rows[0]["Password"].ToString())
         {
@@ -84,7 +100,12 @@ public partial class UserControls_Change_Password : System.Web.UI.UserControl
                     //sql = "update super_admin  set Password = '" + TxtNewPassword.Text + "'";
                     //sql += " where ID=" + dt.Rows[0]["ID"].ToString();
 
-                    SqlHelper.ExecuteNonQuery(Database.ConnectionString, "SuperAdminUsers_updateName", TxtNewPassword.Text, dt.Rows[0]["ID"].ToString());
+                  //  SqlHelper.ExecuteNonQuery(Database.ConnectionString, "SuperAdminUsers_updateName", TxtNewPassword.Text, dt.Rows[0]["ID"].ToString());
+                    super_admin obj = new super_admin();
+                    obj.ID = CDataConverter.ConvertToInt( dt.Rows[0]["ID"].ToString());
+                    obj.Password = TxtNewPassword.Text;
+                    InsertOrUpdate(obj);
+
 
 
                     ShowAlertMessage("تم تغيير كلمة السر بنجاح");
