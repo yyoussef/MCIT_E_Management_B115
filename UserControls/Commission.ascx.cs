@@ -31,6 +31,8 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
 
 
     Projects_ManagementEntities10 pmentity = new Projects_ManagementEntities10();
+    Projects_ManagementEntities pmgeneralentity = new Projects_ManagementEntities();
+
     private string sql_Connection = Database.ConnectionString;
     General_Helping Obj_General_Helping = new General_Helping();
     DateTime str_deadline;
@@ -48,18 +50,15 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
             DateTime str = CDataConverter.ConvertDateTimeNowRtnDt();
             tr_old_emp.Visible = false;
 
-            // string sql_for_chklist_emp = " select * from pmp_fav_View where pmp_fav_View.employee_id = " + CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
-            //DataTable dt_emp_fav = General_Helping.GetDataTable(sql_for_chklist_emp);
-
-            var query = from pmp_fav in outboxDBContext.pmp_fav_Views where pmp_fav.employee_id == CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()) select pmp_fav;
+            //var query = from pmp_fav in outboxDBContext.pmp_fav_Views where pmp_fav.employee_id == CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()) select pmp_fav;
 
 
 
-            DataTable dt_emp_fav = query.ToDataTable();
-            chklst_Visa_Emp_All.DataSource = dt_emp_fav;
-            chklst_Visa_Emp_All.DataBind();
+            //DataTable dt_emp_fav = query.ToDataTable();
+            //chklst_Visa_Emp_All.DataSource = dt_emp_fav;
+            //chklst_Visa_Emp_All.DataBind();
 
-            TabPanel_All.ActiveTab = TabPanel_Visa;
+            //TabPanel_All.ActiveTab = TabPanel_Visa;
 
             fil_emp_Visa();
             if (Request["id"] != null)
@@ -72,18 +71,12 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
                 Fill_Controll(id);
                 Fil_Grid_Documents();
 
-                //Fil_Grid_Visa();
-
                 Fil_Grid_Visa_Follow();
                 Fil_Emp_Visa_Follow();
 
                 if (CDataConverter.ConvertToInt(Session_CS.group_id.ToString()) == 3)
                 {
                     Smart_Search_dept.SelectedValue = "15";
-
-
-
-
                 }
 
             }
@@ -91,11 +84,7 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
             {
 
                 btn_print_report.Enabled = false;
-                // str_deadline = System.DateTime.Now.AddDays(7);
-
                 str_deadline = CDataConverter.ConvertDateTimeNowRtnDt().AddDays(7);
-                // str = System.DateTime.Now;
-
                 str = CDataConverter.ConvertDateTimeNowRtnDt();
             }
 
@@ -109,7 +98,6 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
 
             if (Session_CS.pmp_id > 0)
             {
-                // drop_sectors.SelectedValue = Session_CS.sec_id.ToString();
                 fill_depts();
                 TabPanel_All.ActiveTabIndex = 0;
 
@@ -955,139 +943,20 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
         //   var emp_query = default(object);
 
 
-        if (radlst_Type.SelectedValue != "7")
-        {
 
+       DataTable DT_emp = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_employee_accoording_to_radiochek", radlst_Type.SelectedValue, Session_CS.pmp_id, Session_CS.dept_id, Session_CS.foundation_id).Tables[0];
 
-            DataTable DT_emp;
+       // DataTable DT_emp =  pmgeneralentity.get_employee_accoording_to_radiochek (radlst_Type.SelectedValue, CDataConverter.ConvertToInt( Session_CS.pmp_id),  CDataConverter.ConvertToInt( Session_CS.dept_id), CDataConverter.ConvertToInt( Session_CS.foundation_id)).ToDataTable();
+        tr_emp_list.Visible = true;
 
-            SqlParameter[] sqlParams = new SqlParameter[4];
-
-            sqlParams[0] = new SqlParameter("@radiocheck", radlst_Type.SelectedValue);
-            sqlParams[1] = new SqlParameter("@pmp_id", Session_CS.pmp_id);
-
-            if (CDataConverter.ConvertToInt(Smart_Search_dept.SelectedValue) > 0)
-                sqlParams[2] = new SqlParameter("@dept_id", CDataConverter.ConvertToInt(Smart_Search_dept.SelectedValue));
-            else
-                sqlParams[2] = new SqlParameter("@dept_id", CDataConverter.ConvertToInt(DBNull.Value));
-
-            sqlParams[3] = new SqlParameter("@found_id", Session_CS.foundation_id);
-
-            DT_emp = DatabaseFunctions.SelectDataByParam(sqlParams, "get_employee_accoording_to_radiochek");
-            if (DT_emp.Rows.Count > 0)
-            {
-                chklst_Visa_Emp_All.DataSource = DT_emp;
-                chklst_Visa_Emp_All.DataBind();
-            }
-        }
-
+        TabPanel_All.ActiveTab = TabPanel_Visa;
+      
+        chklst_Visa_Emp_All.DataSource = DT_emp;
+        chklst_Visa_Emp_All.DataBind();
         TabPanel_All.ActiveTab = TabPanel_Visa;
 
 
-        //if (radlst_Type.SelectedValue == "1")
-        //{
-        //    sql_emp = " select * from pmp_fav_View where pmp_fav_View.employee_id = " + CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
 
-        //    int pmp = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
-
-        //  //  emp_query = from emmp in pmentity.pmp_fav_View where emmp.employee_id == pmp select emmp;
-
-        //    if (Smart_Search_dept.SelectedValue != "")
-        //    {
-        //        sql_emp += " AND Dept_Dept_id = " + Smart_Search_dept.SelectedValue;
-
-        //       // emp_query = from emmp in pmentity.pmp_fav_View where emmp.employee_id == pmp && emmp.Dept_Dept_id == dept_selected select emmp;
-        //    }
-
-
-
-
-        //}
-        //else if (radlst_Type.SelectedValue == "2")
-        //{
-
-        //    sql_emp = "SELECT     EMPLOYEE.*,Departments.* FROM Departments  INNER JOIN EMPLOYEE ON Departments.Dept_id = EMPLOYEE.Dept_Dept_id where  EMPLOYEE.PMP_ID not in(select parent_pmp_id from dbo.parent_employee) and dbo.EMPLOYEE.workstatus = 1 and EMPLOYEE.foundation_id='" + Session_CS.foundation_id + "'";
-
-        //    //emp_query = (from empp in pmgeneralentity.EMPLOYEE
-        //    //             join deppp in pmgeneralentity.Departments on empp.Dept_Dept_id equals deppp.Dept_id
-        //    //             where empp.foundation_id == session_found
-        //    //             select new
-        //    //             {
-
-        //    //             }
-
-
-        //    //            );
-
-        //    if (Smart_Search_dept.SelectedValue != "")
-        //    {
-        //         sql_emp += " and Dept_Dept_id = " + Smart_Search_dept.SelectedValue;
-
-        //        //emp_query = (from empp in pmgeneralentity.EMPLOYEE
-        //        //             join deppp in pmgeneralentity.Departments on empp.Dept_Dept_id equals deppp.Dept_id
-        //        //             where empp.foundation_id == session_found && empp.Dept_Dept_id == dept_selected
-        //        //             select new
-        //        //             {
-
-        //        //             }
-
-
-        //        //   );
-        //    }
-
-        //}
-        //else if (radlst_Type.SelectedValue == "3")
-        //{
-        //    // sql_emp = " select * from employee where rol_rol_id=3  and dbo.EMPLOYEE.workstatus = 1";
-
-        //    sql_emp = "SELECT     EMPLOYEE.*,Departments.* FROM Departments  INNER JOIN EMPLOYEE ON Departments.Dept_id = EMPLOYEE.Dept_Dept_id where dbo.EMPLOYEE.workstatus = 1 and rol_rol_id=3 and EMPLOYEE.foundation_id='" + Session_CS.foundation_id + "'";
-
-
-        //    if (Smart_Search_dept.SelectedValue != "")
-        //    {
-        //        sql_emp += " AND Dept_Dept_id = " + Smart_Search_dept.SelectedValue;
-        //    }
-
-        //    //if (drop_sectors.SelectedValue != "" && drop_sectors.SelectedValue != "0")
-        //    //{
-        //    //    sql_emp += "and  Sectors.Sec_id=" + drop_sectors.SelectedValue;
-        //    //}
-
-        //}
-        //else if (radlst_Type.SelectedValue == "4")
-        //{
-        //    // sql_emp = " select * from employee where contact_person=1 and dbo.EMPLOYEE.workstatus = 1 ";
-
-        //    sql_emp = "SELECT     EMPLOYEE.*,  Sectors.*,Departments.* FROM Departments INNER JOIN Sectors ON Departments.Sec_sec_id = Sectors.Sec_id INNER JOIN EMPLOYEE ON Departments.Dept_id = EMPLOYEE.Dept_Dept_id where dbo.EMPLOYEE.workstatus = 1 and contact_person=1 and EMPLOYEE.foundation_id='" + Session_CS.foundation_id + "' ";
-
-        //    if (Smart_Search_dept.SelectedValue != "")
-        //    {
-        //        sql_emp += " AND Dept_Dept_id = " + Smart_Search_dept.SelectedValue;
-        //    }
-
-        //    //if (drop_sectors.SelectedValue != "" && drop_sectors.SelectedValue != "0")
-        //    //{
-        //    //    sql_emp += "and  Sectors.Sec_id=" + drop_sectors.SelectedValue;
-        //    //}
-
-        //}
-
-        //else if (radlst_Type.SelectedValue == "5")
-        //{
-        //    sql_emp = "  select EMPLOYEE.pmp_name + ' - رئيس ' + +' '+ Commitee.Commitee_Title as pmp_name ,EMPLOYEE.PMP_ID from EMPLOYEE inner join commitee_presidents on  EMPLOYEE.PMP_ID=commitee_presidents.pmp_id inner join Commitee on commitee_presidents.comt_id = Commitee.ID where  Commitee.foundation_id='" + Session_CS.foundation_id + "'";
-
-        //}
-
-        //else if (radlst_Type.SelectedValue == "6")
-        //{
-
-        //    sql_emp = "select EMPLOYEE.pmp_name COLLATE DATABASE_DEFAULT  + ' -  ' + Departments.Dept_name  as pmp_name,EMPLOYEE.PMP_ID from EMPLOYEE inner join commitee_presidents on  EMPLOYEE.PMP_ID=commitee_presidents.pmp_id inner join Departments on  commitee_presidents.dept_id = Departments.Dept_id   inner join Sectors  on Sectors.Sec_id = Departments.Sec_sec_id where Sectors.foundation_id='" + Session_CS.foundation_id + "'";
-        //}
-
-        //TabPanel_All.ActiveTab = TabPanel_Visa;
-        //DataTable dt_emp_fav = General_Helping.GetDataTable(sql_emp);
-        //chklst_Visa_Emp_All.DataSource = dt_emp_fav;
-        //chklst_Visa_Emp_All.DataBind();
 
 
 
@@ -1514,8 +1383,8 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
             obj.ID = CDataConverter.ConvertToInt(hidden_Id.Value);
 
             obj.Date = txt_Visa_date.Text;
-            if (obj.ID == 0)
-            {
+         //   if (obj.ID == 0)
+            //{
                 //datenow = DateTime.Now.ToString();
                 datenow = CDataConverter.ConvertDateTimeNowRtrnString();
                 obj.Enter_Date = datenow;
@@ -1526,32 +1395,32 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
                 obj.pmp_pmp_id = pmp;
                 obj.Group_id = group;
 
-            }
-            else
-            {
-                //SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
-                //con.Open();
-                //string sql = "select Enter_Date,Dept_Dept_id,Group_id,pmp_pmp_id from Commission where ID = " + obj.ID;
-                //SqlDataAdapter da = new SqlDataAdapter(sql, con);
-                //DataSet ds = new DataSet();
-                //da.Fill(ds);
+            //}
+            //else
+            //{
+            //    //SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
+            //    //con.Open();
+            //    //string sql = "select Enter_Date,Dept_Dept_id,Group_id,pmp_pmp_id from Commission where ID = " + obj.ID;
+            //    //SqlDataAdapter da = new SqlDataAdapter(sql, con);
+            //    //DataSet ds = new DataSet();
+            //    //da.Fill(ds);
 
-                //datenow = ds.Tables[0].Rows[0]["Enter_Date"].ToString();
-                //dept = int.Parse(ds.Tables[0].Rows[0]["Dept_Dept_id"].ToString());
-                //group = int.Parse(ds.Tables[0].Rows[0]["Group_id"].ToString());
-                //pmp = int.Parse(ds.Tables[0].Rows[0]["pmp_pmp_id"].ToString());
+            //    //datenow = ds.Tables[0].Rows[0]["Enter_Date"].ToString();
+            //    //dept = int.Parse(ds.Tables[0].Rows[0]["Dept_Dept_id"].ToString());
+            //    //group = int.Parse(ds.Tables[0].Rows[0]["Group_id"].ToString());
+            //    //pmp = int.Parse(ds.Tables[0].Rows[0]["pmp_pmp_id"].ToString());
 
-                Commission comm = pmentity.Commission.Where(x => x.ID == obj.ID).SingleOrDefault();
-                datenow = comm.Enter_Date.ToString();
-                dept = CDataConverter.ConvertToInt(comm.Dept_Dept_ID.ToString());
-                group = CDataConverter.ConvertToInt(comm.Group_id);
-                pmp = CDataConverter.ConvertToInt(comm.pmp_pmp_id);
+            //    Commission comm = pmentity.Commission.Where(x => x.ID == obj.ID).SingleOrDefault();
+            //    datenow = comm.Enter_Date.ToString();
+            //    dept = CDataConverter.ConvertToInt(comm.Dept_Dept_ID.ToString());
+            //    group = CDataConverter.ConvertToInt(comm.Group_id);
+            //    pmp = CDataConverter.ConvertToInt(comm.pmp_pmp_id);
 
-                obj.Enter_Date = datenow;
-                obj.Dept_Dept_ID = dept;
-                obj.Group_id = group;
-                obj.pmp_pmp_id = pmp;
-            }
+            //    obj.Enter_Date = datenow;
+            //    obj.Dept_Dept_ID = dept;
+            //    obj.Group_id = group;
+            //    obj.pmp_pmp_id = pmp;
+            //}
 
 
             obj.Subject = txt_Subject.Text;
@@ -2091,10 +1960,10 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
 
             if (dt.Rows.Count > 0)
             {
-
+                int sendid=CDataConverter.ConvertToInt(dt.Rows[0]["parent_pmp_id"].ToString());
                 //  Sql_insert = "insert into Commission_Visa_Emp ( Visa_Id , Emp_ID ,Sender_id) values ( " + obj.Visa_Id + "," + item.Value + "," + CDataConverter.ConvertToInt(dt.Rows[0]["parent_pmp_id"].ToString()) + ")";
 
-                obj_commvisa.Sender_ID = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
+                obj_commvisa.Sender_ID = CDataConverter.ConvertToInt(sendid);
 
             }
             else

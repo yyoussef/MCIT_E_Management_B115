@@ -717,7 +717,7 @@ public partial class Project : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Proj_End_Document", DbType="Image", UpdateCheck=UpdateCheck.Never)]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Proj_End_Document", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary Proj_End_Document
 	{
 		get
@@ -2890,7 +2890,7 @@ public partial class Outbox_Visa_Follow : INotifyPropertyChanging, INotifyProper
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_File_data", DbType="VarBinary(MAX)", UpdateCheck=UpdateCheck.Never)]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_File_data", DbType="VarBinary(MAX)", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary File_data
 	{
 		get
@@ -3364,7 +3364,7 @@ public partial class Inbox_Visa_Follow : INotifyPropertyChanging, INotifyPropert
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_File_data", DbType="VarBinary(MAX)", UpdateCheck=UpdateCheck.Never)]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_File_data", DbType="VarBinary(MAX)", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary File_data
 	{
 		get
@@ -5599,7 +5599,7 @@ public partial class Inbox_OutBox_File : INotifyPropertyChanging, INotifyPropert
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_File_data", DbType="VarBinary(MAX)", UpdateCheck=UpdateCheck.Never)]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_File_data", DbType="VarBinary(MAX)", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary File_data
 	{
 		get
