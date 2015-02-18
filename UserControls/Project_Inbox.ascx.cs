@@ -2106,6 +2106,10 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
             }
             //Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('لقد تم ارسال الايميل للسيد المدير المختص بنجاح')</script>");
+
+          
+
+
         }
 
 
@@ -2364,6 +2368,18 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
             }
             //Page.RegisterStartupScript("Sucess", "<script language=javascript>alert(' لقد تم ارسال الايميل بنجاح إلي " +allnames+"')</script>");
+
+            foreach (GridViewRow row in GridView_Visa.Rows)
+            {
+                if(row.RowIndex != null )
+                {
+                ImageButton img = (ImageButton)row.FindControl("ImgBtnEdit");
+                ImageButton img2 = (ImageButton)row.FindControl("ImgBtnDelete");
+                img.Enabled = false;
+                img2.Enabled = false;
+                }
+
+            }
         }
 
 
