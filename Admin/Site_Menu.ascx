@@ -59,6 +59,9 @@
                              مسار قاعدة البيانات الداخلية</a> </li>
                             <li style="background-image: url('../new_images/toptany.gif')"><a href="Database_Backup.aspx">
                              نسخة من قاعدة البيانات</a> </li>
+                          <li style="background-image: url('../new_images/top2.gif')"><a href="Open_UserManual.aspx">
+                            دليل المستخدم</a> </li>
+
                         <li style="background-image: url('../new_images/top2.gif')"><a href="ChangePassword.aspx">
                             تعديل كلمة المرور</a> </li>
                         <%--<li style="background-image: url('../new_images/menu.png')"></li>--%>

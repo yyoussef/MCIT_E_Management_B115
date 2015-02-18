@@ -36,20 +36,10 @@ public partial class UserControls_Open_UserManual : System.Web.UI.UserControl
 
             if (CDataConverter.ConvertToInt(Session_CS.parent_id.ToString())>0)
             {
-                File_Name = Server.MapPath("~//Uploads/UserManual/دلـــيل المستخدم للمدير.pdf");
+                File_Name = Server.MapPath("~//Uploads/UserManual/user_manual_manger.pdf");
                 File_Name_Show = "دلـــيل المستخدم للمدير.pdf";
             }
-            else if (CDataConverter.ConvertToInt(Session_CS.child_emp.ToString()) > 0)
-            {
-                File_Name = Server.MapPath("~//Uploads/UserManual/دليل المستخدم للسكرتير.pdf");
-                File_Name_Show = "دليل المستخدم للسكرتير.pdf";
-            }
-            else
-            {
 
-                File_Name = Server.MapPath("~//Uploads/UserManual/دليل المستخدم للموظفين.pdf");
-                File_Name_Show = "دليل المستخدم للموظفين.pdf";
-            }
             
             FileStream fs = new FileStream(File_Name, FileMode.Open, FileAccess.Read);
             byte[] bytes = new byte[fs.Length];
