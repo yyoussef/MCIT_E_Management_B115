@@ -1,0 +1,378 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Projects_ManagementModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Admin_Module">
+          <Key>
+            <PropertyRef Name="pk_ID" />
+          </Key>
+          <Property Name="pk_ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="100" />
+          <Property Name="Active" Type="bit" />
+        </EntityType>
+        <EntityType Name="Admin_Module_Found">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Mod_ID" Type="int" />
+          <Property Name="Mod_status" Type="bit" />
+          <Property Name="found_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Admin_Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="User_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="foundation_id" Type="int" />
+          <Property Name="account_active" Type="bit" />
+        </EntityType>
+        <EntityType Name="Foundations">
+          <Key>
+            <PropertyRef Name="Foundation_ID" />
+          </Key>
+          <Property Name="Foundation_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Foundation_Name" Type="nvarchar(max)" />
+          <Property Name="code_archiving" Type="int" />
+          <Property Name="Port" Type="int" />
+          <Property Name="Host" Type="nvarchar(max)" />
+          <Property Name="UserName_mail" Type="nvarchar(max)" />
+          <Property Name="Password" Type="nvarchar(max)" />
+          <Property Name="FromAddress" Type="nvarchar(max)" />
+          <Property Name="connection_string" Type="nvarchar(max)" />
+          <Property Name="islocal" Type="bit" />
+        </EntityType>
+        <EntityType Name="Site_Upload">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Site_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="File_Name" Type="nvarchar" MaxLength="4000" />
+          <Property Name="File_Ext" Type="nvarchar" MaxLength="50" />
+          <Property Name="logo_file_name" Type="nvarchar" MaxLength="4000" />
+          <Property Name="logo_file_Ext" Type="nvarchar" MaxLength="50" />
+          <Property Name="logo_image" Type="image" />
+          <Property Name="e_signature" Type="nvarchar" MaxLength="150" />
+          <Property Name="foundation_id" Type="int" />
+        </EntityType>
+        <EntityType Name="super_admin">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="250" />
+          <Property Name="User_name" Type="nvarchar" MaxLength="250" />
+          <Property Name="Password" Type="nvarchar" MaxLength="250" />
+          <Property Name="account_active" Type="bit" />
+        </EntityType>
+        <Association Name="FK_Admin_Module_Admin_Module">
+          <End Role="Admin_Module" Type="Self.Admin_Module" Multiplicity="1" />
+          <End Role="Admin_Module1" Type="Self.Admin_Module" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Admin_Module">
+              <PropertyRef Name="pk_ID" />
+            </Principal>
+            <Dependent Role="Admin_Module1">
+              <PropertyRef Name="pk_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="AdminUsers_SelectName_Exsit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="User_name" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="Foundations_Followup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="foundation_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="SuperAdminUsers_SelectName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="User_name" Type="nvarchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="Projects_ManagementModel1StoreContainer">
+          <EntitySet Name="Admin_Module" EntityType="Self.Admin_Module" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Admin_Module_Found" EntityType="Self.Admin_Module_Found" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Admin_Users" EntityType="Self.Admin_Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Foundations" EntityType="Self.Foundations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Site_Upload" EntityType="Self.Site_Upload" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="super_admin" EntityType="Self.super_admin" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Admin_Module_Admin_Module" Association="Self.FK_Admin_Module_Admin_Module">
+            <End Role="Admin_Module" EntitySet="Admin_Module" />
+            <End Role="Admin_Module1" EntitySet="Admin_Module" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Projects_ManagementModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Foundations">
+          <Key>
+            <PropertyRef Name="Foundation_ID" />
+          </Key>
+          <Property Name="Foundation_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Foundation_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="code_archiving" Type="Int32" />
+          <Property Name="Port" Type="Int32" />
+          <Property Name="Host" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserName_mail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FromAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="connection_string" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="islocal" Type="Boolean" />
+        </EntityType>
+        <EntityContainer Name="Projects_ManagementEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Foundations" EntityType="Self.Foundations" />
+          <EntitySet Name="Admin_Users" EntityType="Projects_ManagementModel1.Admin_Users" />
+          <FunctionImport Name="AdminUsers_SelectName_Exsit" ReturnType="Collection(Projects_ManagementModel1.AdminUsers_SelectName_Exsit_Result)">
+          <Parameter Name="User_name" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="Admin_Module" EntityType="Projects_ManagementModel1.Admin_Module" />
+          <AssociationSet Name="FK_Admin_Module_Admin_Module" Association="Projects_ManagementModel1.FK_Admin_Module_Admin_Module">
+            <End Role="Admin_Module" EntitySet="Admin_Module" />
+            <End Role="Admin_Module1" EntitySet="Admin_Module" />
+          </AssociationSet>
+          <EntitySet Name="Admin_Module_Found" EntityType="Projects_ManagementModel1.Admin_Module_Found" />
+          <FunctionImport Name="Foundations_Followup" ReturnType="Collection(Projects_ManagementModel1.Foundations_Followup_Result)">
+          <Parameter Name="foundation_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="SuperAdminUsers_SelectName" ReturnType="Collection(Projects_ManagementModel1.SuperAdminUsers_SelectName_Result)">
+          <Parameter Name="User_name" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="super_admin" EntityType="Projects_ManagementModel1.super_admin" />
+          <EntitySet Name="Site_Upload" EntityType="Projects_ManagementModel1.Site_Upload" />
+        </EntityContainer>
+        <EntityType Name="Admin_Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="User_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="foundation_id" Type="Int32" />
+          <Property Name="account_active" Type="Boolean" />
+        </EntityType>
+        <ComplexType Name="AdminUsers_SelectName_Exsit_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="User_name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Password" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="foundation_id" Nullable="true" />
+          <Property Type="Boolean" Name="account_active" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="Admin_Module">
+          <Key>
+            <PropertyRef Name="pk_ID" />
+          </Key>
+          <Property Name="pk_ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="Active" Type="Boolean" />
+          <NavigationProperty Name="Admin_Module1" Relationship="Projects_ManagementModel1.FK_Admin_Module_Admin_Module" FromRole="Admin_Module" ToRole="Admin_Module1" />
+          <NavigationProperty Name="Admin_Module2" Relationship="Projects_ManagementModel1.FK_Admin_Module_Admin_Module" FromRole="Admin_Module1" ToRole="Admin_Module" />
+        </EntityType>
+        <Association Name="FK_Admin_Module_Admin_Module">
+          <End Type="Projects_ManagementModel1.Admin_Module" Role="Admin_Module" Multiplicity="1" />
+          <End Type="Projects_ManagementModel1.Admin_Module" Role="Admin_Module1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Admin_Module">
+              <PropertyRef Name="pk_ID" />
+            </Principal>
+            <Dependent Role="Admin_Module1">
+              <PropertyRef Name="pk_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Admin_Module_Found">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Mod_ID" Type="Int32" />
+          <Property Name="Mod_status" Type="Boolean" />
+          <Property Name="found_id" Type="Int32" />
+        </EntityType>
+        <ComplexType Name="Foundations_Followup_Result">
+          <Property Type="Int32" Name="Inbox_count" Nullable="true" />
+          <Property Type="Int32" Name="outbox_count" Nullable="true" />
+          <Property Type="Int32" Name="Employee_count" Nullable="true" />
+          <Property Type="String" Name="found_name" Nullable="true" />
+          <Property Type="Int32" Name="Visa_count" Nullable="true" />
+          <Property Type="Int32" Name="Follows_count" Nullable="true" />
+          <Property Type="Int32" Name="Visaoutbox_count" Nullable="true" />
+          <Property Type="Int32" Name="Followsoutbox_count" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="SuperAdminUsers_SelectName_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="User_name" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Password" Nullable="true" MaxLength="250" />
+          <Property Type="Boolean" Name="account_active" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="super_admin">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="User_name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="account_active" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Site_Upload">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Site_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="File_Name" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="File_Ext" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="logo_file_name" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="logo_file_Ext" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="logo_image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="e_signature" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="foundation_id" Type="Int32" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Projects_ManagementModel1StoreContainer" CdmEntityContainer="Projects_ManagementEntities">
+          <EntitySetMapping Name="Foundations">
+            <EntityTypeMapping TypeName="Projects_ManagementModel1.Foundations">
+              <MappingFragment StoreEntitySet="Foundations">
+                <ScalarProperty Name="Foundation_ID" ColumnName="Foundation_ID" />
+                <ScalarProperty Name="Foundation_Name" ColumnName="Foundation_Name" />
+                <ScalarProperty Name="code_archiving" ColumnName="code_archiving" />
+                <ScalarProperty Name="Port" ColumnName="Port" />
+                <ScalarProperty Name="Host" ColumnName="Host" />
+                <ScalarProperty Name="UserName_mail" ColumnName="UserName_mail" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="FromAddress" ColumnName="FromAddress" />
+                <ScalarProperty Name="connection_string" ColumnName="connection_string" />
+                <ScalarProperty Name="islocal" ColumnName="islocal" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Admin_Users">
+            <EntityTypeMapping TypeName="Projects_ManagementModel1.Admin_Users">
+              <MappingFragment StoreEntitySet="Admin_Users">
+                <ScalarProperty Name="account_active" ColumnName="account_active" />
+                <ScalarProperty Name="foundation_id" ColumnName="foundation_id" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="User_name" ColumnName="User_name" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="AdminUsers_SelectName_Exsit" FunctionName="Projects_ManagementModel1.Store.AdminUsers_SelectName_Exsit">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Projects_ManagementModel1.AdminUsers_SelectName_Exsit_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="User_name" ColumnName="User_name" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="foundation_id" ColumnName="foundation_id" />
+                <ScalarProperty Name="account_active" ColumnName="account_active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Admin_Module">
+            <EntityTypeMapping TypeName="Projects_ManagementModel1.Admin_Module">
+              <MappingFragment StoreEntitySet="Admin_Module">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="pk_ID" ColumnName="pk_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Admin_Module_Found">
+            <EntityTypeMapping TypeName="Projects_ManagementModel1.Admin_Module_Found">
+              <MappingFragment StoreEntitySet="Admin_Module_Found">
+                <ScalarProperty Name="found_id" ColumnName="found_id" />
+                <ScalarProperty Name="Mod_status" ColumnName="Mod_status" />
+                <ScalarProperty Name="Mod_ID" ColumnName="Mod_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Foundations_Followup" FunctionName="Projects_ManagementModel1.Store.Foundations_Followup">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Projects_ManagementModel1.Foundations_Followup_Result">
+                <ScalarProperty Name="Inbox_count" ColumnName="Inbox_count" />
+                <ScalarProperty Name="outbox_count" ColumnName="outbox_count" />
+                <ScalarProperty Name="Employee_count" ColumnName="Employee_count" />
+                <ScalarProperty Name="found_name" ColumnName="found_name" />
+                <ScalarProperty Name="Visa_count" ColumnName="Visa_count" />
+                <ScalarProperty Name="Follows_count" ColumnName="Follows_count" />
+                <ScalarProperty Name="Visaoutbox_count" ColumnName="Visaoutbox_count" />
+                <ScalarProperty Name="Followsoutbox_count" ColumnName="Followsoutbox_count" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SuperAdminUsers_SelectName" FunctionName="Projects_ManagementModel1.Store.SuperAdminUsers_SelectName">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Projects_ManagementModel1.SuperAdminUsers_SelectName_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="User_name" ColumnName="User_name" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="account_active" ColumnName="account_active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="super_admin">
+            <EntityTypeMapping TypeName="Projects_ManagementModel1.super_admin">
+              <MappingFragment StoreEntitySet="super_admin">
+                <ScalarProperty Name="account_active" ColumnName="account_active" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="User_name" ColumnName="User_name" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Site_Upload">
+            <EntityTypeMapping TypeName="Projects_ManagementModel1.Site_Upload">
+              <MappingFragment StoreEntitySet="Site_Upload">
+                <ScalarProperty Name="foundation_id" ColumnName="foundation_id" />
+                <ScalarProperty Name="e_signature" ColumnName="e_signature" />
+                <ScalarProperty Name="logo_image" ColumnName="logo_image" />
+                <ScalarProperty Name="logo_file_Ext" ColumnName="logo_file_Ext" />
+                <ScalarProperty Name="logo_file_name" ColumnName="logo_file_name" />
+                <ScalarProperty Name="File_Ext" ColumnName="File_Ext" />
+                <ScalarProperty Name="File_Name" ColumnName="File_Name" />
+                <ScalarProperty Name="Site_Name" ColumnName="Site_Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

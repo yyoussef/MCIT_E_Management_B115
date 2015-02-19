@@ -77,7 +77,7 @@ public partial class UserControls_Commission_Search : System.Web.UI.UserControl
         string t2 = "";
 
         int pmp = int.Parse(Session_CS.pmp_id.ToString());
-
+        
 
         int group = 0;
 

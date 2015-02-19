@@ -680,7 +680,7 @@
                                                                 <asp:CheckBox ID="chkSent" runat="server" AutoPostBack="true" OnCheckedChanged="chkSent_CheckedChanged" />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText=" ارسال إيميل">
+                                                        <asp:TemplateField HeaderText=" ارسال إيميل" >
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="ImgBtnEdit123" CommandName="SendItem" runat="server" ImageUrl="../Images/Edit.jpg"
                                                                     CommandArgument='<%# Eval("Visa_Id") %>' />

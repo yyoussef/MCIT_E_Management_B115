@@ -49,7 +49,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         Smart_Org_ID.Value_Field = "Org_ID";
         Smart_Org_ID.Text_Field = "Org_Desc";
         Smart_Org_ID.DataBind();
-
+        
         //DataTable orgsdt = new DataTable();
         //orgsdt.Columns.Add("Org_ID", typeof(long));
         //orgsdt.Columns.Add("Org_Desc", typeof(string));
@@ -2421,7 +2421,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                         Outbox_ID = CDataConverter.ConvertToInt(hidden_Id.Value),
                         Descrption = txt_Descrption.Text,
                         Date = txt_Follow_Date.Text,
-                        time_follow = CDataConverter.ConvertDateTimeNowRtnDt().ToLocalTime().ToLongTimeString(),
+                        time_follow = CDataConverter.ConvertTimeNowRtnLongTimeFormat(),
                         entery_pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()),
                         Visa_Emp_id = CDataConverter.ConvertToInt(ddl_Visa_Emp_id.SelectedValue),
                         Type_Follow = 1,

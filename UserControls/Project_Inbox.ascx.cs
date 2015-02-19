@@ -1604,23 +1604,8 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('لا يوجد أسماء في القائمة اليسري');", true);
 
             }
-            Inbox_Visa_Follows_DT obj_follow = Inbox_Visa_Follows_DB.SelectByID(CDataConverter.ConvertToInt(hidden_Follow_ID.Value));
-            obj_follow.Follow_ID = CDataConverter.ConvertToInt(hidden_Follow_ID.Value);
-            obj_follow.Inbox_ID = CDataConverter.ConvertToInt(hidden_Id.Value);
-            obj_follow.Descrption = txt_Visa_Desc.Text;
-
-            //string datenow = DateTime.Now.ToShortDateString().ToString();
-            string datenow = CDataConverter.ConvertDateTimeToFormatdmy(CDataConverter.ConvertDateTimeNowRtnDt());
-
-            string date = txt_Visa_date.Text;
-
-            obj_follow.Date = date;
-            obj_follow.Entery_Date = datenow;
-            obj_follow.time_follow = CDataConverter.ConvertDateTimeNowRtnDt().ToLocalTime().ToLongTimeString();
-            obj_follow.entery_pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
-            obj_follow.Visa_Emp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
-            obj_follow.Follow_ID = Inbox_Visa_Follows_DB.Save(obj_follow);
-
+        
+            
 
 
 
@@ -1635,6 +1620,26 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
 
 
+    }
+
+    public void insert_Visa_Follows()
+    {
+        Inbox_Visa_Follows_DT obj_follow = Inbox_Visa_Follows_DB.SelectByID(CDataConverter.ConvertToInt(hidden_Follow_ID.Value));
+        obj_follow.Follow_ID = CDataConverter.ConvertToInt(hidden_Follow_ID.Value);
+        obj_follow.Inbox_ID = CDataConverter.ConvertToInt(hidden_Id.Value);
+        obj_follow.Descrption = txt_Visa_Desc.Text;
+
+        //string datenow = DateTime.Now.ToShortDateString().ToString();
+        string datenow = CDataConverter.ConvertDateTimeToFormatdmy(CDataConverter.ConvertDateTimeNowRtnDt());
+
+        string date = txt_Visa_date.Text;
+
+        obj_follow.Date = date;
+        obj_follow.Entery_Date = datenow;
+        obj_follow.time_follow = CDataConverter.ConvertTimeNowRtnLongTimeFormat();
+        obj_follow.entery_pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
+        obj_follow.Visa_Emp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
+        obj_follow.Follow_ID = Inbox_Visa_Follows_DB.Save(obj_follow);
     }
     public void fill_listbox()
     {
@@ -2106,6 +2111,10 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
             }
             //Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('لقد تم ارسال الايميل للسيد المدير المختص بنجاح')</script>");
+
+          
+
+
         }
 
 
@@ -2344,6 +2353,21 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                 obj_follow.Visa_Emp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
                 obj_follow.Follow_ID = Inbox_Visa_Follows_DB.Save(obj_follow);
 
+
+                foreach (GridViewRow row in GridView_Visa.Rows)
+                {
+                    if (e.CommandArgument != null && e.CommandArgument != "")
+                    {
+                        ImageButton img = (ImageButton)row.FindControl("ImgBtnEdit");
+                        ImageButton img2 = (ImageButton)row.FindControl("ImgBtnDelete");
+                        img.Enabled = false;
+                        img2.Enabled = false;
+                    }
+
+                }
+
+                insert_Visa_Follows();
+
                 Fil_Grid_Visa_Follow();
 
                 //SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
@@ -2364,6 +2388,10 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
             }
             //Page.RegisterStartupScript("Sucess", "<script language=javascript>alert(' لقد تم ارسال الايميل بنجاح إلي " +allnames+"')</script>");
+            
+       
+
+
         }
 
 
@@ -2970,6 +2998,8 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                 chklst_Visa_Emp_All.DataSource = DT_emp;
                 chklst_Visa_Emp_All.DataBind();
             }
+
+
         }
         TabPanel_All.ActiveTab = TabPanel_Visa;
         //DataTable dt_emp_fav = General_Helping.GetDataTable(sql_emp);

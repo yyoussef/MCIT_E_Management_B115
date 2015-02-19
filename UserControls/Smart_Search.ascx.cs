@@ -18,6 +18,7 @@ using System.Xml;
 using Dates;
 using System.Reflection;
 using System.Data.Sql;
+using System.Collections.Generic;
 
 
 
@@ -156,6 +157,8 @@ public partial class Smart_Search : System.Web.UI.UserControl
         }
 
     }
+
+
 
     public string SelectedText
     {
