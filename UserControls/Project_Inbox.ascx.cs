@@ -2371,7 +2371,11 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
                 }
 
+<<<<<<< HEAD
               //  insert_Visa_Follows();
+=======
+                insert_Visa_Follows();
+>>>>>>> 4137e7cd3c2f4fec68be1bcb0b0f878cf2632bf2
 
                 Fil_Grid_Visa_Follow();
 
