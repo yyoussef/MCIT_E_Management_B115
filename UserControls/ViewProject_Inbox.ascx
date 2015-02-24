@@ -454,26 +454,13 @@
                                 </tr>--%>
                                         <tr>
                                             <td>
-                                                <asp:Label ID="Label30" runat="server" CssClass="Label" Text="الإدارة التابع لها :" />
+                                                <asp:Label ID="Label30" runat="server" CssClass="Label" Text="الإدارة :" />
                                             </td>
                                             <td colspan="3">
                                                 <uc1:Smart_Search ID="Smart_Search_dept" runat="server" />
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td align="right" dir="rtl">
-                                                <asp:Label ID="Label29" runat="server" CssClass="Label" Text="درجة الأهمية: " Width="100px" />
-                                            </td>
-                                            <td colspan="3">
-                                                <br />
-                                                <asp:DropDownList ID="ddl_Important_Degree" runat="server" CssClass="drop" Width="150px">
-                                                    <asp:ListItem Text="هام" Value="1" Selected="True"> </asp:ListItem>
-                                                    <asp:ListItem Text="عاجل" Value="2"> </asp:ListItem>
-                                                    <asp:ListItem Text="عادى" Value="3"> </asp:ListItem>
-                                                </asp:DropDownList>
-                                                <asp:Label ID="txt_Important_Degree_Txt" runat="server" CssClass="Label" Width="293px"></asp:Label>
-                                            </td>
-                                        </tr>
+                                     
                                         <tr>
                                             <td>
                                                 <asp:Label ID="Label46" runat="server" CssClass="Label" Text="النوع :" />
@@ -530,7 +517,20 @@
                                             </td>
                                         </tr>
                                       
-                                      
+                                         <tr>
+                                            <td align="right" dir="rtl">
+                                                <asp:Label ID="Label29" runat="server" CssClass="Label" Text="درجة الأهمية: " Width="100px" />
+                                            </td>
+                                            <td colspan="3">
+                                                <br />
+                                                <asp:DropDownList ID="ddl_Important_Degree" runat="server" CssClass="drop" Width="150px">
+                                                    <asp:ListItem Text="هام" Value="1" Selected="True"> </asp:ListItem>
+                                                    <asp:ListItem Text="عاجل" Value="2"> </asp:ListItem>
+                                                    <asp:ListItem Text="عادى" Value="3"> </asp:ListItem>
+                                                </asp:DropDownList>
+                                                <asp:Label ID="txt_Important_Degree_Txt" runat="server" CssClass="Label" Width="293px"></asp:Label>
+                                            </td>
+                                        </tr>
                                         <tr>
                                             <td align="right" width="150px">
                                                 <asp:Label ID="Label15" runat="server" CssClass="Label" Text="تاريخ التاشيرة :" Width="135px" />

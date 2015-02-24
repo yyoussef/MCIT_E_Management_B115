@@ -2411,9 +2411,9 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                 //}
                // Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('" + message + "')</script>");
 
-                GridView_Visa.Rows[xx].Cells[8].Enabled = false;
-                GridView_Visa.Rows[xx].Cells[9].Enabled  = false;
-                GridView_Visa.Rows[xx].Cells[10].Enabled   = false;
+                GridView_Visa.Rows[xx].Cells[8].Visible = false;
+                GridView_Visa.Rows[xx].Cells[9].Visible = false;
+                GridView_Visa.Rows[xx].Cells[10].Visible = false;
 
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('"+message+"');", true);
 
@@ -2659,9 +2659,9 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                     ImageButton img = (ImageButton)row.FindControl("ImgBtnEdit");
                     ImageButton img2 = (ImageButton)row.FindControl("ImgBtnDelete");
                     ImageButton img3 = (ImageButton)row.FindControl("ImgBtnEdit123");
-                    img.Enabled = false;
-                    img2.Enabled = false;
-                    img3.Enabled = false;
+                    img.Visible = false;
+                    img2.Visible = false;
+                    img3.Visible = false;
                 //img.Visible = false;
                 //img2.Visible = false;
 
