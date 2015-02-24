@@ -649,6 +649,8 @@
                                             <asp:TemplateField HeaderText="المسئول عن التنفيذ">
                                                 <ItemTemplate>
                                                     <%# Get_Visa_Emp(Eval("Visa_Id"))%>
+
+                                                 <asp:Label ID="lbl_emp" runat="server" Text='<%# Eval("Emp_ID")%>' Visible ="false" ></asp:Label>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                             <asp:TemplateField HeaderText="موقف المتابعة">
@@ -673,12 +675,12 @@
                                                         CommandArgument='<%# Eval("Visa_Id") %>' />
                                                 </ItemTemplate>
                                             </asp:TemplateField>
-                                            <%--  <asp:TemplateField HeaderText="حذف" ItemStyle-Width="20px">
+                                        <asp:TemplateField HeaderText="حذف" ItemStyle-Width="20px">
                                         <ItemTemplate>
                                             <asp:ImageButton ID="ImgBtnDelete" CommandName="RemoveItem" runat="server" ImageUrl="../Images/delete.gif"
                                                 Style="height: 22px" CommandArgument='<%# Eval("Visa_Id") %>' />
                                         </ItemTemplate>
-                                    </asp:TemplateField>--%>
+                                    </asp:TemplateField>
                                         </Columns>
                                         <PagerStyle CssClass="pgr" />
                                         <AlternatingRowStyle CssClass="alt" />

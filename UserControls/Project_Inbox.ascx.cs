@@ -30,6 +30,8 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
     private string sql_Connection = Database.ConnectionString;
     General_Helping Obj_General_Helping = new General_Helping();
     int id;
+    string v_desc;
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -2332,21 +2334,53 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                     //Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('لم يتم ارسال الايميل بنجاح' )</script>");
 
                 }
+
+                
             }
             string message = Show_Alert(Succ_names, Failed_name, e.CommandArgument.ToString());
             if (!string.IsNullOrEmpty(message))
             {
                 Fil_Grid_Visa();
+
+
+                //foreach (GridViewRow row in GridView_Visa.Rows)
+                //{
+                //    if (row.RowIndex != null && e.CommandArgument !="")
+                //    {
+                //        ImageButton img = (ImageButton)row.FindControl("ImgBtnEdit");
+                //        ImageButton img2 = (ImageButton)row.FindControl("ImgBtnDelete");
+                //        img.Enabled = false;
+                //        img2.Enabled = false;
+
+                //        var lbl = row.FindControl("lbl_desc") as Label;
+                //        v_desc = lbl.Text;
+                       
+                //    }
+
+                //}
+                
+
+
                 ///////////////  to store that mohammed eid send visa to employee
                 Inbox_Visa_Follows_DT obj_follow = Inbox_Visa_Follows_DB.SelectByID(CDataConverter.ConvertToInt(hidden_Follow_ID.Value));
                 obj_follow.Follow_ID = CDataConverter.ConvertToInt(hidden_Follow_ID.Value);
                 obj_follow.Inbox_ID = CDataConverter.ConvertToInt(hidden_Id.Value);
 
-                obj_follow.Descrption = message + " بواسطة النظام -- ";
+                GridViewRow row = (GridViewRow)((ImageButton)e.CommandSource).NamingContainer;
+                int xx = row.RowIndex;
 
-                obj_follow.Descrption += message + "  ونص التأشيرة:   ";
+                   if (row != null)
+                    {
+                       v_desc=  GridView_Visa.Rows[xx].Cells[3].Text;
 
-                obj_follow.Descrption += message + txt_Visa_Desc.Text ;
+                       Label download = (Label)row.FindControl("lbl_desc");
+
+                       v_desc = download.Text;
+
+                    
+                    }
+
+                obj_follow.Descrption = message + " ونص التأشيرة:   " + v_desc ;
 
                 //string date = DateTime.Now.ToShortDateString().ToString();
                 string date = CDataConverter.ConvertDateTimeToFormatdmy(CDataConverter.ConvertDateTimeNowRtnDt());
@@ -2359,23 +2393,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                 obj_follow.Follow_ID = Inbox_Visa_Follows_DB.Save(obj_follow);
 
 
-                foreach (GridViewRow row in GridView_Visa.Rows)
-                {
-                    if (e.CommandArgument != null && e.CommandArgument != "")
-                    {
-                        ImageButton img = (ImageButton)row.FindControl("ImgBtnEdit");
-                        ImageButton img2 = (ImageButton)row.FindControl("ImgBtnDelete");
-                        img.Enabled = false;
-                        img2.Enabled = false;
-                    }
 
-                }
-
-<<<<<<< HEAD
-              //  insert_Visa_Follows();
-=======
-                insert_Visa_Follows();
->>>>>>> 4137e7cd3c2f4fec68be1bcb0b0f878cf2632bf2
 
                 Fil_Grid_Visa_Follow();
 
@@ -2392,6 +2410,10 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
                 //}
                // Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('" + message + "')</script>");
+
+                GridView_Visa.Rows[xx].Cells[8].Enabled = false;
+                GridView_Visa.Rows[xx].Cells[9].Enabled  = false;
+                GridView_Visa.Rows[xx].Cells[10].Enabled   = false;
 
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('"+message+"');", true);
 
@@ -2432,7 +2454,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
         if (!string.IsNullOrEmpty(Succ_names))
         {
             flag = 1;
-            message += " لقد تم ارسال الايميل بنجاح إلي " + Succ_names;
+            message += " لقد تم ارسال الايميل  بواسطة النظام بنجاح إلي " + Succ_names;
         }
         if (!string.IsNullOrEmpty(Failed_name))
         {
@@ -2621,10 +2643,31 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
     {
         DataTable DT = new DataTable();
         DT = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_inbox_visa", hidden_Id.Value).Tables[0];
-        //DT = General_Helping.GetDataTable("select * from Inbox_Visa where Inbox_ID=" + hidden_Id.Value);
+
+       // int empid = CDataConverter.ConvertToInt(DT.Rows[0]["Emp_ID"].ToString()); 
 
         GridView_Visa.DataSource = DT;
         GridView_Visa.DataBind();
+
+            foreach (GridViewRow row in GridView_Visa.Rows)
+            {
+                CheckBox chk = (CheckBox)row.FindControl("chkSent");
+                Label lbl_emp = (Label)row.FindControl("lbl_emp");
+
+                if (chk.Checked == true || lbl_emp.Text  != Session_CS.pmp_id.ToString())
+                {
+                    ImageButton img = (ImageButton)row.FindControl("ImgBtnEdit");
+                    ImageButton img2 = (ImageButton)row.FindControl("ImgBtnDelete");
+                    ImageButton img3 = (ImageButton)row.FindControl("ImgBtnEdit123");
+                    img.Enabled = false;
+                    img2.Enabled = false;
+                    img3.Enabled = false;
+                //img.Visible = false;
+                //img2.Visible = false;
+
+               }
+
+          }
 
     }
 
@@ -2957,6 +3000,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
             Update_Have_Visa(Id);
 
             Fil_Grid_Visa_Follow();
+
 
 
 
