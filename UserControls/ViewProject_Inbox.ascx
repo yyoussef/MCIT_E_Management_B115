@@ -651,7 +651,8 @@
                                                     <%# Get_Visa_Emp(Eval("Visa_Id"))%>
 
                                                  <asp:Label ID="lbl_emp" runat="server" Text='<%# Eval("Emp_ID")%>' Visible ="false" ></asp:Label>
-                                                       <asp:Label ID="lbl_desc" runat="server" Text='<%# Eval("lbl_desc")%>' Visible ="false" ></asp:Label>
+                                                  <asp:Label ID="lbl_desc" runat="server" Text='<%# Eval("lbl_desc")%>' Visible ="false" ></asp:Label>
+
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                             <asp:TemplateField HeaderText="موقف المتابعة">
