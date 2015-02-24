@@ -27,6 +27,7 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
     private string sql_Connection = Database.ConnectionString;
     General_Helping Obj_General_Helping = new General_Helping();
     int id;
+    string v_desc;
     Thread threadObj;
 
     //Session_CS Session_CS = new Session_CS();
@@ -1342,18 +1343,20 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
         {
             string datenow = CDataConverter.ConvertDateTimeToFormatdmy(CDataConverter.ConvertDateTimeNowRtnDt());
             //conn.Open();
-            Inbox_Visa_Follows_DT obj_follow = Inbox_Visa_Follows_DB.SelectByID(CDataConverter.ConvertToInt(hidden_Follow_ID.Value));
-            obj_follow.Follow_ID = CDataConverter.ConvertToInt(hidden_Follow_ID.Value);
-            obj_follow.Inbox_ID = CDataConverter.ConvertToInt(hidden_Id.Value);
-            obj_follow.Descrption = txt_Visa_Desc.Text;
-            //string date = DateTime.Now.ToShortDateString().ToString();
-            string date = txt_Visa_date.Text;
-            obj_follow.Entery_Date = datenow;
-            obj_follow.Date = date;
-            obj_follow.time_follow = CDataConverter.ConvertDateTimeNowRtnDt().ToLocalTime().ToLongTimeString();
-            obj_follow.entery_pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
-            obj_follow.Visa_Emp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
-            obj_follow.Follow_ID = Inbox_Visa_Follows_DB.Save(obj_follow);
+            //Inbox_Visa_Follows_DT obj_follow = Inbox_Visa_Follows_DB.SelectByID(CDataConverter.ConvertToInt(hidden_Follow_ID.Value));
+            //obj_follow.Follow_ID = CDataConverter.ConvertToInt(hidden_Follow_ID.Value);
+            //obj_follow.Inbox_ID = CDataConverter.ConvertToInt(hidden_Id.Value);
+            //obj_follow.Descrption = txt_Visa_Desc.Text;
+            ////string date = DateTime.Now.ToShortDateString().ToString();
+            //string date = txt_Visa_date.Text;
+            //obj_follow.Entery_Date = datenow;
+            //obj_follow.Date = date;
+            //obj_follow.time_follow = CDataConverter.ConvertDateTimeNowRtnDt().ToLocalTime().ToLongTimeString();
+            //obj_follow.entery_pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
+            //obj_follow.Visa_Emp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
+            //obj_follow.Follow_ID = Inbox_Visa_Follows_DB.Save(obj_follow);
+
+
             Fil_Grid_Visa_Follow();
 
             if (CDataConverter.ConvertToInt(Session_CS.parent_id.ToString()) > 0)
@@ -1519,7 +1522,7 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
             //// Thread threadObj2 = new Thread(new ThreadStart(Send_Visa));
             // //threadObj.Start(obj.Visa_Id);
             // Thread t1 =new Thread ( delegate() { Send_Visa(obj.Visa_Id.ToString()); });
-            Send_Visa(obj.Visa_Id.ToString());
+            //Send_Visa(obj.Visa_Id.ToString());
         }
     }
     public void MyWorkerThreadMethod()
@@ -1706,25 +1709,47 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
     {
         DataTable DT = new DataTable();
         DT = General_Helping.GetDataTable("select * from Inbox_Visa where Inbox_ID=" + hidden_Id.Value);
-
+      //  int empid = CDataConverter.ConvertToInt(DT.Rows[0]["Emp_ID"].ToString());
         GridView_Visa.DataSource = DT;
         GridView_Visa.DataBind();
-        DataTable dt = General_Helping.GetDataTable("select parent_pmp_id,pmp_id from parent_employee where pmp_id = " + CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()) + "or parent_pmp_id = " + CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()));
-        if (dt.Rows.Count > 0)
-        {
-            if (CDataConverter.ConvertToInt(dt.Rows[0]["parent_pmp_id"].ToString()) == CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()))
+
+       
+            foreach (GridViewRow row in GridView_Visa.Rows)
             {
-                GridView_Visa.Columns[8].Visible = GridView_Visa.Columns[9].Visible = GridView_Visa.Columns[10].Visible = true;
+                CheckBox chk = (CheckBox)row.FindControl("chkSent");
+                Label lbl_emp = (Label)row.FindControl("lbl_emp");
+                if (chk.Checked == true || lbl_emp.Text  != Session_CS.pmp_id.ToString())
+                {
+                    ImageButton img = (ImageButton)row.FindControl("ImgBtnEdit");
+                    ImageButton img2 = (ImageButton)row.FindControl("ImgBtnDelete");
+                    ImageButton img3 = (ImageButton)row.FindControl("ImgBtnEdit123");
+                    img.Enabled = false;
+                    img2.Enabled = false;
+                    img3.Enabled = false;
+                    //img.Visible = false;
+                    //img2.Visible = false;
+
+                }
+
             }
-            else
-            {
-                GridView_Visa.Columns[8].Visible = GridView_Visa.Columns[9].Visible = GridView_Visa.Columns[10].Visible = false;
-            }
-        }
-        else
-        {
-            GridView_Visa.Columns[8].Visible = GridView_Visa.Columns[9].Visible = GridView_Visa.Columns[10].Visible = false;
-        }
+        
+
+        //DataTable dt = General_Helping.GetDataTable("select parent_pmp_id,pmp_id from parent_employee where pmp_id = " + CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()) + "or parent_pmp_id = " + CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()));
+        //if (dt.Rows.Count > 0)
+        //{
+        //    if (CDataConverter.ConvertToInt(dt.Rows[0]["parent_pmp_id"].ToString()) == CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()))
+        //    {
+        //        GridView_Visa.Columns[8].Visible = GridView_Visa.Columns[9].Visible = GridView_Visa.Columns[10].Visible = true;
+        //    }
+        //    else
+        //    {
+        //        GridView_Visa.Columns[8].Visible = GridView_Visa.Columns[9].Visible = GridView_Visa.Columns[10].Visible = false;
+        //    }
+        //}
+        //else
+        //{
+        //    GridView_Visa.Columns[8].Visible = GridView_Visa.Columns[9].Visible = GridView_Visa.Columns[10].Visible = false;
+        //}
 
     }
     private void Fil_Visa_Lstbox(int ID)
@@ -1759,8 +1784,179 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
         //}
         if (e.CommandName == "SendItem")
         {
-            Send_Visa(e.CommandArgument.ToString());
-            // Save_trackmanager(CDataConverter.ConvertToInt(hidden_Id.Value));
+            string Visa_ID = e.CommandArgument.ToString();
+           // Send_Visa(e.CommandArgument.ToString());
+
+            ////////////////////////////////////////////////////////////////////////////////////////////
+            /////////////////// Sending Mail Code /////////////////////////////////////////
+            //////////////////////////////////////////////////////////////////////////////////////////
+            string dept = Session_CS.dept.ToString();
+            string name = "";
+            string Succ_names = "", Failed_name = "";
+            DataTable dt_Inbox_Visa = General_Helping.GetDataTable("select * from Inbox_Visa_Emp where Visa_Id =" + Visa_ID);
+            foreach (DataRow item in dt_Inbox_Visa.Rows)
+            {
+                Inbox_DB.update_inbox_Track_Emp(hidden_Id.Value, item["Emp_ID"].ToString(), 1, 1);
+                string sqlformail = "SELECT * from employee ";
+                sqlformail += " where pmp_id= " + item["Emp_ID"].ToString();
+                DataTable ds = General_Helping.GetDataTable(sqlformail);
+
+                //DataTable DT = General_Helping.GetDataTable(sqlformail);
+                string mail = ds.Rows[0]["mail"].ToString();
+
+                name = ds.Rows[0]["pmp_name"].ToString();
+
+
+                MailMessage _Message = new MailMessage();
+                string str_subj = "";
+                if (txt_subject.Text.Length > 160)
+                {
+                    if (int.Parse(Session_CS.group_id.ToString()) == 3)
+                    {
+                        str_subj = txt_subject.Text.Substring(0, 160);
+                    }
+                    else
+                        str_subj = txt_subject.Text.Substring(0, 130);
+
+
+                }
+                else
+                {
+                    str_subj = txt_subject.Text;
+                }
+
+
+                string str_witoutn = str_subj.Replace("\n", "");
+                str_subj = str_witoutn.Replace("\r", "");
+
+
+                if (int.Parse(Session_CS.group_id.ToString()) == 3)
+                {
+
+                    _Message.Subject = ("INIR" + " - " + str_subj + " - " + lblLetterDate.Text).ToString();
+                }
+                else
+                {
+
+                    _Message.Subject = ("نظام الادارة الالكترونية - المراسلات" + " - " + str_subj + " - " + lblLetterDate.Text).ToString();
+                }
+
+
+                //_Message.BodyEncoding = Encoding.Unicode;
+                //_Message.BodyEncoding = Encoding.UTF8;
+                //_Message.SubjectEncoding = Encoding.UTF8;
+
+
+
+                bool flag = false;
+                string file = "";
+                byte[] files = new byte[0];
+                MemoryStream ms = new MemoryStream();
+                DataTable dt = General_Helping.GetDataTable("select * from Inbox_OutBox_Files where Inbox_Outbox_ID =" + hidden_Id.Value + " and Inbox_Or_Outbox =1 ");
+                foreach (DataRow dr in dt.Rows)
+                {
+
+                    if (dr["File_data"] != DBNull.Value)
+                    {
+
+                        file = dr["File_name"].ToString() + dr["File_ext"].ToString();
+                        files = (byte[])dr["File_data"];
+                        ms = new MemoryStream(files);
+                        _Message.Attachments.Add(new Attachment(ms, file));
+                        flag = true;
+
+                    }
+                }
+
+
+                string address2 = System.Web.HttpContext.Current.Request.Url.Authority.ToString();
+                String encrypted_id = Encryption.Encrypt(hidden_Id.Value);
+                _Message.IsBodyHtml = true;
+                _Message.Body = "<html><body dir='rtl'><h3 > السيد - " + name + " </h3>";
+                _Message.Body += " <h3 > " + " وصلكم وارد من " + dept + " بتاريخ " + txt_Visa_date.Text + " بخصوص  <br/>" + "<h3 style=" + "color:blue >" + txt_subject.Text + "</h3>" + " </h3>";
+                _Message.Body += " <h3 > " + "  وتأشيرة  السيد المدير المختص أن :" + "<h3 style=" + "color:blue >" + txt_Visa_Desc.Text + "</h3>" + " </h3>";
+
+                _Message.Body += " <h3 > ورابط الوارد هو  :<br/>";
+                _Message.Body += " <h3 >http:" + "/" + "/" + address2 + "/MainForm/ViewProjectInbox.aspx?id=" + encrypted_id + "&1=1 </h3>";
+
+                if (flag)
+                    _Message.Body += "<h3 >  " + " ومرفق الوثائق الخاصة بهذا الوارد</h3> ";
+
+
+
+                _Message.Body += "<h3 > مع تحيات </h3> ";
+                _Message.Body += "<h3 >   " + Session_CS.e_signature.ToString() + "  </h3> ";
+                _Message.Body += "</body></html>";
+
+                //////
+
+
+
+
+                Inbox_Visa_DT obj = Inbox_Visa_DB.SelectByID(CDataConverter.ConvertToInt(Visa_ID));
+                obj.mail_sent = 1;
+                Inbox_Visa_DB.Save(obj);
+                /////////////////////// update have visa = 0/////////////////////////////////////////////
+                Update_Have_Visa(Visa_ID);
+
+
+                try
+                {
+                    SendingMailthread_class.Sendingmail(_Message, _Message.Subject, _Message.Body, mail, ms, file, encrypted_id, "");
+
+                    Succ_names += name + ",";
+
+
+                }
+                catch (Exception ex)
+                {
+                    Failed_name += name + ",";
+
+
+                }
+            }
+            string message = Show_Alert(Succ_names, Failed_name, Visa_ID);
+            Fil_Grid_Visa();
+            ///////////////  to store that mohammed eid send visa to employee
+            Inbox_Visa_Follows_DT obj_follow = Inbox_Visa_Follows_DB.SelectByID(CDataConverter.ConvertToInt(hidden_Follow_ID.Value));
+            obj_follow.Follow_ID = CDataConverter.ConvertToInt(hidden_Follow_ID.Value);
+            obj_follow.Inbox_ID = CDataConverter.ConvertToInt(hidden_Id.Value);
+
+            GridViewRow row = (GridViewRow)((ImageButton)e.CommandSource).NamingContainer;
+            int xx = row.RowIndex;
+
+            if (row != null)
+            {
+                v_desc = GridView_Visa.Rows[xx].Cells[3].Text;
+
+                Label download = (Label)row.FindControl("lbl_desc");
+
+                v_desc = download.Text;
+
+
+            }
+
+            obj_follow.Descrption = message + " ونص التأشيرة:   " + v_desc;
+
+            obj_follow.Descrption = message + "و تم الارسال بواسطة النظام";
+            string date = CDataConverter.ConvertDateTimeToFormatdmy(CDataConverter.ConvertDateTimeNowRtnDt());
+            obj_follow.Date = date;
+            obj_follow.time_follow = CDataConverter.ConvertDateTimeNowRtnDt().ToLocalTime().ToLongTimeString();
+            obj_follow.entery_pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
+
+            obj_follow.Visa_Emp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
+            obj_follow.Follow_ID = Inbox_Visa_Follows_DB.Save(obj_follow);
+            Fil_Grid_Visa_Follow();
+
+            GridView_Visa.Rows[xx].Cells[9].Enabled = false;
+            GridView_Visa.Rows[xx].Cells[10].Enabled = false;
+            GridView_Visa.Rows[xx].Cells[11].Enabled = false;
+
+            //Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('" + message + "')</script>");
+
+            ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('" + message + "');", true);
+
+            
         }
 
     }
@@ -1902,6 +2098,9 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
         obj_follow.Follow_ID = CDataConverter.ConvertToInt(hidden_Follow_ID.Value);
         obj_follow.Inbox_ID = CDataConverter.ConvertToInt(hidden_Id.Value);
 
+   
+        obj_follow.Descrption = message + " ونص التأشيرة:   " + v_desc;
+
         obj_follow.Descrption = message + "و تم الارسال بواسطة النظام";
         string date = CDataConverter.ConvertDateTimeToFormatdmy(CDataConverter.ConvertDateTimeNowRtnDt());
         obj_follow.Date = date;
@@ -1912,8 +2111,9 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
         obj_follow.Follow_ID = Inbox_Visa_Follows_DB.Save(obj_follow);
         Fil_Grid_Visa_Follow();
 
-      
 
+        //GridView_Visa.Rows[xx].Cells[10].Enabled = false;
+        //GridView_Visa.Rows[xx].Cells[11].Enabled = false;
 
         //Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('" + message + "')</script>");
 
