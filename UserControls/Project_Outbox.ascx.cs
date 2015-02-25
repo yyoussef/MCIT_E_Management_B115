@@ -632,10 +632,36 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         //DataTable DT = new DataTable();
         //DT = General_Helping.GetDataTable("select * from Outbox_Visa where Outbox_ID=" + hidden_Id.Value);
 
-        GridView_Visa.DataSource = from ds in outboxDBContext.Outbox_Visas
+       DataTable DT   = (from ds in outboxDBContext.Outbox_Visas
                                    where ds.Outbox_ID == CDataConverter.ConvertToInt(hidden_Id.Value)
-                                   select ds;
+                                   select ds).ToDataTable();
+        GridView_Visa.DataSource = DT;  
         GridView_Visa.DataBind();
+
+
+        foreach (GridViewRow row in GridView_Visa.Rows)
+        {
+            CheckBox chk = (CheckBox)row.FindControl("chkSent");
+            Label lbl_emp = (Label)row.FindControl("lbl_emp");
+
+            if (chk.Checked == true || lbl_emp.Text != Session_CS.pmp_id.ToString())
+            {
+                ImageButton img = (ImageButton)row.FindControl("ImgBtnEdit");
+                ImageButton img2 = (ImageButton)row.FindControl("ImgBtnDelete");
+                ImageButton img3 = (ImageButton)row.FindControl("ImgBtnEdit123");
+                img.Visible = false;
+                img2.Visible = false;
+                img3.Visible = false;
+                //img.Visible = false;
+                //img2.Visible = false;
+
+            }
+
+        }
+
+
+
+
 
     }
 
@@ -937,6 +963,14 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
             //Client.UseDefaultCredentials = false;
             //Client.Credentials = SMTPUserInfo;
             //Client.Timeout = 1000000000;
+
+            GridViewRow row = (GridViewRow)((ImageButton)e.CommandSource).NamingContainer;
+            int xx = row.RowIndex;
+            GridView_Visa.Rows[xx].Cells[8].Visible = false;
+            GridView_Visa.Rows[xx].Cells[9].Visible = false;
+            GridView_Visa.Rows[xx].Cells[7].Visible = false;
+
+
             try
             {
                 //Client.Send(_Message);
@@ -2193,7 +2227,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                         OutboxVisaObj.Important_Degree_Txt = (string.IsNullOrEmpty(txt_Important_Degree_Txt.Text) ? ddl_Important_Degree.SelectedItem.Text : txt_Important_Degree_Txt.Text);
                         OutboxVisaObj.Dept_ID = CDataConverter.ConvertToInt(Smrt_Srch_structure.SelectedValue);
                         OutboxVisaObj.Dept_ID_Txt = Smrt_Srch_structure.SelectedText;
-                        OutboxVisaObj.Emp_ID = 0;
+                        OutboxVisaObj.Emp_ID = CDataConverter.ConvertToInt(Session_CS.pmp_id);
                         OutboxVisaObj.Emp_ID_Txt = txt_Emp_ID_Txt.Text;
                         OutboxVisaObj.Visa_Desc = txt_Visa_Desc.Text;
                         OutboxVisaObj.Visa_Period = txt_Visa_Period.Text;
@@ -2218,7 +2252,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                             Important_Degree_Txt = (string.IsNullOrEmpty(txt_Important_Degree_Txt.Text) ? ddl_Important_Degree.SelectedItem.Text : txt_Important_Degree_Txt.Text),
                             Dept_ID = CDataConverter.ConvertToInt(Smrt_Srch_structure.SelectedValue),
                             Dept_ID_Txt = Smrt_Srch_structure.SelectedText,
-                            Emp_ID = 0,
+                            Emp_ID =  CDataConverter.ConvertToInt(Session_CS.pmp_id),
                             Emp_ID_Txt = txt_Emp_ID_Txt.Text,
                             Visa_Desc = txt_Visa_Desc.Text,
                             Visa_Period = txt_Visa_Period.Text,
