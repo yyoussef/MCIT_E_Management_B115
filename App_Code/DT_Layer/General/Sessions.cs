@@ -16,6 +16,7 @@ using DBL;
 using System.IO;
 using System.Text;
 using System.Web;
+using System.Collections.Generic;
 
 /// <summary>
 /// Summary description for Sessions
@@ -564,7 +565,7 @@ public static  class Session_CS
         set
         {
             HttpCookie cook_dept = new HttpCookie("cook_dept");
-            cook_dept.Value = value;
+            cook_dept.Value = HttpContext.Current.Server.UrlEncode( value);
 
             cook_dept.Expires = DateTime.Now.AddDays(1);
             HttpContext.Current.Response.Cookies.Add(cook_dept);
@@ -654,6 +655,7 @@ public static  class Session_CS
 
             cook_vacation_mng.Expires = DateTime.Now.AddDays(1);
             HttpContext.Current.Response.Cookies.Add(cook_vacation_mng);
+            
         }
 
     }
@@ -712,8 +714,8 @@ public static  class Session_CS
         set
         {
             HttpCookie cook_pmp_name = new HttpCookie("cook_pmp_name");
-            cook_pmp_name.Value = value;
-
+            cook_pmp_name.Value =   HttpContext.Current.Server.UrlEncode(value);
+            
             cook_pmp_name.Expires = DateTime.Now.AddDays(1);
             HttpContext.Current.Response.Cookies.Add(cook_pmp_name);
         }

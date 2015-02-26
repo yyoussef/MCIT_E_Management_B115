@@ -33,6 +33,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
     #region "page lifecycle"
     protected override void OnInit(EventArgs e)
     {
+        
         #region BROWSER FOR departments
 
         int found_id = CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString());
@@ -1972,6 +1973,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                     OutboxVisaFollow.entery_pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
 
                     OutboxVisaFollow.Visa_Emp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
+                    
                 }
                 else
                 {

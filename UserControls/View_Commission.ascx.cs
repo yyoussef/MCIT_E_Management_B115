@@ -36,7 +36,7 @@ public partial class UserControls_View_Commission : System.Web.UI.UserControl
           //  Page.RegisterStartupScript("Sucess", "<script language=javascript>ChangeMeCase('" + Div + "','" + image + "','" + hidden_Number.Value + "');</script>");
 
             ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "success", "<script language=javascript>ChangeMeCase('" + Div + "','" + image + "','" + hidden_Number.Value + "');</script>", true);
-
+          
         }
 
         if (!IsPostBack)
@@ -1550,9 +1550,13 @@ public partial class UserControls_View_Commission : System.Web.UI.UserControl
 
 
 
-                    Commission_Visa_DT obj = Commission_Visa_DB.SelectByID(CDataConverter.ConvertToInt(Visa_ID));
-                    obj.mail_sent = 1;
-                    Commission_Visa_DB.Save(obj);
+                    //Commission_Visa_DT obj = Commission_Visa_DB.SelectByID(CDataConverter.ConvertToInt(Visa_ID));
+                    //obj.mail_sent = 1;
+
+                    //Commission_Visa_DB.Save(obj);
+
+       
+
                     /////////////////////// update have visa = 0/////////////////////////////////////////////
                     Update_Have_Visa(Visa_ID);
 
@@ -1563,8 +1567,6 @@ public partial class UserControls_View_Commission : System.Web.UI.UserControl
                         SendingMailthread_class.Sendingmail(_Message, _Message.Subject, _Message.Body, mail, ms, file, encrypted_id, "");
 
                         Succ_names += name + ",";
-
-
 
 
                     }
@@ -1580,6 +1582,7 @@ public partial class UserControls_View_Commission : System.Web.UI.UserControl
 
 
             }
+            General_Helping.ExcuteQuery("update Commission_Visa set mail_sent=1 where Visa_Id='" + Visa_ID + "' ");
             string message = Show_Alert(Succ_names, Failed_name, Visa_ID);
             Fil_Grid_Visa();
             ///////////////  to store that mohammed eid send visa to employee
