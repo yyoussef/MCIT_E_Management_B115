@@ -89,8 +89,8 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                         </td>
                                         <td>
                                             <asp:TextBox runat="server" CssClass="Text" ID="txt_Code" Width="319px"></asp:TextBox>
-                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txt_Code"
-                                                runat="server" Text="*" ValidationGroup="A" ErrorMessage="يجب ادخال الكود "></asp:RequiredFieldValidator>
+                                            <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txt_Code"
+                                                runat="server" Text="*" ValidationGroup="A" ErrorMessage="يجب ادخال الكود "></asp:RequiredFieldValidator>--%>
                                         </td>
                                         <td>
                                             <asp:Label ID="Label8" runat="server" CssClass="Label" Text="التاريخ :" />
@@ -294,7 +294,7 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                             <asp:Button runat="server" CssClass="Button" Text="حفــــــظ" ID="BtnSave" OnClick="btnSave_Click"
                                                 ValidationGroup="A" Width="99px" />
                                             <asp:Button runat="server" CssClass="Button" Text="جديد" ID="btnClear" OnClick="btnClear_Click"
-                                                ValidationGroup="A" Width="50px" />
+                                                 Width="50px" />
                                             <asp:Button runat="server" CssClass="Button" Text="ارسال إلي المدير المختص" ID="Button2"
                                                 OnClick="btnSend_Click" ValidationGroup="A" Width="170px" />
                                             <asp:ValidationSummary ID="ValidationSummary1" runat="server" ValidationGroup="A"

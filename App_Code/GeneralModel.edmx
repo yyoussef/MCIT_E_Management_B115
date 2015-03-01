@@ -4,7 +4,19 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Projects_ManagementModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Projects_ManagementModel1.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="Projects_ManagementModel1StoreContainer">
+          <EntitySet Name="Admin_Module" EntityType="Projects_ManagementModel1.Store.Admin_Module" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Admin_Module_Found" EntityType="Projects_ManagementModel1.Store.Admin_Module_Found" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Admin_Users" EntityType="Projects_ManagementModel1.Store.Admin_Users" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Foundations" EntityType="Projects_ManagementModel1.Store.Foundations" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Site_Upload" EntityType="Projects_ManagementModel1.Store.Site_Upload" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="super_admin" EntityType="Projects_ManagementModel1.Store.super_admin" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Admin_Module_Admin_Module" Association="Projects_ManagementModel1.Store.FK_Admin_Module_Admin_Module">
+            <End Role="Admin_Module" EntitySet="Admin_Module" />
+            <End Role="Admin_Module1" EntitySet="Admin_Module" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="Admin_Module">
           <Key>
             <PropertyRef Name="pk_ID" />
@@ -17,7 +29,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Mod_ID" Type="int" />
           <Property Name="Mod_status" Type="bit" />
           <Property Name="found_id" Type="int" />
@@ -26,7 +38,7 @@
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="nvarchar" MaxLength="50" />
           <Property Name="User_name" Type="nvarchar" MaxLength="50" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" />
@@ -37,7 +49,7 @@
           <Key>
             <PropertyRef Name="Foundation_ID" />
           </Key>
-          <Property Name="Foundation_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Foundation_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Foundation_Name" Type="nvarchar(max)" />
           <Property Name="code_archiving" Type="int" />
           <Property Name="Port" Type="int" />
@@ -47,16 +59,17 @@
           <Property Name="FromAddress" Type="nvarchar(max)" />
           <Property Name="connection_string" Type="nvarchar(max)" />
           <Property Name="islocal" Type="bit" />
+          <Property Name="code_outbox" Type="int" />
         </EntityType>
         <EntityType Name="Site_Upload">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="Site_Name" Type="nvarchar" MaxLength="50" />
-          <Property Name="File_Name" Type="nvarchar" MaxLength="4000" />
+          <Property Name="File_Name" Type="nvarchar" />
           <Property Name="File_Ext" Type="nvarchar" MaxLength="50" />
-          <Property Name="logo_file_name" Type="nvarchar" MaxLength="4000" />
+          <Property Name="logo_file_name" Type="nvarchar" />
           <Property Name="logo_file_Ext" Type="nvarchar" MaxLength="50" />
           <Property Name="logo_image" Type="image" />
           <Property Name="e_signature" Type="nvarchar" MaxLength="150" />
@@ -73,8 +86,8 @@
           <Property Name="account_active" Type="bit" />
         </EntityType>
         <Association Name="FK_Admin_Module_Admin_Module">
-          <End Role="Admin_Module" Type="Self.Admin_Module" Multiplicity="1" />
-          <End Role="Admin_Module1" Type="Self.Admin_Module" Multiplicity="0..1" />
+          <End Role="Admin_Module" Type="Projects_ManagementModel1.Store.Admin_Module" Multiplicity="1" />
+          <End Role="Admin_Module1" Type="Projects_ManagementModel1.Store.Admin_Module" Multiplicity="0..1" />
           <ReferentialConstraint>
             <Principal Role="Admin_Module">
               <PropertyRef Name="pk_ID" />
@@ -93,18 +106,6 @@
         <Function Name="SuperAdminUsers_SelectName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="User_name" Type="nvarchar" Mode="In" />
         </Function>
-        <EntityContainer Name="Projects_ManagementModel1StoreContainer">
-          <EntitySet Name="Admin_Module" EntityType="Self.Admin_Module" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Admin_Module_Found" EntityType="Self.Admin_Module_Found" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Admin_Users" EntityType="Self.Admin_Users" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Foundations" EntityType="Self.Foundations" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Site_Upload" EntityType="Self.Site_Upload" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="super_admin" EntityType="Self.super_admin" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Admin_Module_Admin_Module" Association="Self.FK_Admin_Module_Admin_Module">
-            <End Role="Admin_Module" EntitySet="Admin_Module" />
-            <End Role="Admin_Module1" EntitySet="Admin_Module" />
-          </AssociationSet>
-        </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -123,6 +124,7 @@
           <Property Name="FromAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="connection_string" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="islocal" Type="Boolean" />
+          <Property Type="Int32" Name="code_outbox" />
         </EntityType>
         <EntityContainer Name="Projects_ManagementEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Foundations" EntityType="Self.Foundations" />
@@ -245,6 +247,7 @@
           <EntitySetMapping Name="Foundations">
             <EntityTypeMapping TypeName="Projects_ManagementModel1.Foundations">
               <MappingFragment StoreEntitySet="Foundations">
+                <ScalarProperty Name="code_outbox" ColumnName="code_outbox" />
                 <ScalarProperty Name="Foundation_ID" ColumnName="Foundation_ID" />
                 <ScalarProperty Name="Foundation_Name" ColumnName="Foundation_Name" />
                 <ScalarProperty Name="code_archiving" ColumnName="code_archiving" />

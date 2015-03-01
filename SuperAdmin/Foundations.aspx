@@ -42,12 +42,23 @@
         </tr>
         <tr>
             <td style="width: 198px">
-                <asp:Label ID="Label1" runat="server" CssClass="Label" Text="كود الارشيف  :  "></asp:Label>
+                <asp:Label ID="Label1" runat="server" CssClass="Label" Text="كود الوارد  :  "></asp:Label>
             </td>
             <td>
                 <asp:CheckBox ID="chk_code" runat="server" />
             </td>
         </tr>
+
+
+          <tr>
+            <td style="width: 198px">
+                <asp:Label ID="Label9" runat="server" CssClass="Label" Text="كود الصادر  :  "></asp:Label>
+            </td>
+            <td>
+                <asp:CheckBox ID="chk_code_outbox" runat="server" />
+            </td>
+        </tr>
+
         
         <tr>
             <td>

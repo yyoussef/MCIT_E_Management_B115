@@ -169,16 +169,16 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                 {
                     txt_Code.Enabled = false;
 
-                    try
-                    {
+                   // try
+                    //{
                         //DataTable getmax = General_Helping.GetDataTable("select isnull(max(convert( int,code)),0)+1  as code    from inbox where foundation_id=" + Session_CS.foundation_id);
-                        DataTable getmax = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_max_code_inbox", Session_CS.foundation_id).Tables[0];
-                        txt_Code.Text = getmax.Rows[0]["code"].ToString();
-                    }
-                    catch
-                    {
-                        txt_Code.Text = "1";
-                    }
+                       // DataTable getmax = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_max_code_inbox", Session_CS.foundation_id).Tables[0];
+                       // txt_Code.Text = getmax.Rows[0]["code"].ToString();
+                   // }
+                   // catch
+                   // {
+                     //   txt_Code.Text = "1";
+                   // }
                 }
 
             }
@@ -460,6 +460,17 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
     {
         if ((CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 2 && CDataConverter.ConvertToInt(Smart_Org_ID.SelectedValue) > 0) || CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 1 || CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 3)
         {
+
+            if (Request["id"] == null)
+            {
+               
+                    if (Session_CS.code_outbox == 1)
+                    {
+                      DataTable getmax = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_max_code_inbox", Session_CS.foundation_id).Tables[0];
+                        txt_Code.Text = getmax.Rows[0]["code"].ToString();
+                    }
+                
+            }
             string datenow = "";
             int dept = 0;
             int pmp = 0;
@@ -589,6 +600,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
             obj.foundation_id = CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString());
             obj.ID = Inbox_DB.Save(obj);
 
+            
 
             ////// save the categories for the inbox
             // Dear Motaz please convert all these query to SP and then put all below code in another function
@@ -648,9 +660,6 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                     sql_related = "insert into Inbox_Relations values ( " + obj.ID + ",1," + CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue) + ",1," + found + " )";
                     General_Helping.ExcuteQuery(sql_related);
                 }
-
-
-
 
 
             }

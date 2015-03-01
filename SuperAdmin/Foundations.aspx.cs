@@ -99,14 +99,15 @@ public partial class SuperAdmin_Foundations : System.Web.UI.Page
         else
         {
             Foundations found_obj = new Foundations();
-            found_obj.Foundation_ID = Convert.ToInt32(found_id.Value);
+            found_obj.Foundation_ID = CDataConverter.ConvertToInt(found_id.Value);
             found_obj.Foundation_Name = txtBox_FoundName.Text;
             found_obj.FromAddress = txtBox_FromAddress.Text;
             found_obj.Host = txtBox_Host.Text;
             found_obj.connection_string = txt_connstring.Text;
             found_obj.Password = txtBox_Password.Text;
-            found_obj.Port = Convert.ToInt32(txtBox_Port.Text);
+            found_obj.Port = CDataConverter.ConvertToInt(txtBox_Port.Text);
             found_obj.UserName_mail = txtBox_UserName_mail.Text;
+          
             if (chk_code.Checked == true)
             {
                 found_obj.code_archiving = 1;
@@ -115,6 +116,17 @@ public partial class SuperAdmin_Foundations : System.Web.UI.Page
             {
                 found_obj.code_archiving = 0;
             }
+
+
+            if (chk_code_outbox.Checked == true)
+            {
+                found_obj.code_outbox = 1;
+            }
+            else
+            {
+                found_obj.code_outbox = 0;
+            }
+
 
             if (Chk_islocal.Checked == true)
             {

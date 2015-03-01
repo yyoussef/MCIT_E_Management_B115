@@ -60,11 +60,7 @@ public static  class Session_CS
 
 
 
-
-
-
-
-
+    
 
 
     public static Int32 parent_id
@@ -106,10 +102,6 @@ public static  class Session_CS
 
 
 
-
-
-
-
     public static Int32 foundation_id
     {
         get
@@ -139,6 +131,7 @@ public static  class Session_CS
         }
 
     }
+
     public static Int32 code_archiving
     {
 
@@ -168,6 +161,39 @@ public static  class Session_CS
         }
 
     }
+
+
+
+    public static Int32 code_outbox
+    {
+
+        get
+        {
+            if (!string.IsNullOrEmpty(HttpContext.Current.Request.Cookies["cook_code_outbox"].Value))
+            {
+
+                //return CDataConverter.ConvertToInt(HttpContext.Current.Session["foundation_id"]);
+                return CDataConverter.ConvertToInt(HttpContext.Current.Request.Cookies["cook_code_outbox"].Value);
+
+            }
+            else
+            {
+                HttpContext.Current.Response.Redirect("~/default.aspx");
+                return 0;
+            }
+        }
+
+        set
+        {
+            HttpCookie cook_code_archiving = new HttpCookie("cook_code_outbox");
+            cook_code_archiving.Value = value.ToString();
+
+            cook_code_archiving.Expires = DateTime.Now.AddDays(1);
+            HttpContext.Current.Response.Cookies.Add(cook_code_archiving);
+        }
+
+    }
+
     public static Int32 Port
     {
         get

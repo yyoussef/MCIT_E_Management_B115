@@ -50,6 +50,7 @@ public partial class Foundations
     public string FromAddress { get; set; }
     public string connection_string { get; set; }
     public Nullable<bool> islocal { get; set; }
+    public Nullable<int> code_outbox{ get; set;}
 }
 
 public partial class Site_Upload

@@ -49,7 +49,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         Smart_Org_ID.Value_Field = "Org_ID";
         Smart_Org_ID.Text_Field = "Org_Desc";
         Smart_Org_ID.DataBind();
-        
+
         //DataTable orgsdt = new DataTable();
         //orgsdt.Columns.Add("Org_ID", typeof(long));
         //orgsdt.Columns.Add("Org_Desc", typeof(string));
@@ -190,9 +190,25 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                 txt_Date.Text = CDataConverter.ConvertDateTimeNowRtrnString();
                 txt_Follow_Date.Text = CDataConverter.ConvertDateTimeNowRtrnString();
 
+
+                if (Session_CS.code_outbox == 1)
+                {
+                    txt_Code.Enabled = false;
+                }
+                // try
+                // {
+                //DataTable getmax = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_max_code_outbox", Session_CS.foundation_id).Tables[0];
+                // txt_Code.Text = getmax.Rows[0]["code"].ToString();
+                //  }
+                //catch
+                // {
+                //  txt_Code.Text = "1";
+                // }
+               //}
                 // btn_print_report.Enabled = false;
 
             }
+
 
             if (Session_CS.pmp_id > 0 && Request["id"] == null)
             {
@@ -1226,8 +1242,19 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
     }
     protected void btnSave_Click(object sender, EventArgs e)
     {
+
+
         if ((CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 2 && CDataConverter.ConvertToInt(Smart_Org_ID.SelectedValue) > 0) || CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 1)
         {
+
+            if (Session_CS.code_outbox == 1)
+            {
+               // txt_Code.Enabled = false;
+
+                DataTable getmax = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_max_code_outbox", Session_CS.foundation_id).Tables[0];
+                txt_Code.Text = getmax.Rows[0]["code"].ToString();
+            }
+        
             string datenow = "";
             int dept_id = 0;
             int Org_Id = 0;
@@ -1281,12 +1308,14 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                 OutboxObj.Org_Dept_Name = txt_Org_Dept_Name.Text;
                 OutboxObj.foundation_id = CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString());
                 outboxDBContext.SubmitChanges();
+                
             }
             else
             {
                 Outbox OutboxObj = new Outbox
                     {
                         ID = CDataConverter.ConvertToInt(hidden_Id.Value),
+                       
                         Proj_id = int.Parse(Session_CS.Project_id.ToString()),
                         Name = txt_Name.Text,
                         Code = txt_Code.Text,
@@ -1315,15 +1344,32 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                         Status = 0,
                         finished = 0,
                         Org_Dept_Name = txt_Org_Dept_Name.Text,
-                        foundation_id = CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString())
+                        foundation_id = CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString()),
+                   
+                      
                     };
+               
                 outboxDBContext.Outboxes.InsertOnSubmit(OutboxObj);
                 outboxDBContext.SubmitChanges();
                 hidden_Id.Value = OutboxObj.ID.ToString();
 
+                //if (OutboxObj.ID > 0)
+                //{
+
+                //    if (Session_CS.code_outbox == 1)
+                //    {
+                //        txt_Code.Enabled = false;
+
+                //        DataTable getmax = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_max_code_outbox", Session_CS.foundation_id).Tables[0];
+                //        txt_Code.Text = getmax.Rows[0]["code"].ToString();
+
+                       
+                //        int row = SqlHelper.ExecuteNonQuery(Database.ConnectionString, "update_code",OutboxObj.ID,2,txt_Code.Text);
+                       
+                //    }
+                //}
+
             }
-
-
 
             outboxDBContext.SPOutboxCatDelete(CDataConverter.ConvertToInt(hidden_Id.Value));
             //var outboxCats = outboxDBContext.outbox_cats.Where(x => x.outbox_id == CDataConverter.ConvertToInt(hidden_Id.Value));
@@ -2205,7 +2251,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                         OutboxVisaObj.mail_sent = 0;
                         outboxDBContext.SubmitChanges();
                         Save_inox_Visa(CDataConverter.ConvertToInt(hidden_Visa_Id.Value));
-                        
+
                     }
                     else
                     {
@@ -2233,7 +2279,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                         outboxDBContext.SubmitChanges();
                         hidden_Visa_Id.Value = OutboxVisa.Visa_Id.ToString();
                         Save_inox_Visa(CDataConverter.ConvertToInt(hidden_Visa_Id.Value));
-                        
+
                     }
                     ////Outbox_Visa_DT obj = new Outbox_Visa_DT();
                     ////obj.Visa_Id = CDataConverter.ConvertToInt(hidden_Visa_Id.Value);
@@ -2268,7 +2314,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
 
                     //obj.Visa_Id = Outbox_Visa_DB.Save(obj);
 
-                    
+
                     Clear_Visa_Cntrl();
                     Fil_Grid_Visa();
                     ////fil_emp_Folow_Up();
@@ -2816,10 +2862,6 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
 
     }
     #endregion
-
-
-
-
 
 
 
