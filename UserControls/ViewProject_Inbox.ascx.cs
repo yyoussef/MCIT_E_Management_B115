@@ -1929,7 +1929,7 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
             {
                 v_desc = GridView_Visa.Rows[xx].Cells[3].Text;
 
-                Label download = (Label)row.FindControl("Visa_Desc");
+                Label download = (Label)row.FindControl("lbl_desc");
 
                 v_desc = download.Text;
 
