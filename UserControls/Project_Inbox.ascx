@@ -660,7 +660,9 @@
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="وصف التأشيرة">
                                                             <ItemTemplate>
-                                                                <asp:Label ID="lbl_desc" runat="server" Text='<%# Eval("Visa_Desc")%>'></asp:Label></ItemTemplate>
+                                                                <asp:Label ID="lbl_desc" runat="server" Text='<%# Eval("Visa_Desc")%>'></asp:Label>
+                                                                <asp:Label ID="lbl_emp" runat="server" Text='<%# Eval("Emp_ID")%>' Visible ="false" ></asp:Label>
+                                                            </ItemTemplate>
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="الوثيقة">
                                                             <ItemTemplate>
@@ -677,7 +679,7 @@
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="تم ارسال إيميل">
                                                             <ItemTemplate>
-                                                                <asp:CheckBox ID="chkSent" runat="server" AutoPostBack="true" OnCheckedChanged="chkSent_CheckedChanged" />
+                                                                <asp:CheckBox ID="chkSent" runat="server" AutoPostBack="true" Enabled="false"  OnCheckedChanged="chkSent_CheckedChanged" />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText=" ارسال إيميل" >

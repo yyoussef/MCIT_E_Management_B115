@@ -40,8 +40,8 @@ Partial Public Class Masters_MainformMaster
             'Else
             If Request.QueryString("LogOut") <> 1 Then
                 Response.Write(Session_CS.pmp_name)
-                lblUserName.Text = Session_CS.pmp_name
-                lblDepts.Text = Session_CS.dept
+                lblUserName.Text = Server.UrlDecode(Session_CS.pmp_name)
+                lblDepts.Text = Server.UrlDecode(Session_CS.dept)
 
             End If
         Else
@@ -89,6 +89,18 @@ Partial Public Class Masters_MainformMaster
 
     Protected Sub lnklogin_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles lnklogin.Click
         Session.Clear()
+
+
+        Dim mycookies As String() = Request.Cookies.AllKeys
+        For Each cook As String In mycookies
+            Response.Cookies(cook).Expires = DateAndTime.Now.AddDays(-1)
+
+        Next
+        Request.Cookies.Clear()
+
+
+
+
         Response.Redirect("~/Default.aspx")
 
     End Sub

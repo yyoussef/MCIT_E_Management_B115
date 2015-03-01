@@ -655,6 +655,7 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                                         <asp:TemplateField HeaderText="وصف التأشيرة">
                                                             <ItemTemplate>
                                                                 <asp:Label ID="lbl_desc" runat="server" Text='<%# Eval("Visa_Desc")%>'></asp:Label>
+                                                                <asp:Label ID="lbl_emp" runat="server" Text='<%# Eval("Emp_ID")%>' Visible ="false" ></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="المسئول عن التنفيذ">
@@ -669,27 +670,27 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="تم ارسال إيميل">
                                                             <ItemTemplate>
-                                                                <asp:CheckBox ID="chkSent" runat="server" AutoPostBack="true" OnCheckedChanged="chkSent_CheckedChanged" />
+                                                                <asp:CheckBox ID="chkSent" runat="server" AutoPostBack="true" OnCheckedChanged="chkSent_CheckedChanged" Enabled="false" />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText=" ارسال إيميل">
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="ImgBtnEdit123" CommandName="SendItem" runat="server" ImageUrl="../Images/Edit.jpg"
-                                                                    CommandArgument='<%# Eval("Visa_Id") %>' />
+                                                                    CommandArgument='<%# Eval("Visa_Id") %>' Visible="true"  />
                                                             </ItemTemplate>
                                                             <ItemStyle Width="20px" />
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="تعديل">
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="ImgBtnEdit" CommandName="EditItem" runat="server" ImageUrl="../Images/Edit.jpg"
-                                                                    CommandArgument='<%# Eval("Visa_Id") %>' />
+                                                                    CommandArgument='<%# Eval("Visa_Id") %>' Visible="true" />
                                                             </ItemTemplate>
                                                             <ItemStyle Width="20px" />
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="حذف">
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="ImgBtnDelete" CommandName="RemoveItem" runat="server" ImageUrl="../Images/delete.gif"
-                                                                    Style="height: 22px" CommandArgument='<%# Eval("Visa_Id") %>' />
+                                                                    Style="height: 22px" CommandArgument='<%# Eval("Visa_Id") %>'  Visible="true"/>
                                                             </ItemTemplate>
                                                             <ItemStyle Width="20px" />
                                                         </asp:TemplateField>

@@ -1953,7 +1953,7 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
 
             DataTable dt = new DataTable();
             int pmpid = CDataConverter.ConvertToInt(Session_CS.pmp_id);
-            var query = from emp_tble in outboxDBContext.EMPLOYEEs where emp_tble.PMP_ID == pmpid select emp_tble;
+            var query = from emp_tble in outboxDBContext.parent_employees where emp_tble.pmp_id == pmpid select emp_tble;
             dt = query.ToDataTable();
 
 
