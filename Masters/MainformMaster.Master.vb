@@ -90,9 +90,16 @@ Partial Public Class Masters_MainformMaster
     Protected Sub lnklogin_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles lnklogin.Click
         Session.Clear()
 
+
+        Dim mycookies As String() = Request.Cookies.AllKeys
+        For Each cook As String In mycookies
+            Response.Cookies(cook).Expires = DateAndTime.Now.AddDays(-1)
+
+        Next
         Request.Cookies.Clear()
 
-        'Request.Cookies.Remove()
+
+
 
         Response.Redirect("~/Default.aspx")
 
