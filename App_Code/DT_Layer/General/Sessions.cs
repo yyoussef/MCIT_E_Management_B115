@@ -16,6 +16,7 @@ using DBL;
 using System.IO;
 using System.Text;
 using System.Web;
+using System.Collections.Generic;
 
 /// <summary>
 /// Summary description for Sessions
@@ -60,11 +61,7 @@ public static  class Session_CS
 
 
 
-
-
-
-
-
+    
 
 
     public static Int32 parent_id
@@ -106,10 +103,6 @@ public static  class Session_CS
 
 
 
-
-
-
-
     public static Int32 foundation_id
     {
         get
@@ -139,6 +132,7 @@ public static  class Session_CS
         }
 
     }
+
     public static Int32 code_archiving
     {
 
@@ -168,6 +162,39 @@ public static  class Session_CS
         }
 
     }
+
+
+
+    public static Int32 code_outbox
+    {
+
+        get
+        {
+            if (!string.IsNullOrEmpty(HttpContext.Current.Request.Cookies["cook_code_outbox"].Value))
+            {
+
+                //return CDataConverter.ConvertToInt(HttpContext.Current.Session["foundation_id"]);
+                return CDataConverter.ConvertToInt(HttpContext.Current.Request.Cookies["cook_code_outbox"].Value);
+
+            }
+            else
+            {
+                HttpContext.Current.Response.Redirect("~/default.aspx");
+                return 0;
+            }
+        }
+
+        set
+        {
+            HttpCookie cook_code_archiving = new HttpCookie("cook_code_outbox");
+            cook_code_archiving.Value = value.ToString();
+
+            cook_code_archiving.Expires = DateTime.Now.AddDays(1);
+            HttpContext.Current.Response.Cookies.Add(cook_code_archiving);
+        }
+
+    }
+
     public static Int32 Port
     {
         get
@@ -564,7 +591,7 @@ public static  class Session_CS
         set
         {
             HttpCookie cook_dept = new HttpCookie("cook_dept");
-            cook_dept.Value = value;
+            cook_dept.Value = HttpContext.Current.Server.UrlEncode( value);
 
             cook_dept.Expires = DateTime.Now.AddDays(1);
             HttpContext.Current.Response.Cookies.Add(cook_dept);
@@ -654,6 +681,7 @@ public static  class Session_CS
 
             cook_vacation_mng.Expires = DateTime.Now.AddDays(1);
             HttpContext.Current.Response.Cookies.Add(cook_vacation_mng);
+            
         }
 
     }
@@ -712,8 +740,8 @@ public static  class Session_CS
         set
         {
             HttpCookie cook_pmp_name = new HttpCookie("cook_pmp_name");
-            cook_pmp_name.Value = value;
-
+            cook_pmp_name.Value =   HttpContext.Current.Server.UrlEncode(value);
+            
             cook_pmp_name.Expires = DateTime.Now.AddDays(1);
             HttpContext.Current.Response.Cookies.Add(cook_pmp_name);
         }

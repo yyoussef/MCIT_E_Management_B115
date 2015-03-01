@@ -15,8 +15,8 @@
                     <ul id="verticalmenu" class="glossymenu">
                         <li style="background-image: url('../new_images/toptany.gif')"><a href="../SuperAdmin/Home.aspx">
                             الرئيسية</a> </li>
-                        <li style="background-image: url('../new_images/toptany.gif')"><a href="../SuperAdmin/Foundations_new.aspx">
-                            بيانات الجهات </a></li>
+                        <li style="background-image: url('../new_images/toptany.gif')"><a href="../SuperAdmin/Foundations.aspx">
+                            بيانات الجهة </a></li>
                         <li style="background-image: url('../new_images/toptany.gif')"><a href="../SuperAdmin/AdminUsers_Add.aspx">
                             مديري الأنظمة </a></li>
                         <%--<li style="background-image: url('../new_images/toptany.gif')"><a href="../SuperAdmin/Content.aspx">

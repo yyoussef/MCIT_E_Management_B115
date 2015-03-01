@@ -1723,9 +1723,9 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
                     ImageButton img = (ImageButton)row.FindControl("ImgBtnEdit");
                     ImageButton img2 = (ImageButton)row.FindControl("ImgBtnDelete");
                     ImageButton img3 = (ImageButton)row.FindControl("ImgBtnEdit123");
-                    img.Enabled = false;
-                    img2.Enabled = false;
-                    img3.Enabled = false;
+                    img.Visible = false;
+                    img2.Visible = false;
+                    img3.Visible = false;
                     //img.Visible = false;
                     //img2.Visible = false;
 
@@ -1948,9 +1948,9 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
             obj_follow.Follow_ID = Inbox_Visa_Follows_DB.Save(obj_follow);
             Fil_Grid_Visa_Follow();
 
-            GridView_Visa.Rows[xx].Cells[9].Enabled = false;
-            GridView_Visa.Rows[xx].Cells[10].Enabled = false;
-            GridView_Visa.Rows[xx].Cells[11].Enabled = false;
+            GridView_Visa.Rows[xx].Cells[9].Visible = false;
+            GridView_Visa.Rows[xx].Cells[10].Visible = false;
+            GridView_Visa.Rows[xx].Cells[11].Visible = false;
 
             //Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('" + message + "')</script>");
 

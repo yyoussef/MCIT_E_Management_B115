@@ -171,16 +171,16 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                 {
                     txt_Code.Enabled = false;
 
-                    try
-                    {
+                   // try
+                    //{
                         //DataTable getmax = General_Helping.GetDataTable("select isnull(max(convert( int,code)),0)+1  as code    from inbox where foundation_id=" + Session_CS.foundation_id);
-                        DataTable getmax = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_max_code_inbox", Session_CS.foundation_id).Tables[0];
-                        txt_Code.Text = getmax.Rows[0]["code"].ToString();
-                    }
-                    catch
-                    {
-                        txt_Code.Text = "1";
-                    }
+                       // DataTable getmax = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_max_code_inbox", Session_CS.foundation_id).Tables[0];
+                       // txt_Code.Text = getmax.Rows[0]["code"].ToString();
+                   // }
+                   // catch
+                   // {
+                     //   txt_Code.Text = "1";
+                   // }
                 }
 
             }
@@ -462,6 +462,17 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
     {
         if ((CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 2 && CDataConverter.ConvertToInt(Smart_Org_ID.SelectedValue) > 0) || CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 1 || CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 3)
         {
+
+            if (Request["id"] == null)
+            {
+               
+                    if (Session_CS.code_outbox == 1)
+                    {
+                      DataTable getmax = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_max_code_inbox", Session_CS.foundation_id).Tables[0];
+                        txt_Code.Text = getmax.Rows[0]["code"].ToString();
+                    }
+                
+            }
             string datenow = "";
             int dept = 0;
             int pmp = 0;
@@ -591,6 +602,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
             obj.foundation_id = CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString());
             obj.ID = Inbox_DB.Save(obj);
 
+            
 
             ////// save the categories for the inbox
             // Dear Motaz please convert all these query to SP and then put all below code in another function
@@ -650,9 +662,6 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                     sql_related = "insert into Inbox_Relations values ( " + obj.ID + ",1," + CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue) + ",1," + found + " )";
                     General_Helping.ExcuteQuery(sql_related);
                 }
-
-
-
 
 
             }
@@ -2411,9 +2420,9 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                 //}
                // Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('" + message + "')</script>");
 
-                GridView_Visa.Rows[xx].Cells[8].Enabled = false;
-                GridView_Visa.Rows[xx].Cells[9].Enabled  = false;
-                GridView_Visa.Rows[xx].Cells[10].Enabled   = false;
+                GridView_Visa.Rows[xx].Cells[8].Visible = false;
+                GridView_Visa.Rows[xx].Cells[9].Visible = false;
+                GridView_Visa.Rows[xx].Cells[10].Visible = false;
 
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('"+message+"');", true);
 
@@ -2659,9 +2668,9 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                     ImageButton img = (ImageButton)row.FindControl("ImgBtnEdit");
                     ImageButton img2 = (ImageButton)row.FindControl("ImgBtnDelete");
                     ImageButton img3 = (ImageButton)row.FindControl("ImgBtnEdit123");
-                    img.Enabled = false;
-                    img2.Enabled = false;
-                    img3.Enabled = false;
+                    img.Visible = false;
+                    img2.Visible = false;
+                    img3.Visible = false;
                 //img.Visible = false;
                 //img2.Visible = false;
 

@@ -89,8 +89,8 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                         </td>
                                         <td>
                                             <asp:TextBox runat="server" CssClass="Text" ID="txt_Code" Width="319px"></asp:TextBox>
-                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txt_Code"
-                                                runat="server" Text="*" ValidationGroup="A" ErrorMessage="يجب ادخال الكود "></asp:RequiredFieldValidator>
+                                            <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txt_Code"
+                                                runat="server" Text="*" ValidationGroup="A" ErrorMessage="يجب ادخال الكود "></asp:RequiredFieldValidator>--%>
                                         </td>
                                         <td>
                                             <asp:Label ID="Label8" runat="server" CssClass="Label" Text="التاريخ :" />
@@ -294,7 +294,7 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                             <asp:Button runat="server" CssClass="Button" Text="حفــــــظ" ID="BtnSave" OnClick="btnSave_Click"
                                                 ValidationGroup="A" Width="99px" />
                                             <asp:Button runat="server" CssClass="Button" Text="جديد" ID="btnClear" OnClick="btnClear_Click"
-                                                ValidationGroup="A" Width="50px" />
+                                                 Width="50px" />
                                             <asp:Button runat="server" CssClass="Button" Text="ارسال إلي المدير المختص" ID="Button2"
                                                 OnClick="btnSend_Click" ValidationGroup="A" Width="170px" />
                                             <asp:ValidationSummary ID="ValidationSummary1" runat="server" ValidationGroup="A"
@@ -655,6 +655,7 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                                         <asp:TemplateField HeaderText="وصف التأشيرة">
                                                             <ItemTemplate>
                                                                 <asp:Label ID="lbl_desc" runat="server" Text='<%# Eval("Visa_Desc")%>'></asp:Label>
+                                                                <asp:Label ID="lbl_emp" runat="server" Text='<%# Eval("Emp_ID")%>' Visible ="false" ></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="المسئول عن التنفيذ">
@@ -669,27 +670,27 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="تم ارسال إيميل">
                                                             <ItemTemplate>
-                                                                <asp:CheckBox ID="chkSent" runat="server" AutoPostBack="true" OnCheckedChanged="chkSent_CheckedChanged" />
+                                                                <asp:CheckBox ID="chkSent" runat="server" AutoPostBack="true" OnCheckedChanged="chkSent_CheckedChanged" Enabled="false" />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText=" ارسال إيميل">
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="ImgBtnEdit123" CommandName="SendItem" runat="server" ImageUrl="../Images/Edit.jpg"
-                                                                    CommandArgument='<%# Eval("Visa_Id") %>' />
+                                                                    CommandArgument='<%# Eval("Visa_Id") %>' Visible="true"  />
                                                             </ItemTemplate>
                                                             <ItemStyle Width="20px" />
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="تعديل">
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="ImgBtnEdit" CommandName="EditItem" runat="server" ImageUrl="../Images/Edit.jpg"
-                                                                    CommandArgument='<%# Eval("Visa_Id") %>' />
+                                                                    CommandArgument='<%# Eval("Visa_Id") %>' Visible="true" />
                                                             </ItemTemplate>
                                                             <ItemStyle Width="20px" />
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="حذف">
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="ImgBtnDelete" CommandName="RemoveItem" runat="server" ImageUrl="../Images/delete.gif"
-                                                                    Style="height: 22px" CommandArgument='<%# Eval("Visa_Id") %>' />
+                                                                    Style="height: 22px" CommandArgument='<%# Eval("Visa_Id") %>'  Visible="true"/>
                                                             </ItemTemplate>
                                                             <ItemStyle Width="20px" />
                                                         </asp:TemplateField>
