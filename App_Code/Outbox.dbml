@@ -185,6 +185,9 @@
       <Column Name="Dead_Line_DT" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="Visa_Goal_ID" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="mail_sent" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Member="File_data" Type="System.Byte[]" CanBeNull="false" />
+      <Column Member="File_name" Type="System.String" CanBeNull="false" />
+      <Column Member="File_ext" Type="System.String" CanBeNull="false" />
       <Association Name="Outbox_Visa_Outbox_Visa_Emp" Member="Outbox_Visa_Emps" ThisKey="Visa_Id" OtherKey="Visa_Id" Type="Outbox_Visa_Emp" />
       <Association Name="Outbox_Outbox_Visa" Member="Outbox" ThisKey="Outbox_ID" OtherKey="ID" Type="Outbox" IsForeignKey="true" />
     </Type>

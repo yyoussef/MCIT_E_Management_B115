@@ -1465,7 +1465,75 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
         obj.Visa_Goal_ID = CDataConverter.ConvertToInt(ddl_Visa_Goal_ID.SelectedValue);
         obj.Emp_ID = CDataConverter.ConvertToInt(Session_CS.pmp_id);
         obj.Visa_Id = Outbox_Visa_DB.Save(obj);
+        if (FileUpload_Visa.HasFile)
+        {
+            SqlCommand cmd = new SqlCommand();
+            SqlConnection con = new SqlConnection();
 
+            SqlConnection con_local = new SqlConnection();
+            con = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
+            con_local = new SqlConnection(Session_CS.local_connectionstring);
+
+            string DocName = FileUpload_Visa.FileName;
+            string Doc_Name = System.IO.Path.GetFileNameWithoutExtension(FileUpload_Visa.FileName); 
+            int dotindex = DocName.LastIndexOf(".");
+            string type = DocName.Substring(dotindex, DocName.Length - dotindex);
+
+            Stream myStream;
+            int fileLen;
+            StringBuilder displayString = new StringBuilder();
+            fileLen = FileUpload_Visa.PostedFile.ContentLength;
+            Byte[] Input = new Byte[fileLen];
+            myStream = FileUpload_Visa.FileContent;
+            myStream.Read(Input, 0, fileLen);
+            cmd.Parameters.Add("@File_data", SqlDbType.VarBinary);
+            cmd.Parameters.Add("@File_name", SqlDbType.NVarChar);
+            cmd.Parameters.Add("@File_ext", SqlDbType.NVarChar);
+            cmd.Parameters.Add("@visa_ID", SqlDbType.BigInt);
+
+            //cmd.Parameters["@File_data"].Value = Input;
+            cmd.Parameters["@File_name"].Value = Doc_Name;
+            cmd.Parameters["@File_ext"].Value = type;
+            cmd.Parameters["@visa_ID"].Value = obj.Visa_Id;
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = " update Outbox_Visa set File_data =@File_data ,File_name=@File_name,File_ext=@File_ext where visa_ID =@visa_ID";
+
+            if (string.IsNullOrEmpty(Session_CS.local_connectionstring))
+            {
+                cmd.Connection = con;
+                cmd.Parameters["@File_data"].Value = Input;
+                con.Open();
+                cmd.ExecuteScalar();
+                con.Close();
+
+            }
+            else
+            {
+
+                cmd.Connection = con;
+                cmd.Parameters["@File_data"].Value = DBNull.Value;
+                con.Open();
+                cmd.ExecuteScalar();
+                con.Close();
+                try
+                {
+                    cmd.Connection = con_local;
+                    cmd.Parameters["@File_data"].Value = Input;
+
+                    con_local.Open();
+                    cmd.ExecuteScalar();
+                    con_local.Close();
+
+
+                }
+                catch
+                {
+                    // can't connect to sql local, we should show message here
+                }
+            }
+
+
+        }
         Save_inox_Visa(obj);
         //if (CDataConverter.ConvertToInt(Session_CS.parent_id.ToString()) <= 0)
         //    Send_Visa(obj.Visa_Id.ToString());
