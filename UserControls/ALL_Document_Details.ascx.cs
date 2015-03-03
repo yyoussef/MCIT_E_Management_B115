@@ -116,6 +116,10 @@ public partial class UserControls_ALL_Document_Details : System.Web.UI.UserContr
                         case "inbox_visa":
                             procedure_name = "Inbox_Visa_Select_For_Doc";
                             break;
+                        case "outbox_visa":
+                            procedure_name = "outbox_Visa_Select_For_Doc";
+                            break;
+
                           case "com_follow":
                             procedure_name = "Commission_Visa_Follows_Select_For_Doc";
                             break;

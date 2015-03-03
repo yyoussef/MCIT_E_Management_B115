@@ -1452,7 +1452,6 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
             cmd.Parameters.Add("@File_ext", SqlDbType.NVarChar);
             cmd.Parameters.Add("@visa_ID", SqlDbType.BigInt);
 
-//cmd.Parameters["@File_data"].Value = Input;
             cmd.Parameters["@File_name"].Value = DocName;
             cmd.Parameters["@File_ext"].Value = type;
             cmd.Parameters["@visa_ID"].Value = obj.Visa_Id;

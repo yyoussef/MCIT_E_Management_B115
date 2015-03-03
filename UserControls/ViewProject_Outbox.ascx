@@ -602,6 +602,17 @@
                                                     Width="45%"></asp:TextBox>
                                             </td>
                                         </tr>
+
+                                            <tr>
+                                            <td align="right" width="150px">
+                                                <asp:Label ID="Label11" runat="server" CssClass="Label" Text="الوثيقة:" Width="135px" />
+                                            </td>
+                                            <td dir="rtl" colspan="3">
+                                                <asp:FileUpload ID="FileUpload_Visa" runat="server" ForeColor="Maroon" Width="700px" />
+                                                <br />
+                                            </td>
+                                        </tr>
+
                                     </table>
                                 </td>
                             </tr>
@@ -643,6 +654,13 @@
                                                      <asp:Label ID="lbl_desc" runat="server" Text='<%# Eval("Visa_Desc")%>' Visible ="false" ></asp:Label>
                                                 </ItemTemplate>
                                             </asp:TemplateField>
+                                              <asp:TemplateField HeaderText="الوثيقة">
+                                                <ItemTemplate>
+                                                    <a href='<%# "ALL_Document_Details.aspx?type=outbox_visa&id="+ Eval("Visa_Id") %>'>
+                                                        <%# Eval("File_name")%></a>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+
                                             <asp:TemplateField HeaderText="اخر تاريخ مسموح به">
                                                 <ItemTemplate>
                                                     <%# Eval("Dead_Line_DT")%>
@@ -780,7 +798,7 @@
                                     <asp:Label ID="Label40" runat="server" CssClass="Label" Text="الوثيقة:" Width="135px" />
                                 </td>
                                 <td dir="rtl" colspan="4">
-                                    <asp:FileUpload ID="FileUpload_Visa_Follow" runat="server" onchange="Get_Value()"
+                                    <asp:FileUpload ID="FileUpload_Visa_Follow" runat="server" 
                                         ForeColor="Maroon" Width="700px" />
                                     <br />
                                 </td>

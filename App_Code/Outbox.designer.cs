@@ -717,7 +717,7 @@ public partial class Project : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Proj_End_Document", DbType="Image", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Proj_End_Document", DbType="Image", UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary Proj_End_Document
 	{
 		get
@@ -2890,7 +2890,7 @@ public partial class Outbox_Visa_Follow : INotifyPropertyChanging, INotifyProper
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_File_data", DbType="VarBinary(MAX)", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_File_data", DbType="VarBinary(MAX)", UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary File_data
 	{
 		get
@@ -3364,7 +3364,7 @@ public partial class Inbox_Visa_Follow : INotifyPropertyChanging, INotifyPropert
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_File_data", DbType="VarBinary(MAX)", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_File_data", DbType="VarBinary(MAX)", UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary File_data
 	{
 		get
@@ -3764,6 +3764,12 @@ public partial class Outbox_Visa : INotifyPropertyChanging, INotifyPropertyChang
 	
 	private System.Nullable<int> _mail_sent;
 	
+	private byte[] _File_data;
+	
+	private string _File_name;
+	
+	private string _File_ext;
+	
 	private EntitySet<Outbox_Visa_Emp> _Outbox_Visa_Emps;
 	
 	private EntityRef<Outbox> _Outbox;
@@ -3810,6 +3816,12 @@ public partial class Outbox_Visa : INotifyPropertyChanging, INotifyPropertyChang
     partial void OnVisa_Goal_IDChanged();
     partial void Onmail_sentChanging(System.Nullable<int> value);
     partial void Onmail_sentChanged();
+    partial void OnFile_dataChanging(byte[] value);
+    partial void OnFile_dataChanged();
+    partial void OnFile_nameChanging(string value);
+    partial void OnFile_nameChanged();
+    partial void OnFile_extChanging(string value);
+    partial void OnFile_extChanged();
     #endregion
 	
 	public Outbox_Visa()
@@ -4199,6 +4211,66 @@ public partial class Outbox_Visa : INotifyPropertyChanging, INotifyPropertyChang
 				this._mail_sent = value;
 				this.SendPropertyChanged("mail_sent");
 				this.Onmail_sentChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_File_data", CanBeNull=false)]
+	public byte[] File_data
+	{
+		get
+		{
+			return this._File_data;
+		}
+		set
+		{
+			if ((this._File_data != value))
+			{
+				this.OnFile_dataChanging(value);
+				this.SendPropertyChanging();
+				this._File_data = value;
+				this.SendPropertyChanged("File_data");
+				this.OnFile_dataChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_File_name", CanBeNull=false)]
+	public string File_name
+	{
+		get
+		{
+			return this._File_name;
+		}
+		set
+		{
+			if ((this._File_name != value))
+			{
+				this.OnFile_nameChanging(value);
+				this.SendPropertyChanging();
+				this._File_name = value;
+				this.SendPropertyChanged("File_name");
+				this.OnFile_nameChanged();
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_File_ext", CanBeNull=false)]
+	public string File_ext
+	{
+		get
+		{
+			return this._File_ext;
+		}
+		set
+		{
+			if ((this._File_ext != value))
+			{
+				this.OnFile_extChanging(value);
+				this.SendPropertyChanging();
+				this._File_ext = value;
+				this.SendPropertyChanged("File_ext");
+				this.OnFile_extChanged();
 			}
 		}
 	}
@@ -5599,7 +5671,7 @@ public partial class Inbox_OutBox_File : INotifyPropertyChanging, INotifyPropert
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_File_data", DbType="VarBinary(MAX)", CanBeNull=true, UpdateCheck=UpdateCheck.Never)]
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_File_data", DbType="VarBinary(MAX)", UpdateCheck=UpdateCheck.Never)]
 	public System.Data.Linq.Binary File_data
 	{
 		get
