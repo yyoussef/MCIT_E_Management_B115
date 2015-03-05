@@ -1221,7 +1221,7 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
         obj.Descrption = "تم إغلاق الموضوع";
         string date = CDataConverter.ConvertDateTimeToFormatdmy(CDataConverter.ConvertDateTimeNowRtnDt());
         obj.Date = date;
-        obj.time_follow = CDataConverter.ConvertDateTimeNowRtnDt().ToLocalTime().ToLongTimeString();
+        obj.time_follow = CDataConverter.ConvertTimeNowRtnLongTimeFormat();
         obj.entery_pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
         obj.Visa_Emp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
         obj.Follow_ID = Outbox_Visa_Follows_DB.Save(obj);
@@ -1262,7 +1262,7 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
         obj.Descrption = "تم انهاء تأخير الموضوع";
         string date = CDataConverter.ConvertDateTimeToFormatdmy(CDataConverter.ConvertDateTimeNowRtnDt());
         obj.Date = date;
-        obj.time_follow = CDataConverter.ConvertDateTimeNowRtnDt().ToLocalTime().ToLongTimeString();
+        obj.time_follow = CDataConverter.ConvertTimeNowRtnLongTimeFormat();
         obj.entery_pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
         obj.Visa_Emp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
         obj.Follow_ID = Outbox_Visa_Follows_DB.Save(obj);
@@ -1449,92 +1449,103 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
 
     private void Save_Visa(int id)
     {
-        Outbox_Visa_DT obj = new Outbox_Visa_DT();
-        obj.Visa_Id = CDataConverter.ConvertToInt(hidden_Visa_Id.Value);
-        obj.Outbox_ID = id;
-        obj.Important_Degree = CDataConverter.ConvertToInt(ddl_Important_Degree.SelectedValue);
-        obj.Important_Degree_Txt = txt_Important_Degree_Txt.Text;
-        if (string.IsNullOrEmpty(obj.Important_Degree_Txt))
-            obj.Important_Degree_Txt = ddl_Important_Degree.SelectedItem.Text;
-        DateTime str = CDataConverter.ConvertDateTimeNowRtnDt();
-        obj.Visa_date = CDataConverter.ConvertDateTimeToFormatdmy(str); 
-        //obj.Important_Degree = 1;
-        obj.Dept_ID = CDataConverter.ConvertToInt(Smart_Search_dept.SelectedValue);
-        obj.Visa_Desc = txt_Visa_Desc.Text;
-        obj.Dead_Line_DT = txt_Dead_Line_DT.Text;
-        obj.Visa_Goal_ID = CDataConverter.ConvertToInt(ddl_Visa_Goal_ID.SelectedValue);
-        obj.Emp_ID = CDataConverter.ConvertToInt(Session_CS.pmp_id);
-        obj.Visa_Id = Outbox_Visa_DB.Save(obj);
-        if (FileUpload_Visa.HasFile)
-        {
-            SqlCommand cmd = new SqlCommand();
-            SqlConnection con = new SqlConnection();
-
-            SqlConnection con_local = new SqlConnection();
-            con = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
-            con_local = new SqlConnection(Session_CS.local_connectionstring);
-
-            string DocName = FileUpload_Visa.FileName;
-            string Doc_Name = System.IO.Path.GetFileNameWithoutExtension(FileUpload_Visa.FileName); 
-            int dotindex = DocName.LastIndexOf(".");
-            string type = DocName.Substring(dotindex, DocName.Length - dotindex);
-
-            Stream myStream;
-            int fileLen;
-            StringBuilder displayString = new StringBuilder();
-            fileLen = FileUpload_Visa.PostedFile.ContentLength;
-            Byte[] Input = new Byte[fileLen];
-            myStream = FileUpload_Visa.FileContent;
-            myStream.Read(Input, 0, fileLen);
-            cmd.Parameters.Add("@File_data", SqlDbType.VarBinary);
-            cmd.Parameters.Add("@File_name", SqlDbType.NVarChar);
-            cmd.Parameters.Add("@File_ext", SqlDbType.NVarChar);
-            cmd.Parameters.Add("@visa_ID", SqlDbType.BigInt);
-
-            //cmd.Parameters["@File_data"].Value = Input;
-            cmd.Parameters["@File_name"].Value = Doc_Name;
-            cmd.Parameters["@File_ext"].Value = type;
-            cmd.Parameters["@visa_ID"].Value = obj.Visa_Id;
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = " update Outbox_Visa set File_data =@File_data ,File_name=@File_name,File_ext=@File_ext where visa_ID =@visa_ID";
-
-            if (string.IsNullOrEmpty(Session_CS.local_connectionstring))
-            {
-                cmd.Connection = con;
-                cmd.Parameters["@File_data"].Value = Input;
-                con.Open();
-                cmd.ExecuteScalar();
-                con.Close();
-
-            }
-            else
-            {
-
-                cmd.Connection = con;
-                cmd.Parameters["@File_data"].Value = DBNull.Value;
-                con.Open();
-                cmd.ExecuteScalar();
-                con.Close();
-                try
+          DateTime visainitial = CDataConverter.ConvertToDate(txt_Visa_date.Text);
+                DateTime visalastdate = CDataConverter.ConvertToDate(txt_Dead_Line_DT.Text);
+                if (visalastdate >= visainitial)
                 {
-                    cmd.Connection = con_local;
-                    cmd.Parameters["@File_data"].Value = Input;
+                    Outbox_Visa_DT obj = new Outbox_Visa_DT();
+                    obj.Visa_Id = CDataConverter.ConvertToInt(hidden_Visa_Id.Value);
+                    obj.Outbox_ID = id;
+                    obj.Important_Degree = CDataConverter.ConvertToInt(ddl_Important_Degree.SelectedValue);
+                    obj.Important_Degree_Txt = txt_Important_Degree_Txt.Text;
+                    if (string.IsNullOrEmpty(obj.Important_Degree_Txt))
+                        obj.Important_Degree_Txt = ddl_Important_Degree.SelectedItem.Text;
+                    DateTime str = CDataConverter.ConvertDateTimeNowRtnDt();
+                    obj.Visa_date = CDataConverter.ConvertDateTimeToFormatdmy(str);
+                    //obj.Important_Degree = 1;
+                    obj.Dept_ID = CDataConverter.ConvertToInt(Smart_Search_dept.SelectedValue);
+                    obj.Visa_Desc = txt_Visa_Desc.Text;
+                    obj.Dead_Line_DT = txt_Dead_Line_DT.Text;
+                    obj.Visa_Goal_ID = CDataConverter.ConvertToInt(ddl_Visa_Goal_ID.SelectedValue);
+                    obj.Emp_ID = CDataConverter.ConvertToInt(Session_CS.pmp_id);
+                    obj.Visa_Id = Outbox_Visa_DB.Save(obj);
+                    if (FileUpload_Visa.HasFile)
+                    {
+                        SqlCommand cmd = new SqlCommand();
+                        SqlConnection con = new SqlConnection();
 
-                    con_local.Open();
-                    cmd.ExecuteScalar();
-                    con_local.Close();
+                        SqlConnection con_local = new SqlConnection();
+                        con = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
+                        con_local = new SqlConnection(Session_CS.local_connectionstring);
 
+                        string DocName = FileUpload_Visa.FileName;
+                        string Doc_Name = System.IO.Path.GetFileNameWithoutExtension(FileUpload_Visa.FileName);
+                        int dotindex = DocName.LastIndexOf(".");
+                        string type = DocName.Substring(dotindex, DocName.Length - dotindex);
+
+                        Stream myStream;
+                        int fileLen;
+                        StringBuilder displayString = new StringBuilder();
+                        fileLen = FileUpload_Visa.PostedFile.ContentLength;
+                        Byte[] Input = new Byte[fileLen];
+                        myStream = FileUpload_Visa.FileContent;
+                        myStream.Read(Input, 0, fileLen);
+                        cmd.Parameters.Add("@File_data", SqlDbType.VarBinary);
+                        cmd.Parameters.Add("@File_name", SqlDbType.NVarChar);
+                        cmd.Parameters.Add("@File_ext", SqlDbType.NVarChar);
+                        cmd.Parameters.Add("@visa_ID", SqlDbType.BigInt);
+
+                        //cmd.Parameters["@File_data"].Value = Input;
+                        cmd.Parameters["@File_name"].Value = Doc_Name;
+                        cmd.Parameters["@File_ext"].Value = type;
+                        cmd.Parameters["@visa_ID"].Value = obj.Visa_Id;
+                        cmd.CommandType = CommandType.Text;
+                        cmd.CommandText = " update Outbox_Visa set File_data =@File_data ,File_name=@File_name,File_ext=@File_ext where visa_ID =@visa_ID";
+
+                        if (string.IsNullOrEmpty(Session_CS.local_connectionstring))
+                        {
+                            cmd.Connection = con;
+                            cmd.Parameters["@File_data"].Value = Input;
+                            con.Open();
+                            cmd.ExecuteScalar();
+                            con.Close();
+
+                        }
+                        else
+                        {
+
+                            cmd.Connection = con;
+                            cmd.Parameters["@File_data"].Value = DBNull.Value;
+                            con.Open();
+                            cmd.ExecuteScalar();
+                            con.Close();
+                            try
+                            {
+                                cmd.Connection = con_local;
+                                cmd.Parameters["@File_data"].Value = Input;
+
+                                con_local.Open();
+                                cmd.ExecuteScalar();
+                                con_local.Close();
+
+
+                            }
+                            catch
+                            {
+                                // can't connect to sql local, we should show message here
+                            }
+                        }
+
+
+                    }
+                    Save_inox_Visa(obj);
+                }
+                else
+                {
+                    //Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('أخر تاريخ يجب ان يكون اكبر من تاريخ التأشيره')</script>");
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('أخر تاريخ يجب ان يكون اكبر من تاريخ التأشيره');", true);
 
                 }
-                catch
-                {
-                    // can't connect to sql local, we should show message here
-                }
-            }
-
-
-        }
-        Save_inox_Visa(obj);
         //if (CDataConverter.ConvertToInt(Session_CS.parent_id.ToString()) <= 0)
         //    Send_Visa(obj.Visa_Id.ToString());
 
@@ -1908,7 +1919,7 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
 
             string date = CDataConverter.ConvertDateTimeToFormatdmy(CDataConverter.ConvertDateTimeNowRtnDt());
             obj_follow.Date = date;
-            obj_follow.time_follow = CDataConverter.ConvertDateTimeNowRtnDt().ToLocalTime().ToLongTimeString();
+            obj_follow.time_follow = CDataConverter.ConvertTimeNowRtnLongTimeFormat();
             obj_follow.entery_pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
 
             obj_follow.Visa_Emp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
@@ -2065,7 +2076,7 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
         obj_follow.Descrption = message + "و تم الارسال بواسطة النظام";
         string date = CDataConverter.ConvertDateTimeToFormatdmy(CDataConverter.ConvertDateTimeNowRtnDt());
         obj_follow.Date = date;
-        obj_follow.time_follow = CDataConverter.ConvertDateTimeNowRtnDt().ToLocalTime().ToLongTimeString();
+        obj_follow.time_follow = CDataConverter.ConvertTimeNowRtnLongTimeFormat();
         obj_follow.entery_pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
 
         obj_follow.Visa_Emp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());

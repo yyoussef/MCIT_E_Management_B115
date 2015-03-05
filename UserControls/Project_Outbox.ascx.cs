@@ -1110,7 +1110,8 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                 OutboxVisaFollows.Descrption = "تم الارسال الي المدير المختص";
 
                 OutboxVisaFollows.Date = date;
-                OutboxVisaFollows.time_follow = CDataConverter.ConvertDateTimeNowRtnDt().ToLocalTime().ToLongTimeString();
+                OutboxVisaFollows.time_follow = CDataConverter.ConvertTimeNowRtnLongTimeFormat();
+
                 OutboxVisaFollows.entery_pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
                 OutboxVisaFollows.Visa_Emp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
             }
@@ -1688,7 +1689,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                 OutboxVisaFollow.Descrption = " تم انهاء التاشيرة " + lbl_desc.Text + " بواسطة  " + Session_CS.pmp_name.ToString();
                 string date = CDataConverter.ConvertDateTimeToFormatdmy(CDataConverter.ConvertDateTimeNowRtnDt());
                 OutboxVisaFollow.Date = date;
-                OutboxVisaFollow.time_follow = CDataConverter.ConvertDateTimeNowRtnDt().ToLocalTime().ToLongTimeString();
+                OutboxVisaFollow.time_follow = CDataConverter.ConvertTimeNowRtnLongTimeFormat();
                 OutboxVisaFollow.entery_pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
                 OutboxVisaFollow.Visa_Emp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
                 ////obj_follow.Follow_ID = Outbox_Visa_Follows_DB.Save(obj_follow);
@@ -2015,7 +2016,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
 
                     OutboxVisaFollow.Descrption = message + " بواسطة النظام -- ";
                     OutboxVisaFollow.Date = date;
-                    OutboxVisaFollow.time_follow = CDataConverter.ConvertDateTimeNowRtnDt().ToLocalTime().ToLongTimeString();
+                    OutboxVisaFollow.time_follow = CDataConverter.ConvertTimeNowRtnLongTimeFormat();
                     OutboxVisaFollow.entery_pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
 
                     OutboxVisaFollow.Visa_Emp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
@@ -2266,6 +2267,13 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
             {
                 if (lst_emp.Items.Count > 0)
                 {
+                     DateTime visainitial = CDataConverter.ConvertToDate(txt_Visa_date.Text);
+
+                //DateTime visalastdate = DateTime.ParseExact(txt_Dead_Line_DT.Text, "dd/MM/yyyy", null);
+                DateTime visalastdate = CDataConverter.ConvertToDate(txt_Dead_Line_DT.Text);
+                if (visalastdate >= visainitial)
+                {
+
                     if (CDataConverter.ConvertToInt(hidden_Visa_Id.Value) > 0)
                     {
                         Outbox_Visa OutboxVisaObj = outboxDBContext.Outbox_Visas.SingleOrDefault(x => x.Visa_Id == CDataConverter.ConvertToInt(hidden_Visa_Id.Value));
@@ -2287,6 +2295,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                         OutboxVisaObj.mail_sent = 0;
                         outboxDBContext.SubmitChanges();
                         Save_inox_Visa(CDataConverter.ConvertToInt(hidden_Visa_Id.Value));
+                        if (FileUpload_Visa.HasFile)
                         {
                             string DocName = FileUpload_Visa.FileName;
                             int dotindex = DocName.LastIndexOf(".");
@@ -2372,7 +2381,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                             Important_Degree_Txt = (string.IsNullOrEmpty(txt_Important_Degree_Txt.Text) ? ddl_Important_Degree.SelectedItem.Text : txt_Important_Degree_Txt.Text),
                             Dept_ID = CDataConverter.ConvertToInt(Smrt_Srch_structure.SelectedValue),
                             Dept_ID_Txt = Smrt_Srch_structure.SelectedText,
-                            Emp_ID =  CDataConverter.ConvertToInt(Session_CS.pmp_id),
+                            Emp_ID = CDataConverter.ConvertToInt(Session_CS.pmp_id),
                             Emp_ID_Txt = txt_Emp_ID_Txt.Text,
                             Visa_Desc = txt_Visa_Desc.Text,
                             Visa_Period = txt_Visa_Period.Text,
@@ -2387,6 +2396,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                         outboxDBContext.SubmitChanges();
                         hidden_Visa_Id.Value = OutboxVisa.Visa_Id.ToString();
                         Save_inox_Visa(CDataConverter.ConvertToInt(hidden_Visa_Id.Value));
+                        if (FileUpload_Visa.HasFile)
                         {
                             string DocName = FileUpload_Visa.FileName;
                             int dotindex = DocName.LastIndexOf(".");
@@ -2506,6 +2516,14 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                 }
                 else
                 {
+                    //Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('أخر تاريخ يجب ان يكون اكبر من تاريخ التأشيره')</script>");
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('أخر تاريخ يجب ان يكون اكبر من تاريخ التأشيره');", true);
+
+                }
+
+                }
+                else
+                {
                     //  Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('لا يوجد أسماء في القائمة اليسري')</script>");
 
                     ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('لا يوجد أسماء في القائمة اليسري');", true);
@@ -2565,7 +2583,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                     Outbox_Visa_Follow.Outbox_ID = CDataConverter.ConvertToInt(hidden_Id.Value);
                     Outbox_Visa_Follow.Descrption = txt_Descrption.Text;
                     Outbox_Visa_Follow.Date = txt_Follow_Date.Text;
-                    Outbox_Visa_Follow.time_follow = CDataConverter.ConvertDateTimeNowRtnDt().ToLocalTime().ToLongTimeString();
+                    Outbox_Visa_Follow.time_follow = CDataConverter.ConvertTimeNowRtnLongTimeFormat();
                     Outbox_Visa_Follow.entery_pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
                     Outbox_Visa_Follow.Visa_Emp_id = CDataConverter.ConvertToInt(ddl_Visa_Emp_id.SelectedValue);
                     Outbox_Visa_Follow.Type_Follow = 1;

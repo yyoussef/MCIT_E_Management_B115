@@ -1251,6 +1251,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                     {
                         cmd.Connection = con;
                         cmd.Parameters["@File_data"].Value = Input;
+                        cmd.Parameters["@Inbox_Outbox_ID"].Value = CDataConverter.ConvertToInt(hidden_Id.Value);
                         con.Open();
                         cmd.ExecuteScalar();
                         con.Close();
@@ -1259,6 +1260,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                     {
                         cmd.Connection = con;
                         cmd.Parameters["@File_data"].Value = DBNull.Value;
+                        cmd.Parameters["@Inbox_Outbox_ID"].Value = CDataConverter.ConvertToInt(hidden_Id.Value);
                         con.Open();
                         cmd.ExecuteScalar();
                         con.Close();
@@ -1266,6 +1268,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                         {
                             cmd.Connection = con_local;
                             cmd.Parameters["@File_data"].Value = Input;
+                            cmd.Parameters["@Inbox_Outbox_ID"].Value = CDataConverter.ConvertToInt(hidden_Id.Value);
 
                             con_local.Open();
                             cmd.ExecuteScalar();
@@ -1441,7 +1444,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
                 //DateTime visalastdate = DateTime.ParseExact(txt_Dead_Line_DT.Text, "dd/MM/yyyy", null);
                 DateTime visalastdate = CDataConverter.ConvertToDate(txt_Dead_Line_DT.Text);
-                if (visalastdate > visainitial)
+                if (visalastdate >= visainitial)
                 {
                     Inbox_Visa_DT obj = new Inbox_Visa_DT();
                     obj.Visa_Id = CDataConverter.ConvertToInt(hidden_Visa_Id.Value);
@@ -2395,7 +2398,8 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                 string date = CDataConverter.ConvertDateTimeToFormatdmy(CDataConverter.ConvertDateTimeNowRtnDt());
                 obj_follow.Date = date;
                 obj_follow.Entery_Date = date;
-                obj_follow.time_follow = CDataConverter.ConvertDateTimeNowRtnDt().ToLocalTime().ToLongTimeString();
+                obj_follow.time_follow = CDataConverter.ConvertTimeNowRtnLongTimeFormat();
+               
                 obj_follow.entery_pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
 
                 obj_follow.Visa_Emp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
@@ -2739,7 +2743,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                 string date = CDataConverter.ConvertDateTimeToFormatdmy(CDataConverter.ConvertDateTimeNowRtnDt());
                 obj_follow.Date = date;
                 obj_follow.Entery_Date = date;
-                obj_follow.time_follow = CDataConverter.ConvertDateTimeNowRtnDt().ToLocalTime().ToLongTimeString();
+                obj_follow.time_follow = CDataConverter.ConvertTimeNowRtnLongTimeFormat(); 
                 obj_follow.entery_pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
                 obj_follow.Visa_Emp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
                 obj_follow.Follow_ID = Inbox_Visa_Follows_DB.Save(obj_follow);
@@ -2998,7 +3002,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
             // string date = DateTime.Now.ToShortDateString().ToString();
             string date = CDataConverter.ConvertDateTimeToFormatdmy(CDataConverter.ConvertDateTimeNowRtnDt());
             obj_follow.Date = date;
-            obj_follow.time_follow = CDataConverter.ConvertDateTimeNowRtnDt().ToLocalTime().ToLongTimeString();
+            obj_follow.time_follow = CDataConverter.ConvertTimeNowRtnLongTimeFormat();
             obj_follow.entery_pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
 
             obj_follow.Visa_Emp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());

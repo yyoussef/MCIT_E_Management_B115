@@ -317,7 +317,7 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         </td>
                                         <td dir="rtl">
-                                            <asp:FileUpload ID="FileUpload1" runat="server" ForeColor="Maroon" Width="700px" />
+                                            <asp:FileUpload ID="FileUpload1" runat="server" ForeColor="Maroon" Width="700px" onchange="Get_Value()" />
                                             <br />
                                         </td>
                                     </tr>
