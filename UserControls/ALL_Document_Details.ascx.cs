@@ -152,12 +152,12 @@ public partial class UserControls_ALL_Document_Details : System.Web.UI.UserContr
                         //obj.Parameters.Add(new SqlParameter("@Parent", parentParam));
                         if (procedure_name != "Course_getFiles")
                         {
-                            obj.Parameters.Add(new SqlParameter("@id", Convert.ToInt16(Request["id"].ToString())));
+                            obj.Parameters.Add(new SqlParameter("@id", CDataConverter.ConvertToInt(Request["id"].ToString())));
                         }
                         else if (procedure_name == "Course_getFiles")
                         {
-                            obj.Parameters.Add(new SqlParameter("@id", Convert.ToInt16(Request["id"].ToString())));
-                            obj.Parameters.Add(new SqlParameter("@category", Convert.ToInt16(Request["category"].ToString())));
+                            obj.Parameters.Add(new SqlParameter("@id", CDataConverter.ConvertToInt(Request["id"].ToString())));
+                            obj.Parameters.Add(new SqlParameter("@category", CDataConverter.ConvertToInt(Request["category"].ToString())));
                         }
                         con.Open();
                         if (con.State == ConnectionState.Open)
