@@ -168,7 +168,10 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
             //refactored by hafs
             // chklst_Visa_Emp.DataSource = fil_emp_by_Dept(CDataConverter.ConvertToInt(Smrt_Srch_structure.SelectedValue));//fil_emp_Visa();
             //  chklst_Visa_Emp.DataBind();
-
+            if (Session_CS.code_outbox == 1)
+            {
+                txt_Code.Enabled = false;
+            }
             if (Request["id"] != null)
             {
                 String decrypted_id = Encryption.Decrypt(Request.QueryString["id"].ToString());
@@ -192,10 +195,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                 txt_Follow_Date.Text = CDataConverter.ConvertDateTimeNowRtrnString();
 
 
-                if (Session_CS.code_outbox == 1)
-                {
-                    txt_Code.Enabled = false;
-                }
+               
                 // try
                 // {
                 //DataTable getmax = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_max_code_outbox", Session_CS.foundation_id).Tables[0];

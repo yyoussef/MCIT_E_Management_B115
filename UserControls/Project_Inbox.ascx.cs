@@ -134,6 +134,10 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
             //fill_sectors(); commented because it is an empty function
             //fil_emp_Visa(); commented because it databind to invisible control
+            if (Session_CS.code_archiving == 1)
+            {
+                txt_Code.Enabled = false;
+            }
             if (Request["id"] != null)
             {
                 String decrypted_id = Encryption.Decrypt(Request.QueryString["id"].ToString());
@@ -167,9 +171,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                 //btn_print_report.Enabled = false;
                 /////////////////////////////////////////////////////// to get type of code archiving ///////////////////////////////////
                 //DataTable dt_code_type = Inbox_DB.Selectcode(Session_CS.foundation_id);
-                if (Session_CS.code_archiving == 1)
-                {
-                    txt_Code.Enabled = false;
+               
 
                    // try
                     //{
@@ -181,7 +183,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                    // {
                      //   txt_Code.Text = "1";
                    // }
-                }
+               
 
             }
 
