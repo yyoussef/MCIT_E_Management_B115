@@ -916,7 +916,7 @@
     </ContentTemplate>
     <Triggers>
       
-        <asp:PostBackTrigger ControlID="btn_Visa_Follow$btn_print_report" />
+<asp:PostBackTrigger ControlID="btn_Visa_Follow$btn_print_report" />
 
 <asp:PostBackTrigger ControlID="btn_add"></asp:PostBackTrigger>
 <asp:PostBackTrigger ControlID="btn_delete"></asp:PostBackTrigger>

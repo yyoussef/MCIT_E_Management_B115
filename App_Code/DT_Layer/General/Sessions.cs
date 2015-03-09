@@ -829,7 +829,7 @@ public static  class Session_CS
         set
         {
             HttpCookie cook_Site_Name = new HttpCookie("cook_Site_Name");
-            cook_Site_Name.Value = value;
+            cook_Site_Name.Value = HttpContext.Current.Server.UrlEncode(value); ;
 
             cook_Site_Name.Expires = DateTime.Now.AddDays(1);
             HttpContext.Current.Response.Cookies.Add(cook_Site_Name);

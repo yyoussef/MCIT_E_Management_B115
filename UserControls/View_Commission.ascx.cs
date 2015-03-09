@@ -493,9 +493,9 @@ public partial class UserControls_View_Commission : System.Web.UI.UserControl
         obj.Follow_ID = CDataConverter.ConvertToInt(hidden_Follow_ID.Value);
         obj.Commission_ID = CDataConverter.ConvertToInt(hidden_Id.Value);
         obj.Descrption = "تم انهاء تأخير الموضوع";
-        string date = CDataConverter.ConvertDateTimeToFormatdmy(CDataConverter.ConvertDateTimeNowRtnDt());
+        string date = CDataConverter.ConvertTimeNowRtnLongTimeFormat();
         obj.Date = date;
-        obj.time_follow = CDataConverter.ConvertDateTimeNowRtnDt().ToLocalTime().ToLongTimeString();
+        obj.time_follow = CDataConverter.ConvertTimeNowRtnLongTimeFormat();
         obj.entery_pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
         obj.Visa_Emp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
         obj.Follow_ID = Commission_Visa_Follows_DB.Save(obj);
@@ -962,7 +962,7 @@ public partial class UserControls_View_Commission : System.Web.UI.UserControl
         obj.Descrption = "تم إغلاق الموضوع";
         string date = CDataConverter.ConvertDateTimeToFormatdmy(CDataConverter.ConvertDateTimeNowRtnDt());
         obj.Date = date;
-        obj.time_follow = CDataConverter.ConvertDateTimeNowRtnDt().ToLocalTime().ToLongTimeString();
+        obj.time_follow = CDataConverter.ConvertTimeNowRtnLongTimeFormat();
         obj.entery_pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
         obj.Visa_Emp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
         obj.Follow_ID = Commission_Visa_Follows_DB.Save(obj);
@@ -1114,25 +1114,37 @@ public partial class UserControls_View_Commission : System.Web.UI.UserControl
 
     private void Save_Visa(int id)
     {
-        Commission_Visa_DT obj = new Commission_Visa_DT();
-        obj.Visa_Id = CDataConverter.ConvertToInt(hidden_Visa_Id.Value);
-        obj.Commission_ID = id;
-        obj.Important_Degree = CDataConverter.ConvertToInt(ddl_Important_Degree.SelectedValue);
-        obj.Important_Degree_Txt = txt_Important_Degree_Txt.Text;
-        if (string.IsNullOrEmpty(obj.Important_Degree_Txt))
-            obj.Important_Degree_Txt = ddl_Important_Degree.SelectedItem.Text;
-        DateTime str = CDataConverter.ConvertDateTimeNowRtnDt();
-        obj.Visa_date = CDataConverter.ConvertDateTimeToFormatdmy(str); 
-        //obj.Important_Degree = 1;
-        obj.Dept_ID = CDataConverter.ConvertToInt(Smart_Search_dept.SelectedValue);
-        obj.Visa_Desc = txt_Visa_Desc.Text;
-        obj.Dead_Line_DT = txt_Dead_Line_DT.Text;
-        obj.Visa_Goal_ID = CDataConverter.ConvertToInt(ddl_Visa_Goal_ID.SelectedValue);
-        obj.Emp_ID = CDataConverter.ConvertToInt(Session_CS.pmp_id);
+         DateTime visainitial = CDataConverter.ConvertToDate(txt_Visa_date.Text);
+                DateTime visalastdate = CDataConverter.ConvertToDate(txt_Dead_Line_DT.Text);
+                if (visalastdate >= visainitial)
+                {
+                    Commission_Visa_DT obj = new Commission_Visa_DT();
+                    obj.Visa_Id = CDataConverter.ConvertToInt(hidden_Visa_Id.Value);
+                    obj.Commission_ID = id;
+                    obj.Important_Degree = CDataConverter.ConvertToInt(ddl_Important_Degree.SelectedValue);
+                    obj.Important_Degree_Txt = txt_Important_Degree_Txt.Text;
+                    if (string.IsNullOrEmpty(obj.Important_Degree_Txt))
+                        obj.Important_Degree_Txt = ddl_Important_Degree.SelectedItem.Text;
+                    DateTime str = CDataConverter.ConvertDateTimeNowRtnDt();
+                    obj.Visa_date = CDataConverter.ConvertDateTimeToFormatdmy(str);
+                    //obj.Important_Degree = 1;
+                    obj.Dept_ID = CDataConverter.ConvertToInt(Smart_Search_dept.SelectedValue);
+                    obj.Visa_Desc = txt_Visa_Desc.Text;
+                    obj.Dead_Line_DT = txt_Dead_Line_DT.Text;
+                    obj.Visa_Goal_ID = CDataConverter.ConvertToInt(ddl_Visa_Goal_ID.SelectedValue);
+                    obj.Emp_ID = CDataConverter.ConvertToInt(Session_CS.pmp_id);
 
-        obj.Visa_Id = Commission_Visa_DB.Save(obj);
+                    obj.Visa_Id = Commission_Visa_DB.Save(obj);
 
-        Save_inox_Visa(obj);
+                    Save_inox_Visa(obj);
+                }
+                else
+                {
+                    //Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('أخر تاريخ يجب ان يكون اكبر من تاريخ التأشيره')</script>");
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('أخر تاريخ يجب ان يكون اكبر من تاريخ التأشيره');", true);
+
+                }
+
         //if (CDataConverter.ConvertToInt(Session_CS.parent_id.ToString()) <= 0)
         //    Send_Visa(obj.Visa_Id.ToString());
 
@@ -1593,7 +1605,7 @@ public partial class UserControls_View_Commission : System.Web.UI.UserControl
             obj_follow.Descrption = message + "و تم الارسال بواسطة النظام";
             string date = CDataConverter.ConvertDateTimeToFormatdmy(CDataConverter.ConvertDateTimeNowRtnDt());
             obj_follow.Date = date;
-            obj_follow.time_follow = CDataConverter.ConvertDateTimeNowRtnDt().ToLocalTime().ToLongTimeString();
+            obj_follow.time_follow = CDataConverter.ConvertTimeNowRtnLongTimeFormat();
             obj_follow.entery_pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
 
             obj_follow.Visa_Emp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
@@ -1806,7 +1818,7 @@ public partial class UserControls_View_Commission : System.Web.UI.UserControl
         obj_follow.Descrption = message + "و تم الارسال بواسطة النظام";
         string date = CDataConverter.ConvertDateTimeToFormatdmy(CDataConverter.ConvertDateTimeNowRtnDt());
         obj_follow.Date = date;
-        obj_follow.time_follow = CDataConverter.ConvertDateTimeNowRtnDt().ToLocalTime().ToLongTimeString();
+        obj_follow.time_follow = CDataConverter.ConvertTimeNowRtnLongTimeFormat();
         obj_follow.entery_pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
 
         obj_follow.Visa_Emp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());

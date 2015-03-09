@@ -1110,7 +1110,8 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                 OutboxVisaFollows.Descrption = "تم الارسال الي المدير المختص";
 
                 OutboxVisaFollows.Date = date;
-                OutboxVisaFollows.time_follow = CDataConverter.ConvertDateTimeNowRtnDt().ToLocalTime().ToLongTimeString();
+                OutboxVisaFollows.time_follow = CDataConverter.ConvertTimeNowRtnLongTimeFormat();
+
                 OutboxVisaFollows.entery_pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
                 OutboxVisaFollows.Visa_Emp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
             }
@@ -1688,7 +1689,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                 OutboxVisaFollow.Descrption = " تم انهاء التاشيرة " + lbl_desc.Text + " بواسطة  " + Session_CS.pmp_name.ToString();
                 string date = CDataConverter.ConvertDateTimeToFormatdmy(CDataConverter.ConvertDateTimeNowRtnDt());
                 OutboxVisaFollow.Date = date;
-                OutboxVisaFollow.time_follow = CDataConverter.ConvertDateTimeNowRtnDt().ToLocalTime().ToLongTimeString();
+                OutboxVisaFollow.time_follow = CDataConverter.ConvertTimeNowRtnLongTimeFormat();
                 OutboxVisaFollow.entery_pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
                 OutboxVisaFollow.Visa_Emp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
                 ////obj_follow.Follow_ID = Outbox_Visa_Follows_DB.Save(obj_follow);
@@ -2015,7 +2016,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
 
                     OutboxVisaFollow.Descrption = message + " بواسطة النظام -- ";
                     OutboxVisaFollow.Date = date;
-                    OutboxVisaFollow.time_follow = CDataConverter.ConvertDateTimeNowRtnDt().ToLocalTime().ToLongTimeString();
+                    OutboxVisaFollow.time_follow = CDataConverter.ConvertTimeNowRtnLongTimeFormat();
                     OutboxVisaFollow.entery_pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
 
                     OutboxVisaFollow.Visa_Emp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
@@ -2266,6 +2267,13 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
             {
                 if (lst_emp.Items.Count > 0)
                 {
+                     DateTime visainitial = CDataConverter.ConvertToDate(txt_Visa_date.Text);
+
+                //DateTime visalastdate = DateTime.ParseExact(txt_Dead_Line_DT.Text, "dd/MM/yyyy", null);
+                DateTime visalastdate = CDataConverter.ConvertToDate(txt_Dead_Line_DT.Text);
+                if (visalastdate >= visainitial)
+                {
+
                     if (CDataConverter.ConvertToInt(hidden_Visa_Id.Value) > 0)
                     {
                         Outbox_Visa OutboxVisaObj = outboxDBContext.Outbox_Visas.SingleOrDefault(x => x.Visa_Id == CDataConverter.ConvertToInt(hidden_Visa_Id.Value));
@@ -2287,6 +2295,79 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                         OutboxVisaObj.mail_sent = 0;
                         outboxDBContext.SubmitChanges();
                         Save_inox_Visa(CDataConverter.ConvertToInt(hidden_Visa_Id.Value));
+                        if (FileUpload_Visa.HasFile)
+                        {
+                            string DocName = FileUpload_Visa.FileName;
+                            int dotindex = DocName.LastIndexOf(".");
+                            string type = DocName.Substring(dotindex, DocName.Length - dotindex);
+
+                            Stream myStream;
+                            int fileLen;
+                            StringBuilder displayString = new StringBuilder();
+                            fileLen = FileUpload_Visa.PostedFile.ContentLength;
+                            Byte[] Input = new Byte[fileLen];
+                            myStream = FileUpload_Visa.FileContent;
+                            myStream.Read(Input, 0, fileLen);
+
+                            SqlCommand cmd = new SqlCommand();
+                            SqlConnection con = new SqlConnection();
+                            SqlCommand cmd_local = new SqlCommand();
+                            SqlConnection con_local = new SqlConnection();
+                            con = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
+                            con_local = new SqlConnection(Session_CS.local_connectionstring);
+                            cmd.Parameters.Add("@File_data", SqlDbType.VarBinary);
+                            cmd.Parameters.Add("@File_name", SqlDbType.NVarChar);
+                            cmd.Parameters.Add("@File_ext", SqlDbType.NVarChar);
+                            cmd.Parameters.Add("@visa_ID", SqlDbType.BigInt);
+
+                            //cmd.Parameters["@File_data"].Value = Input;
+                            cmd.Parameters["@File_name"].Value = DocName;
+                            cmd.Parameters["@File_ext"].Value = type;
+                            cmd.Parameters["@visa_ID"].Value = OutboxVisaObj.Visa_Id;
+                            cmd.CommandType = CommandType.Text;
+                            cmd.CommandText = " update Outbox_Visa set File_data =@File_data ,File_name=@File_name,File_ext=@File_ext where visa_ID =@visa_ID";
+
+                            if (string.IsNullOrEmpty(Session_CS.local_connectionstring))
+                            {
+                                cmd.Connection = con;
+                                cmd.Parameters["@File_data"].Value = Input;
+                                con.Open();
+                                cmd.ExecuteScalar();
+                                con.Close();
+
+                            }
+                            else
+                            {
+
+                                cmd.Connection = con;
+                                cmd.Parameters["@File_data"].Value = DBNull.Value;
+                                con.Open();
+                                cmd.ExecuteScalar();
+                                con.Close();
+                                try
+                                {
+                                    cmd.Connection = con_local;
+                                    cmd.Parameters["@File_data"].Value = Input;
+
+                                    con_local.Open();
+                                    cmd.ExecuteScalar();
+                                    con_local.Close();
+
+
+                                }
+                                catch
+                                {
+                                    // can't connect to sql local, we should show message here
+
+
+                                    ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('عفوا لم يتم الإتصال بقاعدة البيانات الداخلية');", true);
+
+                                }
+                            }
+
+
+
+                        }
 
                     }
                     else
@@ -2300,7 +2381,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                             Important_Degree_Txt = (string.IsNullOrEmpty(txt_Important_Degree_Txt.Text) ? ddl_Important_Degree.SelectedItem.Text : txt_Important_Degree_Txt.Text),
                             Dept_ID = CDataConverter.ConvertToInt(Smrt_Srch_structure.SelectedValue),
                             Dept_ID_Txt = Smrt_Srch_structure.SelectedText,
-                            Emp_ID =  CDataConverter.ConvertToInt(Session_CS.pmp_id),
+                            Emp_ID = CDataConverter.ConvertToInt(Session_CS.pmp_id),
                             Emp_ID_Txt = txt_Emp_ID_Txt.Text,
                             Visa_Desc = txt_Visa_Desc.Text,
                             Visa_Period = txt_Visa_Period.Text,
@@ -2315,6 +2396,79 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                         outboxDBContext.SubmitChanges();
                         hidden_Visa_Id.Value = OutboxVisa.Visa_Id.ToString();
                         Save_inox_Visa(CDataConverter.ConvertToInt(hidden_Visa_Id.Value));
+                        if (FileUpload_Visa.HasFile)
+                        {
+                            string DocName = FileUpload_Visa.FileName;
+                            int dotindex = DocName.LastIndexOf(".");
+                            string type = DocName.Substring(dotindex, DocName.Length - dotindex);
+
+                            Stream myStream;
+                            int fileLen;
+                            StringBuilder displayString = new StringBuilder();
+                            fileLen = FileUpload_Visa.PostedFile.ContentLength;
+                            Byte[] Input = new Byte[fileLen];
+                            myStream = FileUpload_Visa.FileContent;
+                            myStream.Read(Input, 0, fileLen);
+
+                            SqlCommand cmd = new SqlCommand();
+                            SqlConnection con = new SqlConnection();
+                            SqlCommand cmd_local = new SqlCommand();
+                            SqlConnection con_local = new SqlConnection();
+                            con = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
+                            con_local = new SqlConnection(Session_CS.local_connectionstring);
+                            cmd.Parameters.Add("@File_data", SqlDbType.VarBinary);
+                            cmd.Parameters.Add("@File_name", SqlDbType.NVarChar);
+                            cmd.Parameters.Add("@File_ext", SqlDbType.NVarChar);
+                            cmd.Parameters.Add("@visa_ID", SqlDbType.BigInt);
+
+                            //cmd.Parameters["@File_data"].Value = Input;
+                            cmd.Parameters["@File_name"].Value = DocName;
+                            cmd.Parameters["@File_ext"].Value = type;
+                            cmd.Parameters["@visa_ID"].Value = OutboxVisa.Visa_Id;
+                            cmd.CommandType = CommandType.Text;
+                            cmd.CommandText = " update Outbox_Visa set File_data =@File_data ,File_name=@File_name,File_ext=@File_ext where visa_ID =@visa_ID";
+
+                            if (string.IsNullOrEmpty(Session_CS.local_connectionstring))
+                            {
+                                cmd.Connection = con;
+                                cmd.Parameters["@File_data"].Value = Input;
+                                con.Open();
+                                cmd.ExecuteScalar();
+                                con.Close();
+
+                            }
+                            else
+                            {
+
+                                cmd.Connection = con;
+                                cmd.Parameters["@File_data"].Value = DBNull.Value;
+                                con.Open();
+                                cmd.ExecuteScalar();
+                                con.Close();
+                                try
+                                {
+                                    cmd.Connection = con_local;
+                                    cmd.Parameters["@File_data"].Value = Input;
+
+                                    con_local.Open();
+                                    cmd.ExecuteScalar();
+                                    con_local.Close();
+
+
+                                }
+                                catch
+                                {
+                                    // can't connect to sql local, we should show message here
+
+
+                                    ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('عفوا لم يتم الإتصال بقاعدة البيانات الداخلية');", true);
+
+                                }
+                            }
+
+
+
+                        }
 
                     }
                     ////Outbox_Visa_DT obj = new Outbox_Visa_DT();
@@ -2359,6 +2513,14 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
 
                     Update_Have_Visa_all_emp(CDataConverter.ConvertToInt(hidden_Id.Value));
                     lst_emp.Items.Clear();
+                }
+                else
+                {
+                    //Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('أخر تاريخ يجب ان يكون اكبر من تاريخ التأشيره')</script>");
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('أخر تاريخ يجب ان يكون اكبر من تاريخ التأشيره');", true);
+
+                }
+
                 }
                 else
                 {
@@ -2421,7 +2583,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                     Outbox_Visa_Follow.Outbox_ID = CDataConverter.ConvertToInt(hidden_Id.Value);
                     Outbox_Visa_Follow.Descrption = txt_Descrption.Text;
                     Outbox_Visa_Follow.Date = txt_Follow_Date.Text;
-                    Outbox_Visa_Follow.time_follow = CDataConverter.ConvertDateTimeNowRtnDt().ToLocalTime().ToLongTimeString();
+                    Outbox_Visa_Follow.time_follow = CDataConverter.ConvertTimeNowRtnLongTimeFormat();
                     Outbox_Visa_Follow.entery_pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
                     Outbox_Visa_Follow.Visa_Emp_id = CDataConverter.ConvertToInt(ddl_Visa_Emp_id.SelectedValue);
                     Outbox_Visa_Follow.Type_Follow = 1;

@@ -812,11 +812,11 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
             obj_follow.Commission_ID = CDataConverter.ConvertToInt(hidden_Id.Value);
 
             obj_follow.Descrption = message + " بواسطة النظام -- ";
-            string date = CDataConverter.ConvertDateTimeToFormatdmy(CDataConverter.ConvertDateTimeNowRtnDt());
+            string date = CDataConverter.ConvertTimeNowRtnLongTimeFormat();
             obj_follow.Date = date;
             //obj_follow.time_follow = DateTime.UtcNow.ToLocalTime().ToLongTimeString();
 
-            obj_follow.time_follow = CDataConverter.ConvertDateTimeNowRtnDt().ToLongTimeString();
+            obj_follow.time_follow = CDataConverter.ConvertTimeNowRtnLongTimeFormat();
             obj_follow.entery_pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
 
             obj_follow.Visa_Emp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
@@ -1461,7 +1461,8 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
             string date = CDataConverter.ConvertDateTimeNowRtrnString();
             obj_follow.Date = date;
             //obj_follow.time_follow = DateTime.UtcNow.ToLocalTime().ToLongTimeString();
-            obj_follow.time_follow = CDataConverter.ConvertDateTimeNowRtnDt().ToLongTimeString();
+            obj_follow.time_follow = CDataConverter.ConvertTimeNowRtnLongTimeFormat();
+
             obj_follow.entery_pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
             obj_follow.Visa_Emp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
 
@@ -1745,7 +1746,7 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
                 obj.Descrption = txt_Descrption.Text;
                 obj.Date = txt_Follow_Date.Text;
                 //obj.time_follow = DateTime.UtcNow.ToLocalTime().ToLongTimeString();
-                obj.time_follow = CDataConverter.ConvertDateTimeNowRtnDt().ToLongTimeString();
+                obj.time_follow = CDataConverter.ConvertTimeNowRtnLongTimeFormat();
 
                 obj.entery_pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
                 obj.Visa_Emp_id = CDataConverter.ConvertToInt(ddl_Visa_Emp_id.SelectedValue);
@@ -2369,9 +2370,9 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
     {
 
 
-        // Commission_Visa_DT obj = Commission_Visa_DB.SelectByID(ID);
+        Commission_Visa_DT obj = Commission_Visa_DB.SelectByID(ID);
 
-        Commission_Visa obj = pmentity.Commission_Visa.Where(x => x.Commission_ID == ID).SingleOrDefault();
+       // Commission_Visa obj = pmentity.Commission_Visa.Where(x => x.Commission_ID == ID).SingleOrDefault();
 
         if (obj.Visa_Id > 0)
         {
@@ -2564,7 +2565,7 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
             obj_follow.Date = date;
             // obj_follow.time_follow = DateTime.UtcNow.ToLocalTime().ToLongTimeString();
 
-            obj_follow.time_follow = CDataConverter.ConvertDateTimeNowRtnDt().ToLongTimeString();
+            obj_follow.time_follow = CDataConverter.ConvertTimeNowRtnLongTimeFormat();
             obj_follow.entery_pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
 
             obj_follow.Visa_Emp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());

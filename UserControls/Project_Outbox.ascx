@@ -317,7 +317,7 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         </td>
                                         <td dir="rtl">
-                                            <asp:FileUpload ID="FileUpload1" runat="server" ForeColor="Maroon" Width="700px" />
+                                            <asp:FileUpload ID="FileUpload1" runat="server" ForeColor="Maroon" Width="700px" onchange="Get_Value()" />
                                             <br />
                                         </td>
                                     </tr>
@@ -619,6 +619,17 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                             </table>
                                         </td>
                                     </tr>
+
+                                      <tr>
+                                        <td align="right" width="150px">
+                                            <asp:Label ID="Label30" runat="server" CssClass="Label" Text="الوثيقة:" Width="135px" />
+                                        </td>
+                                        <td dir="rtl" colspan="3">
+                                            <asp:FileUpload ID="FileUpload_Visa" runat="server" ForeColor="Maroon" Width="700px" />
+                                            <br />
+                                        </td>
+                                    </tr>
+
                                     <tr>
                                         <td colspan="4" align="center">
                                             <asp:Button ID="Button1" OnClick="btn_Visa_Click" ValidationGroup="B" Text="حفظ"
@@ -658,6 +669,13 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                                                 <asp:Label ID="lbl_emp" runat="server" Text='<%# Eval("Emp_ID")%>' Visible ="false" ></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="الوثيقة">
+                                                         <ItemTemplate>
+                                                               <a href='<%# "ALL_Document_Details.aspx?type=outbox_visa&id="+ Eval("Visa_Id") %>'>
+                                                                 <%# Eval("File_name")%></a>
+                                                         </ItemTemplate>
+                                                      </asp:TemplateField>
+
                                                         <asp:TemplateField HeaderText="المسئول عن التنفيذ">
                                                             <ItemTemplate>
                                                                 <%# Get_Visa_Emp(Eval("Visa_Id"))%>

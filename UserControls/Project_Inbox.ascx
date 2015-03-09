@@ -310,7 +310,7 @@
                                             <input type="hidden" runat="server" id="hidden_Inbox_OutBox_File_ID"></input>
                                         </td>
                                         <td dir="rtl">
-                                            <asp:FileUpload ID="FileUpload1" runat="server" ForeColor="Maroon" Width="700px" />
+                                            <asp:FileUpload ID="FileUpload1" runat="server" ForeColor="Maroon" Width="700px" onchange="Get_Value()" />
                                             <br />
                                         </td>
                                     </tr>
@@ -624,7 +624,7 @@
                                             <asp:Label ID="Label15" runat="server" CssClass="Label" Text="الوثيقة:" Width="135px" />
                                         </td>
                                         <td dir="rtl" colspan="3">
-                                            <asp:FileUpload ID="FileUpload_Visa" runat="server" ForeColor="Maroon" Width="700px" />
+                                            <asp:FileUpload ID="FileUpload_Visa" runat="server" ForeColor="Maroon" Width="700px"  />
                                             <br />
                                         </td>
                                     </tr>
@@ -777,7 +777,7 @@
                                             <asp:Label ID="Label40" runat="server" CssClass="Label" Text="الوثيقة:" Width="135px" />
                                         </td>
                                         <td dir="rtl" colspan="3">
-                                            <asp:FileUpload ID="FileUpload_Visa_Follow" runat="server" ForeColor="Maroon" Width="700px" />
+                                            <asp:FileUpload ID="FileUpload_Visa_Follow" runat="server" ForeColor="Maroon" Width="700px"  />
                                             <br />
                                         </td>
                                     </tr>
