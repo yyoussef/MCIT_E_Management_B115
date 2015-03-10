@@ -104,6 +104,13 @@ public partial class UserControls_EmployeeDirectParent : System.Web.UI.UserContr
                 }
                 //Else, this record doesn't exist before, so go ahead to save or update it
 
+                DataTable dt = General_Helping.GetDataTable("select ParentEmpID from EmployeeAndCorrParentEmplNames where foundation_id='" + CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString()) + "'and type_id='" + CDataConverter.ConvertToInt( type) + "' and Group_id='" +CDataConverter.ConvertToInt(ddl_Groups.SelectedValue) + "' ");
+                if (dt.Rows.Count > 0)
+                {
+                    Page.RegisterStartupScript("Error", "<script language=javascript>alert('  يوجد مدير مباشر لنفس  المجموعة ونفس نوع الخطاب')</script>");
+                    return;
+                }
+
             }
             catch
             {

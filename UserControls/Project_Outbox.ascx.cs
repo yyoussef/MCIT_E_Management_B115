@@ -619,6 +619,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         Smart_Related_Id.Value_Field = "id";
         Smart_Related_Id.Text_Field = "con";
         Smart_Related_Id.Show_Code = false;
+  
         Smart_Related_Id.DataBind();
     }
     public void fill_listbox()
@@ -3270,6 +3271,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
     //Smart_Related_Id.Show_Code = false;
     //Smart_Related_Id.DataBind();
     //}
+
     //private void Fil_Smrt_From_Outbox()
     //{
     //    Smart_Related_Id.sql_Connection = sql_Connection;
