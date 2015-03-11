@@ -586,7 +586,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         }
         else
         {
-            Employees = from Emps in outboxDBContext.EMPLOYEEs
+            Employees = from Emps in outboxDBContext.EMPLOYEEs where Emps.foundation_id==CDataConverter.ConvertToInt(Session_CS.foundation_id)
                         orderby Emps.pmp_name
                         select Emps;
         }
@@ -1671,6 +1671,9 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         }
         TabPanel_All.ActiveTab = TabPanel_dtl;
     }
+
+
+
     protected void chkSent_CheckedChanged(object sender, EventArgs e)
     {
         CheckBox checkbox = (CheckBox)sender;

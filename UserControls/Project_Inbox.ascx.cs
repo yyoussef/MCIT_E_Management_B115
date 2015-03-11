@@ -776,7 +776,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
         Smart_Emp_ID.sql_Connection = sql_Connection;
         // Smart_Emp_ID.Query = "SELECT PMP_ID, pmp_name FROM EMPLOYEE ";
-        Query = "SELECT PMP_ID, pmp_name FROM EMPLOYEE ";
+        Query = "SELECT PMP_ID, pmp_name FROM EMPLOYEE where foundation_id='"+CDataConverter.ConvertToInt(Session_CS.foundation_id )+"' ";
         Smart_Emp_ID.datatble = General_Helping.GetDataTable(Query);
         Smart_Emp_ID.Value_Field = "PMP_ID";
         Smart_Emp_ID.Text_Field = "pmp_name";
