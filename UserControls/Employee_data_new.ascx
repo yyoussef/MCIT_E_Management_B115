@@ -198,6 +198,11 @@ padding-top:20%;
                                               
                                               
                                               </asp:RequiredFieldValidator>
+                                                <asp:RegularExpressionValidator ID="RegularExpressionValidator7" runat="server" ControlToValidate="txt_username"
+                                                ErrorMessage="أدخل حروف إنجليزية فقط" 
+                                                
+                                                ValidationExpression="[A-Za-z]*"
+                                                ValidationGroup="A"></asp:RegularExpressionValidator>
                                        
                                         </td>
                                     </tr>

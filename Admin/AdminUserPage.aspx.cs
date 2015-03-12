@@ -64,11 +64,14 @@ public partial class WebForms_AdminUserPage : System.Web.UI.Page
      
         //string sql = @"SELECT ap.pk_ID, ap.Name page FROM dbo.users_permission up,dbo.Admin_Page ap WHERE ap.pk_ID = up.Page_ID AND ap.Active = 1 AND up.pmp_pmp_id = " + SmartEmployee.SelectedValue;
        // Label4.Text = SmartEmployee.SelectedValue.ToString();
-        DataTable dt = SqlHelper.ExecuteDataset(Database.ConnectionString, "Select_UserPages", SmartEmployee.SelectedValue).Tables[0];
-        if (dt.Rows.Count > 0)
+        if (SmartEmployee.SelectedValue != "" && SmartEmployee.SelectedValue != "0")
         {
-            gvUserPages.DataSource = dt;
-            gvUserPages.DataBind();
+            DataTable dt = SqlHelper.ExecuteDataset(Database.ConnectionString, "Select_UserPages", SmartEmployee.SelectedValue).Tables[0];
+            if (dt.Rows.Count > 0)
+            {
+                gvUserPages.DataSource = dt;
+                gvUserPages.DataBind();
+            }
         }
 
 

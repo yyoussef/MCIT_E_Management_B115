@@ -169,8 +169,8 @@ public partial class SuperAdmin_Foundations : System.Web.UI.Page
         chk_code.Checked = false;
         Chk_islocal.Checked = false;
         tr_local.Visible = false;
-        CheckBox1.Checked =
-        CheckBox2.Checked = false;
+        //CheckBox1.Checked =
+       // CheckBox2.Checked = false;
         txtBox_FoundName.Text =
         txtBox_Port.Text =
         txtBox_Host.Text =
@@ -187,7 +187,9 @@ public partial class SuperAdmin_Foundations : System.Web.UI.Page
         if (e.CommandName == "dlt")
         {
 
-
+                DataTable dt = pmgenentity.Admin_Users_Select(0, CDataConverter.ConvertToInt(e.CommandArgument)).ToDataTable();
+            if (dt.Rows.Count <= 0)
+            {
             Foundations foun = new Foundations()
             {
                 Foundation_ID = Convert.ToInt32(e.CommandArgument)
@@ -198,6 +200,12 @@ public partial class SuperAdmin_Foundations : System.Web.UI.Page
             pmgenentity.SaveChanges();
 
             Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('تم الحذف بنجاح')</script>");
+            }
+            else
+            {
+                Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('عفوا لم يتم الحذف لوجود سجلات فرعية')</script>");
+
+            }
 
         }
         else if (e.CommandName == "Show")

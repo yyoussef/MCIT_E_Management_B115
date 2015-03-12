@@ -84,7 +84,7 @@ public partial class UserControls_EmployeeDirectParent : System.Web.UI.UserContr
     /// <param name="e"></param>
     protected void btn_Save_Click(object sender, EventArgs e)
     {
-        if (Smart_Search_Direct_Manager.SelectedValue != "" && Smart_Search_Employee.SelectedValue != "")
+        if (Smart_Search_Direct_Manager.SelectedValue != "" && Smart_Search_Employee.SelectedValue != "" && Smart_Search_Employee.SelectedValue!= Smart_Search_Direct_Manager.SelectedValue )
         {
             int selectedEmplID = CDataConverter.ConvertToInt(Smart_Search_Employee.SelectedValue);
             int selectedDirManagerID = CDataConverter.ConvertToInt(Smart_Search_Direct_Manager.SelectedValue);
@@ -149,7 +149,7 @@ public partial class UserControls_EmployeeDirectParent : System.Web.UI.UserContr
         else
         {
             //Erro message to notify the user to select the employee and manager both
-            Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('الرجاء اختيار اسم الموظف و المدير المباشر كليهما')</script>");
+            Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('الرجاء إختيار كل من اسم الموظف و المدير المباشر ')</script>");
 
         }
         currRow_id.Value = "";//Reset the hidden field value

@@ -40,6 +40,7 @@ public partial class SuperAdmin_Foundations : System.Web.UI.Page
             //  fillgrid();
 
             fill_foundations();
+   
 
         }
 
@@ -65,7 +66,7 @@ public partial class SuperAdmin_Foundations : System.Web.UI.Page
     {
         //DataTable dt = SqlHelper.ExecuteDataset(Database.ConnectionString, "AdminUsers_SelectName_Exsit", txt_loginname.Text).Tables[0];
 
-        DataTable dt = pmgenentity.AdminUsers_SelectName_Exsit(txt_loginname.Text).ToDataTable();
+        DataTable dt = pmgenentity.AdminUsers_SelectName_Exsit(txt_loginname.Text,CDataConverter.ConvertToInt(adminuser_id.Value)).ToDataTable();
 
         if (ddl_Foundation.SelectedValue != "" && ddl_Foundation.SelectedValue != "0")
         {
@@ -159,7 +160,7 @@ public partial class SuperAdmin_Foundations : System.Web.UI.Page
         txt_loginname.Text = "";
 
         txtBox_UserName.Text = "";
-        // chk_account.Checked = false;
+        chk_account.Checked = false;
 
     }
 
@@ -172,7 +173,7 @@ public partial class SuperAdmin_Foundations : System.Web.UI.Page
         if (e.CommandName == "Show")
         {
 
-
+           
             // Admin_Users_DT  obj = Admin_Users_DB.SelectByID(CDataConverter.ConvertToInt(e.CommandArgument ),0);
 
             Admin_Users obj = pmgenentity.Admin_Users.Where(y => y.ID == x).SingleOrDefault();
@@ -199,19 +200,22 @@ public partial class SuperAdmin_Foundations : System.Web.UI.Page
         {
             // Admin_Users_DB.Delete(CDataConverter.ConvertToInt(e.CommandArgument));
 
-            Admin_Users obj = new Admin_Users()
-            {
-                ID = x
+         
 
-            };
-            pmgenentity.Admin_Users.Attach(obj);
-            pmgenentity.Admin_Users.Remove(obj);
-            pmgenentity.SaveChanges();
+                Admin_Users obj = new Admin_Users()
+                {
+                    ID = x
 
-            Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('تم الحذف بنجاح')</script>");
+                };
+                pmgenentity.Admin_Users.Attach(obj);
+                pmgenentity.Admin_Users.Remove(obj);
+                pmgenentity.SaveChanges();
 
-            fillgrid();
-            clear();
+                Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('تم الحذف بنجاح')</script>");
+
+                fillgrid();
+                clear();
+       
 
 
 

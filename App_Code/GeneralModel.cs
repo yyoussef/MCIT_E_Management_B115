@@ -50,7 +50,7 @@ public partial class Foundations
     public string FromAddress { get; set; }
     public string connection_string { get; set; }
     public Nullable<bool> islocal { get; set; }
-    public Nullable<int> code_outbox{ get; set;}
+    public Nullable<int> code_outbox { get; set; }
 }
 
 public partial class Site_Upload
@@ -72,6 +72,16 @@ public partial class super_admin
     public string Name { get; set; }
     public string User_name { get; set; }
     public string Password { get; set; }
+    public Nullable<bool> account_active { get; set; }
+}
+
+public partial class Admin_Users_Select_Result
+{
+    public int ID { get; set; }
+    public string Name { get; set; }
+    public string User_name { get; set; }
+    public string Password { get; set; }
+    public Nullable<int> foundation_id { get; set; }
     public Nullable<bool> account_active { get; set; }
 }
 
