@@ -221,6 +221,10 @@
                                             <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ControlToValidate="txt_Org_Out_Box_DT"
                                                 ValidationExpression="^(([0-2]\d|[3][0-1])\/([0]\d|[1][0-2])\/[2][0]\d{2})$|^(([0-2]\d|[3][0-1])\/([0]\d|[1][0-2])\/[2][0]\d{2}\s([0-1]\d|[2][0-3])\:[0-5]\d\:[0-5]\d)$"
                                                 ValidationGroup="A" ErrorMessage=" برجاء إدخال صيغة التاريخ بطريقة صحيحة " Text="*"></asp:RegularExpressionValidator>
+                                            <asp:CompareValidator ID="comp" runat="server" ControlToValidate="txt_Org_Out_Box_DT" ControlToCompare="txt_Date"   ValidationGroup="A" Operator="LessThanEqual" 
+                                                ErrorMessage=" تاريخ صادر الجهة يجب ان يكون أقل من او يساوي تاريخ الخطاب ">
+
+                                            </asp:CompareValidator>
                                         </td>
                                     </tr>
                                     <tr id="main_cat_subj" runat="server">

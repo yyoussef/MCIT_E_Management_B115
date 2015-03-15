@@ -958,7 +958,8 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
     {
         if (ddl_Type.SelectedValue == "1")
         {
-            tr_Inbox_out.Visible = false;
+          //  tr_Inbox_out.Visible = false;
+            tr_Inbox_out.Style.Add("display", "none");
             //tr_Inbox_In.Visible = true;
             tr_Inbox_In.Style.Add("display", "block");
         }
@@ -966,7 +967,9 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
         {
             tr_Inbox_In.Style.Add("display", "none");
             //tr_Inbox_In.Visible = false;
-            tr_Inbox_out.Visible = true;
+
+           // tr_Inbox_out.Visible = true;
+            tr_Inbox_out.Style.Add("display", "block");
         }
 
 
