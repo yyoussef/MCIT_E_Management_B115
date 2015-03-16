@@ -74,3 +74,5 @@ delete     from Commission where foundation_id = @foundation_id
 
 --delete from Departments
 --where foundation_id = @foundation_id
+--delete from Employee_Groups
+--where foundation_id = @foundation_id
