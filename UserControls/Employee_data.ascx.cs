@@ -511,7 +511,7 @@ public partial class UserControls_Employee_data : System.Web.UI.UserControl
         if (txt_username.Text != "")
         {
 
-            user_name = txt_username.Text;
+            user_name = txt_username.Text.Trim();
             uobj.USR_Name = user_name;
         }
         dt_users = Users_data_DB.Select_UsersData(CDataConverter.ConvertToInt(Smart_Search_emp.SelectedValue), user_name);

@@ -41,13 +41,13 @@ public partial class UserControls_Open_UserManual : System.Web.UI.UserControl
             }
             else if (CDataConverter.ConvertToInt(Session_CS.child_emp.ToString()) > 0)
             {
-                File_Name = Server.MapPath("~//Uploads/UserManual/دليل المستخدم للسكرتير.pdf");
+                File_Name = Server.MapPath("~//Uploads/UserManual/user_manual_sec.pdf");
                 File_Name_Show = "دليل المستخدم للسكرتير.pdf";
             }
             else
             {
 
-                File_Name = Server.MapPath("~//Uploads/UserManual/دليل المستخدم للموظفين.pdf");
+                File_Name = Server.MapPath("~//Uploads/UserManual/user_manual_employee.pdf");
                 File_Name_Show = "دليل المستخدم للموظفين.pdf";
             }
             

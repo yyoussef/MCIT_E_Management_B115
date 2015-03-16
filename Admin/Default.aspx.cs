@@ -97,7 +97,11 @@ public partial class Admin_Default : System.Web.UI.Page
         if (dt.Rows.Count > 0)
         {
             Session["pmp_name"] = dt.Rows[0]["Name"].ToString();
+
+            Session_CS.pmp_name = dt.Rows[0]["Name"].ToString();
+
             Session["ID"] = dt.Rows[0]["ID"].ToString();
+
             Session_CS.foundation_id = CDataConverter.ConvertToInt(dt.Rows[0]["foundation_id"].ToString());
 
             Response.Redirect("../Admin/Home.aspx");

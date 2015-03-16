@@ -53,7 +53,7 @@
                         <td dir="ltr" align="center" bgcolor="#C2DDF0" width="60px" valign="bottom">
                             <br />
                             <asp:LinkButton ID="LinkMain" runat="server" Text="الرئيسية" Font-Bold="True" ForeColor="#436485"
-                                align="right" BackColor="#F9FDFF" PostBackUrl="~/MainForm/Default.aspx" Width="48px"
+                                align="right" BackColor="#F9FDFF" PostBackUrl="~/SuperAdmin/Home.aspx" Width="48px"
                                 valign="bottom" Font-Names="arial" Font-Size="16px" />
                             <br />
                             <br />

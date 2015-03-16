@@ -203,14 +203,14 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
 
             string Strt_date = txt_Visa_date.Text;
             string End_date = txt_Dead_Line_DT.Text;
-
-            if (!VB_Classes.Dates.Dates_Operation.Date_compare(Strt_date, End_date))
+            DateTime t2 = CDataConverter.ConvertToDate(txt_Dead_Line_DT.Text);//DateTime.Parse(txt_Dead_Line_DT.Text);
+            DateTime t1 = CDataConverter.ConvertToDate(txt_Visa_date.Text);//DateTime.Parse(txt_Visa_date.Text);
+            if (t1 <= t2)
             {
                 if (!string.IsNullOrEmpty(Strt_date) && !string.IsNullOrEmpty(End_date))
                 {
-                    DateTime t2 = CDataConverter.ConvertToDate(txt_Dead_Line_DT.Text);//DateTime.Parse(txt_Dead_Line_DT.Text);
-                    DateTime t1 = CDataConverter.ConvertToDate(txt_Visa_date.Text);//DateTime.Parse(txt_Visa_date.Text);
-                    if (t1 < t2)
+                  
+                    if (t1 <= t2)
                     {
                         int Total_Days = t2.Subtract(t1).Days;//DateTime.ParseExact(End_date, "dd/MM/yyyy", null).Subtract(DateTime.ParseExact(Strt_date, "dd/MM/yyyy", null)).Days;
                         lbl_period.Text = Total_Days.ToString();

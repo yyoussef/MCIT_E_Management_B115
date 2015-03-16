@@ -356,7 +356,8 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
             txt_Date.Text = obj.Date;
             ddl_Type.SelectedValue = obj.Type.ToString();
             Type_Changed();
-            //if (obj.Dept_ID > 0)
+            if (obj.Dept_ID > 0)
+                Smart_Search_structure.SelectedValue = obj.Dept_ID.ToString();
             //    // ddl_Dept_ID.SelectedValue = obj.Dept_ID.ToString();
             //    //Smart_Search_mang.SelectedValue = obj.Dept_ID.ToString();
             //fil_emp(); commented because it is an empty function
@@ -776,7 +777,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
         Smart_Emp_ID.sql_Connection = sql_Connection;
         // Smart_Emp_ID.Query = "SELECT PMP_ID, pmp_name FROM EMPLOYEE ";
-        Query = "SELECT PMP_ID, pmp_name FROM EMPLOYEE ";
+        Query = "SELECT PMP_ID, pmp_name FROM EMPLOYEE where foundation_id='"+CDataConverter.ConvertToInt(Session_CS.foundation_id )+"' ";
         Smart_Emp_ID.datatble = General_Helping.GetDataTable(Query);
         Smart_Emp_ID.Value_Field = "PMP_ID";
         Smart_Emp_ID.Text_Field = "pmp_name";
@@ -958,7 +959,8 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
     {
         if (ddl_Type.SelectedValue == "1")
         {
-            tr_Inbox_out.Visible = false;
+          //  tr_Inbox_out.Visible = false;
+            tr_Inbox_out.Style.Add("display", "none");
             //tr_Inbox_In.Visible = true;
             tr_Inbox_In.Style.Add("display", "block");
         }
@@ -966,7 +968,9 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
         {
             tr_Inbox_In.Style.Add("display", "none");
             //tr_Inbox_In.Visible = false;
-            tr_Inbox_out.Visible = true;
+
+           // tr_Inbox_out.Visible = true;
+            tr_Inbox_out.Style.Add("display", "block");
         }
 
 
@@ -1220,6 +1224,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
             if (FileUpload1.HasFile)
             {
                 string DocName = FileUpload1.FileName;
+                string Doc_Name = System.IO.Path.GetFileNameWithoutExtension(FileUpload_Visa.FileName);
                 int dotindex = DocName.LastIndexOf(".");
                 string type = DocName.Substring(dotindex, DocName.Length - dotindex);
 
@@ -1241,7 +1246,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                 cmd.Parameters["@Inbox_OutBox_File_ID"].Value = CDataConverter.ConvertToInt(hidden_Inbox_OutBox_File_ID.Value);
                 cmd.Parameters["@Original_Or_Attached"].Value = CDataConverter.ConvertToInt(ddl_Original_Or_Attached.SelectedValue);
                 cmd.Parameters["@File_ext"].Value = type;
-                cmd.Parameters["@File_name"].Value = txtFileName.Text;
+                cmd.Parameters["@File_name"].Value = txtFileName.Text; 
                 cmd.Parameters["@Inbox_Or_Outbox"].Value = 1;
                 cmd.CommandType = CommandType.Text;
                 if (CDataConverter.ConvertToInt(hidden_Inbox_OutBox_File_ID.Value) > 0)
@@ -1486,7 +1491,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                         string DocName = FileUpload_Visa.FileName;
                         int dotindex = DocName.LastIndexOf(".");
                         string type = DocName.Substring(dotindex, DocName.Length - dotindex);
-
+                        string Doc_Name = System.IO.Path.GetFileNameWithoutExtension(FileUpload_Visa.FileName);
                         Stream myStream;
                         int fileLen;
                         StringBuilder displayString = new StringBuilder();
@@ -1507,7 +1512,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                         cmd.Parameters.Add("@visa_ID", SqlDbType.BigInt);
 
                         //cmd.Parameters["@File_data"].Value = Input;
-                        cmd.Parameters["@File_name"].Value = DocName;
+                        cmd.Parameters["@File_name"].Value = Doc_Name ;
                         cmd.Parameters["@File_ext"].Value = type;
                         cmd.Parameters["@visa_ID"].Value = obj.Visa_Id;
                         cmd.CommandType = CommandType.Text;

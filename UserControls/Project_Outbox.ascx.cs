@@ -586,7 +586,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         }
         else
         {
-            Employees = from Emps in outboxDBContext.EMPLOYEEs
+            Employees = from Emps in outboxDBContext.EMPLOYEEs where Emps.foundation_id==CDataConverter.ConvertToInt(Session_CS.foundation_id)
                         orderby Emps.pmp_name
                         select Emps;
         }
@@ -619,6 +619,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         Smart_Related_Id.Value_Field = "id";
         Smart_Related_Id.Text_Field = "con";
         Smart_Related_Id.Show_Code = false;
+  
         Smart_Related_Id.DataBind();
     }
     public void fill_listbox()
@@ -1670,6 +1671,9 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         }
         TabPanel_All.ActiveTab = TabPanel_dtl;
     }
+
+
+
     protected void chkSent_CheckedChanged(object sender, EventArgs e)
     {
         CheckBox checkbox = (CheckBox)sender;
@@ -3270,6 +3274,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
     //Smart_Related_Id.Show_Code = false;
     //Smart_Related_Id.DataBind();
     //}
+
     //private void Fil_Smrt_From_Outbox()
     //{
     //    Smart_Related_Id.sql_Connection = sql_Connection;
