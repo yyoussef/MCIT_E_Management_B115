@@ -1137,28 +1137,35 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
     {
         if (ddl_Related_Type.SelectedValue == "1")
         {
-            trSmart.Visible = false;
+            trSmart.Style.Add("display", "none");
+            //trSmart.Visible = false;
         }
         else if (ddl_Related_Type.SelectedValue == "2")
         {
 
-            trSmart.Visible = true;
+            //trSmart.Visible = true;
+            trSmart.Style.Add("display", "block");
             lbl_Inbox_type.Text = "رد على الصادر رقم";
             Fil_Smrt_From_OutBox();
         }
         else if (ddl_Related_Type.SelectedValue == "3")
         {
 
-            trSmart.Visible = true;
+            trSmart.Style.Add("display", "block");
+           // trSmart.Visible = true;
             lbl_Inbox_type.Text = " استعجال الوارد للوارد رقم";
             Fil_Smrt_From_InBox();
         }
         else if (ddl_Related_Type.SelectedValue == "4")
         {
-
-            trSmart.Visible = true;
+            trSmart.Style.Add("display", "block");
+            //trSmart.Visible = true;
             lbl_Inbox_type.Text = " استكمال الوارد للوارد رقم";
             Fil_Smrt_From_InBox();
+        }
+        else if (ddl_Related_Type.SelectedValue == "5")
+        {
+            trSmart.Style.Add("display", "none");
         }
         TabPanel_All.ActiveTab = TabPanel_dtl;
     }

@@ -153,7 +153,7 @@
                                         <td colspan="2" runat="server">
                                         </td>
                                     </tr>
-                                    <tr runat="server" id="trSmart" visible="False">
+                                    <tr runat="server" id="trSmart" style="display:none" >
                                         <td colspan="4" runat="server">
                                             <table>
                                                 <tr>

@@ -1612,12 +1612,14 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
     {
         if (ddl_Related_Type.SelectedValue == "1")
         {
-            trSmart.Visible = false;
+           // trSmart.Visible = false;
+            trSmart.Style.Add("display", "none");
         }
         else if (ddl_Related_Type.SelectedValue == "2")
         {
 
-            trSmart.Visible = true;
+            //trSmart.Visible = true;
+            trSmart.Style.Add("display", "block");
             lbl_Inbox_type.Text = "رد على وارد رقم";
             //Fil_Smrt_From_InBox();
             DataTable orgsdt = new DataTable();
@@ -1635,7 +1637,8 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         else if (ddl_Related_Type.SelectedValue == "3")
         {
 
-            trSmart.Visible = true;
+            //trSmart.Visible = true;
+            trSmart.Style.Add("display", "block");
             lbl_Inbox_type.Text = "استعجال للصادر رقم";
             // Fil_Smrt_From_OutBox();
             //Fil_Smrt_From_InBox_Minister();
@@ -1654,7 +1657,8 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         else if (ddl_Related_Type.SelectedValue == "4")
         {
 
-            trSmart.Visible = true;
+            //trSmart.Visible = true;
+            trSmart.Style.Add("display", "block");
             lbl_Inbox_type.Text = "رد علي تأشيرة وزير رقم";
             //Fil_Smrt_From_InBox_Minister();
             DataTable orgsdt = new DataTable();
@@ -1668,6 +1672,10 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                                 }, false);
             Fil_Smrt_From(orgsdt);
 
+        }
+        else if (ddl_Related_Type.SelectedValue == "5")
+        {
+            trSmart.Style.Add("display", "none");
         }
         TabPanel_All.ActiveTab = TabPanel_dtl;
     }
