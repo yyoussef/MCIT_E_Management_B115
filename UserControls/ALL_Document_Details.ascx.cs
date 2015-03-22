@@ -193,7 +193,7 @@ public partial class UserControls_ALL_Document_Details : System.Web.UI.UserContr
                                 string New_File_Path = Server.MapPath(MY_File_Path + DT.Rows[0]["File_Sytem_Name"].ToString());
 
                                 FileStream fs = new FileStream(New_File_Path, FileMode.Open, FileAccess.Read);
-
+                              
                                 byte[] bytes = new byte[fs.Length];
 
                                 fs.Read(bytes, 0, System.Convert.ToInt32(fs.Length));

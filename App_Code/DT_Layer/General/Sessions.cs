@@ -802,7 +802,17 @@ public static  class Session_CS
             cook_e_signature.Value = value;
 
             cook_e_signature.Expires = DateTime.Now.AddDays(1);
-            HttpContext.Current.Response.Cookies.Add(cook_e_signature);
+         //   HttpContext.Current.Response.Cookies.Add(cook_e_signature);
+
+            if (HttpContext.Current.Response.Cookies["cook_e_signature"] != null)
+            {
+                HttpContext.Current.Response.Cookies["cook_e_signature"].Value = cook_e_signature.Value;
+            }
+            else
+            {
+                HttpContext.Current.Response.Cookies.Add(cook_e_signature);
+            }
+
         }
 
     }

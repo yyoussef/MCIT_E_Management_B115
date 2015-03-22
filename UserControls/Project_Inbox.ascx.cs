@@ -1224,7 +1224,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
             if (FileUpload1.HasFile)
             {
                 string DocName = FileUpload1.FileName;
-                string Doc_Name = System.IO.Path.GetFileNameWithoutExtension(FileUpload_Visa.FileName);
+                string Doc_Name = System.IO.Path.GetFileNameWithoutExtension(FileUpload1.FileName);
                 int dotindex = DocName.LastIndexOf(".");
                 string type = DocName.Substring(dotindex, DocName.Length - dotindex);
 
@@ -1235,6 +1235,11 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                 Byte[] Input = new Byte[fileLen];
                 myStream = FileUpload1.FileContent;
                 myStream.Read(Input, 0, fileLen);
+
+             Stream fss=   FileUpload1.PostedFile.InputStream;
+             BinaryReader br = new BinaryReader(fss);
+             byte[] bytes = br.ReadBytes((Int32)fss.Length);
+
                 cmd.Parameters.Add("@File_data", SqlDbType.VarBinary);
                 cmd.Parameters.Add("@Inbox_OutBox_File_ID", SqlDbType.Int);
                 cmd.Parameters.Add("@Inbox_Outbox_ID", SqlDbType.Int);
@@ -1257,7 +1262,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                     if (string.IsNullOrEmpty(Session_CS.local_connectionstring))
                     {
                         cmd.Connection = con;
-                        cmd.Parameters["@File_data"].Value = Input;
+                        cmd.Parameters["@File_data"].Value = bytes;
                         cmd.Parameters["@Inbox_Outbox_ID"].Value = CDataConverter.ConvertToInt(hidden_Id.Value);
                         con.Open();
                         cmd.ExecuteScalar();
@@ -1274,7 +1279,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                         try
                         {
                             cmd.Connection = con_local;
-                            cmd.Parameters["@File_data"].Value = Input;
+                            cmd.Parameters["@File_data"].Value = bytes;
                             cmd.Parameters["@Inbox_Outbox_ID"].Value = CDataConverter.ConvertToInt(hidden_Id.Value);
 
                             con_local.Open();

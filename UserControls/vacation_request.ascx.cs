@@ -218,13 +218,19 @@ public partial class UserControls_vacation_request : System.Web.UI.UserControl
                 int difference = CDataConverter.ConvertToInt(vac_days.Value) - CDataConverter.ConvertToInt(no_days.Text);
                 VacObj.request_date = CDataConverter.ConvertDateTimeNowRtrnString();
                 VacObj.dept_id = CDataConverter.ConvertToInt(Session_CS.dept_id.ToString());
-                if (Session_CS.UROL_UROL_ID.ToString() == "12")
-                {
-                    if (DDLVacationType.SelectedValue == "1")
+                //if (Session_CS.UROL_UROL_ID.ToString() == "12")
+                //{
+                //    if (DDLVacationType.SelectedValue == "1")
 
-                    { VacObj.type = 1; }
-                }
-                else { VacObj.type = 0; }
+                //    { 
+                //        VacObj.type = 1;
+                //    }
+                //}
+                //else 
+                //{ 
+                    VacObj.type = 0; 
+                //}
+
                 VacObj.id = Vacations_DB.Save(VacObj);
                 //if (vac_field_name.Value != "" && Convert.ToInt16(vac_days.Value) > 0 && Session_CS.is_vacation_mng.ToString() == "1")
                 //{

@@ -14,11 +14,12 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Text;
 
-public partial class MainForm_ALL_Document_Details : System.Web.UI.Page
+public partial class MainForm_ALL_Document_Details1 : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-     if (!IsPostBack)
+         
+        if (!IsPostBack)
         {
             if (Request["id"] != null && Request["type"] != null)
             {
@@ -248,6 +249,7 @@ public partial class MainForm_ALL_Document_Details : System.Web.UI.Page
             }
         }
     }
+
     public static void ShowAlertMessage(string error)
     {
 
@@ -257,5 +259,6 @@ public partial class MainForm_ALL_Document_Details : System.Web.UI.Page
             error = error.Replace("'", "\'");
             ScriptManager.RegisterStartupScript(page, page.GetType(), "err_msg", "alert('" + error + "');", true);
         }
-    } 
+    }
+    
 }
