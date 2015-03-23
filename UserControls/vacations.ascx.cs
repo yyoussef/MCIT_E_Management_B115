@@ -78,11 +78,11 @@ public partial class UserControls_vacations : System.Web.UI.UserControl
                 VocStat.Text = "لم تنظر";
                 ImageButton imgEdit = (ImageButton)e.Row.FindControl("ImgBtnEdit");
                 ImageButton imgDelete = (ImageButton)e.Row.FindControl("ImgBtnDelete");
-                if (Type == "0")
-                {
+               // if (Type == "0")
+               // {
                     imgEdit.Visible = true;
                     imgDelete.Visible = true;
-                }
+              //  }
             }
         }
     }

@@ -40,10 +40,11 @@ public partial class UserControls_Site_Menu : System.Web.UI.UserControl
 
             int RoleID = CDataConverter.ConvertToInt(Session_CS.UROL_UROL_ID);
            int ProjectID = CDataConverter.ConvertToInt(Session_CS.Project_id);
-           if (Request["Proj_id"] != "" && Request["Proj_id"] !=null )
-           {
-               ProjectID = CDataConverter.ConvertToInt(Request["Proj_id"].ToString());
-           }
+
+         //  if (Request["Proj_id"] != "" && Request["Proj_id"] !=null )
+        //   {
+             //  ProjectID = CDataConverter.ConvertToInt(Request["Proj_id"].ToString());
+       //    }
 
             ArrayList AllPages = new ArrayList();
             ArrayList RolePages = new ArrayList();
