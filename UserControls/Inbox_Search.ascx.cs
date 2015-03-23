@@ -41,6 +41,19 @@ public partial class UserControls_Inbox_Search : System.Web.UI.UserControl
 
             }
             ddlSubCat.Items.Insert(0, new ListItem("....اختر التصنيف الفرعي ....", "0"));
+
+
+            if (Session_CS.code_archiving == 1)
+            {
+                Txtcode.Enabled = false;
+            }
+            else
+            {
+
+                Txtcode.Enabled = true;
+            }
+
+
         }
     }
 

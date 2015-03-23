@@ -1603,6 +1603,52 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         ////fil_emp_Folow_Up();
     }
 
+    void Fil_Smrt_From_InBox()
+    {
+        Smart_Related_Id.sql_Connection = sql_Connection;
+        // Smart_Related_Id.Query = "SELECT * from vw_inbox_DateSubject where  group_id = " + int.Parse(Session_CS.group_id.ToString());
+        string Query = "set dateformat dmy SELECT vw_inbox_DateSubject.*,CONVERT(datetime, dbo.datevalid(Date)) as date1 from vw_inbox_DateSubject where  group_id = " + int.Parse(Session_CS.group_id.ToString());
+        if (CDataConverter.ConvertToInt(Session_CS.Project_id.ToString()) > 0)
+        {
+            Query += " AND Proj_id = " + int.Parse(Session_CS.Project_id.ToString());
+        }
+        Query += " order by CONVERT(datetime, dbo.datevalid(Date)) desc ";
+        Smart_Related_Id.datatble = General_Helping.GetDataTable(Query);
+        Smart_Related_Id.Value_Field = "id";
+        Smart_Related_Id.Text_Field = "con";
+        Smart_Related_Id.Show_Code = false;
+        Smart_Related_Id.Orderby = "date1 desc";
+        Smart_Related_Id.DataBind();
+    }
+
+    private void Fil_Smrt_From_Outbox()
+    {
+        Smart_Related_Id.sql_Connection = sql_Connection;
+        //  Smart_Related_Id.Query = "SELECT * from vw_outbox_DateSubject where group_id =  " + int.Parse(Session_CS.group_id.ToString());
+        string Query = "SELECT * from vw_outbox_DateSubject where group_id =  " + int.Parse(Session_CS.group_id.ToString());
+        Smart_Related_Id.datatble = General_Helping.GetDataTable(Query);
+        Smart_Related_Id.Show_Code = false;
+        Smart_Related_Id.Value_Field = "id";
+        Smart_Related_Id.Text_Field = "con";
+        Smart_Related_Id.DataBind();
+    }
+
+    void Fil_Smrt_From_InBox_Minister()
+    {
+        Smart_Related_Id.sql_Connection = sql_Connection;
+        string Query = "";
+        Query = "set dateformat dmy SELECT vw_inbox_minister_DateSubject.* from vw_inbox_minister_DateSubject where  group_id = " + int.Parse(Session_CS.group_id.ToString());
+        if (CDataConverter.ConvertToInt(Session_CS.Project_id.ToString()) > 0)
+        {
+            Query += " AND Proj_id = " + int.Parse(Session_CS.Project_id.ToString());
+        }
+        Smart_Related_Id.datatble = General_Helping.GetDataTable(Query);
+        Smart_Related_Id.Value_Field = "id";
+        Smart_Related_Id.Text_Field = "con";
+        Smart_Related_Id.Show_Code = false;
+        Smart_Related_Id.DataBind();
+    }
+
     protected void ddl_Related_Type_SelectedIndexChanged(object sender, EventArgs e)
     {
         Related_type_Changed();
@@ -1621,17 +1667,19 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
             //trSmart.Visible = true;
             trSmart.Style.Add("display", "block");
             lbl_Inbox_type.Text = "رد على وارد رقم";
-            //Fil_Smrt_From_InBox();
-            DataTable orgsdt = new DataTable();
-            orgsdt.Columns.Add("id", typeof(int));
-            orgsdt.Columns.Add("con", typeof(string));
-            var orgsDT = from orgs in (outboxDBContext.SP_vw_inbox_DateSubject(int.Parse(Session_CS.group_id.ToString()), CDataConverter.ConvertToInt(Session_CS.Project_id.ToString())))
-                         select orgsdt.LoadDataRow(
-                                  new object[] {
-                                     orgs.ID,
-                                    orgs.con
-                                }, false);
-            Fil_Smrt_From(orgsdt);
+            Fil_Smrt_From_InBox();
+
+
+            //DataTable orgsdt = new DataTable();
+            //orgsdt.Columns.Add("id", typeof(int));
+            //orgsdt.Columns.Add("con", typeof(string));
+            //var orgsDT = from orgs in (outboxDBContext.SP_vw_inbox_DateSubject(int.Parse(Session_CS.group_id.ToString()), CDataConverter.ConvertToInt(Session_CS.Project_id.ToString())))
+            //             select orgsdt.LoadDataRow(
+            //                      new object[] {
+            //                         orgs.ID,
+            //                        orgs.con
+            //                    }, false);
+            //Fil_Smrt_From(orgsdt);
 
         }
         else if (ddl_Related_Type.SelectedValue == "3")
@@ -1640,18 +1688,18 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
             //trSmart.Visible = true;
             trSmart.Style.Add("display", "block");
             lbl_Inbox_type.Text = "استعجال للصادر رقم";
-            // Fil_Smrt_From_OutBox();
-            //Fil_Smrt_From_InBox_Minister();
-            DataTable orgsdt = new DataTable();
-            orgsdt.Columns.Add("id", typeof(int));
-            orgsdt.Columns.Add("con", typeof(string));
-            var orgsDT = from orgs in outboxDBContext.SP_vw_outbox_DateSubject(int.Parse(Session_CS.group_id.ToString()), CDataConverter.ConvertToInt(Session_CS.Project_id.ToString()))
-                         select orgsdt.LoadDataRow(
-                                  new object[] {
-                                     orgs.ID,
-                                    orgs.con
-                                }, false);
-            Fil_Smrt_From(orgsdt);
+            Fil_Smrt_From_Outbox();
+           
+            //DataTable orgsdt = new DataTable();
+            //orgsdt.Columns.Add("id", typeof(int));
+            //orgsdt.Columns.Add("con", typeof(string));
+            //var orgsDT = from orgs in outboxDBContext.SP_vw_outbox_DateSubject(int.Parse(Session_CS.group_id.ToString()), CDataConverter.ConvertToInt(Session_CS.Project_id.ToString()))
+            //             select orgsdt.LoadDataRow(
+            //                      new object[] {
+            //                         orgs.ID,
+            //                        orgs.con
+            //                    }, false);
+            //Fil_Smrt_From(orgsdt);
 
         }
         else if (ddl_Related_Type.SelectedValue == "4")
@@ -1660,19 +1708,23 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
             //trSmart.Visible = true;
             trSmart.Style.Add("display", "block");
             lbl_Inbox_type.Text = "رد علي تأشيرة وزير رقم";
-            //Fil_Smrt_From_InBox_Minister();
-            DataTable orgsdt = new DataTable();
-            orgsdt.Columns.Add("id", typeof(int));
-            orgsdt.Columns.Add("con", typeof(string));
-            var orgsDT = from orgs in outboxDBContext.SP_vw_inbox_minister_DateSubject(int.Parse(Session_CS.group_id.ToString()), CDataConverter.ConvertToInt(Session_CS.Project_id.ToString()))
-                         select orgsdt.LoadDataRow(
-                                  new object[] {
-                                     orgs.ID,
-                                    orgs.con
-                                }, false);
-            Fil_Smrt_From(orgsdt);
+            Fil_Smrt_From_InBox_Minister();
+
+
+            //DataTable orgsdt = new DataTable();
+            //orgsdt.Columns.Add("id", typeof(int));
+            //orgsdt.Columns.Add("con", typeof(string));
+            //var orgsDT = from orgs in outboxDBContext.SP_vw_inbox_minister_DateSubject(int.Parse(Session_CS.group_id.ToString()), CDataConverter.ConvertToInt(Session_CS.Project_id.ToString()))
+            //             select orgsdt.LoadDataRow(
+            //                      new object[] {
+            //                         orgs.ID,
+            //                        orgs.con
+            //                    }, false);
+            //Fil_Smrt_From(orgsdt);
+
 
         }
+
         else if (ddl_Related_Type.SelectedValue == "5")
         {
             trSmart.Style.Add("display", "none");
