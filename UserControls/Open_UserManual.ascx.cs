@@ -47,7 +47,7 @@ public partial class UserControls_Open_UserManual : System.Web.UI.UserControl
             else
             {
 
-                File_Name = Server.MapPath("~//Uploads/UserManual/user_manual_employee.pdf");
+                File_Name = Server.MapPath("~//Uploads/UserManual/user_manual_secretary.pdf");
                 File_Name_Show = "دليل المستخدم للموظفين.pdf";
             }
             

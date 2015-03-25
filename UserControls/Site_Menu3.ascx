@@ -249,9 +249,9 @@
                             <a href="Commission.aspx">التكليفات </a>
                             <input type="hidden" runat="server" id="hidden40" value="50" />
                         </li>
-                        <li id="Li37" runat="server" visible="false" style="background-image: url('../new_images/top2.gif')">
+                        <li id="Li37" runat="server"  style="background-image: url('../new_images/top2.gif')">
                             <a href="Commission_Search.aspx">بحث في التكليفات </a>
-                            <input type="hidden" runat="server" id="hidden41" value="51" />
+                            <%--<input type="hidden" runat="server" id="hidden41" value="51" />--%>
                         </li>
                         <li id="Li45" runat="server" visible="false" style="background-image: url('../new_images/top2.gif')">
                             <a href="ProjectReview.aspx">نشرات التعميم </a>
