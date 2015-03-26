@@ -664,7 +664,11 @@ public partial class Smart_Search : System.Web.UI.UserControl
     protected void Grdvew_Search_RowCommand(object sender, GridViewCommandEventArgs e)
     {
         int Current_PageIndex = Grdvew_Search.PageIndex;
+       
         int New_PageIndex = 0;
+
+        ImageButton img_btn_nextPage = (ImageButton)Grdvew_Search.FindControl("img_btn_nextPage");
+       
         if (e.CommandName == "Select")
         {
             string str = e.CommandArgument.ToString();
@@ -683,8 +687,12 @@ public partial class Smart_Search : System.Web.UI.UserControl
         else if (e.CommandName == "nextPage")
         {
             if (Current_PageIndex != Grdvew_Search.PageCount)
+            {
                 New_PageIndex = Current_PageIndex + 1;
+            }
 
+            
+                 
         }
         else if (e.CommandName == "first")
         {

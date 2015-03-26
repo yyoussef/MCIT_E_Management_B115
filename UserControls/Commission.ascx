@@ -85,7 +85,7 @@
                                             <input type="hidden" runat="server" id="hidden_Visa_Id"></input>
                                         </td>
                                         <td dir="rtl">
-                                            <asp:TextBox ID="txt_Visa_date" runat="server" CssClass="Text" Width="270px" OnTextChanged="txt_Visa_date_TextChanged"></asp:TextBox>
+                                            <asp:TextBox ID="txt_Visa_date" runat="server" CssClass="Text" Width="130px" OnTextChanged="txt_Visa_date_TextChanged"></asp:TextBox>
                                             <cc1:FilteredTextBoxExtender ID="FilteredTextBoxExtender3" runat="server" TargetControlID="txt_Visa_date"
                                                 ValidChars="0987654321/\" Enabled="True" />
                                             <cc1:CalendarExtender ID="CalendarExtender3" runat="server" Format="dd/MM/yyyy" PopupButtonID="ImageButton3"
@@ -114,14 +114,14 @@
                                             <asp:Label ID="txt_Important_Degree_Txt" runat="server" CssClass="Label" Width="293px"></asp:Label>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr width="180px">
                                         <td align="right" width="150px">
                                             <asp:Label ID="Label42" runat="server" CssClass="Label" Text="اخر تاريخ مسموح به  :"
                                                 Width="135px" />
                                         </td>
-                                        <td dir="rtl">
+                                        <td dir="rtl"  >
                                             <asp:TextBox ID="txt_Dead_Line_DT" runat="server" AutoPostBack="True" OnTextChanged="txt_Dead_Line_DT_TextChanged"
-                                                CssClass="Text" Width="270px"></asp:TextBox>
+                                                CssClass="Text" Width="130px"></asp:TextBox>
                                             <cc1:FilteredTextBoxExtender ID="FilteredTextBoxExtender5" runat="server" TargetControlID="txt_Dead_Line_DT"
                                                 ValidChars="0987654321/\" Enabled="True" />
                                             <cc1:CalendarExtender ID="CalendarExtender5" runat="server" Format="dd/MM/yyyy" PopupButtonID="ImageButton33"
