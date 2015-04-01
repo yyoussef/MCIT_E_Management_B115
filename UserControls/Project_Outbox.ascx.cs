@@ -3098,30 +3098,29 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
     }
     public string Get_Visa_Emp(object obj)
     {
+        //string visa_ID = obj.ToString();
+        //string emp_name = "";
+
+        
+
+        //var OutboxVisaEmps = outboxDBContext.get_OutboxVisaEmps(CDataConverter.ConvertToInt(visa_ID));
+        //foreach (var OutboxVisaEmp in OutboxVisaEmps)
+        //{
+
+        //    emp_name += OutboxVisaEmp.pmp_name + ",";
+        //}
+        //int lastindx = emp_name.LastIndexOf(',');
+        //string result = emp_name.Substring(0, lastindx);
+        //return result;
         string visa_ID = obj.ToString();
         string emp_name = "";
-
-        ////DataTable DT = new DataTable();
-        //var OutboxVisaEmps = from OutboxVisaEmp in outboxDBContext.Outbox_Visa_Emps
-        //                     join EMPLOYEES in outboxDBContext.EMPLOYEEs on (long)OutboxVisaEmp.Emp_ID equals EMPLOYEES.PMP_ID
-        //                     where OutboxVisaEmp.Visa_Id == CDataConverter.ConvertToInt(visa_ID)
-        //                     select new
-        //                     {
-        //                         EMPs = EMPLOYEES,
-        //                         OVEmp = OutboxVisaEmp
-        //                     };
-
-        //// DT = General_Helping.GetDataTable("SELECT EMPLOYEE.pmp_name FROM Outbox_Visa_Emp INNER JOIN EMPLOYEE ON Outbox_Visa_Emp.Emp_ID = EMPLOYEE.PMP_ID WHERE Outbox_Visa_Emp.Visa_Id  =" + visa_ID);
-        var OutboxVisaEmps = outboxDBContext.get_OutboxVisaEmps(CDataConverter.ConvertToInt(visa_ID));
-        foreach (var OutboxVisaEmp in OutboxVisaEmps)
+        DataTable DT = new DataTable();
+        DT = General_Helping.GetDataTable("SELECT EMPLOYEE.pmp_name FROM Outbox_Visa_Emp INNER JOIN EMPLOYEE ON Outbox_Visa_Emp.Emp_ID = EMPLOYEE.PMP_ID WHERE Outbox_Visa_Emp.Visa_Id  =" + visa_ID);
+        foreach (DataRow dr in DT.Rows)
         {
-
-            emp_name += OutboxVisaEmp.pmp_name + ",";
+            emp_name += dr["pmp_name"].ToString() + ",";
         }
-        int lastindx = emp_name.LastIndexOf(',');
-        string result = emp_name.Substring(0, lastindx);
-        return result;
-
+        return emp_name;
     }
     #endregion
 
