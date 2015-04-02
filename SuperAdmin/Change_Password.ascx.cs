@@ -97,14 +97,15 @@ public partial class UserControls_Change_Password : System.Web.UI.UserControl
             {
                 if (TxtNewPassword.Text == TxtRetype_Pass.Text)
                 {
-                    //sql = "update super_admin  set Password = '" + TxtNewPassword.Text + "'";
-                    //sql += " where ID=" + dt.Rows[0]["ID"].ToString();
+                 //   sql = "update super_admin  set Password = '" + TxtNewPassword.Text + "'";
+                  //  sql += " where ID=" + dt.Rows[0]["ID"].ToString();
 
-                    //  SqlHelper.ExecuteNonQuery(Database.ConnectionString, "SuperAdminUsers_updateName", TxtNewPassword.Text, dt.Rows[0]["ID"].ToString());
-                    super_admin obj = new super_admin();
-                    obj.ID = CDataConverter.ConvertToInt(dt.Rows[0]["ID"].ToString());
-                    obj.Password = TxtNewPassword.Text;
-                    InsertOrUpdate(obj);
+                    SqlHelper.ExecuteNonQuery(Database.ConnectionString, "SuperAdminUsers_updateName", TxtNewPassword.Text, dt.Rows[0]["ID"].ToString());
+                 //   super_admin obj = new super_admin();
+                 //   obj.ID = CDataConverter.ConvertToInt(dt.Rows[0]["ID"].ToString());
+                  //  obj.Password = TxtNewPassword.Text;
+                    
+                  //  InsertOrUpdate(obj);
 
 
 

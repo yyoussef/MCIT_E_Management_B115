@@ -56,7 +56,7 @@
             <asp:Label ID="Label5" runat="server" CssClass="Label" Text="أعد كتابة كلمة السر الجديدة:" />
         </td>
         <td align="right" class="style2">
-            <asp:TextBox runat="server" CssClass="Text" ID="TxtRetype_Pass" MaxLength="8" Width="200px" TextMode="Password" autocomplete="off"></asp:TextBox>
+            <asp:TextBox runat="server" CssClass="Text" ID="TxtRetype_Pass"  Width="200px" TextMode="Password" autocomplete="off"></asp:TextBox>
         </td>
     </tr>
     <tr align="center">

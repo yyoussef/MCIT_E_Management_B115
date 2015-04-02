@@ -163,11 +163,13 @@ padding-top:20%;
                                             </cc1:CalendarExtender>
                                             <asp:ImageButton runat="server" AlternateText="اضغط لعرض النتيجة" ImageUrl="~/images/Calendar_scheduleHS.png"
                                                 Height="23px" ToolTip="تقويم" Width="23px" ID="ImageButton2"></asp:ImageButton>
-                                            <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" ControlToValidate="txt_rec_DT"
-                                                ErrorMessage="أدخل التاريخ بطريقة صحيحة" 
-                                ValidationExpression="^(([0-2]\d|[3][0-1])\/([0]\d|[1][0-2])\/[2][0]\d{2})$|^(([0-2]\d|[3][0-1])\/([0]\d|[1][0-2])\/[2][0]\d{2}\s([0-1]\d|[2][0-3])\:[0-5]\d\:[0-5]\d)$"
+                                         
 
-                                                ValidationGroup="A"></asp:RegularExpressionValidator>
+
+                                               <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" ControlToValidate="txt_rec_DT"
+                                                ValidationExpression="^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$"
+                                                ValidationGroup="A" ErrorMessage=" برجاء إدخال صيغة التاريخ بطريقة صحيحة " ></asp:RegularExpressionValidator>
+
                                         </td>
                                     </tr>
                                     <tr>
@@ -201,7 +203,7 @@ padding-top:20%;
                                                 <asp:RegularExpressionValidator ID="RegularExpressionValidator7" runat="server" ControlToValidate="txt_username"
                                                 ErrorMessage="أدخل حروف إنجليزية فقط" 
                                                 
-                                                ValidationExpression="[A-Za-z]*"
+                                                ValidationExpression="[A-Za-z.-_0123456789]*"
                                                 ValidationGroup="A"></asp:RegularExpressionValidator>
                                        
                                         </td>
