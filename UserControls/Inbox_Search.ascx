@@ -20,6 +20,16 @@
             <uc1:Smart_Search ID="Smart_Search_Proj" runat="server" />
         </td>
     </tr>
+        <tr>
+            <td >
+                <asp:Label ID="Label8" runat="server" ForeColor="Black" Text="اسم المجموعة" CssClass="Label"></asp:Label>
+            </td>
+            <td>
+                <asp:DropDownList ID="ddl_Groups" runat="server" CssClass="ddl" Width="279px" AutoPostBack="True" >
+                </asp:DropDownList>
+            </td>
+        </tr>
+
     <tr>
         <td align="right" dir="rtl" style="width: 142px; height: 35px;">
             <asp:Label ID="Label9" runat="server" CssClass="Label" Text="التصنيف الرئيسي:" />

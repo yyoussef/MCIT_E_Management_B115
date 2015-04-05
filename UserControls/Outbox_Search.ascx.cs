@@ -33,8 +33,22 @@ public partial class UserControls_Outbox_Search : System.Web.UI.UserControl
         if (!IsPostBack)
         {
             Fillddl();
+            Fill_Groups();
         }
 
+    }
+
+    private void Fill_Groups()
+    {
+        //string sql = "select * from Employee_Groups where foundation_id=" + CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString());
+        //DataTable dt = General_Helping.GetDataTable(sql);
+
+        DataTable dt = Employee_Groups_DB.SelectAll(CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString()));
+        ddl_Groups.DataSource = dt;
+        ddl_Groups.DataValueField = "ID";
+        ddl_Groups.DataTextField = "Name";
+        ddl_Groups.DataBind();
+        ddl_Groups.Items.Insert(0, new ListItem("اختر المجموعة......", "0"));
     }
     protected void Fillddl()
     {
@@ -113,6 +127,11 @@ public partial class UserControls_Outbox_Search : System.Web.UI.UserControl
             group = int.Parse(Session_CS.group_id.ToString());
 
         }
+        else if (ddl_Groups.SelectedValue != "0" && ddl_Groups.SelectedValue != null)
+        {
+            group = CDataConverter.ConvertToInt(ddl_Groups.SelectedValue);
+
+        }
         else
         {
 
@@ -140,6 +159,10 @@ public partial class UserControls_Outbox_Search : System.Web.UI.UserControl
         if (CDataConverter.ConvertToInt(Session_CS.parent_id.ToString()) > 0 || CDataConverter.ConvertToInt(Session_CS.child_emp.ToString()) > 0)
         {
             parms[0] = new SqlParameter("@group_id", int.Parse(Session_CS.group_id.ToString()));
+        }
+        else if (ddl_Groups.SelectedValue != "0" && ddl_Groups.SelectedValue != null)
+        {
+            parms[0] = new SqlParameter("@group_id", CDataConverter.ConvertToInt(ddl_Groups.SelectedValue));
         }
         else
         {
