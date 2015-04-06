@@ -203,23 +203,33 @@ public partial class UserControls_Inbox_Search : System.Web.UI.UserControl
         int pmp = int.Parse(Session_CS.pmp_id.ToString());
 
 
-        int group = 0;
+        int session_group = 0;
+        int selected_group = 0;
 
         if (CDataConverter.ConvertToInt(Session_CS.parent_id.ToString()) > 0 || CDataConverter.ConvertToInt(Session_CS.child_emp.ToString()) > 0)
         {
-            group = int.Parse(Session_CS.group_id.ToString());
+            session_group = int.Parse(Session_CS.group_id.ToString());
 
         }
-            else if(ddl_Groups.SelectedValue !="0" && ddl_Groups.SelectedValue!=null)
+       
+        else
         {
-            group = CDataConverter.ConvertToInt(ddl_Groups.SelectedValue);
-             
+
+            session_group = CDataConverter.ConvertToInt(DBNull.Value);
+        }
+
+        if (ddl_Groups.SelectedValue != "0" && ddl_Groups.SelectedValue != null)
+        {
+            selected_group = CDataConverter.ConvertToInt(ddl_Groups.SelectedValue);
+
         }
         else
         {
 
-            group = CDataConverter.ConvertToInt(DBNull.Value);
+            selected_group = CDataConverter.ConvertToInt(DBNull.Value);
         }
+
+
         int maincat = 0; int subcat = 0;
         if (ddlMainCat.SelectedValue == "0")
         {
@@ -238,90 +248,99 @@ public partial class UserControls_Inbox_Search : System.Web.UI.UserControl
             subcat = CDataConverter.ConvertToInt(ddlSubCat.SelectedValue);
         }
 
-        SqlParameter[] parms = new SqlParameter[18];
+        SqlParameter[] parms = new SqlParameter[19];
+      
+
+        if (ddl_Groups.SelectedValue != "0" && ddl_Groups.SelectedValue != null)
+        {
+            parms[0] = new SqlParameter("@selected_group_id", CDataConverter.ConvertToInt(ddl_Groups.SelectedValue));
+        }
+        else
+        {
+            parms[0] = new SqlParameter("@selected_group_id", CDataConverter.ConvertToInt(DBNull.Value));
+        }
+
         if (CDataConverter.ConvertToInt(Session_CS.parent_id.ToString()) > 0 || CDataConverter.ConvertToInt(Session_CS.child_emp.ToString()) > 0)
         {
-            parms[0] = new SqlParameter("@group_id", int.Parse(Session_CS.group_id.ToString()));
+            parms[1] = new SqlParameter("@session_User_group_id", int.Parse(Session_CS.group_id.ToString()));
         }
-        else if (ddl_Groups.SelectedValue != "0" && ddl_Groups.SelectedValue != null)
-        {
-            parms[0] = new SqlParameter("@group_id", CDataConverter.ConvertToInt(ddl_Groups.SelectedValue));
-        }
+
         else
         {
-            parms[0] = new SqlParameter("@group_id", CDataConverter.ConvertToInt(DBNull.Value));
+            parms[1] = new SqlParameter("@session_User_group_id", CDataConverter.ConvertToInt(DBNull.Value));
         }
-        parms[1] = new SqlParameter("@pmp", int.Parse(Session_CS.pmp_id.ToString()));
+
+        parms[2] = new SqlParameter("@pmp", int.Parse(Session_CS.pmp_id.ToString()));
         if (ddlMainCat.SelectedValue == "0")
         {
-            parms[2] = new SqlParameter("@main_cat", CDataConverter.ConvertToInt(DBNull.Value));
+            parms[3] = new SqlParameter("@main_cat", CDataConverter.ConvertToInt(DBNull.Value));
         }
         else
-            parms[2] = new SqlParameter("@main_cat", CDataConverter.ConvertToInt(ddlMainCat.SelectedValue));
+            parms[3] = new SqlParameter("@main_cat", CDataConverter.ConvertToInt(ddlMainCat.SelectedValue));
         if (ddlSubCat.SelectedValue == "0")
         {
-            parms[3] = new SqlParameter("@sub_cat", CDataConverter.ConvertToInt(DBNull.Value));
+            parms[4] = new SqlParameter("@sub_cat", CDataConverter.ConvertToInt(DBNull.Value));
         }
         else
-            parms[3] = new SqlParameter("@sub_cat", CDataConverter.ConvertToInt(ddlSubCat.SelectedValue));
-        parms[4] = new SqlParameter("@out_code", txt_out_code.Text);
-        parms[5] = new SqlParameter("@code", Txtcode.Text);
-        parms[6] = new SqlParameter("@subject", Inbox_name_text.Text);
+            parms[4] = new SqlParameter("@sub_cat", CDataConverter.ConvertToInt(ddlSubCat.SelectedValue));
+        parms[5] = new SqlParameter("@out_code", txt_out_code.Text);
+        parms[6] = new SqlParameter("@code", Txtcode.Text);
+        parms[7] = new SqlParameter("@subject", Inbox_name_text.Text);
 
         if (Smrt_Srch_org.SelectedValue == "")
         {
-            parms[7] = new SqlParameter("@Org_id", CDataConverter.ConvertToInt(DBNull.Value));
+            parms[8] = new SqlParameter("@Org_id", CDataConverter.ConvertToInt(DBNull.Value));
         }
         else
         {
-            parms[7] = new SqlParameter("@Org_id", CDataConverter.ConvertToInt(Smrt_Srch_org.SelectedValue));
+            parms[8] = new SqlParameter("@Org_id", CDataConverter.ConvertToInt(Smrt_Srch_org.SelectedValue));
         }
         if (Inbox_date_from.Text == "")
         {
-            parms[8] = new SqlParameter("@inbox_date_from", "01/01/1900");
+            parms[9] = new SqlParameter("@inbox_date_from", "01/01/1900");
         }
         else
-            parms[8] = new SqlParameter("@inbox_date_from", Inbox_date_from.Text);
+            parms[9] = new SqlParameter("@inbox_date_from", Inbox_date_from.Text);
         if (Inbox_date_to.Text == "")
         {
-            parms[9] = new SqlParameter("@inbox_date_to",CDataConverter.ConvertDateTimeToFormatdmy(DateTime.MaxValue));
+            parms[10] = new SqlParameter("@inbox_date_to",CDataConverter.ConvertDateTimeToFormatdmy(DateTime.MaxValue));
         }
         else
-            parms[9] = new SqlParameter("@inbox_date_to", Inbox_date_to.Text);
+            parms[10] = new SqlParameter("@inbox_date_to", Inbox_date_to.Text);
 
         if (Outbox_date_from.Text == "")
         {
-            parms[10] = new SqlParameter("@outbox_date_from", "01/01/1900");
+            parms[11] = new SqlParameter("@outbox_date_from", "01/01/1900");
         }
         else
-            parms[10] = new SqlParameter("@outbox_date_from", Outbox_date_from.Text);
+            parms[11] = new SqlParameter("@outbox_date_from", Outbox_date_from.Text);
         if (Outbox_date_to.Text == "")
         {
-            parms[11] = new SqlParameter("@outbox_date_to", CDataConverter.ConvertDateTimeToFormatdmy(DateTime.MaxValue));
+            parms[12] = new SqlParameter("@outbox_date_to", CDataConverter.ConvertDateTimeToFormatdmy(DateTime.MaxValue));
         }
         else
-            parms[11] = new SqlParameter("@outbox_date_to", Outbox_date_to.Text);
+            parms[12] = new SqlParameter("@outbox_date_to", Outbox_date_to.Text);
 
-        parms[12] = new SqlParameter("@visa_desc", txt_word_visa.Text);
-        parms[13] = new SqlParameter("@notes_word", txt_word_notes.Text);
+        parms[13] = new SqlParameter("@visa_desc", txt_word_visa.Text);
+        parms[14] = new SqlParameter("@notes_word", txt_word_notes.Text);
         if (ddl_Related_Type.SelectedValue == "0")
         {
-            parms[14] = new SqlParameter("@Related_type_par", CDataConverter.ConvertToInt(DBNull.Value));
+            parms[15] = new SqlParameter("@Related_type_par", CDataConverter.ConvertToInt(DBNull.Value));
         }
         else
-            parms[14] = new SqlParameter("@Related_type_par", CDataConverter.ConvertToInt(ddl_Related_Type.SelectedValue));
+            parms[15] = new SqlParameter("@Related_type_par", CDataConverter.ConvertToInt(ddl_Related_Type.SelectedValue));
 
-        parms[15] = new SqlParameter("@visa_emp", CDataConverter.ConvertToInt(Smart_Emp_ID.SelectedValue));
-        parms[16] = new SqlParameter("@found_id", Session_CS.foundation_id);
+        parms[16] = new SqlParameter("@visa_emp", CDataConverter.ConvertToInt(Smart_Emp_ID.SelectedValue));
+        parms[17] = new SqlParameter("@found_id", Session_CS.foundation_id);
 
 
         if (Smart_Search_depts.SelectedValue == "")
         {
-            parms[17] = new SqlParameter("@Dept_Dept_ID", CDataConverter.ConvertToInt(DBNull.Value));
+            parms[18] = new SqlParameter("@Dept_Dept_ID", CDataConverter.ConvertToInt(DBNull.Value));
         }
         else
         {
-            parms[17] = new SqlParameter("@Dept_Dept_ID", CDataConverter.ConvertToInt(Smart_Search_depts.SelectedValue));
+            parms[18] = new SqlParameter("@Dept_Dept_ID", CDataConverter.ConvertToInt(Smart_Search_depts.SelectedValue));
         }
      
          

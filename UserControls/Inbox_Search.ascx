@@ -22,7 +22,7 @@
     </tr>
         <tr>
             <td >
-                <asp:Label ID="Label8" runat="server" ForeColor="Black" Text="اسم المجموعة" CssClass="Label"></asp:Label>
+                <asp:Label ID="Label8" runat="server"  Text="اسم المجموعة" CssClass="Label"></asp:Label>
             </td>
             <td>
                 <asp:DropDownList ID="ddl_Groups" runat="server" CssClass="ddl" Width="279px" AutoPostBack="True" >
