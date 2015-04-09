@@ -294,11 +294,15 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
     //}
     private void Fill_main_Category()
     {
-        DataTable dt_main_cat = SqlHelper.ExecuteDataset(Database.ConnectionString, "select_main_cat_by_group", Session_CS.group_id).Tables[0];
-        //DataTable dt_main_cat = General_Helping.GetDataTable(" select * from Inbox_Main_Categories where group_id = " + CDataConverter.ConvertToInt(Session_CS.group_id.ToString()));
+        DataTable dt_main_cat = null ;
+        if (CDataConverter.ConvertToInt(Session_CS.group_id.ToString()) > 0)
+        {
+             dt_main_cat = SqlHelper.ExecuteDataset(Database.ConnectionString, "select_main_cat_by_group", Session_CS.group_id).Tables[0];
+        }
+
+
         Chk_main_cat.DataSource = dt_main_cat;
-        //ddlMainCat.DataTextField = "Name";
-        //ddlMainCat.DataValueField = "id";
+      
         Chk_main_cat.DataBind();
 
     }
@@ -1181,15 +1185,20 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
         //}
         //Query += " order by CONVERT(datetime, dbo.datevalid(Date)) desc";
         //DataTable dt = General_Helping.GetDataTable(Query);
-        DataTable dt = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_related_outbox_inbox_page", Session_CS.group_id,Session_CS.Project_id).Tables[0];
+          DataTable dt = null;
+          if (CDataConverter.ConvertToInt(Session_CS.group_id.ToString()) != 0)
+          {
 
-        Smart_Related_Id.datatble = dt;
-        Smart_Related_Id.Value_Field = "id";
-        Smart_Related_Id.Text_Field = "con";
-        Smart_Related_Id.Show_Code = false;
-        dt.DefaultView.Sort = "date1 desc";
-        Smart_Related_Id.Orderby = "date1 desc";
-        Smart_Related_Id.DataBind();
+              dt = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_related_outbox_inbox_page", Session_CS.group_id, Session_CS.Project_id).Tables[0];
+
+              Smart_Related_Id.datatble = dt;
+              Smart_Related_Id.Value_Field = "id";
+              Smart_Related_Id.Text_Field = "con";
+              Smart_Related_Id.Show_Code = false;
+              dt.DefaultView.Sort = "date1 desc";
+              Smart_Related_Id.Orderby = "date1 desc";
+              Smart_Related_Id.DataBind();
+          }
     }
 
     void Fil_Smrt_From_InBox()
@@ -1203,14 +1212,18 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
         //}
         //Query += " order by CONVERT(datetime, dbo.datevalid(Date)) desc ";
         //DataTable dt = General_Helping.GetDataTable(Query);
-        DataTable dt = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_related_inbox_inbox_page", Session_CS.group_id, Session_CS.Project_id).Tables[0];
-        Smart_Related_Id.datatble = dt;
-        Smart_Related_Id.Value_Field = "id";
-        Smart_Related_Id.Text_Field = "con";
-        dt.DefaultView.Sort = "date1 desc";
-        Smart_Related_Id.Show_Code = false;
-        Smart_Related_Id.Orderby = "date1 desc";
-        Smart_Related_Id.DataBind();
+          DataTable dt = null;
+          if (CDataConverter.ConvertToInt(Session_CS.group_id.ToString()) != 0)
+          {
+               dt = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_related_inbox_inbox_page", Session_CS.group_id, Session_CS.Project_id).Tables[0];
+              Smart_Related_Id.datatble = dt;
+              Smart_Related_Id.Value_Field = "id";
+              Smart_Related_Id.Text_Field = "con";
+              dt.DefaultView.Sort = "date1 desc";
+              Smart_Related_Id.Show_Code = false;
+              Smart_Related_Id.Orderby = "date1 desc";
+              Smart_Related_Id.DataBind();
+          }
     }
 
     protected void btn_Doc_Click(object sender, EventArgs e)

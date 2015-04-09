@@ -23,7 +23,7 @@
                 <asp:Label ID="Label8" runat="server"  Text="اسم المجموعة" CssClass="Label"></asp:Label>
             </td>
             <td>
-                <asp:DropDownList ID="ddl_Groups" runat="server" CssClass="ddl" Width="279px" AutoPostBack="True" >
+                <asp:DropDownList ID="ddl_Groups" runat="server" CssClass="ddl" Width="279px" AutoPostBack="True" onselectedindexchanged="ddl_Groups_SelectedIndexChanged">
                 </asp:DropDownList>
             </td>
         </tr>

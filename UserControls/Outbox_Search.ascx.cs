@@ -32,7 +32,7 @@ public partial class UserControls_Outbox_Search : System.Web.UI.UserControl
         Smart_Search_depts.Show_OrgTree = true;
         if (!IsPostBack)
         {
-            Fillddl();
+          //  Fillddl();
             Fill_Groups();
         }
 
@@ -49,14 +49,24 @@ public partial class UserControls_Outbox_Search : System.Web.UI.UserControl
         ddl_Groups.DataTextField = "Name";
         ddl_Groups.DataBind();
         ddl_Groups.Items.Insert(0, new ListItem("اختر المجموعة......", "0"));
+
+        if (Session_CS.group_id != null && Session_CS.group_id != 0)
+        {
+            ddl_Groups.SelectedValue = Session_CS.group_id.ToString();
+            Fillddl();
+        }
+
     }
     protected void Fillddl()
     {
 
         int group = CDataConverter.ConvertToInt(Session_CS.group_id.ToString());
-        //DataTable DT3 = General_Helping.GetDataTable("select * from inbox_Main_Categories where group_id = " + group );
 
-        //Obj_General_Helping.SmartBindDDL(ddlMainCat, DT3, "id", "name", "....اختر التصنيف الرئيسى ....");
+        if (ddl_Groups.SelectedValue != "" && ddl_Groups.SelectedValue != null && ddl_Groups.SelectedValue != "0")
+        {
+            group = CDataConverter.ConvertToInt( ddl_Groups.SelectedValue);
+
+        }
 
 
         sql = "select * from inbox_Main_Categories where group_id = " + group;
@@ -69,6 +79,35 @@ public partial class UserControls_Outbox_Search : System.Web.UI.UserControl
         ddlMainCat.DataBind();
         ddlMainCat.Items.Insert(0, new ListItem("اختر التصنيف الرئيسي......", "0"));
     }
+
+    protected void ddl_Groups_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
+        if (ddl_Groups.SelectedValue != "" && ddl_Groups.SelectedValue != null && ddl_Groups.SelectedValue != "0")
+        {
+            Fillddl();
+        }
+        else if (ddlMainCat.SelectedValue != "0" && ddlMainCat.SelectedValue != null)
+        {
+            ddlSubCat.Items.Clear();
+
+        }
+
+        else
+        {
+            ddlMainCat.DataSource = null;
+            ddlSubCat.DataSource = null;
+            ddlMainCat.DataBind();
+            ddlSubCat.DataBind();
+
+            ddlSubCat.Items.Clear();
+
+            ddlMainCat.Items.Clear();
+
+        }
+    }
+
+
     protected override void OnInit(EventArgs e)
     {
         int found_id = CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString());
@@ -132,7 +171,7 @@ public partial class UserControls_Outbox_Search : System.Web.UI.UserControl
         else
         {
 
-            session_group = CDataConverter.ConvertToInt(DBNull.Value);
+            session_group = 0;
         }
 
         if (ddl_Groups.SelectedValue != "0" && ddl_Groups.SelectedValue != null)
@@ -143,14 +182,14 @@ public partial class UserControls_Outbox_Search : System.Web.UI.UserControl
         else
         {
 
-            selected_group = CDataConverter.ConvertToInt(DBNull.Value);
+            selected_group = 0 ;
         }
 
 
         int maincat = 0; int subcat = 0;
         if (ddlMainCat.SelectedValue == "0")
         {
-            maincat = CDataConverter.ConvertToInt(DBNull.Value);
+            maincat = 0 ;
         }
         else
         {
@@ -158,7 +197,7 @@ public partial class UserControls_Outbox_Search : System.Web.UI.UserControl
         }
         if (ddlSubCat.SelectedValue == "0")
         {
-            subcat = CDataConverter.ConvertToInt(DBNull.Value);
+            subcat = 0 ;
         }
         else
         {
@@ -533,7 +572,19 @@ public partial class UserControls_Outbox_Search : System.Web.UI.UserControl
     }
     protected void ddlMainCat_SelectedIndexChanged(object sender, EventArgs e)
     {
-        FillSubCat();
+        if (ddlMainCat.SelectedValue != "" && ddlMainCat.SelectedValue != null && ddlMainCat.SelectedValue != "0")
+        {
+            FillSubCat();
+        }
+        else
+        {
+
+            ddlSubCat.DataSource = null;
+
+            ddlSubCat.DataBind();
+            ddlSubCat.Items.Clear();
+
+        }
     }
     protected void FillSubCat()
     {
