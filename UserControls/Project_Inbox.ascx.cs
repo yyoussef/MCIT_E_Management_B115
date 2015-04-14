@@ -304,6 +304,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
         Chk_main_cat.DataSource = dt_main_cat;
       
         Chk_main_cat.DataBind();
+        /////
 
     }
     private void fill_sub_category()

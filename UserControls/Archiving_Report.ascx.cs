@@ -957,7 +957,7 @@ public partial class UserControls_Eval_Emp_Report : System.Web.UI.UserControl
                 }
                 else
                     rd.SetParameterValue("@todate", DateTime.MaxValue.ToString("dd/MM/yyyy"), "All_new_inbox.rpt");
-                rd.SetParameterValue("@active", "0", "All_new_inbox.rpt");
+                rd.SetParameterValue("active", "0", "All_new_inbox.rpt");
                 //////////////////////////////////////////////
 
                 ///////////// Handling second sub report Parameters

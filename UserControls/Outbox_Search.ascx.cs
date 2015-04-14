@@ -92,6 +92,10 @@ public partial class UserControls_Outbox_Search : System.Web.UI.UserControl
             ddlSubCat.Items.Clear();
 
         }
+        if (ddl_Groups.SelectedValue != "" && ddl_Groups.SelectedValue != null && ddl_Groups.SelectedValue != "0" && ddlMainCat.SelectedValue == "0")
+        {
+            ddlSubCat.Items.Clear();
+        }
 
         else
         {
