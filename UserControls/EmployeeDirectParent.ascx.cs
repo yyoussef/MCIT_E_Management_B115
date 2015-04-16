@@ -112,7 +112,7 @@ public partial class UserControls_EmployeeDirectParent : System.Web.UI.UserContr
                 }
 
             }
-            catch
+            catch(Exception ex )
             {
                 Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('حدث خطأ في قاعدة البيانات حاول مرة أخري')</script>");
             }
