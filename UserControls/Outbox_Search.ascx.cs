@@ -216,17 +216,17 @@ public partial class UserControls_Outbox_Search : System.Web.UI.UserControl
         }
         else
         {
-            parms[0] = new SqlParameter("@selected_group_id", CDataConverter.ConvertToInt(DBNull.Value));
+            parms[0] = new SqlParameter("@selected_group_id", 0);
         }
 
-        if (CDataConverter.ConvertToInt(Session_CS.parent_id.ToString()) > 0 || CDataConverter.ConvertToInt(Session_CS.child_emp.ToString()) > 0)
+        if (CDataConverter.ConvertToInt(Session_CS.group_id.ToString()) > 0)
         {
             parms[1] = new SqlParameter("@session_User_group_id", int.Parse(Session_CS.group_id.ToString()));
         }
 
         else
         {
-            parms[1] = new SqlParameter("@session_User_group_id", CDataConverter.ConvertToInt(DBNull.Value));
+            parms[1] = new SqlParameter("@session_User_group_id", 0);
         }
 
 

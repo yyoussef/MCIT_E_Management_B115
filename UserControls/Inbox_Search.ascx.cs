@@ -321,7 +321,7 @@ public partial class UserControls_Inbox_Search : System.Web.UI.UserControl
             parms[0] = new SqlParameter("@selected_group_id", 0 );
         }
 
-        if (CDataConverter.ConvertToInt(Session_CS.parent_id.ToString()) > 0 || CDataConverter.ConvertToInt(Session_CS.child_emp.ToString()) > 0)
+        if (CDataConverter.ConvertToInt(Session_CS.group_id.ToString()) > 0)
         {
             parms[1] = new SqlParameter("@session_User_group_id", int.Parse(Session_CS.group_id.ToString()));
         }
