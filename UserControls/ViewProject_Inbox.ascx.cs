@@ -94,7 +94,7 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
                         //DataTable dt_mng = General_Helping.GetDataTable("SELECT distinct EMPLOYEE.PMP_ID, EMPLOYEE.foundation_id, EMPLOYEE.pmp_name, parent_employee.pmp_id AS child_id FROM EMPLOYEE INNER JOIN parent_employee ON EMPLOYEE.PMP_ID = parent_employee.parent_pmp_id where parent_employee.pmp_id =" + CDataConverter.ConvertToInt(Session_CS.child_emp.ToString()));
                         {
                             ListItem obj = new ListItem(dt_mng.Rows[0]["pmp_name"].ToString(), dt_mng.Rows[0]["parent_pmp_id"].ToString());
-                           // lst_emp.Items.Add(obj);
+                            lst_emp.Items.Add(obj);
                         }
                     }
 
@@ -396,8 +396,11 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
                        
                    
          //  };
+
         chklst_Visa_Emp_All.Items.Clear();
-        lst_emp.Items.Clear();
+     //   lst_emp.Items.Clear();
+
+
         //chklst_Visa_Emp_All.DataBind();
 
 
@@ -560,7 +563,7 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
     }
     protected void dropdept_fun()
     {
-        //fil_emp_Visa();
+       
         fill_resp_Emp();
 
 

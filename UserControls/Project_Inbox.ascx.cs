@@ -3067,8 +3067,10 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
     {
 
         chklst_Visa_Emp_All.Items.Clear();
-        lst_emp.Items.Clear();
-        //chklst_Visa_Emp_All.DataBind();
+
+        //lst_emp.Items.Clear();
+  
+
 
 
         if (radlst_Type.SelectedValue != "7")

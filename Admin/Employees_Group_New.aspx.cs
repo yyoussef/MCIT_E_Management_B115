@@ -48,6 +48,8 @@ public partial class WebForms2_Employees_Group : System.Web.UI.Page
     private void Fill_Groups()
     {
         string sql = "select * from Employee_Groups where foundation_id="+CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString());
+
+
         DataTable dt = General_Helping.GetDataTable(sql);
         ddl_Groups.DataSource = dt;
         ddl_Groups.DataValueField = "ID";
@@ -90,17 +92,22 @@ public partial class WebForms2_Employees_Group : System.Web.UI.Page
         string sql = "";
         if (Smart_Search_Dept.SelectedValue=="")
         {
-            sql = @"select * from Employee where foundation_id = " + Session_CS.foundation_id + " ORDER BY LTRIM(pmp_name)";
+           // sql = @"select * from Employee where foundation_id = " + Session_CS.foundation_id + " ORDER BY LTRIM(pmp_name)";
+            sql = @"select pmp_id,pmp_name,Employee_Groups.ID,Employee_Groups.Name,CONCAT( pmp_name  COLLATE DATABASE_DEFAULT,'  ',Employee_Groups.Name COLLATE DATABASE_DEFAULT  ) as empname from employee left outer join Employee_Groups on Employee_Groups.Id=Employee.Group_id where Employee.foundation_id= '" + CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString()) + "' ";
+
         }
         else
         {
-            sql = @"select * from Employee where foundation_id = " + Session_CS.foundation_id + " and Dept_Dept_id="
-            + Smart_Search_Dept.SelectedValue + " ORDER BY LTRIM(pmp_name)";
+            //sql = @"select * from Employee where foundation_id = " + Session_CS.foundation_id + " and Dept_Dept_id="
+            //+ Smart_Search_Dept.SelectedValue + " ORDER BY LTRIM(pmp_name)";
+
+            sql = @"select pmp_id,pmp_name,Employee_Groups.ID,Employee_Groups.Name,CONCAT( pmp_name  COLLATE DATABASE_DEFAULT,'  ',Employee_Groups.Name COLLATE DATABASE_DEFAULT  ) as empname from employee left outer join Employee_Groups on Employee_Groups.Id=Employee.Group_id where Employee.foundation_id= '" + CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString()) + "' and Dept_Dept_id='" + Smart_Search_Dept.SelectedValue + "'";
+
         }
         DataTable dt = General_Helping.GetDataTable(sql);
         cbl_Employees.DataSource = dt;
         cbl_Employees.DataValueField = "PMP_ID";
-        cbl_Employees.DataTextField = "pmp_name";
+        cbl_Employees.DataTextField = "empname";
         cbl_Employees.DataMember = "group_id";
         cbl_Employees.DataBind();
 
@@ -131,11 +138,7 @@ public partial class WebForms2_Employees_Group : System.Web.UI.Page
         string Sql_Delete = "update EMPLOYEE set Group_id=Null where Group_id ='" + CDataConverter.ConvertToInt(ddl_Groups.SelectedValue) + "' ";
      
         General_Helping.ExcuteQuery(Sql_Delete);
-        //foreach (ListItem item in cbl_Employees.Items)
-        //{
-        //    sql = "update employee set group_id=null where sec_sec_id=" + ddl_Sectors.SelectedValue;
-        //    General_Helping.ExcuteQuery(sql);
-        //}
+  
         foreach (ListItem item in cbl_Employees.Items)
         {
             if (item.Selected)
@@ -150,6 +153,8 @@ public partial class WebForms2_Employees_Group : System.Web.UI.Page
             }
         }
         Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('تم الحفظ بنجاح')</script>");
+
+        Get_Emp();
     }
     protected void ddl_Groups_SelectedIndexChanged(object sender, EventArgs e)
     {

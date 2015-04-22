@@ -33,12 +33,14 @@ public partial class UserControls_EmployeeDirectParent : System.Web.UI.UserContr
     protected void ddl_Groups_SelectedIndexChanged(object sender, EventArgs e)
     {
         string sql = "select * from employee where group_id = " + ddl_Groups.SelectedValue;
-       // DataTable dtdirectmng = General_Helping.GetDataTable(sql);
 
-        Smart_Search_Direct_Manager.sql_Connection = Smart_Search_Employee.sql_Connection= sql_Connection;
-        Smart_Search_Direct_Manager.datatble = Smart_Search_Employee.datatble = General_Helping.GetDataTable(sql); ;
-        Smart_Search_Direct_Manager.Value_Field =Smart_Search_Employee.Value_Field= "PMP_ID";
-        Smart_Search_Direct_Manager.Text_Field =Smart_Search_Employee.Text_Field= "pmp_name";
+        DataTable dtdirectmng = General_Helping.GetDataTable(sql);
+
+        Smart_Search_Direct_Manager.sql_Connection = Smart_Search_Employee.sql_Connection = sql_Connection;
+        Smart_Search_Direct_Manager.datatble = Smart_Search_Employee.datatble = General_Helping.GetDataTable(sql);
+        Smart_Search_Direct_Manager.Value_Field = Smart_Search_Employee.Value_Field = "PMP_ID";
+        Smart_Search_Direct_Manager.Text_Field = Smart_Search_Employee.Text_Field = "pmp_name";
+
 
         Smart_Search_Direct_Manager.DataBind();
         Smart_Search_Employee.DataBind();
