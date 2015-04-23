@@ -5,6 +5,8 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="Projects_ManagementModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Projects_Management_TEDATA.dbo.Admin_Module' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Admin_Module">
           <Key>
             <PropertyRef Name="pk_ID" />
@@ -13,6 +15,8 @@
           <Property Name="Name" Type="nchar" MaxLength="100" />
           <Property Name="Active" Type="bit" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Projects_Management_TEDATA.dbo.Admin_Module_Found' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Admin_Module_Found">
           <Key>
             <PropertyRef Name="ID" />
@@ -45,7 +49,7 @@
           <Property Name="UserName_mail" Type="nvarchar(max)" />
           <Property Name="Password" Type="nvarchar(max)" />
           <Property Name="FromAddress" Type="nvarchar(max)" />
-          <Property Name="connection_string" Type="nvarchar(max)" />
+          <Property Name="connection_string" Type="nvarchar" MaxLength="250" />
           <Property Name="islocal" Type="bit" />
           <Property Name="code_outbox" Type="int" />
         </EntityType>
@@ -63,28 +67,18 @@
           <Property Name="e_signature" Type="nvarchar" MaxLength="150" />
           <Property Name="foundation_id" Type="int" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Projects_Management_TEDATA.dbo.super_admin' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="super_admin">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="250" />
-          <Property Name="User_name" Type="nvarchar" MaxLength="250" />
-          <Property Name="Password" Type="nvarchar" MaxLength="250" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="User_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
           <Property Name="account_active" Type="bit" />
         </EntityType>
-        <Association Name="FK_Admin_Module_Admin_Module">
-          <End Role="Admin_Module" Type="Self.Admin_Module" Multiplicity="1" />
-          <End Role="Admin_Module1" Type="Self.Admin_Module" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Admin_Module">
-              <PropertyRef Name="pk_ID" />
-            </Principal>
-            <Dependent Role="Admin_Module1">
-              <PropertyRef Name="pk_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Function Name="Admin_Users_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID" Type="int" Mode="In" />
           <Parameter Name="foundation_id" Type="int" Mode="In" />
@@ -96,20 +90,38 @@
         <Function Name="Foundations_Followup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="foundation_id" Type="int" Mode="In" />
         </Function>
+        <Function Name="get_all_projects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="SuperAdminUsers_SelectName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="User_name" Type="nvarchar" Mode="In" />
         </Function>
         <EntityContainer Name="Projects_ManagementModel1StoreContainer">
-          <EntitySet Name="Admin_Module" EntityType="Self.Admin_Module" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Admin_Module_Found" EntityType="Self.Admin_Module_Found" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Admin_Users" EntityType="Self.Admin_Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Foundations" EntityType="Self.Foundations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Site_Upload" EntityType="Self.Site_Upload" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="super_admin" EntityType="Self.super_admin" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Admin_Module_Admin_Module" Association="Self.FK_Admin_Module_Admin_Module">
-            <End Role="Admin_Module" EntitySet="Admin_Module" />
-            <End Role="Admin_Module1" EntitySet="Admin_Module" />
-          </AssociationSet>
+          <EntitySet Name="Admin_Module" EntityType="Self.Admin_Module" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Admin_Module].[pk_ID] AS [pk_ID], 
+    [Admin_Module].[Name] AS [Name], 
+    [Admin_Module].[Active] AS [Active]
+    FROM [dbo].[Admin_Module] AS [Admin_Module]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Admin_Module_Found" EntityType="Self.Admin_Module_Found" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Admin_Module_Found].[ID] AS [ID], 
+    [Admin_Module_Found].[Mod_ID] AS [Mod_ID], 
+    [Admin_Module_Found].[Mod_status] AS [Mod_status], 
+    [Admin_Module_Found].[found_id] AS [found_id]
+    FROM [dbo].[Admin_Module_Found] AS [Admin_Module_Found]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="super_admin" EntityType="Self.super_admin" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [super_admin].[ID] AS [ID], 
+    [super_admin].[Name] AS [Name], 
+    [super_admin].[User_name] AS [User_name], 
+    [super_admin].[Password] AS [Password], 
+    [super_admin].[account_active] AS [account_active]
+    FROM [dbo].[super_admin] AS [super_admin]</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -127,7 +139,7 @@
           <Property Name="UserName_mail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="FromAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="connection_string" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="connection_string" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="islocal" Type="Boolean" />
           <Property Type="Int32" Name="code_outbox" />
         </EntityType>
@@ -156,6 +168,7 @@
             <Parameter Name="ID" Mode="In" Type="Int32" />
             <Parameter Name="foundation_id" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="get_all_projects" ReturnType="Collection(Projects_ManagementModel1.get_all_projects_result)" />
         </EntityContainer>
         <EntityType Name="Admin_Users">
           <Key>
@@ -221,9 +234,9 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="User_name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="User_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="account_active" Type="Boolean" />
         </EntityType>
         <EntityType Name="Site_Upload">
@@ -256,6 +269,7 @@
           <Property Type="Int32" Name="foundation_id" Nullable="true" />
           <Property Type="Boolean" Name="account_active" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="get_all_projects_result" />
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -385,6 +399,11 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_all_projects" FunctionName="Projects_ManagementModel1.Store.get_all_projects">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Projects_ManagementModel1.get_all_projects_result" />
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -400,7 +419,7 @@
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="false" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>

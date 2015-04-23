@@ -86,7 +86,7 @@ public partial class OutboxDataContext : System.Data.Linq.DataContext
   #endregion
 	
 	public OutboxDataContext() : 
-			base(global::System.Configuration.ConfigurationManager.ConnectionStrings["Projects_ManagementConnectionString"].ConnectionString, mappingSource)
+			base(global::System.Configuration.ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString, mappingSource)
 	{
 		OnCreated();
 	}
@@ -417,6 +417,27 @@ public partial class OutboxDataContext : System.Data.Linq.DataContext
 	{
 		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), visa_Id);
 		return ((int)(result.ReturnValue));
+	}
+	
+	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.get_org_by_found")]
+	public ISingleResult<get_org_by_foundResult> get_org_by_found([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> found_id)
+	{
+		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), found_id);
+		return ((ISingleResult<get_org_by_foundResult>)(result.ReturnValue));
+	}
+	
+	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.get_dept_by_found")]
+	public ISingleResult<get_dept_by_foundResult> get_dept_by_found([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> found_id)
+	{
+		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), found_id);
+		return ((ISingleResult<get_dept_by_foundResult>)(result.ReturnValue));
+	}
+	
+	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.fill_employee2")]
+	public ISingleResult<fill_employee2Result> fill_employee2([global::System.Data.Linq.Mapping.ParameterAttribute(Name="Dept_id", DbType="Int")] System.Nullable<int> dept_id)
+	{
+		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), dept_id);
+		return ((ISingleResult<fill_employee2Result>)(result.ReturnValue));
 	}
 }
 
@@ -8875,6 +8896,228 @@ public partial class OutboxVisaEmpSelectOutboxId1Result
 			if ((this._Outbox_ID != value))
 			{
 				this._Outbox_ID = value;
+			}
+		}
+	}
+}
+
+public partial class get_org_by_foundResult
+{
+	
+	private long _Org_ID;
+	
+	private string _Org_Desc;
+	
+	public get_org_by_foundResult()
+	{
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Org_ID", DbType="BigInt NOT NULL")]
+	public long Org_ID
+	{
+		get
+		{
+			return this._Org_ID;
+		}
+		set
+		{
+			if ((this._Org_ID != value))
+			{
+				this._Org_ID = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Org_Desc", DbType="NVarChar(255)")]
+	public string Org_Desc
+	{
+		get
+		{
+			return this._Org_Desc;
+		}
+		set
+		{
+			if ((this._Org_Desc != value))
+			{
+				this._Org_Desc = value;
+			}
+		}
+	}
+}
+
+public partial class get_dept_by_foundResult
+{
+	
+	private long _Dept_id;
+	
+	private string _Dept_name;
+	
+	private System.Nullable<long> _Dept_type;
+	
+	private System.Nullable<long> _Dept_parent_id;
+	
+	private System.Nullable<long> _Sec_sec_id;
+	
+	private System.Nullable<int> _foundation_id;
+	
+	public get_dept_by_foundResult()
+	{
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Dept_id", DbType="BigInt NOT NULL")]
+	public long Dept_id
+	{
+		get
+		{
+			return this._Dept_id;
+		}
+		set
+		{
+			if ((this._Dept_id != value))
+			{
+				this._Dept_id = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Dept_name", DbType="NVarChar(3000)")]
+	public string Dept_name
+	{
+		get
+		{
+			return this._Dept_name;
+		}
+		set
+		{
+			if ((this._Dept_name != value))
+			{
+				this._Dept_name = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Dept_type", DbType="BigInt")]
+	public System.Nullable<long> Dept_type
+	{
+		get
+		{
+			return this._Dept_type;
+		}
+		set
+		{
+			if ((this._Dept_type != value))
+			{
+				this._Dept_type = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Dept_parent_id", DbType="BigInt")]
+	public System.Nullable<long> Dept_parent_id
+	{
+		get
+		{
+			return this._Dept_parent_id;
+		}
+		set
+		{
+			if ((this._Dept_parent_id != value))
+			{
+				this._Dept_parent_id = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Sec_sec_id", DbType="BigInt")]
+	public System.Nullable<long> Sec_sec_id
+	{
+		get
+		{
+			return this._Sec_sec_id;
+		}
+		set
+		{
+			if ((this._Sec_sec_id != value))
+			{
+				this._Sec_sec_id = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_foundation_id", DbType="Int")]
+	public System.Nullable<int> foundation_id
+	{
+		get
+		{
+			return this._foundation_id;
+		}
+		set
+		{
+			if ((this._foundation_id != value))
+			{
+				this._foundation_id = value;
+			}
+		}
+	}
+}
+
+public partial class fill_employee2Result
+{
+	
+	private long _PMP_ID;
+	
+	private string _pmp_name;
+	
+	private System.Nullable<long> _sec_sec_id;
+	
+	public fill_employee2Result()
+	{
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PMP_ID", DbType="BigInt NOT NULL")]
+	public long PMP_ID
+	{
+		get
+		{
+			return this._PMP_ID;
+		}
+		set
+		{
+			if ((this._PMP_ID != value))
+			{
+				this._PMP_ID = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_pmp_name", DbType="NVarChar(255)")]
+	public string pmp_name
+	{
+		get
+		{
+			return this._pmp_name;
+		}
+		set
+		{
+			if ((this._pmp_name != value))
+			{
+				this._pmp_name = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_sec_sec_id", DbType="BigInt")]
+	public System.Nullable<long> sec_sec_id
+	{
+		get
+		{
+			return this._sec_sec_id;
+		}
+		set
+		{
+			if ((this._sec_sec_id != value))
+			{
+				this._sec_sec_id = value;
 			}
 		}
 	}

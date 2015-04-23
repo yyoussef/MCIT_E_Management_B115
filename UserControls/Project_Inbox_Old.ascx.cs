@@ -19,11 +19,8 @@ using System.Net.Mail;
 using CrystalDecisions.CrystalReports.Engine;
 using CrystalDecisions.Shared;
 using System.Globalization;
+using System.Security.Cryptography;
 using ReportsClass;
-using System.Data.Linq;
-using System.Collections.Generic;
-using System.Data.Entity.Core;
-
 
 
 public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
@@ -34,11 +31,6 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
     General_Helping Obj_General_Helping = new General_Helping();
     int id;
     string v_desc;
-
-    Projects_ManagementEntities10 pmentity = new Projects_ManagementEntities10();
-    Projects_ManagementEntities pmgenentity = new Projects_ManagementEntities();
-    OutboxDataContext outboxDBContext = new OutboxDataContext();
-    Projects_ManagementEntities_Inbox pm_inbox = new Projects_ManagementEntities_Inbox();
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -305,17 +297,14 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
         DataTable dt_main_cat = null ;
         if (CDataConverter.ConvertToInt(Session_CS.group_id.ToString()) > 0)
         {
-            //dt_main_cat = SqlHelper.ExecuteDataset(Database.ConnectionString, "select_main_cat_by_group", Session_CS.group_id).Tables[0];
-
-            dt_main_cat = (from main_cat in pm_inbox.inbox_Main_Categories where main_cat.group_id == Session_CS.group_id select main_cat).ToDataTable();
-           
+             dt_main_cat = SqlHelper.ExecuteDataset(Database.ConnectionString, "select_main_cat_by_group", Session_CS.group_id).Tables[0];
         }
 
 
         Chk_main_cat.DataSource = dt_main_cat;
       
         Chk_main_cat.DataBind();
- 
+        /////
 
     }
     private void fill_sub_category()
@@ -742,10 +731,8 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
     {
         Smart_Emp_ID.sql_Connection = sql_Connection;
         
-      //  DataTable dtt = SqlHelper.ExecuteDataset(Database.ConnectionString, "fill_employee2", CDataConverter.ConvertToInt(Smart_Search_structure.SelectedValue)).Tables[0];
-
-        DataTable dtt = outboxDBContext.fill_employee2(CDataConverter.ConvertToInt(Smart_Search_structure.SelectedValue)).ToDataTable();
-
+       // DataTable dtt = General_Helping.GetDataTable("SELECT     EMPLOYEE.PMP_ID, EMPLOYEE.pmp_name, Departments.sec_sec_id FROM    EMPLOYEE INNER JOIN     Departments ON EMPLOYEE.Dept_Dept_id = Departments.Dept_ID  where Departments.Dept_ID = '" + Smart_Search_structure.SelectedValue + "'");
+        DataTable dtt = SqlHelper.ExecuteDataset(Database.ConnectionString, "fill_employee2", CDataConverter.ConvertToInt(Smart_Search_structure.SelectedValue)).Tables[0];
         Smart_Emp_ID.datatble = dtt;
         Smart_Emp_ID.Value_Field = "PMP_ID";
         Smart_Emp_ID.Text_Field = "pmp_name";
@@ -753,6 +740,11 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
         Smart_Emp_ID.DataBind();
 
 
+
+
+
+        //Lbl_count.Text = Smart_Emp_ID.Items_Count.ToString();
+        //Lbl_count.Visible = true;
         Label39.Visible = true;
 
 
@@ -778,12 +770,8 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
         int found_id = CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString());
         string Query = "";
         Smart_Org_ID.sql_Connection = sql_Connection;
-   
-       // DataTable DT = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_org_by_found", Session_CS.foundation_id).Tables[0];
-
-        DataTable DT = outboxDBContext.get_org_by_found(Session_CS.foundation_id).ToDataTable();
-
-
+        //Query = "SELECT Org_ID, Org_Desc FROM Organization where foundation_id = " + found_id;
+        DataTable DT = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_org_by_found", Session_CS.foundation_id).Tables[0];
         Smart_Org_ID.datatble = DT;
         Smart_Org_ID.Value_Field = "Org_ID";
         Smart_Org_ID.Text_Field = "Org_Desc";
@@ -809,14 +797,9 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
          if (InsideMCIT == "1")
          {
              tr_smart_proj.Visible = true;
-
-          //   DataTable DT_proj = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_all_projects").Tables[0];
-
-          DataTable    DT_proj = pmgenentity.get_all_projects().ToDataTable();
-
-
-
-
+             DataTable DT_proj = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_all_projects").Tables[0];
+             //  Smart_Search_Proj.Query = "SELECT Proj_id, Proj_Title FROM Project ";
+            // Query = "SELECT Proj_id, Proj_Title FROM Project ";
              Smart_Search_Proj.datatble = DT_proj;
              Smart_Search_Proj.Value_Field = "Proj_id";
              Smart_Search_Proj.Text_Field = "Proj_Title";
@@ -955,9 +938,9 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
     protected void fill_structure()
     {
 
-       // DataTable DT_dept = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_dept_by_found", Session_CS.foundation_id).Tables[0];
-
-        DataTable DT_dept = outboxDBContext.get_dept_by_found(Session_CS.foundation_id).ToDataTable() ;
+        //string Query = "";
+        DataTable DT_dept = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_dept_by_found", Session_CS.foundation_id).Tables[0];
+        //Query = "SELECT  * from    Departments  where foundation_id='" + Session_CS.foundation_id + "'";
 
         Smart_Search_structure.datatble = DT_dept;
         Smart_Search_structure.Value_Field = "Dept_id";
@@ -2573,19 +2556,13 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
     }
     private void Fil_chk_main_category(int ID)
     {
- 
-
+        //string Sql_main_cat = "select * from inbox_cat where inbox_id =" + ID + " and Type =1 and inbox_type = 1";
+        //DataTable DT_main_cat = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_main_cat_by_inbox_id", id).Tables[0];
+        //DataTable DT_main_cat = General_Helping.GetDataTable(Sql_main_cat);
+        //DataTable dt_sub_cat = General_Helping.GetDataTable("select * from inbox_cat where inbox_id = " + ID + " and Type=2 and inbox_type = 1 ");
+        //DataTable dt_sub_cat = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_sub_cat_by_inbox_id", id).Tables[0];
         DataTable dt_all = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_all_cat_sub_main", id).Tables[0];
-
-      //  DataTable dt_all = pm_inbox.get_all_cat_sub_main(id).ToDataTable();
-
-
-      DataTable dt_all_subs = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_all_subs", id).Tables[0];
-
-     //   DataTable dt_all_subs = pm_inbox.get_all_subs(id).ToDataTable();
-
-       
-
+        DataTable dt_all_subs = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_all_subs", id).Tables[0];
         Chk_sub_cat.DataSource = dt_all_subs;
         Chk_sub_cat.DataBind();
         foreach (DataRow dr in dt_all.Rows)
@@ -3139,12 +3116,9 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
         {
             if (item.Selected)
             {
-           
+                //dt = General_Helping.GetDataTable(" select * from Inbox_sub_categories where main_id = " + item.Value);
 
-                //dt = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_sub_cat_by_main_cat", item.Value).Tables[0];
-
-                dt = pm_inbox.get_sub_cat_by_main_cat(CDataConverter.ConvertToInt( item.Value)).ToDataTable();
-
+                dt = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_sub_cat_by_main_cat", item.Value).Tables[0];
 
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {

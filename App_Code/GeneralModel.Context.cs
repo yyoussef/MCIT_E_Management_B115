@@ -75,4 +75,9 @@ public partial class Projects_ManagementEntities : DbContext
 
         return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Admin_Users_Select_Result>("Admin_Users_Select", iDParameter, foundation_idParameter);
     }
+
+    public virtual ObjectResult<get_all_projects_result> get_all_projects()
+    {
+        return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_all_projects_result>("get_all_projects");
+    }
 }

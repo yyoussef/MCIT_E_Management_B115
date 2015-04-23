@@ -1,0 +1,150 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Projects_ManagementModel2.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'Projects_Management.dbo.inbox_cat' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="inbox_cat">
+          <Property Name="inbox_id" Type="int" />
+          <Property Name="Cat_id" Type="int" />
+          <Property Name="Type" Type="int" />
+          <Property Name="inbox_type" Type="int" />
+        </EntityType>-->
+        <EntityType Name="inbox_Main_Categories">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="group_id" Type="int" />
+        </EntityType>
+        <EntityType Name="inbox_sub_categories">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="4000" />
+          <Property Name="main_id" Type="int" />
+        </EntityType>
+        <Function Name="get_all_cat_sub_main" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="inbox_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="get_all_subs" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="inbox_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="get_sub_cat_by_main_cat" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cat_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="select_main_cat_by_group" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="group_id" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="Projects_ManagementModel2StoreContainer">
+          <EntitySet Name="inbox_Main_Categories" EntityType="Self.inbox_Main_Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="inbox_sub_categories" EntityType="Self.inbox_sub_categories" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Projects_ManagementModel2" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="Projects_ManagementEntities_Inbox" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="select_main_cat_by_group" ReturnType="Collection(Projects_ManagementModel2.select_main_cat_by_group)">
+          <Parameter Name="group_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="get_sub_cat_by_main_cat" ReturnType="Collection(Projects_ManagementModel2.get_sub_cat_by_main_cat)">
+          <Parameter Name="cat_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="get_all_cat_sub_main" ReturnType="Collection(Projects_ManagementModel2.get_all_cat_sub_main)">
+          <Parameter Name="inbox_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="get_all_subs" ReturnType="Collection(Projects_ManagementModel2.get_all_subs)">
+          <Parameter Name="inbox_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="inbox_Main_Categories" EntityType="Projects_ManagementModel2.inbox_Main_Categories" />
+          <EntitySet Name="inbox_sub_categories" EntityType="Projects_ManagementModel2.inbox_sub_categories" />
+        </EntityContainer>
+        <ComplexType Name="select_main_cat_by_group" />
+        <ComplexType Name="get_sub_cat_by_main_cat" />
+        <ComplexType Name="get_all_cat_sub_main" />
+        <ComplexType Name="get_all_subs" />
+        <EntityType Name="inbox_Main_Categories">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="group_id" Type="Int32" />
+        </EntityType>
+        <EntityType Name="inbox_sub_categories">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="main_id" Type="Int32" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Projects_ManagementModel2StoreContainer" CdmEntityContainer="Projects_ManagementEntities_Inbox" >
+          <FunctionImportMapping FunctionImportName="get_sub_cat_by_main_cat" FunctionName="Projects_ManagementModel2.Store.get_sub_cat_by_main_cat">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Projects_ManagementModel2.get_sub_cat_by_main_cat" />
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_all_cat_sub_main" FunctionName="Projects_ManagementModel2.Store.get_all_cat_sub_main">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Projects_ManagementModel2.get_all_cat_sub_main" />
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_all_subs" FunctionName="Projects_ManagementModel2.Store.get_all_subs">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Projects_ManagementModel2.get_all_subs" />
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="inbox_Main_Categories">
+            <EntityTypeMapping TypeName="Projects_ManagementModel2.inbox_Main_Categories">
+              <MappingFragment StoreEntitySet="inbox_Main_Categories">
+                <ScalarProperty Name="group_id" ColumnName="group_id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="inbox_sub_categories">
+            <EntityTypeMapping TypeName="Projects_ManagementModel2.inbox_sub_categories">
+              <MappingFragment StoreEntitySet="inbox_sub_categories">
+                <ScalarProperty Name="main_id" ColumnName="main_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

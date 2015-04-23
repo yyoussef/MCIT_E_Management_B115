@@ -107,6 +107,10 @@ public partial class Foundations_Followup_Result
     public Nullable<int> Followsoutbox_count { get; set; }
 }
 
+public partial class get_all_projects_result
+{
+}
+
 public partial class SuperAdminUsers_SelectName_Result
 {
     public int ID { get; set; }
