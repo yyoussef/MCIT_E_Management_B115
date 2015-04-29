@@ -1,7 +1,26 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "E-Management_Git", "D:\WorkShop_VSS\E-Management_Git\", "{BFE5056D-905C-40C4-A5E6-7846BE72BF9C}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.VirtualPath = "/E-Management_Git"
+		Debug.AspNetCompiler.PhysicalPath = "D:\WorkShop_VSS\E-Management_Git\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\E-Management_Git\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/E-Management_Git"
+		Release.AspNetCompiler.PhysicalPath = "D:\WorkShop_VSS\E-Management_Git\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\E-Management_Git\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "58020"
+	EndProjectSection
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFramework = "3.5"
 		Debug.AspNetCompiler.VirtualPath = "/E-Management_Git"
