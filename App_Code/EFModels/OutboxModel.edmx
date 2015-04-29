@@ -1,0 +1,510 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Projects_ManagementModel3.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Outbox">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Proj_id" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" />
+          <Property Name="Date" Type="nvarchar" MaxLength="50" />
+          <Property Name="Type" Type="int" />
+          <Property Name="Dept_ID" Type="int" />
+          <Property Name="Emp_ID" Type="int" />
+          <Property Name="Org_Id" Type="int" />
+          <Property Name="Org_Name" Type="nvarchar" MaxLength="2000" />
+          <Property Name="Org_Out_Box_Code" Type="nvarchar" MaxLength="50" />
+          <Property Name="Org_Out_Box_DT" Type="nvarchar" MaxLength="50" />
+          <Property Name="Org_Out_Box_Person" Type="nvarchar" MaxLength="500" />
+          <Property Name="Subject" Type="ntext" />
+          <Property Name="Related_Type" Type="int" />
+          <Property Name="Related_Id" Type="int" />
+          <Property Name="Notes" Type="ntext" />
+          <Property Name="Paper_No" Type="nvarchar" MaxLength="50" />
+          <Property Name="Paper_Attached" Type="nvarchar" MaxLength="50" />
+          <Property Name="Follow_Up_Dept_ID" Type="int" />
+          <Property Name="Follow_Up_Emp_ID" Type="int" />
+          <Property Name="Dept_Desc" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Source_Type" Type="int" />
+          <Property Name="Status" Type="int" />
+          <Property Name="Org_Dept_Name" Type="nvarchar" MaxLength="500" />
+          <Property Name="Enter_Date" Type="nvarchar" MaxLength="50" />
+          <Property Name="Dept_Dept_ID" Type="int" />
+          <Property Name="Group_id" Type="int" />
+          <Property Name="pmp_pmp_id" Type="int" />
+          <Property Name="sub_Cat_id" Type="int" />
+          <Property Name="finished" Type="int" />
+          <Property Name="foundation_id" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'Projects_Management.dbo.outbox_cat' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="outbox_cat">
+          <Property Name="outbox_id" Type="int" />
+          <Property Name="Cat_id" Type="int" />
+          <Property Name="Type" Type="int" />
+          <Property Name="outbox_type" Type="int" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Projects_Management.dbo.Outbox_follow_emp' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Outbox_follow_emp">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pmp_id" Type="int" />
+          <Property Name="Have_follow" Type="int" />
+          <Property Name="Outbox_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Outbox_Main_Categories">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="group_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Outbox_Sub_Categories">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="main_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Outbox_Track_Emp">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Outbox_id" Type="int" Nullable="false" />
+          <Property Name="Emp_ID" Type="int" />
+          <Property Name="Outbox_Status" Type="int" />
+          <Property Name="Type_Track_emp" Type="int" />
+        </EntityType>
+        <EntityType Name="Outbox_Track_Manager">
+          <Key>
+            <PropertyRef Name="Outbox_id" />
+          </Key>
+          <Property Name="Outbox_id" Type="int" Nullable="false" />
+          <Property Name="status" Type="int" />
+          <Property Name="IS_New_Mail" Type="int" Nullable="false" />
+          <Property Name="Have_Follow" Type="int" Nullable="false" />
+          <Property Name="Have_Visa" Type="int" Nullable="false" />
+          <Property Name="Visa_Desc" Type="nvarchar" MaxLength="2000" />
+          <Property Name="IS_Old_Mail" Type="int" />
+          <Property Name="pmp_id" Type="int" />
+          <Property Name="parent_pmp_id" Type="int" />
+          <Property Name="Type_Track" Type="int" />
+          <Property Name="All_visa_sent" Type="int" />
+        </EntityType>
+        <EntityType Name="Outbox_Visa">
+          <Key>
+            <PropertyRef Name="Visa_Id" />
+          </Key>
+          <Property Name="Visa_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Outbox_ID" Type="int" />
+          <Property Name="Visa_date" Type="nvarchar" MaxLength="50" />
+          <Property Name="Important_Degree" Type="int" />
+          <Property Name="Dept_ID" Type="int" />
+          <Property Name="Emp_ID" Type="int" />
+          <Property Name="Important_Degree_Txt" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Dept_ID_Txt" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Emp_ID_Txt" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Visa_Desc" Type="ntext" />
+          <Property Name="Visa_Period" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Visa_Satus" Type="int" />
+          <Property Name="Follow_Up_Dept_ID" Type="int" />
+          <Property Name="Follow_Up_Emp_ID" Type="int" />
+          <Property Name="Follow_Up_Notes" Type="nvarchar" MaxLength="500" />
+          <Property Name="saving_file" Type="nvarchar" MaxLength="500" />
+          <Property Name="Dead_Line_DT" Type="nvarchar" MaxLength="50" />
+          <Property Name="Visa_Goal_ID" Type="int" />
+          <Property Name="mail_sent" Type="int" />
+          <Property Name="File_data" Type="varbinary(max)" />
+          <Property Name="File_name" Type="nvarchar" MaxLength="1000" />
+          <Property Name="File_ext" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="Outbox_Visa_Emp">
+          <Key>
+            <PropertyRef Name="Visa_Emp_ID" />
+          </Key>
+          <Property Name="Visa_Emp_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Visa_Id" Type="int" />
+          <Property Name="Emp_ID" Type="int" />
+          <Property Name="Sender_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="Outbox_Visa_Follows">
+          <Key>
+            <PropertyRef Name="Follow_ID" />
+          </Key>
+          <Property Name="Follow_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Outbox_ID" Type="int" />
+          <Property Name="Descrption" Type="nvarchar" MaxLength="500" />
+          <Property Name="Date" Type="nvarchar" MaxLength="50" />
+          <Property Name="File_data" Type="varbinary(max)" />
+          <Property Name="File_name" Type="nvarchar" MaxLength="1000" />
+          <Property Name="File_ext" Type="nvarchar" MaxLength="250" />
+          <Property Name="Visa_Emp_id" Type="int" />
+          <Property Name="entery_pmp_id" Type="int" />
+          <Property Name="time_follow" Type="nvarchar" MaxLength="50" />
+          <Property Name="Type_Follow" Type="int" />
+        </EntityType>
+        <EntityContainer Name="Projects_ManagementModel3StoreContainer">
+          <EntitySet Name="Outbox" EntityType="Self.Outbox" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Outbox_Main_Categories" EntityType="Self.Outbox_Main_Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Outbox_Sub_Categories" EntityType="Self.Outbox_Sub_Categories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Outbox_Track_Emp" EntityType="Self.Outbox_Track_Emp" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Outbox_Track_Manager" EntityType="Self.Outbox_Track_Manager" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Outbox_Visa" EntityType="Self.Outbox_Visa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Outbox_Visa_Emp" EntityType="Self.Outbox_Visa_Emp" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Outbox_Visa_Follows" EntityType="Self.Outbox_Visa_Follows" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Outbox_follow_emp" EntityType="Self.Outbox_follow_emp" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[Outbox_follow_emp].[id] AS [id], 
+[Outbox_follow_emp].[pmp_id] AS [pmp_id], 
+[Outbox_follow_emp].[Have_follow] AS [Have_follow], 
+[Outbox_follow_emp].[Outbox_id] AS [Outbox_id]
+FROM [dbo].[Outbox_follow_emp] AS [Outbox_follow_emp]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Projects_ManagementModel3" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Outbox">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Proj_id" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="Int32" />
+          <Property Name="Dept_ID" Type="Int32" />
+          <Property Name="Emp_ID" Type="Int32" />
+          <Property Name="Org_Id" Type="Int32" />
+          <Property Name="Org_Name" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="Org_Out_Box_Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Org_Out_Box_DT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Org_Out_Box_Person" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Subject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Related_Type" Type="Int32" />
+          <Property Name="Related_Id" Type="Int32" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Paper_No" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Paper_Attached" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Follow_Up_Dept_ID" Type="Int32" />
+          <Property Name="Follow_Up_Emp_ID" Type="Int32" />
+          <Property Name="Dept_Desc" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Source_Type" Type="Int32" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="Org_Dept_Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Enter_Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Dept_Dept_ID" Type="Int32" />
+          <Property Name="Group_id" Type="Int32" />
+          <Property Name="pmp_pmp_id" Type="Int32" />
+          <Property Name="sub_Cat_id" Type="Int32" />
+          <Property Name="finished" Type="Int32" />
+          <Property Name="foundation_id" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Outbox_Main_Categories">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="group_id" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Outbox_Sub_Categories">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="main_id" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Outbox_Track_Emp">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Outbox_id" Type="Int32" Nullable="false" />
+          <Property Name="Emp_ID" Type="Int32" />
+          <Property Name="Outbox_Status" Type="Int32" />
+          <Property Name="Type_Track_emp" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Outbox_Track_Manager">
+          <Key>
+            <PropertyRef Name="Outbox_id" />
+          </Key>
+          <Property Name="Outbox_id" Type="Int32" Nullable="false" />
+          <Property Name="status" Type="Int32" />
+          <Property Name="IS_New_Mail" Type="Int32" Nullable="false" />
+          <Property Name="Have_Follow" Type="Int32" Nullable="false" />
+          <Property Name="Have_Visa" Type="Int32" Nullable="false" />
+          <Property Name="Visa_Desc" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="IS_Old_Mail" Type="Int32" />
+          <Property Name="pmp_id" Type="Int32" />
+          <Property Name="parent_pmp_id" Type="Int32" />
+          <Property Name="Type_Track" Type="Int32" />
+          <Property Name="All_visa_sent" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Outbox_Visa">
+          <Key>
+            <PropertyRef Name="Visa_Id" />
+          </Key>
+          <Property Name="Visa_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Outbox_ID" Type="Int32" />
+          <Property Name="Visa_date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Important_Degree" Type="Int32" />
+          <Property Name="Dept_ID" Type="Int32" />
+          <Property Name="Emp_ID" Type="Int32" />
+          <Property Name="Important_Degree_Txt" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Dept_ID_Txt" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Emp_ID_Txt" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Visa_Desc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Visa_Period" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Visa_Satus" Type="Int32" />
+          <Property Name="Follow_Up_Dept_ID" Type="Int32" />
+          <Property Name="Follow_Up_Emp_ID" Type="Int32" />
+          <Property Name="Follow_Up_Notes" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="saving_file" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Dead_Line_DT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Visa_Goal_ID" Type="Int32" />
+          <Property Name="mail_sent" Type="Int32" />
+          <Property Name="File_data" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="File_name" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="File_ext" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Outbox_Visa_Emp">
+          <Key>
+            <PropertyRef Name="Visa_Emp_ID" />
+          </Key>
+          <Property Name="Visa_Emp_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Visa_Id" Type="Int32" />
+          <Property Name="Emp_ID" Type="Int32" />
+          <Property Name="Sender_ID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Outbox_Visa_Follows">
+          <Key>
+            <PropertyRef Name="Follow_ID" />
+          </Key>
+          <Property Name="Follow_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Outbox_ID" Type="Int32" />
+          <Property Name="Descrption" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="File_data" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="File_name" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="File_ext" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Visa_Emp_id" Type="Int32" />
+          <Property Name="entery_pmp_id" Type="Int32" />
+          <Property Name="time_follow" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Type_Follow" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Outbox_follow_emp">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pmp_id" Type="Int32" />
+          <Property Name="Have_follow" Type="Int32" />
+          <Property Name="Outbox_id" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="OutboxDBContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Outboxes" EntityType="Self.Outbox" />
+          <EntitySet Name="Outbox_Main_Categories" EntityType="Self.Outbox_Main_Categories" />
+          <EntitySet Name="Outbox_Sub_Categories" EntityType="Self.Outbox_Sub_Categories" />
+          <EntitySet Name="Outbox_Track_Emp" EntityType="Self.Outbox_Track_Emp" />
+          <EntitySet Name="Outbox_Track_Manager" EntityType="Self.Outbox_Track_Manager" />
+          <EntitySet Name="Outbox_Visa" EntityType="Self.Outbox_Visa" />
+          <EntitySet Name="Outbox_Visa_Emp" EntityType="Self.Outbox_Visa_Emp" />
+          <EntitySet Name="Outbox_Visa_Follows" EntityType="Self.Outbox_Visa_Follows" />
+          <EntitySet Name="Outbox_follow_emp" EntityType="Self.Outbox_follow_emp" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Projects_ManagementModel3StoreContainer" CdmEntityContainer="OutboxDBContext">
+          <EntitySetMapping Name="Outboxes">
+            <EntityTypeMapping TypeName="Projects_ManagementModel3.Outbox">
+              <MappingFragment StoreEntitySet="Outbox">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Proj_id" ColumnName="Proj_id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Dept_ID" ColumnName="Dept_ID" />
+                <ScalarProperty Name="Emp_ID" ColumnName="Emp_ID" />
+                <ScalarProperty Name="Org_Id" ColumnName="Org_Id" />
+                <ScalarProperty Name="Org_Name" ColumnName="Org_Name" />
+                <ScalarProperty Name="Org_Out_Box_Code" ColumnName="Org_Out_Box_Code" />
+                <ScalarProperty Name="Org_Out_Box_DT" ColumnName="Org_Out_Box_DT" />
+                <ScalarProperty Name="Org_Out_Box_Person" ColumnName="Org_Out_Box_Person" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Related_Type" ColumnName="Related_Type" />
+                <ScalarProperty Name="Related_Id" ColumnName="Related_Id" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Paper_No" ColumnName="Paper_No" />
+                <ScalarProperty Name="Paper_Attached" ColumnName="Paper_Attached" />
+                <ScalarProperty Name="Follow_Up_Dept_ID" ColumnName="Follow_Up_Dept_ID" />
+                <ScalarProperty Name="Follow_Up_Emp_ID" ColumnName="Follow_Up_Emp_ID" />
+                <ScalarProperty Name="Dept_Desc" ColumnName="Dept_Desc" />
+                <ScalarProperty Name="Source_Type" ColumnName="Source_Type" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Org_Dept_Name" ColumnName="Org_Dept_Name" />
+                <ScalarProperty Name="Enter_Date" ColumnName="Enter_Date" />
+                <ScalarProperty Name="Dept_Dept_ID" ColumnName="Dept_Dept_ID" />
+                <ScalarProperty Name="Group_id" ColumnName="Group_id" />
+                <ScalarProperty Name="pmp_pmp_id" ColumnName="pmp_pmp_id" />
+                <ScalarProperty Name="sub_Cat_id" ColumnName="sub_Cat_id" />
+                <ScalarProperty Name="finished" ColumnName="finished" />
+                <ScalarProperty Name="foundation_id" ColumnName="foundation_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Outbox_Main_Categories">
+            <EntityTypeMapping TypeName="Projects_ManagementModel3.Outbox_Main_Categories">
+              <MappingFragment StoreEntitySet="Outbox_Main_Categories">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="group_id" ColumnName="group_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Outbox_Sub_Categories">
+            <EntityTypeMapping TypeName="Projects_ManagementModel3.Outbox_Sub_Categories">
+              <MappingFragment StoreEntitySet="Outbox_Sub_Categories">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="main_id" ColumnName="main_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Outbox_Track_Emp">
+            <EntityTypeMapping TypeName="Projects_ManagementModel3.Outbox_Track_Emp">
+              <MappingFragment StoreEntitySet="Outbox_Track_Emp">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Outbox_id" ColumnName="Outbox_id" />
+                <ScalarProperty Name="Emp_ID" ColumnName="Emp_ID" />
+                <ScalarProperty Name="Outbox_Status" ColumnName="Outbox_Status" />
+                <ScalarProperty Name="Type_Track_emp" ColumnName="Type_Track_emp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Outbox_Track_Manager">
+            <EntityTypeMapping TypeName="Projects_ManagementModel3.Outbox_Track_Manager">
+              <MappingFragment StoreEntitySet="Outbox_Track_Manager">
+                <ScalarProperty Name="Outbox_id" ColumnName="Outbox_id" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="IS_New_Mail" ColumnName="IS_New_Mail" />
+                <ScalarProperty Name="Have_Follow" ColumnName="Have_Follow" />
+                <ScalarProperty Name="Have_Visa" ColumnName="Have_Visa" />
+                <ScalarProperty Name="Visa_Desc" ColumnName="Visa_Desc" />
+                <ScalarProperty Name="IS_Old_Mail" ColumnName="IS_Old_Mail" />
+                <ScalarProperty Name="pmp_id" ColumnName="pmp_id" />
+                <ScalarProperty Name="parent_pmp_id" ColumnName="parent_pmp_id" />
+                <ScalarProperty Name="Type_Track" ColumnName="Type_Track" />
+                <ScalarProperty Name="All_visa_sent" ColumnName="All_visa_sent" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Outbox_Visa">
+            <EntityTypeMapping TypeName="Projects_ManagementModel3.Outbox_Visa">
+              <MappingFragment StoreEntitySet="Outbox_Visa">
+                <ScalarProperty Name="Visa_Id" ColumnName="Visa_Id" />
+                <ScalarProperty Name="Outbox_ID" ColumnName="Outbox_ID" />
+                <ScalarProperty Name="Visa_date" ColumnName="Visa_date" />
+                <ScalarProperty Name="Important_Degree" ColumnName="Important_Degree" />
+                <ScalarProperty Name="Dept_ID" ColumnName="Dept_ID" />
+                <ScalarProperty Name="Emp_ID" ColumnName="Emp_ID" />
+                <ScalarProperty Name="Important_Degree_Txt" ColumnName="Important_Degree_Txt" />
+                <ScalarProperty Name="Dept_ID_Txt" ColumnName="Dept_ID_Txt" />
+                <ScalarProperty Name="Emp_ID_Txt" ColumnName="Emp_ID_Txt" />
+                <ScalarProperty Name="Visa_Desc" ColumnName="Visa_Desc" />
+                <ScalarProperty Name="Visa_Period" ColumnName="Visa_Period" />
+                <ScalarProperty Name="Visa_Satus" ColumnName="Visa_Satus" />
+                <ScalarProperty Name="Follow_Up_Dept_ID" ColumnName="Follow_Up_Dept_ID" />
+                <ScalarProperty Name="Follow_Up_Emp_ID" ColumnName="Follow_Up_Emp_ID" />
+                <ScalarProperty Name="Follow_Up_Notes" ColumnName="Follow_Up_Notes" />
+                <ScalarProperty Name="saving_file" ColumnName="saving_file" />
+                <ScalarProperty Name="Dead_Line_DT" ColumnName="Dead_Line_DT" />
+                <ScalarProperty Name="Visa_Goal_ID" ColumnName="Visa_Goal_ID" />
+                <ScalarProperty Name="mail_sent" ColumnName="mail_sent" />
+                <ScalarProperty Name="File_data" ColumnName="File_data" />
+                <ScalarProperty Name="File_name" ColumnName="File_name" />
+                <ScalarProperty Name="File_ext" ColumnName="File_ext" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Outbox_Visa_Emp">
+            <EntityTypeMapping TypeName="Projects_ManagementModel3.Outbox_Visa_Emp">
+              <MappingFragment StoreEntitySet="Outbox_Visa_Emp">
+                <ScalarProperty Name="Visa_Emp_ID" ColumnName="Visa_Emp_ID" />
+                <ScalarProperty Name="Visa_Id" ColumnName="Visa_Id" />
+                <ScalarProperty Name="Emp_ID" ColumnName="Emp_ID" />
+                <ScalarProperty Name="Sender_ID" ColumnName="Sender_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Outbox_Visa_Follows">
+            <EntityTypeMapping TypeName="Projects_ManagementModel3.Outbox_Visa_Follows">
+              <MappingFragment StoreEntitySet="Outbox_Visa_Follows">
+                <ScalarProperty Name="Follow_ID" ColumnName="Follow_ID" />
+                <ScalarProperty Name="Outbox_ID" ColumnName="Outbox_ID" />
+                <ScalarProperty Name="Descrption" ColumnName="Descrption" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="File_data" ColumnName="File_data" />
+                <ScalarProperty Name="File_name" ColumnName="File_name" />
+                <ScalarProperty Name="File_ext" ColumnName="File_ext" />
+                <ScalarProperty Name="Visa_Emp_id" ColumnName="Visa_Emp_id" />
+                <ScalarProperty Name="entery_pmp_id" ColumnName="entery_pmp_id" />
+                <ScalarProperty Name="time_follow" ColumnName="time_follow" />
+                <ScalarProperty Name="Type_Follow" ColumnName="Type_Follow" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Outbox_follow_emp">
+            <EntityTypeMapping TypeName="Projects_ManagementModel3.Outbox_follow_emp">
+              <MappingFragment StoreEntitySet="Outbox_follow_emp">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="pmp_id" ColumnName="pmp_id" />
+                <ScalarProperty Name="Have_follow" ColumnName="Have_follow" />
+                <ScalarProperty Name="Outbox_id" ColumnName="Outbox_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Default" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
