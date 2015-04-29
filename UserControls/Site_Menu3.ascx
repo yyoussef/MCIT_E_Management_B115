@@ -24,7 +24,7 @@
                             <input type="hidden" runat="server" id="hidden64" value="79" />
                         </li>
                         <li id="Li83" runat="server" visible="false" style="background-image: url('../new_images/top2.gif')">
-                            <a href='<%="ProjectGeneralData.aspx?mode=edit&Proj_id=" + Session_CS.Project_id.ToString()%>'>
+                            <a href='<%="ProjectGeneralData.aspx?mode=edit&Proj_id=" + Session_CS.Project_id.ToString()%>' id="ahref" runat="server">
                                 البيانات الاساسيه للمشروع</a>
                             <input type="hidden" runat="server" id="hidden71" value="101" />
                         </li>
@@ -249,9 +249,9 @@
                             <a href="Commission.aspx">التكليفات </a>
                             <input type="hidden" runat="server" id="hidden40" value="50" />
                         </li>
-                        <li id="Li37" runat="server" visible="false" style="background-image: url('../new_images/top2.gif')">
+                        <li id="Li37" runat="server"  style="background-image: url('../new_images/top2.gif')">
                             <a href="Commission_Search.aspx">بحث في التكليفات </a>
-                            <input type="hidden" runat="server" id="hidden41" value="51" />
+                            <%--<input type="hidden" runat="server" id="hidden41" value="51" />--%>
                         </li>
                         <li id="Li45" runat="server" visible="false" style="background-image: url('../new_images/top2.gif')">
                             <a href="ProjectReview.aspx">نشرات التعميم </a>

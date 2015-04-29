@@ -1,0 +1,101 @@
+.glossymenu, .glossymenu li ul{
+list-style-type: none;
+margin:0px;
+padding: 0;
+width: 0px; /*WIDTH OF MAIN MENU ITEMS*/
+height: 34px;
+
+float:right;
+}
+
+.glossymenu li
+{
+	border: 0.5px solid #ffffff;
+	position: relative;
+	background:  url(../images/design124_03_05.gif) repeat-y bottom right;
+	height: 34px;
+	width: 214px;
+	float:right;
+	/*background-color:#D2D8DD;*/
+}
+
+.glossymenu li a
+{
+	font-family:arial;
+	/*color:#1E4266;*/
+	color:#1E4266;
+	font-size:18px;
+	display: block;
+	text-align: center;
+	width: 214px;
+	padding-right: 5px;
+	padding-right: 5px;
+	padding-top: 10px;
+	padding-bottom: 0px;
+	height: 34px;
+	text-decoration: none;
+}
+
+.glossymenu li ul
+{ /*SUB MENU STYLE*/
+position: absolute;
+width: 214px; /*WIDTH OF SUB MENU ITEMS*/
+right: 0;
+height: 34px;
+top: 0;
+display: none;
+}
+
+.glossymenu li ul li
+{
+height: 33px;
+float: right;
+}
+
+.glossymenu li ul a{
+width: 214px; /*WIDTH OF SUB MENU ITEMS - 10px padding-left for A elements */
+}
+
+.glossymenu .arrowdiv{
+position:absolute ;
+
+right: 2px;
+}
+
+.glossymenu li a:visited, .glossymenu li a:active{
+ /*color: #1E4266;*/
+}
+
+.glossymenu li:hover
+{
+	background-image: url(../images/design124_03_02.gif);
+	background-repeat:no-repeat;
+	border-right :red;
+	border-left-color :Red;
+	/*background-color:#EBEBFB;*/
+	/*#D2D8DD*/
+}
+
+.glossymenu li a:hover
+{
+	background-repeat:no-repeat;
+	background-color: #5297C2;
+	background-position:left ;
+	/*background-color:#DEE9F5;*/
+	color:#ffffff;
+	font-family:arial;
+	
+	font-size:18px;
+	padding-right: 5px;
+	text-align: center;
+	width: 96%;
+	height: 25px;
+	text-decoration:none;
+	
+	/*padding-bottom: 15px;*/
+}
+
+/* Holly Hack for IE \*/
+/** html .glossymenu li { float: center; height: 221px; }*/
+* html .glossymenu li a { height: 214px; }
+/* End */

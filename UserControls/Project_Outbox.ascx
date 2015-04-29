@@ -89,8 +89,8 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                         </td>
                                         <td>
                                             <asp:TextBox runat="server" CssClass="Text" ID="txt_Code" Width="319px"></asp:TextBox>
-                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txt_Code"
-                                                runat="server" Text="*" ValidationGroup="A" ErrorMessage="يجب ادخال الكود "></asp:RequiredFieldValidator>
+                                            <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txt_Code"
+                                                runat="server" Text="*" ValidationGroup="A" ErrorMessage="يجب ادخال الكود "></asp:RequiredFieldValidator>--%>
                                         </td>
                                         <td>
                                             <asp:Label ID="Label8" runat="server" CssClass="Label" Text="التاريخ :" />
@@ -130,7 +130,7 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                         <td colspan="2">
                                         </td>
                                     </tr>
-                                    <tr runat="server" id="trSmart" visible="False">
+                                    <tr runat="server" id="trSmart"  style="display:none" >
                                         <td colspan="4" runat="server">
                                             <table>
                                                 <tr>
@@ -294,7 +294,7 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                             <asp:Button runat="server" CssClass="Button" Text="حفــــــظ" ID="BtnSave" OnClick="btnSave_Click"
                                                 ValidationGroup="A" Width="99px" />
                                             <asp:Button runat="server" CssClass="Button" Text="جديد" ID="btnClear" OnClick="btnClear_Click"
-                                                ValidationGroup="A" Width="50px" />
+                                                 Width="50px" />
                                             <asp:Button runat="server" CssClass="Button" Text="ارسال إلي المدير المختص" ID="Button2"
                                                 OnClick="btnSend_Click" ValidationGroup="A" Width="170px" />
                                             <asp:ValidationSummary ID="ValidationSummary1" runat="server" ValidationGroup="A"
@@ -317,7 +317,7 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         </td>
                                         <td dir="rtl">
-                                            <asp:FileUpload ID="FileUpload1" runat="server" ForeColor="Maroon" Width="700px" />
+                                            <asp:FileUpload ID="FileUpload1" runat="server" ForeColor="Maroon" Width="700px" onchange="Get_Value()" />
                                             <br />
                                         </td>
                                     </tr>
@@ -619,6 +619,17 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                             </table>
                                         </td>
                                     </tr>
+
+                                      <tr>
+                                        <td align="right" width="150px">
+                                            <asp:Label ID="Label30" runat="server" CssClass="Label" Text="الوثيقة:" Width="135px" />
+                                        </td>
+                                        <td dir="rtl" colspan="3">
+                                            <asp:FileUpload ID="FileUpload_Visa" runat="server" ForeColor="Maroon" Width="700px" />
+                                            <br />
+                                        </td>
+                                    </tr>
+
                                     <tr>
                                         <td colspan="4" align="center">
                                             <asp:Button ID="Button1" OnClick="btn_Visa_Click" ValidationGroup="B" Text="حفظ"
@@ -655,8 +666,16 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                                         <asp:TemplateField HeaderText="وصف التأشيرة">
                                                             <ItemTemplate>
                                                                 <asp:Label ID="lbl_desc" runat="server" Text='<%# Eval("Visa_Desc")%>'></asp:Label>
+                                                                <asp:Label ID="lbl_emp" runat="server" Text='<%# Eval("Emp_ID")%>' Visible ="false" ></asp:Label>
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
+                                                    <asp:TemplateField HeaderText="الوثيقة">
+                                                         <ItemTemplate>
+                                                               <a href='<%# "ALL_Document_Details.aspx?type=outbox_visa&id="+ Eval("Visa_Id") %>'>
+                                                                 <%# Eval("File_name")%></a>
+                                                         </ItemTemplate>
+                                                      </asp:TemplateField>
+
                                                         <asp:TemplateField HeaderText="المسئول عن التنفيذ">
                                                             <ItemTemplate>
                                                                 <%# Get_Visa_Emp(Eval("Visa_Id"))%>
@@ -669,27 +688,27 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="تم ارسال إيميل">
                                                             <ItemTemplate>
-                                                                <asp:CheckBox ID="chkSent" runat="server" AutoPostBack="true" OnCheckedChanged="chkSent_CheckedChanged" />
+                                                                <asp:CheckBox ID="chkSent" runat="server" AutoPostBack="true" OnCheckedChanged="chkSent_CheckedChanged" Enabled="false" />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText=" ارسال إيميل">
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="ImgBtnEdit123" CommandName="SendItem" runat="server" ImageUrl="../Images/Edit.jpg"
-                                                                    CommandArgument='<%# Eval("Visa_Id") %>' />
+                                                                    CommandArgument='<%# Eval("Visa_Id") %>' Visible="true"  />
                                                             </ItemTemplate>
                                                             <ItemStyle Width="20px" />
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="تعديل">
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="ImgBtnEdit" CommandName="EditItem" runat="server" ImageUrl="../Images/Edit.jpg"
-                                                                    CommandArgument='<%# Eval("Visa_Id") %>' />
+                                                                    CommandArgument='<%# Eval("Visa_Id") %>' Visible="true" />
                                                             </ItemTemplate>
                                                             <ItemStyle Width="20px" />
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="حذف">
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="ImgBtnDelete" CommandName="RemoveItem" runat="server" ImageUrl="../Images/delete.gif"
-                                                                    Style="height: 22px" CommandArgument='<%# Eval("Visa_Id") %>' />
+                                                                    Style="height: 22px" CommandArgument='<%# Eval("Visa_Id") %>'  Visible="true"/>
                                                             </ItemTemplate>
                                                             <ItemStyle Width="20px" />
                                                         </asp:TemplateField>

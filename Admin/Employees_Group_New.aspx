@@ -43,7 +43,7 @@
         <tr>
             <td colspan="2">
                 <asp:CheckBoxList ID="cbl_Employees" CellPadding="5" CellSpacing="5" RepeatColumns="2"
-                    CssClass="Label" Font-Size="Small" RepeatDirection="Horizontal" DataTextField="pmp_name"
+                    CssClass="Label" Font-Size="Small" RepeatDirection="Horizontal" DataTextField="empname"
                     DataValueField="PMP_ID" runat="server">
                 </asp:CheckBoxList>
             </td>

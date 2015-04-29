@@ -20,7 +20,7 @@ public partial class UserControls_Projects_Grid_Page : System.Web.UI.UserControl
         {
             if (Session_CS.pmp_id != null && CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()) > 0)
             {
-                Session_CS.Project_id = 0;
+               // Session_CS.Project_id = 0;
                 Load_Grids();
 
             }

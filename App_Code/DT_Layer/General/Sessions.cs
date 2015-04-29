@@ -16,6 +16,7 @@ using DBL;
 using System.IO;
 using System.Text;
 using System.Web;
+using System.Collections.Generic;
 
 /// <summary>
 /// Summary description for Sessions
@@ -60,30 +61,37 @@ public static  class Session_CS
 
 
 
-
-
-
-
-
+    
 
 
     public static Int32 parent_id
     {
         get
         {
-            if (!string.IsNullOrEmpty(HttpContext.Current.Request.Cookies["cook_parent_id"].Value))
+            try
             {
+                if (!string.IsNullOrEmpty(HttpContext.Current.Request.Cookies["cook_parent_id"].Value))
+                {
 
-                //return CDataConverter.ConvertToInt(HttpContext.Current.Session["parent_id"]);
-                //HttpCookie cook = new HttpCookie("parent_id");
-                // return CDataConverter.ConvertToInt(cook_parent_id["parent_id"]);
-                return CDataConverter.ConvertToInt(HttpContext.Current.Request.Cookies["cook_parent_id"].Value);
+                    //return CDataConverter.ConvertToInt(HttpContext.Current.Session["parent_id"]);
+                    //HttpCookie cook = new HttpCookie("parent_id");
+                    // return CDataConverter.ConvertToInt(cook_parent_id["parent_id"]);
+                    return CDataConverter.ConvertToInt(HttpContext.Current.Request.Cookies["cook_parent_id"].Value);
 
+                }
+                else
+                {
+                    HttpContext.Current.Response.Redirect("~/default.aspx");
+                    return 0;
+                }
             }
-            else
+
+            catch (Exception ex)
             {
+
                 HttpContext.Current.Response.Redirect("~/default.aspx");
                 return 0;
+
             }
         }
 
@@ -106,14 +114,12 @@ public static  class Session_CS
 
 
 
-
-
-
-
     public static Int32 foundation_id
     {
         get
         {
+            try
+            {
             if (!string.IsNullOrEmpty(HttpContext.Current.Request.Cookies["cook_foundation_id"].Value))
             {
 
@@ -125,6 +131,16 @@ public static  class Session_CS
             {
                 HttpContext.Current.Response.Redirect("~/default.aspx");
                 return 0;
+            }
+
+               }
+
+            catch (Exception ex)
+            {
+
+                HttpContext.Current.Response.Redirect("~/default.aspx");
+                return 0;
+
             }
         }
 
@@ -139,11 +155,15 @@ public static  class Session_CS
         }
 
     }
+
     public static Int32 code_archiving
     {
 
         get
         {
+            try 
+            {
+
             if (!string.IsNullOrEmpty(HttpContext.Current.Request.Cookies["cook_code_archiving"].Value))
             {
 
@@ -156,6 +176,18 @@ public static  class Session_CS
                 HttpContext.Current.Response.Redirect("~/default.aspx");
                 return 0;
             }
+
+
+               }
+
+            catch (Exception ex)
+            {
+
+                HttpContext.Current.Response.Redirect("~/default.aspx");
+                return 0;
+
+            }
+
         }
 
         set
@@ -168,10 +200,60 @@ public static  class Session_CS
         }
 
     }
+
+
+
+    public static Int32 code_outbox
+    {
+
+        get
+        {
+
+            try 
+            {
+            if (!string.IsNullOrEmpty(HttpContext.Current.Request.Cookies["cook_code_outbox"].Value))
+            {
+
+                //return CDataConverter.ConvertToInt(HttpContext.Current.Session["foundation_id"]);
+                return CDataConverter.ConvertToInt(HttpContext.Current.Request.Cookies["cook_code_outbox"].Value);
+
+            }
+            else
+            {
+                HttpContext.Current.Response.Redirect("~/default.aspx");
+                return 0;
+            }
+
+               }
+
+            catch (Exception ex)
+            {
+
+                HttpContext.Current.Response.Redirect("~/default.aspx");
+                return 0;
+
+            }
+        }
+
+        set
+        {
+            HttpCookie cook_code_archiving = new HttpCookie("cook_code_outbox");
+            cook_code_archiving.Value = value.ToString();
+
+            cook_code_archiving.Expires = DateTime.Now.AddDays(1);
+            HttpContext.Current.Response.Cookies.Add(cook_code_archiving);
+        }
+
+    }
+
     public static Int32 Port
     {
         get
         {
+          
+            try 
+            {
+
             if (!string.IsNullOrEmpty(HttpContext.Current.Request.Cookies["cook_Port"].Value))
        
             {
@@ -182,9 +264,20 @@ public static  class Session_CS
             }
             else
             {
-                HttpContext.Current.Response.Redirect("~/default.aspx");
+                //HttpContext.Current.Response.Redirect("~/default.aspx");
                 return 0;
             }
+
+               }
+
+            catch (Exception ex)
+            {
+
+                HttpContext.Current.Response.Redirect("~/default.aspx");
+                return 0;
+
+            }
+
         }
 
         set
@@ -202,6 +295,8 @@ public static  class Session_CS
 
         get
         {
+            try 
+            {
             if (!string.IsNullOrEmpty(HttpContext.Current.Request.Cookies["cook_host"].Value))
             {
 
@@ -213,9 +308,19 @@ public static  class Session_CS
             }
             else
             {
-                HttpContext.Current.Response.Redirect("~/default.aspx");
+               // HttpContext.Current.Response.Redirect("~/default.aspx");
                 return "";
             }
+
+               }
+
+            catch (Exception ex)
+            {
+
+                HttpContext.Current.Response.Redirect("~/default.aspx");
+                return "";
+
+            } 
         }
 
         set
@@ -234,6 +339,8 @@ public static  class Session_CS
 
         get
         {
+            try 
+            {
             if (!string.IsNullOrEmpty(HttpContext.Current.Request.Cookies["cook_FromAddress"].Value))
             {
 
@@ -244,8 +351,18 @@ public static  class Session_CS
             }
             else
             {
+                //HttpContext.Current.Response.Redirect("~/default.aspx");
+                return "";
+            }
+
+               }
+
+            catch (Exception ex)
+            {
+
                 HttpContext.Current.Response.Redirect("~/default.aspx");
                 return "";
+
             }
         }
 
@@ -263,6 +380,8 @@ public static  class Session_CS
 
         get
         {
+            try 
+            {
             if (!string.IsNullOrEmpty(HttpContext.Current.Request.Cookies["cook_UserName_mail"].Value))
             {
 
@@ -273,8 +392,18 @@ public static  class Session_CS
             }
             else
             {
+               // HttpContext.Current.Response.Redirect("~/default.aspx");
+                return "";
+            }
+
+               }
+
+            catch (Exception ex)
+            {
+
                 HttpContext.Current.Response.Redirect("~/default.aspx");
                 return "";
+
             }
         }
 
@@ -293,6 +422,8 @@ public static  class Session_CS
     {
         get
         {
+            try 
+            {
             if (!string.IsNullOrEmpty(HttpContext.Current.Request.Cookies["cook_Password"].Value))
             {
 
@@ -305,6 +436,16 @@ public static  class Session_CS
             {
                 HttpContext.Current.Response.Redirect("~/default.aspx");
                 return "";
+            }
+
+               }
+
+            catch (Exception ex)
+            {
+
+                HttpContext.Current.Response.Redirect("~/default.aspx");
+                return "";
+
             }
         }
 
@@ -325,6 +466,8 @@ public static  class Session_CS
 
         get
         {
+            try 
+            {
             if (!string.IsNullOrEmpty(HttpContext.Current.Request.Cookies["cook_child_emp"].Value))
             {
 
@@ -337,6 +480,16 @@ public static  class Session_CS
             {
                 HttpContext.Current.Response.Redirect("~/default.aspx");
                 return 0;
+            }
+
+               }
+
+            catch (Exception ex)
+            {
+
+                HttpContext.Current.Response.Redirect("~/default.aspx");
+                return 0;
+
             }
         }
 
@@ -356,6 +509,8 @@ public static  class Session_CS
 
         get
         {
+            try 
+            {
             if (!string.IsNullOrEmpty(HttpContext.Current.Request.Cookies["cook_Project_id"].Value))
             {
 
@@ -369,6 +524,16 @@ public static  class Session_CS
             {
                 HttpContext.Current.Response.Redirect("~/default.aspx");
                 return 0;
+            }
+
+               }
+
+            catch (Exception ex)
+            {
+
+                HttpContext.Current.Response.Redirect("~/default.aspx");
+                return 0;
+
             }
         }
 
@@ -388,6 +553,8 @@ public static  class Session_CS
 
         get
         {
+            try 
+            {
             if (!string.IsNullOrEmpty(HttpContext.Current.Request.Cookies["cook_System_ID"].Value))
             {
 
@@ -401,6 +568,16 @@ public static  class Session_CS
                 HttpContext.Current.Response.Redirect("~/default.aspx");
                 return 0;
             }
+
+               }
+
+            catch (Exception ex)
+            {
+
+                HttpContext.Current.Response.Redirect("~/default.aspx");
+                return 0;
+
+            } 
         }
 
         set
@@ -419,6 +596,8 @@ public static  class Session_CS
     {
         get
         {
+            try 
+            {
             if (!string.IsNullOrEmpty(HttpContext.Current.Request.Cookies["cook_group_id"].Value))
             {
 
@@ -431,6 +610,16 @@ public static  class Session_CS
             {
                 HttpContext.Current.Response.Redirect("~/default.aspx");
                 return 0;
+            }
+
+               }
+
+            catch (Exception ex)
+            {
+
+                HttpContext.Current.Response.Redirect("~/default.aspx");
+                return 0;
+
             }
         }
 
@@ -451,6 +640,8 @@ public static  class Session_CS
 
         get
         {
+            try 
+            {
             if (!string.IsNullOrEmpty(HttpContext.Current.Request.Cookies["cook_UserName"].Value))
             {
 
@@ -463,6 +654,16 @@ public static  class Session_CS
             {
                 HttpContext.Current.Response.Redirect("~/default.aspx");
                 return "";
+            }
+
+               }
+
+            catch (Exception ex)
+            {
+
+                HttpContext.Current.Response.Redirect("~/default.aspx");
+                return "";
+
             }
         }
 
@@ -480,6 +681,9 @@ public static  class Session_CS
 
         get
         {
+
+            try 
+            {
             if (!string.IsNullOrEmpty(HttpContext.Current.Request.Cookies["cook_Usr_Name"].Value))
             {
 
@@ -492,6 +696,17 @@ public static  class Session_CS
             {
                 HttpContext.Current.Response.Redirect("~/default.aspx");
                 return "";
+            }
+
+
+               }
+
+            catch (Exception ex)
+            {
+
+                HttpContext.Current.Response.Redirect("~/default.aspx");
+                return "";
+
             }
         }
 
@@ -511,6 +726,8 @@ public static  class Session_CS
 
         get
         {
+            try 
+            {
             //if (cook_pmp_id != null)
             //{
 
@@ -530,6 +747,16 @@ public static  class Session_CS
                 HttpContext.Current.Response.Redirect("~/default.aspx");
                 return 0;
             }
+
+               }
+
+            catch (Exception ex)
+            {
+
+                HttpContext.Current.Response.Redirect("~/default.aspx");
+                return 0;
+
+            }
         }
 
         set
@@ -547,6 +774,9 @@ public static  class Session_CS
 
         get
         {
+
+            try 
+            {
             if (!string.IsNullOrEmpty(HttpContext.Current.Request.Cookies["cook_dept"].Value))
             {
 
@@ -559,12 +789,22 @@ public static  class Session_CS
                 HttpContext.Current.Response.Redirect("~/default.aspx");
                 return "";
             }
+
+               }
+
+            catch (Exception ex)
+            {
+
+                HttpContext.Current.Response.Redirect("~/default.aspx");
+                return "";
+
+            } 
         }
 
         set
         {
             HttpCookie cook_dept = new HttpCookie("cook_dept");
-            cook_dept.Value = value;
+            cook_dept.Value = HttpContext.Current.Server.UrlEncode( value);
 
             cook_dept.Expires = DateTime.Now.AddDays(1);
             HttpContext.Current.Response.Cookies.Add(cook_dept);
@@ -577,6 +817,9 @@ public static  class Session_CS
 
         get
         {
+
+            try 
+            {
             if (!string.IsNullOrEmpty(HttpContext.Current.Request.Cookies["cook_dept_id"].Value))
             {
 
@@ -588,6 +831,16 @@ public static  class Session_CS
             {
                 HttpContext.Current.Response.Redirect("~/default.aspx");
                 return 0;
+            }
+
+               }
+
+            catch (Exception ex)
+            {
+
+                HttpContext.Current.Response.Redirect("~/default.aspx");
+                return 0;
+
             }
         }
 
@@ -605,18 +858,32 @@ public static  class Session_CS
     {
         get
         {
-            if (!string.IsNullOrEmpty(HttpContext.Current.Request.Cookies["cook_UROL_UROL_ID"].Value))
+            try
             {
+                if (!string.IsNullOrEmpty(HttpContext.Current.Request.Cookies["cook_UROL_UROL_ID"].Value))
+                {
 
-                //return CDataConverter.ConvertToInt(HttpContext.Current.Session["foundation_id"]);
-                return CDataConverter.ConvertToInt(HttpContext.Current.Request.Cookies["cook_UROL_UROL_ID"].Value);
+                    //return CDataConverter.ConvertToInt(HttpContext.Current.Session["foundation_id"]);
+                    return CDataConverter.ConvertToInt(HttpContext.Current.Request.Cookies["cook_UROL_UROL_ID"].Value);
 
+                }
+                else
+                {
+                    HttpContext.Current.Response.Redirect("~/default.aspx");
+                    return 0;
+                }
             }
-            else
+
+
+            catch (Exception ex)
             {
+
                 HttpContext.Current.Response.Redirect("~/default.aspx");
                 return 0;
+
             }
+
+
         }
 
         set
@@ -633,6 +900,9 @@ public static  class Session_CS
 
         get
         {
+
+            try
+            {
             if (!string.IsNullOrEmpty(HttpContext.Current.Request.Cookies["cook_vacation_mng"].Value))
             {
 
@@ -645,6 +915,17 @@ public static  class Session_CS
                 HttpContext.Current.Response.Redirect("~/default.aspx");
                 return 0;
             }
+
+
+               }
+
+            catch (Exception ex)
+            {
+
+                HttpContext.Current.Response.Redirect("~/default.aspx");
+                return 0;
+
+            }
         }
 
         set
@@ -654,6 +935,7 @@ public static  class Session_CS
 
             cook_vacation_mng.Expires = DateTime.Now.AddDays(1);
             HttpContext.Current.Response.Cookies.Add(cook_vacation_mng);
+            
         }
 
     }
@@ -663,6 +945,9 @@ public static  class Session_CS
 
         get
         {
+          
+            try 
+            {
             if (!string.IsNullOrEmpty(HttpContext.Current.Request.Cookies["cook_sec_id"].Value))
             {
 
@@ -674,6 +959,16 @@ public static  class Session_CS
             {
                 HttpContext.Current.Response.Redirect("~/default.aspx");
                 return 0;
+            }
+
+               }
+
+            catch (Exception ex)
+            {
+
+                HttpContext.Current.Response.Redirect("~/default.aspx");
+                return 0;
+
             }
         }
 
@@ -695,6 +990,8 @@ public static  class Session_CS
 
         get
         {
+            try 
+            {
             if (!string.IsNullOrEmpty(HttpContext.Current.Request.Cookies["cook_pmp_name"].Value))
             {
 
@@ -707,13 +1004,23 @@ public static  class Session_CS
                 HttpContext.Current.Response.Redirect("~/default.aspx");
                 return "";
             }
+
+               }
+
+            catch (Exception ex)
+            {
+
+                HttpContext.Current.Response.Redirect("~/default.aspx");
+                return "";
+
+            }
         }
 
         set
         {
             HttpCookie cook_pmp_name = new HttpCookie("cook_pmp_name");
-            cook_pmp_name.Value = value;
-
+            cook_pmp_name.Value =   HttpContext.Current.Server.UrlEncode(value);
+            
             cook_pmp_name.Expires = DateTime.Now.AddDays(1);
             HttpContext.Current.Response.Cookies.Add(cook_pmp_name);
         }
@@ -724,6 +1031,8 @@ public static  class Session_CS
 
         get
         {
+            try 
+            {
             if (!string.IsNullOrEmpty(HttpContext.Current.Request.Cookies["cook_parentbychild"].Value))
             {
 
@@ -735,6 +1044,16 @@ public static  class Session_CS
             {
                 HttpContext.Current.Response.Redirect("~/default.aspx");
                 return "";
+            }
+
+               }
+
+            catch (Exception ex)
+            {
+
+                HttpContext.Current.Response.Redirect("~/default.aspx");
+                return "";
+
             }
         }
 
@@ -754,6 +1073,8 @@ public static  class Session_CS
 
         get
         {
+            try 
+            {
             if (!string.IsNullOrEmpty(HttpContext.Current.Request.Cookies["cook_e_signature"].Value))
             {
 
@@ -766,6 +1087,16 @@ public static  class Session_CS
                 HttpContext.Current.Response.Redirect("~/default.aspx");
                 return "";
             }
+
+               }
+
+            catch (Exception ex)
+            {
+
+                HttpContext.Current.Response.Redirect("~/default.aspx");
+                return "";
+
+            } 
         }
 
         set
@@ -774,7 +1105,17 @@ public static  class Session_CS
             cook_e_signature.Value = value;
 
             cook_e_signature.Expires = DateTime.Now.AddDays(1);
-            HttpContext.Current.Response.Cookies.Add(cook_e_signature);
+         //   HttpContext.Current.Response.Cookies.Add(cook_e_signature);
+
+            if (HttpContext.Current.Response.Cookies["cook_e_signature"] != null)
+            {
+                HttpContext.Current.Response.Cookies["cook_e_signature"].Value = cook_e_signature.Value;
+            }
+            else
+            {
+                HttpContext.Current.Response.Cookies.Add(cook_e_signature);
+            }
+
         }
 
     }
@@ -784,6 +1125,8 @@ public static  class Session_CS
 
         get
         {
+            try 
+            {
             if (!string.IsNullOrEmpty(HttpContext.Current.Request.Cookies["cook_Site_Name"].Value))
             {
 
@@ -796,12 +1139,22 @@ public static  class Session_CS
                 HttpContext.Current.Response.Redirect("~/default.aspx");
                 return "";
             }
+
+               }
+
+            catch (Exception ex)
+            {
+
+                HttpContext.Current.Response.Redirect("~/default.aspx");
+                return "";
+
+            }
         }
 
         set
         {
             HttpCookie cook_Site_Name = new HttpCookie("cook_Site_Name");
-            cook_Site_Name.Value = value;
+            cook_Site_Name.Value = HttpContext.Current.Server.UrlEncode(value); ;
 
             cook_Site_Name.Expires = DateTime.Now.AddDays(1);
             HttpContext.Current.Response.Cookies.Add(cook_Site_Name);
@@ -872,6 +1225,9 @@ public static  class Session_CS
 
         get
         {
+
+            try 
+            {
             if (!string.IsNullOrEmpty(HttpContext.Current.Request.Cookies["cook_Hr_Eval"].Value))
             {
 
@@ -883,6 +1239,17 @@ public static  class Session_CS
             {
                 HttpContext.Current.Response.Redirect("~/default.aspx");
                 return 0;
+            }
+
+
+               }
+
+            catch (Exception ex)
+            {
+
+                HttpContext.Current.Response.Redirect("~/default.aspx");
+                return 0;
+
             }
         }
 
@@ -908,6 +1275,9 @@ public static  class Session_CS
 
         get
         {
+
+            try 
+            {
             if (!string.IsNullOrEmpty(HttpContext.Current.Request.Cookies["cook_Dept_parent_id"].Value))
             {
 
@@ -919,6 +1289,16 @@ public static  class Session_CS
             {
                 HttpContext.Current.Response.Redirect("~/default.aspx");
                 return 0;
+            }
+
+               }
+
+            catch (Exception ex)
+            {
+
+                HttpContext.Current.Response.Redirect("~/default.aspx");
+                return 0;
+
             }
         }
 
@@ -939,6 +1319,8 @@ public static  class Session_CS
 
         get
         {
+            try 
+            {
             if (!string.IsNullOrEmpty(HttpContext.Current.Request.Cookies["cook_local_filesave"].Value))
             {
 
@@ -950,6 +1332,16 @@ public static  class Session_CS
             {
                 //HttpContext.Current.Response.Redirect("~/default.aspx");
                 return false;
+            }
+
+               }
+
+            catch (Exception ex)
+            {
+
+                HttpContext.Current.Response.Redirect("~/default.aspx");
+                return false;
+
             }
         }
 

@@ -34,6 +34,7 @@ public partial class WebForms_AdminUserPage : System.Web.UI.Page
             //DropModule.Items.Add(new ListItem("اختر الموديول......", "0"));
             DropModule.Items.Insert(0, new ListItem("اختر الصلاحية......", "0"));
 
+      
 
            
         }
@@ -58,21 +59,23 @@ public partial class WebForms_AdminUserPage : System.Web.UI.Page
         lblMessage.Text = "";
 
     }
+  
 
     private void GetUserPages()
     {
      
         //string sql = @"SELECT ap.pk_ID, ap.Name page FROM dbo.users_permission up,dbo.Admin_Page ap WHERE ap.pk_ID = up.Page_ID AND ap.Active = 1 AND up.pmp_pmp_id = " + SmartEmployee.SelectedValue;
        // Label4.Text = SmartEmployee.SelectedValue.ToString();
-        DataTable dt = SqlHelper.ExecuteDataset(Database.ConnectionString, "Select_UserPages", SmartEmployee.SelectedValue).Tables[0];
-        if (dt.Rows.Count > 0)
+        if (SmartEmployee.SelectedValue != null && SmartEmployee.SelectedValue != "0" && SmartEmployee.SelectedValue !="")
         {
-            gvUserPages.DataSource = dt;
-            gvUserPages.DataBind();
+            DataTable dt = SqlHelper.ExecuteDataset(Database.ConnectionString, "Select_UserPages", SmartEmployee.SelectedValue).Tables[0];
+            if (dt.Rows.Count > 0)
+            {
+                gvUserPages.DataSource = dt;
+                gvUserPages.DataBind();
+            }
+        
         }
-
-
-
     }
     protected void ImgBtnDelete_Click(object sender, System.Web.UI.ImageClickEventArgs e)
     {
@@ -96,6 +99,7 @@ public partial class WebForms_AdminUserPage : System.Web.UI.Page
         }
 
     }
+   
 
     protected void SaveButton_Click(object sender, EventArgs e)
     {
@@ -148,25 +152,28 @@ public partial class WebForms_AdminUserPage : System.Web.UI.Page
         }
         fillData();
         MarkPagesAsChecked();
-        if (SmartEmployee.SelectedValue!="")
+        if (SmartEmployee.SelectedValue != null && SmartEmployee.SelectedValue != "0" && SmartEmployee.SelectedValue != "")
         {
-        GetUserPages();
+            GetUserPages();
         }
+       
     }
 
     private void MOnMember_Data_cop_org(string Value)
     {
-        if (SmartEmployee.SelectedValue != "" && SmartEmployee.SelectedValue != "0")
+        if (SmartEmployee.SelectedValue != null && SmartEmployee.SelectedValue != "" && SmartEmployee.SelectedValue != "0")
         {
-            //DataTable dt_found = General_Helping.GetDataTable("select foundation_id from employee where pmp_id=" + SmartEmployee.SelectedValue);
 
- GetUserPages();
-            //fillData();
-            //MarkPagesAsChecked();
-           
-           
-            
+            GetUserPages();
+
         }
+        else
+        {
+            gvUserPages.DataSource = null;
+            gvUserPages.DataBind();
+               
+        }
+
 
     }
 

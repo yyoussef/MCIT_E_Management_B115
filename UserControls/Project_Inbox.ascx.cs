@@ -19,8 +19,11 @@ using System.Net.Mail;
 using CrystalDecisions.CrystalReports.Engine;
 using CrystalDecisions.Shared;
 using System.Globalization;
-using System.Security.Cryptography;
 using ReportsClass;
+using System.Data.Linq;
+using System.Collections.Generic;
+using System.Data.Entity.Core;
+
 
 
 public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
@@ -30,6 +33,13 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
     private string sql_Connection = Database.ConnectionString;
     General_Helping Obj_General_Helping = new General_Helping();
     int id;
+    string v_desc;
+
+    Projects_ManagementEntities10 pmentity = new Projects_ManagementEntities10();
+    Projects_ManagementEntities pmgenentity = new Projects_ManagementEntities();
+    OutboxDataContext outboxDBContext = new OutboxDataContext();
+    Projects_ManagementEntities_Inbox pm_inbox = new Projects_ManagementEntities_Inbox();
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -132,6 +142,10 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
             //fill_sectors(); commented because it is an empty function
             //fil_emp_Visa(); commented because it databind to invisible control
+            if (Session_CS.code_archiving == 1)
+            {
+                txt_Code.Enabled = false;
+            }
             if (Request["id"] != null)
             {
                 String decrypted_id = Encryption.Decrypt(Request.QueryString["id"].ToString());
@@ -165,21 +179,19 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                 //btn_print_report.Enabled = false;
                 /////////////////////////////////////////////////////// to get type of code archiving ///////////////////////////////////
                 //DataTable dt_code_type = Inbox_DB.Selectcode(Session_CS.foundation_id);
-                if (Session_CS.code_archiving == 1)
-                {
-                    txt_Code.Enabled = false;
+               
 
-                    try
-                    {
+                   // try
+                    //{
                         //DataTable getmax = General_Helping.GetDataTable("select isnull(max(convert( int,code)),0)+1  as code    from inbox where foundation_id=" + Session_CS.foundation_id);
-                        DataTable getmax = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_max_code_inbox", Session_CS.foundation_id).Tables[0];
-                        txt_Code.Text = getmax.Rows[0]["code"].ToString();
-                    }
-                    catch
-                    {
-                        txt_Code.Text = "1";
-                    }
-                }
+                       // DataTable getmax = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_max_code_inbox", Session_CS.foundation_id).Tables[0];
+                       // txt_Code.Text = getmax.Rows[0]["code"].ToString();
+                   // }
+                   // catch
+                   // {
+                     //   txt_Code.Text = "1";
+                   // }
+               
 
             }
 
@@ -290,12 +302,20 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
     //}
     private void Fill_main_Category()
     {
-        DataTable dt_main_cat = SqlHelper.ExecuteDataset(Database.ConnectionString, "select_main_cat_by_group", Session_CS.group_id).Tables[0];
-        //DataTable dt_main_cat = General_Helping.GetDataTable(" select * from Inbox_Main_Categories where group_id = " + CDataConverter.ConvertToInt(Session_CS.group_id.ToString()));
+        DataTable dt_main_cat = null ;
+        if (CDataConverter.ConvertToInt(Session_CS.group_id.ToString()) > 0)
+        {
+            //dt_main_cat = SqlHelper.ExecuteDataset(Database.ConnectionString, "select_main_cat_by_group", Session_CS.group_id).Tables[0];
+
+            dt_main_cat = (from main_cat in pm_inbox.inbox_Main_Categories where main_cat.group_id == Session_CS.group_id select main_cat).ToDataTable();
+           
+        }
+
+
         Chk_main_cat.DataSource = dt_main_cat;
-        //ddlMainCat.DataTextField = "Name";
-        //ddlMainCat.DataValueField = "id";
+      
         Chk_main_cat.DataBind();
+ 
 
     }
     private void fill_sub_category()
@@ -352,7 +372,8 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
             txt_Date.Text = obj.Date;
             ddl_Type.SelectedValue = obj.Type.ToString();
             Type_Changed();
-            //if (obj.Dept_ID > 0)
+            if (obj.Dept_ID > 0)
+                Smart_Search_structure.SelectedValue = obj.Dept_ID.ToString();
             //    // ddl_Dept_ID.SelectedValue = obj.Dept_ID.ToString();
             //    //Smart_Search_mang.SelectedValue = obj.Dept_ID.ToString();
             //fil_emp(); commented because it is an empty function
@@ -460,6 +481,17 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
     {
         if ((CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 2 && CDataConverter.ConvertToInt(Smart_Org_ID.SelectedValue) > 0) || CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 1 || CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 3)
         {
+
+            if (Request["id"] == null)
+            {
+               
+                    if (Session_CS.code_outbox == 1)
+                    {
+                      DataTable getmax = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_max_code_inbox", Session_CS.foundation_id).Tables[0];
+                        txt_Code.Text = getmax.Rows[0]["code"].ToString();
+                    }
+                
+            }
             string datenow = "";
             int dept = 0;
             int pmp = 0;
@@ -589,6 +621,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
             obj.foundation_id = CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString());
             obj.ID = Inbox_DB.Save(obj);
 
+            
 
             ////// save the categories for the inbox
             // Dear Motaz please convert all these query to SP and then put all below code in another function
@@ -650,9 +683,6 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                 }
 
 
-
-
-
             }
 
             else
@@ -712,8 +742,10 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
     {
         Smart_Emp_ID.sql_Connection = sql_Connection;
         
-       // DataTable dtt = General_Helping.GetDataTable("SELECT     EMPLOYEE.PMP_ID, EMPLOYEE.pmp_name, Departments.sec_sec_id FROM    EMPLOYEE INNER JOIN     Departments ON EMPLOYEE.Dept_Dept_id = Departments.Dept_ID  where Departments.Dept_ID = '" + Smart_Search_structure.SelectedValue + "'");
-        DataTable dtt = SqlHelper.ExecuteDataset(Database.ConnectionString, "fill_employee2", CDataConverter.ConvertToInt(Smart_Search_structure.SelectedValue)).Tables[0];
+      //  DataTable dtt = SqlHelper.ExecuteDataset(Database.ConnectionString, "fill_employee2", CDataConverter.ConvertToInt(Smart_Search_structure.SelectedValue)).Tables[0];
+
+        DataTable dtt = outboxDBContext.fill_employee2(CDataConverter.ConvertToInt(Smart_Search_structure.SelectedValue)).ToDataTable();
+
         Smart_Emp_ID.datatble = dtt;
         Smart_Emp_ID.Value_Field = "PMP_ID";
         Smart_Emp_ID.Text_Field = "pmp_name";
@@ -721,11 +753,6 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
         Smart_Emp_ID.DataBind();
 
 
-
-
-
-        //Lbl_count.Text = Smart_Emp_ID.Items_Count.ToString();
-        //Lbl_count.Visible = true;
         Label39.Visible = true;
 
 
@@ -751,8 +778,12 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
         int found_id = CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString());
         string Query = "";
         Smart_Org_ID.sql_Connection = sql_Connection;
-        //Query = "SELECT Org_ID, Org_Desc FROM Organization where foundation_id = " + found_id;
-        DataTable DT = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_org_by_found", Session_CS.foundation_id).Tables[0];
+   
+       // DataTable DT = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_org_by_found", Session_CS.foundation_id).Tables[0];
+
+        DataTable DT = outboxDBContext.get_org_by_found(Session_CS.foundation_id).ToDataTable();
+
+
         Smart_Org_ID.datatble = DT;
         Smart_Org_ID.Value_Field = "Org_ID";
         Smart_Org_ID.Text_Field = "Org_Desc";
@@ -763,7 +794,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
         Smart_Emp_ID.sql_Connection = sql_Connection;
         // Smart_Emp_ID.Query = "SELECT PMP_ID, pmp_name FROM EMPLOYEE ";
-        Query = "SELECT PMP_ID, pmp_name FROM EMPLOYEE ";
+        Query = "SELECT PMP_ID, pmp_name FROM EMPLOYEE where foundation_id='"+CDataConverter.ConvertToInt(Session_CS.foundation_id )+"' ";
         Smart_Emp_ID.datatble = General_Helping.GetDataTable(Query);
         Smart_Emp_ID.Value_Field = "PMP_ID";
         Smart_Emp_ID.Text_Field = "pmp_name";
@@ -778,9 +809,14 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
          if (InsideMCIT == "1")
          {
              tr_smart_proj.Visible = true;
-             DataTable DT_proj = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_all_projects").Tables[0];
-             //  Smart_Search_Proj.Query = "SELECT Proj_id, Proj_Title FROM Project ";
-            // Query = "SELECT Proj_id, Proj_Title FROM Project ";
+
+          //   DataTable DT_proj = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_all_projects").Tables[0];
+
+          DataTable    DT_proj = pmgenentity.get_all_projects().ToDataTable();
+
+
+
+
              Smart_Search_Proj.datatble = DT_proj;
              Smart_Search_Proj.Value_Field = "Proj_id";
              Smart_Search_Proj.Text_Field = "Proj_Title";
@@ -919,9 +955,9 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
     protected void fill_structure()
     {
 
-        //string Query = "";
-        DataTable DT_dept = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_dept_by_found", Session_CS.foundation_id).Tables[0];
-        //Query = "SELECT  * from    Departments  where foundation_id='" + Session_CS.foundation_id + "'";
+       // DataTable DT_dept = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_dept_by_found", Session_CS.foundation_id).Tables[0];
+
+        DataTable DT_dept = outboxDBContext.get_dept_by_found(Session_CS.foundation_id).ToDataTable() ;
 
         Smart_Search_structure.datatble = DT_dept;
         Smart_Search_structure.Value_Field = "Dept_id";
@@ -945,7 +981,8 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
     {
         if (ddl_Type.SelectedValue == "1")
         {
-            tr_Inbox_out.Visible = false;
+          //  tr_Inbox_out.Visible = false;
+            tr_Inbox_out.Style.Add("display", "none");
             //tr_Inbox_In.Visible = true;
             tr_Inbox_In.Style.Add("display", "block");
         }
@@ -953,7 +990,9 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
         {
             tr_Inbox_In.Style.Add("display", "none");
             //tr_Inbox_In.Visible = false;
-            tr_Inbox_out.Visible = true;
+
+           // tr_Inbox_out.Visible = true;
+            tr_Inbox_out.Style.Add("display", "block");
         }
 
 
@@ -1120,28 +1159,35 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
     {
         if (ddl_Related_Type.SelectedValue == "1")
         {
-            trSmart.Visible = false;
+            trSmart.Style.Add("display", "none");
+            //trSmart.Visible = false;
         }
         else if (ddl_Related_Type.SelectedValue == "2")
         {
 
-            trSmart.Visible = true;
+            //trSmart.Visible = true;
+            trSmart.Style.Add("display", "block");
             lbl_Inbox_type.Text = "رد على الصادر رقم";
             Fil_Smrt_From_OutBox();
         }
         else if (ddl_Related_Type.SelectedValue == "3")
         {
 
-            trSmart.Visible = true;
+            trSmart.Style.Add("display", "block");
+           // trSmart.Visible = true;
             lbl_Inbox_type.Text = " استعجال الوارد للوارد رقم";
             Fil_Smrt_From_InBox();
         }
         else if (ddl_Related_Type.SelectedValue == "4")
         {
-
-            trSmart.Visible = true;
+            trSmart.Style.Add("display", "block");
+            //trSmart.Visible = true;
             lbl_Inbox_type.Text = " استكمال الوارد للوارد رقم";
             Fil_Smrt_From_InBox();
+        }
+        else if (ddl_Related_Type.SelectedValue == "5")
+        {
+            trSmart.Style.Add("display", "none");
         }
         TabPanel_All.ActiveTab = TabPanel_dtl;
     }
@@ -1157,15 +1203,20 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
         //}
         //Query += " order by CONVERT(datetime, dbo.datevalid(Date)) desc";
         //DataTable dt = General_Helping.GetDataTable(Query);
-        DataTable dt = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_related_outbox_inbox_page", Session_CS.group_id,Session_CS.Project_id).Tables[0];
+          DataTable dt = null;
+          if (CDataConverter.ConvertToInt(Session_CS.group_id.ToString()) != 0)
+          {
 
-        Smart_Related_Id.datatble = dt;
-        Smart_Related_Id.Value_Field = "id";
-        Smart_Related_Id.Text_Field = "con";
-        Smart_Related_Id.Show_Code = false;
-        dt.DefaultView.Sort = "date1 desc";
-        Smart_Related_Id.Orderby = "date1 desc";
-        Smart_Related_Id.DataBind();
+              dt = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_related_outbox_inbox_page", Session_CS.group_id, Session_CS.Project_id).Tables[0];
+
+              Smart_Related_Id.datatble = dt;
+              Smart_Related_Id.Value_Field = "id";
+              Smart_Related_Id.Text_Field = "con";
+              Smart_Related_Id.Show_Code = false;
+              dt.DefaultView.Sort = "date1 desc";
+              Smart_Related_Id.Orderby = "date1 desc";
+              Smart_Related_Id.DataBind();
+          }
     }
 
     void Fil_Smrt_From_InBox()
@@ -1179,14 +1230,18 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
         //}
         //Query += " order by CONVERT(datetime, dbo.datevalid(Date)) desc ";
         //DataTable dt = General_Helping.GetDataTable(Query);
-        DataTable dt = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_related_inbox_inbox_page", Session_CS.group_id, Session_CS.Project_id).Tables[0];
-        Smart_Related_Id.datatble = dt;
-        Smart_Related_Id.Value_Field = "id";
-        Smart_Related_Id.Text_Field = "con";
-        dt.DefaultView.Sort = "date1 desc";
-        Smart_Related_Id.Show_Code = false;
-        Smart_Related_Id.Orderby = "date1 desc";
-        Smart_Related_Id.DataBind();
+          DataTable dt = null;
+          if (CDataConverter.ConvertToInt(Session_CS.group_id.ToString()) != 0)
+          {
+               dt = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_related_inbox_inbox_page", Session_CS.group_id, Session_CS.Project_id).Tables[0];
+              Smart_Related_Id.datatble = dt;
+              Smart_Related_Id.Value_Field = "id";
+              Smart_Related_Id.Text_Field = "con";
+              dt.DefaultView.Sort = "date1 desc";
+              Smart_Related_Id.Show_Code = false;
+              Smart_Related_Id.Orderby = "date1 desc";
+              Smart_Related_Id.DataBind();
+          }
     }
 
     protected void btn_Doc_Click(object sender, EventArgs e)
@@ -1207,6 +1262,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
             if (FileUpload1.HasFile)
             {
                 string DocName = FileUpload1.FileName;
+                string Doc_Name = System.IO.Path.GetFileNameWithoutExtension(FileUpload1.FileName);
                 int dotindex = DocName.LastIndexOf(".");
                 string type = DocName.Substring(dotindex, DocName.Length - dotindex);
 
@@ -1217,6 +1273,11 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                 Byte[] Input = new Byte[fileLen];
                 myStream = FileUpload1.FileContent;
                 myStream.Read(Input, 0, fileLen);
+
+             Stream fss=   FileUpload1.PostedFile.InputStream;
+             BinaryReader br = new BinaryReader(fss);
+             byte[] bytes = br.ReadBytes((Int32)fss.Length);
+
                 cmd.Parameters.Add("@File_data", SqlDbType.VarBinary);
                 cmd.Parameters.Add("@Inbox_OutBox_File_ID", SqlDbType.Int);
                 cmd.Parameters.Add("@Inbox_Outbox_ID", SqlDbType.Int);
@@ -1228,7 +1289,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                 cmd.Parameters["@Inbox_OutBox_File_ID"].Value = CDataConverter.ConvertToInt(hidden_Inbox_OutBox_File_ID.Value);
                 cmd.Parameters["@Original_Or_Attached"].Value = CDataConverter.ConvertToInt(ddl_Original_Or_Attached.SelectedValue);
                 cmd.Parameters["@File_ext"].Value = type;
-                cmd.Parameters["@File_name"].Value = txtFileName.Text;
+                cmd.Parameters["@File_name"].Value = txtFileName.Text; 
                 cmd.Parameters["@Inbox_Or_Outbox"].Value = 1;
                 cmd.CommandType = CommandType.Text;
                 if (CDataConverter.ConvertToInt(hidden_Inbox_OutBox_File_ID.Value) > 0)
@@ -1239,7 +1300,8 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                     if (string.IsNullOrEmpty(Session_CS.local_connectionstring))
                     {
                         cmd.Connection = con;
-                        cmd.Parameters["@File_data"].Value = Input;
+                        cmd.Parameters["@File_data"].Value = bytes;
+                        cmd.Parameters["@Inbox_Outbox_ID"].Value = CDataConverter.ConvertToInt(hidden_Id.Value);
                         con.Open();
                         cmd.ExecuteScalar();
                         con.Close();
@@ -1248,13 +1310,15 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                     {
                         cmd.Connection = con;
                         cmd.Parameters["@File_data"].Value = DBNull.Value;
+                        cmd.Parameters["@Inbox_Outbox_ID"].Value = CDataConverter.ConvertToInt(hidden_Id.Value);
                         con.Open();
                         cmd.ExecuteScalar();
                         con.Close();
                         try
                         {
                             cmd.Connection = con_local;
-                            cmd.Parameters["@File_data"].Value = Input;
+                            cmd.Parameters["@File_data"].Value = bytes;
+                            cmd.Parameters["@Inbox_Outbox_ID"].Value = CDataConverter.ConvertToInt(hidden_Id.Value);
 
                             con_local.Open();
                             cmd.ExecuteScalar();
@@ -1430,7 +1494,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
                 //DateTime visalastdate = DateTime.ParseExact(txt_Dead_Line_DT.Text, "dd/MM/yyyy", null);
                 DateTime visalastdate = CDataConverter.ConvertToDate(txt_Dead_Line_DT.Text);
-                if (visalastdate > visainitial)
+                if (visalastdate >= visainitial)
                 {
                     Inbox_Visa_DT obj = new Inbox_Visa_DT();
                     obj.Visa_Id = CDataConverter.ConvertToInt(hidden_Visa_Id.Value);
@@ -1470,7 +1534,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                         string DocName = FileUpload_Visa.FileName;
                         int dotindex = DocName.LastIndexOf(".");
                         string type = DocName.Substring(dotindex, DocName.Length - dotindex);
-
+                        string Doc_Name = System.IO.Path.GetFileNameWithoutExtension(FileUpload_Visa.FileName);
                         Stream myStream;
                         int fileLen;
                         StringBuilder displayString = new StringBuilder();
@@ -1491,7 +1555,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                         cmd.Parameters.Add("@visa_ID", SqlDbType.BigInt);
 
                         //cmd.Parameters["@File_data"].Value = Input;
-                        cmd.Parameters["@File_name"].Value = DocName;
+                        cmd.Parameters["@File_name"].Value = Doc_Name ;
                         cmd.Parameters["@File_ext"].Value = type;
                         cmd.Parameters["@visa_ID"].Value = obj.Visa_Id;
                         cmd.CommandType = CommandType.Text;
@@ -1604,23 +1668,8 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('لا يوجد أسماء في القائمة اليسري');", true);
 
             }
-            Inbox_Visa_Follows_DT obj_follow = Inbox_Visa_Follows_DB.SelectByID(CDataConverter.ConvertToInt(hidden_Follow_ID.Value));
-            obj_follow.Follow_ID = CDataConverter.ConvertToInt(hidden_Follow_ID.Value);
-            obj_follow.Inbox_ID = CDataConverter.ConvertToInt(hidden_Id.Value);
-            obj_follow.Descrption = txt_Visa_Desc.Text;
-
-            //string datenow = DateTime.Now.ToShortDateString().ToString();
-            string datenow = CDataConverter.ConvertDateTimeToFormatdmy(CDataConverter.ConvertDateTimeNowRtnDt());
-
-            string date = txt_Visa_date.Text;
-
-            obj_follow.Date = date;
-            obj_follow.Entery_Date = datenow;
-            obj_follow.time_follow = CDataConverter.ConvertDateTimeNowRtnDt().ToLocalTime().ToLongTimeString();
-            obj_follow.entery_pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
-            obj_follow.Visa_Emp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
-            obj_follow.Follow_ID = Inbox_Visa_Follows_DB.Save(obj_follow);
-
+        
+            
 
 
 
@@ -1635,6 +1684,26 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
 
 
+    }
+
+    public void insert_Visa_Follows()
+    {
+        Inbox_Visa_Follows_DT obj_follow = Inbox_Visa_Follows_DB.SelectByID(CDataConverter.ConvertToInt(hidden_Follow_ID.Value));
+        obj_follow.Follow_ID = CDataConverter.ConvertToInt(hidden_Follow_ID.Value);
+        obj_follow.Inbox_ID = CDataConverter.ConvertToInt(hidden_Id.Value);
+        obj_follow.Descrption = txt_Visa_Desc.Text;
+
+        //string datenow = DateTime.Now.ToShortDateString().ToString();
+        string datenow = CDataConverter.ConvertDateTimeToFormatdmy(CDataConverter.ConvertDateTimeNowRtnDt());
+
+        string date = txt_Visa_date.Text;
+
+        obj_follow.Date = date;
+        obj_follow.Entery_Date = datenow;
+        obj_follow.time_follow = CDataConverter.ConvertTimeNowRtnLongTimeFormat();
+        obj_follow.entery_pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
+        obj_follow.Visa_Emp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
+        obj_follow.Follow_ID = Inbox_Visa_Follows_DB.Save(obj_follow);
     }
     public void fill_listbox()
     {
@@ -2106,6 +2175,10 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
             }
             //Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('لقد تم ارسال الايميل للسيد المدير المختص بنجاح')</script>");
+
+          
+
+
         }
 
 
@@ -2323,26 +2396,67 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                     //Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('لم يتم ارسال الايميل بنجاح' )</script>");
 
                 }
+
+                
             }
             string message = Show_Alert(Succ_names, Failed_name, e.CommandArgument.ToString());
             if (!string.IsNullOrEmpty(message))
             {
                 Fil_Grid_Visa();
+
+
+                //foreach (GridViewRow row in GridView_Visa.Rows)
+                //{
+                //    if (row.RowIndex != null && e.CommandArgument !="")
+                //    {
+                //        ImageButton img = (ImageButton)row.FindControl("ImgBtnEdit");
+                //        ImageButton img2 = (ImageButton)row.FindControl("ImgBtnDelete");
+                //        img.Enabled = false;
+                //        img2.Enabled = false;
+
+                //        var lbl = row.FindControl("lbl_desc") as Label;
+                //        v_desc = lbl.Text;
+                       
+                //    }
+
+                //}
+                
+
+
                 ///////////////  to store that mohammed eid send visa to employee
                 Inbox_Visa_Follows_DT obj_follow = Inbox_Visa_Follows_DB.SelectByID(CDataConverter.ConvertToInt(hidden_Follow_ID.Value));
                 obj_follow.Follow_ID = CDataConverter.ConvertToInt(hidden_Follow_ID.Value);
                 obj_follow.Inbox_ID = CDataConverter.ConvertToInt(hidden_Id.Value);
 
-                obj_follow.Descrption = message + " بواسطة النظام -- ";
+                GridViewRow row = (GridViewRow)((ImageButton)e.CommandSource).NamingContainer;
+                int xx = row.RowIndex;
+
+                   if (row != null)
+                    {
+                       v_desc=  GridView_Visa.Rows[xx].Cells[3].Text;
+
+                       Label download = (Label)row.FindControl("lbl_desc");
+
+                       v_desc = download.Text;
+
+                    
+                    }
+
+                obj_follow.Descrption = message + " ونص التأشيرة:   " + v_desc ;
+
                 //string date = DateTime.Now.ToShortDateString().ToString();
                 string date = CDataConverter.ConvertDateTimeToFormatdmy(CDataConverter.ConvertDateTimeNowRtnDt());
                 obj_follow.Date = date;
                 obj_follow.Entery_Date = date;
-                obj_follow.time_follow = CDataConverter.ConvertDateTimeNowRtnDt().ToLocalTime().ToLongTimeString();
+                obj_follow.time_follow = CDataConverter.ConvertTimeNowRtnLongTimeFormat();
+               
                 obj_follow.entery_pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
 
                 obj_follow.Visa_Emp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
                 obj_follow.Follow_ID = Inbox_Visa_Follows_DB.Save(obj_follow);
+
+
+
 
                 Fil_Grid_Visa_Follow();
 
@@ -2360,10 +2474,18 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                 //}
                // Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('" + message + "')</script>");
 
+                GridView_Visa.Rows[xx].Cells[8].Visible = false;
+                GridView_Visa.Rows[xx].Cells[9].Visible = false;
+                GridView_Visa.Rows[xx].Cells[10].Visible = false;
+
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('"+message+"');", true);
 
             }
             //Page.RegisterStartupScript("Sucess", "<script language=javascript>alert(' لقد تم ارسال الايميل بنجاح إلي " +allnames+"')</script>");
+            
+       
+
+
         }
 
 
@@ -2395,7 +2517,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
         if (!string.IsNullOrEmpty(Succ_names))
         {
             flag = 1;
-            message += " لقد تم ارسال الايميل بنجاح إلي " + Succ_names;
+            message += " لقد تم ارسال الايميل  بواسطة النظام بنجاح إلي " + Succ_names;
         }
         if (!string.IsNullOrEmpty(Failed_name))
         {
@@ -2451,13 +2573,19 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
     }
     private void Fil_chk_main_category(int ID)
     {
-        //string Sql_main_cat = "select * from inbox_cat where inbox_id =" + ID + " and Type =1 and inbox_type = 1";
-        //DataTable DT_main_cat = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_main_cat_by_inbox_id", id).Tables[0];
-        //DataTable DT_main_cat = General_Helping.GetDataTable(Sql_main_cat);
-        //DataTable dt_sub_cat = General_Helping.GetDataTable("select * from inbox_cat where inbox_id = " + ID + " and Type=2 and inbox_type = 1 ");
-        //DataTable dt_sub_cat = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_sub_cat_by_inbox_id", id).Tables[0];
+ 
+
         DataTable dt_all = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_all_cat_sub_main", id).Tables[0];
-        DataTable dt_all_subs = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_all_subs", id).Tables[0];
+
+      //  DataTable dt_all = pm_inbox.get_all_cat_sub_main(id).ToDataTable();
+
+
+      DataTable dt_all_subs = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_all_subs", id).Tables[0];
+
+     //   DataTable dt_all_subs = pm_inbox.get_all_subs(id).ToDataTable();
+
+       
+
         Chk_sub_cat.DataSource = dt_all_subs;
         Chk_sub_cat.DataBind();
         foreach (DataRow dr in dt_all.Rows)
@@ -2584,10 +2712,31 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
     {
         DataTable DT = new DataTable();
         DT = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_inbox_visa", hidden_Id.Value).Tables[0];
-        //DT = General_Helping.GetDataTable("select * from Inbox_Visa where Inbox_ID=" + hidden_Id.Value);
+
+       // int empid = CDataConverter.ConvertToInt(DT.Rows[0]["Emp_ID"].ToString()); 
 
         GridView_Visa.DataSource = DT;
         GridView_Visa.DataBind();
+
+            foreach (GridViewRow row in GridView_Visa.Rows)
+            {
+                CheckBox chk = (CheckBox)row.FindControl("chkSent");
+                Label lbl_emp = (Label)row.FindControl("lbl_emp");
+
+                if (chk.Checked == true || lbl_emp.Text  != Session_CS.pmp_id.ToString())
+                {
+                    ImageButton img = (ImageButton)row.FindControl("ImgBtnEdit");
+                    ImageButton img2 = (ImageButton)row.FindControl("ImgBtnDelete");
+                    ImageButton img3 = (ImageButton)row.FindControl("ImgBtnEdit123");
+                    img.Visible = false;
+                    img2.Visible = false;
+                    img3.Visible = false;
+                //img.Visible = false;
+                //img2.Visible = false;
+
+               }
+
+          }
 
     }
 
@@ -2650,7 +2799,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                 string date = CDataConverter.ConvertDateTimeToFormatdmy(CDataConverter.ConvertDateTimeNowRtnDt());
                 obj_follow.Date = date;
                 obj_follow.Entery_Date = date;
-                obj_follow.time_follow = CDataConverter.ConvertDateTimeNowRtnDt().ToLocalTime().ToLongTimeString();
+                obj_follow.time_follow = CDataConverter.ConvertTimeNowRtnLongTimeFormat(); 
                 obj_follow.entery_pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
                 obj_follow.Visa_Emp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
                 obj_follow.Follow_ID = Inbox_Visa_Follows_DB.Save(obj_follow);
@@ -2909,7 +3058,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
             // string date = DateTime.Now.ToShortDateString().ToString();
             string date = CDataConverter.ConvertDateTimeToFormatdmy(CDataConverter.ConvertDateTimeNowRtnDt());
             obj_follow.Date = date;
-            obj_follow.time_follow = CDataConverter.ConvertDateTimeNowRtnDt().ToLocalTime().ToLongTimeString();
+            obj_follow.time_follow = CDataConverter.ConvertTimeNowRtnLongTimeFormat();
             obj_follow.entery_pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
 
             obj_follow.Visa_Emp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
@@ -2920,6 +3069,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
             Update_Have_Visa(Id);
 
             Fil_Grid_Visa_Follow();
+
 
 
 
@@ -2940,8 +3090,10 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
     {
 
         chklst_Visa_Emp_All.Items.Clear();
-        lst_emp.Items.Clear();
-        //chklst_Visa_Emp_All.DataBind();
+
+        //lst_emp.Items.Clear();
+  
+
 
 
         if (radlst_Type.SelectedValue != "7")
@@ -2970,6 +3122,8 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                 chklst_Visa_Emp_All.DataSource = DT_emp;
                 chklst_Visa_Emp_All.DataBind();
             }
+
+
         }
         TabPanel_All.ActiveTab = TabPanel_Visa;
         //DataTable dt_emp_fav = General_Helping.GetDataTable(sql_emp);
@@ -2985,9 +3139,12 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
         {
             if (item.Selected)
             {
-                //dt = General_Helping.GetDataTable(" select * from Inbox_sub_categories where main_id = " + item.Value);
+           
 
-                dt = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_sub_cat_by_main_cat", item.Value).Tables[0];
+                //dt = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_sub_cat_by_main_cat", item.Value).Tables[0];
+
+                dt = pm_inbox.get_sub_cat_by_main_cat(CDataConverter.ConvertToInt( item.Value)).ToDataTable();
+
 
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {

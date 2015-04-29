@@ -193,6 +193,7 @@ public partial class WebForms2_Department_manage : System.Web.UI.Page
 
     protected void btn_New_Delete_Click(object sender, EventArgs e)
     {
+
         if (CDataConverter.ConvertToInt(txtCurrentNode.Text) <= 0)
             Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('يجب إختيار عنصر الحذف من الشجرة أولا')</script>");
 
@@ -211,7 +212,7 @@ public partial class WebForms2_Department_manage : System.Web.UI.Page
                 }
                 else
                 {
-                   // Departments_DB.Delete(CDataConverter.ConvertToInt(txtCurrentNode.Text));
+                    Departments_DB.Delete(CDataConverter.ConvertToInt(txtCurrentNode.Text));
 
                     Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('لقد تم الحذف بنجاح')</script>");
                 }

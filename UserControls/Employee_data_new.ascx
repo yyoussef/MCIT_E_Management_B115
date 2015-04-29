@@ -7,7 +7,29 @@
     {
         width: 100%;
     }
+    
+.divWaiting{
+   
+position: absolute;
+background-color: #FAFAFA;
+z-index: 2147483647 !important;
+opacity: 0.8;
+overflow: hidden;
+text-align: center; top: 0; left: 0;
+height: 100%;
+width: 100%;
+padding-top:20%;
+}
 </style>
+
+    <asp:UpdateProgress ID="UpdateProgress1" runat="server" DisplayAfter="30" AssociatedUpdatePanelID="panl">
+                    <ProgressTemplate>
+                      <div class="divWaiting">            
+	
+	                     <asp:Image ID="imgWait" runat="server" ImageAlign="Middle" ImageUrl="~/Images/icon-loading.gif"/>
+                    </div>
+                    </ProgressTemplate>
+     </asp:UpdateProgress>
 <asp:UpdatePanel ID="panl" runat="server">
     <ContentTemplate>
         <table dir="rtl" style="line-height: 2; width: 99%;">
@@ -40,7 +62,7 @@
                                                 Visible="false" ForeColor="Red" Font-Bold="true"></asp:Label>
                                         </td>
                                     </tr>
-                                 <%--   <tr>
+                                    <tr>
                                         <td>
                                         </td>
                                         <td>
@@ -49,7 +71,7 @@
                                             <asp:Label ID="Label41" runat="server" CssClass="Label" Visible="false" Text=" إجمالي عدد الموظفين :"></asp:Label>
                                             <asp:Label ID="lbl_total_emp" runat="server" CssClass="Label" Visible="false"></asp:Label>
                                         </td>
-                                    </tr>--%>
+                                    </tr>
                                     <tr>
                                       <td>
                                             <asp:Label ID="Label6" runat="server" Text="   الإدارة :" CssClass="Label" Font-Underline="False"></asp:Label>
@@ -57,10 +79,10 @@
                                      <td>
                                           <uc1:Smart_Search ID="Smrt_Srch_structure" runat="server"  />
                                     </td>
-                                 <%--   <td>  
+                                    <td>  
                                      <asp:Label ID="Label39" runat="server" CssClass="Label" Visible="false" Text="  إجمالي عدد الموظفين بالإدارة :"></asp:Label>
                                             <asp:Label ID="Lbl_count" runat="server" CssClass="Label" Visible="false"></asp:Label>
-                                            </td>--%>
+                                            </td>
                                     </tr>
                                     <tr>
                                        <%-- <td>
@@ -141,11 +163,13 @@
                                             </cc1:CalendarExtender>
                                             <asp:ImageButton runat="server" AlternateText="اضغط لعرض النتيجة" ImageUrl="~/images/Calendar_scheduleHS.png"
                                                 Height="23px" ToolTip="تقويم" Width="23px" ID="ImageButton2"></asp:ImageButton>
-                                            <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" ControlToValidate="txt_rec_DT"
-                                                ErrorMessage="أدخل التاريخ بطريقة صحيحة" 
-                                ValidationExpression="^(([0-2]\d|[3][0-1])\/([0]\d|[1][0-2])\/[2][0]\d{2})$|^(([0-2]\d|[3][0-1])\/([0]\d|[1][0-2])\/[2][0]\d{2}\s([0-1]\d|[2][0-3])\:[0-5]\d\:[0-5]\d)$"
+                                         
 
-                                                ValidationGroup="A"></asp:RegularExpressionValidator>
+
+                                               <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" ControlToValidate="txt_rec_DT"
+                                                ValidationExpression="^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$"
+                                                ValidationGroup="A" ErrorMessage=" برجاء إدخال صيغة التاريخ بطريقة صحيحة " ></asp:RegularExpressionValidator>
+
                                         </td>
                                     </tr>
                                     <tr>
@@ -176,6 +200,11 @@
                                               
                                               
                                               </asp:RequiredFieldValidator>
+                                                <asp:RegularExpressionValidator ID="RegularExpressionValidator7" runat="server" ControlToValidate="txt_username"
+                                                ErrorMessage="أدخل حروف إنجليزية فقط" 
+                                                
+                                                ValidationExpression="[A-Za-z.-_0123456789]*"
+                                                ValidationGroup="A"></asp:RegularExpressionValidator>
                                        
                                         </td>
                                     </tr>

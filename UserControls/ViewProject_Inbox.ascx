@@ -454,26 +454,13 @@
                                 </tr>--%>
                                         <tr>
                                             <td>
-                                                <asp:Label ID="Label30" runat="server" CssClass="Label" Text="الإدارة التابع لها :" />
+                                                <asp:Label ID="Label30" runat="server" CssClass="Label" Text="الإدارة :" />
                                             </td>
                                             <td colspan="3">
                                                 <uc1:Smart_Search ID="Smart_Search_dept" runat="server" />
                                             </td>
                                         </tr>
-                                        <tr>
-                                            <td align="right" dir="rtl">
-                                                <asp:Label ID="Label29" runat="server" CssClass="Label" Text="درجة الأهمية: " Width="100px" />
-                                            </td>
-                                            <td colspan="3">
-                                                <br />
-                                                <asp:DropDownList ID="ddl_Important_Degree" runat="server" CssClass="drop" Width="150px">
-                                                    <asp:ListItem Text="هام" Value="1" Selected="True"> </asp:ListItem>
-                                                    <asp:ListItem Text="عاجل" Value="2"> </asp:ListItem>
-                                                    <asp:ListItem Text="عادى" Value="3"> </asp:ListItem>
-                                                </asp:DropDownList>
-                                                <asp:Label ID="txt_Important_Degree_Txt" runat="server" CssClass="Label" Width="293px"></asp:Label>
-                                            </td>
-                                        </tr>
+                                     
                                         <tr>
                                             <td>
                                                 <asp:Label ID="Label46" runat="server" CssClass="Label" Text="النوع :" />
@@ -530,7 +517,20 @@
                                             </td>
                                         </tr>
                                       
-                                      
+                                         <tr>
+                                            <td align="right" dir="rtl">
+                                                <asp:Label ID="Label29" runat="server" CssClass="Label" Text="درجة الأهمية: " Width="100px" />
+                                            </td>
+                                            <td colspan="3">
+                                                <br />
+                                                <asp:DropDownList ID="ddl_Important_Degree" runat="server" CssClass="drop" Width="150px">
+                                                    <asp:ListItem Text="هام" Value="1" Selected="True"> </asp:ListItem>
+                                                    <asp:ListItem Text="عاجل" Value="2"> </asp:ListItem>
+                                                    <asp:ListItem Text="عادى" Value="3"> </asp:ListItem>
+                                                </asp:DropDownList>
+                                                <asp:Label ID="txt_Important_Degree_Txt" runat="server" CssClass="Label" Width="293px"></asp:Label>
+                                            </td>
+                                        </tr>
                                         <tr>
                                             <td align="right" width="150px">
                                                 <asp:Label ID="Label15" runat="server" CssClass="Label" Text="تاريخ التاشيرة :" Width="135px" />
@@ -649,6 +649,10 @@
                                             <asp:TemplateField HeaderText="المسئول عن التنفيذ">
                                                 <ItemTemplate>
                                                     <%# Get_Visa_Emp(Eval("Visa_Id"))%>
+
+                                                 <asp:Label ID="lbl_emp" runat="server" Text='<%# Eval("Emp_ID")%>' Visible ="false" ></asp:Label>
+                                                  <asp:Label ID="lbl_desc" runat="server" Text='<%# Eval("Visa_Desc")%>' Visible ="false" ></asp:Label>
+
                                                 </ItemTemplate>
                                             </asp:TemplateField>
                                             <asp:TemplateField HeaderText="موقف المتابعة">
@@ -673,12 +677,12 @@
                                                         CommandArgument='<%# Eval("Visa_Id") %>' />
                                                 </ItemTemplate>
                                             </asp:TemplateField>
-                                            <%--  <asp:TemplateField HeaderText="حذف" ItemStyle-Width="20px">
+                                        <asp:TemplateField HeaderText="حذف" ItemStyle-Width="20px">
                                         <ItemTemplate>
                                             <asp:ImageButton ID="ImgBtnDelete" CommandName="RemoveItem" runat="server" ImageUrl="../Images/delete.gif"
                                                 Style="height: 22px" CommandArgument='<%# Eval("Visa_Id") %>' />
                                         </ItemTemplate>
-                                    </asp:TemplateField>--%>
+                                    </asp:TemplateField>
                                         </Columns>
                                         <PagerStyle CssClass="pgr" />
                                         <AlternatingRowStyle CssClass="alt" />
@@ -912,7 +916,7 @@
     </ContentTemplate>
     <Triggers>
       
-        <asp:PostBackTrigger ControlID="btn_Visa_Follow$btn_print_report" />
+<asp:PostBackTrigger ControlID="btn_Visa_Follow$btn_print_report" />
 
 <asp:PostBackTrigger ControlID="btn_add"></asp:PostBackTrigger>
 <asp:PostBackTrigger ControlID="btn_delete"></asp:PostBackTrigger>

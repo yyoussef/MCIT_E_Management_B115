@@ -18,6 +18,16 @@
         <td align="center" colspan="3" class="style1">
         </td>
     </tr>
+      <tr>
+            <td >
+                <asp:Label ID="Label8" runat="server"  Text="اسم المجموعة" CssClass="Label"></asp:Label>
+            </td>
+            <td>
+                <asp:DropDownList ID="ddl_Groups" runat="server" CssClass="ddl" Width="279px" AutoPostBack="True" onselectedindexchanged="ddl_Groups_SelectedIndexChanged">
+                </asp:DropDownList>
+            </td>
+        </tr>
+
     <tr>
         <td align="right" dir="rtl" style="width: 142px; height: 35px;">
             <asp:Label ID="Label112" runat="server" Text="التصنيف الرئيسي:" CssClass="Label"></asp:Label>

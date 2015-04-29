@@ -7,5 +7,5 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="Masterhead" runat="Server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <uc1:ALL_Document_Details ID="ALL_Document_Details1" runat="server" />
+
 </asp:Content>

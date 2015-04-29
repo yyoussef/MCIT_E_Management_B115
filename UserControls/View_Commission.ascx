@@ -512,6 +512,9 @@
                                     <asp:TemplateField HeaderText="المسئول عن التنفيذ">
                                         <ItemTemplate>
                                             <%# Get_Visa_Emp(Eval("Visa_Id"))%>
+                                            
+                                                 <asp:Label ID="lbl_emp" runat="server" Text='<%# Eval("Emp_ID")%>' Visible ="false" ></asp:Label>
+                                                  <asp:Label ID="lbl_desc" runat="server" Text='<%# Eval("Visa_Desc")%>' Visible ="false" ></asp:Label>
                                         </ItemTemplate>
                                     </asp:TemplateField>
                                     <asp:TemplateField HeaderText="موقف المتابعة">
@@ -639,7 +642,7 @@
                             <asp:Label ID="Label40" runat="server" CssClass="Label" Text="الوثيقة:" Width="135px" />
                         </td>
                         <td dir="rtl" colspan="4">
-                            <asp:FileUpload ID="FileUpload_Visa_Follow" runat="server" onchange="Get_Value()"
+                            <asp:FileUpload ID="FileUpload_Visa_Follow" runat="server" 
                                 ForeColor="Maroon" Width="700px" />
                             <br />
                         </td>

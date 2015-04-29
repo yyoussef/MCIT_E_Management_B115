@@ -22,17 +22,28 @@ public partial class UserControls_Employee_data : System.Web.UI.UserControl
     private string sql_Connection = Database.ConnectionString;
     General_Helping Obj_General_Helping = new General_Helping();
     string InsideMCIT = System.Configuration.ConfigurationManager.AppSettings["InsideMCIT"].ToString();
-    //Session_CS Session_CS = new Session_CS(); 
     protected void Page_Load(object sender, EventArgs e)
     {
+
+
 
         if (!IsPostBack)
         {
             Smrt_Srch_structure.Show_OrgTree = true;
-
+            // fillddl();
             fill_job_category();
 
+            // fill_emplyees();
+
             Smart_Search_emp.Show_Code = false;
+
+
+
+
+            //  DataTable dt = General_Helping.GetDataTable("select count(*) as 'total' from EMPLOYEE where EMPLOYEE.workstatus!=4 and foundation_id ="+Session_CS.foundation_id);
+            // lbl_total_emp.Text = dt.Rows[0]["total"].ToString();
+            //   lbl_total_emp.Visible = true;
+            // Label41.Visible = true;
 
             if (Request.QueryString["pmp_id"] != null && Request["dept_id"] != null)
             {
@@ -52,7 +63,6 @@ public partial class UserControls_Employee_data : System.Web.UI.UserControl
             TabPanel2.Enabled = true;
             TabPanel3.Enabled = true;
             TabPanel4.Enabled = true;
-           
 
         }
         else
@@ -79,11 +89,39 @@ public partial class UserControls_Employee_data : System.Web.UI.UserControl
 
     }
 
- 
+    protected void fillddl()
+    {
+        //    string Sql = "select Sec_id,Sec_name from Sectors where foundation_id = " + CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString());
+        //    DataTable dt = General_Helping.GetDataTable(Sql);
+        //    ddl_sectors.DataSource = dt;
+        //    ddl_sectors.DataTextField = "Sec_name";
+        //    ddl_sectors.DataValueField = "Sec_id";
+        //    ddl_sectors.DataBind();
+        //    ddl_sectors.Items.Insert(0, new ListItem("إختر القطاع", "0"));
+
+
+        //       // if (Request.Url.ToString().ToLower().Contains("admin") || (Session_CS.Hr_Eval != null && Session_CS.Hr_Eval.ToString() == "1"))
+        //        if (Request.Url.ToString().ToLower().Contains("admin") || (Session_CS.Hr_Eval != null && Session_CS.Hr_Eval.ToString() == "1"))
+
+        //            tr_allow_chk_dept.Visible = true;
+
+        //       // else if (Session_CS.Hr_Eval != null && Session_CS.Hr_Eval.ToString() != "1")
+        //        else if (Session_CS.Hr_Eval != null && Session_CS.Hr_Eval.ToString() != "1")
+        //        {
+        //            ddl_sectors.SelectedValue = Session_CS.sec_id.ToString();
+        //            ddl_sectors.Enabled = false;
+        fill_depts();
+        //            tr_allow_chk_dept.Visible = true;
+        //        }
+
+    }
+
+
 
     protected void fill_job_category()
     {
-        DataTable dt = SqlHelper.ExecuteDataset(Database.ConnectionString, "user_role_select").Tables[0];
+        string Sql = "SELECT URol_ID,URol_Desc FROM User_Role";
+        DataTable dt = General_Helping.GetDataTable(Sql);
         ddl_Job_Category.DataSource = dt;
         ddl_Job_Category.DataValueField = "URol_ID";
         ddl_Job_Category.DataTextField = "URol_Desc";
@@ -93,6 +131,23 @@ public partial class UserControls_Employee_data : System.Web.UI.UserControl
 
     protected void fill_depts()
     {
+        // Smart_Search_mang.sql_Connection = sql_Connection;
+        ////Smart_Search_mang.Query = "select Dept_ID,Dept_name from Departments where sec_sec_id='" + ddl_sectors.SelectedValue + "' ";
+        ////Smart_Search_mang.Value_Field = "Dept_ID";
+        ////Smart_Search_mang.Text_Field = "Dept_name";
+        ////Smart_Search_mang.Orderby = "ORDER BY LTRIM(Dept_name)";
+        ////Smart_Search_mang.DataBind();
+        //if (ddl_sectors.SelectedValue != "" && ddl_sectors.SelectedValue != null && ddl_sectors.SelectedValue !="0")
+        //{
+        //    DataTable dt = General_Helping.GetDataTable("select Dept_ID,Dept_name from Departments where sec_sec_id='" + ddl_sectors.SelectedValue + "'");
+        //    Smart_Search_mang.datatble = dt;
+        //    Smart_Search_mang.Value_Field = "Dept_ID";
+        //    Smart_Search_mang.Text_Field = "Dept_name";
+        //    Smart_Search_mang.DataBind();
+
+        //}
+
+
 
         Fill_All_Smart_Employee();
 
@@ -101,6 +156,7 @@ public partial class UserControls_Employee_data : System.Web.UI.UserControl
     {
         Smart_Search_Vaction_mng.sql_Connection = sql_Connection;
         DataTable dt211 = General_Helping.GetDataTable("SELECT     EMPLOYEE.PMP_ID, EMPLOYEE.pmp_name, Departments.sec_sec_id FROM  EMPLOYEE INNER JOIN Departments ON EMPLOYEE.Dept_Dept_id = Departments.Dept_ID  where EMPLOYEE.foundation_id= '" + CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString()) + "'");
+
         Smart_Search_Vaction_mng.datatble = dt211;
         Smart_Search_Vaction_mng.Value_Field = "PMP_ID";
         Smart_Search_Vaction_mng.Text_Field = "pmp_name";
@@ -109,18 +165,60 @@ public partial class UserControls_Employee_data : System.Web.UI.UserControl
 
     private void Fill_All_Smart_Employee()
     {
+        // string Query = " SELECT     EMPLOYEE.PMP_ID, EMPLOYEE.pmp_name, Departments.sec_sec_id FROM  EMPLOYEE INNER JOIN Departments ON EMPLOYEE.Dept_Dept_id = Departments.Dept_ID  where EMPLOYEE.foundation_id= "+ CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString());
 
+        //Smart_Search2.sql_Connection = sql_Connection;
+        //Smart_Search3.sql_Connection = sql_Connection;
         Smart_Search_Vaction_mng.sql_Connection = sql_Connection;
         smrtDirectManager.sql_Connection = sql_Connection;
         smrtHigherManager.sql_Connection = sql_Connection;
 
-        DataTable dt21 = General_Helping.GetDataTable("SELECT     EMPLOYEE.PMP_ID, EMPLOYEE.pmp_name, Departments.sec_sec_id FROM  EMPLOYEE INNER JOIN Departments ON EMPLOYEE.Dept_Dept_id = Departments.Dept_ID  where EMPLOYEE.foundation_id= '" + CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString()) + "'");
+        //Smart_Search2.Query = Query;
+        //Smart_Search2.Value_Field = "pmp_id";
+        //Smart_Search2.Text_Field = "pmp_name";
+        //Smart_Search2.DataBind();
 
+
+        DataTable dt21 = General_Helping.GetDataTable("SELECT     EMPLOYEE.PMP_ID, EMPLOYEE.pmp_name, Departments.sec_sec_id FROM  EMPLOYEE INNER JOIN Departments ON EMPLOYEE.Dept_Dept_id = Departments.Dept_ID  where EMPLOYEE.foundation_id= '" + CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString()) + "'");
+        //Smart_Search2.datatble = dt21;
+        //Smart_Search2.Value_Field = "PMP_ID";
+        //Smart_Search2.Text_Field = "pmp_name";
+        //Smart_Search2.DataBind();
+
+        //////////////////////////////////////////////////////////////
+        //Smart_Search3.Query = Query;
+        //Smart_Search3.Value_Field = "pmp_id";
+        //Smart_Search3.Text_Field = "pmp_name";
+        //Smart_Search3.DataBind();
+
+
+        //DataTable dt1 = Smart_Search_mang.datasource("SELECT     EMPLOYEE.PMP_ID, EMPLOYEE.pmp_name, Departments.sec_sec_id FROM  EMPLOYEE INNER JOIN Departments ON EMPLOYEE.Dept_Dept_id = Departments.Dept_ID  where EMPLOYEE.foundation_id= '" + CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString()) + "'");
+        //Smart_Search3.datatble = dt21;
+        //Smart_Search3.Value_Field = "PMP_ID";
+        //Smart_Search3.Text_Field = "pmp_name";
+        //Smart_Search3.DataBind();
+
+        //////////////////////////////////////////////////////////////////
+
+
+        //smrtDirectManager.Query = Query;
+        //smrtDirectManager.Value_Field = "pmp_id";
+        //smrtDirectManager.Text_Field = "pmp_name";
+        //smrtDirectManager.DataBind();
+
+        //DataTable dt3 = Smart_Search_mang.datasource("SELECT     EMPLOYEE.PMP_ID, EMPLOYEE.pmp_name, Departments.sec_sec_id FROM  EMPLOYEE INNER JOIN Departments ON EMPLOYEE.Dept_Dept_id = Departments.Dept_ID  where EMPLOYEE.foundation_id= '" + CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString()) + "'");
         smrtDirectManager.datatble = dt21;
         smrtDirectManager.Value_Field = "PMP_ID";
         smrtDirectManager.Text_Field = "pmp_name";
         smrtDirectManager.DataBind();
 
+        ///////////////////////////////////////////////////////////////
+        //smrtHigherManager.Query = Query;
+        //smrtHigherManager.Value_Field = "pmp_id";
+        //smrtHigherManager.Text_Field = "pmp_name";
+        //smrtHigherManager.DataBind();
+
+        //DataTable dt4 = Smart_Search_mang.datasource("SELECT     EMPLOYEE.PMP_ID, EMPLOYEE.pmp_name, Departments.sec_sec_id FROM  EMPLOYEE INNER JOIN Departments ON EMPLOYEE.Dept_Dept_id = Departments.Dept_ID  where EMPLOYEE.foundation_id= '" + CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString()) + "'");
         smrtHigherManager.datatble = dt21;
         smrtHigherManager.Value_Field = "PMP_ID";
         smrtHigherManager.Text_Field = "pmp_name";
@@ -130,7 +228,25 @@ public partial class UserControls_Employee_data : System.Web.UI.UserControl
     protected void fill_emplyees()
     {
         Smart_Search_emp.sql_Connection = sql_Connection;
+        //string Query = "SELECT     EMPLOYEE.PMP_ID, EMPLOYEE.pmp_name, Departments.sec_sec_id FROM         EMPLOYEE INNER JOIN                       Departments ON EMPLOYEE.Dept_Dept_id = Departments.Dept_ID  and EMPLOYEE.workstatus!=4";
 
+        //Query += "where Departments.Dept_ID =  " + Smart_Search_mang.SelectedValue;
+
+        //Smart_Search_emp.Query = Query;
+
+
+
+        //Smart_Search_emp.Value_Field = "PMP_ID";
+        //Smart_Search_emp.Text_Field = "pmp_name";
+
+        //Smart_Search_emp.DataBind();
+
+        //DataTable dt = General_Helping.GetDataTable("SELECT     EMPLOYEE.PMP_ID, EMPLOYEE.pmp_name, Departments.sec_sec_id FROM    EMPLOYEE INNER JOIN     Departments ON EMPLOYEE.Dept_Dept_id = Departments.Dept_ID  where Departments.Dept_ID = '"+Smart_Search_mang.SelectedValue+"'");
+        //Smart_Search_emp.datatble = dt;
+        //Smart_Search_emp.Value_Field = "PMP_ID";
+        //Smart_Search_emp.Text_Field = "pmp_name";
+        //Smart_Search_emp.Clear_Controls();
+        //Smart_Search_emp.DataBind();
         string emp_query = "";
         if (Smrt_Srch_structure.SelectedValue != "" && Smrt_Srch_structure.SelectedValue != null)
         {
@@ -151,9 +267,9 @@ public partial class UserControls_Employee_data : System.Web.UI.UserControl
         Smart_Search_emp.Clear_Controls();
         Smart_Search_emp.DataBind();
 
-        //  Lbl_count.Text = Smart_Search_emp.Items_Count.ToString();
-        // Lbl_count.Visible = true;
-        // Label39.Visible = true;
+        Lbl_count.Text = Smart_Search_emp.Items_Count.ToString();
+        Lbl_count.Visible = true;
+        Label39.Visible = true;
 
 
 
@@ -161,6 +277,14 @@ public partial class UserControls_Employee_data : System.Web.UI.UserControl
     private void fil_smart_category()
     {
         Smart_search_category.sql_Connection = sql_Connection;
+
+        //Smart_search_category.Query = "select Rol_ID ,Rol_Desc from Roles where Rol_ID >=5 ";
+
+
+        //Smart_search_category.Value_Field = "Rol_ID";
+        //Smart_search_category.Text_Field = "Rol_Desc";
+
+        //Smart_search_category.DataBind();
 
         DataTable dt5 = General_Helping.GetDataTable(" select Rol_ID ,Rol_Desc from Roles where Rol_ID >=5");
         Smart_search_category.datatble = dt5;
@@ -214,7 +338,6 @@ public partial class UserControls_Employee_data : System.Web.UI.UserControl
             //fill_depts();
             tr_allow_chk_dept.Visible = true;
         }
-    
 
         Smrt_Srch_structure.datatble = General_Helping.GetDataTable(Query);
         Smrt_Srch_structure.Value_Field = "Dept_id";
@@ -236,6 +359,7 @@ public partial class UserControls_Employee_data : System.Web.UI.UserControl
             }
             else
             {
+                //       if (!chk_allow_Chn_dept.Checked)
                 Smart_Search_emp.Clear_Controls();
 
 
@@ -244,18 +368,49 @@ public partial class UserControls_Employee_data : System.Web.UI.UserControl
         // }
     }
 
+    //protected void ddl_sectors_SelectedIndexChanged(object sender, EventArgs e)
+    //{
 
+    //    //  if (ddl_sectors.SelectedItem.Text.Contains("معلوماتي") )
+    //    //{
+    //    //  Label42.Visible = true;
+
+    //    //}
+    //    //else
+    //    //{
+
+    //    fill_depts();
+    //    if (!chk_allow_Chn_dept.Checked)
+    //        clear_fields();
+    //    DataTable dr = General_Helping.GetDataTable("select count(*) as 'total' from EMPLOYEE inner join Departments on Departments.Dept_id=EMPLOYEE.Dept_Dept_id and  EMPLOYEE.workstatus!=4 inner join Sectors on Departments.Sec_sec_id=Sectors.Sec_id where Sectors.Sec_id ='" + CDataConverter.ConvertToInt(ddl_sectors.SelectedValue) + "'");
+    //    lbl_sec_count.Text = dr.Rows[0]["total"].ToString();
+    //    Lbl_count.Visible = false;
+    //    Label39.Visible = false;
+    //    Label40.Visible = true;
+    //    lbl_sec_count.Visible = true;
+
+    //    Label42.Visible = false;
+
+    //    // Label39.Text = "إجمالي عدد الموظفين بالقطاع ";
+    //    // }
+
+
+
+    //}
 
 
 
     private void emp_Data(string Value)
     {
-
+        //if (Request.QueryString["pmp_id"].ToString() != null)
+        //{
+        //    Value = Request.QueryString["pmp_id"];
+        //}
         if (Value != "")
         {
             //btn_Save.Text = "تعديل";
             DataTable dt = Employee_Data_DB.Select_all(CDataConverter.ConvertToInt(Smart_Search_emp.SelectedValue));
-           // DataTable dt2 = Users_data_DB.UsersDataSelect(CDataConverter.ConvertToInt(Smart_Search_emp.SelectedValue));
+            DataTable dt2 = Users_data_DB.UsersDataSelect(CDataConverter.ConvertToInt(Smart_Search_emp.SelectedValue));
             DataRow dr = dt.Rows[0];
             if (dt.Rows.Count > 0)
             {
@@ -269,15 +424,24 @@ public partial class UserControls_Employee_data : System.Web.UI.UserControl
                 }
                 txt_rec_DT.Text = dt.Rows[0]["Hire_date"].ToString();
                 txtmail.Text = dt.Rows[0]["mail"].ToString();
-
+                //ddl_sectors.SelectedValue = dt.Rows[0]["Sec_id"].ToString();
+                //if (Session_CS.Hr_Eval.ToString() != "1")
+                //{
+                //    Smart_Search_mang.SelectedValue = dt.Rows[0]["Dept_Dept_ID"].ToString();
+                //}
+                //Smart_Search2.SelectedValue = dt.Rows[0]["direct_manager"].ToString();
+                //Smart_Search3.SelectedValue = dt.Rows[0]["higher_manager"].ToString();
                 Smart_Search_Vaction_mng.SelectedValue = dt.Rows[0]["vacation_mng_pmp_id"].ToString();
                 ddl_status.SelectedValue = dt.Rows[0]["workstatus"].ToString();
                 ddl_universitydegree.SelectedValue = dt.Rows[0]["university_degree"].ToString();
                 txt_major.Text = dt.Rows[0]["major"].ToString();
                 txt_universityname.Text = dt.Rows[0]["university_name"].ToString();
                 Smart_search_category.SelectedValue = dt.Rows[0]["category"].ToString();
-                txt_username.Text = dt.Rows[0]["USR_Name"].ToString();
-          
+
+                if (dt2.Rows.Count > 0)
+                {
+                    txt_username.Text = dt2.Rows[0]["USR_Name"].ToString();
+                }
 
                 if (dt.Rows[0]["contact_person"].ToString() == "True")
                 {
@@ -293,12 +457,13 @@ public partial class UserControls_Employee_data : System.Web.UI.UserControl
                 Label38.Visible = false;
                 //fill_emplyees();
                 string x = Smart_Search_emp.SelectedValue;
+                FillManagersGridView();
+                fillcontrols(CDataConverter.ConvertToInt(Value));
 
-                if (InsideMCIT == "1")
-                {
-                    FillManagersGridView();
-                    fillcontrols(CDataConverter.ConvertToInt(Value));
-                }
+
+
+
+
             }
 
             else
@@ -308,12 +473,17 @@ public partial class UserControls_Employee_data : System.Web.UI.UserControl
                 btn_Save.Text = "حفظ";
             }
         }
+
     }
 
 
     protected void btn_clear_Click(object sender, EventArgs e)
     {
+
         clear_on_new();
+
+
+
     }
 
 
@@ -321,14 +491,7 @@ public partial class UserControls_Employee_data : System.Web.UI.UserControl
     {
         if (!string.IsNullOrEmpty(Smart_Search_emp.SelectedText))
         {
-
-            
-          //  General_Helping.ExcuteQuery("update users set USR_Pass='1234' where pmp_pmp_id='" + Smart_Search_emp.SelectedValue + "'");
-
-            SqlHelper.ExecuteDataset(Database.ConnectionString, "USR_Pass_update" ,CDataConverter.ConvertToInt(Smart_Search_emp.SelectedValue));
-                      
-
-
+            General_Helping.ExcuteQuery("update users set USR_Pass='1234' where pmp_pmp_id='" + Smart_Search_emp.SelectedValue + "'");
             lbl_success.Visible = true;
             lbl_success.Text = "تمت إعادة تعيين كلمة المرور بنجاح";
 
@@ -366,12 +529,18 @@ public partial class UserControls_Employee_data : System.Web.UI.UserControl
 
     private void clear_on_new()
     {
+        //fill_depts();
+        // this.Smart_Search_mang.Value_Handler += new Smart_Search.Delegate_Selected_Value(MOnMember_Data_Depart);
+
+
         fill_emplyees();
         Fill_All_Smart_Employee();
         job_no_txt.Text = "";
         title_txt.Text = "";
         txt_rec_DT.Text = "";
         txtmail.Text = "";
+        //Smart_Search_Vaction_mng.Clear_Selected();
+        // ddl_status.SelectedValue = "0";
         Smart_search_category.Clear_Selected();
         ddl_universitydegree.SelectedValue = "0";
         txt_universityname.Text = "";
@@ -385,6 +554,8 @@ public partial class UserControls_Employee_data : System.Web.UI.UserControl
         tx_startdate.Text = "";
         txt_endate.Text = "";
         chk_resp.Checked = false;
+        //Smart_Search2.Clear_Selected();
+        //Smart_Search3.Clear_Selected();
         lbl_success.Visible = false;
         lbl_res.Visible = false;
         Label36.Visible = false;
@@ -419,10 +590,11 @@ public partial class UserControls_Employee_data : System.Web.UI.UserControl
         if (txt_username.Text != "")
         {
 
-            user_name = txt_username.Text;
+            user_name = txt_username.Text.Trim();
             uobj.USR_Name = user_name;
         }
-        dt_users = Users_data_DB.Select_UsersData(CDataConverter.ConvertToInt(Smart_Search_emp.SelectedValue),user_name);
+        int emp_id = CDataConverter.ConvertToInt(Smart_Search_emp.SelectedValue);
+        dt_users = Users_data_DB.Select_UsersData(emp_id , user_name);
 
         if (dt_users.Rows.Count <= 0)
         {
@@ -457,7 +629,7 @@ public partial class UserControls_Employee_data : System.Web.UI.UserControl
 
                 //////////////////////////////////////////////////////////////////////////////////
 
-               // operation = (int)Project_Log_DB.Action.add;
+                operation = (int)Project_Log_DB.Action.add;
 
                 DataTable dt_check = Users_data_DB.UsersDataSelect(CDataConverter.ConvertToInt(obj.PMP_ID));
 
@@ -480,7 +652,10 @@ public partial class UserControls_Employee_data : System.Web.UI.UserControl
                 uobj.System_ID = 1;
                 uobj.account_active = true;
 
+                //  uobj.USR_Name = txt_username.Text;
+
                 uobj.USR_ID = Users_data_DB.Save(uobj);
+
 
 
                 fill_emplyees();
@@ -494,10 +669,12 @@ public partial class UserControls_Employee_data : System.Web.UI.UserControl
                     lbl_success.Visible = true;
                     lbl_success.Text = "تم الحفظ بنجاح";
                     lbl_user.Visible = false;
-                 //   operation = (int)Project_Log_DB.Action.add;
+                    operation = (int)Project_Log_DB.Action.add;
 
-                  //  Project_Log_DB.FillLog(CDataConverter.ConvertToInt(obj.PMP_ID), operation, Project_Log_DB.operation.Employee_Data);
-                  
+                    //   Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('تم الحفظ بنجاح')</script>");
+                    Project_Log_DB.FillLog(CDataConverter.ConvertToInt(obj.PMP_ID), operation, Project_Log_DB.operation.Employee_Data);
+                    //clear_fields();
+                    //fill_emplyees();
                 }
 
 
@@ -537,7 +714,11 @@ public partial class UserControls_Employee_data : System.Web.UI.UserControl
         txt_rec_DT.Text = "";
         txtmail.Text = "";
         txt_username.Text = "";
-        //fill_emplyees();
+        //chk_allow_Chn_dept.Checked = false;
+        //Smart_Search_mang.Clear_Selected();
+        // Smart_Search2.Clear_Selected();
+        //Smart_Search3.Clear_Selected();
+        fill_emplyees();
         Smart_Search_emp.Clear_Controls();
         chk_resp.Checked = false;
         btn_Save.Text = "حفظ";
@@ -579,11 +760,7 @@ public partial class UserControls_Employee_data : System.Web.UI.UserControl
                 Label37.Visible = true;
                 Label37.Text = "تم حفظ بيانات الخبرات السابقة بنجاح للموظف  :" + Smart_Search_emp.SelectedText;
             }
-           // DataTable dt_sub_cat2 = General_Helping.GetDataTable(" SELECT  * FROM  Employee_Experience where pmp_id=" + pmp_id);
-
-            DataTable dt_sub_cat2 = SqlHelper.ExecuteDataset(Database.ConnectionString, "Employee_Experience_Select_by_pmp_id", pmp_id).Tables[0];
-
-
+            DataTable dt_sub_cat2 = General_Helping.GetDataTable(" SELECT  * FROM  Employee_Experience where pmp_id=" + pmp_id);
             gv_experience.DataSource = dt_sub_cat2;
             gv_experience.DataBind();
         }
@@ -608,10 +785,7 @@ public partial class UserControls_Employee_data : System.Web.UI.UserControl
             Employee_Experience_DB.Delete(CDataConverter.ConvertToInt(e.CommandArgument));
             Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('لقد تم الحذف بنجاح')</script>");
 
-            // DataTable dt_sub_cat = General_Helping.GetDataTable(" SELECT  * FROM  Employee_Experience where pmp_id=" + CDataConverter.ConvertToInt(Smart_Search_emp.SelectedValue));
-
-            DataTable dt_sub_cat = SqlHelper.ExecuteDataset(Database.ConnectionString, "Employee_Experience_Select_by_pmp_id", CDataConverter.ConvertToInt(Smart_Search_emp.SelectedValue)).Tables[0];
-
+            DataTable dt_sub_cat = General_Helping.GetDataTable(" SELECT  * FROM  Employee_Experience where pmp_id=" + CDataConverter.ConvertToInt(Smart_Search_emp.SelectedValue));
             gv_experience.DataSource = dt_sub_cat;
             gv_experience.DataBind();
             Label37.Visible = true;
@@ -714,16 +888,29 @@ public partial class UserControls_Employee_data : System.Web.UI.UserControl
         int pmp_id = CDataConverter.ConvertToInt(Smart_Search_emp.SelectedValue);
         if (pmp_id > 0)
         {
+            //DataTable datatable = Employee_Ex_Training_DB.SelectByPmp_id(pmp_id);
             Employee_Ex_Training_DT eExTraining = new Employee_Ex_Training_DT();
             int employeeExTraining = CDataConverter.ConvertToInt(update_id.Value);
+            //if (employeeExTraining > 0)
+            //{
 
+            // eExTraining = Employee_Ex_Training_DB.SelectByID(employeeExTraining);
             eExTraining.id = employeeExTraining;
             eExTraining.pmp_id = pmp_id;
             eExTraining.course_name = txt_coursename.Text.ToString();
             eExTraining.start_date = tx_startdate.Text.ToString();
             eExTraining.end_date = txt_endate.Text;
             Employee_Ex_Training_DB.Save(eExTraining);
-            DataTable dt_sub_cat = SqlHelper.ExecuteDataset(Database.ConnectionString, "Employee_Ex_Training_Select_by_pmp_id", CDataConverter.ConvertToInt(pmp_id)).Tables[0];
+
+            //}
+            ////Employee_Ex_Training_DT eExTraining = new Employee_Ex_Training_DT();
+            //eExTraining.pmp_id = pmp_id;
+            //eExTraining.course_name = txt_coursename.Text.ToString();
+            //eExTraining.start_date = tx_startdate.Text.ToString();
+            //eExTraining.end_date = txt_endate.Text;
+
+            //Employee_Ex_Training_DB.Save(eExTraining);
+            DataTable dt_sub_cat = General_Helping.GetDataTable(" SELECT  * FROM Employee_Ex_Training where pmp_id=" + pmp_id);
             gv_Employee_EX_TRaing.DataSource = dt_sub_cat;
             gv_Employee_EX_TRaing.DataBind();
             Label38.Visible = true;
@@ -748,9 +935,7 @@ public partial class UserControls_Employee_data : System.Web.UI.UserControl
             Employee_Ex_Training_DB.Delete(CDataConverter.ConvertToInt(e.CommandArgument));
             Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('لقد تم الحذف بنجاح')</script>");
 
-            //  DataTable dt_sub_cat = General_Helping.GetDataTable(" SELECT  * FROM Employee_Ex_Training where pmp_id=" + CDataConverter.ConvertToInt(Smart_Search_emp.SelectedValue));
-            DataTable dt_sub_cat = SqlHelper.ExecuteDataset(Database.ConnectionString, "Employee_Ex_Training_Select_by_pmp_id", CDataConverter.ConvertToInt(Smart_Search_emp.SelectedValue)).Tables[0];
-
+            DataTable dt_sub_cat = General_Helping.GetDataTable(" SELECT  * FROM Employee_Ex_Training where pmp_id=" + CDataConverter.ConvertToInt(Smart_Search_emp.SelectedValue));
             gv_Employee_EX_TRaing.DataSource = dt_sub_cat;
             gv_Employee_EX_TRaing.DataBind();
             Label38.Visible = true;
@@ -799,20 +984,13 @@ public partial class UserControls_Employee_data : System.Web.UI.UserControl
         //////////////////////training/////////////////
         //txt_coursename.Text = employeeExTraining.course_name;
         //tx_startdate.Text= employeeExTraining.start_date ;
-        // DataTable dt_sub_cat = General_Helping.GetDataTable(" SELECT  * FROM  Employee_Experience where pmp_id=" + pmp_id);
-
-        DataTable dt_sub_cat = SqlHelper.ExecuteDataset(Database.ConnectionString, "Employee_Experience_Select_by_pmp_id", pmp_id).Tables[0];
-
-
+        DataTable dt_sub_cat = General_Helping.GetDataTable(" SELECT  * FROM  Employee_Experience where pmp_id=" + pmp_id);
         gv_experience.DataSource = dt_sub_cat;
         gv_experience.DataBind();
 
 
 
-        //  DataTable dt_sub_cat1 = General_Helping.GetDataTable(" SELECT  * FROM Employee_Ex_Training where pmp_id=" + pmp_id);
-
-        DataTable dt_sub_cat1 = SqlHelper.ExecuteDataset(Database.ConnectionString, "Employee_Ex_Training_Select_by_pmp_id", pmp_id).Tables[0];
-
+        DataTable dt_sub_cat1 = General_Helping.GetDataTable(" SELECT  * FROM Employee_Ex_Training where pmp_id=" + pmp_id);
         gv_Employee_EX_TRaing.DataSource = dt_sub_cat1;
         gv_Employee_EX_TRaing.DataBind();
 
@@ -845,41 +1023,43 @@ public partial class UserControls_Employee_data : System.Web.UI.UserControl
     private void FillManagersGridView()
     {
         string employee_id;
+
+
+        //will be deleted just for testing
+        //Fill_All_Smart_Employee();
+        //will be converted to stored procedures
         string x = Smart_Search_emp.SelectedValue;
-        DataTable dt = new DataTable ();
-        //string SQL =
-        //    "SELECT * ," + "\r\n" +
-        //    "       employeeName.pmp_name empName," + "\r\n" +
-        //    "       ManagerName.pmp_name MngrName," + "\r\n" +
-        //    "       Serial = ROW_NUMBER () OVER (ORDER BY Employee_Managers.Emp_Mngr_ID ASC)," + "\r\n" +
-        //    "       CASE mngr_level" + "\r\n" +
-        //    "          WHEN 1 THEN 'مدير مباشر'" + "\r\n" +
-        //    "          ELSE 'مدير اعلي'" + "\r\n" +
-        //    "       END" + "\r\n" +
-        //    "          managerlevel" + "\r\n" +
-        //    "  FROM       Employee_Managers" + "\r\n" +
-        //    "          LEFT JOIN" + "\r\n" +
-        //    "             EMPLOYEE employeeName" + "\r\n" +
-        //    "          ON Employee_Managers.emp_ID = employeeName.pmp_id" + "\r\n" +
-        //    "       LEFT JOIN" + "\r\n" +
-        //    "          EMPLOYEE ManagerName" + "\r\n" +
-        //    "       ON Employee_Managers.Mngr_Emp_ID = ManagerName.pmp_id" + "\r\n";
+        string SQL =
+            "SELECT * ," + "\r\n" +
+            "       employeeName.pmp_name empName," + "\r\n" +
+            "       ManagerName.pmp_name MngrName," + "\r\n" +
+            "       Serial = ROW_NUMBER () OVER (ORDER BY Employee_Managers.Emp_Mngr_ID ASC)," + "\r\n" +
+            "       CASE mngr_level" + "\r\n" +
+            "          WHEN 1 THEN 'مدير مباشر'" + "\r\n" +
+            "          ELSE 'مدير اعلي'" + "\r\n" +
+            "       END" + "\r\n" +
+            "          managerlevel" + "\r\n" +
+            "  FROM       Employee_Managers" + "\r\n" +
+            "          LEFT JOIN" + "\r\n" +
+            "             EMPLOYEE employeeName" + "\r\n" +
+            "          ON Employee_Managers.emp_ID = employeeName.pmp_id" + "\r\n" +
+            "       LEFT JOIN" + "\r\n" +
+            "          EMPLOYEE ManagerName" + "\r\n" +
+            "       ON Employee_Managers.Mngr_Emp_ID = ManagerName.pmp_id" + "\r\n";
 
         if (Request.QueryString["pmp_id"] != null)
         {
             employee_id = Request["pmp_id"].ToString();
-           // SQL += " WHERE Employee_Managers.emp_id =" + employee_id;
-             dt = SqlHelper.ExecuteDataset(Database.ConnectionString, "employee_directhigher_managers_select", employee_id).Tables[0];
+            SQL += " WHERE Employee_Managers.emp_id =" + employee_id;
+
         }
         else
         {
-            //SQL += " WHERE Employee_Managers.emp_id =" + Smart_Search_emp.SelectedValue;
-             dt = SqlHelper.ExecuteDataset(Database.ConnectionString, "employee_directhigher_managers_select", Smart_Search_emp.SelectedValue).Tables[0];
+
+            SQL += " WHERE Employee_Managers.emp_id =" + Smart_Search_emp.SelectedValue;
         }
-
-      //  DataTable dt = General_Helping.GetDataTable(SQL);
-
-       ViewState["dtInitialData"] = dt;
+        DataTable dt = General_Helping.GetDataTable(SQL);
+        ViewState["dtInitialData"] = dt;
         gvManagers.DataSource = dt;
         gvManagers.DataBind();
 

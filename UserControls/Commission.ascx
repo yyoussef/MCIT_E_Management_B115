@@ -79,26 +79,28 @@
                                                 runat="server" Text="*" ValidationGroup="B" ErrorMessage="يجب ادخال الموضوع "></asp:RequiredFieldValidator>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr width="180px">
                                         <td align="right" width="150px">
                                             <asp:Label ID="Label28" runat="server" CssClass="Label" Text="تاريخ التكليف :" Width="135px" />
                                             <input type="hidden" runat="server" id="hidden_Visa_Id"></input>
                                         </td>
                                         <td dir="rtl">
-                                            <asp:TextBox ID="txt_Visa_date" runat="server" CssClass="Text" Width="270px" OnTextChanged="txt_Visa_date_TextChanged"></asp:TextBox>
+                                            <asp:TextBox ID="txt_Visa_date" runat="server" CssClass="Text" Width="130px" OnTextChanged="txt_Visa_date_TextChanged"></asp:TextBox>
                                             <cc1:FilteredTextBoxExtender ID="FilteredTextBoxExtender3" runat="server" TargetControlID="txt_Visa_date"
                                                 ValidChars="0987654321/\" Enabled="True" />
                                             <cc1:CalendarExtender ID="CalendarExtender3" runat="server" Format="dd/MM/yyyy" PopupButtonID="ImageButton3"
                                                 TargetControlID="txt_Visa_date" Enabled="True">
                                             </cc1:CalendarExtender>
                                             <asp:ImageButton ID="ImageButton3" runat="server" AlternateText="اضغط لعرض النتيجة"
-                                                Height="23px" ImageUrl="~/images/Calendar_scheduleHS.png" Width="23px" ToolTip="تقويم" />
+                                                 ImageUrl="~/images/Calendar_scheduleHS.png" Width="23px" ToolTip="تقويم" />
                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="txt_Visa_date"
                                                 runat="server" Text="*" ValidationGroup="B" ErrorMessage="يجب ادخال تاريخ التاشيرة "></asp:RequiredFieldValidator>
                                             <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="txt_Visa_date"
                                                 Text="*" ValidationExpression="^(([0-2]\d|[3][0-1])\/([0]\d|[1][0-2])\/[2][0]\d{2})$|^(([0-2]\d|[3][0-1])\/([0]\d|[1][0-2])\/[2][0]\d{2}\s([0-1]\d|[2][0-3])\:[0-5]\d\:[0-5]\d)$"
                                                 ValidationGroup="B" ErrorMessage=" برجاء إدخال صيغة التاريخ بطريقة صحيحة "></asp:RegularExpressionValidator>
                                         </td>
+                                        
+
                                         <td align="right" dir="rtl">
                                             <asp:Label ID="Label29" runat="server" CssClass="Label" Text="درجة الأهمية: " Width="100px" />
                                         </td>
@@ -112,14 +114,14 @@
                                             <asp:Label ID="txt_Important_Degree_Txt" runat="server" CssClass="Label" Width="293px"></asp:Label>
                                         </td>
                                     </tr>
-                                    <tr>
+                                    <tr width="180px">
                                         <td align="right" width="150px">
                                             <asp:Label ID="Label42" runat="server" CssClass="Label" Text="اخر تاريخ مسموح به  :"
                                                 Width="135px" />
                                         </td>
-                                        <td dir="rtl">
+                                        <td dir="rtl"  >
                                             <asp:TextBox ID="txt_Dead_Line_DT" runat="server" AutoPostBack="True" OnTextChanged="txt_Dead_Line_DT_TextChanged"
-                                                CssClass="Text" Width="270px"></asp:TextBox>
+                                                CssClass="Text" Width="130px"></asp:TextBox>
                                             <cc1:FilteredTextBoxExtender ID="FilteredTextBoxExtender5" runat="server" TargetControlID="txt_Dead_Line_DT"
                                                 ValidChars="0987654321/\" Enabled="True" />
                                             <cc1:CalendarExtender ID="CalendarExtender5" runat="server" Format="dd/MM/yyyy" PopupButtonID="ImageButton33"

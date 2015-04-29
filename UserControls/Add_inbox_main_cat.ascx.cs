@@ -54,7 +54,7 @@ public partial class UserControls_Add_inbox_main_cat : System.Web.UI.UserControl
         }
         else
         {
-            DataTable DT = General_Helping.GetDataTable("select id from Inbox_Main_Categories where name='" + txtCatName.Text + "'");
+            DataTable DT = General_Helping.GetDataTable("select id from Inbox_Main_Categories where name='" + txtCatName.Text + "' and group_id='" + CDataConverter.ConvertToInt(Session_CS.group_id) + "' ");
             if (DT.Rows.Count > 0)
             {
                 lblPageStatus.Visible = true;

@@ -3,6 +3,7 @@ set @foundation_id  = 0
 
 
 
+
 delete from dbo.inbox_follow_emp 
 where inbox_id in (select id from inbox 
 where foundation_id = @foundation_id) 
@@ -46,3 +47,32 @@ delete    from dbo.outbox_Visa_Follows where outbox_id in (select id from outbox
 where foundation_id = @foundation_id) 
 
 delete   from outbox where foundation_id = @foundation_id
+
+--------------------------------------------------
+delete   from Commission_follow_emp
+where Commission_id  in (select Commission_id  from Commission
+where foundation_id = @foundation_id) 
+
+delete      from Commission_Track_Emp where Commission_id  in (select Commission_id  from Commission
+where foundation_id = @foundation_id) 
+
+delete      from Commission_Visa where Commission_id  in (select Commission_id  from Commission
+where foundation_id = @foundation_id) 
+
+delete  from dbo.Commission_Visa_Follows where Commission_id  in (select Commission_id  from Commission
+where foundation_id = @foundation_id) 
+
+delete     from Commission where foundation_id = @foundation_id
+
+
+----------------------------------------------
+--delete from users where pmp_pmp_id in (select pmp_id from employee 
+--where foundation_id = @foundation_id) 
+
+--delete from employee 
+--where foundation_id = @foundation_id
+
+--delete from Departments
+--where foundation_id = @foundation_id
+--delete from Employee_Groups
+--where foundation_id = @foundation_id

@@ -22,7 +22,7 @@ public partial class UserControls_Site_Menu : System.Web.UI.UserControl
         {
 
 
-            //ahref.HRef = "ProjectGeneralData.aspx?mode=edit&Proj_id=" + Session_CS.Project_id.ToString();
+         
             /*if (Session_CS.Eval_mng.ToString() == "1")
             {
                 LI_Eval_Emp.Visible = true;
@@ -39,7 +39,14 @@ public partial class UserControls_Site_Menu : System.Web.UI.UserControl
             select_nonActive();
 
             int RoleID = CDataConverter.ConvertToInt(Session_CS.UROL_UROL_ID);
-            int ProjectID = CDataConverter.ConvertToInt(Session_CS.Project_id);
+           int ProjectID = CDataConverter.ConvertToInt(Session_CS.Project_id);
+
+
+           if (Request.QueryString["Proj_id"] != null && Request.QueryString["Proj_id"] != "")
+               {
+                   ProjectID = CDataConverter.ConvertToInt(Request["Proj_id"].ToString());
+               }
+         
 
             ArrayList AllPages = new ArrayList();
             ArrayList RolePages = new ArrayList();
@@ -54,7 +61,7 @@ public partial class UserControls_Site_Menu : System.Web.UI.UserControl
                 
             }
 
-            if (ProjectID >0 && isOwnProject(ProjectID))
+            if (ProjectID >0  && isOwnProject(ProjectID))
             {
                 RolePages = User_info.GetUserPagesByRoleID(4);
                 AllPages.AddRange(RolePages);
@@ -98,6 +105,8 @@ public partial class UserControls_Site_Menu : System.Web.UI.UserControl
             //    //Pages.Add(100);
             //    Show_Hide_Menu_Item(Pages);
             //}
+
+                ahref.HRef = "../MainForm/ProjectGeneralData.aspx?mode=edit&Proj_id=" + ProjectID;
 
         }
     }

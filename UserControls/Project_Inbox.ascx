@@ -153,7 +153,7 @@
                                         <td colspan="2" runat="server">
                                         </td>
                                     </tr>
-                                    <tr runat="server" id="trSmart" visible="False">
+                                    <tr runat="server" id="trSmart" style="display:none" >
                                         <td colspan="4" runat="server">
                                             <table>
                                                 <tr>
@@ -221,6 +221,10 @@
                                             <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ControlToValidate="txt_Org_Out_Box_DT"
                                                 ValidationExpression="^(([0-2]\d|[3][0-1])\/([0]\d|[1][0-2])\/[2][0]\d{2})$|^(([0-2]\d|[3][0-1])\/([0]\d|[1][0-2])\/[2][0]\d{2}\s([0-1]\d|[2][0-3])\:[0-5]\d\:[0-5]\d)$"
                                                 ValidationGroup="A" ErrorMessage=" برجاء إدخال صيغة التاريخ بطريقة صحيحة " Text="*"></asp:RegularExpressionValidator>
+                                            <asp:CompareValidator ID="comp" runat="server" ControlToValidate="txt_Org_Out_Box_DT" ControlToCompare="txt_Date"   ValidationGroup="A" Operator="LessThanEqual" 
+                                                ErrorMessage=" تاريخ صادر الجهة يجب ان يكون أقل من او يساوي تاريخ الخطاب ">
+
+                                            </asp:CompareValidator>
                                         </td>
                                     </tr>
                                     <tr id="main_cat_subj" runat="server">
@@ -310,7 +314,8 @@
                                             <input type="hidden" runat="server" id="hidden_Inbox_OutBox_File_ID"></input>
                                         </td>
                                         <td dir="rtl">
-                                            <asp:FileUpload ID="FileUpload1" runat="server" ForeColor="Maroon" Width="700px" />
+                                            <asp:FileUpload ID="FileUpload1" runat="server" ForeColor="Maroon" Width="700px" onchange="Get_Value()" />
+                                           
                                             <br />
                                         </td>
                                     </tr>
@@ -624,7 +629,7 @@
                                             <asp:Label ID="Label15" runat="server" CssClass="Label" Text="الوثيقة:" Width="135px" />
                                         </td>
                                         <td dir="rtl" colspan="3">
-                                            <asp:FileUpload ID="FileUpload_Visa" runat="server" ForeColor="Maroon" Width="700px" />
+                                            <asp:FileUpload ID="FileUpload_Visa" runat="server" ForeColor="Maroon" Width="700px"  />
                                             <br />
                                         </td>
                                     </tr>
@@ -660,7 +665,9 @@
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="وصف التأشيرة">
                                                             <ItemTemplate>
-                                                                <asp:Label ID="lbl_desc" runat="server" Text='<%# Eval("Visa_Desc")%>'></asp:Label></ItemTemplate>
+                                                                <asp:Label ID="lbl_desc" runat="server" Text='<%# Eval("Visa_Desc")%>'></asp:Label>
+                                                                <asp:Label ID="lbl_emp" runat="server" Text='<%# Eval("Emp_ID")%>' Visible ="false" ></asp:Label>
+                                                            </ItemTemplate>
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="الوثيقة">
                                                             <ItemTemplate>
@@ -677,10 +684,10 @@
                                                         </asp:TemplateField>
                                                         <asp:TemplateField HeaderText="تم ارسال إيميل">
                                                             <ItemTemplate>
-                                                                <asp:CheckBox ID="chkSent" runat="server" AutoPostBack="true" OnCheckedChanged="chkSent_CheckedChanged" />
+                                                                <asp:CheckBox ID="chkSent" runat="server" AutoPostBack="true" Enabled="false"  OnCheckedChanged="chkSent_CheckedChanged" />
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText=" ارسال إيميل">
+                                                        <asp:TemplateField HeaderText=" ارسال إيميل" >
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="ImgBtnEdit123" CommandName="SendItem" runat="server" ImageUrl="../Images/Edit.jpg"
                                                                     CommandArgument='<%# Eval("Visa_Id") %>' />
@@ -775,7 +782,7 @@
                                             <asp:Label ID="Label40" runat="server" CssClass="Label" Text="الوثيقة:" Width="135px" />
                                         </td>
                                         <td dir="rtl" colspan="3">
-                                            <asp:FileUpload ID="FileUpload_Visa_Follow" runat="server" ForeColor="Maroon" Width="700px" />
+                                            <asp:FileUpload ID="FileUpload_Visa_Follow" runat="server" ForeColor="Maroon" Width="700px"  />
                                             <br />
                                         </td>
                                     </tr>

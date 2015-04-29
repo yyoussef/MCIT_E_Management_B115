@@ -18,6 +18,7 @@ using System.Xml;
 using Dates;
 using System.Reflection;
 using System.Data.Sql;
+using System.Collections.Generic;
 
 
 
@@ -157,6 +158,8 @@ public partial class Smart_Search : System.Web.UI.UserControl
 
     }
 
+
+
     public string SelectedText
     {
 
@@ -235,15 +238,15 @@ public partial class Smart_Search : System.Web.UI.UserControl
         if (hidden_Searched.Value == "2")
         {
             Clear_Controls();
-           
-                Grdvew_Search.DataSource = datatble;
-          
+
+            Grdvew_Search.DataSource = datatble;
+
         }
         else
         {
-           
-                Grdvew_Search.DataSource = datatble_Searched;
-           
+
+            Grdvew_Search.DataSource = datatble_Searched;
+
         }
 
 
@@ -387,7 +390,7 @@ public partial class Smart_Search : System.Web.UI.UserControl
 
     }
 
-  
+
 
 
 
@@ -407,10 +410,10 @@ public partial class Smart_Search : System.Web.UI.UserControl
     protected void btn_Search_Click(object sender, EventArgs e)
     {
         hidden_Searched.Value = "1";
-      
-            Search_Grid();
-     
-       
+
+        Search_Grid();
+
+
 
     }
 
@@ -432,16 +435,18 @@ public partial class Smart_Search : System.Web.UI.UserControl
 
     protected void txt_Name_TextChanged(object sender, EventArgs e)
     {
-        if (string.IsNullOrEmpty(txt_Name.Text))
+        if (string.IsNullOrEmpty(txt_Name.Text) || !string.IsNullOrEmpty(SelectedValue))
         {
             hidden_Searched.Value = "2";
             Clear_Controls();
             DataBind();
         }
-        else
+        else //if (string.IsNullOrEmpty(SelectedValue))
         {
+
             hidden_Searched.Value = "1";
             Search_Grid();
+
 
         }
     }
@@ -499,7 +504,7 @@ public partial class Smart_Search : System.Web.UI.UserControl
         {
         }
     }
-  
+
     private void Search_Grid()
     {
         string value = rdl_Search.SelectedValue;
@@ -659,7 +664,11 @@ public partial class Smart_Search : System.Web.UI.UserControl
     protected void Grdvew_Search_RowCommand(object sender, GridViewCommandEventArgs e)
     {
         int Current_PageIndex = Grdvew_Search.PageIndex;
+       
         int New_PageIndex = 0;
+
+        ImageButton img_btn_nextPage = (ImageButton)Grdvew_Search.FindControl("img_btn_nextPage");
+       
         if (e.CommandName == "Select")
         {
             string str = e.CommandArgument.ToString();
@@ -678,8 +687,12 @@ public partial class Smart_Search : System.Web.UI.UserControl
         else if (e.CommandName == "nextPage")
         {
             if (Current_PageIndex != Grdvew_Search.PageCount)
+            {
                 New_PageIndex = Current_PageIndex + 1;
+            }
 
+            
+                 
         }
         else if (e.CommandName == "first")
         {

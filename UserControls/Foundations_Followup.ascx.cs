@@ -10,21 +10,37 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
+using System.Text;
+using System.Data.SqlClient;
 using System.IO;
+using System.Net;
+using System.Net.Mail;
+using CrystalDecisions.CrystalReports.Engine;
+using CrystalDecisions.Shared;
+using System.Globalization;
+using ReportsClass;
+using System.Data.Linq;
+using System.Collections.Generic;
+using System.Data.Entity.Core;
+
 public partial class UserControls_Foundations_Followup : System.Web.UI.UserControl
 {
-    //Session_CS Session_CS = new Session_CS();
+
+    Projects_ManagementEntities10 pmentity = new Projects_ManagementEntities10();
+    Projects_ManagementEntities pmgenentity = new Projects_ManagementEntities();
+    OutboxDataContext outboxDBContext = new OutboxDataContext();
+
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
             string urlPath = Request.Url.AbsolutePath.Trim();
-     
+
             if (urlPath.Contains("SuperAdmin"))
             {
                 ddl_Foundation.Visible = true;
                 Label1.Visible = true;
-                btn_print.Visible = true ;
+                btn_print.Visible = true;
                 fill_foundations();
                 fillgrid();
             }
@@ -34,10 +50,10 @@ public partial class UserControls_Foundations_Followup : System.Web.UI.UserContr
                 ddl_Foundation.Visible = false;
                 Label1.Visible = false;
                 fillgrid();
-               
+
             }
 
-            
+
 
         }
 
@@ -45,7 +61,10 @@ public partial class UserControls_Foundations_Followup : System.Web.UI.UserContr
 
     private void fill_foundations()
     {
-        DataTable dt = Foundations_DB.SelectAll();
+        //  DataTable dt = Foundations_DB.SelectAll();
+        DataTable dt = new DataTable();
+        dt = (from found in pmgenentity.Foundations select found).ToDataTable();
+
         ddl_Foundation.DataSource = dt;
         ddl_Foundation.DataTextField = "Foundation_Name";
         ddl_Foundation.DataValueField = "Foundation_ID";
@@ -53,7 +72,7 @@ public partial class UserControls_Foundations_Followup : System.Web.UI.UserContr
 
 
         ddl_Foundation.Items.Insert(0, new ListItem("كـــل الــجــهــات", "0"));
-      
+
 
     }
 
@@ -61,11 +80,11 @@ public partial class UserControls_Foundations_Followup : System.Web.UI.UserContr
     {
 
         //if (ddl_Foundation.SelectedValue != "0")
-       // {
-            btn_print.Visible = true;
-            gv_count.Visible = true;
-            fillgrid();
-           
+        // {
+        btn_print.Visible = true;
+        gv_count.Visible = true;
+        fillgrid();
+
 
         //}
         //else
@@ -74,9 +93,9 @@ public partial class UserControls_Foundations_Followup : System.Web.UI.UserContr
         //    btn_print.Visible = false ;
         //}
 
-        
 
-      
+
+
 
     }
 
@@ -84,7 +103,7 @@ public partial class UserControls_Foundations_Followup : System.Web.UI.UserContr
     {
         DataTable dt;
         DataTable dt2;
-        DataTable dt_foundall=new DataTable () ;
+        DataTable dt_foundall = new DataTable();
         dt_foundall.Columns.Add("found_name");
         dt_foundall.Columns.Add("Employee_count");
         dt_foundall.Columns.Add("Inbox_count");
@@ -96,37 +115,43 @@ public partial class UserControls_Foundations_Followup : System.Web.UI.UserContr
 
         if (ddl_Foundation.SelectedValue == "0")
         {
-            DataTable dtfound = Foundations_DB.SelectAll();
+            // DataTable dtfound = Foundations_DB.SelectAll();
+
+            DataTable dtfound = (from found in pmgenentity.Foundations select found).ToDataTable();
+
             if (dtfound.Rows.Count > 0)
             {
-               
-               for(int x=0;x<dtfound.Rows.Count;x++)
-               {
-                    dt2 = Outbox_DB.Foundations_Followup(CDataConverter.ConvertToInt(dtfound.Rows[x]["foundation_id"].ToString()));
+
+                for (int x = 0; x < dtfound.Rows.Count; x++)
+                {
+                    //  dt2 = Outbox_DB.Foundations_Followup(CDataConverter.ConvertToInt(dtfound.Rows[x]["foundation_id"].ToString()));
+
+                    dt2 = pmgenentity.Foundations_Followup(CDataConverter.ConvertToInt(dtfound.Rows[x]["foundation_id"].ToString())).ToDataTable();
+
                     if (dt2.Rows.Count > 0)
                     {
-                       foreach( DataRow  row2 in dt2.Rows  )
-                       {
+                        foreach (DataRow row2 in dt2.Rows)
+                        {
 
 
-                           dt_foundall.ImportRow(row2);
-                      
+                            dt_foundall.ImportRow(row2);
 
-                            
-                       }
+
+
+                        }
 
                     }
                 }
 
-               
 
-                gv_count.DataSource = dt_foundall ;
+
+                gv_count.DataSource = dt_foundall;
                 gv_count.DataBind();
 
-               
+
             }
 
-           
+
 
         }
         else
@@ -138,20 +163,24 @@ public partial class UserControls_Foundations_Followup : System.Web.UI.UserContr
             {
 
 
-                dt = Outbox_DB.Foundations_Followup(CDataConverter.ConvertToInt(ddl_Foundation.SelectedValue));
+                //  dt = Outbox_DB.Foundations_Followup(CDataConverter.ConvertToInt(ddl_Foundation.SelectedValue));
+
+                dt = pmgenentity.Foundations_Followup(CDataConverter.ConvertToInt(ddl_Foundation.SelectedValue)).ToDataTable();
 
             }
 
             else
             {
-                dt = Outbox_DB.Foundations_Followup(CDataConverter.ConvertToInt(Session_CS.foundation_id));
+                // dt = Outbox_DB.Foundations_Followup(CDataConverter.ConvertToInt(Session_CS.foundation_id));
+
+                dt = pmgenentity.Foundations_Followup(CDataConverter.ConvertToInt(Session_CS.foundation_id)).ToDataTable();
 
             }
 
             gv_count.DataSource = dt;
             gv_count.DataBind();
         }
-       
+
     }
 
 

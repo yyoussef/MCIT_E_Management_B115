@@ -63,7 +63,7 @@
                 <asp:Label ID="Label2" runat="server" CssClass="Label" Text=" تفعيل الحساب  :  "></asp:Label>
             </td>
             <td>
-                <asp:CheckBox ID="chk_account" runat="server" Checked="true"  />
+                <asp:CheckBox ID="chk_account" runat="server"   />
             </td>
         </tr>
     

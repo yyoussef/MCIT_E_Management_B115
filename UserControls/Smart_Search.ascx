@@ -5,10 +5,12 @@
 
 <%@ Register Assembly="ASTreeView" Namespace="Geekees.Common.Controls" TagPrefix="ct" %>
 
+  
 <link href="<%=ResolveUrl("~/javascript/astreeview/astreeview.css")%>" type="text/css"
         rel="stylesheet" />
     <link href="<%=ResolveUrl("~/javascript/contextmenu/contextmenu.css")%>" type="text/css"
         rel="stylesheet" />
+
 
     <script src="<%=ResolveUrl("~/javascript/astreeview/astreeview_packed.js")%>" type="text/javascript"></script>
 
@@ -62,6 +64,9 @@
             // }
         }   //alert(divname.style.display);
     }
+
+
+
 
 </script>
 
@@ -133,7 +138,7 @@
                     <asp:TextBox ID="txt_Name" runat="server" BackColor="#C8C8C8" Width="200px" AutoPostBack="true"
                         OnTextChanged="txt_Name_TextChanged"  ></asp:TextBox>
                            <cc1:FilteredTextBoxExtender ID="FilteredTextBoxExtender2" runat="server" TargetControlID="txt_Name"
-                            Enabled="True"  FilterMode="InvalidChars"  InvalidChars="+-=*().'_[]@%$#^~?;:\,’&}{|><"  FilterType="UppercaseLetters,LowercaseLetters"/>
+                            Enabled="True"  FilterMode="InvalidChars"  InvalidChars="+-=*()'_[]@%$#^~?;:\,’&}{|><"  FilterType="UppercaseLetters,LowercaseLetters"/>
            
 
 

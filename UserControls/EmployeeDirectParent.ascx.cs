@@ -33,12 +33,14 @@ public partial class UserControls_EmployeeDirectParent : System.Web.UI.UserContr
     protected void ddl_Groups_SelectedIndexChanged(object sender, EventArgs e)
     {
         string sql = "select * from employee where group_id = " + ddl_Groups.SelectedValue;
-       // DataTable dtdirectmng = General_Helping.GetDataTable(sql);
 
-        Smart_Search_Direct_Manager.sql_Connection = Smart_Search_Employee.sql_Connection= sql_Connection;
-        Smart_Search_Direct_Manager.datatble = Smart_Search_Employee.datatble = General_Helping.GetDataTable(sql); ;
-        Smart_Search_Direct_Manager.Value_Field =Smart_Search_Employee.Value_Field= "PMP_ID";
-        Smart_Search_Direct_Manager.Text_Field =Smart_Search_Employee.Text_Field= "pmp_name";
+        DataTable dtdirectmng = General_Helping.GetDataTable(sql);
+
+        Smart_Search_Direct_Manager.sql_Connection = Smart_Search_Employee.sql_Connection = sql_Connection;
+        Smart_Search_Direct_Manager.datatble = Smart_Search_Employee.datatble = General_Helping.GetDataTable(sql);
+        Smart_Search_Direct_Manager.Value_Field = Smart_Search_Employee.Value_Field = "PMP_ID";
+        Smart_Search_Direct_Manager.Text_Field = Smart_Search_Employee.Text_Field = "pmp_name";
+
 
         Smart_Search_Direct_Manager.DataBind();
         Smart_Search_Employee.DataBind();
@@ -84,7 +86,7 @@ public partial class UserControls_EmployeeDirectParent : System.Web.UI.UserContr
     /// <param name="e"></param>
     protected void btn_Save_Click(object sender, EventArgs e)
     {
-        if (Smart_Search_Direct_Manager.SelectedValue != "" && Smart_Search_Employee.SelectedValue != "")
+        if (Smart_Search_Direct_Manager.SelectedValue != "" && Smart_Search_Employee.SelectedValue != "" && Smart_Search_Employee.SelectedValue!= Smart_Search_Direct_Manager.SelectedValue )
         {
             int selectedEmplID = CDataConverter.ConvertToInt(Smart_Search_Employee.SelectedValue);
             int selectedDirManagerID = CDataConverter.ConvertToInt(Smart_Search_Direct_Manager.SelectedValue);
@@ -104,8 +106,15 @@ public partial class UserControls_EmployeeDirectParent : System.Web.UI.UserContr
                 }
                 //Else, this record doesn't exist before, so go ahead to save or update it
 
+                DataTable dt = General_Helping.GetDataTable("select ParentEmpID from EmployeeAndCorrParentEmplNames where foundation_id='" + CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString()) + "'and type_id='" + CDataConverter.ConvertToInt( type) + "' and Group_id='" +CDataConverter.ConvertToInt(ddl_Groups.SelectedValue) + "' ");
+                if (dt.Rows.Count > 0)
+                {
+                    Page.RegisterStartupScript("Error", "<script language=javascript>alert('  يوجد مدير مباشر لنفس  المجموعة ونفس نوع الخطاب')</script>");
+                    return;
+                }
+
             }
-            catch
+            catch(Exception ex )
             {
                 Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('حدث خطأ في قاعدة البيانات حاول مرة أخري')</script>");
             }
@@ -142,7 +151,7 @@ public partial class UserControls_EmployeeDirectParent : System.Web.UI.UserContr
         else
         {
             //Erro message to notify the user to select the employee and manager both
-            Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('الرجاء اختيار اسم الموظف و المدير المباشر كليهما')</script>");
+            Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('الرجاء إختيار كل من اسم الموظف و المدير المباشر ')</script>");
 
         }
         currRow_id.Value = "";//Reset the hidden field value

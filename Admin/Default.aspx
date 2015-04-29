@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="Admin_Default" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="Admin_Default" Title="Admin" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -195,7 +195,7 @@ window.location = "Default.aspx?errorCode=" + errorCode ;
                             <asp:TextBox ID="Password" runat="server" TextMode="Password" Width="200px" Font-Size="16px"
                                 CausesValidation="True" ValidationGroup="a" autocomplete="off"></asp:TextBox>
                             <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ControlToValidate="Password"
-                                ErrorMessage="من فضلك ادخل كلمة المرور" ValidationGroup="a" SetFocusOnError="True"
+                                ErrorMessage="من فضلك ادخل كلمة المرور" ValidationGroup="a" 
                                 Display="Dynamic">*</asp:RequiredFieldValidator>
                             <%-- <input type="text" id="Password1" name="Textbox1" value="كلمة المرور" onfocus="if(value == 'كلمة المرور'){value=''}" onblur="if (value== '') {value='كلمة المرور'}"
            dir="rtl"  />--%>

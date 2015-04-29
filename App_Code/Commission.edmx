@@ -1,0 +1,612 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Projects_ManagementModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Commission">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Proj_id" Type="int" />
+          <Property Name="Name" Type="nvarchar" MaxLength="255" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" />
+          <Property Name="Date" Type="nvarchar" MaxLength="50" />
+          <Property Name="Type" Type="int" />
+          <Property Name="Dept_ID" Type="int" />
+          <Property Name="Emp_ID" Type="int" />
+          <Property Name="Org_Id" Type="int" />
+          <Property Name="Org_Name" Type="nvarchar" MaxLength="2000" />
+          <Property Name="Org_Out_Box_Code" Type="nvarchar" MaxLength="50" />
+          <Property Name="Org_Out_Box_DT" Type="nvarchar" MaxLength="50" />
+          <Property Name="Org_Out_Box_Person" Type="nvarchar" MaxLength="500" />
+          <Property Name="Subject" Type="ntext" />
+          <Property Name="Related_Type" Type="int" />
+          <Property Name="Related_Id" Type="int" />
+          <Property Name="Notes" Type="ntext" />
+          <Property Name="Paper_No" Type="nvarchar" MaxLength="50" />
+          <Property Name="Paper_Attached" Type="nvarchar" MaxLength="50" />
+          <Property Name="Follow_Up_Dept_ID" Type="int" />
+          <Property Name="Follow_Up_Emp_ID" Type="int" />
+          <Property Name="Dept_Desc" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Source_Type" Type="int" />
+          <Property Name="Status" Type="int" />
+          <Property Name="Org_Dept_Name" Type="nvarchar" MaxLength="500" />
+          <Property Name="Enter_Date" Type="nvarchar" MaxLength="50" />
+          <Property Name="Dept_Dept_ID" Type="int" />
+          <Property Name="Group_id" Type="int" />
+          <Property Name="pmp_pmp_id" Type="int" />
+          <Property Name="sub_Cat_id" Type="int" />
+          <Property Name="finished" Type="int" />
+          <Property Name="Resp_emp_close" Type="int" />
+          <Property Name="Actual_emp_close" Type="int" />
+          <Property Name="Date_close" Type="nvarchar" MaxLength="50" />
+          <Property Name="foundation_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Commission_Files">
+          <Key>
+            <PropertyRef Name="Commission_File_ID" />
+          </Key>
+          <Property Name="Commission_File_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Commission_ID" Type="int" />
+          <Property Name="Inbox_Or_Outbox" Type="int" />
+          <Property Name="Original_Or_Attached" Type="int" />
+          <Property Name="File_data" Type="varbinary(max)" />
+          <Property Name="File_name" Type="nvarchar" MaxLength="4000" />
+          <Property Name="File_ext" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Projects_Management.dbo.Commission_follow_emp' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Commission_follow_emp">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pmp_id" Type="int" />
+          <Property Name="Have_follow" Type="int" />
+          <Property Name="Commission_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Commission_Track_Emp">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Commission_id" Type="int" Nullable="false" />
+          <Property Name="Emp_ID" Type="int" />
+          <Property Name="Commission_Status" Type="int" />
+          <Property Name="Type_Track_emp" Type="int" />
+        </EntityType>
+        <EntityType Name="Commission_Visa">
+          <Key>
+            <PropertyRef Name="Visa_Id" />
+          </Key>
+          <Property Name="Visa_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Commission_ID" Type="int" />
+          <Property Name="Visa_date" Type="nvarchar" MaxLength="50" />
+          <Property Name="Important_Degree" Type="int" />
+          <Property Name="Dept_ID" Type="int" />
+          <Property Name="Emp_ID" Type="int" />
+          <Property Name="Important_Degree_Txt" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Dept_ID_Txt" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Emp_ID_Txt" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Visa_Desc" Type="ntext" />
+          <Property Name="Visa_Period" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Visa_Satus" Type="int" />
+          <Property Name="Follow_Up_Dept_ID" Type="int" />
+          <Property Name="Follow_Up_Emp_ID" Type="int" />
+          <Property Name="Follow_Up_Notes" Type="nvarchar" MaxLength="500" />
+          <Property Name="saving_file" Type="nvarchar" MaxLength="500" />
+          <Property Name="Dead_Line_DT" Type="nvarchar" MaxLength="50" />
+          <Property Name="Visa_Goal_ID" Type="int" />
+          <Property Name="mail_sent" Type="int" />
+        </EntityType>
+        <EntityType Name="Commission_Visa_Emp">
+          <Key>
+            <PropertyRef Name="Visa_Emp_ID" />
+          </Key>
+          <Property Name="Visa_Emp_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Visa_Id" Type="int" />
+          <Property Name="Emp_ID" Type="int" />
+          <Property Name="Sender_ID" Type="int" />
+        </EntityType>
+        <EntityType Name="Commission_Visa_Follows">
+          <Key>
+            <PropertyRef Name="Follow_ID" />
+          </Key>
+          <Property Name="Follow_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Commission_ID" Type="int" />
+          <Property Name="Descrption" Type="nvarchar" MaxLength="4000" />
+          <Property Name="Date" Type="nvarchar" MaxLength="50" />
+          <Property Name="File_data" Type="varbinary(max)" />
+          <Property Name="File_name" Type="nvarchar" MaxLength="1000" />
+          <Property Name="File_ext" Type="nvarchar" MaxLength="250" />
+          <Property Name="Visa_Emp_id" Type="int" />
+          <Property Name="entery_pmp_id" Type="int" />
+          <Property Name="time_follow" Type="nvarchar" MaxLength="50" />
+          <Property Name="Type_Follow" Type="int" />
+        </EntityType>
+        <Function Name="commission_search_par_new" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="group_id" Type="int" Mode="In" />
+          <Parameter Name="pmp" Type="int" Mode="In" />
+          <Parameter Name="subject" Type="nvarchar" Mode="In" />
+          <Parameter Name="com_date_from" Type="nvarchar" Mode="In" />
+          <Parameter Name="com_date_to" Type="nvarchar" Mode="In" />
+          <Parameter Name="visa_desc" Type="nvarchar" Mode="In" />
+          <Parameter Name="notes_word" Type="nvarchar" Mode="In" />
+          <Parameter Name="visa_emp" Type="int" Mode="In" />
+          <Parameter Name="found_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Fil_Visa_foremployee" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Visa_Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="get_comm_infor_formail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Commission_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="get_commission_visa_emp" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Visa_Id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="get_Emp_Visa_Follow" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Commission_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="get_Visa_Follow" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Commission_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Get_Visa_foremployee" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Visa_Id" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="Projects_ManagementModelStoreContainer">
+          <EntitySet Name="Commission" EntityType="Self.Commission" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Commission_Files" EntityType="Self.Commission_Files" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Commission_Track_Emp" EntityType="Self.Commission_Track_Emp" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Commission_Visa" EntityType="Self.Commission_Visa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Commission_Visa_Emp" EntityType="Self.Commission_Visa_Emp" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Commission_Visa_Follows" EntityType="Self.Commission_Visa_Follows" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Commission_follow_emp" EntityType="Self.Commission_follow_emp" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Commission_follow_emp].[id] AS [id], 
+    [Commission_follow_emp].[pmp_id] AS [pmp_id], 
+    [Commission_follow_emp].[Have_follow] AS [Have_follow], 
+    [Commission_follow_emp].[Commission_id] AS [Commission_id]
+    FROM [dbo].[Commission_follow_emp] AS [Commission_follow_emp]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Projects_ManagementModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Commission">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Proj_id" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Type" Type="Int32" />
+          <Property Name="Dept_ID" Type="Int32" />
+          <Property Name="Emp_ID" Type="Int32" />
+          <Property Name="Org_Id" Type="Int32" />
+          <Property Name="Org_Name" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="Org_Out_Box_Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Org_Out_Box_DT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Org_Out_Box_Person" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Subject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Related_Type" Type="Int32" />
+          <Property Name="Related_Id" Type="Int32" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Paper_No" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Paper_Attached" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Follow_Up_Dept_ID" Type="Int32" />
+          <Property Name="Follow_Up_Emp_ID" Type="Int32" />
+          <Property Name="Dept_Desc" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Source_Type" Type="Int32" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="Org_Dept_Name" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Enter_Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Dept_Dept_ID" Type="Int32" />
+          <Property Name="Group_id" Type="Int32" />
+          <Property Name="pmp_pmp_id" Type="Int32" />
+          <Property Name="sub_Cat_id" Type="Int32" />
+          <Property Name="finished" Type="Int32" />
+          <Property Name="Resp_emp_close" Type="Int32" />
+          <Property Name="Actual_emp_close" Type="Int32" />
+          <Property Name="Date_close" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="foundation_id" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Commission_Files">
+          <Key>
+            <PropertyRef Name="Commission_File_ID" />
+          </Key>
+          <Property Name="Commission_File_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Commission_ID" Type="Int32" />
+          <Property Name="Inbox_Or_Outbox" Type="Int32" />
+          <Property Name="Original_Or_Attached" Type="Int32" />
+          <Property Name="File_data" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="File_name" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="File_ext" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Commission_Track_Emp">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Commission_id" Type="Int32" Nullable="false" />
+          <Property Name="Emp_ID" Type="Int32" />
+          <Property Name="Commission_Status" Type="Int32" />
+          <Property Name="Type_Track_emp" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Commission_Visa">
+          <Key>
+            <PropertyRef Name="Visa_Id" />
+          </Key>
+          <Property Name="Visa_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Commission_ID" Type="Int32" />
+          <Property Name="Visa_date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Important_Degree" Type="Int32" />
+          <Property Name="Dept_ID" Type="Int32" />
+          <Property Name="Emp_ID" Type="Int32" />
+          <Property Name="Important_Degree_Txt" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Dept_ID_Txt" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Emp_ID_Txt" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Visa_Desc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Visa_Period" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Visa_Satus" Type="Int32" />
+          <Property Name="Follow_Up_Dept_ID" Type="Int32" />
+          <Property Name="Follow_Up_Emp_ID" Type="Int32" />
+          <Property Name="Follow_Up_Notes" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="saving_file" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Dead_Line_DT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Visa_Goal_ID" Type="Int32" />
+          <Property Name="mail_sent" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Commission_Visa_Emp">
+          <Key>
+            <PropertyRef Name="Visa_Emp_ID" />
+          </Key>
+          <Property Name="Visa_Emp_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Visa_Id" Type="Int32" />
+          <Property Name="Emp_ID" Type="Int32" />
+          <Property Name="Sender_ID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Commission_Visa_Follows">
+          <Key>
+            <PropertyRef Name="Follow_ID" />
+          </Key>
+          <Property Name="Follow_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Commission_ID" Type="Int32" />
+          <Property Name="Descrption" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="File_data" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="File_name" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="File_ext" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Visa_Emp_id" Type="Int32" />
+          <Property Name="entery_pmp_id" Type="Int32" />
+          <Property Name="time_follow" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Type_Follow" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Commission_follow_emp">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pmp_id" Type="Int32" />
+          <Property Name="Have_follow" Type="Int32" />
+          <Property Name="Commission_id" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="Projects_ManagementEntities10" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Commission" EntityType="Self.Commission" />
+          <EntitySet Name="Commission_Files" EntityType="Self.Commission_Files" />
+          <EntitySet Name="Commission_Track_Emp" EntityType="Self.Commission_Track_Emp" />
+          <EntitySet Name="Commission_Visa" EntityType="Self.Commission_Visa" />
+          <EntitySet Name="Commission_Visa_Emp" EntityType="Self.Commission_Visa_Emp" />
+          <EntitySet Name="Commission_Visa_Follows" EntityType="Self.Commission_Visa_Follows" />
+          <EntitySet Name="Commission_follow_emp" EntityType="Self.Commission_follow_emp" />
+          <FunctionImport Name="get_Emp_Visa_Follow" ReturnType="Collection(Projects_ManagementModel.com_get_emp_visa)">
+          <Parameter Name="Commission_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="get_Visa_Follow" ReturnType="Collection(Projects_ManagementModel.get_Visa_Follow)">
+          <Parameter Name="Commission_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="get_comm_infor_formail" ReturnType="Collection(Projects_ManagementModel.get_comm_infor_formail)">
+          <Parameter Name="Commission_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Fil_Visa_foremployee" ReturnType="Collection(Projects_ManagementModel.Fil_Visa_foremployee)">
+          <Parameter Name="Visa_Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Get_Visa_foremployee" ReturnType="Collection(Projects_ManagementModel.Get_Visa_foremployee)">
+          <Parameter Name="Visa_Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="get_commission_visa_emp" ReturnType="Collection(Projects_ManagementModel.get_commission_visa_emp)">
+          <Parameter Name="Visa_Id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="commission_search_par_new" ReturnType="Collection(Projects_ManagementModel.commission_search_par_new)">
+            <Parameter Name="group_id" Mode="In" Type="Int32" />
+            <Parameter Name="pmp" Mode="In" Type="Int32" />
+            <Parameter Name="subject" Mode="In" Type="String" />
+            <Parameter Name="com_date_from" Mode="In" Type="String" />
+            <Parameter Name="com_date_to" Mode="In" Type="String" />
+            <Parameter Name="visa_desc" Mode="In" Type="String" />
+            <Parameter Name="notes_word" Mode="In" Type="String" />
+            <Parameter Name="visa_emp" Mode="In" Type="Int32" />
+            <Parameter Name="found_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="com_get_emp_visa" >
+          <Property Type="Int64" Name="PMP_ID" Nullable="false" />
+          <Property Type="String" Name="pmp_name" Nullable="false" />
+          <Property Type="Int32" Name="Commission_ID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="get_Visa_Follow" >
+          <Property Type="Int32" Name="Follow_ID" Nullable="false" />
+          <Property Type="String" Name="File_name" Nullable="false" />
+          <Property Type="String" Name="time_follow" Nullable="false" />
+          <Property Type="Int32" Name="Commission_ID" Nullable="false" />
+          <Property Type="String" Name="Descrption" Nullable="false" />
+          <Property Type="String" Name="Date" Nullable="false" />
+          <Property Type="Int32" Name="Visa_Emp_id" Nullable="false" />
+          <Property Type="String" Name="pmp_name" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="get_comm_infor_formail" >
+          <Property Type="Int32" Name="Commission_ID" Nullable="false" />
+          <Property Type="Int32" Name="Follow_ID" Nullable="false" />
+          <Property Type="Binary" Name="File_data" Nullable="false" />
+          <Property Type="String" Name="File_name" Nullable="false" />
+          <Property Type="String" Name="File_ext" Nullable="false" />
+          <Property Type="String" Name="Descrption" Nullable="false" />
+          <Property Type="String" Name="Date" Nullable="false" />
+          <Property Type="Int32" Name="Visa_Emp_id" Nullable="false" />
+          <Property Type="String" Name="pmp_name" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="Fil_Visa_foremployee" >
+          <Property Type="Int32" Name="Visa_Id" Nullable="false" />
+          <Property Type="String" Name="pmp_name" Nullable="false" />
+          <Property Type="Int32" Name="Emp_ID" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="Get_Visa_foremployee" >
+          <Property Type="Int32" Name="Visa_Id" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="get_commission_visa_emp" >
+          <Property Type="Int32" Name="Visa_Id" Nullable="false" />
+          <Property Type="String" Name="pmp_name" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="commission_search_par_new" >
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Code" Nullable="false" />
+          <Property Type="String" Name="Date" Nullable="false" />
+          <Property Type="Int32" Name="Group_id" Nullable="false" />
+          <Property Type="Int32" Name="pmp_pmp_id" Nullable="false" />
+          <Property Type="String" Name="incombination" Nullable="false" />
+          <Property Type="String" Name="Subject" Nullable="false" />
+          <Property Type="Int32" Name="Dept_Dept_ID" Nullable="false" />
+          <Property Type="String" Name="notes" Nullable="false" />
+          <Property Type="DateTime" Name="Property" Nullable="false" />
+          <Property Type="DateTime" Name="valid_date" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Projects_ManagementModelStoreContainer" CdmEntityContainer="Projects_ManagementEntities10">
+          <EntitySetMapping Name="Commission">
+            <EntityTypeMapping TypeName="Projects_ManagementModel.Commission">
+              <MappingFragment StoreEntitySet="Commission">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Proj_id" ColumnName="Proj_id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Dept_ID" ColumnName="Dept_ID" />
+                <ScalarProperty Name="Emp_ID" ColumnName="Emp_ID" />
+                <ScalarProperty Name="Org_Id" ColumnName="Org_Id" />
+                <ScalarProperty Name="Org_Name" ColumnName="Org_Name" />
+                <ScalarProperty Name="Org_Out_Box_Code" ColumnName="Org_Out_Box_Code" />
+                <ScalarProperty Name="Org_Out_Box_DT" ColumnName="Org_Out_Box_DT" />
+                <ScalarProperty Name="Org_Out_Box_Person" ColumnName="Org_Out_Box_Person" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Related_Type" ColumnName="Related_Type" />
+                <ScalarProperty Name="Related_Id" ColumnName="Related_Id" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="Paper_No" ColumnName="Paper_No" />
+                <ScalarProperty Name="Paper_Attached" ColumnName="Paper_Attached" />
+                <ScalarProperty Name="Follow_Up_Dept_ID" ColumnName="Follow_Up_Dept_ID" />
+                <ScalarProperty Name="Follow_Up_Emp_ID" ColumnName="Follow_Up_Emp_ID" />
+                <ScalarProperty Name="Dept_Desc" ColumnName="Dept_Desc" />
+                <ScalarProperty Name="Source_Type" ColumnName="Source_Type" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Org_Dept_Name" ColumnName="Org_Dept_Name" />
+                <ScalarProperty Name="Enter_Date" ColumnName="Enter_Date" />
+                <ScalarProperty Name="Dept_Dept_ID" ColumnName="Dept_Dept_ID" />
+                <ScalarProperty Name="Group_id" ColumnName="Group_id" />
+                <ScalarProperty Name="pmp_pmp_id" ColumnName="pmp_pmp_id" />
+                <ScalarProperty Name="sub_Cat_id" ColumnName="sub_Cat_id" />
+                <ScalarProperty Name="finished" ColumnName="finished" />
+                <ScalarProperty Name="Resp_emp_close" ColumnName="Resp_emp_close" />
+                <ScalarProperty Name="Actual_emp_close" ColumnName="Actual_emp_close" />
+                <ScalarProperty Name="Date_close" ColumnName="Date_close" />
+                <ScalarProperty Name="foundation_id" ColumnName="foundation_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Commission_Files">
+            <EntityTypeMapping TypeName="Projects_ManagementModel.Commission_Files">
+              <MappingFragment StoreEntitySet="Commission_Files">
+                <ScalarProperty Name="Commission_File_ID" ColumnName="Commission_File_ID" />
+                <ScalarProperty Name="Commission_ID" ColumnName="Commission_ID" />
+                <ScalarProperty Name="Inbox_Or_Outbox" ColumnName="Inbox_Or_Outbox" />
+                <ScalarProperty Name="Original_Or_Attached" ColumnName="Original_Or_Attached" />
+                <ScalarProperty Name="File_data" ColumnName="File_data" />
+                <ScalarProperty Name="File_name" ColumnName="File_name" />
+                <ScalarProperty Name="File_ext" ColumnName="File_ext" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Commission_Track_Emp">
+            <EntityTypeMapping TypeName="Projects_ManagementModel.Commission_Track_Emp">
+              <MappingFragment StoreEntitySet="Commission_Track_Emp">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Commission_id" ColumnName="Commission_id" />
+                <ScalarProperty Name="Emp_ID" ColumnName="Emp_ID" />
+                <ScalarProperty Name="Commission_Status" ColumnName="Commission_Status" />
+                <ScalarProperty Name="Type_Track_emp" ColumnName="Type_Track_emp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Commission_Visa">
+            <EntityTypeMapping TypeName="Projects_ManagementModel.Commission_Visa">
+              <MappingFragment StoreEntitySet="Commission_Visa">
+                <ScalarProperty Name="Visa_Id" ColumnName="Visa_Id" />
+                <ScalarProperty Name="Commission_ID" ColumnName="Commission_ID" />
+                <ScalarProperty Name="Visa_date" ColumnName="Visa_date" />
+                <ScalarProperty Name="Important_Degree" ColumnName="Important_Degree" />
+                <ScalarProperty Name="Dept_ID" ColumnName="Dept_ID" />
+                <ScalarProperty Name="Emp_ID" ColumnName="Emp_ID" />
+                <ScalarProperty Name="Important_Degree_Txt" ColumnName="Important_Degree_Txt" />
+                <ScalarProperty Name="Dept_ID_Txt" ColumnName="Dept_ID_Txt" />
+                <ScalarProperty Name="Emp_ID_Txt" ColumnName="Emp_ID_Txt" />
+                <ScalarProperty Name="Visa_Desc" ColumnName="Visa_Desc" />
+                <ScalarProperty Name="Visa_Period" ColumnName="Visa_Period" />
+                <ScalarProperty Name="Visa_Satus" ColumnName="Visa_Satus" />
+                <ScalarProperty Name="Follow_Up_Dept_ID" ColumnName="Follow_Up_Dept_ID" />
+                <ScalarProperty Name="Follow_Up_Emp_ID" ColumnName="Follow_Up_Emp_ID" />
+                <ScalarProperty Name="Follow_Up_Notes" ColumnName="Follow_Up_Notes" />
+                <ScalarProperty Name="saving_file" ColumnName="saving_file" />
+                <ScalarProperty Name="Dead_Line_DT" ColumnName="Dead_Line_DT" />
+                <ScalarProperty Name="Visa_Goal_ID" ColumnName="Visa_Goal_ID" />
+                <ScalarProperty Name="mail_sent" ColumnName="mail_sent" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Commission_Visa_Emp">
+            <EntityTypeMapping TypeName="Projects_ManagementModel.Commission_Visa_Emp">
+              <MappingFragment StoreEntitySet="Commission_Visa_Emp">
+                <ScalarProperty Name="Visa_Emp_ID" ColumnName="Visa_Emp_ID" />
+                <ScalarProperty Name="Visa_Id" ColumnName="Visa_Id" />
+                <ScalarProperty Name="Emp_ID" ColumnName="Emp_ID" />
+                <ScalarProperty Name="Sender_ID" ColumnName="Sender_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Commission_Visa_Follows">
+            <EntityTypeMapping TypeName="Projects_ManagementModel.Commission_Visa_Follows">
+              <MappingFragment StoreEntitySet="Commission_Visa_Follows">
+                <ScalarProperty Name="Follow_ID" ColumnName="Follow_ID" />
+                <ScalarProperty Name="Commission_ID" ColumnName="Commission_ID" />
+                <ScalarProperty Name="Descrption" ColumnName="Descrption" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="File_data" ColumnName="File_data" />
+                <ScalarProperty Name="File_name" ColumnName="File_name" />
+                <ScalarProperty Name="File_ext" ColumnName="File_ext" />
+                <ScalarProperty Name="Visa_Emp_id" ColumnName="Visa_Emp_id" />
+                <ScalarProperty Name="entery_pmp_id" ColumnName="entery_pmp_id" />
+                <ScalarProperty Name="time_follow" ColumnName="time_follow" />
+                <ScalarProperty Name="Type_Follow" ColumnName="Type_Follow" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Commission_follow_emp">
+            <EntityTypeMapping TypeName="Projects_ManagementModel.Commission_follow_emp">
+              <MappingFragment StoreEntitySet="Commission_follow_emp">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="pmp_id" ColumnName="pmp_id" />
+                <ScalarProperty Name="Have_follow" ColumnName="Have_follow" />
+                <ScalarProperty Name="Commission_id" ColumnName="Commission_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="get_Emp_Visa_Follow" FunctionName="Projects_ManagementModel.Store.get_Emp_Visa_Follow">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Projects_ManagementModel.com_get_emp_visa" >
+                <ScalarProperty Name="PMP_ID" ColumnName="PMP_ID" />
+                <ScalarProperty Name="pmp_name" ColumnName="pmp_name" />
+                <ScalarProperty Name="Commission_ID" ColumnName="Commission_ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_Visa_Follow" FunctionName="Projects_ManagementModel.Store.get_Visa_Follow">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Projects_ManagementModel.get_Visa_Follow">
+                <ScalarProperty Name="Follow_ID" ColumnName="Follow_ID" />
+                <ScalarProperty Name="File_name" ColumnName="File_name" />
+                <ScalarProperty Name="time_follow" ColumnName="time_follow" />
+                <ScalarProperty Name="Commission_ID" ColumnName="Commission_ID" />
+                <ScalarProperty Name="Descrption" ColumnName="Descrption" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Visa_Emp_id" ColumnName="Visa_Emp_id" />
+                <ScalarProperty Name="pmp_name" ColumnName="pmp_name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_comm_infor_formail" FunctionName="Projects_ManagementModel.Store.get_comm_infor_formail">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Projects_ManagementModel.get_comm_infor_formail">
+                <ScalarProperty Name="Commission_ID" ColumnName="Commission_ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Fil_Visa_foremployee" FunctionName="Projects_ManagementModel.Store.Fil_Visa_foremployee">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Projects_ManagementModel.Fil_Visa_foremployee">
+                <ScalarProperty Name="Visa_Id" ColumnName="Visa_Id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Get_Visa_foremployee" FunctionName="Projects_ManagementModel.Store.Get_Visa_foremployee">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Projects_ManagementModel.Get_Visa_foremployee">
+                <ScalarProperty Name="Visa_Id" ColumnName="Visa_Id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_commission_visa_emp" FunctionName="Projects_ManagementModel.Store.get_commission_visa_emp">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Projects_ManagementModel.get_commission_visa_emp">
+                <ScalarProperty Name="Visa_Id" ColumnName="Visa_Id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="commission_search_par_new" FunctionName="Projects_ManagementModel.Store.commission_search_par_new">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Projects_ManagementModel.commission_search_par_new">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Group_id" ColumnName="Group_id" />
+                <ScalarProperty Name="pmp_pmp_id" ColumnName="pmp_pmp_id" />
+                <ScalarProperty Name="incombination" ColumnName="incombination" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Dept_Dept_ID" ColumnName="Dept_Dept_ID" />
+                <ScalarProperty Name="notes" ColumnName="notes" />
+                <ScalarProperty Name="Property" ColumnName="Property" />
+                <ScalarProperty Name="valid_date" ColumnName="valid_date" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

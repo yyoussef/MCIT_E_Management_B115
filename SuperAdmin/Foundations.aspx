@@ -42,19 +42,30 @@
         </tr>
         <tr>
             <td style="width: 198px">
-                <asp:Label ID="Label1" runat="server" CssClass="Label" Text="كود الارشيف  :  "></asp:Label>
+                <asp:Label ID="Label1" runat="server" CssClass="Label" Text="كود الوارد  :  "></asp:Label>
             </td>
             <td>
                 <asp:CheckBox ID="chk_code" runat="server" />
             </td>
         </tr>
+
+
+          <tr>
+            <td style="width: 198px">
+                <asp:Label ID="Label9" runat="server" CssClass="Label" Text="كود الصادر  :  "></asp:Label>
+            </td>
+            <td>
+                <asp:CheckBox ID="chk_code_outbox" runat="server" />
+            </td>
+        </tr>
+
         
-        <tr>
+      <%--  <tr>
             <td>
             <asp:Label ID="Label4" runat="server"  CssClass="Label" Text="Mail"></asp:Label>
             </td>            
             <td>
-                <asp:CheckBox ID="CheckBox1" runat="server" OnClick="fun1()" />            
+                <asp:CheckBox ID="CheckBox1" runat="server"  />            
             </td>
         </tr>
         <tr>
@@ -62,9 +73,9 @@
             <asp:Label ID="Label5" runat="server"  CssClass="Label" Text="SMS"></asp:Label>
             </td>
             <td>
-            <asp:CheckBox ID="CheckBox2" runat="server" OnClick="fun1()" />
+            <asp:CheckBox ID="CheckBox2" runat="server"  />
             </td>
-        </tr>
+        </tr>--%>
         
         <asp:Panel ID="panel1" runat="server" >
         <tr>

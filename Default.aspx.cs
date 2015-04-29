@@ -23,6 +23,7 @@ using System.Text;
 public partial class _Default : System.Web.UI.Page
 {
     //Session_CS Session_CS = new Session_CS();
+    //checkGit123
     protected void Page_Load(object sender, EventArgs e)
     {
     
@@ -290,6 +291,8 @@ public partial class _Default : System.Web.UI.Page
         Session_CS.pmp_name = dt.Rows[0]["pmp_name"].ToString();
         Session_CS.foundation_id = CDataConverter.ConvertToInt(dt.Rows[0]["foundation_id"].ToString());
         Session_CS.code_archiving = CDataConverter.ConvertToInt(dt.Rows[0]["code_archiving"].ToString());
+
+      Session_CS.code_outbox = CDataConverter.ConvertToInt(dt.Rows[0]["code_outbox"].ToString());
         Session_CS.Host = dt.Rows[0]["Host"].ToString();
         Session_CS.UserName_mail = dt.Rows[0]["UserName_mail"].ToString();
        // Session_CS.FromAddress =  dt.Rows[0]["FromAddress"].ToString().Replace("\r\n", "");
