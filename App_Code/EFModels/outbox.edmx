@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Projects_ManagementModel3.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="OutboxmodelNamespace.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Outbox">
           <Key>
             <PropertyRef Name="ID" />
@@ -155,7 +155,7 @@ warning 6002: The table/view 'Projects_Management.dbo.Outbox_follow_emp' does no
           <Property Name="time_follow" Type="nvarchar" MaxLength="50" />
           <Property Name="Type_Follow" Type="int" />
         </EntityType>
-        <EntityContainer Name="Projects_ManagementModel3StoreContainer">
+        <EntityContainer Name="OutboxmodelNamespaceStoreContainer">
           <EntitySet Name="Outbox" EntityType="Self.Outbox" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Outbox_Main_Categories" EntityType="Self.Outbox_Main_Categories" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Outbox_Sub_Categories" EntityType="Self.Outbox_Sub_Categories" Schema="dbo" store:Type="Tables" />
@@ -166,18 +166,18 @@ warning 6002: The table/view 'Projects_Management.dbo.Outbox_follow_emp' does no
           <EntitySet Name="Outbox_Visa_Follows" EntityType="Self.Outbox_Visa_Follows" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Outbox_follow_emp" EntityType="Self.Outbox_follow_emp" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
-[Outbox_follow_emp].[id] AS [id], 
-[Outbox_follow_emp].[pmp_id] AS [pmp_id], 
-[Outbox_follow_emp].[Have_follow] AS [Have_follow], 
-[Outbox_follow_emp].[Outbox_id] AS [Outbox_id]
-FROM [dbo].[Outbox_follow_emp] AS [Outbox_follow_emp]</DefiningQuery>
+    [Outbox_follow_emp].[id] AS [id], 
+    [Outbox_follow_emp].[pmp_id] AS [pmp_id], 
+    [Outbox_follow_emp].[Have_follow] AS [Have_follow], 
+    [Outbox_follow_emp].[Outbox_id] AS [Outbox_id]
+    FROM [dbo].[Outbox_follow_emp] AS [Outbox_follow_emp]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
       </Schema>
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="Projects_ManagementModel3" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="OutboxmodelNamespace" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="Outbox">
           <Key>
             <PropertyRef Name="ID" />
@@ -318,7 +318,7 @@ FROM [dbo].[Outbox_follow_emp] AS [Outbox_follow_emp]</DefiningQuery>
           <Property Name="Have_follow" Type="Int32" />
           <Property Name="Outbox_id" Type="Int32" />
         </EntityType>
-        <EntityContainer Name="OutboxDBContext" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="OutboxContext" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Outboxes" EntityType="Self.Outbox" />
           <EntitySet Name="Outbox_Main_Categories" EntityType="Self.Outbox_Main_Categories" />
           <EntitySet Name="Outbox_Sub_Categories" EntityType="Self.Outbox_Sub_Categories" />
@@ -334,9 +334,9 @@ FROM [dbo].[Outbox_follow_emp] AS [Outbox_follow_emp]</DefiningQuery>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="Projects_ManagementModel3StoreContainer" CdmEntityContainer="OutboxDBContext">
+        <EntityContainerMapping StorageEntityContainer="OutboxmodelNamespaceStoreContainer" CdmEntityContainer="OutboxContext">
           <EntitySetMapping Name="Outboxes">
-            <EntityTypeMapping TypeName="Projects_ManagementModel3.Outbox">
+            <EntityTypeMapping TypeName="OutboxmodelNamespace.Outbox">
               <MappingFragment StoreEntitySet="Outbox">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Proj_id" ColumnName="Proj_id" />
@@ -374,7 +374,7 @@ FROM [dbo].[Outbox_follow_emp] AS [Outbox_follow_emp]</DefiningQuery>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Outbox_Main_Categories">
-            <EntityTypeMapping TypeName="Projects_ManagementModel3.Outbox_Main_Categories">
+            <EntityTypeMapping TypeName="OutboxmodelNamespace.Outbox_Main_Categories">
               <MappingFragment StoreEntitySet="Outbox_Main_Categories">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -383,7 +383,7 @@ FROM [dbo].[Outbox_follow_emp] AS [Outbox_follow_emp]</DefiningQuery>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Outbox_Sub_Categories">
-            <EntityTypeMapping TypeName="Projects_ManagementModel3.Outbox_Sub_Categories">
+            <EntityTypeMapping TypeName="OutboxmodelNamespace.Outbox_Sub_Categories">
               <MappingFragment StoreEntitySet="Outbox_Sub_Categories">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
@@ -392,7 +392,7 @@ FROM [dbo].[Outbox_follow_emp] AS [Outbox_follow_emp]</DefiningQuery>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Outbox_Track_Emp">
-            <EntityTypeMapping TypeName="Projects_ManagementModel3.Outbox_Track_Emp">
+            <EntityTypeMapping TypeName="OutboxmodelNamespace.Outbox_Track_Emp">
               <MappingFragment StoreEntitySet="Outbox_Track_Emp">
                 <ScalarProperty Name="ID" ColumnName="ID" />
                 <ScalarProperty Name="Outbox_id" ColumnName="Outbox_id" />
@@ -403,7 +403,7 @@ FROM [dbo].[Outbox_follow_emp] AS [Outbox_follow_emp]</DefiningQuery>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Outbox_Track_Manager">
-            <EntityTypeMapping TypeName="Projects_ManagementModel3.Outbox_Track_Manager">
+            <EntityTypeMapping TypeName="OutboxmodelNamespace.Outbox_Track_Manager">
               <MappingFragment StoreEntitySet="Outbox_Track_Manager">
                 <ScalarProperty Name="Outbox_id" ColumnName="Outbox_id" />
                 <ScalarProperty Name="status" ColumnName="status" />
@@ -420,7 +420,7 @@ FROM [dbo].[Outbox_follow_emp] AS [Outbox_follow_emp]</DefiningQuery>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Outbox_Visa">
-            <EntityTypeMapping TypeName="Projects_ManagementModel3.Outbox_Visa">
+            <EntityTypeMapping TypeName="OutboxmodelNamespace.Outbox_Visa">
               <MappingFragment StoreEntitySet="Outbox_Visa">
                 <ScalarProperty Name="Visa_Id" ColumnName="Visa_Id" />
                 <ScalarProperty Name="Outbox_ID" ColumnName="Outbox_ID" />
@@ -448,7 +448,7 @@ FROM [dbo].[Outbox_follow_emp] AS [Outbox_follow_emp]</DefiningQuery>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Outbox_Visa_Emp">
-            <EntityTypeMapping TypeName="Projects_ManagementModel3.Outbox_Visa_Emp">
+            <EntityTypeMapping TypeName="OutboxmodelNamespace.Outbox_Visa_Emp">
               <MappingFragment StoreEntitySet="Outbox_Visa_Emp">
                 <ScalarProperty Name="Visa_Emp_ID" ColumnName="Visa_Emp_ID" />
                 <ScalarProperty Name="Visa_Id" ColumnName="Visa_Id" />
@@ -458,7 +458,7 @@ FROM [dbo].[Outbox_follow_emp] AS [Outbox_follow_emp]</DefiningQuery>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Outbox_Visa_Follows">
-            <EntityTypeMapping TypeName="Projects_ManagementModel3.Outbox_Visa_Follows">
+            <EntityTypeMapping TypeName="OutboxmodelNamespace.Outbox_Visa_Follows">
               <MappingFragment StoreEntitySet="Outbox_Visa_Follows">
                 <ScalarProperty Name="Follow_ID" ColumnName="Follow_ID" />
                 <ScalarProperty Name="Outbox_ID" ColumnName="Outbox_ID" />
@@ -475,7 +475,7 @@ FROM [dbo].[Outbox_follow_emp] AS [Outbox_follow_emp]</DefiningQuery>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Outbox_follow_emp">
-            <EntityTypeMapping TypeName="Projects_ManagementModel3.Outbox_follow_emp">
+            <EntityTypeMapping TypeName="OutboxmodelNamespace.Outbox_follow_emp">
               <MappingFragment StoreEntitySet="Outbox_follow_emp">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="pmp_id" ColumnName="pmp_id" />
@@ -500,8 +500,8 @@ FROM [dbo].[Outbox_follow_emp] AS [Outbox_follow_emp]</DefiningQuery>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="true" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="true" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="Default" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->
