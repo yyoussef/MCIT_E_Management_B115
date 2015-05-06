@@ -166,9 +166,9 @@ padding-top:20%;
                                          
 
 
-                                               <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" ControlToValidate="txt_rec_DT"
+                                             <%--  <asp:RegularExpressionValidator ID="RegularExpressionValidator3" runat="server" ControlToValidate="txt_rec_DT"
                                                 ValidationExpression="^(0[1-9]|[12][0-9]|3[01])[- /.](0[1-9]|1[012])[- /.](19|20)\d\d$"
-                                                ValidationGroup="A" ErrorMessage=" برجاء إدخال صيغة التاريخ بطريقة صحيحة " ></asp:RegularExpressionValidator>
+                                                ValidationGroup="A" ErrorMessage=" برجاء إدخال صيغة التاريخ بطريقة صحيحة " ></asp:RegularExpressionValidator>--%>
 
                                         </td>
                                     </tr>
