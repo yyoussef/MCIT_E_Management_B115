@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+﻿ErrorGeneratingOutput
+=======
 ﻿
 
 //------------------------------------------------------------------------------
@@ -172,3 +175,4 @@ public partial class Projects_ManagementEntities10 : DbContext
 
 }
 
+>>>>>>> 9e3254ace7da6c82bf5edf99eba644c53109f39b
