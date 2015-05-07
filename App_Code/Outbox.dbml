@@ -553,4 +553,77 @@
       <Column Name="sec_sec_id" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
     </ElementType>
   </Function>
+  <Function Name="dbo.select_main_cat_by_group" Method="select_main_cat_by_group">
+    <Parameter Name="group_id" Type="System.Int32" DbType="Int" />
+    <ElementType Name="select_main_cat_by_groupResult">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="group_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.get_all_subs" Method="get_all_subs">
+    <Parameter Name="inbox_id" Type="System.Int32" DbType="Int" />
+    <ElementType Name="get_all_subsResult">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="name" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.get_all_cat_sub_main" Method="get_all_cat_sub_main">
+    <Parameter Name="inbox_id" Type="System.Int32" DbType="Int" />
+    <ElementType Name="get_all_cat_sub_mainResult">
+      <Column Name="inbox_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Cat_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="inbox_type" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.get_pmp_by_dept" Method="get_pmp_by_dept">
+    <Parameter Name="dept_id" Type="System.Int32" DbType="Int" />
+    <ElementType Name="get_pmp_by_deptResult">
+      <Column Name="PMP_ID" Type="System.Int64" DbType="BigInt NOT NULL" CanBeNull="false" />
+      <Column Name="pmp_name" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.get_related_inbox_inbox_page" Method="get_related_inbox_inbox_page">
+    <Parameter Name="group_id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="proj_id" Type="System.Int32" DbType="Int" />
+    <ElementType Name="get_related_inbox_inbox_pageResult">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Proj_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Code" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="con" Type="System.String" DbType="NVarChar(304)" CanBeNull="true" />
+      <Column Name="Group_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Date" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="date1" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.get_related_outbox_inbox_page" Method="get_related_outbox_inbox_page">
+    <Parameter Name="group_id" Type="System.Int32" DbType="Int" />
+    <Parameter Name="proj_id" Type="System.Int32" DbType="Int" />
+    <ElementType Name="get_related_outbox_inbox_pageResult">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Proj_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Code" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="con" Type="System.String" DbType="NVarChar(304)" CanBeNull="true" />
+      <Column Name="Group_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Date" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="date1" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.get_max_code_inbox" Method="get_max_code_inbox">
+    <Parameter Name="foundation_id" Type="System.Int32" DbType="Int" />
+    <ElementType Name="get_max_code_inboxResult">
+      <Column Name="code" Type="System.Int64" DbType="BigInt" CanBeNull="true" />
+    </ElementType>
+  </Function>
+  <Function Name="dbo.get_par_by_inbox_id" Method="get_par_by_inbox_id">
+    <Parameter Name="inbox_id" Type="System.Int32" DbType="Int" />
+    <ElementType Name="get_par_by_inbox_idResult">
+      <Column Name="Enter_Date" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Dept_Dept_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Group_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="pmp_pmp_id" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </ElementType>
+  </Function>
 </Database>

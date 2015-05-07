@@ -95,7 +95,7 @@
                                         </td>
                                     </tr>
                                    <tr runat="server" id="tr_Inbox_In" style="display:none;width:10px" >
-                                        <td>
+                                        <td style ="width:50px">
                                             <asp:Label ID="Label48" runat="server" CssClass="Label" Text="الادارة :" />
                                         </td>
                                         <td>

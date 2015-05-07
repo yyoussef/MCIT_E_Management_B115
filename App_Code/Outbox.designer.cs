@@ -439,6 +439,62 @@ public partial class OutboxDataContext : System.Data.Linq.DataContext
 		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), dept_id);
 		return ((ISingleResult<fill_employee2Result>)(result.ReturnValue));
 	}
+	
+	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.select_main_cat_by_group")]
+	public ISingleResult<select_main_cat_by_groupResult> select_main_cat_by_group([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> group_id)
+	{
+		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), group_id);
+		return ((ISingleResult<select_main_cat_by_groupResult>)(result.ReturnValue));
+	}
+	
+	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.get_all_subs")]
+	public ISingleResult<get_all_subsResult> get_all_subs([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> inbox_id)
+	{
+		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), inbox_id);
+		return ((ISingleResult<get_all_subsResult>)(result.ReturnValue));
+	}
+	
+	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.get_all_cat_sub_main")]
+	public ISingleResult<get_all_cat_sub_mainResult> get_all_cat_sub_main([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> inbox_id)
+	{
+		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), inbox_id);
+		return ((ISingleResult<get_all_cat_sub_mainResult>)(result.ReturnValue));
+	}
+	
+	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.get_pmp_by_dept")]
+	public ISingleResult<get_pmp_by_deptResult> get_pmp_by_dept([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> dept_id)
+	{
+		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), dept_id);
+		return ((ISingleResult<get_pmp_by_deptResult>)(result.ReturnValue));
+	}
+	
+	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.get_related_inbox_inbox_page")]
+	public ISingleResult<get_related_inbox_inbox_pageResult> get_related_inbox_inbox_page([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> group_id, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> proj_id)
+	{
+		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), group_id, proj_id);
+		return ((ISingleResult<get_related_inbox_inbox_pageResult>)(result.ReturnValue));
+	}
+	
+	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.get_related_outbox_inbox_page")]
+	public ISingleResult<get_related_outbox_inbox_pageResult> get_related_outbox_inbox_page([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> group_id, [global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> proj_id)
+	{
+		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), group_id, proj_id);
+		return ((ISingleResult<get_related_outbox_inbox_pageResult>)(result.ReturnValue));
+	}
+	
+	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.get_max_code_inbox")]
+	public ISingleResult<get_max_code_inboxResult> get_max_code_inbox([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> foundation_id)
+	{
+		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), foundation_id);
+		return ((ISingleResult<get_max_code_inboxResult>)(result.ReturnValue));
+	}
+	
+	[global::System.Data.Linq.Mapping.FunctionAttribute(Name="dbo.get_par_by_inbox_id")]
+	public ISingleResult<get_par_by_inbox_idResult> get_par_by_inbox_id([global::System.Data.Linq.Mapping.ParameterAttribute(DbType="Int")] System.Nullable<int> inbox_id)
+	{
+		IExecuteResult result = this.ExecuteMethodCall(this, ((MethodInfo)(MethodInfo.GetCurrentMethod())), inbox_id);
+		return ((ISingleResult<get_par_by_inbox_idResult>)(result.ReturnValue));
+	}
 }
 
 [global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Project")]
@@ -9118,6 +9174,628 @@ public partial class fill_employee2Result
 			if ((this._sec_sec_id != value))
 			{
 				this._sec_sec_id = value;
+			}
+		}
+	}
+}
+
+public partial class select_main_cat_by_groupResult
+{
+	
+	private int _id;
+	
+	private string _Name;
+	
+	private System.Nullable<int> _group_id;
+	
+	public select_main_cat_by_groupResult()
+	{
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="Int NOT NULL")]
+	public int id
+	{
+		get
+		{
+			return this._id;
+		}
+		set
+		{
+			if ((this._id != value))
+			{
+				this._id = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Name", DbType="NVarChar(50)")]
+	public string Name
+	{
+		get
+		{
+			return this._Name;
+		}
+		set
+		{
+			if ((this._Name != value))
+			{
+				this._Name = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_group_id", DbType="Int")]
+	public System.Nullable<int> group_id
+	{
+		get
+		{
+			return this._group_id;
+		}
+		set
+		{
+			if ((this._group_id != value))
+			{
+				this._group_id = value;
+			}
+		}
+	}
+}
+
+public partial class get_all_subsResult
+{
+	
+	private int _id;
+	
+	private string _name;
+	
+	private System.Nullable<int> _Type;
+	
+	public get_all_subsResult()
+	{
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_id", DbType="Int NOT NULL")]
+	public int id
+	{
+		get
+		{
+			return this._id;
+		}
+		set
+		{
+			if ((this._id != value))
+			{
+				this._id = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_name", DbType="NVarChar(4000)")]
+	public string name
+	{
+		get
+		{
+			return this._name;
+		}
+		set
+		{
+			if ((this._name != value))
+			{
+				this._name = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="Int")]
+	public System.Nullable<int> Type
+	{
+		get
+		{
+			return this._Type;
+		}
+		set
+		{
+			if ((this._Type != value))
+			{
+				this._Type = value;
+			}
+		}
+	}
+}
+
+public partial class get_all_cat_sub_mainResult
+{
+	
+	private System.Nullable<int> _inbox_id;
+	
+	private System.Nullable<int> _Cat_id;
+	
+	private System.Nullable<int> _Type;
+	
+	private System.Nullable<int> _inbox_type;
+	
+	public get_all_cat_sub_mainResult()
+	{
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_inbox_id", DbType="Int")]
+	public System.Nullable<int> inbox_id
+	{
+		get
+		{
+			return this._inbox_id;
+		}
+		set
+		{
+			if ((this._inbox_id != value))
+			{
+				this._inbox_id = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cat_id", DbType="Int")]
+	public System.Nullable<int> Cat_id
+	{
+		get
+		{
+			return this._Cat_id;
+		}
+		set
+		{
+			if ((this._Cat_id != value))
+			{
+				this._Cat_id = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Type", DbType="Int")]
+	public System.Nullable<int> Type
+	{
+		get
+		{
+			return this._Type;
+		}
+		set
+		{
+			if ((this._Type != value))
+			{
+				this._Type = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_inbox_type", DbType="Int")]
+	public System.Nullable<int> inbox_type
+	{
+		get
+		{
+			return this._inbox_type;
+		}
+		set
+		{
+			if ((this._inbox_type != value))
+			{
+				this._inbox_type = value;
+			}
+		}
+	}
+}
+
+public partial class get_pmp_by_deptResult
+{
+	
+	private long _PMP_ID;
+	
+	private string _pmp_name;
+	
+	public get_pmp_by_deptResult()
+	{
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PMP_ID", DbType="BigInt NOT NULL")]
+	public long PMP_ID
+	{
+		get
+		{
+			return this._PMP_ID;
+		}
+		set
+		{
+			if ((this._PMP_ID != value))
+			{
+				this._PMP_ID = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_pmp_name", DbType="NVarChar(255)")]
+	public string pmp_name
+	{
+		get
+		{
+			return this._pmp_name;
+		}
+		set
+		{
+			if ((this._pmp_name != value))
+			{
+				this._pmp_name = value;
+			}
+		}
+	}
+}
+
+public partial class get_related_inbox_inbox_pageResult
+{
+	
+	private int _ID;
+	
+	private System.Nullable<int> _Proj_id;
+	
+	private string _Code;
+	
+	private string _con;
+	
+	private System.Nullable<int> _Group_id;
+	
+	private string _Date;
+	
+	private System.Nullable<System.DateTime> _date1;
+	
+	public get_related_inbox_inbox_pageResult()
+	{
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", DbType="Int NOT NULL")]
+	public int ID
+	{
+		get
+		{
+			return this._ID;
+		}
+		set
+		{
+			if ((this._ID != value))
+			{
+				this._ID = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Proj_id", DbType="Int")]
+	public System.Nullable<int> Proj_id
+	{
+		get
+		{
+			return this._Proj_id;
+		}
+		set
+		{
+			if ((this._Proj_id != value))
+			{
+				this._Proj_id = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Code", DbType="NVarChar(50)")]
+	public string Code
+	{
+		get
+		{
+			return this._Code;
+		}
+		set
+		{
+			if ((this._Code != value))
+			{
+				this._Code = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_con", DbType="NVarChar(304)")]
+	public string con
+	{
+		get
+		{
+			return this._con;
+		}
+		set
+		{
+			if ((this._con != value))
+			{
+				this._con = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Group_id", DbType="Int")]
+	public System.Nullable<int> Group_id
+	{
+		get
+		{
+			return this._Group_id;
+		}
+		set
+		{
+			if ((this._Group_id != value))
+			{
+				this._Group_id = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date", DbType="NVarChar(50)")]
+	public string Date
+	{
+		get
+		{
+			return this._Date;
+		}
+		set
+		{
+			if ((this._Date != value))
+			{
+				this._Date = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_date1", DbType="DateTime")]
+	public System.Nullable<System.DateTime> date1
+	{
+		get
+		{
+			return this._date1;
+		}
+		set
+		{
+			if ((this._date1 != value))
+			{
+				this._date1 = value;
+			}
+		}
+	}
+}
+
+public partial class get_related_outbox_inbox_pageResult
+{
+	
+	private int _ID;
+	
+	private System.Nullable<int> _Proj_id;
+	
+	private string _Code;
+	
+	private string _con;
+	
+	private System.Nullable<int> _Group_id;
+	
+	private string _Date;
+	
+	private System.Nullable<System.DateTime> _date1;
+	
+	public get_related_outbox_inbox_pageResult()
+	{
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ID", DbType="Int NOT NULL")]
+	public int ID
+	{
+		get
+		{
+			return this._ID;
+		}
+		set
+		{
+			if ((this._ID != value))
+			{
+				this._ID = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Proj_id", DbType="Int")]
+	public System.Nullable<int> Proj_id
+	{
+		get
+		{
+			return this._Proj_id;
+		}
+		set
+		{
+			if ((this._Proj_id != value))
+			{
+				this._Proj_id = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Code", DbType="NVarChar(50)")]
+	public string Code
+	{
+		get
+		{
+			return this._Code;
+		}
+		set
+		{
+			if ((this._Code != value))
+			{
+				this._Code = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_con", DbType="NVarChar(304)")]
+	public string con
+	{
+		get
+		{
+			return this._con;
+		}
+		set
+		{
+			if ((this._con != value))
+			{
+				this._con = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Group_id", DbType="Int")]
+	public System.Nullable<int> Group_id
+	{
+		get
+		{
+			return this._Group_id;
+		}
+		set
+		{
+			if ((this._Group_id != value))
+			{
+				this._Group_id = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Date", DbType="NVarChar(50)")]
+	public string Date
+	{
+		get
+		{
+			return this._Date;
+		}
+		set
+		{
+			if ((this._Date != value))
+			{
+				this._Date = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_date1", DbType="DateTime")]
+	public System.Nullable<System.DateTime> date1
+	{
+		get
+		{
+			return this._date1;
+		}
+		set
+		{
+			if ((this._date1 != value))
+			{
+				this._date1 = value;
+			}
+		}
+	}
+}
+
+public partial class get_max_code_inboxResult
+{
+	
+	private System.Nullable<long> _code;
+	
+	public get_max_code_inboxResult()
+	{
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_code", DbType="BigInt")]
+	public System.Nullable<long> code
+	{
+		get
+		{
+			return this._code;
+		}
+		set
+		{
+			if ((this._code != value))
+			{
+				this._code = value;
+			}
+		}
+	}
+}
+
+public partial class get_par_by_inbox_idResult
+{
+	
+	private string _Enter_Date;
+	
+	private System.Nullable<int> _Dept_Dept_id;
+	
+	private System.Nullable<int> _Group_id;
+	
+	private System.Nullable<int> _pmp_pmp_id;
+	
+	public get_par_by_inbox_idResult()
+	{
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Enter_Date", DbType="NVarChar(50)")]
+	public string Enter_Date
+	{
+		get
+		{
+			return this._Enter_Date;
+		}
+		set
+		{
+			if ((this._Enter_Date != value))
+			{
+				this._Enter_Date = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Dept_Dept_id", DbType="Int")]
+	public System.Nullable<int> Dept_Dept_id
+	{
+		get
+		{
+			return this._Dept_Dept_id;
+		}
+		set
+		{
+			if ((this._Dept_Dept_id != value))
+			{
+				this._Dept_Dept_id = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Group_id", DbType="Int")]
+	public System.Nullable<int> Group_id
+	{
+		get
+		{
+			return this._Group_id;
+		}
+		set
+		{
+			if ((this._Group_id != value))
+			{
+				this._Group_id = value;
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_pmp_pmp_id", DbType="Int")]
+	public System.Nullable<int> pmp_pmp_id
+	{
+		get
+		{
+			return this._pmp_pmp_id;
+		}
+		set
+		{
+			if ((this._pmp_pmp_id != value))
+			{
+				this._pmp_pmp_id = value;
 			}
 		}
 	}
