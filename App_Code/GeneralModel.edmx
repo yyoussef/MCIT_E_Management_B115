@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="Projects_ManagementModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Projects_ManagementModel1.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <!--Errors Found During Generation:
 warning 6002: The table/view 'Projects_Management_TEDATA.dbo.Admin_Module' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Admin_Module">
@@ -95,17 +95,17 @@ warning 6002: The table/view 'Projects_Management_TEDATA.dbo.super_admin' does n
           <Parameter Name="User_name" Type="nvarchar" Mode="In" />
         </Function>
         <EntityContainer Name="Projects_ManagementModel1StoreContainer">
-          <EntitySet Name="Admin_Users" EntityType="Self.Admin_Users" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Foundations" EntityType="Self.Foundations" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Site_Upload" EntityType="Self.Site_Upload" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Admin_Module" EntityType="Self.Admin_Module" store:Type="Tables" store:Schema="dbo">
+          <EntitySet Name="Admin_Users" EntityType="Self.Admin_Users" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Foundations" EntityType="Self.Foundations" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Site_Upload" EntityType="Self.Site_Upload" Schema="dbo" store:Type="Tables" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" />
+          <EntitySet Name="Admin_Module" EntityType="Self.Admin_Module" store:Type="Tables" store:Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
             <DefiningQuery>SELECT 
     [Admin_Module].[pk_ID] AS [pk_ID], 
     [Admin_Module].[Name] AS [Name], 
     [Admin_Module].[Active] AS [Active]
     FROM [dbo].[Admin_Module] AS [Admin_Module]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="Admin_Module_Found" EntityType="Self.Admin_Module_Found" store:Type="Tables" store:Schema="dbo">
+          <EntitySet Name="Admin_Module_Found" EntityType="Self.Admin_Module_Found" store:Type="Tables" store:Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
             <DefiningQuery>SELECT 
     [Admin_Module_Found].[ID] AS [ID], 
     [Admin_Module_Found].[Mod_ID] AS [Mod_ID], 
@@ -113,7 +113,7 @@ warning 6002: The table/view 'Projects_Management_TEDATA.dbo.super_admin' does n
     [Admin_Module_Found].[found_id] AS [found_id]
     FROM [dbo].[Admin_Module_Found] AS [Admin_Module_Found]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="super_admin" EntityType="Self.super_admin" store:Type="Tables" store:Schema="dbo">
+          <EntitySet Name="super_admin" EntityType="Self.super_admin" store:Type="Tables" store:Schema="dbo" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator">
             <DefiningQuery>SELECT 
     [super_admin].[ID] AS [ID], 
     [super_admin].[Name] AS [Name], 
@@ -126,12 +126,12 @@ warning 6002: The table/view 'Projects_Management_TEDATA.dbo.super_admin' does n
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="Projects_ManagementModel1" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="Projects_ManagementModel1" Alias="Self" xmlns="http://schemas.microsoft.com/ado/2009/11/edm" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
         <EntityType Name="Foundations">
           <Key>
             <PropertyRef Name="Foundation_ID" />
           </Key>
-          <Property Name="Foundation_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Foundation_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="Foundation_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="code_archiving" Type="Int32" />
           <Property Name="Port" Type="Int32" />
@@ -143,7 +143,7 @@ warning 6002: The table/view 'Projects_Management_TEDATA.dbo.super_admin' does n
           <Property Name="islocal" Type="Boolean" />
           <Property Type="Int32" Name="code_outbox" />
         </EntityType>
-        <EntityContainer Name="Projects_ManagementEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="Projects_ManagementEntities" annotation:LazyLoadingEnabled="true" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation">
           <EntitySet Name="Foundations" EntityType="Self.Foundations" />
           <EntitySet Name="Admin_Users" EntityType="Projects_ManagementModel1.Admin_Users" />
           <EntitySet Name="Admin_Module" EntityType="Projects_ManagementModel1.Admin_Module" />
@@ -174,7 +174,7 @@ warning 6002: The table/view 'Projects_Management_TEDATA.dbo.super_admin' does n
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="User_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -207,7 +207,7 @@ warning 6002: The table/view 'Projects_Management_TEDATA.dbo.super_admin' does n
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="Mod_ID" Type="Int32" />
           <Property Name="Mod_status" Type="Boolean" />
           <Property Name="found_id" Type="Int32" />
@@ -243,7 +243,7 @@ warning 6002: The table/view 'Projects_Management_TEDATA.dbo.super_admin' does n
           <Key>
             <PropertyRef Name="ID" />
           </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" />
           <Property Name="Site_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="File_Name" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
           <Property Name="File_Ext" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
@@ -409,22 +409,22 @@ warning 6002: The table/view 'Projects_Management_TEDATA.dbo.super_admin' does n
     </edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
-  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
-    <Connection>
-      <DesignerInfoPropertySet>
-        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
-      </DesignerInfoPropertySet>
-    </Connection>
-    <Options>
-      <DesignerInfoPropertySet>
-        <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="false" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
-        <DesignerProperty Name="UseLegacyProvider" Value="false" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
-      </DesignerInfoPropertySet>
-    </Options>
+  <edmx:Designer>
+    <edmx:Connection>
+      <edmx:DesignerInfoPropertySet>
+        <edmx:DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </edmx:DesignerInfoPropertySet>
+    </edmx:Connection>
+    <edmx:Options>
+      <edmx:DesignerInfoPropertySet>
+        <edmx:DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <edmx:DesignerProperty Name="EnablePluralization" Value="false" />
+        <edmx:DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
+        <edmx:DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <edmx:DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </edmx:DesignerInfoPropertySet>
+    </edmx:Options>
     <!-- Diagram content (shape and connector positions) -->
-    <Diagrams></Diagrams>
-  </Designer>
+    <edmx:Diagrams />
+  </edmx:Designer>
 </edmx:Edmx>

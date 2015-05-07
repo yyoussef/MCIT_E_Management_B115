@@ -19,7 +19,7 @@ using CrystalDecisions.CrystalReports.Engine;
 using CrystalDecisions.Shared;
 using ReportsClass;
 using System.Collections.Generic;
-
+using EFModels;
 
 
 public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
@@ -28,8 +28,9 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
     private string sql_Connection = Database.ConnectionString;
     General_Helping Obj_General_Helping = new General_Helping();
     int id;
-    OutboxDataContext outboxDBContext = new OutboxDataContext();
-
+    //OutboxDataContext outboxDBContext = new OutboxDataContext();
+    OutboxContext outboxModel = new OutboxContext();
+    var dd = outboxModel.Outboxes.first();
     #region "page lifecycle"
     protected override void OnInit(EventArgs e)
     {
@@ -95,7 +96,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
             {
 
         
-
+                
                 if (Session_CS.UROL_UROL_ID != null && CDataConverter.ConvertToInt(Session_CS.UROL_UROL_ID) == 3)
                 {
                     IEnumerable<Project> proj = from project in outboxDBContext.Projects
@@ -426,7 +427,8 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
     {
         try
         {
-            Outbox OutboxObj = outboxDBContext.Outboxes.Where(x => x.ID == id).SingleOrDefault();
+            Outbox OutboxObj = OutboxContext.Outboxes.Where(x => x.ID == id).SingleOrDefault();
+           // Outbox OutboxObj = outboxDBContext.Outboxes.Where(x => x.ID == id).SingleOrDefault();
 
             //refactored by hafs
             //Outbox_DT obj = Outbox_DB.SelectByID(id);
@@ -651,7 +653,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         //DataTable DT = new DataTable();
         //DT = General_Helping.GetDataTable("select * from Outbox_Visa where Outbox_ID=" + hidden_Id.Value);
 
-       DataTable DT   = (from ds in outboxDBContext.Outbox_Visas
+       DataTable DT   = (from ds in OutboxContext.Outbox_Visa
                                    where ds.Outbox_ID == CDataConverter.ConvertToInt(hidden_Id.Value)
                                    select ds).ToDataTable();
         GridView_Visa.DataSource = DT;  

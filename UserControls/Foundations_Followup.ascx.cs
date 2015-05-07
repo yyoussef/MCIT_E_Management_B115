@@ -101,8 +101,8 @@ public partial class UserControls_Foundations_Followup : System.Web.UI.UserContr
 
     private void fillgrid()
     {
-        DataTable dt;
-        DataTable dt2;
+        DataTable dt = new DataTable();
+        DataTable dt2 = new DataTable();
         DataTable dt_foundall = new DataTable();
         dt_foundall.Columns.Add("found_name");
         dt_foundall.Columns.Add("Employee_count");
@@ -158,7 +158,7 @@ public partial class UserControls_Foundations_Followup : System.Web.UI.UserContr
         {
 
             string urlPath2 = Request.Url.AbsolutePath.Trim();
-
+           // DataTable dt = new DataTable();
             if (urlPath2.Contains("SuperAdmin"))
             {
 

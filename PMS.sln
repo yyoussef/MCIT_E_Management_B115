@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2012
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "PMS", ".", "{3E7EF28A-AA68-4261-8E92-F14BBA567AF3}"
 	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv3.5"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.5.1"
 		Debug.AspNetCompiler.VirtualPath = "/PMS"
 		Debug.AspNetCompiler.PhysicalPath = "..\PMS\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\PMS\"
@@ -19,6 +21,7 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "PMS", ".", "{3E7EF28A-AA68-
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
 		VWDPort = "18394"
+		SlnRelativePath = "..\PMS\"
 	EndProjectSection
 EndProject
 Global
