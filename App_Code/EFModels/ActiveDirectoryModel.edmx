@@ -1,0 +1,483 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ActiveDirectory.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Departments">
+          <Key>
+            <PropertyRef Name="Dept_id" />
+          </Key>
+          <Property Name="Dept_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Dept_name" Type="nvarchar" MaxLength="3000" />
+          <Property Name="Dept_type" Type="bigint" />
+          <Property Name="Dept_parent_id" Type="bigint" />
+          <Property Name="Sec_sec_id" Type="bigint" />
+          <Property Name="foundation_id" Type="int" />
+        </EntityType>
+        <EntityType Name="EMPLOYEE">
+          <Key>
+            <PropertyRef Name="PMP_ID" />
+          </Key>
+          <Property Name="PMP_ID" Type="bigint" Nullable="false" />
+          <Property Name="Dept_Dept_id" Type="bigint" />
+          <Property Name="pmp_name" Type="nvarchar" MaxLength="255" />
+          <Property Name="rol_rol_id" Type="bigint" />
+          <Property Name="mail" Type="nvarchar" MaxLength="100" />
+          <Property Name="Group_id" Type="int" />
+          <Property Name="english" Type="nchar" MaxLength="10" />
+          <Property Name="vacation_mng_pmp_id" Type="bigint" />
+          <Property Name="contact_person" Type="bit" />
+          <Property Name="status" Type="int" />
+          <Property Name="sec_sec_id" Type="int" />
+          <Property Name="Hire_date" Type="nvarchar" MaxLength="50" />
+          <Property Name="pmp_title" Type="nvarchar" MaxLength="2000" />
+          <Property Name="job_no" Type="nvarchar" MaxLength="100" />
+          <Property Name="direct_manager" Type="int" />
+          <Property Name="higher_manager" Type="int" />
+          <Property Name="Report_dept_manage" Type="int" />
+          <Property Name="workstatus" Type="int" />
+          <Property Name="category" Type="int" />
+          <Property Name="university_degree" Type="int" />
+          <Property Name="university_name" Type="nvarchar" MaxLength="350" />
+          <Property Name="major" Type="nvarchar" MaxLength="500" />
+          <Property Name="Token_User_pin" Type="nvarchar" MaxLength="50" />
+          <Property Name="national_id" Type="int" />
+          <Property Name="qualification_date" Type="nvarchar" MaxLength="50" />
+          <Property Name="job_title_id" Type="int" />
+          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="foundation_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Foundations">
+          <Key>
+            <PropertyRef Name="Foundation_ID" />
+          </Key>
+          <Property Name="Foundation_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Foundation_Name" Type="nvarchar(max)" />
+          <Property Name="code_archiving" Type="int" />
+          <Property Name="Port" Type="int" />
+          <Property Name="Host" Type="nvarchar(max)" />
+          <Property Name="UserName_mail" Type="nvarchar(max)" />
+          <Property Name="Password" Type="nvarchar(max)" />
+          <Property Name="FromAddress" Type="nvarchar(max)" />
+          <Property Name="connection_string" Type="nvarchar(max)" />
+          <Property Name="islocal" Type="bit" />
+          <Property Name="code_outbox" Type="int" />
+        </EntityType>
+        <EntityType Name="Organization">
+          <Key>
+            <PropertyRef Name="Org_ID" />
+          </Key>
+          <Property Name="Org_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Org_Desc" Type="nvarchar" MaxLength="255" />
+          <Property Name="New_ID" Type="int" />
+          <Property Name="foundation_id" Type="int" />
+        </EntityType>
+        <EntityType Name="parent_employee">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pmp_id" Type="int" Nullable="false" />
+          <Property Name="parent_pmp_id" Type="int" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Site_Upload">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Site_Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="File_Name" Type="nvarchar" MaxLength="4000" />
+          <Property Name="File_Ext" Type="nvarchar" MaxLength="50" />
+          <Property Name="logo_file_name" Type="nvarchar" MaxLength="4000" />
+          <Property Name="logo_file_Ext" Type="nvarchar" MaxLength="50" />
+          <Property Name="logo_image" Type="image" />
+          <Property Name="e_signature" Type="nvarchar" MaxLength="150" />
+          <Property Name="foundation_id" Type="int" />
+        </EntityType>
+        <Function Name="fill_employee2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Dept_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Foundations_Followup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="foundation_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="get_dept_by_found" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="found_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="get_employee_from_Outbox_Visa_Follows" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Outbox_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="get_org_by_found" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="found_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="get_sub_cat_by_main_cat" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cat_id" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="ActiveDirectoryStoreContainer">
+          <EntitySet Name="Departments" EntityType="Self.Departments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EMPLOYEE" EntityType="Self.EMPLOYEE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Foundations" EntityType="Self.Foundations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Organization" EntityType="Self.Organization" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="parent_employee" EntityType="Self.parent_employee" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Site_Upload" EntityType="Self.Site_Upload" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ActiveDirectory" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="Dept_id" />
+          </Key>
+          <Property Name="Dept_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Dept_name" Type="String" MaxLength="3000" FixedLength="false" Unicode="true" />
+          <Property Name="Dept_type" Type="Int64" />
+          <Property Name="Dept_parent_id" Type="Int64" />
+          <Property Name="Sec_sec_id" Type="Int64" />
+          <Property Name="foundation_id" Type="Int32" />
+        </EntityType>
+        <EntityType Name="EMPLOYEE">
+          <Key>
+            <PropertyRef Name="PMP_ID" />
+          </Key>
+          <Property Name="PMP_ID" Type="Int64" Nullable="false" />
+          <Property Name="Dept_Dept_id" Type="Int64" />
+          <Property Name="pmp_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="rol_rol_id" Type="Int64" />
+          <Property Name="mail" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Group_id" Type="Int32" />
+          <Property Name="english" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="vacation_mng_pmp_id" Type="Int64" />
+          <Property Name="contact_person" Type="Boolean" />
+          <Property Name="status" Type="Int32" />
+          <Property Name="sec_sec_id" Type="Int32" />
+          <Property Name="Hire_date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="pmp_title" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="job_no" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="direct_manager" Type="Int32" />
+          <Property Name="higher_manager" Type="Int32" />
+          <Property Name="Report_dept_manage" Type="Int32" />
+          <Property Name="workstatus" Type="Int32" />
+          <Property Name="category" Type="Int32" />
+          <Property Name="university_degree" Type="Int32" />
+          <Property Name="university_name" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="major" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Token_User_pin" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="national_id" Type="Int32" />
+          <Property Name="qualification_date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="job_title_id" Type="Int32" />
+          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="foundation_id" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Foundation">
+          <Key>
+            <PropertyRef Name="Foundation_ID" />
+          </Key>
+          <Property Name="Foundation_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Foundation_Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="code_archiving" Type="Int32" />
+          <Property Name="Port" Type="Int32" />
+          <Property Name="Host" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="UserName_mail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FromAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="connection_string" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="islocal" Type="Boolean" />
+          <Property Name="code_outbox" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="ActiveDirectoryContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Departments" EntityType="Self.Department" />
+          <EntitySet Name="EMPLOYEEs" EntityType="Self.EMPLOYEE" />
+          <EntitySet Name="Foundations" EntityType="Self.Foundation" />
+          <FunctionImport Name="Foundations_Followup" ReturnType="Collection(ActiveDirectory.Foundations_Followup_Result)">
+          <Parameter Name="foundation_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Organizations" EntityType="ActiveDirectory.Organization" />
+          <FunctionImport Name="get_employee_from_Outbox_Visa_Follows" ReturnType="Collection(ActiveDirectory.get_employee_from_Outbox_Visa_Follows_Result)">
+          <Parameter Name="Outbox_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Site_Upload" EntityType="ActiveDirectory.Site_Upload" />
+          <FunctionImport Name="fill_employee2" ReturnType="Collection(ActiveDirectory.fill_employee2_Result)">
+          <Parameter Name="Dept_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="get_org_by_found" ReturnType="Collection(ActiveDirectory.get_org_by_found_Result)">
+          <Parameter Name="found_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="parent_employee" EntityType="ActiveDirectory.parent_employee" />
+          <FunctionImport Name="get_dept_by_found" ReturnType="Collection(ActiveDirectory.get_dept_by_found_Result)">
+          <Parameter Name="found_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="get_sub_cat_by_main_cat" ReturnType="Collection(ActiveDirectory.get_sub_cat_by_main_cat_Result)">
+            <Parameter Name="cat_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="Foundations_Followup_Result">
+          <Property Type="Int32" Name="Inbox_count" Nullable="true" />
+          <Property Type="Int32" Name="outbox_count" Nullable="true" />
+          <Property Type="Int32" Name="Employee_count" Nullable="true" />
+          <Property Type="String" Name="found_name" Nullable="true" />
+          <Property Type="Int32" Name="Visa_count" Nullable="true" />
+          <Property Type="Int32" Name="Follows_count" Nullable="true" />
+          <Property Type="Int32" Name="Visaoutbox_count" Nullable="true" />
+          <Property Type="Int32" Name="Followsoutbox_count" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="Organization">
+          <Key>
+            <PropertyRef Name="Org_ID" />
+          </Key>
+          <Property Name="Org_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Org_Desc" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="New_ID" Type="Int32" />
+          <Property Name="foundation_id" Type="Int32" />
+        </EntityType>
+        <ComplexType Name="get_employee_from_Outbox_Visa_Follows_Result">
+          <Property Type="Int32" Name="Follow_ID" Nullable="false" />
+          <Property Type="String" Name="File_name" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="time_follow" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Outbox_ID" Nullable="true" />
+          <Property Type="String" Name="Descrption" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Date" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Visa_Emp_id" Nullable="true" />
+          <Property Type="String" Name="pmp_name" Nullable="true" MaxLength="255" />
+        </ComplexType>
+        <EntityType Name="Site_Upload">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Site_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="File_Name" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="File_Ext" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="logo_file_name" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="logo_file_Ext" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="logo_image" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="e_signature" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="foundation_id" Type="Int32" />
+        </EntityType>
+        <ComplexType Name="fill_employee2_Result">
+          <Property Type="Int64" Name="PMP_ID" Nullable="false" />
+          <Property Type="String" Name="pmp_name" Nullable="true" MaxLength="255" />
+          <Property Type="Int64" Name="sec_sec_id" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="get_org_by_found_Result">
+          <Property Type="Int64" Name="Org_ID" Nullable="false" />
+          <Property Type="String" Name="Org_Desc" Nullable="true" MaxLength="255" />
+        </ComplexType>
+        <EntityType Name="parent_employee">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pmp_id" Type="Int32" Nullable="false" />
+          <Property Name="parent_pmp_id" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+        </EntityType>
+        <ComplexType Name="get_dept_by_found_Result">
+          <Property Type="Int64" Name="Dept_id" Nullable="false" />
+          <Property Type="String" Name="Dept_name" Nullable="true" MaxLength="3000" />
+          <Property Type="Int64" Name="Dept_type" Nullable="true" />
+          <Property Type="Int64" Name="Dept_parent_id" Nullable="true" />
+          <Property Type="Int64" Name="Sec_sec_id" Nullable="true" />
+          <Property Type="Int32" Name="foundation_id" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="get_sub_cat_by_main_cat_Result">
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="name" Nullable="true" MaxLength="4000" />
+          <Property Type="Int32" Name="main_id" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ActiveDirectoryStoreContainer" CdmEntityContainer="ActiveDirectoryContext">
+          <EntitySetMapping Name="Departments">
+            <EntityTypeMapping TypeName="ActiveDirectory.Department">
+              <MappingFragment StoreEntitySet="Departments">
+                <ScalarProperty Name="Dept_id" ColumnName="Dept_id" />
+                <ScalarProperty Name="Dept_name" ColumnName="Dept_name" />
+                <ScalarProperty Name="Dept_type" ColumnName="Dept_type" />
+                <ScalarProperty Name="Dept_parent_id" ColumnName="Dept_parent_id" />
+                <ScalarProperty Name="Sec_sec_id" ColumnName="Sec_sec_id" />
+                <ScalarProperty Name="foundation_id" ColumnName="foundation_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EMPLOYEEs">
+            <EntityTypeMapping TypeName="ActiveDirectory.EMPLOYEE">
+              <MappingFragment StoreEntitySet="EMPLOYEE">
+                <ScalarProperty Name="PMP_ID" ColumnName="PMP_ID" />
+                <ScalarProperty Name="Dept_Dept_id" ColumnName="Dept_Dept_id" />
+                <ScalarProperty Name="pmp_name" ColumnName="pmp_name" />
+                <ScalarProperty Name="rol_rol_id" ColumnName="rol_rol_id" />
+                <ScalarProperty Name="mail" ColumnName="mail" />
+                <ScalarProperty Name="Group_id" ColumnName="Group_id" />
+                <ScalarProperty Name="english" ColumnName="english" />
+                <ScalarProperty Name="vacation_mng_pmp_id" ColumnName="vacation_mng_pmp_id" />
+                <ScalarProperty Name="contact_person" ColumnName="contact_person" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="sec_sec_id" ColumnName="sec_sec_id" />
+                <ScalarProperty Name="Hire_date" ColumnName="Hire_date" />
+                <ScalarProperty Name="pmp_title" ColumnName="pmp_title" />
+                <ScalarProperty Name="job_no" ColumnName="job_no" />
+                <ScalarProperty Name="direct_manager" ColumnName="direct_manager" />
+                <ScalarProperty Name="higher_manager" ColumnName="higher_manager" />
+                <ScalarProperty Name="Report_dept_manage" ColumnName="Report_dept_manage" />
+                <ScalarProperty Name="workstatus" ColumnName="workstatus" />
+                <ScalarProperty Name="category" ColumnName="category" />
+                <ScalarProperty Name="university_degree" ColumnName="university_degree" />
+                <ScalarProperty Name="university_name" ColumnName="university_name" />
+                <ScalarProperty Name="major" ColumnName="major" />
+                <ScalarProperty Name="Token_User_pin" ColumnName="Token_User_pin" />
+                <ScalarProperty Name="national_id" ColumnName="national_id" />
+                <ScalarProperty Name="qualification_date" ColumnName="qualification_date" />
+                <ScalarProperty Name="job_title_id" ColumnName="job_title_id" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="foundation_id" ColumnName="foundation_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Foundations">
+            <EntityTypeMapping TypeName="ActiveDirectory.Foundation">
+              <MappingFragment StoreEntitySet="Foundations">
+                <ScalarProperty Name="Foundation_ID" ColumnName="Foundation_ID" />
+                <ScalarProperty Name="Foundation_Name" ColumnName="Foundation_Name" />
+                <ScalarProperty Name="code_archiving" ColumnName="code_archiving" />
+                <ScalarProperty Name="Port" ColumnName="Port" />
+                <ScalarProperty Name="Host" ColumnName="Host" />
+                <ScalarProperty Name="UserName_mail" ColumnName="UserName_mail" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="FromAddress" ColumnName="FromAddress" />
+                <ScalarProperty Name="connection_string" ColumnName="connection_string" />
+                <ScalarProperty Name="islocal" ColumnName="islocal" />
+                <ScalarProperty Name="code_outbox" ColumnName="code_outbox" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="Foundations_Followup" FunctionName="ActiveDirectory.Store.Foundations_Followup">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ActiveDirectory.Foundations_Followup_Result">
+                <ScalarProperty Name="Inbox_count" ColumnName="Inbox_count" />
+                <ScalarProperty Name="outbox_count" ColumnName="outbox_count" />
+                <ScalarProperty Name="Employee_count" ColumnName="Employee_count" />
+                <ScalarProperty Name="found_name" ColumnName="found_name" />
+                <ScalarProperty Name="Visa_count" ColumnName="Visa_count" />
+                <ScalarProperty Name="Follows_count" ColumnName="Follows_count" />
+                <ScalarProperty Name="Visaoutbox_count" ColumnName="Visaoutbox_count" />
+                <ScalarProperty Name="Followsoutbox_count" ColumnName="Followsoutbox_count" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Organizations">
+            <EntityTypeMapping TypeName="ActiveDirectory.Organization">
+              <MappingFragment StoreEntitySet="Organization">
+                <ScalarProperty Name="foundation_id" ColumnName="foundation_id" />
+                <ScalarProperty Name="New_ID" ColumnName="New_ID" />
+                <ScalarProperty Name="Org_Desc" ColumnName="Org_Desc" />
+                <ScalarProperty Name="Org_ID" ColumnName="Org_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="get_employee_from_Outbox_Visa_Follows" FunctionName="ActiveDirectory.Store.get_employee_from_Outbox_Visa_Follows">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ActiveDirectory.get_employee_from_Outbox_Visa_Follows_Result">
+                <ScalarProperty Name="Follow_ID" ColumnName="Follow_ID" />
+                <ScalarProperty Name="File_name" ColumnName="File_name" />
+                <ScalarProperty Name="time_follow" ColumnName="time_follow" />
+                <ScalarProperty Name="Outbox_ID" ColumnName="Outbox_ID" />
+                <ScalarProperty Name="Descrption" ColumnName="Descrption" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Visa_Emp_id" ColumnName="Visa_Emp_id" />
+                <ScalarProperty Name="pmp_name" ColumnName="pmp_name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Site_Upload">
+            <EntityTypeMapping TypeName="ActiveDirectory.Site_Upload">
+              <MappingFragment StoreEntitySet="Site_Upload">
+                <ScalarProperty Name="foundation_id" ColumnName="foundation_id" />
+                <ScalarProperty Name="e_signature" ColumnName="e_signature" />
+                <ScalarProperty Name="logo_image" ColumnName="logo_image" />
+                <ScalarProperty Name="logo_file_Ext" ColumnName="logo_file_Ext" />
+                <ScalarProperty Name="logo_file_name" ColumnName="logo_file_name" />
+                <ScalarProperty Name="File_Ext" ColumnName="File_Ext" />
+                <ScalarProperty Name="File_Name" ColumnName="File_Name" />
+                <ScalarProperty Name="Site_Name" ColumnName="Site_Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="fill_employee2" FunctionName="ActiveDirectory.Store.fill_employee2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ActiveDirectory.fill_employee2_Result">
+                <ScalarProperty Name="PMP_ID" ColumnName="PMP_ID" />
+                <ScalarProperty Name="pmp_name" ColumnName="pmp_name" />
+                <ScalarProperty Name="sec_sec_id" ColumnName="sec_sec_id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_org_by_found" FunctionName="ActiveDirectory.Store.get_org_by_found">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ActiveDirectory.get_org_by_found_Result">
+                <ScalarProperty Name="Org_ID" ColumnName="Org_ID" />
+                <ScalarProperty Name="Org_Desc" ColumnName="Org_Desc" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="parent_employee">
+            <EntityTypeMapping TypeName="ActiveDirectory.parent_employee">
+              <MappingFragment StoreEntitySet="parent_employee">
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="parent_pmp_id" ColumnName="parent_pmp_id" />
+                <ScalarProperty Name="pmp_id" ColumnName="pmp_id" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="get_dept_by_found" FunctionName="ActiveDirectory.Store.get_dept_by_found">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ActiveDirectory.get_dept_by_found_Result">
+                <ScalarProperty Name="Dept_id" ColumnName="Dept_id" />
+                <ScalarProperty Name="Dept_name" ColumnName="Dept_name" />
+                <ScalarProperty Name="Dept_type" ColumnName="Dept_type" />
+                <ScalarProperty Name="Dept_parent_id" ColumnName="Dept_parent_id" />
+                <ScalarProperty Name="Sec_sec_id" ColumnName="Sec_sec_id" />
+                <ScalarProperty Name="foundation_id" ColumnName="foundation_id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_sub_cat_by_main_cat" FunctionName="ActiveDirectory.Store.get_sub_cat_by_main_cat">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ActiveDirectory.get_sub_cat_by_main_cat_Result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="main_id" ColumnName="main_id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

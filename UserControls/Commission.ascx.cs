@@ -22,7 +22,7 @@ using ReportsClass;
 using System.Data.Linq;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
-
+using EFModels;
 
 
 
@@ -31,13 +31,14 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
 
 
     Projects_ManagementEntities10 pmentity = new Projects_ManagementEntities10();
-    Projects_ManagementEntities pmgeneralentity = new Projects_ManagementEntities();
+    Projects_ManagementEntities10 pmgeneralentity = new Projects_ManagementEntities10();
 
     private string sql_Connection = Database.ConnectionString;
     General_Helping Obj_General_Helping = new General_Helping();
     DateTime str_deadline;
     int id;
-    OutboxDataContext outboxDBContext = new OutboxDataContext();
+    ActiveDirectoryContext ADContext = new ActiveDirectoryContext();
+    OutboxContext outboxDBContext = new OutboxContext();
     //Session_CS Session_CS = new Session_CS();
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -133,7 +134,7 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
         //Smart_Search_dept.Orderby = "ORDER BY LTRIM(Dept_name)";
         //Smart_Search_dept.DataBind();
 
-        IEnumerable<Department> deptartments = from dep in outboxDBContext.Departments
+        IEnumerable<Department> deptartments = from dep in ADContext.Departments
                                                where dep.foundation_id == Session_CS.foundation_id
                                                select dep;
 
@@ -667,7 +668,7 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
 
             int pm = CDataConverter.ConvertToInt(item["Emp_ID"].ToString());
 
-            var sqlformail = from sql_emp in outboxDBContext.EMPLOYEEs where sql_emp.PMP_ID == pm select sql_emp;
+            var sqlformail = from sql_emp in ADContext.EMPLOYEEs where sql_emp.PMP_ID == pm select sql_emp;
             DataTable ds = sqlformail.ToDataTable();
 
 
@@ -887,7 +888,7 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
         //Smart_Search_dept.DataBind();
 
 
-        IEnumerable<Department> deptartments = from dep in outboxDBContext.Departments
+        IEnumerable<Department> deptartments = from dep in ADContext.Departments
                                                where dep.foundation_id == Session_CS.foundation_id
                                                select dep;
 
@@ -990,7 +991,7 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
 
         // string sql = "SELECT PMP_ID, pmp_name FROM EMPLOYEE where 1=1";
 
-        var results = from empm in outboxDBContext.EMPLOYEEs select empm;
+        var results = from empm in ADContext.EMPLOYEEs select empm;
 
         if (Dept_ID > 0)
         {
@@ -1954,7 +1955,7 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
 
             DataTable dt = new DataTable();
             int pmpid = CDataConverter.ConvertToInt(Session_CS.pmp_id);
-            var query = from emp_tble in outboxDBContext.parent_employees where emp_tble.pmp_id == pmpid select emp_tble;
+            var query = from emp_tble in ADContext.parent_employee where emp_tble.pmp_id == pmpid select emp_tble;
             dt = query.ToDataTable();
 
 
@@ -1998,7 +1999,7 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
         int pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id);
         DataTable dt_new = new DataTable();
 
-        dt_new = (from par_emp in outboxDBContext.parent_employees where par_emp.pmp_id == pmp_id select par_emp).ToDataTable();
+        dt_new = (from par_emp in ADContext.parent_employee where par_emp.pmp_id == pmp_id select par_emp).ToDataTable();
 
         if (dt_new.Rows.Count > 0)
         {
@@ -2048,7 +2049,7 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
         int pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id);
         DataTable ds = new DataTable();
 
-        ds = (from par_emp in outboxDBContext.parent_employees where par_emp.pmp_id == pmp_id select par_emp).ToDataTable();
+        ds = (from par_emp in ADContext.parent_employee where par_emp.pmp_id == pmp_id select par_emp).ToDataTable();
         int parent_pmp = int.Parse(ds.Rows[0]["parent_pmp_id"].ToString());
 
         if (e.CommandName == "EditItem")
@@ -2105,7 +2106,7 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
 
             // DataTable dt_getmail = General_Helping.GetDataTable("select mail,pmp_name from employee where pmp_id = " + parent_pmp);
 
-            DataTable dt_getmail = (from pmp_tbl in outboxDBContext.EMPLOYEEs where pmp_tbl.PMP_ID == parent_pmp select pmp_tbl).ToDataTable();
+            DataTable dt_getmail = (from pmp_tbl in ADContext.EMPLOYEEs where pmp_tbl.PMP_ID == parent_pmp select pmp_tbl).ToDataTable();
 
             string mail = dt_getmail.Rows[0]["mail"].ToString();
             string parent_name = dt_getmail.Rows[0]["pmp_name"].ToString();
@@ -2459,7 +2460,7 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
         //   string sql = "SELECT EMPLOYEE.pmp_name FROM Commission_Visa_Emp INNER JOIN EMPLOYEE ON Commission_Visa_Emp.Emp_ID = EMPLOYEE.PMP_ID WHERE Commission_Visa_Emp.Visa_Id  =" + visa_ID;
         //   DataTable dt_new = General_Helping.GetDataTable("select * from parent_employee where pmp_id = " + CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()));
 
-        var query = from par_emp in outboxDBContext.parent_employees where par_emp.pmp_id == pmp select pmp;
+        var query = from par_emp in ADContext.parent_employee where par_emp.pmp_id == pmp select pmp;
         DataTable dt_new = query.ToDataTable();
 
         //var resu = pmentity.Get_Visa_foremployee(CDataConverter.ConvertToInt(visa_ID));

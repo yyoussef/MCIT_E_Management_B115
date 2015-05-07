@@ -22,15 +22,15 @@ using ReportsClass;
 using System.Data.Linq;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
-
+using EFModels;
 public partial class WebForms_SiteUpload : System.Web.UI.Page
 {
     //Session_CS Session_CS = new Session_CS();
     static string img_src_path = "";
 
     Projects_ManagementEntities10 pmentity = new Projects_ManagementEntities10();
-    Projects_ManagementEntities pmgenentity = new Projects_ManagementEntities();
-    OutboxDataContext outboxDBContext = new OutboxDataContext();
+    ActiveDirectoryContext pmgenentity = new ActiveDirectoryContext();
+    OutboxContext outboxDBContext = new OutboxContext();
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -82,7 +82,7 @@ public partial class WebForms_SiteUpload : System.Web.UI.Page
 
     public void InsertorUpdate(Site_Upload blog)
     {
-        using (var context = new Projects_ManagementEntities())
+        using (var context = new Projects_ManagementEntities10())
         {
             context.Entry(blog).State = blog.ID == 0 ?
                 System.Data.Entity.EntityState.Added :

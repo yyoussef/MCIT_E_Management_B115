@@ -23,7 +23,7 @@ using ReportsClass;
 using System.Data.Linq;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
-
+using EFModels;
 
 
 public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
@@ -35,11 +35,11 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
     int id;
     string v_desc;
 
-    Projects_ManagementEntities10 pmentity = new Projects_ManagementEntities10();
-    Projects_ManagementEntities pmgenentity = new Projects_ManagementEntities();
-    OutboxDataContext outboxDBContext = new OutboxDataContext();
-    Projects_ManagementEntities_Inbox pm_inbox = new Projects_ManagementEntities_Inbox();
-
+    ProjectsContext projContext = new ProjectsContext();
+    ActiveDirectoryContext ADContext = new ActiveDirectoryContext();
+    OutboxContext outboxDBContext = new OutboxContext();
+    //Projects_ManagementEntities_Inbox pm_inbox = new Projects_ManagementEntities_Inbox();
+    InboxContext pm_inbox = new InboxContext();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -744,7 +744,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
         
       //  DataTable dtt = SqlHelper.ExecuteDataset(Database.ConnectionString, "fill_employee2", CDataConverter.ConvertToInt(Smart_Search_structure.SelectedValue)).Tables[0];
 
-        DataTable dtt = outboxDBContext.fill_employee2(CDataConverter.ConvertToInt(Smart_Search_structure.SelectedValue)).ToDataTable();
+        DataTable dtt = ADContext.fill_employee2(CDataConverter.ConvertToInt(Smart_Search_structure.SelectedValue)).ToDataTable();
 
         Smart_Emp_ID.datatble = dtt;
         Smart_Emp_ID.Value_Field = "PMP_ID";
@@ -781,7 +781,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
    
        // DataTable DT = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_org_by_found", Session_CS.foundation_id).Tables[0];
 
-        DataTable DT = outboxDBContext.get_org_by_found(Session_CS.foundation_id).ToDataTable();
+        DataTable DT = ADContext.get_org_by_found(Session_CS.foundation_id).ToDataTable();
 
 
         Smart_Org_ID.datatble = DT;
@@ -812,7 +812,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
           //   DataTable DT_proj = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_all_projects").Tables[0];
 
-          DataTable    DT_proj = pmgenentity.get_all_projects().ToDataTable();
+             DataTable DT_proj = projContext.get_all_projects().ToDataTable();
 
 
 
@@ -957,7 +957,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
        // DataTable DT_dept = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_dept_by_found", Session_CS.foundation_id).Tables[0];
 
-        DataTable DT_dept = outboxDBContext.get_dept_by_found(Session_CS.foundation_id).ToDataTable() ;
+        DataTable DT_dept = ADContext.get_dept_by_found(Session_CS.foundation_id).ToDataTable() ;
 
         Smart_Search_structure.datatble = DT_dept;
         Smart_Search_structure.Value_Field = "Dept_id";
@@ -3143,7 +3143,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
                 //dt = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_sub_cat_by_main_cat", item.Value).Tables[0];
 
-                dt = pm_inbox.get_sub_cat_by_main_cat(CDataConverter.ConvertToInt( item.Value)).ToDataTable();
+                dt = ADContext.get_sub_cat_by_main_cat(CDataConverter.ConvertToInt( item.Value)).ToDataTable();
 
 
                 for (int i = 0; i < dt.Rows.Count; i++)

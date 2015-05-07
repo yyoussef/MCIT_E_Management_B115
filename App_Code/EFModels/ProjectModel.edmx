@@ -1,0 +1,182 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Projects.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="Proj_id" />
+          </Key>
+          <Property Name="Proj_id" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Proj_Title" Type="nvarchar" MaxLength="255" />
+          <Property Name="Proj_Brief" Type="ntext" />
+          <Property Name="Proj_InitValue" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="Dept_Dept_id" Type="bigint" />
+          <Property Name="pmp_pmp_id" Type="bigint" />
+          <Property Name="Proj_is_commit" Type="int" />
+          <Property Name="Proj_End_Document" Type="image" />
+          <Property Name="Proj_Code" Type="varchar" MaxLength="50" />
+          <Property Name="Proj_Creation_Date" Type="nvarchar" MaxLength="50" />
+          <Property Name="proj_start_date" Type="nvarchar" MaxLength="50" />
+          <Property Name="Proj_End_Date" Type="nvarchar" MaxLength="50" />
+          <Property Name="Proj_is_refused" Type="int" />
+          <Property Name="Proj_is_repeated" Type="int" />
+          <Property Name="Proj_Notes" Type="ntext" />
+          <Property Name="prio_prio_id" Type="bigint" />
+          <Property Name="Proj_End_Note" Type="ntext" />
+          <Property Name="Proj_End_Document_Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Proj_End_Document_Type" Type="nvarchar" MaxLength="100" />
+          <Property Name="Protocol_ID" Type="int" />
+          <Property Name="proj_sug_type" Type="int" />
+          <Property Name="opportunities" Type="ntext" />
+          <Property Name="dangers" Type="ntext" />
+          <Property Name="strengths" Type="ntext" />
+          <Property Name="weaknesses" Type="ntext" />
+          <Property Name="Class_id" Type="int" />
+          <Property Name="internal_external" Type="int" />
+          <Property Name="connected_to_proj" Type="int" />
+          <Property Name="methodology" Type="ntext" />
+          <Property Name="proj_gov_desc" Type="ntext" />
+          <Property Name="Balance_Suggest_Initial" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="Balance_Suggest_Finial" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="Balance_Suggest_Approved" Type="decimal" Precision="18" Scale="3" />
+          <Property Name="project_cause" Type="nvarchar(max)" />
+          <Property Name="project_innovation" Type="nvarchar(max)" />
+        </EntityType>
+        <Function Name="get_all_projects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <EntityContainer Name="ProjectsStoreContainer">
+          <EntitySet Name="Project" EntityType="Self.Project" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Projects" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="Proj_id" />
+          </Key>
+          <Property Name="Proj_id" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Proj_Title" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Proj_Brief" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Proj_InitValue" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="Dept_Dept_id" Type="Int64" />
+          <Property Name="pmp_pmp_id" Type="Int64" />
+          <Property Name="Proj_is_commit" Type="Int32" />
+          <Property Name="Proj_End_Document" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="Proj_Code" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Proj_Creation_Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="proj_start_date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Proj_End_Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Proj_is_refused" Type="Int32" />
+          <Property Name="Proj_is_repeated" Type="Int32" />
+          <Property Name="Proj_Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="prio_prio_id" Type="Int64" />
+          <Property Name="Proj_End_Note" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Proj_End_Document_Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Proj_End_Document_Type" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Protocol_ID" Type="Int32" />
+          <Property Name="proj_sug_type" Type="Int32" />
+          <Property Name="opportunities" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="dangers" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="strengths" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="weaknesses" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Class_id" Type="Int32" />
+          <Property Name="internal_external" Type="Int32" />
+          <Property Name="connected_to_proj" Type="Int32" />
+          <Property Name="methodology" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="proj_gov_desc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Balance_Suggest_Initial" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="Balance_Suggest_Finial" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="Balance_Suggest_Approved" Type="Decimal" Precision="18" Scale="3" />
+          <Property Name="project_cause" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="project_innovation" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="ProjectsContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Projects" EntityType="Self.Project" />
+          <FunctionImport Name="get_all_projects" ReturnType="Collection(Projects.get_all_projects_Result)" />
+        </EntityContainer>
+        <ComplexType Name="get_all_projects_Result">
+          <Property Type="Int64" Name="Proj_id" Nullable="false" />
+          <Property Type="String" Name="Proj_Title" Nullable="true" MaxLength="255" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ProjectsStoreContainer" CdmEntityContainer="ProjectsContext">
+          <EntitySetMapping Name="Projects">
+            <EntityTypeMapping TypeName="Projects.Project">
+              <MappingFragment StoreEntitySet="Project">
+                <ScalarProperty Name="Proj_id" ColumnName="Proj_id" />
+                <ScalarProperty Name="Proj_Title" ColumnName="Proj_Title" />
+                <ScalarProperty Name="Proj_Brief" ColumnName="Proj_Brief" />
+                <ScalarProperty Name="Proj_InitValue" ColumnName="Proj_InitValue" />
+                <ScalarProperty Name="Dept_Dept_id" ColumnName="Dept_Dept_id" />
+                <ScalarProperty Name="pmp_pmp_id" ColumnName="pmp_pmp_id" />
+                <ScalarProperty Name="Proj_is_commit" ColumnName="Proj_is_commit" />
+                <ScalarProperty Name="Proj_End_Document" ColumnName="Proj_End_Document" />
+                <ScalarProperty Name="Proj_Code" ColumnName="Proj_Code" />
+                <ScalarProperty Name="Proj_Creation_Date" ColumnName="Proj_Creation_Date" />
+                <ScalarProperty Name="proj_start_date" ColumnName="proj_start_date" />
+                <ScalarProperty Name="Proj_End_Date" ColumnName="Proj_End_Date" />
+                <ScalarProperty Name="Proj_is_refused" ColumnName="Proj_is_refused" />
+                <ScalarProperty Name="Proj_is_repeated" ColumnName="Proj_is_repeated" />
+                <ScalarProperty Name="Proj_Notes" ColumnName="Proj_Notes" />
+                <ScalarProperty Name="prio_prio_id" ColumnName="prio_prio_id" />
+                <ScalarProperty Name="Proj_End_Note" ColumnName="Proj_End_Note" />
+                <ScalarProperty Name="Proj_End_Document_Name" ColumnName="Proj_End_Document_Name" />
+                <ScalarProperty Name="Proj_End_Document_Type" ColumnName="Proj_End_Document_Type" />
+                <ScalarProperty Name="Protocol_ID" ColumnName="Protocol_ID" />
+                <ScalarProperty Name="proj_sug_type" ColumnName="proj_sug_type" />
+                <ScalarProperty Name="opportunities" ColumnName="opportunities" />
+                <ScalarProperty Name="dangers" ColumnName="dangers" />
+                <ScalarProperty Name="strengths" ColumnName="strengths" />
+                <ScalarProperty Name="weaknesses" ColumnName="weaknesses" />
+                <ScalarProperty Name="Class_id" ColumnName="Class_id" />
+                <ScalarProperty Name="internal_external" ColumnName="internal_external" />
+                <ScalarProperty Name="connected_to_proj" ColumnName="connected_to_proj" />
+                <ScalarProperty Name="methodology" ColumnName="methodology" />
+                <ScalarProperty Name="proj_gov_desc" ColumnName="proj_gov_desc" />
+                <ScalarProperty Name="Balance_Suggest_Initial" ColumnName="Balance_Suggest_Initial" />
+                <ScalarProperty Name="Balance_Suggest_Finial" ColumnName="Balance_Suggest_Finial" />
+                <ScalarProperty Name="Balance_Suggest_Approved" ColumnName="Balance_Suggest_Approved" />
+                <ScalarProperty Name="project_cause" ColumnName="project_cause" />
+                <ScalarProperty Name="project_innovation" ColumnName="project_innovation" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="get_all_projects" FunctionName="Projects.Store.get_all_projects">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Projects.get_all_projects_Result">
+                <ScalarProperty Name="Proj_id" ColumnName="Proj_id" />
+                <ScalarProperty Name="Proj_Title" ColumnName="Proj_Title" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

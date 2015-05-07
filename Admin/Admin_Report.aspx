@@ -2,8 +2,7 @@
     EnableEventValidation="true" CodeFile="Admin_Report.aspx.cs" Inherits="Admin_Admin_Report"
     Title="تقارير" %>
 
-<%@ Register Assembly="CrystalDecisions.Web, Version=10.5.3700.0, Culture=neutral, PublicKeyToken=692fbea5521e1304"
-    Namespace="CrystalDecisions.Web" TagPrefix="CR" %>
+
 <%@ Register Src="../UserControls/Smart_Search.ascx" TagName="Smart_Search" TagPrefix="uc1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="Masterhead" runat="Server">
