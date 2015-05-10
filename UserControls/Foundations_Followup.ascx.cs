@@ -22,13 +22,13 @@ using ReportsClass;
 using System.Data.Linq;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
-
+using EFModels;
 public partial class UserControls_Foundations_Followup : System.Web.UI.UserControl
 {
 
     Projects_ManagementEntities10 pmentity = new Projects_ManagementEntities10();
-    Projects_ManagementEntities pmgenentity = new Projects_ManagementEntities();
-    OutboxDataContext outboxDBContext = new OutboxDataContext();
+    ActiveDirectoryContext pmgenentity = new ActiveDirectoryContext();
+    OutboxContext outboxDBContext = new OutboxContext();
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -101,8 +101,8 @@ public partial class UserControls_Foundations_Followup : System.Web.UI.UserContr
 
     private void fillgrid()
     {
-        DataTable dt = new DataTable();
-        DataTable dt2 = new DataTable();
+        DataTable dt;
+        DataTable dt2;
         DataTable dt_foundall = new DataTable();
         dt_foundall.Columns.Add("found_name");
         dt_foundall.Columns.Add("Employee_count");
@@ -158,7 +158,7 @@ public partial class UserControls_Foundations_Followup : System.Web.UI.UserContr
         {
 
             string urlPath2 = Request.Url.AbsolutePath.Trim();
-           // DataTable dt = new DataTable();
+
             if (urlPath2.Contains("SuperAdmin"))
             {
 

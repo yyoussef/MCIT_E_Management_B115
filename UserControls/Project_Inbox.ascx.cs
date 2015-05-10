@@ -23,7 +23,7 @@ using ReportsClass;
 using System.Data.Linq;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
-
+using EFModels;
 
 
 public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
@@ -35,11 +35,11 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
     int id;
     string v_desc;
 
-    Projects_ManagementEntities10 pmentity = new Projects_ManagementEntities10();
-    Projects_ManagementEntities pmgenentity = new Projects_ManagementEntities();
-    OutboxDataContext outboxDBContext = new OutboxDataContext();
-    
-
+    ProjectsContext projContext = new ProjectsContext();
+    ActiveDirectoryContext ADContext = new ActiveDirectoryContext();
+    OutboxContext outboxDBContext = new OutboxContext();
+    //Projects_ManagementEntities_Inbox pm_inbox = new Projects_ManagementEntities_Inbox();
+    InboxContext pm_inbox = new InboxContext();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -305,9 +305,10 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
         DataTable dt_main_cat = null ;
         if (CDataConverter.ConvertToInt(Session_CS.group_id.ToString()) > 0)
         {
-            dt_main_cat = SqlHelper.ExecuteDataset(Database.ConnectionString, "select_main_cat_by_group", Session_CS.group_id).Tables[0];
+            //dt_main_cat = SqlHelper.ExecuteDataset(Database.ConnectionString, "select_main_cat_by_group", Session_CS.group_id).Tables[0];
 
-           // dt_main_cat = outboxDBContext.select_main_cat_by_group(Session_CS.group_id).ToDataTable();
+            dt_main_cat = (from main_cat in pm_inbox.inbox_Main_Categories where main_cat.group_id == Session_CS.group_id select main_cat).ToDataTable();
+           
         }
 
 
@@ -486,11 +487,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                
                     if (Session_CS.code_outbox == 1)
                     {
-
-                     DataTable getmax = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_max_code_inbox", Session_CS.foundation_id).Tables[0];
-
-                //      DataTable getmax = outboxDBContext.get_max_code_inbox(Session_CS.foundation_id).ToDataTable();
-
+                      DataTable getmax = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_max_code_inbox", Session_CS.foundation_id).Tables[0];
                         txt_Code.Text = getmax.Rows[0]["code"].ToString();
                     }
                 
@@ -499,9 +496,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
             int dept = 0;
             int pmp = 0;
             int group = 0;
-
             Inbox_DT obj = new Inbox_DT();
-
             obj.ID = CDataConverter.ConvertToInt(hidden_Id.Value);
             if (Smart_Search_Proj.SelectedValue != "")
             {
@@ -747,9 +742,9 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
     {
         Smart_Emp_ID.sql_Connection = sql_Connection;
         
-       DataTable dtt = SqlHelper.ExecuteDataset(Database.ConnectionString, "fill_employee2", CDataConverter.ConvertToInt(Smart_Search_structure.SelectedValue)).Tables[0];
+      //  DataTable dtt = SqlHelper.ExecuteDataset(Database.ConnectionString, "fill_employee2", CDataConverter.ConvertToInt(Smart_Search_structure.SelectedValue)).Tables[0];
 
-       // DataTable dtt = outboxDBContext.fill_employee2(CDataConverter.ConvertToInt(Smart_Search_structure.SelectedValue)).ToDataTable();
+        DataTable dtt = ADContext.fill_employee2(CDataConverter.ConvertToInt(Smart_Search_structure.SelectedValue)).ToDataTable();
 
         Smart_Emp_ID.datatble = dtt;
         Smart_Emp_ID.Value_Field = "PMP_ID";
@@ -784,9 +779,9 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
         string Query = "";
         Smart_Org_ID.sql_Connection = sql_Connection;
    
-        DataTable DT = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_org_by_found", Session_CS.foundation_id).Tables[0];
+       // DataTable DT = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_org_by_found", Session_CS.foundation_id).Tables[0];
 
-        //DataTable DT = outboxDBContext.get_org_by_found(Session_CS.foundation_id).ToDataTable();
+        DataTable DT = ADContext.get_org_by_found(Session_CS.foundation_id).ToDataTable();
 
 
         Smart_Org_ID.datatble = DT;
@@ -798,13 +793,9 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
         //fil_emp();
 
         Smart_Emp_ID.sql_Connection = sql_Connection;
-        
+        // Smart_Emp_ID.Query = "SELECT PMP_ID, pmp_name FROM EMPLOYEE ";
         Query = "SELECT PMP_ID, pmp_name FROM EMPLOYEE where foundation_id='"+CDataConverter.ConvertToInt(Session_CS.foundation_id )+"' ";
-
-     //  DataTable  dt = (from emp in outboxDBContext.EMPLOYEEs where emp.foundation_id == CDataConverter.ConvertToInt(Session_CS.foundation_id) select emp).ToDataTable();
-        
         Smart_Emp_ID.datatble = General_Helping.GetDataTable(Query);
-    //   Smart_Emp_ID.datatble = dt;
         Smart_Emp_ID.Value_Field = "PMP_ID";
         Smart_Emp_ID.Text_Field = "pmp_name";
         Smart_Emp_ID.DataBind();
@@ -821,7 +812,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
           //   DataTable DT_proj = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_all_projects").Tables[0];
 
-          DataTable    DT_proj = pmgenentity.get_all_projects().ToDataTable();
+             DataTable DT_proj = projContext.get_all_projects().ToDataTable();
 
 
 
@@ -964,9 +955,9 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
     protected void fill_structure()
     {
 
-        DataTable DT_dept = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_dept_by_found", Session_CS.foundation_id).Tables[0];
+       // DataTable DT_dept = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_dept_by_found", Session_CS.foundation_id).Tables[0];
 
-   //     DataTable DT_dept = outboxDBContext.get_dept_by_found(Session_CS.foundation_id).ToDataTable() ;
+        DataTable DT_dept = ADContext.get_dept_by_found(Session_CS.foundation_id).ToDataTable() ;
 
         Smart_Search_structure.datatble = DT_dept;
         Smart_Search_structure.Value_Field = "Dept_id";
@@ -1111,10 +1102,9 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
             Smart_Emp_ID.sql_Connection = sql_Connection;
 
             DataTable DT = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_pmp_by_dept", Session_CS.dept_id).Tables[0];
-
-          //  DataTable DT = outboxDBContext.get_pmp_by_dept(Session_CS.dept_id).ToDataTable();
-
-            Smart_Emp_ID.datatble = DT;
+            //  Smart_Emp_ID.Query = "SELECT PMP_ID, pmp_name FROM EMPLOYEE where Dept_Dept_id = " + Dept_ID;
+            //string Query = "SELECT PMP_ID, pmp_name FROM EMPLOYEE where Dept_Dept_id = " + Dept_ID;
+            Smart_Emp_ID.datatble = DT;//General_Helping.GetDataTable(Query);
             Smart_Emp_ID.Value_Field = "PMP_ID";
             Smart_Emp_ID.Text_Field = "pmp_name";
             Smart_Emp_ID.DataBind();
@@ -1205,23 +1195,26 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
     void Fil_Smrt_From_OutBox()
     {
         Smart_Related_Id.sql_Connection = sql_Connection;
-       
+        // Smart_Related_Id.Query = "SELECT * from vw_outbox_DateString where group_id =  " + int.Parse(Session_CS.group_id.ToString());
+        //string Query = "set dateformat dmy SELECT vw_outbox_DateString.*,CONVERT(datetime, dbo.datevalid(Date)) as date1 from vw_outbox_DateString where group_id =  " + int.Parse(Session_CS.group_id.ToString());
+        //if (CDataConverter.ConvertToInt(Session_CS.Project_id.ToString()) > 0)
+        //{
+        //    Query += " AND Proj_id = " + int.Parse(Session_CS.Project_id.ToString());
+        //}
+        //Query += " order by CONVERT(datetime, dbo.datevalid(Date)) desc";
+        //DataTable dt = General_Helping.GetDataTable(Query);
           DataTable dt = null;
           if (CDataConverter.ConvertToInt(Session_CS.group_id.ToString()) != 0)
           {
 
-           dt = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_related_outbox_inbox_page", Session_CS.group_id, Session_CS.Project_id).Tables[0];
-
-       //     dt = outboxDBContext.get_related_outbox_inbox_page(Session_CS.group_id, Session_CS.Project_id).ToDataTable();
+              dt = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_related_outbox_inbox_page", Session_CS.group_id, Session_CS.Project_id).Tables[0];
 
               Smart_Related_Id.datatble = dt;
               Smart_Related_Id.Value_Field = "id";
               Smart_Related_Id.Text_Field = "con";
               Smart_Related_Id.Show_Code = false;
-
-            //  dt.DefaultView.Sort = "date1 desc";
-            //  Smart_Related_Id.Orderby = "date1 desc";
-
+              dt.DefaultView.Sort = "date1 desc";
+              Smart_Related_Id.Orderby = "date1 desc";
               Smart_Related_Id.DataBind();
           }
     }
@@ -1240,16 +1233,13 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
           DataTable dt = null;
           if (CDataConverter.ConvertToInt(Session_CS.group_id.ToString()) != 0)
           {
-             dt = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_related_inbox_inbox_page", Session_CS.group_id, Session_CS.Project_id).Tables[0];
-
-           //   dt = outboxDBContext.get_related_inbox_inbox_page(Session_CS.group_id, Session_CS.Project_id).ToDataTable();
-
+               dt = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_related_inbox_inbox_page", Session_CS.group_id, Session_CS.Project_id).Tables[0];
               Smart_Related_Id.datatble = dt;
               Smart_Related_Id.Value_Field = "id";
               Smart_Related_Id.Text_Field = "con";
-            dt.DefaultView.Sort = "date1 desc";
+              dt.DefaultView.Sort = "date1 desc";
               Smart_Related_Id.Show_Code = false;
-            Smart_Related_Id.Orderby = "date1 desc";
+              Smart_Related_Id.Orderby = "date1 desc";
               Smart_Related_Id.DataBind();
           }
     }
@@ -2587,12 +2577,12 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
         DataTable dt_all = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_all_cat_sub_main", id).Tables[0];
 
-       // DataTable dt_all = outboxDBContext.get_all_cat_sub_main(id).ToDataTable();
+      //  DataTable dt_all = pm_inbox.get_all_cat_sub_main(id).ToDataTable();
 
 
       DataTable dt_all_subs = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_all_subs", id).Tables[0];
 
-      //  DataTable dt_all_subs = outboxDBContext.get_all_subs(id).ToDataTable();
+     //   DataTable dt_all_subs = pm_inbox.get_all_subs(id).ToDataTable();
 
        
 
@@ -3151,9 +3141,9 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
             {
            
 
-                dt = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_sub_cat_by_main_cat", item.Value).Tables[0];
+                //dt = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_sub_cat_by_main_cat", item.Value).Tables[0];
 
-          //      dt = pm_inbox.get_sub_cat_by_main_cat(CDataConverter.ConvertToInt( item.Value)).ToDataTable();
+                dt = ADContext.get_sub_cat_by_main_cat(CDataConverter.ConvertToInt( item.Value)).ToDataTable();
 
 
                 for (int i = 0; i < dt.Rows.Count; i++)

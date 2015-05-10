@@ -10,11 +10,11 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
-
+using EFModels;
 public partial class UserControls_Outbox_Grid_Page : System.Web.UI.UserControl
 {
     //Session_CS Session_CS = new Session_CS();
-    OutboxDataContext outboxDBContext = new OutboxDataContext();
+    OutboxContext outboxDBContext = new OutboxContext();
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
@@ -191,7 +191,7 @@ public partial class UserControls_Outbox_Grid_Page : System.Web.UI.UserControl
     public void update_Outbox_Track_Emp(string Outbox_id, int Emp_ID, int Outbox_Status, int Type)
     {
         ////DataTable DT = General_Helping.GetDataTable("select * from Outbox_Track_Emp where Outbox_id = " + Outbox_id + " and Emp_ID =" + Emp_ID);
-        var Outbox_Track_Emps = outboxDBContext.Outbox_Track_Emps.Where(x => x.Outbox_id == CDataConverter.ConvertToInt(Outbox_id) && x.Emp_ID == Emp_ID);
+        var Outbox_Track_Emps = outboxDBContext.Outbox_Track_Emp.Where(x => x.Outbox_id == CDataConverter.ConvertToInt(Outbox_id) && x.Emp_ID == Emp_ID);
         if (Outbox_Track_Emps.Count() > 0)
         {
 
@@ -214,10 +214,10 @@ public partial class UserControls_Outbox_Grid_Page : System.Web.UI.UserControl
                 Type_Track_emp = 1
 
             };
-            outboxDBContext.Outbox_Track_Emps.InsertOnSubmit(OutboxTrackEmp);
+            outboxDBContext.Outbox_Track_Emp.Add(OutboxTrackEmp);
 
         }
-        outboxDBContext.SubmitChanges();
+        outboxDBContext.SaveChanges();
 
     }
     protected void btn_close_Outbox_Click(object sender, EventArgs e)

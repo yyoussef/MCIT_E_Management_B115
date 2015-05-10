@@ -18,14 +18,14 @@ using System.Net.Mail;
 using CrystalDecisions.CrystalReports.Engine;
 using CrystalDecisions.Shared;
 using ReportsClass;
-
+using EFModels;
 public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
 {
     private string sql_Connection = Database.ConnectionString;
     General_Helping Obj_General_Helping = new General_Helping();
     int id;
     string v_desc;
-    OutboxDataContext outboxDBContext = new OutboxDataContext();
+    OutboxContext outboxDBContext = new OutboxContext();
     //Session_CS Session_CS = new Session_CS();
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -1167,7 +1167,7 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
     public void update_Outbox_Track_Emp(string Outbox_id, int Emp_ID, int Outbox_Status, int Type)
     {
         ////DataTable DT = General_Helping.GetDataTable("select * from Outbox_Track_Emp where Outbox_id = " + Outbox_id + " and Emp_ID =" + Emp_ID);
-        var Outbox_Track_Emps = outboxDBContext.Outbox_Track_Emps.Where(x => x.Outbox_id == CDataConverter.ConvertToInt(Outbox_id) && x.Emp_ID == Emp_ID);
+        var Outbox_Track_Emps = outboxDBContext.Outbox_Track_Emp.Where(x => x.Outbox_id == CDataConverter.ConvertToInt(Outbox_id) && x.Emp_ID == Emp_ID);
         if (Outbox_Track_Emps.Count() > 0)
         {
 
@@ -1190,10 +1190,10 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
                 Type_Track_emp = 1
 
             };
-            outboxDBContext.Outbox_Track_Emps.InsertOnSubmit(OutboxTrackEmp);
+            outboxDBContext.Outbox_Track_Emp.Add(OutboxTrackEmp);
 
         }
-        outboxDBContext.SubmitChanges();
+        outboxDBContext.SaveChanges();
 
     }
     protected void btn_close_Outbox_Click(object sender, EventArgs e)
