@@ -26,7 +26,7 @@ using EFModels;
 public partial class UserControls_Foundations_Followup : System.Web.UI.UserControl
 {
 
-    Projects_ManagementEntities10 pmentity = new Projects_ManagementEntities10();
+    //Projects_ManagementEntities10 pmentity = new Projects_ManagementEntities10();
     ActiveDirectoryContext pmgenentity = new ActiveDirectoryContext();
     OutboxContext outboxDBContext = new OutboxContext();
 

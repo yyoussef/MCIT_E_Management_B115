@@ -1,10 +1,4 @@
-<<<<<<< HEAD
-﻿// Default code generation is disabled for model 'E:\WorkShop_VSS\E_Management_Git\App_Code\GeneralModel.edmx'. 
-// To enable default code generation, change the value of the 'Code Generation Strategy' designer
-// property to an alternate value. This property is available in the Properties Window when the model is
-// open in the designer.
-=======
-﻿// T4 code generation is enabled for model 'D:\GitPMS\MCIT_E_Management_B115\App_Code\GeneralModel.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\user1\Documents\Visual Studio 2013\Projects\PMS\App_Code\EFModels\CommissionModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.
@@ -14,4 +8,3 @@
 // classes for your model, open the model in the designer, right-click on the designer surface, and
 // select 'Update Model from Database...', 'Generate Database from Model...', or 'Add Code Generation
 // Item...'.
->>>>>>> 0015842e7be5ed3a99b0dd7dd3c45cb824a9c60a

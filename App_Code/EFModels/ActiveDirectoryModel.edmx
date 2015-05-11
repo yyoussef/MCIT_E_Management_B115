@@ -106,6 +106,9 @@
         <Function Name="get_dept_by_found" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="found_id" Type="int" Mode="In" />
         </Function>
+        <Function Name="get_Emp_Visa_Follow" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Commission_ID" Type="int" Mode="In" />
+        </Function>
         <Function Name="get_employee_from_Outbox_Visa_Follows" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Outbox_ID" Type="int" Mode="In" />
         </Function>
@@ -210,7 +213,10 @@
           <Parameter Name="found_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="get_sub_cat_by_main_cat" ReturnType="Collection(ActiveDirectory.get_sub_cat_by_main_cat_Result)">
-            <Parameter Name="cat_id" Mode="In" Type="Int32" />
+          <Parameter Name="cat_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="get_Emp_Visa_Follow" ReturnType="Collection(ActiveDirectory.get_Emp_Visa_Follow_Result)">
+            <Parameter Name="Commission_ID" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="Foundations_Followup_Result">
@@ -286,6 +292,11 @@
           <Property Type="Int32" Name="id" Nullable="false" />
           <Property Type="String" Name="name" Nullable="true" MaxLength="4000" />
           <Property Type="Int32" Name="main_id" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="get_Emp_Visa_Follow_Result">
+          <Property Type="Int64" Name="PMP_ID" Nullable="false" />
+          <Property Type="String" Name="pmp_name" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="Commission_ID" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -454,6 +465,15 @@
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="main_id" ColumnName="main_id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_Emp_Visa_Follow" FunctionName="ActiveDirectory.Store.get_Emp_Visa_Follow">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ActiveDirectory.get_Emp_Visa_Follow_Result">
+                <ScalarProperty Name="PMP_ID" ColumnName="PMP_ID" />
+                <ScalarProperty Name="pmp_name" ColumnName="pmp_name" />
+                <ScalarProperty Name="Commission_ID" ColumnName="Commission_ID" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

@@ -87,5 +87,14 @@ namespace EFModels
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_sub_cat_by_main_cat_Result>("get_sub_cat_by_main_cat", cat_idParameter);
         }
+    
+        public virtual ObjectResult<get_Emp_Visa_Follow_Result> get_Emp_Visa_Follow(Nullable<int> commission_ID)
+        {
+            var commission_IDParameter = commission_ID.HasValue ?
+                new ObjectParameter("Commission_ID", commission_ID) :
+                new ObjectParameter("Commission_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_Emp_Visa_Follow_Result>("get_Emp_Visa_Follow", commission_IDParameter);
+        }
     }
 }

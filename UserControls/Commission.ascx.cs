@@ -30,8 +30,8 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
 {
 
 
-    Projects_ManagementEntities10 pmentity = new Projects_ManagementEntities10();
-    Projects_ManagementEntities10 pmgeneralentity = new Projects_ManagementEntities10();
+    //Projects_ManagementEntities10 pmentity = new Projects_ManagementEntities10();
+    //Projects_ManagementEntities10 pmgeneralentity = new Projects_ManagementEntities10();
 
     private string sql_Connection = Database.ConnectionString;
     General_Helping Obj_General_Helping = new General_Helping();
@@ -39,6 +39,7 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
     int id;
     ActiveDirectoryContext ADContext = new ActiveDirectoryContext();
     OutboxContext outboxDBContext = new OutboxContext();
+    CommissionContext commCOntexts = new CommissionContext();
     //Session_CS Session_CS = new Session_CS();
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -146,7 +147,7 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
 
         //int found_id = CDataConverter.ConvertToInt(Session_CS.foundation_id);
 
-        // var depts = from deppt in pmentity.Departments  where deppt.foundation_id == found_id orderby deppt.Dept_name  select deppt;
+        // var depts = from deppt in ADContext.Departments  where deppt.foundation_id == found_id orderby deppt.Dept_name  select deppt;
 
         // DataTable dt = depts.ToDataTable();
 
@@ -158,7 +159,7 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
 
         //int found_id = CDataConverter.ConvertToInt(Session_CS.foundation_id);
 
-        //IEnumerable<Departments> deptartment = from deppt in pmentity.Departments
+        //IEnumerable<Departments> deptartment = from deppt in ADContext.Departments
         //                                       where deppt.foundation_id == found_id
         //                                       orderby deppt.Dept_name.Trim()
         //                                       select deppt;
@@ -273,7 +274,7 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
         {
             //Commission_DT obj = Commission_DB.SelectByID(id);
 
-            Commission obj = pmentity.Commission.Where(x => x.ID == id).SingleOrDefault();
+            Commission obj = commCOntexts.Commissions.Where(x => x.ID == id).SingleOrDefault();
 
             hidden_Id.Value = obj.ID.ToString();
             drop_Resp_close_emp.SelectedValue = obj.Resp_emp_close.ToString();
@@ -314,7 +315,7 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
         {
             //  DataTable dt = General_Helping.GetDataTable("select * from Commission_Files where Commission_ID = " + hidden_Id.Value);
             int com_id = CDataConverter.ConvertToInt(hidden_Id.Value);
-            var query = from comm_file in pmentity.Commission_Files where comm_file.Commission_ID == com_id select comm_file;
+            var query = from comm_file in commCOntexts.Commission_Files where comm_file.Commission_ID == com_id select comm_file;
             DataTable dt = query.ToDataTable();
 
             if (CDataConverter.ConvertToInt(hidden_Visa_Id.Value) > 0)
@@ -605,13 +606,13 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
         int Commnid = CDataConverter.ConvertToInt(Commission_id);
         int EmpID = CDataConverter.ConvertToInt(Emp_ID);
         Commission_Track_Emp comm_track_obj = new Commission_Track_Emp();
-        var orign = from com_tra_emp in pmentity.Commission_Track_Emp where com_tra_emp.Commission_id == Commnid && com_tra_emp.Emp_ID == EmpID select com_tra_emp;
+        var orign = from com_tra_emp in commCOntexts.Commission_Track_Emp where com_tra_emp.Commission_id == Commnid && com_tra_emp.Emp_ID == EmpID select com_tra_emp;
         DataTable DT = orign.ToDataTable();
 
         if (DT.Rows.Count > 0)
         {
 
-            using (var db = new Projects_ManagementEntities10())
+            using (var db = new CommissionContext())
             {
 
                 IQueryable<Commission_Track_Emp> comm_trackk = db.Commission_Track_Emp.Where(x => x.Commission_id == Commnid && x.Emp_ID == EmpID);
@@ -637,8 +638,8 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
             comm_track_obj.Commission_id = Commnid;
             comm_track_obj.Emp_ID = EmpID;
             comm_track_obj.Type_Track_emp = 1;
-            pmentity.Entry(comm_track_obj).State = System.Data.Entity.EntityState.Added;
-            pmentity.SaveChanges();
+            commCOntexts.Entry(comm_track_obj).State = System.Data.Entity.EntityState.Added;
+            commCOntexts.SaveChanges();
 
         }
 
@@ -652,7 +653,7 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
         string Succ_names = "", Failed_name = "";
         // DataTable dt_Commission_Visa = General_Helping.GetDataTable("select * from Commission_Visa_Emp where Visa_Id =" + hidden_Visa_Id.Value);
         int v_id = CDataConverter.ConvertToInt(hidden_Visa_Id.Value);
-        var query = from comm_v_emp in pmentity.Commission_Visa_Emp where comm_v_emp.Visa_Id == v_id select comm_v_emp;
+        var query = from comm_v_emp in commCOntexts.Commission_Visa_Emp where comm_v_emp.Visa_Id == v_id select comm_v_emp;
         DataTable dt_Commission_Visa = query.ToDataTable();
 
         foreach (DataRow item in dt_Commission_Visa.Rows)
@@ -725,7 +726,7 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
 
                 int hid_id = CDataConverter.ConvertToInt(hidden_Id.Value);
 
-                var comm_file = from co_file in pmentity.Commission_Files where co_file.Commission_ID == hid_id select co_file;
+                var comm_file = from co_file in commCOntexts.Commission_Files where co_file.Commission_ID == hid_id select co_file;
 
                 DataTable dt = comm_file.ToDataTable();
                 foreach (DataRow dr in dt.Rows)
@@ -807,7 +808,7 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
             Commission_Visa_Follows_DT obj_follow = Commission_Visa_Follows_DB.SelectByID(CDataConverter.ConvertToInt(hidden_Follow_ID.Value));
 
             //   int foll_id = CDataConverter.ConvertToInt(hidden_Follow_ID.Value);
-            // Commission_Visa_Follows obj_follow = pmentity.Commission_Visa_Follows.Where( x => x.Follow_ID == foll_id  ).SingleOrDefault();
+            // Commission_Visa_Follows obj_follow = ADContext.Commission_Visa_Follows.Where( x => x.Follow_ID == foll_id  ).SingleOrDefault();
 
             obj_follow.Follow_ID = CDataConverter.ConvertToInt(hidden_Follow_ID.Value);
             obj_follow.Commission_ID = CDataConverter.ConvertToInt(hidden_Id.Value);
@@ -867,7 +868,7 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
 
             // DT = General_Helping.GetDataTable(sql);
 
-            DT = pmentity.get_Emp_Visa_Follow(xx).ToDataTable();
+            DT = ADContext.get_Emp_Visa_Follow(xx).ToDataTable();
 
 
             Obj_General_Helping.SmartBindDDL(ddl_Visa_Emp_id, DT, "PMP_ID", "pmp_name", "....اختر اسم الموظف ....");
@@ -902,14 +903,14 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
 
         //  int found_id = CDataConverter.ConvertToInt(Session_CS.foundation_id);
 
-        //  //IEnumerable<Departments> deptartment = from deppt in pmentity.Departments
+        //  //IEnumerable<Departments> deptartment = from deppt in ADContext.Departments
         //  //                                       where deppt.foundation_id == found_id
         //  //                                       orderby deppt.Dept_name.Trim()
         //  //                                       select deppt;
 
         //  //DataTable dt = extentionMethods.ToDataTable<Departments>(deptartment);
 
-        //List<Departments> dep = pmentity.Departments.Where(x => x.foundation_id == found_id).ToList();
+        //List<Departments> dep = ADContext.Departments.Where(x => x.foundation_id == found_id).ToList();
 
         //DataTable dt = dep.ToDataTable();
 
@@ -1091,7 +1092,7 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
                 {
                     int xx = CDataConverter.ConvertToInt(hidden_Inbox_OutBox_File_ID.Value);
 
-                    Commission_Files commFile = pmentity.Commission_Files.Where(x => x.Commission_File_ID == xx).SingleOrDefault();
+                    Commission_Files commFile = commCOntexts.Commission_Files.Where(x => x.Commission_File_ID == xx).SingleOrDefault();
 
                     commFile.Original_Or_Attached = CDataConverter.ConvertToInt(ddl_Original_Or_Attached.SelectedValue);
                     commFile.File_ext = type;
@@ -1240,7 +1241,7 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
 
             //  Commission_Files_DT obj = Commission_Files_DB.SelectByID(CDataConverter.ConvertToInt(e.CommandArgument));
 
-            Commission_Files obj = pmentity.Commission_Files.Where(x => x.Commission_File_ID == com_file_id).SingleOrDefault();
+            Commission_Files obj = commCOntexts.Commission_Files.Where(x => x.Commission_File_ID == com_file_id).SingleOrDefault();
 
             if (obj.Commission_File_ID > 0)
             {
@@ -1263,10 +1264,10 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
             //{
             //    Commission_File_ID=com_file_id
             //};
-            //pmentity.Commission_Files.Attach(comm);
-            //pmentity.Commission_Files.Remove(comm);
-            pmentity.Commission_Files.RemoveRange(pmentity.Commission_Files.Where(x => x.Commission_File_ID == com_file_id));
-            pmentity.SaveChanges();
+            //commCOntexts.Commission_Files.Attach(comm);
+            //commCOntexts.Commission_Files.Remove(comm);
+            commCOntexts.Commission_Files.RemoveRange(commCOntexts.Commission_Files.Where(x => x.Commission_File_ID == com_file_id));
+            commCOntexts.SaveChanges();
 
 
 
@@ -1284,7 +1285,7 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
 
         int xx = CDataConverter.ConvertToInt(hidden_Id.Value);
 
-        var query = from comm_query in pmentity.Commission_Files
+        var query = from comm_query in commCOntexts.Commission_Files
                     where comm_query.Inbox_Or_Outbox == 1 && comm_query.Commission_ID == xx
                     select comm_query;
 
@@ -1297,7 +1298,7 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
     {
 
 
-        using (var context = new Projects_ManagementEntities10())
+        using (var context = new ActiveDirectoryContext())
         {
 
             context.Entry(blog).State = blog.ID == 0 ?
@@ -1312,7 +1313,7 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
     {
 
 
-        using (var context = new Projects_ManagementEntities10())
+        using (var context = new ActiveDirectoryContext())
         {
             context.Entry(blog).State = blog.Follow_ID == 0 ?
                                        System.Data.Entity.EntityState.Added :
@@ -1326,7 +1327,7 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
     {
 
 
-        using (var context = new Projects_ManagementEntities10())
+        using (var context = new ActiveDirectoryContext())
         {
             context.Entry(blog).State = blog.Visa_Emp_ID == 0 ?
                                        System.Data.Entity.EntityState.Added :
@@ -1339,7 +1340,7 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
     {
 
 
-        using (var context = new Projects_ManagementEntities10())
+        using (var context = new ActiveDirectoryContext())
         {
             context.Entry(blog).State = blog.Visa_Id == 0 ?
                                       System.Data.Entity.EntityState.Added :
@@ -1354,7 +1355,7 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
     {
 
 
-        using (var context = new Projects_ManagementEntities10())
+        using (var context = new ActiveDirectoryContext())
         {
             context.Entry(blog).State = blog.Commission_File_ID == 0 ?
                                       System.Data.Entity.EntityState.Added :
@@ -1703,7 +1704,7 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
         //  General_Helping.ExcuteQuery(sql_all_User);
         //    Commission_Track_Emp_DB.Commission_Track_Emp_update(Commission_id);
 
-        using (var db = new Projects_ManagementEntities10())
+        using (var db = new CommissionContext())
         {
 
             IQueryable<Commission_Track_Emp> comm_trackk = db.Commission_Track_Emp.Where(x => x.Commission_id == Commission_id);
@@ -1904,7 +1905,7 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
 
         int co_id = CDataConverter.ConvertToInt(hidden_Id.Value);
 
-        DT = pmentity.get_Visa_Follow(co_id).ToDataTable();
+        DT = commCOntexts.get_Visa_Follow(co_id).ToDataTable();
 
         GridView_Visa_Follow.DataSource = DT;
         GridView_Visa_Follow.DataBind();
@@ -1927,8 +1928,8 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
         //General_Helping.ExcuteQuery(Sql_Delete);
         //  string Sql_insert = "";
 
-        pmentity.Commission_Visa_Emp.RemoveRange(pmentity.Commission_Visa_Emp.Where(x => x.Visa_Id == obj.Visa_Id));
-        pmentity.SaveChanges();
+        commCOntexts.Commission_Visa_Emp.RemoveRange(commCOntexts.Commission_Visa_Emp.Where(x => x.Visa_Id == obj.Visa_Id));
+        commCOntexts.SaveChanges();
 
         //Commission_Visa_Emp foun = new Commission_Visa_Emp()
         //{
@@ -2059,7 +2060,7 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
 
             int id = CDataConverter.ConvertToInt(e.CommandArgument);
 
-            Commission_Visa_Follows obj = pmentity.Commission_Visa_Follows.Where(x => x.Follow_ID == id).SingleOrDefault();
+            Commission_Visa_Follows obj = commCOntexts.Commission_Visa_Follows.Where(x => x.Follow_ID == id).SingleOrDefault();
             if (obj.Follow_ID > 0)
             {
                 hidden_Follow_ID.Value = obj.Follow_ID.ToString();
@@ -2085,9 +2086,9 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
                 Follow_ID = id
             };
 
-            pmentity.Commission_Visa_Follows.Attach(obj);
-            pmentity.Commission_Visa_Follows.Remove(obj);
-            pmentity.SaveChanges();
+            commCOntexts.Commission_Visa_Follows.Attach(obj);
+            commCOntexts.Commission_Visa_Follows.Remove(obj);
+            commCOntexts.SaveChanges();
 
 
 
@@ -2147,7 +2148,7 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
             //string Sql = "SELECT     Commission_Visa_Follows.Follow_ID, Commission_Visa_Follows.File_data,Commission_Visa_Follows.File_name,Commission_Visa_Follows.File_ext,Commission_Visa_Follows.Commission_ID, Commission_Visa_Follows.Descrption, Commission_Visa_Follows.Date, Commission_Visa_Follows.Visa_Emp_id, EMPLOYEE.pmp_name " +
             //             " FROM         Commission_Visa_Follows INNER JOIN EMPLOYEE ON Commission_Visa_Follows.Visa_Emp_id = EMPLOYEE.PMP_ID where Commission_ID =" + hidden_Id.Value;
 
-            DataTable dt = pmentity.get_comm_infor_formail(CDataConverter.ConvertToInt(hidden_Id.Value)).ToDataTable();
+            DataTable dt = commCOntexts.get_comm_infor_formail(CDataConverter.ConvertToInt(hidden_Id.Value)).ToDataTable();
 
             string file = "";
 
@@ -2231,9 +2232,9 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
 
             };
 
-            pmentity.Commission_Visa.Attach(obj);
-            pmentity.Commission_Visa.Remove(obj);
-            pmentity.SaveChanges();
+            commCOntexts.Commission_Visa.Attach(obj);
+            commCOntexts.Commission_Visa.Remove(obj);
+            commCOntexts.SaveChanges();
 
             ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('لقد تم الحذف بنجاح');", true);
 
@@ -2254,7 +2255,7 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
 
         int hid_id = CDataConverter.ConvertToInt(hidden_Id.Value);
         int v_id = CDataConverter.ConvertToInt(Visa_Id);
-        var query = from com_tble in pmentity.Commission_Visa where com_tble.mail_sent == 1 && com_tble.Visa_Id == v_id && com_tble.Commission_ID == hid_id select com_tble;
+        var query = from com_tble in commCOntexts.Commission_Visa where com_tble.mail_sent == 1 && com_tble.Visa_Id == v_id && com_tble.Commission_ID == hid_id select com_tble;
         DataTable dt = query.ToDataTable();
 
 
@@ -2317,7 +2318,7 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
         int visaid = CDataConverter.ConvertToInt(hidden_Visa_Id.Value);
         // string sql = "SELECT dbo.EMPLOYEE.pmp_name, dbo.Commission_Visa_Emp.Emp_ID, dbo.Commission_Visa_Emp.Visa_Id FROM  dbo.EMPLOYEE INNER JOIN dbo.Commission_Visa_Emp ON dbo.EMPLOYEE.PMP_ID = dbo.Commission_Visa_Emp.Emp_ID where dbo.Commission_Visa_Emp.Visa_Id = " + hidden_Visa_Id.Value;
 
-        DataTable dt = pmentity.Fil_Visa_foremployee(visaid).ToDataTable();
+        DataTable dt = commCOntexts.Fil_Visa_foremployee(visaid).ToDataTable();
 
         //DataTable dt = General_Helping.GetDataTable(sql);
 
@@ -2354,7 +2355,7 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
         // string Sql_Delete = "select * from Commission_Visa_Emp where Visa_Id =" + ID;
         // DataTable DT = General_Helping.GetDataTable(Sql_Delete);
 
-        var query = from commvisa in pmentity.Commission_Visa where commvisa.Visa_Id == ID select commvisa;
+        var query = from commvisa in commCOntexts.Commission_Visa where commvisa.Visa_Id == ID select commvisa;
         DataTable DT = query.ToDataTable();
 
 
@@ -2472,14 +2473,14 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
             // sql += " and Commission_Visa_Emp.Emp_id <> " + CDataConverter.ConvertToInt(dt_new.Rows[0]["parent_pmp_id"].ToString());
 
 
-            DT = (pmentity.get_commission_visa_emp(CDataConverter.ConvertToInt(dt_new.Rows[0]["parent_pmp_id"].ToString())).ToDataTable());
+            DT = (commCOntexts.get_commission_visa_emp(CDataConverter.ConvertToInt(dt_new.Rows[0]["parent_pmp_id"].ToString())).ToDataTable());
         }
         else
         {
             //     sql += " and Commission_Visa_Emp.Emp_id <> " + CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
 
 
-            DT = (pmentity.get_commission_visa_emp(CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString())).ToDataTable());
+            DT = (commCOntexts.get_commission_visa_emp(CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString())).ToDataTable());
 
         }
 
@@ -2527,7 +2528,7 @@ public partial class UserControls_Commission : System.Web.UI.UserControl
             //   temp_sql = "select mail_sent from Commission_Visa where Visa_Id=" + id;
             // Dt = General_Helping.GetDataTable(temp_sql);
 
-            var query = from comm_visatble in pmentity.Commission_Visa where comm_visatble.Visa_Id == ids select comm_visatble;
+            var query = from comm_visatble in commCOntexts.Commission_Visa where comm_visatble.Visa_Id == ids select comm_visatble;
 
             Dt = query.ToDataTable();
 

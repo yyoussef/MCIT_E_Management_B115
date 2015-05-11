@@ -168,6 +168,17 @@ namespace EFModels
 {
     using System;
     
+    public partial class get_Emp_Visa_Follow_Result
+    {
+        public long PMP_ID { get; set; }
+        public string pmp_name { get; set; }
+        public Nullable<int> Commission_ID { get; set; }
+    }
+}
+namespace EFModels
+{
+    using System;
+    
     public partial class get_employee_from_Outbox_Visa_Follows_Result
     {
         public int Follow_ID { get; set; }

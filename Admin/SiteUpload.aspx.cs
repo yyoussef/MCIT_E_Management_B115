@@ -28,7 +28,7 @@ public partial class WebForms_SiteUpload : System.Web.UI.Page
     //Session_CS Session_CS = new Session_CS();
     static string img_src_path = "";
 
-    Projects_ManagementEntities10 pmentity = new Projects_ManagementEntities10();
+    //Projects_ManagementEntities10 pmentity = new Projects_ManagementEntities10();
     ActiveDirectoryContext pmgenentity = new ActiveDirectoryContext();
     OutboxContext outboxDBContext = new OutboxContext();
 
@@ -82,7 +82,7 @@ public partial class WebForms_SiteUpload : System.Web.UI.Page
 
     public void InsertorUpdate(Site_Upload blog)
     {
-        using (var context = new Projects_ManagementEntities10())
+        using (var context = new ActiveDirectoryContext())
         {
             context.Entry(blog).State = blog.ID == 0 ?
                 System.Data.Entity.EntityState.Added :
