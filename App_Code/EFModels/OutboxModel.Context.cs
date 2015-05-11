@@ -696,5 +696,14 @@ namespace EFModels
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SP_vw_outbox_DateSubject_Result>("SP_vw_outbox_DateSubject", groupIDParameter, projectIDParameter);
         }
+    
+        public virtual ObjectResult<string> get_OutboxVisaEmps(Nullable<int> visa_ID)
+        {
+            var visa_IDParameter = visa_ID.HasValue ?
+                new ObjectParameter("visa_ID", visa_ID) :
+                new ObjectParameter("visa_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("get_OutboxVisaEmps", visa_IDParameter);
+        }
     }
 }

@@ -147,6 +147,9 @@ warning 6002: The table/view 'Projects_Management.dbo.Outbox_follow_emp' does no
           <Property Name="time_follow" Type="nvarchar" MaxLength="50" />
           <Property Name="Type_Follow" Type="int" />
         </EntityType>
+        <Function Name="get_OutboxVisaEmps" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="visa_ID" Type="int" Mode="In" />
+        </Function>
         <Function Name="Outbox_cat_save" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Outbox_id" Type="int" Mode="In" />
           <Parameter Name="Cat_id" Type="int" Mode="In" />
@@ -704,6 +707,9 @@ warning 6002: The table/view 'Projects_Management.dbo.Outbox_follow_emp' does no
           <FunctionImport Name="SP_vw_outbox_DateSubject" ReturnType="Collection(Outbox.SP_vw_outbox_DateSubject_Result)">
             <Parameter Name="groupID" Mode="In" Type="Int32" />
             <Parameter Name="ProjectID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="get_OutboxVisaEmps" ReturnType="Collection(String)">
+            <Parameter Name="visa_ID" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="outbox_cat_select_Result">
@@ -1535,6 +1541,7 @@ warning 6002: The table/view 'Projects_Management.dbo.Outbox_follow_emp' does no
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_OutboxVisaEmps" FunctionName="Outbox.Store.get_OutboxVisaEmps" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
