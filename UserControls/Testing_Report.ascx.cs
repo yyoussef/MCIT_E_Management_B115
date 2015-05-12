@@ -34,7 +34,7 @@ public partial class UserControls_Testing_Report : System.Web.UI.UserControl
             string reportPath = Server.MapPath("../Reports/Testing_report.rpt");
             rd.Load(reportPath);
             DataTable dt = General_Helping.GetDataTable("select * from users");
-            CrystalReportViewer1.ReportSource = rd;
+           // CrystalReportViewer1.ReportSource = rd;
            
 
         }
