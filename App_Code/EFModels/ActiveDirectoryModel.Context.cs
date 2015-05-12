@@ -33,6 +33,13 @@ namespace EFModels
         public virtual DbSet<Organization> Organizations { get; set; }
         public virtual DbSet<Site_Upload> Site_Upload { get; set; }
         public virtual DbSet<parent_employee> parent_employee { get; set; }
+        public virtual DbSet<Admin_Module_Found> Admin_Module_Found { get; set; }
+        public virtual DbSet<Admin_Module> Admin_Module { get; set; }
+        public virtual DbSet<Admin_ModulePage> Admin_ModulePage { get; set; }
+        public virtual DbSet<Admin_Page> Admin_Page { get; set; }
+        public virtual DbSet<Admin_RoleModule> Admin_RoleModule { get; set; }
+        public virtual DbSet<Admin_Users> Admin_Users { get; set; }
+        public virtual DbSet<super_admin> super_admin { get; set; }
     
         public virtual ObjectResult<Foundations_Followup_Result> Foundations_Followup(Nullable<int> foundation_id)
         {
@@ -95,6 +102,41 @@ namespace EFModels
                 new ObjectParameter("Commission_ID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_Emp_Visa_Follow_Result>("get_Emp_Visa_Follow", commission_IDParameter);
+        }
+    
+        public virtual ObjectResult<AdminUsers_SelectName_Exsit_Result> AdminUsers_SelectName_Exsit(string user_name, Nullable<int> iD)
+        {
+            var user_nameParameter = user_name != null ?
+                new ObjectParameter("User_name", user_name) :
+                new ObjectParameter("User_name", typeof(string));
+    
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<AdminUsers_SelectName_Exsit_Result>("AdminUsers_SelectName_Exsit", user_nameParameter, iDParameter);
+        }
+    
+        public virtual ObjectResult<Admin_Users_Select_Result> Admin_Users_Select(Nullable<int> iD, Nullable<int> foundation_id)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var foundation_idParameter = foundation_id.HasValue ?
+                new ObjectParameter("foundation_id", foundation_id) :
+                new ObjectParameter("foundation_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Admin_Users_Select_Result>("Admin_Users_Select", iDParameter, foundation_idParameter);
+        }
+    
+        public virtual ObjectResult<SuperAdminUsers_SelectName_Result> SuperAdminUsers_SelectName(string user_name)
+        {
+            var user_nameParameter = user_name != null ?
+                new ObjectParameter("User_name", user_name) :
+                new ObjectParameter("User_name", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SuperAdminUsers_SelectName_Result>("SuperAdminUsers_SelectName", user_nameParameter);
         }
     }
 }

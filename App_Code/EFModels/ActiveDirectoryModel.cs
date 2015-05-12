@@ -12,6 +12,86 @@ namespace EFModels
     using System;
     using System.Collections.Generic;
     
+    public partial class Admin_Module
+    {
+        public int pk_ID { get; set; }
+        public string Name { get; set; }
+        public Nullable<bool> Active { get; set; }
+    
+        public virtual Admin_Module Admin_Module1 { get; set; }
+        public virtual Admin_Module Admin_Module2 { get; set; }
+    }
+}
+namespace EFModels
+{
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class Admin_Module_Found
+    {
+        public int ID { get; set; }
+        public Nullable<int> Mod_ID { get; set; }
+        public Nullable<bool> Mod_status { get; set; }
+        public Nullable<int> found_id { get; set; }
+    }
+}
+namespace EFModels
+{
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class Admin_ModulePage
+    {
+        public int pk_ID { get; set; }
+        public Nullable<int> fk_PageID { get; set; }
+        public Nullable<int> fk_ModuleID { get; set; }
+    }
+}
+namespace EFModels
+{
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class Admin_Page
+    {
+        public long pk_ID { get; set; }
+        public string Name { get; set; }
+        public Nullable<bool> Active { get; set; }
+        public string PageFile { get; set; }
+    }
+}
+namespace EFModels
+{
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class Admin_RoleModule
+    {
+        public int pk_ID { get; set; }
+        public Nullable<long> fk_RoleID { get; set; }
+        public Nullable<int> fk_ModuleID { get; set; }
+    }
+}
+namespace EFModels
+{
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class Admin_Users
+    {
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public string User_name { get; set; }
+        public string Password { get; set; }
+        public Nullable<int> foundation_id { get; set; }
+        public Nullable<bool> account_active { get; set; }
+    }
+}
+namespace EFModels
+{
+    using System;
+    using System.Collections.Generic;
+    
     public partial class Department
     {
         public long Dept_id { get; set; }
@@ -126,6 +206,48 @@ namespace EFModels
 namespace EFModels
 {
     using System;
+    using System.Collections.Generic;
+    
+    public partial class super_admin
+    {
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public string User_name { get; set; }
+        public string Password { get; set; }
+        public Nullable<bool> account_active { get; set; }
+    }
+}
+namespace EFModels
+{
+    using System;
+    
+    public partial class Admin_Users_Select_Result
+    {
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public string User_name { get; set; }
+        public string Password { get; set; }
+        public Nullable<int> foundation_id { get; set; }
+        public Nullable<bool> account_active { get; set; }
+    }
+}
+namespace EFModels
+{
+    using System;
+    
+    public partial class AdminUsers_SelectName_Exsit_Result
+    {
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public string User_name { get; set; }
+        public string Password { get; set; }
+        public Nullable<int> foundation_id { get; set; }
+        public Nullable<bool> account_active { get; set; }
+    }
+}
+namespace EFModels
+{
+    using System;
     
     public partial class fill_employee2_Result
     {
@@ -210,5 +332,18 @@ namespace EFModels
         public int id { get; set; }
         public string name { get; set; }
         public Nullable<int> main_id { get; set; }
+    }
+}
+namespace EFModels
+{
+    using System;
+    
+    public partial class SuperAdminUsers_SelectName_Result
+    {
+        public int ID { get; set; }
+        public string Name { get; set; }
+        public string User_name { get; set; }
+        public string Password { get; set; }
+        public Nullable<bool> account_active { get; set; }
     }
 }

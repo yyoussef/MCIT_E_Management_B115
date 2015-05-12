@@ -22,14 +22,14 @@ using ReportsClass;
 using System.Data.Linq;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
-
+using EFModels;
 public partial class Admin_Admin_Module : System.Web.UI.Page
 {
 
 
-    Projects_ManagementEntities10 pmentity = new Projects_ManagementEntities10();
-    Projects_ManagementEntities pmgenentity = new Projects_ManagementEntities();
-    OutboxDataContext outboxDBContext = new OutboxDataContext();
+    //Projects_ManagementEntities10 pmentity = new Projects_ManagementEntities10();
+    //Projects_ManagementEntities pmgenentity = new Projects_ManagementEntities();
+    //OutboxDataContext outboxDBContext = new OutboxDataContext();
 
     string sql, Sql_insert;
     protected void Page_Load(object sender, EventArgs e)
@@ -45,14 +45,16 @@ public partial class Admin_Admin_Module : System.Web.UI.Page
     private void Get_found()
     {
         // DataTable dt = Foundations_DB.SelectAll();
+        using (var ADContext = new ActiveDirectoryContext()) { 
         DataTable dt = new DataTable();
-        dt = (from found in pmgenentity.Foundations select found).ToDataTable();
+
+        dt = (from found in ADContext.Foundations select found).ToDataTable();
 
         drop_found.DataSource = dt;
 
         drop_found.DataBind();
         drop_found.Items.Insert(0, new ListItem("إختر الجهة", "0"));
-
+        }
     }
 
     protected void drop_found_SelectedIndexChanged(object sender, EventArgs e)
@@ -62,41 +64,45 @@ public partial class Admin_Admin_Module : System.Web.UI.Page
         int found = CDataConverter.ConvertToInt(drop_found.SelectedValue);
 
         //  DataTable dt = General_Helping.GetDataTable("select * from admin_module_found where found_id= " + CDataConverter.ConvertToInt(drop_found.SelectedValue));
-
-        DataTable dt = pmgenentity.Admin_Module_Found.Where(x => x.found_id == found).ToDataTable();
-
-        foreach (DataRow row in dt.Rows)
+        using (var ADContext = new ActiveDirectoryContext())
         {
-            string Value = row["Mod_ID"].ToString();
-            if (row["Mod_status"].ToString() == "True")
-            {
-                ListItem item = cbl_Module.Items.FindByValue(Value);
-                if (item != null)
-                    item.Selected = true;
-            }
+            DataTable dt = ADContext.Admin_Module_Found.Where(x => x.found_id == found).ToDataTable();
 
+            foreach (DataRow row in dt.Rows)
+            {
+                string Value = row["Mod_ID"].ToString();
+                if (row["Mod_status"].ToString() == "True")
+                {
+                    ListItem item = cbl_Module.Items.FindByValue(Value);
+                    if (item != null)
+                        item.Selected = true;
+                }
+
+            }
         }
     }
     protected void Get_Module()
     {
         //sql = @"select * from Admin_Module  ORDER BY LTRIM(Name)";
         //DataTable dt = General_Helping.GetDataTable(sql);
-        var query = from adminfound in pmgenentity.Admin_Module orderby adminfound.Name select adminfound;
-        DataTable dt = query.ToDataTable();
+        using (var ADContext = new ActiveDirectoryContext())
+        {
+            var query = from adminfound in ADContext.Admin_Module orderby adminfound.Name select adminfound;
+            DataTable dt = query.ToDataTable();
 
-        cbl_Module.DataSource = dt;
-        cbl_Module.DataValueField = "pk_ID";
-        cbl_Module.DataTextField = "Name";
-        cbl_Module.DataBind();
+            cbl_Module.DataSource = dt;
+            cbl_Module.DataValueField = "pk_ID";
+            cbl_Module.DataTextField = "Name";
+            cbl_Module.DataBind();
 
-
+        }
     }
 
     public void InsertOrUpdate(Admin_Module_Found blog)
     {
 
 
-        using (var context = new Projects_ManagementEntities())
+        using (var context = new ActiveDirectoryContext())
         {
             context.Entry(blog).State = blog.ID == 0 ?
                                       System.Data.Entity.EntityState.Added :
@@ -111,11 +117,12 @@ public partial class Admin_Admin_Module : System.Web.UI.Page
         int founnd = CDataConverter.ConvertToInt(drop_found.SelectedValue);
 
         //General_Helping.ExcuteQuery("delete from admin_module_found where found_id = " + CDataConverter.ConvertToInt(drop_found.SelectedValue));
+        using (var context = new ActiveDirectoryContext())
+        {
+            context.Admin_Module_Found.RemoveRange(context.Admin_Module_Found.Where(x => x.found_id == founnd));
+            context.SaveChanges();
 
-        pmgenentity.Admin_Module_Found.RemoveRange(pmgenentity.Admin_Module_Found.Where(x => x.found_id == founnd));
-        pmgenentity.SaveChanges();
-
-
+        }
 
 
 

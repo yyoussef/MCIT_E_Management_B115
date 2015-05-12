@@ -11,6 +11,14 @@
         <EntityTypeShape EntityType="ActiveDirectory.Organization" Width="1.5" PointX="5.375" PointY="4.75" />
         <EntityTypeShape EntityType="ActiveDirectory.Site_Upload" Width="1.5" PointX="7.375" PointY="0.75" />
         <EntityTypeShape EntityType="ActiveDirectory.parent_employee" Width="1.5" PointX="7.375" PointY="4.75" />
+        <EntityTypeShape EntityType="ActiveDirectory.Admin_Module_Found" Width="1.5" PointX="5.375" PointY="7.75" />
+        <EntityTypeShape EntityType="ActiveDirectory.Admin_Module" Width="1.5" PointX="7.75" PointY="7.75" />
+        <EntityTypeShape EntityType="ActiveDirectory.Admin_ModulePage" Width="1.5" PointX="0.75" PointY="8.75" />
+        <EntityTypeShape EntityType="ActiveDirectory.Admin_Page" Width="1.5" PointX="2.75" PointY="8.75" />
+        <EntityTypeShape EntityType="ActiveDirectory.Admin_RoleModule" Width="1.5" PointX="9.75" PointY="0.75" />
+        <EntityTypeShape EntityType="ActiveDirectory.Admin_Users" Width="1.5" PointX="9.75" PointY="3.75" />
+        <AssociationConnector Association="ActiveDirectory.FK_Admin_Module_Admin_Module" />
+        <EntityTypeShape EntityType="ActiveDirectory.super_admin" Width="1.5" PointX="5.375" PointY="10.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

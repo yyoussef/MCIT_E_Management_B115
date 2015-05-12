@@ -5,6 +5,59 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="ActiveDirectory.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Admin_Module">
+          <Key>
+            <PropertyRef Name="pk_ID" />
+          </Key>
+          <Property Name="pk_ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nchar" MaxLength="100" />
+          <Property Name="Active" Type="bit" />
+        </EntityType>
+        <EntityType Name="Admin_Module_Found">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Mod_ID" Type="int" />
+          <Property Name="Mod_status" Type="bit" />
+          <Property Name="found_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Admin_ModulePage">
+          <Key>
+            <PropertyRef Name="pk_ID" />
+          </Key>
+          <Property Name="pk_ID" Type="int" Nullable="false" />
+          <Property Name="fk_PageID" Type="int" />
+          <Property Name="fk_ModuleID" Type="int" />
+        </EntityType>
+        <EntityType Name="Admin_Page">
+          <Key>
+            <PropertyRef Name="pk_ID" />
+          </Key>
+          <Property Name="pk_ID" Type="bigint" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" />
+          <Property Name="Active" Type="bit" />
+          <Property Name="PageFile" Type="nvarchar" MaxLength="500" />
+        </EntityType>
+        <EntityType Name="Admin_RoleModule">
+          <Key>
+            <PropertyRef Name="pk_ID" />
+          </Key>
+          <Property Name="pk_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="fk_RoleID" Type="bigint" />
+          <Property Name="fk_ModuleID" Type="int" />
+        </EntityType>
+        <EntityType Name="Admin_Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="User_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
+          <Property Name="foundation_id" Type="int" />
+          <Property Name="account_active" Type="bit" />
+        </EntityType>
         <EntityType Name="Departments">
           <Key>
             <PropertyRef Name="Dept_id" />
@@ -97,6 +150,36 @@
           <Property Name="e_signature" Type="nvarchar" MaxLength="150" />
           <Property Name="foundation_id" Type="int" />
         </EntityType>
+        <EntityType Name="super_admin">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="250" />
+          <Property Name="User_name" Type="nvarchar" MaxLength="250" />
+          <Property Name="Password" Type="nvarchar" MaxLength="250" />
+          <Property Name="account_active" Type="bit" />
+        </EntityType>
+        <Association Name="FK_Admin_Module_Admin_Module">
+          <End Role="Admin_Module" Type="Self.Admin_Module" Multiplicity="1" />
+          <End Role="Admin_Module1" Type="Self.Admin_Module" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Admin_Module">
+              <PropertyRef Name="pk_ID" />
+            </Principal>
+            <Dependent Role="Admin_Module1">
+              <PropertyRef Name="pk_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="Admin_Users_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="foundation_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="AdminUsers_SelectName_Exsit" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="User_name" Type="nvarchar" Mode="In" />
+          <Parameter Name="ID" Type="int" Mode="In" />
+        </Function>
         <Function Name="fill_employee2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Dept_id" Type="int" Mode="In" />
         </Function>
@@ -118,13 +201,27 @@
         <Function Name="get_sub_cat_by_main_cat" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="cat_id" Type="int" Mode="In" />
         </Function>
+        <Function Name="SuperAdminUsers_SelectName" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="User_name" Type="nvarchar" Mode="In" />
+        </Function>
         <EntityContainer Name="ActiveDirectoryStoreContainer">
+          <EntitySet Name="Admin_Module" EntityType="Self.Admin_Module" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Admin_Module_Found" EntityType="Self.Admin_Module_Found" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Admin_ModulePage" EntityType="Self.Admin_ModulePage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Admin_Page" EntityType="Self.Admin_Page" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Admin_RoleModule" EntityType="Self.Admin_RoleModule" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Admin_Users" EntityType="Self.Admin_Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Departments" EntityType="Self.Departments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EMPLOYEE" EntityType="Self.EMPLOYEE" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Foundations" EntityType="Self.Foundations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Organization" EntityType="Self.Organization" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="parent_employee" EntityType="Self.parent_employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Site_Upload" EntityType="Self.Site_Upload" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="super_admin" EntityType="Self.super_admin" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Admin_Module_Admin_Module" Association="Self.FK_Admin_Module_Admin_Module">
+            <End Role="Admin_Module" EntitySet="Admin_Module" />
+            <End Role="Admin_Module1" EntitySet="Admin_Module" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -216,7 +313,29 @@
           <Parameter Name="cat_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="get_Emp_Visa_Follow" ReturnType="Collection(ActiveDirectory.get_Emp_Visa_Follow_Result)">
-            <Parameter Name="Commission_ID" Mode="In" Type="Int32" />
+          <Parameter Name="Commission_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="Admin_Module_Found" EntityType="ActiveDirectory.Admin_Module_Found" />
+          <EntitySet Name="Admin_Module" EntityType="ActiveDirectory.Admin_Module" />
+          <EntitySet Name="Admin_ModulePage" EntityType="ActiveDirectory.Admin_ModulePage" />
+          <EntitySet Name="Admin_Page" EntityType="ActiveDirectory.Admin_Page" />
+          <EntitySet Name="Admin_RoleModule" EntityType="ActiveDirectory.Admin_RoleModule" />
+          <EntitySet Name="Admin_Users" EntityType="ActiveDirectory.Admin_Users" />
+          <AssociationSet Name="FK_Admin_Module_Admin_Module" Association="ActiveDirectory.FK_Admin_Module_Admin_Module">
+            <End Role="Admin_Module" EntitySet="Admin_Module" />
+            <End Role="Admin_Module1" EntitySet="Admin_Module" />
+          </AssociationSet>
+          <FunctionImport Name="AdminUsers_SelectName_Exsit" ReturnType="Collection(ActiveDirectory.AdminUsers_SelectName_Exsit_Result)">
+            <Parameter Name="User_name" Mode="In" Type="String" />
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Admin_Users_Select" ReturnType="Collection(ActiveDirectory.Admin_Users_Select_Result)">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="foundation_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="super_admin" EntityType="ActiveDirectory.super_admin" />
+          <FunctionImport Name="SuperAdminUsers_SelectName" ReturnType="Collection(ActiveDirectory.SuperAdminUsers_SelectName_Result)">
+            <Parameter Name="User_name" Mode="In" Type="String" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="Foundations_Followup_Result">
@@ -297,6 +416,106 @@
           <Property Type="Int64" Name="PMP_ID" Nullable="false" />
           <Property Type="String" Name="pmp_name" Nullable="true" MaxLength="255" />
           <Property Type="Int32" Name="Commission_ID" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="Admin_Module_Found">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Mod_ID" Type="Int32" />
+          <Property Name="Mod_status" Type="Boolean" />
+          <Property Name="found_id" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Admin_Module">
+          <Key>
+            <PropertyRef Name="pk_ID" />
+          </Key>
+          <Property Name="pk_ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="true" Unicode="true" />
+          <Property Name="Active" Type="Boolean" />
+          <NavigationProperty Name="Admin_Module1" Relationship="ActiveDirectory.FK_Admin_Module_Admin_Module" FromRole="Admin_Module" ToRole="Admin_Module1" />
+          <NavigationProperty Name="Admin_Module2" Relationship="ActiveDirectory.FK_Admin_Module_Admin_Module" FromRole="Admin_Module1" ToRole="Admin_Module" />
+        </EntityType>
+        <EntityType Name="Admin_ModulePage">
+          <Key>
+            <PropertyRef Name="pk_ID" />
+          </Key>
+          <Property Name="pk_ID" Type="Int32" Nullable="false" />
+          <Property Name="fk_PageID" Type="Int32" />
+          <Property Name="fk_ModuleID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Admin_Page">
+          <Key>
+            <PropertyRef Name="pk_ID" />
+          </Key>
+          <Property Name="pk_ID" Type="Int64" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Active" Type="Boolean" />
+          <Property Name="PageFile" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Admin_RoleModule">
+          <Key>
+            <PropertyRef Name="pk_ID" />
+          </Key>
+          <Property Name="pk_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fk_RoleID" Type="Int64" />
+          <Property Name="fk_ModuleID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Admin_Users">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="User_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="foundation_id" Type="Int32" />
+          <Property Name="account_active" Type="Boolean" />
+        </EntityType>
+        <Association Name="FK_Admin_Module_Admin_Module">
+          <End Type="ActiveDirectory.Admin_Module" Role="Admin_Module" Multiplicity="1" />
+          <End Type="ActiveDirectory.Admin_Module" Role="Admin_Module1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Admin_Module">
+              <PropertyRef Name="pk_ID" />
+            </Principal>
+            <Dependent Role="Admin_Module1">
+              <PropertyRef Name="pk_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="AdminUsers_SelectName_Exsit_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="User_name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Password" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="foundation_id" Nullable="true" />
+          <Property Type="Boolean" Name="account_active" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Admin_Users_Select_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="User_name" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Password" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="foundation_id" Nullable="true" />
+          <Property Type="Boolean" Name="account_active" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="super_admin">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="User_name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="account_active" Type="Boolean" />
+        </EntityType>
+        <ComplexType Name="SuperAdminUsers_SelectName_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="User_name" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Password" Nullable="true" MaxLength="250" />
+          <Property Type="Boolean" Name="account_active" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -474,6 +693,111 @@
                 <ScalarProperty Name="PMP_ID" ColumnName="PMP_ID" />
                 <ScalarProperty Name="pmp_name" ColumnName="pmp_name" />
                 <ScalarProperty Name="Commission_ID" ColumnName="Commission_ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Admin_Module_Found">
+            <EntityTypeMapping TypeName="ActiveDirectory.Admin_Module_Found">
+              <MappingFragment StoreEntitySet="Admin_Module_Found">
+                <ScalarProperty Name="found_id" ColumnName="found_id" />
+                <ScalarProperty Name="Mod_status" ColumnName="Mod_status" />
+                <ScalarProperty Name="Mod_ID" ColumnName="Mod_ID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Admin_Module">
+            <EntityTypeMapping TypeName="ActiveDirectory.Admin_Module">
+              <MappingFragment StoreEntitySet="Admin_Module">
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="pk_ID" ColumnName="pk_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Admin_ModulePage">
+            <EntityTypeMapping TypeName="ActiveDirectory.Admin_ModulePage">
+              <MappingFragment StoreEntitySet="Admin_ModulePage">
+                <ScalarProperty Name="fk_ModuleID" ColumnName="fk_ModuleID" />
+                <ScalarProperty Name="fk_PageID" ColumnName="fk_PageID" />
+                <ScalarProperty Name="pk_ID" ColumnName="pk_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Admin_Page">
+            <EntityTypeMapping TypeName="ActiveDirectory.Admin_Page">
+              <MappingFragment StoreEntitySet="Admin_Page">
+                <ScalarProperty Name="PageFile" ColumnName="PageFile" />
+                <ScalarProperty Name="Active" ColumnName="Active" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="pk_ID" ColumnName="pk_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Admin_RoleModule">
+            <EntityTypeMapping TypeName="ActiveDirectory.Admin_RoleModule">
+              <MappingFragment StoreEntitySet="Admin_RoleModule">
+                <ScalarProperty Name="fk_ModuleID" ColumnName="fk_ModuleID" />
+                <ScalarProperty Name="fk_RoleID" ColumnName="fk_RoleID" />
+                <ScalarProperty Name="pk_ID" ColumnName="pk_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Admin_Users">
+            <EntityTypeMapping TypeName="ActiveDirectory.Admin_Users">
+              <MappingFragment StoreEntitySet="Admin_Users">
+                <ScalarProperty Name="account_active" ColumnName="account_active" />
+                <ScalarProperty Name="foundation_id" ColumnName="foundation_id" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="User_name" ColumnName="User_name" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="AdminUsers_SelectName_Exsit" FunctionName="ActiveDirectory.Store.AdminUsers_SelectName_Exsit">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ActiveDirectory.AdminUsers_SelectName_Exsit_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="User_name" ColumnName="User_name" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="foundation_id" ColumnName="foundation_id" />
+                <ScalarProperty Name="account_active" ColumnName="account_active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Admin_Users_Select" FunctionName="ActiveDirectory.Store.Admin_Users_Select">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ActiveDirectory.Admin_Users_Select_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="User_name" ColumnName="User_name" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="foundation_id" ColumnName="foundation_id" />
+                <ScalarProperty Name="account_active" ColumnName="account_active" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="super_admin">
+            <EntityTypeMapping TypeName="ActiveDirectory.super_admin">
+              <MappingFragment StoreEntitySet="super_admin">
+                <ScalarProperty Name="account_active" ColumnName="account_active" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="User_name" ColumnName="User_name" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SuperAdminUsers_SelectName" FunctionName="ActiveDirectory.Store.SuperAdminUsers_SelectName">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ActiveDirectory.SuperAdminUsers_SelectName_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="User_name" ColumnName="User_name" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="account_active" ColumnName="account_active" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

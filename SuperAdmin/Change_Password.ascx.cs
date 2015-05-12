@@ -23,7 +23,7 @@ using System.Data.Linq;
 using System.Collections.Generic;
 using System.Data.Entity.Core;
 using DBL;
-
+using EFModels;
 public partial class UserControls_Change_Password : System.Web.UI.UserControl
 {
     string sql, sql1;
@@ -33,9 +33,9 @@ public partial class UserControls_Change_Password : System.Web.UI.UserControl
     SqlCommand cmd;
     private string sql_Connection = Database.ConnectionString;
 
-    Projects_ManagementEntities10 pmentity = new Projects_ManagementEntities10();
-    Projects_ManagementEntities pmgenentity = new Projects_ManagementEntities();
-    OutboxDataContext outboxDBContext = new OutboxDataContext();
+    //Projects_ManagementEntities10 pmentity = new Projects_ManagementEntities10();
+    //Projects_ManagementEntities pmgenentity = new Projects_ManagementEntities();
+    //OutboxDataContext outboxDBContext = new OutboxDataContext();
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -70,7 +70,7 @@ public partial class UserControls_Change_Password : System.Web.UI.UserControl
     {
 
 
-        using (var context = new Projects_ManagementEntities())
+        using (var context = new ActiveDirectoryContext())
         {
             context.Entry(blog).State = blog.ID == 0 ?
                                       System.Data.Entity.EntityState.Added :
@@ -88,8 +88,8 @@ public partial class UserControls_Change_Password : System.Web.UI.UserControl
 
 
         //  DataTable dt = SqlHelper.ExecuteDataset(Database.ConnectionString, "SuperAdminUsers_SelectName", Session["UserName"].ToString()).Tables[0];
-
-        DataTable dt = pmgenentity.SuperAdminUsers_SelectName(Session["UserName"].ToString()).ToDataTable();
+        using (var ADContext = new ActiveDirectoryContext()) {
+            DataTable dt = ADContext.SuperAdminUsers_SelectName(Session["UserName"].ToString()).ToDataTable();
 
         if (TxtRecentPass.Text == dt.Rows[0]["Password"].ToString())
         {
@@ -136,6 +136,6 @@ public partial class UserControls_Change_Password : System.Web.UI.UserControl
             ShowAlertMessage("!!!كلمة السر الحالية خاطئة");
             return;
         }
-
+        }
     }
 }
