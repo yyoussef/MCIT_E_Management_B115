@@ -40,7 +40,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         
         #region BROWSER FOR departments
 
-        int found_id = CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString());
+        
         //string Query = "";
         /////Smart_Org_ID.sql_Connection = sql_Connection;
         //Query = "SELECT Org_ID, Org_Desc FROM Organization where foundation_id = " + found_id;
@@ -68,7 +68,8 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         //                        }, false)).ToList();
         using (var context = new ActiveDirectoryContext())
         {
-            var orgsquery = from orgs in context.Organizations //General_Helping.GetDataTable(Query);
+            int found_id = CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString());
+            var orgsquery = from orgs in context.Organizations 
                             where orgs.foundation_id == Session_CS.foundation_id
                             select orgs;
 
@@ -333,7 +334,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         //  Smart_Emp_ID.Query = "SELECT PMP_ID, pmp_name,Dept_Dept_id,Sec_id FROM EMPLOYEE inner join dbo.Departments on EMPLOYEE.Dept_Dept_id=Departments.Dept_id inner join Sectors on Sectors.Sec_id=Departments.Sec_sec_id where Sectors.Sec_id='" + drop_sectors.SelectedValue + "' ";
         //Query = "SELECT PMP_ID, pmp_name,Dept_Dept_id,Sec_id FROM EMPLOYEE inner join dbo.Departments on EMPLOYEE.Dept_Dept_id=Departments.Dept_id inner join Sectors on Sectors.Sec_id=Departments.Sec_sec_id where Sectors.Sec_id='" + CDataConverter.ConvertToInt("0") + "' ";
         // Smart_Emp_ID.datatble = General_Helping.GetDataTable(Query);
-        DataTable EMPLOYEEdt = extentionMethods.ToDataTable<EMPLOYEE>(fil_emp_by_Dept(0));
+        DataTable EMPLOYEEdt = fil_emp_by_Dept(0);
         Smart_Emp_ID.datatble = EMPLOYEEdt;
         Smart_Emp_ID.Value_Field = "PMP_ID";
         Smart_Emp_ID.Text_Field = "pmp_name";
@@ -420,9 +421,12 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
 
         using (var context = new InboxContext())
         {
-            Chk_main_cat.DataSource = from ChkMainCat in context.inbox_Main_Categories
-                                      where ChkMainCat.group_id == CDataConverter.ConvertToInt(Session_CS.group_id.ToString())
+          
+  var inboxMainCat =from ChkMainCat in context.inbox_Main_Categories
+                                      where ChkMainCat.group_id == Session_CS.group_id
                                       select ChkMainCat;
+  DataTable dt_main_cat = extentionMethods.ToDataTable<inbox_Main_Categories>(inboxMainCat);
+            Chk_main_cat.DataSource = dt_main_cat;
             Chk_main_cat.DataBind();
         }
 
@@ -440,8 +444,9 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         //DataTable dt_sub_cat = General_Helping.GetDataTable(" select * from inbox_Sub_Categories ");
         using (var context = new InboxContext())
         {
-            Chk_sub_cat.DataSource = from ChkSubCat in context.inbox_sub_categories
-                                     select ChkSubCat;
+            var inboxSubCat = from ChkSubCat in context.inbox_sub_categories
+                                select ChkSubCat;
+            Chk_sub_cat.DataSource = extentionMethods.ToDataTable<inbox_sub_categories>(inboxSubCat);
             //ddlMainCat.DataTextField = "Name";
             //ddlMainCat.DataValueField = "id";
             Chk_sub_cat.DataBind();
@@ -593,7 +598,8 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         //    Query += " where Departments.Dept_ID =  " + Smrt_Srch_structure2.SelectedValue;
         //}
 
-        DataTable EMPLOYEEdt = extentionMethods.ToDataTable<EMPLOYEE>(fil_emp_by_Dept(CDataConverter.ConvertToInt(Smrt_Srch_structure2.SelectedValue)));
+       // DataTable EMPLOYEEdt = extentionMethods.ToDataTable<EMPLOYEE>(fil_emp_by_Dept(CDataConverter.ConvertToInt(Smrt_Srch_structure2.SelectedValue)));
+        DataTable EMPLOYEEdt = fil_emp_by_Dept(CDataConverter.ConvertToInt(Smrt_Srch_structure2.SelectedValue));
         Smart_Emp_ID.datatble = EMPLOYEEdt;////fil_emp_by_Dept(CDataConverter.ConvertToInt(Smrt_Srch_structure2.SelectedValue)) as DataTable;
         Smart_Emp_ID.Value_Field = "pmp_id";
         Smart_Emp_ID.Text_Field = "pmp_name";
@@ -601,10 +607,11 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
 
 
     }
-    private IEnumerable<EMPLOYEE> fil_emp_by_Dept(int DeptID)
+    private DataTable fil_emp_by_Dept(int DeptID)
     {
         // int Dept_ID = CDataConverter.ConvertToInt(Smrt_Srch_structure.SelectedValue);
         IEnumerable<EMPLOYEE> Employees;
+        
         using (var context = new ActiveDirectoryContext()) { 
         if (DeptID > 0)
         {
@@ -618,13 +625,13 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         else
         {
             Employees = from Emps in context.EMPLOYEEs
-                        where Emps.foundation_id == CDataConverter.ConvertToInt(Session_CS.foundation_id)
+                        where Emps.foundation_id == Session_CS.foundation_id
                         orderby Emps.pmp_name
                         select Emps;
         }
-    }
-        return Employees;
-
+        DataTable EMPLOYEEdt = extentionMethods.ToDataTable<EMPLOYEE>(Employees);
+        return EMPLOYEEdt;
+        }
 
         //string sql = "SELECT PMP_ID, pmp_name FROM EMPLOYEE where 1=1 ";
         //if (Dept_ID > 0)
@@ -681,10 +688,11 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         //refactored by hafs
         //DataTable DT = new DataTable();
         //DT = General_Helping.GetDataTable("select * from Outbox_Visa where Outbox_ID=" + hidden_Id.Value);
+        int hiddenValue = CDataConverter.ConvertToInt(hidden_Id.Value);
         using (var context = new OutboxContext())
         {
             DataTable DT = (from ds in context.Outbox_Visa
-                            where ds.Outbox_ID == CDataConverter.ConvertToInt(hidden_Id.Value)
+                            where ds.Outbox_ID == hiddenValue
                             select ds).ToDataTable();
             GridView_Visa.DataSource = DT;
             GridView_Visa.DataBind();
@@ -750,10 +758,11 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         //refactored by hafs
         //DataTable DT = new DataTable();
         //DT = General_Helping.GetDataTable("select * from Inbox_OutBox_Files where Inbox_Or_Outbox = 2 and  Inbox_Outbox_ID=" + hidden_Id.Value);
+        int hiddenValue = CDataConverter.ConvertToInt(hidden_Id.Value);
         using (var context = new InboxContext())
         {
             GrdView_Documents.DataSource = from ds in context.Inbox_OutBox_Files
-                                           where ds.Inbox_Or_Outbox == 2 && ds.Inbox_Outbox_ID == CDataConverter.ConvertToInt(hidden_Id.Value)
+                                           where ds.Inbox_Or_Outbox == 2 && ds.Inbox_Outbox_ID == hiddenValue
                                            select ds;
             GrdView_Documents.DataBind();
         }
@@ -891,8 +900,8 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
             using (var context = new OutboxContext())
             {
             ////Outbox_Visa_Follows_DT obj = Outbox_Visa_Follows_DB.SelectByID(CDataConverter.ConvertToInt(e.CommandArgument));
-           
-                Outbox_Visa_Follows OutboxVisaFollowObj = context.Outbox_Visa_Follows.Where(x => x.Follow_ID == CDataConverter.ConvertToInt(e.CommandArgument)).SingleOrDefault();
+                int hiddenValue = CDataConverter.ConvertToInt(e.CommandArgument);
+                Outbox_Visa_Follows OutboxVisaFollowObj = context.Outbox_Visa_Follows.Where(x => x.Follow_ID == hiddenValue).SingleOrDefault();
 
             if (OutboxVisaFollowObj.Follow_ID > 0)
             {
@@ -915,7 +924,8 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
             using (var context = new OutboxContext())
             {
             ////Outbox_Visa_Follows_DB.Delete(CDataConverter.ConvertToInt(e.CommandArgument));
-            Outbox_Visa_Follows OutboxVisaFollowObj = context.Outbox_Visa_Follows.Where(x => x.Follow_ID == CDataConverter.ConvertToInt(e.CommandArgument)).SingleOrDefault();
+                int CAValue = CDataConverter.ConvertToInt(e.CommandArgument);
+                Outbox_Visa_Follows OutboxVisaFollowObj = context.Outbox_Visa_Follows.Where(x => x.Follow_ID == CAValue).SingleOrDefault();
             context.Outbox_Visa_Follows.Remove(OutboxVisaFollowObj);
             context.SaveChanges();
             // Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('لقد تم الحذف بنجاح')</script>");
@@ -977,9 +987,10 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
             {
                 using (var ADContext = new ActiveDirectoryContext())
                 {
+                    int hiddenval = CDataConverter.ConvertToInt(hidden_Id.Value);
                     var InboxVisaFollows = from IVF in inboxContext.Inbox_Visa_Follows
                                            join emps in ADContext.EMPLOYEEs on (long)IVF.Visa_Emp_id equals emps.PMP_ID
-                                           where IVF.Inbox_ID == CDataConverter.ConvertToInt(hidden_Id.Value)
+                                           where IVF.Inbox_ID == hiddenval
                                            select new
                                            {
                                                IVF = IVF,
@@ -1091,15 +1102,16 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
             //// DT = General_Helping.GetDataTable("select * from Outbox_Track_Manager where Outbox_id = " + hidden_Id.Value);
             using (var context = new OutboxContext())
             {
+                int hiddenval = CDataConverter.ConvertToInt(hidden_Id.Value);
                 var OutboxTrackManager = from outboxtrackmanager in context.Outbox_Track_Manager
-                                         where outboxtrackmanager.Outbox_id == CDataConverter.ConvertToInt(hidden_Id.Value)
+                                         where outboxtrackmanager.Outbox_id == hiddenval
                                          select outboxtrackmanager;
                 ////DataTable OutboxTrackManagerDT = OutboxTrackManager as DataTable;
                 if (OutboxTrackManager.Count() > 0)
                 {
                     ////conn.Open();
                     ////string sql = "update Outbox_Track_Manager set status=1 , All_visa_sent=0 where Outbox_id =" + hidden_Id.Value;
-                    Outbox_Track_Manager OutboxTrackManagerObj = context.Outbox_Track_Manager.Where(x => x.Outbox_id == CDataConverter.ConvertToInt(hidden_Id.Value)).SingleOrDefault();
+                    Outbox_Track_Manager OutboxTrackManagerObj = context.Outbox_Track_Manager.Where(x => x.Outbox_id == hiddenval).SingleOrDefault();
                     OutboxTrackManagerObj.status = 1;
                     OutboxTrackManagerObj.All_visa_sent = 0;
                     context.SaveChanges();
@@ -1160,7 +1172,8 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                 //////////////////////////////////////////////////////////////////////////////////////////
                 ///////////////  to store that mohammed eid send to dr hesham the mail
                 string date = CDataConverter.ConvertDateTimeToFormatdmy(CDataConverter.ConvertDateTimeNowRtnDt());
-                Outbox_Visa_Follows OutboxVisaFollows = context.Outbox_Visa_Follows.Where(x => x.Follow_ID == CDataConverter.ConvertToInt(hidden_Follow_ID.Value)).SingleOrDefault();
+                
+                Outbox_Visa_Follows OutboxVisaFollows = context.Outbox_Visa_Follows.Where(x => x.Follow_ID == hiddenval).SingleOrDefault();
                 ////Outbox_Visa_Follows_DT obj_follow = Outbox_Visa_Follows_DB.SelectByID(CDataConverter.ConvertToInt(hidden_Follow_ID.Value));
                 if (OutboxVisaFollows != null)
                 {
@@ -1254,7 +1267,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                 MemoryStream ms = new MemoryStream();
                 using (var inboxcontext = new InboxContext())
                 {
-                    IEnumerable<Inbox_OutBox_Files> InboxOutBoxFile = inboxcontext.Inbox_OutBox_Files.Where(x => x.Inbox_Outbox_ID == CDataConverter.ConvertToInt(hidden_Id.Value) && x.Inbox_Or_Outbox == 2);
+                    IEnumerable<Inbox_OutBox_Files> InboxOutBoxFile = inboxcontext.Inbox_OutBox_Files.Where(x => x.Inbox_Outbox_ID == hiddenval && x.Inbox_Or_Outbox == 2);
 
                     ////DataTable dt = General_Helping.GetDataTable("select * from Inbox_OutBox_Files where Inbox_Outbox_ID =" + hidden_Id.Value + " and Inbox_Or_Outbox =2 ");
                     foreach (Inbox_OutBox_Files inboxoutBoxfile in InboxOutBoxFile)
@@ -1570,7 +1583,9 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                     }
                     if (ddl_Related_Type.SelectedValue == "2")
                     {
-                        IEnumerable<Inbox> inboxObjs = inboxContext.Inboxes.Where(x => x.ID == CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue) && x.Related_Type == 1);
+
+                        int smartValue = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue);
+                        IEnumerable<Inbox> inboxObjs = inboxContext.Inboxes.Where(x => x.ID == smartValue && x.Related_Type == 1);
                         foreach (Inbox inboxObj in inboxObjs)
                         {
                             inboxObj.Related_Type = 5;
@@ -1593,7 +1608,9 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                     DataTable orgsdt = new DataTable();
                     orgsdt.Columns.Add("id", typeof(int));
                     orgsdt.Columns.Add("con", typeof(string));
-                    var orgsDT = from orgs in context.SP_vw_outbox_DateSubject(int.Parse(Session_CS.group_id.ToString()), CDataConverter.ConvertToInt(Session_CS.Project_id.ToString()))
+                    int groupVal = int.Parse(Session_CS.group_id.ToString());
+                    int projectVal = CDataConverter.ConvertToInt(Session_CS.Project_id.ToString());
+                    var orgsDT = from orgs in context.SP_vw_outbox_DateSubject(groupVal, projectVal)
                                  select orgsdt.LoadDataRow(
                                           new object[] {
                                      orgs.ID,
