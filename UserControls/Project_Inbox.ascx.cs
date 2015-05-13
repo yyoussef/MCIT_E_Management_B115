@@ -1101,10 +1101,11 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
         {
             Smart_Emp_ID.sql_Connection = sql_Connection;
 
-            DataTable DT = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_pmp_by_dept", Session_CS.dept_id).Tables[0];
-            //  Smart_Emp_ID.Query = "SELECT PMP_ID, pmp_name FROM EMPLOYEE where Dept_Dept_id = " + Dept_ID;
-            //string Query = "SELECT PMP_ID, pmp_name FROM EMPLOYEE where Dept_Dept_id = " + Dept_ID;
-            Smart_Emp_ID.datatble = DT;//General_Helping.GetDataTable(Query);
+           // DataTable DT = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_pmp_by_dept", Session_CS.dept_id).Tables[0];
+
+            DataTable DT = ADContext.get_pmp_by_dept(Session_CS.dept_id).ToDataTable();
+            Smart_Emp_ID.datatble = DT;
+
             Smart_Emp_ID.Value_Field = "PMP_ID";
             Smart_Emp_ID.Text_Field = "pmp_name";
             Smart_Emp_ID.DataBind();
@@ -1207,14 +1208,19 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
           if (CDataConverter.ConvertToInt(Session_CS.group_id.ToString()) != 0)
           {
 
-              dt = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_related_outbox_inbox_page", Session_CS.group_id, Session_CS.Project_id).Tables[0];
+           //  dt = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_related_outbox_inbox_page", Session_CS.group_id, Session_CS.Project_id).Tables[0];
+
+           dt = pm_inbox.get_related_outbox_inbox_page(Session_CS.group_id, Session_CS.Project_id).ToDataTable();
+
+           var query = from out_in in pm_inbox.vw_outbox_DateString where out_in.Proj_id == Session_CS.Project_id select out_in;
+           dt = query.ToDataTable();
 
               Smart_Related_Id.datatble = dt;
               Smart_Related_Id.Value_Field = "id";
               Smart_Related_Id.Text_Field = "con";
               Smart_Related_Id.Show_Code = false;
-              dt.DefaultView.Sort = "date1 desc";
-              Smart_Related_Id.Orderby = "date1 desc";
+       //    dt.DefaultView.Sort = "date1 desc";
+        //  Smart_Related_Id.Orderby = "date1 desc";
               Smart_Related_Id.DataBind();
           }
     }
@@ -1233,13 +1239,17 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
           DataTable dt = null;
           if (CDataConverter.ConvertToInt(Session_CS.group_id.ToString()) != 0)
           {
-               dt = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_related_inbox_inbox_page", Session_CS.group_id, Session_CS.Project_id).Tables[0];
+            // dt = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_related_inbox_inbox_page", Session_CS.group_id, Session_CS.Project_id).Tables[0];
+
+           //   dt = pm_inbox.get_related_inbox_inbox_page(Session_CS.group_id, Session_CS.Project_id).ToDataTable();
+              var query = from vw_inbox in pm_inbox.vw_inbox_DateSubject where vw_inbox.Group_id == Session_CS.group_id && vw_inbox.Proj_id == Session_CS.Project_id select vw_inbox;
+              dt = query.ToDataTable();
               Smart_Related_Id.datatble = dt;
               Smart_Related_Id.Value_Field = "id";
               Smart_Related_Id.Text_Field = "con";
-              dt.DefaultView.Sort = "date1 desc";
+         //   dt.DefaultView.Sort = "date1 desc";
               Smart_Related_Id.Show_Code = false;
-              Smart_Related_Id.Orderby = "date1 desc";
+        //      Smart_Related_Id.Orderby = "date1 desc";
               Smart_Related_Id.DataBind();
           }
     }
@@ -1248,12 +1258,12 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
     {
        
 
-        SqlCommand cmd = new SqlCommand();
-        SqlConnection con = new SqlConnection();
-        SqlCommand cmd_local = new SqlCommand();
-        SqlConnection con_local = new SqlConnection();
-        con = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
-        con_local = new SqlConnection(Session_CS.local_connectionstring);
+        //SqlCommand cmd = new SqlCommand();
+        //SqlConnection con = new SqlConnection();
+        //SqlCommand cmd_local = new SqlCommand();
+        //SqlConnection con_local = new SqlConnection();
+        //con = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
+        //con_local = new SqlConnection(Session_CS.local_connectionstring);
         int out_box = 0;
         
 
@@ -1278,51 +1288,53 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
              BinaryReader br = new BinaryReader(fss);
              byte[] bytes = br.ReadBytes((Int32)fss.Length);
 
-                cmd.Parameters.Add("@File_data", SqlDbType.VarBinary);
-                cmd.Parameters.Add("@Inbox_OutBox_File_ID", SqlDbType.Int);
-                cmd.Parameters.Add("@Inbox_Outbox_ID", SqlDbType.Int);
-                cmd.Parameters.Add("@Original_Or_Attached", SqlDbType.Int);
-                cmd.Parameters.Add("@Inbox_Or_Outbox", SqlDbType.Int);
-                cmd.Parameters.Add("@File_name", SqlDbType.NVarChar);
-                cmd.Parameters.Add("@File_ext", SqlDbType.NVarChar);
+                //cmd.Parameters.Add("@File_data", SqlDbType.VarBinary);
+                //cmd.Parameters.Add("@Inbox_OutBox_File_ID", SqlDbType.Int);
+                //cmd.Parameters.Add("@Inbox_Outbox_ID", SqlDbType.Int);
+                //cmd.Parameters.Add("@Original_Or_Attached", SqlDbType.Int);
+                //cmd.Parameters.Add("@Inbox_Or_Outbox", SqlDbType.Int);
+                //cmd.Parameters.Add("@File_name", SqlDbType.NVarChar);
+                //cmd.Parameters.Add("@File_ext", SqlDbType.NVarChar);
 
-                cmd.Parameters["@Inbox_OutBox_File_ID"].Value = CDataConverter.ConvertToInt(hidden_Inbox_OutBox_File_ID.Value);
-                cmd.Parameters["@Original_Or_Attached"].Value = CDataConverter.ConvertToInt(ddl_Original_Or_Attached.SelectedValue);
-                cmd.Parameters["@File_ext"].Value = type;
-                cmd.Parameters["@File_name"].Value = txtFileName.Text; 
-                cmd.Parameters["@Inbox_Or_Outbox"].Value = 1;
-                cmd.CommandType = CommandType.Text;
+                //cmd.Parameters["@Inbox_OutBox_File_ID"].Value = CDataConverter.ConvertToInt(hidden_Inbox_OutBox_File_ID.Value);
+                //cmd.Parameters["@Original_Or_Attached"].Value = CDataConverter.ConvertToInt(ddl_Original_Or_Attached.SelectedValue);
+                //cmd.Parameters["@File_ext"].Value = type;
+                //cmd.Parameters["@File_name"].Value = txtFileName.Text; 
+                //cmd.Parameters["@Inbox_Or_Outbox"].Value = 1;
+                //cmd.CommandType = CommandType.Text;
                 if (CDataConverter.ConvertToInt(hidden_Inbox_OutBox_File_ID.Value) > 0)
                 {
+                    int xx = CDataConverter.ConvertToInt(hidden_Inbox_OutBox_File_ID.Value);
+                  //  cmd.CommandText = " update Inbox_OutBox_Files set Original_Or_Attached=@Original_Or_Attached ,File_data=@File_data ,File_name=@File_name,File_ext=@File_ext where Inbox_OutBox_File_ID =@Inbox_OutBox_File_ID";
 
-                    cmd.CommandText = " update Inbox_OutBox_Files set Original_Or_Attached=@Original_Or_Attached ,File_data=@File_data ,File_name=@File_name,File_ext=@File_ext where Inbox_OutBox_File_ID =@Inbox_OutBox_File_ID";
+                    Inbox_OutBox_Files in_out_files = pm_inbox.Inbox_OutBox_Files.Where((x => x.Inbox_OutBox_File_ID == xx)).SingleOrDefault();
 
                     if (string.IsNullOrEmpty(Session_CS.local_connectionstring))
                     {
-                        cmd.Connection = con;
-                        cmd.Parameters["@File_data"].Value = bytes;
-                        cmd.Parameters["@Inbox_Outbox_ID"].Value = CDataConverter.ConvertToInt(hidden_Id.Value);
-                        con.Open();
-                        cmd.ExecuteScalar();
-                        con.Close();
+                        //cmd.Connection = con;
+                        //cmd.Parameters["@File_data"].Value = bytes;
+                        //cmd.Parameters["@Inbox_Outbox_ID"].Value = CDataConverter.ConvertToInt(hidden_Id.Value);
+                        //con.Open();
+                        //cmd.ExecuteScalar();
+                        //con.Close();
                     }
                     else
                     {
-                        cmd.Connection = con;
-                        cmd.Parameters["@File_data"].Value = DBNull.Value;
-                        cmd.Parameters["@Inbox_Outbox_ID"].Value = CDataConverter.ConvertToInt(hidden_Id.Value);
-                        con.Open();
-                        cmd.ExecuteScalar();
-                        con.Close();
+                        //cmd.Connection = con;
+                        //cmd.Parameters["@File_data"].Value = DBNull.Value;
+                        //cmd.Parameters["@Inbox_Outbox_ID"].Value = CDataConverter.ConvertToInt(hidden_Id.Value);
+                        //con.Open();
+                        //cmd.ExecuteScalar();
+                        //con.Close();
                         try
                         {
-                            cmd.Connection = con_local;
-                            cmd.Parameters["@File_data"].Value = bytes;
-                            cmd.Parameters["@Inbox_Outbox_ID"].Value = CDataConverter.ConvertToInt(hidden_Id.Value);
+                            //cmd.Connection = con_local;
+                            //cmd.Parameters["@File_data"].Value = bytes;
+                            //cmd.Parameters["@Inbox_Outbox_ID"].Value = CDataConverter.ConvertToInt(hidden_Id.Value);
 
-                            con_local.Open();
-                            cmd.ExecuteScalar();
-                            con_local.Close();
+                            //con_local.Open();
+                            //cmd.ExecuteScalar();
+                            //con_local.Close();
                         }
                         catch
                         {
@@ -3104,22 +3116,37 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
             DataTable DT_emp;
             //= SqlHelper.ExecuteDataset(Database.ConnectionString, "get_employee_accoording_to_radiochek", radlst_Type.SelectedValue, Session_CS.pmp_id, Session_CS.dept_id, Session_CS.foundation_id).Tables[0];
 
-            SqlParameter[] sqlParams = new SqlParameter[4];
+            //SqlParameter[] sqlParams = new SqlParameter[4];
 
-            sqlParams[0] = new SqlParameter("@radiocheck", radlst_Type.SelectedValue);
-            sqlParams[1] = new SqlParameter("@pmp_id", Session_CS.pmp_id);
+            //sqlParams[0] = new SqlParameter("@radiocheck", radlst_Type.SelectedValue);
+           
 
-            if (CDataConverter.ConvertToInt(Smart_Search_structure2.SelectedValue) > 0)
-                sqlParams[2] = new SqlParameter("@dept_id", CDataConverter.ConvertToInt(Smart_Search_structure2.SelectedValue));
-            else
-                sqlParams[2] = new SqlParameter("@dept_id", CDataConverter.ConvertToInt(DBNull.Value));
+            //sqlParams[1] = new SqlParameter("@pmp_id", Session_CS.pmp_id);
 
-            sqlParams[3] = new SqlParameter("@found_id", Session_CS.foundation_id);
+            //if (CDataConverter.ConvertToInt(Smart_Search_structure2.SelectedValue) > 0)
+            //    sqlParams[2] = new SqlParameter("@dept_id", CDataConverter.ConvertToInt(Smart_Search_structure2.SelectedValue));
+            //else
+            //    sqlParams[2] = new SqlParameter("@dept_id", CDataConverter.ConvertToInt(DBNull.Value));
 
-            DT_emp = DatabaseFunctions.SelectDataByParam(sqlParams, "get_employee_accoording_to_radiochek");
+            //sqlParams[3] = new SqlParameter("@found_id", Session_CS.foundation_id);
+
+            string radiocheck = radlst_Type.SelectedValue;
+            int pmp_id = Session_CS.pmp_id;
+            int dept_id = CDataConverter.ConvertToInt(Smart_Search_structure2.SelectedValue);
+            int found_id = Session_CS.foundation_id;
+
+          //  DT_emp = DatabaseFunctions.SelectDataByParam(sqlParams, "get_employee_accoording_to_radiochek");
+
+            DT_emp = pm_inbox.get_employee_accoording_to_radiochek(radiocheck, pmp_id, dept_id, found_id).ToDataTable();
+
+          
+     
+
             if (DT_emp.Rows.Count > 0)
             {
                 chklst_Visa_Emp_All.DataSource = DT_emp;
+                chklst_Visa_Emp_All.DataTextField = "pmp_name";
+                chklst_Visa_Emp_All.DataValueField = "PMP_ID";
                 chklst_Visa_Emp_All.DataBind();
             }
 

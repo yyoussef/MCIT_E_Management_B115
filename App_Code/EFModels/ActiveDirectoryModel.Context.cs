@@ -138,5 +138,14 @@ namespace EFModels
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SuperAdminUsers_SelectName_Result>("SuperAdminUsers_SelectName", user_nameParameter);
         }
+    
+        public virtual ObjectResult<get_pmp_by_dept> get_pmp_by_dept(Nullable<int> dept_id)
+        {
+            var dept_idParameter = dept_id.HasValue ?
+                new ObjectParameter("dept_id", dept_id) :
+                new ObjectParameter("dept_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_pmp_by_dept>("get_pmp_by_dept", dept_idParameter);
+        }
     }
 }

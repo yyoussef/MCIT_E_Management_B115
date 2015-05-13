@@ -386,6 +386,89 @@ namespace EFModels
 namespace EFModels
 {
     using System;
+    using System.Collections.Generic;
+    
+    public partial class pmp_fav_View
+    {
+        public string pmp_name { get; set; }
+        public long PMP_ID { get; set; }
+        public Nullable<int> employee_id { get; set; }
+        public Nullable<long> Dept_Dept_id { get; set; }
+        public Nullable<int> sec_sec_id { get; set; }
+    }
+}
+namespace EFModels
+{
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class vw_inbox_DateSubject
+    {
+        public int ID { get; set; }
+        public Nullable<int> Proj_id { get; set; }
+        public string Code { get; set; }
+        public string con { get; set; }
+        public Nullable<int> Group_id { get; set; }
+        public string Date { get; set; }
+    }
+}
+namespace EFModels
+{
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class vw_outbox_DateString
+    {
+        public int ID { get; set; }
+        public Nullable<int> Proj_id { get; set; }
+        public string Code { get; set; }
+        public string con { get; set; }
+        public Nullable<int> Group_id { get; set; }
+        public string Date { get; set; }
+    }
+}
+namespace EFModels
+{
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class vw_outbox_DateSubject
+    {
+        public int ID { get; set; }
+        public Nullable<int> Proj_id { get; set; }
+        public string Code { get; set; }
+        public string con { get; set; }
+        public Nullable<int> Group_id { get; set; }
+        public string Date { get; set; }
+    }
+}
+namespace EFModels
+{
+    using System;
+    
+    public partial class get_employee_accoording_to_radiochek
+    {
+    }
+}
+namespace EFModels
+{
+    using System;
+    
+    public partial class get_related_inbox_inbox_page
+    {
+    }
+}
+namespace EFModels
+{
+    using System;
+    
+    public partial class get_related_outbox_inbox_page
+    {
+    }
+}
+namespace EFModels
+{
+    using System;
     
     public partial class Inbox_by_emp_in_visa_Result
     {

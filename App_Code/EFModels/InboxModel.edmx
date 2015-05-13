@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="Inbox.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="Inbox.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Inbox">
           <Key>
             <PropertyRef Name="ID" />
@@ -43,21 +43,6 @@
           <Property Name="foundation_id" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6013: The table/view 'Projects_Management.dbo.inbox_cat' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="inbox_cat">
-          <Property Name="inbox_id" Type="int" />
-          <Property Name="Cat_id" Type="int" />
-          <Property Name="Type" Type="int" />
-          <Property Name="inbox_type" Type="int" />
-        </EntityType>-->
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'Projects_Management.dbo.Inbox_Categories' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="Inbox_Categories">
-          <Property Name="inbox_id" Type="int" />
-          <Property Name="Category_id" Type="int" />
-          <Property Name="Type" Type="int" />
-        </EntityType>-->
-        <!--Errors Found During Generation:
 warning 6002: The table/view 'Projects_Management.dbo.inbox_follow_emp' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="inbox_follow_emp">
           <Key>
@@ -68,265 +53,6 @@ warning 6002: The table/view 'Projects_Management.dbo.inbox_follow_emp' does not
           <Property Name="Have_follow" Type="int" />
           <Property Name="inbox_id" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'Projects_Management.dbo.inbox_imported' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="inbox_imported">
-          <Property Name="Field1" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field2" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field3" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field4" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field5" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field6" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field7" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field8" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field9" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field10" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field11" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field12" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field13" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field14" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field15" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field16" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field17" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field18" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field19" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field20" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field21" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field22" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field23" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field24" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field25" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field26" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field27" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field28" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field29" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field30" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field31" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field32" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field33" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field34" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field35" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field36" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field37" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field38" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field39" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field40" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field41" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field42" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field43" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field44" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field45" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field46" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field47" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field48" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field49" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field50" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field51" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field52" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field53" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field54" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field55" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field56" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field57" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field58" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field59" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field60" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field61" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field62" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field63" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field64" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field65" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field66" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field67" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field68" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field69" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field70" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field71" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field72" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field73" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field74" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field75" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field76" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field77" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field78" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field79" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field80" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field81" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field82" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field83" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field84" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field85" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field86" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field87" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field88" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field89" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field90" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field91" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field92" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field93" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field94" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field95" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field96" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field97" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field98" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field99" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field100" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field101" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field102" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field103" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field104" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field105" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field106" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field107" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field108" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field109" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field110" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field111" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field112" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field113" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field114" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field115" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field116" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field117" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field118" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field119" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field120" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field121" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field122" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field123" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field124" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field125" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field126" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field127" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field128" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field129" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field130" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field131" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field132" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field133" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field134" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field135" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field136" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field137" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field138" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field139" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field140" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field141" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field142" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field143" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field144" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field145" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field146" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field147" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field148" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field149" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field150" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field151" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field152" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field153" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field154" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field155" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field156" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field157" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field158" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field159" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field160" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field161" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field162" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field163" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field164" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field165" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field166" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field167" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field168" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field169" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field170" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field171" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field172" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field173" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field174" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field175" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field176" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field177" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field178" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field179" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field180" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field181" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field182" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field183" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field184" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field185" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field186" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field187" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field188" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field189" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field190" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field191" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field192" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field193" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field194" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field195" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field196" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field197" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field198" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field199" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field200" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field201" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field202" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field203" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field204" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field205" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field206" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field207" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field208" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field209" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field210" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field211" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field212" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field213" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field214" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field215" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field216" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field217" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field218" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field219" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field220" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field221" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field222" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field223" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field224" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field225" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field226" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field227" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field228" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field229" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field230" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field231" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field232" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field233" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field234" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field235" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field236" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field237" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field238" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field239" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field240" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field241" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field242" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field243" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field244" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field245" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field246" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field247" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field248" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field249" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field250" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field251" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field252" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field253" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field254" Type="nvarchar" MaxLength="255" />
-          <Property Name="Field255" Type="nvarchar" MaxLength="255" />
-        </EntityType>-->
         <EntityType Name="Inbox_letters">
           <Key>
             <PropertyRef Name="id" />
@@ -395,14 +121,6 @@ warning 6013: The table/view 'Projects_Management.dbo.inbox_imported' does not h
           <Property Name="pmp_pmp_id" Type="int" />
           <Property Name="sub_Cat_id" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'Projects_Management.dbo.Inbox_minister_cat' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="Inbox_minister_cat">
-          <Property Name="inbox_min_id" Type="int" />
-          <Property Name="Cat_id" Type="int" />
-          <Property Name="Type" Type="int" />
-          <Property Name="inbox_type" Type="int" />
-        </EntityType>-->
         <EntityType Name="inbox_minister_Type">
           <Key>
             <PropertyRef Name="type_minister_id" />
@@ -596,6 +314,71 @@ warning 6002: The table/view 'Projects_Management.dbo.Inbox_Track_Manager' does 
           <Property Name="Type_Follow" Type="int" />
           <Property Name="Entery_Date" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Projects_Management.dbo.pmp_fav_View' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="pmp_fav_View">
+          <Key>
+            <PropertyRef Name="PMP_ID" />
+          </Key>
+          <Property Name="pmp_name" Type="nvarchar" MaxLength="255" />
+          <Property Name="PMP_ID" Type="bigint" Nullable="false" />
+          <Property Name="employee_id" Type="int" />
+          <Property Name="Dept_Dept_id" Type="bigint" />
+          <Property Name="sec_sec_id" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Projects_Management.dbo.vw_inbox_DateSubject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_inbox_DateSubject">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Proj_id" Type="int" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" />
+          <Property Name="con" Type="nvarchar" MaxLength="304" />
+          <Property Name="Group_id" Type="int" />
+          <Property Name="Date" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Projects_Management.dbo.vw_outbox_DateString' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_outbox_DateString">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Proj_id" Type="int" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" />
+          <Property Name="con" Type="nvarchar" MaxLength="304" />
+          <Property Name="Group_id" Type="int" />
+          <Property Name="Date" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Projects_Management.dbo.vw_outbox_DateSubject' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="vw_outbox_DateSubject">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Proj_id" Type="int" />
+          <Property Name="Code" Type="nvarchar" MaxLength="50" />
+          <Property Name="con" Type="nvarchar" MaxLength="203" />
+          <Property Name="Group_id" Type="int" />
+          <Property Name="Date" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Function Name="get_employee_accoording_to_radiochek" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="radiocheck" Type="nvarchar" Mode="In" />
+          <Parameter Name="pmp_id" Type="int" Mode="In" />
+          <Parameter Name="dept_id" Type="int" Mode="In" />
+          <Parameter Name="found_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="get_related_inbox_inbox_page" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="group_id" Type="int" Mode="In" />
+          <Parameter Name="proj_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="get_related_outbox_inbox_page" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="group_id" Type="int" Mode="In" />
+          <Parameter Name="proj_id" Type="int" Mode="In" />
+        </Function>
         <Function Name="Inbox_by_emp_in_visa" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pmp" Type="int" Mode="In" />
         </Function>
@@ -980,9 +763,47 @@ warning 6002: The table/view 'Projects_Management.dbo.Inbox_Track_Manager' does 
     [Inbox_Track_Manager].[All_visa_sent] AS [All_visa_sent]
     FROM [dbo].[Inbox_Track_Manager] AS [Inbox_Track_Manager]</DefiningQuery>
           </EntitySet>
+          <EntitySet Name="pmp_fav_View" EntityType="Self.pmp_fav_View" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [pmp_fav_View].[pmp_name] AS [pmp_name], 
+    [pmp_fav_View].[PMP_ID] AS [PMP_ID], 
+    [pmp_fav_View].[employee_id] AS [employee_id], 
+    [pmp_fav_View].[Dept_Dept_id] AS [Dept_Dept_id], 
+    [pmp_fav_View].[sec_sec_id] AS [sec_sec_id]
+    FROM [dbo].[pmp_fav_View] AS [pmp_fav_View]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_inbox_DateSubject" EntityType="Self.vw_inbox_DateSubject" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_inbox_DateSubject].[ID] AS [ID], 
+    [vw_inbox_DateSubject].[Proj_id] AS [Proj_id], 
+    [vw_inbox_DateSubject].[Code] AS [Code], 
+    [vw_inbox_DateSubject].[con] AS [con], 
+    [vw_inbox_DateSubject].[Group_id] AS [Group_id], 
+    [vw_inbox_DateSubject].[Date] AS [Date]
+    FROM [dbo].[vw_inbox_DateSubject] AS [vw_inbox_DateSubject]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_outbox_DateString" EntityType="Self.vw_outbox_DateString" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_outbox_DateString].[ID] AS [ID], 
+    [vw_outbox_DateString].[Proj_id] AS [Proj_id], 
+    [vw_outbox_DateString].[Code] AS [Code], 
+    [vw_outbox_DateString].[con] AS [con], 
+    [vw_outbox_DateString].[Group_id] AS [Group_id], 
+    [vw_outbox_DateString].[Date] AS [Date]
+    FROM [dbo].[vw_outbox_DateString] AS [vw_outbox_DateString]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="vw_outbox_DateSubject" EntityType="Self.vw_outbox_DateSubject" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [vw_outbox_DateSubject].[ID] AS [ID], 
+    [vw_outbox_DateSubject].[Proj_id] AS [Proj_id], 
+    [vw_outbox_DateSubject].[Code] AS [Code], 
+    [vw_outbox_DateSubject].[con] AS [con], 
+    [vw_outbox_DateSubject].[Group_id] AS [Group_id], 
+    [vw_outbox_DateSubject].[Date] AS [Date]
+    FROM [dbo].[vw_outbox_DateSubject] AS [vw_outbox_DateSubject]</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="Inbox" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -1310,7 +1131,7 @@ warning 6002: The table/view 'Projects_Management.dbo.Inbox_Track_Manager' does 
           <EntitySet Name="Inbox_Relations" EntityType="Self.Inbox_Relations" />
           <EntitySet Name="Inbox_Track_Manager" EntityType="Self.Inbox_Track_Manager" />
           <FunctionImport Name="Inbox_by_emp_in_visa" ReturnType="Collection(Inbox.Inbox_by_emp_in_visa_Result)">
-            <Parameter Name="pmp" Mode="In" Type="Int32" />
+          <Parameter Name="pmp" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Inbox_cat_save">
             <Parameter Name="inbox_id" Mode="In" Type="Int32" />
@@ -1323,23 +1144,23 @@ warning 6002: The table/view 'Projects_Management.dbo.Inbox_Track_Manager' does 
             <Parameter Name="Type" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Inbox_Delete">
-            <Parameter Name="ID" Mode="In" Type="Int32" />
+          <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="inbox_DIrect_Relating" ReturnType="Collection(Inbox.inbox_DIrect_Relating_Result)">
             <Parameter Name="related_type" Mode="In" Type="Int32" />
             <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="inbox_fillcontrol" ReturnType="Collection(Inbox.inbox_fillcontrol_Result)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="inbox_get_parent_of_certain_inbox" ReturnType="Collection(Inbox.inbox_get_parent_of_certain_inbox_Result)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="inbox_getorg" ReturnType="Collection(Inbox.inbox_getorg_Result)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Inbox_Minister_Delete">
-            <Parameter Name="ID" Mode="In" Type="Int32" />
+          <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Inbox_Minister_Save">
             <Parameter Name="ID" Mode="InOut" Type="Int32" />
@@ -1374,13 +1195,13 @@ warning 6002: The table/view 'Projects_Management.dbo.Inbox_Track_Manager' does 
             <Parameter Name="sub_Cat_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Inbox_Minister_Select" ReturnType="Collection(Inbox.Inbox_Minister_Select_Result)">
-            <Parameter Name="ID" Mode="In" Type="Int32" />
+          <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Inbox_Minister_Visa_Delete">
-            <Parameter Name="Visa_Id" Mode="In" Type="Int32" />
+          <Parameter Name="Visa_Id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Inbox_Minister_Visa_Follows_Delete">
-            <Parameter Name="Follow_ID" Mode="In" Type="Int32" />
+          <Parameter Name="Follow_ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Inbox_Minister_Visa_Follows_Save">
             <Parameter Name="Follow_ID" Mode="InOut" Type="Int32" />
@@ -1405,10 +1226,10 @@ warning 6002: The table/view 'Projects_Management.dbo.Inbox_Track_Manager' does 
             <Parameter Name="File_ext" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="Inbox_Minister_Visa_Follows_Select" ReturnType="Collection(Inbox.Inbox_Minister_Visa_Follows_Select_Result)">
-            <Parameter Name="Follow_ID" Mode="In" Type="Int32" />
+          <Parameter Name="Follow_ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Inbox_Minister_Visa_Follows_Select_For_Doc" ReturnType="Collection(Inbox.Inbox_Minister_Visa_Follows_Select_For_Doc_Result)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Inbox_Minister_Visa_Save">
             <Parameter Name="Visa_Id" Mode="InOut" Type="Int32" />
@@ -1432,14 +1253,14 @@ warning 6002: The table/view 'Projects_Management.dbo.Inbox_Track_Manager' does 
             <Parameter Name="mail_sent" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Inbox_Minister_Visa_Select" ReturnType="Collection(Inbox.Inbox_Minister_Visa_Select_Result)">
-            <Parameter Name="Visa_Id" Mode="In" Type="Int32" />
+          <Parameter Name="Visa_Id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="inbox_Not_sent_visa" ReturnType="Collection(Inbox.inbox_Not_sent_visa_Result)">
             <Parameter Name="group" Mode="In" Type="Int32" />
             <Parameter Name="parent_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Inbox_OutBox_Files_Delete">
-            <Parameter Name="Inbox_OutBox_File_ID" Mode="In" Type="Int32" />
+          <Parameter Name="Inbox_OutBox_File_ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Inbox_OutBox_Files_Save">
             <Parameter Name="Inbox_OutBox_File_ID" Mode="InOut" Type="Int32" />
@@ -1451,7 +1272,7 @@ warning 6002: The table/view 'Projects_Management.dbo.Inbox_Track_Manager' does 
             <Parameter Name="File_ext" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="Inbox_OutBox_Files_Select" ReturnType="Collection(Inbox.Inbox_OutBox_Files_Select_Result)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="inbox_related" ReturnType="Collection(Inbox.inbox_related_Result)">
             <Parameter Name="id" Mode="In" Type="Int32" />
@@ -1462,7 +1283,7 @@ warning 6002: The table/view 'Projects_Management.dbo.Inbox_Track_Manager' does 
             <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="inbox_relations2">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Inbox_Save">
             <Parameter Name="ID" Mode="InOut" Type="Int32" />
@@ -1538,10 +1359,10 @@ warning 6002: The table/view 'Projects_Management.dbo.Inbox_Track_Manager' does 
             <Parameter Name="found_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Inbox_Select" ReturnType="Collection(Inbox.Inbox_Select_Result)">
-            <Parameter Name="ID" Mode="In" Type="Int32" />
+          <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Inbox_SelectByOrg" ReturnType="Collection(Inbox.Inbox_SelectByOrg_Result)">
-            <Parameter Name="Org_ID" Mode="In" Type="Int32" />
+          <Parameter Name="Org_ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="inbox_sent_visa" ReturnType="Collection(Inbox.inbox_sent_visa_Result)">
             <Parameter Name="group" Mode="In" Type="Int32" />
@@ -1552,7 +1373,7 @@ warning 6002: The table/view 'Projects_Management.dbo.Inbox_Track_Manager' does 
             <Parameter Name="id" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="Inbox_Track_Manager_Delete">
-            <Parameter Name="inbox_id" Mode="In" Type="Int32" />
+          <Parameter Name="inbox_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Inbox_Track_Manager_Save">
             <Parameter Name="inbox_id" Mode="InOut" Type="Int32" />
@@ -1568,10 +1389,10 @@ warning 6002: The table/view 'Projects_Management.dbo.Inbox_Track_Manager' does 
             <Parameter Name="Visa_Desc" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="Inbox_Track_Manager_Select" ReturnType="Collection(Inbox.Inbox_Track_Manager_Select_Result)">
-            <Parameter Name="inbox_id" Mode="In" Type="Int32" />
+          <Parameter Name="inbox_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Inbox_Visa_Delete">
-            <Parameter Name="Visa_Id" Mode="In" Type="Int32" />
+          <Parameter Name="Visa_Id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="inbox_visa_emp_save">
             <Parameter Name="Visa_Id" Mode="In" Type="Int32" />
@@ -1579,7 +1400,7 @@ warning 6002: The table/view 'Projects_Management.dbo.Inbox_Track_Manager' does 
             <Parameter Name="Sender_ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Inbox_Visa_Follows_Delete">
-            <Parameter Name="Follow_ID" Mode="In" Type="Int32" />
+          <Parameter Name="Follow_ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Inbox_Visa_Follows_Save">
             <Parameter Name="Follow_ID" Mode="InOut" Type="Int32" />
@@ -1605,10 +1426,10 @@ warning 6002: The table/view 'Projects_Management.dbo.Inbox_Track_Manager' does 
             <Parameter Name="File_ext" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="Inbox_Visa_Follows_Select" ReturnType="Collection(Inbox.Inbox_Visa_Follows_Select_Result)">
-            <Parameter Name="Follow_ID" Mode="In" Type="Int32" />
+          <Parameter Name="Follow_ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Inbox_Visa_Follows_Select_For_Doc" ReturnType="Collection(Inbox.Inbox_Visa_Follows_Select_For_Doc_Result)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Inbox_Visa_Save">
             <Parameter Name="Visa_Id" Mode="InOut" Type="Int32" />
@@ -1632,17 +1453,35 @@ warning 6002: The table/view 'Projects_Management.dbo.Inbox_Track_Manager' does 
             <Parameter Name="mail_sent" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Inbox_Visa_Select" ReturnType="Collection(Inbox.Inbox_Visa_Select_Result)">
-            <Parameter Name="Visa_Id" Mode="In" Type="Int32" />
+          <Parameter Name="Visa_Id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Inbox_Visa_Select_For_Doc" ReturnType="Collection(Inbox.Inbox_Visa_Select_For_Doc_Result)">
-            <Parameter Name="id" Mode="In" Type="Int32" />
+          <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="inboxinside_data" ReturnType="Collection(Inbox.inboxinside_data_Result)">
-            <Parameter Name="inbox_id" Mode="In" Type="Int32" />
+          <Parameter Name="inbox_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="InboxOutbox_DeleteByOrg" ReturnType="Collection(String)">
-            <Parameter Name="Org_ID" Mode="In" Type="Int32" />
+          <Parameter Name="Org_ID" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="get_related_outbox_inbox_page" ReturnType="Collection(Inbox.get_related_outbox_inbox_page)">
+            <Parameter Name="group_id" Mode="In" Type="Int32" />
+            <Parameter Name="proj_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="get_related_inbox_inbox_page" ReturnType="Collection(Inbox.get_related_inbox_inbox_page)">
+            <Parameter Name="group_id" Mode="In" Type="Int32" />
+            <Parameter Name="proj_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="get_employee_accoording_to_radiochek" ReturnType="Collection(Inbox.get_employee_accoording_to_radiochek)">
+            <Parameter Name="radiocheck" Mode="In" Type="String" />
+            <Parameter Name="pmp_id" Mode="In" Type="Int32" />
+            <Parameter Name="dept_id" Mode="In" Type="Int32" />
+            <Parameter Name="found_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="pmp_fav_View" EntityType="Inbox.pmp_fav_View" />
+          <EntitySet Name="vw_outbox_DateString" EntityType="Inbox.vw_outbox_DateString" />
+          <EntitySet Name="vw_outbox_DateSubject" EntityType="Inbox.vw_outbox_DateSubject" />
+          <EntitySet Name="vw_inbox_DateSubject" EntityType="Inbox.vw_inbox_DateSubject" />
         </EntityContainer>
         <ComplexType Name="Inbox_by_emp_in_visa_Result">
           <Property Type="Int32" Name="Visa_Id" Nullable="false" />
@@ -2092,6 +1931,52 @@ warning 6002: The table/view 'Projects_Management.dbo.Inbox_Track_Manager' does 
           <Property Type="String" Name="Dept_name" Nullable="true" MaxLength="3000" />
           <Property Type="Int64" Name="Sec_sec_id" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="get_related_outbox_inbox_page" />
+        <ComplexType Name="get_related_inbox_inbox_page" />
+        <ComplexType Name="get_employee_accoording_to_radiochek" />
+        <EntityType Name="pmp_fav_View">
+          <Key>
+            <PropertyRef Name="PMP_ID" />
+          </Key>
+          <Property Name="pmp_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="PMP_ID" Type="Int64" Nullable="false" />
+          <Property Name="employee_id" Type="Int32" />
+          <Property Name="Dept_Dept_id" Type="Int64" />
+          <Property Name="sec_sec_id" Type="Int32" />
+        </EntityType>
+        <EntityType Name="vw_outbox_DateString">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Proj_id" Type="Int32" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="con" Type="String" MaxLength="304" FixedLength="false" Unicode="true" />
+          <Property Name="Group_id" Type="Int32" />
+          <Property Name="Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="vw_outbox_DateSubject">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Proj_id" Type="Int32" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="con" Type="String" MaxLength="203" FixedLength="false" Unicode="true" />
+          <Property Name="Group_id" Type="Int32" />
+          <Property Name="Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="vw_inbox_DateSubject">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Proj_id" Type="Int32" />
+          <Property Name="Code" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="con" Type="String" MaxLength="304" FixedLength="false" Unicode="true" />
+          <Property Name="Group_id" Type="Int32" />
+          <Property Name="Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2994,6 +2879,68 @@ warning 6002: The table/view 'Projects_Management.dbo.Inbox_Track_Manager' does 
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="InboxOutbox_DeleteByOrg" FunctionName="Inbox.Store.InboxOutbox_DeleteByOrg" />
+          <FunctionImportMapping FunctionImportName="get_related_outbox_inbox_page" FunctionName="Inbox.Store.get_related_outbox_inbox_page">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Inbox.get_related_outbox_inbox_page" />
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_related_inbox_inbox_page" FunctionName="Inbox.Store.get_related_inbox_inbox_page">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Inbox.get_related_inbox_inbox_page" />
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_employee_accoording_to_radiochek" FunctionName="Inbox.Store.get_employee_accoording_to_radiochek">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Inbox.get_employee_accoording_to_radiochek" />
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="pmp_fav_View">
+            <EntityTypeMapping TypeName="Inbox.pmp_fav_View">
+              <MappingFragment StoreEntitySet="pmp_fav_View">
+                <ScalarProperty Name="sec_sec_id" ColumnName="sec_sec_id" />
+                <ScalarProperty Name="Dept_Dept_id" ColumnName="Dept_Dept_id" />
+                <ScalarProperty Name="employee_id" ColumnName="employee_id" />
+                <ScalarProperty Name="PMP_ID" ColumnName="PMP_ID" />
+                <ScalarProperty Name="pmp_name" ColumnName="pmp_name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_outbox_DateString">
+            <EntityTypeMapping TypeName="Inbox.vw_outbox_DateString">
+              <MappingFragment StoreEntitySet="vw_outbox_DateString">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Group_id" ColumnName="Group_id" />
+                <ScalarProperty Name="con" ColumnName="con" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Proj_id" ColumnName="Proj_id" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_outbox_DateSubject">
+            <EntityTypeMapping TypeName="Inbox.vw_outbox_DateSubject">
+              <MappingFragment StoreEntitySet="vw_outbox_DateSubject">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Group_id" ColumnName="Group_id" />
+                <ScalarProperty Name="con" ColumnName="con" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Proj_id" ColumnName="Proj_id" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="vw_inbox_DateSubject">
+            <EntityTypeMapping TypeName="Inbox.vw_inbox_DateSubject">
+              <MappingFragment StoreEntitySet="vw_inbox_DateSubject">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Group_id" ColumnName="Group_id" />
+                <ScalarProperty Name="con" ColumnName="con" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="Proj_id" ColumnName="Proj_id" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -3009,7 +2956,7 @@ warning 6002: The table/view 'Projects_Management.dbo.Inbox_Track_Manager' does 
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="true" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>

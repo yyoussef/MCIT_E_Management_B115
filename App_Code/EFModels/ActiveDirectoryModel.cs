@@ -327,6 +327,14 @@ namespace EFModels
 {
     using System;
     
+    public partial class get_pmp_by_dept
+    {
+    }
+}
+namespace EFModels
+{
+    using System;
+    
     public partial class get_sub_cat_by_main_cat_Result
     {
         public int id { get; set; }

@@ -46,6 +46,10 @@ namespace EFModels
         public virtual DbSet<inbox_follow_emp> inbox_follow_emp { get; set; }
         public virtual DbSet<Inbox_Relations> Inbox_Relations { get; set; }
         public virtual DbSet<Inbox_Track_Manager> Inbox_Track_Manager { get; set; }
+        public virtual DbSet<pmp_fav_View> pmp_fav_View { get; set; }
+        public virtual DbSet<vw_outbox_DateString> vw_outbox_DateString { get; set; }
+        public virtual DbSet<vw_outbox_DateSubject> vw_outbox_DateSubject { get; set; }
+        public virtual DbSet<vw_inbox_DateSubject> vw_inbox_DateSubject { get; set; }
     
         public virtual ObjectResult<Inbox_by_emp_in_visa_Result> Inbox_by_emp_in_visa(Nullable<int> pmp)
         {
@@ -1205,6 +1209,53 @@ namespace EFModels
                 new ObjectParameter("Org_ID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("InboxOutbox_DeleteByOrg", org_IDParameter);
+        }
+    
+        public virtual ObjectResult<get_related_outbox_inbox_page> get_related_outbox_inbox_page(Nullable<int> group_id, Nullable<int> proj_id)
+        {
+            var group_idParameter = group_id.HasValue ?
+                new ObjectParameter("group_id", group_id) :
+                new ObjectParameter("group_id", typeof(int));
+    
+            var proj_idParameter = proj_id.HasValue ?
+                new ObjectParameter("proj_id", proj_id) :
+                new ObjectParameter("proj_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_related_outbox_inbox_page>("get_related_outbox_inbox_page", group_idParameter, proj_idParameter);
+        }
+    
+        public virtual ObjectResult<get_related_inbox_inbox_page> get_related_inbox_inbox_page(Nullable<int> group_id, Nullable<int> proj_id)
+        {
+            var group_idParameter = group_id.HasValue ?
+                new ObjectParameter("group_id", group_id) :
+                new ObjectParameter("group_id", typeof(int));
+    
+            var proj_idParameter = proj_id.HasValue ?
+                new ObjectParameter("proj_id", proj_id) :
+                new ObjectParameter("proj_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_related_inbox_inbox_page>("get_related_inbox_inbox_page", group_idParameter, proj_idParameter);
+        }
+    
+        public virtual ObjectResult<get_employee_accoording_to_radiochek> get_employee_accoording_to_radiochek(string radiocheck, Nullable<int> pmp_id, Nullable<int> dept_id, Nullable<int> found_id)
+        {
+            var radiocheckParameter = radiocheck != null ?
+                new ObjectParameter("radiocheck", radiocheck) :
+                new ObjectParameter("radiocheck", typeof(string));
+    
+            var pmp_idParameter = pmp_id.HasValue ?
+                new ObjectParameter("pmp_id", pmp_id) :
+                new ObjectParameter("pmp_id", typeof(int));
+    
+            var dept_idParameter = dept_id.HasValue ?
+                new ObjectParameter("dept_id", dept_id) :
+                new ObjectParameter("dept_id", typeof(int));
+    
+            var found_idParameter = found_id.HasValue ?
+                new ObjectParameter("found_id", found_id) :
+                new ObjectParameter("found_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_employee_accoording_to_radiochek>("get_employee_accoording_to_radiochek", radiocheckParameter, pmp_idParameter, dept_idParameter, found_idParameter);
         }
     }
 }

@@ -198,6 +198,9 @@
         <Function Name="get_org_by_found" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="found_id" Type="int" Mode="In" />
         </Function>
+        <Function Name="get_pmp_by_dept" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="dept_id" Type="int" Mode="In" />
+        </Function>
         <Function Name="get_sub_cat_by_main_cat" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="cat_id" Type="int" Mode="In" />
         </Function>
@@ -335,7 +338,10 @@
           </FunctionImport>
           <EntitySet Name="super_admin" EntityType="ActiveDirectory.super_admin" />
           <FunctionImport Name="SuperAdminUsers_SelectName" ReturnType="Collection(ActiveDirectory.SuperAdminUsers_SelectName_Result)">
-            <Parameter Name="User_name" Mode="In" Type="String" />
+          <Parameter Name="User_name" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="get_pmp_by_dept" ReturnType="Collection(ActiveDirectory.get_pmp_by_dept)">
+            <Parameter Name="dept_id" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="Foundations_Followup_Result">
@@ -517,6 +523,7 @@
           <Property Type="String" Name="Password" Nullable="true" MaxLength="250" />
           <Property Type="Boolean" Name="account_active" Nullable="true" />
         </ComplexType>
+        <ComplexType Name="get_pmp_by_dept" />
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -801,6 +808,11 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_pmp_by_dept" FunctionName="ActiveDirectory.Store.get_pmp_by_dept">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ActiveDirectory.get_pmp_by_dept" />
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -816,7 +828,7 @@
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="true" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>

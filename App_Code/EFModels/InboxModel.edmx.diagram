@@ -24,6 +24,10 @@
         <EntityTypeShape EntityType="Inbox.inbox_follow_emp" Width="1.5" PointX="6.75" PointY="11.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Inbox.Inbox_Relations" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="Inbox.Inbox_Track_Manager" Width="1.5" PointX="12.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Inbox.pmp_fav_View" Width="1.5" PointX="13.375" PointY="7.75" />
+        <EntityTypeShape EntityType="Inbox.vw_outbox_DateString" Width="1.5" PointX="13.375" PointY="10.75" />
+        <EntityTypeShape EntityType="Inbox.vw_outbox_DateSubject" Width="1.5" PointX="13.375" PointY="13.75" />
+        <EntityTypeShape EntityType="Inbox.vw_inbox_DateSubject" Width="1.5" PointX="0.75" PointY="14.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
