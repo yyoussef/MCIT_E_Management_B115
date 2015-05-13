@@ -20,11 +20,7 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
 }
 </script>
 
-<input id="Outbox_ID" runat="server" type="hidden" value="0" />
-<input id="mode" runat="server" type="hidden" value="new" />
-<input id="id2" runat="server" type="hidden" />
-<input id="id3" runat="server" type="hidden" />
-<input id="empId" runat="server" type="hidden" />
+
 <asp:UpdateProgress ID="UpdateProgress1" runat="server" DisplayAfter="30" AssociatedUpdatePanelID="UpdatePanel1">
     <ProgressTemplate>
         <div style="position: fixed; background-color: #FAFAFA; z-index: 2147483647 !important;
@@ -36,6 +32,11 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
 </asp:UpdateProgress>
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
+        <input id="Outbox_ID" runat="server" type="hidden"  />
+<input id="mode" runat="server" type="hidden" value="new" />
+<input id="id2" runat="server" type="hidden" />
+<input id="id3" runat="server" type="hidden" />
+<input id="empId" runat="server" type="hidden" />
         <table dir="rtl" style="line-height: 2; width: 99%;">
             <tr>
                 <td align="center" colspan="4" style="height: 33px">
