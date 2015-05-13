@@ -190,7 +190,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
             {
                 String decrypted_id = Encryption.Decrypt(Request.QueryString["id"].ToString());
                 id = Convert.ToInt16(decrypted_id);
-                hidden_Id.Value = id.ToString();
+                Outbox_ID.Value = id.ToString();
                 Fill_Controll(id);
                 Fil_Grid_Documents();
                 Fil_Grid_Visa();
@@ -347,14 +347,14 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         //refactored by hafs
         ////DataTable DT = new DataTable();
         ////string Sql = "SELECT Outbox_Visa_Follows.Follow_ID,Outbox_Visa_Follows.File_name,Outbox_Visa_Follows.time_follow,Outbox_Visa_Follows.Outbox_ID, Outbox_Visa_Follows.Descrption, Outbox_Visa_Follows.Date, Outbox_Visa_Follows.Visa_Emp_id, EMPLOYEE.pmp_name " +
-        ////             " FROM  Outbox_Visa_Follows INNER JOIN EMPLOYEE ON Outbox_Visa_Follows.Visa_Emp_id = EMPLOYEE.PMP_ID where Outbox_ID =" + hidden_Id.Value;
+        ////             " FROM  Outbox_Visa_Follows INNER JOIN EMPLOYEE ON Outbox_Visa_Follows.Visa_Emp_id = EMPLOYEE.PMP_ID where Outbox_ID =" + Outbox_ID.Value;
         ////DT = General_Helping.GetDataTable(Sql);
 
         ////GridView_Visa_Follow.DataSource = DT;
         //GridView_Visa_Follow.DataSource = from OutboxVisaFollows in outboxDBContext.Outbox_Visa_Follows
         //                                  join emp in outboxDBContext.EMPLOYEEs
         //                                  on OutboxVisaFollows.Visa_Emp_id equals emp.PMP_ID
-        //                                  where OutboxVisaFollows.Outbox_ID == CDataConverter.ConvertToInt(hidden_Id.Value)
+        //                                  where OutboxVisaFollows.Outbox_ID == CDataConverter.ConvertToInt(Outbox_ID.Value)
         //                                  select new
         //                                  {
         //                                      Follow_ID = OutboxVisaFollows.Follow_ID,
@@ -368,7 +368,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         //                                  };
         using (var context = new ActiveDirectoryContext())
         {
-            GridView_Visa_Follow.DataSource = context.get_employee_from_Outbox_Visa_Follows(CDataConverter.ConvertToInt(hidden_Id.Value));
+            GridView_Visa_Follow.DataSource = context.get_employee_from_Outbox_Visa_Follows(CDataConverter.ConvertToInt(Outbox_ID.Value));
             GridView_Visa_Follow.DataBind();
         }
     }
@@ -387,20 +387,20 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         //EmpDT.Columns.Add("pmp_name", typeof(string));
         //EmpDT.Columns.Add("Outbox_ID", typeof(int));
 
-        if (CDataConverter.ConvertToInt(hidden_Id.Value) > 0)
+        if (CDataConverter.ConvertToInt(Outbox_ID.Value) > 0)
         {
             //DataTable DT = new DataTable();
             //string sql = " SELECT   distinct EMPLOYEE.PMP_ID, EMPLOYEE.pmp_name, Outbox_Visa.Outbox_ID " +
             //             " FROM   Outbox_Visa_Emp INNER JOIN  EMPLOYEE ON Outbox_Visa_Emp.Emp_ID = EMPLOYEE.PMP_ID " +
             //             " INNER JOIN  Outbox_Visa ON Outbox_Visa_Emp.Visa_Id = Outbox_Visa.Visa_Id " +
             //             " INNER JOIN  Outbox ON Outbox_Visa.Outbox_ID = Outbox.ID " +
-            //             " where Outbox_ID=" + hidden_Id.Value;
+            //             " where Outbox_ID=" + Outbox_ID.Value;
             //DT = General_Helping.GetDataTable(sql);
             ////var OutboxVisaEmpDT = (from OutboxVisaEmp in outboxDBContext.Outbox_Visa_Emps
             ////                       join EMP in outboxDBContext.EMPLOYEEs on (Int64)OutboxVisaEmp.Emp_ID equals EMP.PMP_ID
             ////                       join OutboxVisa in outboxDBContext.Outbox_Visas on OutboxVisaEmp.Visa_Id equals OutboxVisa.Visa_Id
             ////                       join Outbx in outboxDBContext.Outboxes on OutboxVisa.Outbox_ID equals Outbx.ID
-            ////                       where OutboxVisa.Outbox_ID == CDataConverter.ConvertToInt(hidden_Id.Value)
+            ////                       where OutboxVisa.Outbox_ID == CDataConverter.ConvertToInt(Outbox_ID.Value)
             ////                       select EmpDT.LoadDataRow(
             ////                     new object[]  {
             ////                        EMP.PMP_ID,
@@ -409,7 +409,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
             ////                       }, false)).Distinct();
             using (var context = new OutboxContext())
             {
-                var OutboxVisaEmpDT = context.OutboxVisaEmpSelectOutboxId1(CDataConverter.ConvertToInt(hidden_Id.Value));
+                var OutboxVisaEmpDT = context.OutboxVisaEmpSelectOutboxId1(CDataConverter.ConvertToInt(Outbox_ID.Value));
                 resultDT = extentionMethods.ToDataTable<OutboxVisaEmpSelectOutboxId1_Result>(OutboxVisaEmpDT);
             }
 
@@ -464,7 +464,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
 
                 //refactored by hafs
                 //Outbox_DT obj = Outbox_DB.SelectByID(id);
-                //hidden_Id.Value = obj.ID.ToString();
+                //Outbox_ID.Value = obj.ID.ToString();
                 hidden_Proj_id.Value = OutboxObj.Proj_id.ToString();
                 txt_Name.Text = OutboxObj.Name;
                 txt_Code.Text = OutboxObj.Code;
@@ -687,13 +687,14 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
     {
         //refactored by hafs
         //DataTable DT = new DataTable();
-        //DT = General_Helping.GetDataTable("select * from Outbox_Visa where Outbox_ID=" + hidden_Id.Value);
-        int hiddenValue = CDataConverter.ConvertToInt(hidden_Id.Value);
+        //DT = General_Helping.GetDataTable("select * from Outbox_Visa where Outbox_ID=" + Outbox_ID.Value);
+        int hiddenValue = CDataConverter.ConvertToInt(Outbox_ID.Value);
         using (var context = new OutboxContext())
         {
-            DataTable DT = (from ds in context.Outbox_Visa
+            var query = from ds in context.Outbox_Visa
                             where ds.Outbox_ID == hiddenValue
-                            select ds).ToDataTable();
+                            select ds;
+            DataTable DT = extentionMethods.ToDataTable<Outbox_Visa>(query);
             GridView_Visa.DataSource = DT;
             GridView_Visa.DataBind();
         }
@@ -757,13 +758,15 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
     {
         //refactored by hafs
         //DataTable DT = new DataTable();
-        //DT = General_Helping.GetDataTable("select * from Inbox_OutBox_Files where Inbox_Or_Outbox = 2 and  Inbox_Outbox_ID=" + hidden_Id.Value);
-        int hiddenValue = CDataConverter.ConvertToInt(hidden_Id.Value);
+        //DT = General_Helping.GetDataTable("select * from Inbox_OutBox_Files where Inbox_Or_Outbox = 2 and  Inbox_Outbox_ID=" + Outbox_ID.Value);
+        int hiddenValue = CDataConverter.ConvertToInt(Outbox_ID.Value);
         using (var context = new InboxContext())
         {
-            GrdView_Documents.DataSource = from ds in context.Inbox_OutBox_Files
-                                           where ds.Inbox_Or_Outbox == 2 && ds.Inbox_Outbox_ID == hiddenValue
-                                           select ds;
+            var query = from ds in context.Inbox_OutBox_Files
+                           where ds.Inbox_Or_Outbox == 2 && ds.Inbox_Outbox_ID == hiddenValue
+                           select ds;
+            DataTable dtInbox_OutBox_Files = extentionMethods.ToDataTable(query);
+            GrdView_Documents.DataSource = dtInbox_OutBox_Files;
             GrdView_Documents.DataBind();
         }
     }
@@ -865,7 +868,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
             string s = Server.MapPath("../Reports/InboxOutboxReport/outbox_Data.rpt");
             rd.Load(s);
             Reports.Load_Report(rd);
-            rd.SetParameterValue("@out_ID", CDataConverter.ConvertToInt(hidden_Id.Value));
+            rd.SetParameterValue("@out_ID", CDataConverter.ConvertToInt(Outbox_ID.Value));
             rd.SetParameterValue("@ip", IpAddress(), "footerRep.rpt");
             rd.SetParameterValue("@user", user, "footerRep.rpt");
             rd.SetParameterValue("@found_id", found_id, "Logo_Header_pic_dynamic.rpt");
@@ -977,17 +980,17 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
             bool flag = false;
 
             string address2 = System.Web.HttpContext.Current.Request.Url.Authority.ToString();
-            String encrypted_id = Encryption.Encrypt(hidden_Id.Value);
+            String encrypted_id = Encryption.Encrypt(Outbox_ID.Value);
 
             ////string Sql = "SELECT     Inbox_Visa_Follows.Follow_ID, Inbox_Visa_Follows.File_data,Inbox_Visa_Follows.File_name,Inbox_Visa_Follows.File_ext,Inbox_Visa_Follows.Inbox_ID, Inbox_Visa_Follows.Descrption, Inbox_Visa_Follows.Date, Inbox_Visa_Follows.Visa_Emp_id, EMPLOYEE.pmp_name " +
-            ////            " FROM         Inbox_Visa_Follows INNER JOIN EMPLOYEE ON Inbox_Visa_Follows.Visa_Emp_id = EMPLOYEE.PMP_ID where Inbox_ID =" + hidden_Id.Value;
+            ////            " FROM         Inbox_Visa_Follows INNER JOIN EMPLOYEE ON Inbox_Visa_Follows.Visa_Emp_id = EMPLOYEE.PMP_ID where Inbox_ID =" + Outbox_ID.Value;
 
             ///// DataTable dt = General_Helping.GetDataTable(Sql);
             using (var inboxContext = new InboxContext())
             {
                 using (var ADContext = new ActiveDirectoryContext())
                 {
-                    int hiddenval = CDataConverter.ConvertToInt(hidden_Id.Value);
+                    int hiddenval = CDataConverter.ConvertToInt(Outbox_ID.Value);
                     var InboxVisaFollows = from IVF in inboxContext.Inbox_Visa_Follows
                                            join emps in ADContext.EMPLOYEEs on (long)IVF.Visa_Emp_id equals emps.PMP_ID
                                            where IVF.Inbox_ID == hiddenval
@@ -1079,14 +1082,15 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
     {
         using (var context = new ActiveDirectoryContext())
         {
-            var parentpmp = context.parent_employee.Where(x => x.pmp_id == int.Parse(Session_CS.pmp_id.ToString())).FirstOrDefault();
+            var pmpVal=int.Parse(Session_CS.pmp_id.ToString());
+            var parentpmp = context.parent_employee.Where(x => x.pmp_id == pmpVal).FirstOrDefault();
 
             return parentpmp.parent_pmp_id;
         }
     }
     protected void btnSend_Click(object sender, EventArgs e)
     {
-        if (CDataConverter.ConvertToInt(hidden_Id.Value) > 0)
+        if (CDataConverter.ConvertToInt(Outbox_ID.Value) > 0)
         {
             ////// get Parent 
             int parentPmpID = get_parent_emp();
@@ -1099,10 +1103,10 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
 
             //// SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
             //// DataTable DT = new DataTable();
-            //// DT = General_Helping.GetDataTable("select * from Outbox_Track_Manager where Outbox_id = " + hidden_Id.Value);
+            //// DT = General_Helping.GetDataTable("select * from Outbox_Track_Manager where Outbox_id = " + Outbox_ID.Value);
             using (var context = new OutboxContext())
             {
-                int hiddenval = CDataConverter.ConvertToInt(hidden_Id.Value);
+                int hiddenval = CDataConverter.ConvertToInt(Outbox_ID.Value);
                 var OutboxTrackManager = from outboxtrackmanager in context.Outbox_Track_Manager
                                          where outboxtrackmanager.Outbox_id == hiddenval
                                          select outboxtrackmanager;
@@ -1110,7 +1114,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                 if (OutboxTrackManager.Count() > 0)
                 {
                     ////conn.Open();
-                    ////string sql = "update Outbox_Track_Manager set status=1 , All_visa_sent=0 where Outbox_id =" + hidden_Id.Value;
+                    ////string sql = "update Outbox_Track_Manager set status=1 , All_visa_sent=0 where Outbox_id =" + Outbox_ID.Value;
                     Outbox_Track_Manager OutboxTrackManagerObj = context.Outbox_Track_Manager.Where(x => x.Outbox_id == hiddenval).SingleOrDefault();
                     OutboxTrackManagerObj.status = 1;
                     OutboxTrackManagerObj.All_visa_sent = 0;
@@ -1125,7 +1129,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
 
                     Outbox_Track_Manager OutboxTrackManagerObj = new Outbox_Track_Manager
                     {
-                        Outbox_id = CDataConverter.ConvertToInt(hidden_Id.Value),
+                        Outbox_id = CDataConverter.ConvertToInt(Outbox_ID.Value),
                         Have_Visa = 0,
                         Have_Follow = 0,
                         IS_New_Mail = 1,
@@ -1148,7 +1152,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('" + ex.Message + "');", true);
                     }
                     //Outbox_Track_Manager_DT obj = new Outbox_Track_Manager_DT();
-                    //obj.Outbox_id = CDataConverter.ConvertToInt(hidden_Id.Value);
+                    //obj.Outbox_id = CDataConverter.ConvertToInt(Outbox_ID.Value);
                     //obj.Have_Visa = 0;
                     //obj.Have_Follow = 0;
                     //obj.IS_New_Mail = 1;
@@ -1178,7 +1182,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                 if (OutboxVisaFollows != null)
                 {
                     OutboxVisaFollows.Follow_ID = CDataConverter.ConvertToInt(hidden_Follow_ID.Value);
-                    OutboxVisaFollows.Outbox_ID = CDataConverter.ConvertToInt(hidden_Id.Value);
+                    OutboxVisaFollows.Outbox_ID = CDataConverter.ConvertToInt(Outbox_ID.Value);
 
                     OutboxVisaFollows.Descrption = "تم الارسال الي المدير المختص";
 
@@ -1193,7 +1197,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                     Outbox_Visa_Follows OutboxVisaFollowsnew = new Outbox_Visa_Follows
                     {
                         Follow_ID = CDataConverter.ConvertToInt(hidden_Follow_ID.Value),
-                        Outbox_ID = CDataConverter.ConvertToInt(hidden_Id.Value),
+                        Outbox_ID = CDataConverter.ConvertToInt(Outbox_ID.Value),
                         Descrption = "تم الارسال الي المدير المختص",
                         Date = date,
                         time_follow = CDataConverter.ConvertDateTimeNowRtnDt().ToLocalTime().ToLongTimeString(),
@@ -1269,7 +1273,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                 {
                     IEnumerable<Inbox_OutBox_Files> InboxOutBoxFile = inboxcontext.Inbox_OutBox_Files.Where(x => x.Inbox_Outbox_ID == hiddenval && x.Inbox_Or_Outbox == 2);
 
-                    ////DataTable dt = General_Helping.GetDataTable("select * from Inbox_OutBox_Files where Inbox_Outbox_ID =" + hidden_Id.Value + " and Inbox_Or_Outbox =2 ");
+                    ////DataTable dt = General_Helping.GetDataTable("select * from Inbox_OutBox_Files where Inbox_Outbox_ID =" + Outbox_ID.Value + " and Inbox_Or_Outbox =2 ");
                     foreach (Inbox_OutBox_Files inboxoutBoxfile in InboxOutBoxFile)
                     {
 
@@ -1292,7 +1296,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
 
                         }
                     }
-                    String encrypted_id = Encryption.Encrypt(hidden_Id.Value);
+                    String encrypted_id = Encryption.Encrypt(Outbox_ID.Value);
                     string address2 = System.Web.HttpContext.Current.Request.Url.Authority.ToString();
                     _Message.Body += " <h3 > ورابط الصادر هو  :<br/>";
                     _Message.Body += " <h3 >http:" + "/" + "/" + address2 + "/MainForm/ViewProjectOutbox.aspx?id=" + encrypted_id + "&1=1</h3>";
@@ -1389,10 +1393,10 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
             }
             using (var context = new OutboxContext())
             {
-                if (CDataConverter.ConvertToInt(hidden_Id.Value) > 0)
+                if (CDataConverter.ConvertToInt(Outbox_ID.Value) > 0)
                 {
 
-                    Outbox OutboxObj = context.Outboxes.SingleOrDefault(x => x.ID == CDataConverter.ConvertToInt(hidden_Id.Value));
+                    Outbox OutboxObj = context.Outboxes.SingleOrDefault(x => x.ID == CDataConverter.ConvertToInt(Outbox_ID.Value));
                     OutboxObj.Proj_id = int.Parse(Session_CS.Project_id.ToString());
                     OutboxObj.Name = txt_Name.Text;
                     OutboxObj.Code = txt_Code.Text;
@@ -1430,7 +1434,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                 {
                     Outbox OutboxObj = new Outbox
                         {
-                            ID = CDataConverter.ConvertToInt(hidden_Id.Value),
+                            ID = CDataConverter.ConvertToInt(Outbox_ID.Value),
 
                             Proj_id = int.Parse(Session_CS.Project_id.ToString()),
                             Name = txt_Name.Text,
@@ -1468,7 +1472,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                     context.Outboxes.Add(OutboxObj);
                     context.SaveChanges();
 
-                    hidden_Id.Value = OutboxObj.ID.ToString();
+                    Outbox_ID.Value = OutboxObj.ID.ToString();
 
                     //if (OutboxObj.ID > 0)
                     //{
@@ -1488,9 +1492,9 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
 
 
 
-                    context.SPOutboxCatDelete(CDataConverter.ConvertToInt(hidden_Id.Value));
+                    context.SPOutboxCatDelete(CDataConverter.ConvertToInt(Outbox_ID.Value));
                 }
-                //var outboxCats = outboxDBContext.outbox_cats.Where(x => x.outbox_id == CDataConverter.ConvertToInt(hidden_Id.Value));
+                //var outboxCats = outboxDBContext.outbox_cats.Where(x => x.outbox_id == CDataConverter.ConvertToInt(Outbox_ID.Value));
                 //if (outboxCats.Count() > 0)
                 //{
                 //    foreach (var outboxCat in outboxCats)
@@ -1506,21 +1510,21 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                     if (item.Selected)
                     {
                         ////Outbox_DB.Outbox_cat_save(CDataConverter.ConvertToInt(lastOutboxObj.ID), CDataConverter.ConvertToInt(item.Value), 1, 1);
-                        context.Outbox_cat_save(CDataConverter.ConvertToInt(CDataConverter.ConvertToInt(hidden_Id.Value)), CDataConverter.ConvertToInt(item.Value), 1, 1);
+                        context.Outbox_cat_save(CDataConverter.ConvertToInt(CDataConverter.ConvertToInt(Outbox_ID.Value)), CDataConverter.ConvertToInt(item.Value), 1, 1);
                     }
                 }
                 foreach (ListItem item in Chk_sub_cat.Items)
                 {
                     if (item.Selected)
                     {
-                        context.Outbox_cat_save(CDataConverter.ConvertToInt(CDataConverter.ConvertToInt(hidden_Id.Value)), CDataConverter.ConvertToInt(item.Value), 2, 1);
+                        context.Outbox_cat_save(CDataConverter.ConvertToInt(CDataConverter.ConvertToInt(Outbox_ID.Value)), CDataConverter.ConvertToInt(item.Value), 2, 1);
                     }
                 }
 
                 int found = Session_CS.foundation_id;
                 using (var inboxContext = new InboxContext())
                 {
-                    if (CDataConverter.ConvertToInt(hidden_Id.Value) > 0)
+                    if (CDataConverter.ConvertToInt(Outbox_ID.Value) > 0)
                     {
 
                         if (ddl_Related_Type.SelectedValue == "2")
@@ -1529,7 +1533,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                             //sql_related = "insert into Inbox_Relations values ( " + obj.ID + "," + CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue) + ",1,2," + found + " )";
                             Inbox_Relations InboxRelation1 = new Inbox_Relations
                             {
-                                inbox_id = CDataConverter.ConvertToInt(hidden_Id.Value),
+                                inbox_id = CDataConverter.ConvertToInt(Outbox_ID.Value),
                                 inbox_id_type = 2,
                                 Related_ID = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue),
                                 Related_ID_Type = 1,
@@ -1539,7 +1543,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                             {
                                 inbox_id = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue),
                                 inbox_id_type = 1,
-                                Related_ID = CDataConverter.ConvertToInt(hidden_Id.Value),
+                                Related_ID = CDataConverter.ConvertToInt(Outbox_ID.Value),
                                 Related_ID_Type = 2,
                                 foundation_id = found
                             };
@@ -1556,7 +1560,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                             // sql_related = "insert into Inbox_Relations values ( " + obj.ID + "," + CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue) + ",2,2," + found + " )";
                             Inbox_Relations InboxRelation3 = new Inbox_Relations
                             {
-                                inbox_id = CDataConverter.ConvertToInt(hidden_Id.Value),
+                                inbox_id = CDataConverter.ConvertToInt(Outbox_ID.Value),
                                 inbox_id_type = 2,
                                 Related_ID = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue),
                                 Related_ID_Type = 2,
@@ -1589,10 +1593,10 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                         foreach (Inbox inboxObj in inboxObjs)
                         {
                             inboxObj.Related_Type = 5;
-                            inboxObj.Related_Id = CDataConverter.ConvertToInt(hidden_Id.Value);
+                            inboxObj.Related_Id = CDataConverter.ConvertToInt(Outbox_ID.Value);
                         }
                         inboxContext.SaveChanges();
-                        ////string sql = "update inbox set Related_Type =5 , Related_Id = " + hidden_Id.Value + " where ID = " + Smart_Related_Id.SelectedValue + " and Related_Type=1";
+                        ////string sql = "update inbox set Related_Type =5 , Related_Id = " + Outbox_ID.Value + " where ID = " + Smart_Related_Id.SelectedValue + " and Related_Type=1";
                         ////General_Helping.ExcuteQuery(sql);
                     }
 
@@ -1836,11 +1840,12 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
 
             ////Outbox_Visa_Follows_DT obj_follow = Outbox_Visa_Follows_DB.SelectByID(CDataConverter.ConvertToInt(hidden_Follow_ID.Value));
             using (var outboxContext = new OutboxContext()) {
-                Outbox_Visa_Follows OutboxVisaFollow = outboxContext.Outbox_Visa_Follows.Where(x => x.Follow_ID == CDataConverter.ConvertToInt(hidden_Follow_ID.Value)).FirstOrDefault();
+                int hiddenFollowID= CDataConverter.ConvertToInt(hidden_Follow_ID.Value);
+                Outbox_Visa_Follows OutboxVisaFollow = outboxContext.Outbox_Visa_Follows.Where(x => x.Follow_ID == hiddenFollowID).FirstOrDefault();
             if (OutboxVisaFollow != null)
             {
                 OutboxVisaFollow.Follow_ID = 0;
-                OutboxVisaFollow.Outbox_ID = CDataConverter.ConvertToInt(hidden_Id.Value);
+                OutboxVisaFollow.Outbox_ID = CDataConverter.ConvertToInt(Outbox_ID.Value);
                 OutboxVisaFollow.Descrption = " تم انهاء التاشيرة " + lbl_desc.Text + " بواسطة  " + Session_CS.pmp_name.ToString();
                 string date = CDataConverter.ConvertDateTimeToFormatdmy(CDataConverter.ConvertDateTimeNowRtnDt());
                 OutboxVisaFollow.Date = date;
@@ -1878,7 +1883,8 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
             ////Dt = General_Helping.GetDataTable(temp_sql);
             using (var outboxContext = new OutboxContext())
             {
-                var OutboxVisa = outboxContext.Outbox_Visa.Where(x => x.Visa_Id == CDataConverter.ConvertToInt(id));
+                var idVal =  CDataConverter.ConvertToInt(id);
+                var OutboxVisa = outboxContext.Outbox_Visa.Where(x => x.Visa_Id == idVal);
 
                 if (OutboxVisa.Count() > 0)
                 {
@@ -1908,7 +1914,8 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
             ////General_Helping.ExcuteQuery(Sql_Delete);
             using (var ADContext = new ActiveDirectoryContext())
             {
-                parent_employee parent_employee = ADContext.parent_employee.Where(x => x.pmp_id == CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()) && x.Type == 2).SingleOrDefault();
+                var pmpIDVal = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
+                parent_employee parent_employee = ADContext.parent_employee.Where(x => x.pmp_id == pmpIDVal && x.Type == 2).SingleOrDefault();
 
                 foreach (ListItem item in lst_emp.Items)
                 {
@@ -1936,11 +1943,13 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
     }
     protected void GrdView_Documents_RowCommand(object sender, GridViewCommandEventArgs e)
     {
+        var commArgVal = CDataConverter.ConvertToInt(e.CommandArgument);
         if (e.CommandName == "EditItem")
         {
             using (var inboxContext = new InboxContext())
             {
-                Inbox_OutBox_Files InboxOutBoxFile = inboxContext.Inbox_OutBox_Files.Where(x => x.Inbox_OutBox_File_ID == CDataConverter.ConvertToInt(e.CommandArgument)).SingleOrDefault();
+               
+                Inbox_OutBox_Files InboxOutBoxFile = inboxContext.Inbox_OutBox_Files.Where(x => x.Inbox_OutBox_File_ID == commArgVal).SingleOrDefault();
                 ////Inbox_OutBox_Files_DT obj = Inbox_OutBox_Files_DB.SelectByID(CDataConverter.ConvertToInt(e.CommandArgument));
                 if (InboxOutBoxFile.Inbox_OutBox_File_ID > 0)
                 {
@@ -1956,7 +1965,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         {
             using (var inboxContext = new InboxContext())
             {
-                Inbox_OutBox_Files InboxOutBoxFile = inboxContext.Inbox_OutBox_Files.Where(x => x.Inbox_OutBox_File_ID == CDataConverter.ConvertToInt(e.CommandArgument)).SingleOrDefault();
+                Inbox_OutBox_Files InboxOutBoxFile = inboxContext.Inbox_OutBox_Files.Where(x => x.Inbox_OutBox_File_ID == commArgVal).SingleOrDefault();
                 inboxContext.Inbox_OutBox_Files.Remove(InboxOutBoxFile);
                 inboxContext.SaveChanges();
                 ////Inbox_OutBox_Files_DB.Delete(CDataConverter.ConvertToInt(e.CommandArgument));
@@ -1969,11 +1978,12 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
     }
     protected void GridView_Visa_RowCommand(object sender, GridViewCommandEventArgs e)
     {
+        var commArgVal = CDataConverter.ConvertToInt(e.CommandArgument);
         if (e.CommandName == "EditItem")
         {
-            Fil_Visa_Control(CDataConverter.ConvertToInt(e.CommandArgument));
+            Fil_Visa_Control(commArgVal);
             ////Fil_Visa_Lst(CDataConverter.ConvertToInt(e.CommandArgument));
-            Fil_Visa_Lstbox(CDataConverter.ConvertToInt(e.CommandArgument));
+            Fil_Visa_Lstbox(commArgVal);
 
         }
 
@@ -1981,7 +1991,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         {
             using (var outboxContext = new OutboxContext())
             {
-                Outbox_Visa OutboxVisa = outboxContext.Outbox_Visa.Where(x => x.Visa_Id == CDataConverter.ConvertToInt(e.CommandArgument)).SingleOrDefault();
+                Outbox_Visa OutboxVisa = outboxContext.Outbox_Visa.Where(x => x.Visa_Id == commArgVal).SingleOrDefault();
                 outboxContext.Outbox_Visa.Remove(OutboxVisa);
                 outboxContext.SaveChanges();
 
@@ -1995,28 +2005,31 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         }
         if (e.CommandName == "SendItem")
         {
-            Save_trackmanager(CDataConverter.ConvertToInt(hidden_Id.Value));
+            Save_trackmanager(CDataConverter.ConvertToInt(Outbox_ID.Value));
             ////////////////////////////////////////////////////////////////////////////////////////////
             /////////////////// Sending Mail Code /////////////////////////////////////////
             //////////////////////////////////////////////////////////////////////////////////////////
             string dept = Session_CS.dept.ToString();
             string name = "";
             string Succ_names = "", Failed_name = "";
+            int lastindx = 0;
             ////DataTable dt_outbox_Visa = General_Helping.GetDataTable("select * from Outbox_Visa_Emp where Visa_Id =" + e.CommandArgument.ToString());
             using (var outboxContext = new OutboxContext())
             {
-                var OutboxVisaEmps = outboxContext.OutboxVisaEmpSelect(CDataConverter.ConvertToInt(e.CommandArgument.ToString()));
+                var OutboxVisaEmps = outboxContext.OutboxVisaEmpSelect(commArgVal);
                 using (var ADContext = new ActiveDirectoryContext())
                 {
                     using (var inboxContext = new InboxContext())
                     {
+                        
                     foreach (var OutboxVisaEmp in OutboxVisaEmps)
                     {
-                        update_Outbox_Track_Emp(hidden_Id.Value, CDataConverter.ConvertToInt(OutboxVisaEmp.Emp_ID), 1, 1);
+                        var empIdVal = CDataConverter.ConvertToInt(OutboxVisaEmp.Emp_ID);
+                        update_Outbox_Track_Emp(Outbox_ID.Value, empIdVal, 1, 1);
                         ////string sqlformail = "SELECT * from employee ";
                         ////sqlformail += " where pmp_id= " + item["Emp_ID"].ToString();
                         ////DataTable ds = General_Helping.GetDataTable(sqlformail);
-                        EMPLOYEE emp = ADContext.EMPLOYEEs.Where(x => x.PMP_ID == CDataConverter.ConvertToInt(OutboxVisaEmp.Emp_ID)).SingleOrDefault();
+                        EMPLOYEE emp = ADContext.EMPLOYEEs.Where(x => x.PMP_ID == empIdVal).SingleOrDefault();
 
                         //DataTable DT = General_Helping.GetDataTable(sqlformail);
                         string mail = emp.mail;
@@ -2068,9 +2081,9 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                         string file = "";
                         byte[] files = new byte[0];
                         MemoryStream ms = new MemoryStream();
-                        ////DataTable dt = General_Helping.GetDataTable("select * from Inbox_OutBox_Files where Inbox_Outbox_ID =" + hidden_Id.Value + " and Inbox_Or_Outbox =2 ");
-                       
-                            IEnumerable<Inbox_OutBox_Files> InboxOutBoxFile = inboxContext.Inbox_OutBox_Files.Where(x => x.Inbox_Outbox_ID == CDataConverter.ConvertToInt(hidden_Id.Value) && x.Inbox_Or_Outbox == 2);
+                        ////DataTable dt = General_Helping.GetDataTable("select * from Inbox_OutBox_Files where Inbox_Outbox_ID =" + Outbox_ID.Value + " and Inbox_Or_Outbox =2 ");
+                       var hiddVal = CDataConverter.ConvertToInt(Outbox_ID.Value);
+                       IEnumerable<Inbox_OutBox_Files> InboxOutBoxFile = inboxContext.Inbox_OutBox_Files.Where(x => x.Inbox_Outbox_ID == hiddVal && x.Inbox_Or_Outbox == 2);
 
                             ////foreach (DataRow dr in dt.Rows)
                             ////{
@@ -2113,7 +2126,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                             //    _Message.Body = " السيد " + name + " \n\n";
                             //    _Message.Body += " وصلكم صادر من " + dept + " " + " بتاريخ " + txt_Visa_date.Text;
                             //}
-                            String encrypted_id = Encryption.Encrypt(hidden_Id.Value);
+                            String encrypted_id = Encryption.Encrypt(Outbox_ID.Value);
                             string address2 = System.Web.HttpContext.Current.Request.Url.Authority.ToString();
                             _Message.IsBodyHtml = true;
                             _Message.Body = "<html><body dir='rtl'><h3 > السيد - " + name + " </h3>";
@@ -2163,7 +2176,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                                 SendingMailthread_class.Sendingmail(_Message, _Message.Subject, _Message.Body, mail, ms, file, encrypted_id, "");
 
                                 Succ_names += name + ",";
-
+                                lastindx = Succ_names.LastIndexOf(',');
 
                             }
                             catch (Exception ex)
@@ -2177,7 +2190,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
 
 
 
-                        int lastindx = Succ_names.LastIndexOf(',');
+                        
                         string Succ_namesresult = Succ_names.Substring(0, lastindx);
                         string message = Show_Alert(Succ_namesresult, Failed_name, e.CommandArgument.ToString());
                         if (!string.IsNullOrEmpty(message))
@@ -2185,12 +2198,14 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                             Fil_Grid_Visa();
                             ///////////////  to store that mohammed eid send visa to employee
                             string date = CDataConverter.ConvertDateTimeToFormatdmy(CDataConverter.ConvertDateTimeNowRtnDt());
-                            Outbox_Visa_Follows OutboxVisaFollow = outboxContext.Outbox_Visa_Follows.Where(x => x.Follow_ID == CDataConverter.ConvertToInt(hidden_Follow_ID.Value)).SingleOrDefault();
+                            var hiddFollowId =  CDataConverter.ConvertToInt(hidden_Follow_ID.Value);
+                            var hiddId = CDataConverter.ConvertToInt(Outbox_ID.Value);
+                            Outbox_Visa_Follows OutboxVisaFollow = outboxContext.Outbox_Visa_Follows.Where(x => x.Follow_ID == hiddFollowId).SingleOrDefault();
                             ////Outbox_Visa_Follows_DT obj_follow = Outbox_Visa_Follows_DB.SelectByID(CDataConverter.ConvertToInt(hidden_Follow_ID.Value));
                             if (OutboxVisaFollow != null)
                             {
-                                OutboxVisaFollow.Follow_ID = CDataConverter.ConvertToInt(hidden_Follow_ID.Value);
-                                OutboxVisaFollow.Outbox_ID = CDataConverter.ConvertToInt(hidden_Id.Value);
+                                OutboxVisaFollow.Follow_ID = hiddFollowId;
+                                OutboxVisaFollow.Outbox_ID = hiddId;
 
                                 OutboxVisaFollow.Descrption = message + " بواسطة النظام -- ";
                                 OutboxVisaFollow.Date = date;
@@ -2204,7 +2219,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                             {
                                 Outbox_Visa_Follows OutboxVisaFollowNew = new Outbox_Visa_Follows
                                 {
-                                    Outbox_ID = CDataConverter.ConvertToInt(hidden_Id.Value),
+                                    Outbox_ID = CDataConverter.ConvertToInt(Outbox_ID.Value),
                                     Descrption = message + " بواسطة النظام -- ",
                                     Date = date,
                                     time_follow = CDataConverter.ConvertDateTimeNowRtnDt().ToLocalTime().ToLongTimeString(),
@@ -2219,11 +2234,11 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
 
                             //SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
                             //DataTable DT = new DataTable();
-                            //DT = General_Helping.GetDataTable("select * from Inbox_Track_Manager where inbox_id = " + hidden_Id.Value);
+                            //DT = General_Helping.GetDataTable("select * from Inbox_Track_Manager where inbox_id = " + Outbox_ID.Value);
                             //if (DT.Rows.Count > 0)
                             //{
                             //    conn.Open();
-                            //    string sql = "update Inbox_Track_Manager set Have_Follow=0,All_visa_sent=0,Have_Visa=1,IS_Old_Mail=0,IS_New_Mail=0 where inbox_id =" + hidden_Id.Value;
+                            //    string sql = "update Inbox_Track_Manager set Have_Follow=0,All_visa_sent=0,Have_Visa=1,IS_Old_Mail=0,IS_New_Mail=0 where inbox_id =" + Outbox_ID.Value;
                             //    SqlCommand cmd = new SqlCommand(sql, conn);
                             //    cmd.ExecuteNonQuery();
                             //    conn.Close();
@@ -2249,8 +2264,9 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         using (var inboxContext = new InboxContext()) { 
         foreach (ListItem item in Chk_main_cat.Items)
         {
+            var itemVal=CDataConverter.ConvertToInt(item.Value);
             var subInboxCat = from InboxCat in inboxContext.inbox_sub_categories
-                              where InboxCat.main_id == CDataConverter.ConvertToInt(item.Value)
+                              where InboxCat.main_id == itemVal
                               select InboxCat;
             if (item.Selected)
             {
@@ -2318,7 +2334,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         ////con = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
         ////con_local = new SqlConnection(Session_CS.local_connectionstring);
         ////int out_box = 0;
-        if (CDataConverter.ConvertToInt(hidden_Id.Value) > 0)
+        if (CDataConverter.ConvertToInt(Outbox_ID.Value) > 0)
         {
             if (FileUpload1.HasFile)
             {
@@ -2356,8 +2372,8 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
 
                     if (CDataConverter.ConvertToInt(hidden_Inbox_OutBox_File_ID.Value) > 0)
                     {
-
-                        Inbox_OutBox_Files InboxOutBoxFile = inboxContext.Inbox_OutBox_Files.Where(x => x.Inbox_OutBox_File_ID == CDataConverter.ConvertToInt(hidden_Inbox_OutBox_File_ID.Value)).SingleOrDefault();
+                        var hiddInboxOutboxVal=CDataConverter.ConvertToInt(hidden_Inbox_OutBox_File_ID.Value);
+                        Inbox_OutBox_Files InboxOutBoxFile = inboxContext.Inbox_OutBox_Files.Where(x => x.Inbox_OutBox_File_ID == hiddInboxOutboxVal).SingleOrDefault();
 
                         InboxOutBoxFile.Original_Or_Attached = CDataConverter.ConvertToInt(ddl_Original_Or_Attached.SelectedValue);
                         InboxOutBoxFile.File_ext = type;
@@ -2414,7 +2430,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                         // cmd.CommandText = " insert into Inbox_OutBox_Files ( Inbox_Outbox_ID, Inbox_Or_Outbox, Original_Or_Attached, File_data,File_name, File_ext) VALUES ( @Inbox_Outbox_ID, @Inbox_Or_Outbox, @Original_Or_Attached, @File_data, @File_name, @File_ext) select @@identity";
                         Inbox_OutBox_Files InboxOutBoxFile = new Inbox_OutBox_Files
                         {
-                            Inbox_Outbox_ID = CDataConverter.ConvertToInt(hidden_Id.Value),
+                            Inbox_Outbox_ID = CDataConverter.ConvertToInt(Outbox_ID.Value),
                             Original_Or_Attached = CDataConverter.ConvertToInt(ddl_Original_Or_Attached.SelectedValue),
                             File_ext = type,
                             File_name = txtFileName.Text,
@@ -2446,13 +2462,14 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
     }
     protected void btn_Visa_Click(object sender, EventArgs e)
     {
-        ////DataTable dt_mng_sent = General_Helping.GetDataTable("select * from Outbox_Track_Manager where Outbox_id = " + CDataConverter.ConvertToInt(hidden_Id.Value));
+        ////DataTable dt_mng_sent = General_Helping.GetDataTable("select * from Outbox_Track_Manager where Outbox_id = " + CDataConverter.ConvertToInt(Outbox_ID.Value));
         using (var outboxContext = new OutboxContext())
         {
-            var OutboxTrackManagerDT = outboxContext.Outbox_Track_Manager.Where(x => x.Outbox_id == CDataConverter.ConvertToInt(hidden_Id.Value));
+            var HiddVal=CDataConverter.ConvertToInt(Outbox_ID.Value);
+            var OutboxTrackManagerDT = outboxContext.Outbox_Track_Manager.Where(x => x.Outbox_id == HiddVal);
             if (OutboxTrackManagerDT.Count() > 0)
             {
-                if (CDataConverter.ConvertToInt(hidden_Id.Value) > 0)
+                if (CDataConverter.ConvertToInt(Outbox_ID.Value) > 0)
                 {
                     if (lst_emp.Items.Count > 0)
                     {
@@ -2466,7 +2483,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                             if (CDataConverter.ConvertToInt(hidden_Visa_Id.Value) > 0)
                             {
                                 Outbox_Visa OutboxVisaObj = outboxContext.Outbox_Visa.SingleOrDefault(x => x.Visa_Id == CDataConverter.ConvertToInt(hidden_Visa_Id.Value));
-                                OutboxVisaObj.Outbox_ID = CDataConverter.ConvertToInt(hidden_Id.Value);
+                                OutboxVisaObj.Outbox_ID = CDataConverter.ConvertToInt(Outbox_ID.Value);
                                 OutboxVisaObj.Visa_date = txt_Visa_date.Text;
                                 OutboxVisaObj.Important_Degree = CDataConverter.ConvertToInt(ddl_Important_Degree.SelectedValue);
                                 OutboxVisaObj.Important_Degree_Txt = (string.IsNullOrEmpty(txt_Important_Degree_Txt.Text) ? ddl_Important_Degree.SelectedItem.Text : txt_Important_Degree_Txt.Text);
@@ -2482,8 +2499,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                                 OutboxVisaObj.Dead_Line_DT = txt_Dead_Line_DT.Text;
                                 OutboxVisaObj.Visa_Goal_ID = CDataConverter.ConvertToInt(ddl_Visa_Goal_ID.SelectedValue);
                                 OutboxVisaObj.mail_sent = 0;
-                                outboxContext.SaveChanges();
-                                Save_inox_Visa(CDataConverter.ConvertToInt(hidden_Visa_Id.Value));
+                                
                                 if (FileUpload_Visa.HasFile)
                                 {
                                     string DocName = FileUpload_Visa.FileName;
@@ -2498,43 +2514,48 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                                     myStream = FileUpload_Visa.FileContent;
                                     myStream.Read(Input, 0, fileLen);
 
-                                    SqlCommand cmd = new SqlCommand();
-                                    SqlConnection con = new SqlConnection();
-                                    SqlCommand cmd_local = new SqlCommand();
-                                    SqlConnection con_local = new SqlConnection();
-                                    con = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
-                                    con_local = new SqlConnection(Session_CS.local_connectionstring);
-                                    cmd.Parameters.Add("@File_data", SqlDbType.VarBinary);
-                                    cmd.Parameters.Add("@File_name", SqlDbType.NVarChar);
-                                    cmd.Parameters.Add("@File_ext", SqlDbType.NVarChar);
-                                    cmd.Parameters.Add("@visa_ID", SqlDbType.BigInt);
-
-                                    //cmd.Parameters["@File_data"].Value = Input;
-                                    cmd.Parameters["@File_name"].Value = DocName;
-                                    cmd.Parameters["@File_ext"].Value = type;
-                                    cmd.Parameters["@visa_ID"].Value = OutboxVisaObj.Visa_Id;
-                                    cmd.CommandType = CommandType.Text;
-                                    cmd.CommandText = " update Outbox_Visa set File_data =@File_data ,File_name=@File_name,File_ext=@File_ext where visa_ID =@visa_ID";
+                                    
+                                    OutboxVisaObj.File_name = DocName;
+                                    OutboxVisaObj.File_ext = type;
 
                                     if (string.IsNullOrEmpty(Session_CS.local_connectionstring))
                                     {
-                                        cmd.Connection = con;
-                                        cmd.Parameters["@File_data"].Value = Input;
-                                        con.Open();
-                                        cmd.ExecuteScalar();
-                                        con.Close();
+                                        OutboxVisaObj.File_data = Input;
+                                        //cmd.Connection = con;
+                                        //cmd.Parameters["@File_data"].Value = Input;
+                                        //con.Open();
+                                        //cmd.ExecuteScalar();
+                                        //con.Close();
 
                                     }
                                     else
                                     {
-
-                                        cmd.Connection = con;
-                                        cmd.Parameters["@File_data"].Value = DBNull.Value;
-                                        con.Open();
-                                        cmd.ExecuteScalar();
-                                        con.Close();
+                                        
+                                        //cmd.Connection = con;
+                                        //cmd.Parameters["@File_data"].Value = DBNull.Value;
+                                        //con.Open();
+                                        //cmd.ExecuteScalar();
+                                        //con.Close();
                                         try
                                         {
+                                            SqlCommand cmd = new SqlCommand();
+                                            SqlConnection con = new SqlConnection();
+                                            SqlCommand cmd_local = new SqlCommand();
+                                            SqlConnection con_local = new SqlConnection();
+                                            con = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
+                                            con_local = new SqlConnection(Session_CS.local_connectionstring);
+                                            cmd.Parameters.Add("@File_data", SqlDbType.VarBinary);
+                                            cmd.Parameters.Add("@File_name", SqlDbType.NVarChar);
+                                            cmd.Parameters.Add("@File_ext", SqlDbType.NVarChar);
+                                            cmd.Parameters.Add("@visa_ID", SqlDbType.BigInt);
+
+                                            //cmd.Parameters["@File_data"].Value = Input;
+                                            cmd.Parameters["@File_name"].Value = DocName;
+                                            cmd.Parameters["@File_ext"].Value = type;
+                                            cmd.Parameters["@visa_ID"].Value = OutboxVisaObj.Visa_Id;
+                                            cmd.CommandType = CommandType.Text;
+                                            cmd.CommandText = " update Outbox_Visa set File_data =@File_data ,File_name=@File_name,File_ext=@File_ext where visa_ID =@visa_ID";
+
                                             cmd.Connection = con_local;
                                             cmd.Parameters["@File_data"].Value = Input;
 
@@ -2557,6 +2578,8 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
 
 
                                 }
+                                outboxContext.SaveChanges();
+                                Save_inox_Visa(CDataConverter.ConvertToInt(hidden_Visa_Id.Value));
 
                             }
                             else
@@ -2564,7 +2587,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                                 Outbox_Visa OutboxVisa = new Outbox_Visa
                                 {
                                     Visa_Id = CDataConverter.ConvertToInt(hidden_Visa_Id.Value),
-                                    Outbox_ID = CDataConverter.ConvertToInt(hidden_Id.Value),
+                                    Outbox_ID = CDataConverter.ConvertToInt(Outbox_ID.Value),
                                     Visa_date = txt_Visa_date.Text,
                                     Important_Degree = CDataConverter.ConvertToInt(ddl_Important_Degree.SelectedValue),
                                     Important_Degree_Txt = (string.IsNullOrEmpty(txt_Important_Degree_Txt.Text) ? ddl_Important_Degree.SelectedItem.Text : txt_Important_Degree_Txt.Text),
@@ -2581,10 +2604,8 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                                     Visa_Goal_ID = CDataConverter.ConvertToInt(ddl_Visa_Goal_ID.SelectedValue),
                                     mail_sent = 0
                                 };
-                                outboxContext.Outbox_Visa.Add(OutboxVisa);
-                                outboxContext.SaveChanges();
-                                hidden_Visa_Id.Value = OutboxVisa.Visa_Id.ToString();
-                                Save_inox_Visa(CDataConverter.ConvertToInt(hidden_Visa_Id.Value));
+                                
+                                
                                 if (FileUpload_Visa.HasFile)
                                 {
                                     string DocName = FileUpload_Visa.FileName;
@@ -2598,44 +2619,48 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                                     Byte[] Input = new Byte[fileLen];
                                     myStream = FileUpload_Visa.FileContent;
                                     myStream.Read(Input, 0, fileLen);
-
-                                    SqlCommand cmd = new SqlCommand();
-                                    SqlConnection con = new SqlConnection();
-                                    SqlCommand cmd_local = new SqlCommand();
-                                    SqlConnection con_local = new SqlConnection();
-                                    con = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
-                                    con_local = new SqlConnection(Session_CS.local_connectionstring);
-                                    cmd.Parameters.Add("@File_data", SqlDbType.VarBinary);
-                                    cmd.Parameters.Add("@File_name", SqlDbType.NVarChar);
-                                    cmd.Parameters.Add("@File_ext", SqlDbType.NVarChar);
-                                    cmd.Parameters.Add("@visa_ID", SqlDbType.BigInt);
-
-                                    //cmd.Parameters["@File_data"].Value = Input;
-                                    cmd.Parameters["@File_name"].Value = DocName;
-                                    cmd.Parameters["@File_ext"].Value = type;
-                                    cmd.Parameters["@visa_ID"].Value = OutboxVisa.Visa_Id;
-                                    cmd.CommandType = CommandType.Text;
-                                    cmd.CommandText = " update Outbox_Visa set File_data =@File_data ,File_name=@File_name,File_ext=@File_ext where visa_ID =@visa_ID";
-
+                                    OutboxVisa.File_name = DocName;
+                                    OutboxVisa.File_ext = type;
+                                   
+                                   
                                     if (string.IsNullOrEmpty(Session_CS.local_connectionstring))
                                     {
-                                        cmd.Connection = con;
-                                        cmd.Parameters["@File_data"].Value = Input;
-                                        con.Open();
-                                        cmd.ExecuteScalar();
-                                        con.Close();
+                                        OutboxVisa.File_data = Input;
+                                        //cmd.Connection = con;
+                                        //cmd.Parameters["@File_data"].Value = Input;
+                                        //con.Open();
+                                        //cmd.ExecuteScalar();
+                                        //con.Close();
 
                                     }
                                     else
                                     {
-
-                                        cmd.Connection = con;
-                                        cmd.Parameters["@File_data"].Value = DBNull.Value;
-                                        con.Open();
-                                        cmd.ExecuteScalar();
-                                        con.Close();
+                                        
+                                        //cmd.Connection = con;
+                                        //cmd.Parameters["@File_data"].Value = DBNull.Value;
+                                        //con.Open();
+                                        //cmd.ExecuteScalar();
+                                        //con.Close();
                                         try
                                         {
+                                            SqlCommand cmd = new SqlCommand();
+                                            SqlConnection con = new SqlConnection();
+                                            SqlCommand cmd_local = new SqlCommand();
+                                            SqlConnection con_local = new SqlConnection();
+                                            con = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
+                                            con_local = new SqlConnection(Session_CS.local_connectionstring);
+                                            cmd.Parameters.Add("@File_data", SqlDbType.VarBinary);
+                                            cmd.Parameters.Add("@File_name", SqlDbType.NVarChar);
+                                            cmd.Parameters.Add("@File_ext", SqlDbType.NVarChar);
+                                            cmd.Parameters.Add("@visa_ID", SqlDbType.BigInt);
+
+                                            //cmd.Parameters["@File_data"].Value = Input;
+                                            cmd.Parameters["@File_name"].Value = DocName;
+                                            cmd.Parameters["@File_ext"].Value = type;
+                                            cmd.Parameters["@visa_ID"].Value = OutboxVisa.Visa_Id;
+                                            cmd.CommandType = CommandType.Text;
+                                            cmd.CommandText = " update Outbox_Visa set File_data =@File_data ,File_name=@File_name,File_ext=@File_ext where visa_ID =@visa_ID";
+
                                             cmd.Connection = con_local;
                                             cmd.Parameters["@File_data"].Value = Input;
 
@@ -2658,11 +2683,14 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
 
 
                                 }
-
+                                outboxContext.Outbox_Visa.Add(OutboxVisa);
+                                outboxContext.SaveChanges();
+                                hidden_Visa_Id.Value = OutboxVisa.Visa_Id.ToString();
+                                Save_inox_Visa(CDataConverter.ConvertToInt(hidden_Visa_Id.Value));
                             }
                             ////Outbox_Visa_DT obj = new Outbox_Visa_DT();
                             ////obj.Visa_Id = CDataConverter.ConvertToInt(hidden_Visa_Id.Value);
-                            ////obj.Outbox_ID = CDataConverter.ConvertToInt(hidden_Id.Value);
+                            ////obj.Outbox_ID = CDataConverter.ConvertToInt(Outbox_ID.Value);
                             ////obj.Visa_date = txt_Visa_date.Text;
                             ////obj.Important_Degree = CDataConverter.ConvertToInt(ddl_Important_Degree.SelectedValue);
                             ////obj.Important_Degree_Txt = txt_Important_Degree_Txt.Text;
@@ -2700,7 +2728,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                             Fil_Emp_Visa_Follow();
                             ///////////////////////// update have visa = 1/////////////////////////////////////////////
 
-                            Update_Have_Visa_all_emp(CDataConverter.ConvertToInt(hidden_Id.Value));
+                            Update_Have_Visa_all_emp(CDataConverter.ConvertToInt(Outbox_ID.Value));
                             lst_emp.Items.Clear();
                         }
                         else
@@ -2748,11 +2776,12 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         Byte[] Input = new Byte[0];
         if (CDataConverter.ConvertToDate(txt_Follow_Date.Text) >= CDataConverter.ConvertToDate(txt_Date.Text))
         {
-            if (CDataConverter.ConvertToInt(hidden_Id.Value) > 0)
+            if (CDataConverter.ConvertToInt(Outbox_ID.Value) > 0)
             {
                 using (var outboxContext = new OutboxContext())
                 {
-                    Outbox_Visa_Follows Outbox_Visa_Follow = outboxContext.Outbox_Visa_Follows.Where(x => x.Follow_ID == CDataConverter.ConvertToInt(hidden_Follow_ID.Value)).SingleOrDefault();
+                    var hiddFollowVal=CDataConverter.ConvertToInt(hidden_Follow_ID.Value);
+                    Outbox_Visa_Follows Outbox_Visa_Follow = outboxContext.Outbox_Visa_Follows.Where(x => x.Follow_ID == hiddFollowVal).SingleOrDefault();
                     ////Outbox_Visa_Follows_DT obj = Outbox_Visa_Follows_DB.SelectByID(CDataConverter.ConvertToInt(hidden_Follow_ID.Value));
                     if (FileUpload_Visa_Follow.HasFile)
                     {
@@ -2771,7 +2800,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                     if (Outbox_Visa_Follow != null)
                     {
                         Outbox_Visa_Follow.Follow_ID = CDataConverter.ConvertToInt(hidden_Follow_ID.Value);
-                        Outbox_Visa_Follow.Outbox_ID = CDataConverter.ConvertToInt(hidden_Id.Value);
+                        Outbox_Visa_Follow.Outbox_ID = CDataConverter.ConvertToInt(Outbox_ID.Value);
                         Outbox_Visa_Follow.Descrption = txt_Descrption.Text;
                         Outbox_Visa_Follow.Date = txt_Follow_Date.Text;
                         Outbox_Visa_Follow.time_follow = CDataConverter.ConvertTimeNowRtnLongTimeFormat();
@@ -2853,7 +2882,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                         Outbox_Visa_Follows Outbox_Visa_FollowNew = new Outbox_Visa_Follows
                         {
 
-                            Outbox_ID = CDataConverter.ConvertToInt(hidden_Id.Value),
+                            Outbox_ID = CDataConverter.ConvertToInt(Outbox_ID.Value),
                             Descrption = txt_Descrption.Text,
                             Date = txt_Follow_Date.Text,
                             time_follow = CDataConverter.ConvertTimeNowRtnLongTimeFormat(),
@@ -2870,12 +2899,13 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
 
                     ////SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
                     ////DataTable DT = new DataTable();
-                    ////DT = General_Helping.GetDataTable("select * from Outbox_Track_Manager where Outbox_id = " + hidden_Id.Value);
-                    var OutboxTrackManagerDT = outboxContext.Outbox_Track_Manager.Where(x => x.Outbox_id == CDataConverter.ConvertToInt(hidden_Id.Value));
+                    ////DT = General_Helping.GetDataTable("select * from Outbox_Track_Manager where Outbox_id = " + Outbox_ID.Value);
+                    var hiddVal= CDataConverter.ConvertToInt(Outbox_ID.Value);
+                    var OutboxTrackManagerDT = outboxContext.Outbox_Track_Manager.Where(x => x.Outbox_id == hiddVal);
                     if (OutboxTrackManagerDT.Count() > 0)
                     {
                         ////conn.Open();
-                        ////string sql = "update Outbox_Track_Manager set Have_Follow=1 where Outbox_id =" + hidden_Id.Value;
+                        ////string sql = "update Outbox_Track_Manager set Have_Follow=1 where Outbox_id =" + Outbox_ID.Value;
                         ////SqlCommand cmd = new SqlCommand(sql, conn);
                         ////cmd.ExecuteNonQuery();
                         ////conn.Close();
@@ -2917,16 +2947,19 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
     private void Update_Have_Visa(string Visa_Id)
     {
         using (var outboxContext = new OutboxContext()) {
-            var OutboxVisa = outboxContext.Outbox_Visa.Where(x => x.mail_sent == 1 && x.Visa_Id != CDataConverter.ConvertToInt(Visa_Id) && x.Outbox_ID == CDataConverter.ConvertToInt(hidden_Id.Value));
-        ////string Sql_Visa_Sent = "select Visa_Id from Outbox_Visa where mail_sent = 1 and Visa_Id !=" + Visa_Id + " and Outbox_id = " + hidden_Id.Value;
+            var visaVal=CDataConverter.ConvertToInt(Visa_Id);
+            var outboxVal=CDataConverter.ConvertToInt(Outbox_ID.Value);
+            var OutboxVisa = outboxContext.Outbox_Visa.Where(x => x.mail_sent == 1 && x.Visa_Id != visaVal && x.Outbox_ID == outboxVal);
+        ////string Sql_Visa_Sent = "select Visa_Id from Outbox_Visa where mail_sent = 1 and Visa_Id !=" + Visa_Id + " and Outbox_id = " + Outbox_ID.Value;
         //// int Visa_Sent_Count = General_Helping.GetDataTable(Sql_Visa_Sent).Rows.Count;
         if (OutboxVisa.Count() == GridView_Visa.Rows.Count - 1)
         {
-            //// DataTable DT = General_Helping.GetDataTable("select * from Outbox_Track_Manager where Outbox_id = " + hidden_Id.Value);
-            var OutboxTrackManagers = outboxContext.Outbox_Track_Manager.Where(x => x.Outbox_id == CDataConverter.ConvertToInt(hidden_Id.Value));
+            //// DataTable DT = General_Helping.GetDataTable("select * from Outbox_Track_Manager where Outbox_id = " + Outbox_ID.Value);
+            
+            var OutboxTrackManagers = outboxContext.Outbox_Track_Manager.Where(x => x.Outbox_id == outboxVal);
             if (OutboxTrackManagers.Count() > 0)
             {
-                ////string sql = "update Outbox_Track_Manager set Have_visa=0 , All_visa_sent=1 where Outbox_id =" + hidden_Id.Value;
+                ////string sql = "update Outbox_Track_Manager set Have_visa=0 , All_visa_sent=1 where Outbox_id =" + Outbox_ID.Value;
                 /////General_Helping.ExcuteQuery(sql);
                 foreach (var OutboxTrackManager in OutboxTrackManagers)
                 {
@@ -3013,7 +3046,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                         {
                             Outbox_Track_Manager OutboxTrackManager = new Outbox_Track_Manager
                             {
-                                Outbox_id = CDataConverter.ConvertToInt(hidden_Id.Value),
+                                Outbox_id = CDataConverter.ConvertToInt(Outbox_ID.Value),
                                 Have_Visa = 0,
                                 Have_Follow = 0,
                                 IS_New_Mail = 1,
@@ -3027,7 +3060,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                             };
 
                             ////Outbox_Track_Manager_DT obj = new Outbox_Track_Manager_DT();
-                            ////obj.Outbox_id = CDataConverter.ConvertToInt(hidden_Id.Value);
+                            ////obj.Outbox_id = CDataConverter.ConvertToInt(Outbox_ID.Value);
                             ////obj.Have_Visa = 0;
                             ////obj.Have_Follow = 0;
                             ////obj.IS_New_Mail = 1;
@@ -3181,7 +3214,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
     }
     protected void btnClear_Click(object sender, EventArgs e)
     {
-        hidden_Id.Value = "";
+        Outbox_ID.Value = "";
         txt_Code.Text = "";
         Smart_Org_ID.SelectedValue = "";
         txt_Org_Out_Box_Code.Text = "";
@@ -3205,7 +3238,8 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         ////DataTable DT = General_Helping.GetDataTable("select * from Outbox_Track_Emp where Outbox_id = " + Outbox_id + " and Emp_ID =" + Emp_ID);
         using (var outboxContext = new OutboxContext())
         {
-            var Outbox_Track_Emps = outboxContext.Outbox_Track_Emp.Where(x => x.Outbox_id == CDataConverter.ConvertToInt(Outbox_id) && x.Emp_ID == Emp_ID);
+            var outboxVal=CDataConverter.ConvertToInt(Outbox_id);
+            var Outbox_Track_Emps = outboxContext.Outbox_Track_Emp.Where(x => x.Outbox_id == outboxVal  && x.Emp_ID == Emp_ID);
             if (Outbox_Track_Emps.Count() > 0)
             {
 
@@ -3242,17 +3276,26 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
 
         using (var outboxContext = new OutboxContext())
         {
-            var OutboxVisaEmps = outboxContext.get_OutboxVisaEmps(CDataConverter.ConvertToInt(visa_ID));
-            DataTable DT = extentionMethods.ToDataTable(OutboxVisaEmps);
-            if (DT.Rows.Count > 0) { 
-                foreach (DataRow dr in DT.Rows)
+            string result = "";
+            var visaVal = CDataConverter.ConvertToInt(visa_ID);
+           
+            List<string> OutboxVisaEmps = outboxContext.get_OutboxVisaEmps(visaVal).ToList();
+            //    SELECT EMPLOYEE.pmp_name 
+            //      FROM Outbox_Visa_Emp INNER JOIN EMPLOYEE ON Outbox_Visa_Emp.Emp_ID = EMPLOYEE.PMP_ID 
+            //      WHERE Outbox_Visa_Emp.Visa_Id  = @visa_ID
+            //DataTable DT = extentionMethods.ToDataTable(OutboxVisaEmps);
+            if (OutboxVisaEmps.Count() > 0)
+            {
+                foreach (string item in OutboxVisaEmps)
                 {
 
-                    emp_name += dr["pmp_name"] + ",";
+                    emp_name += item + ",";
                 }
+                int lastindx = emp_name.LastIndexOf(',');
+                result = emp_name.Substring(0, lastindx);
             }
-            int lastindx = emp_name.LastIndexOf(',');
-            string result = emp_name.Substring(0, lastindx);
+            
+           
             return result;
             //string visa_ID = obj.ToString();
             //string emp_name = "";
