@@ -711,6 +711,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                 string sql_related = "";
              
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('لقد تم الحفظ بنجاح');", true);
+                var inboxContext = new InboxContext();
 
 
                 if (ddl_Related_Type.SelectedValue == "2")
@@ -722,19 +723,44 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
               
                     //General_Helping.ExcuteQuery(sql_related);
 
-                    Inbox_Relations inb_relations = new Inbox_Relations();
-                    inb_relations.ID = obj.ID;
-                    inb_relations.inbox_id_type = 1;
-                    inb_relations.Related_ID = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue);
-                    inb_relations.Related_ID_Type = 2;
-                    inb_relations.foundation_id = found;
-                    InsertOrUpdate_InboxRelations(inb_relations);
-                    inb_relations.ID = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue);
-                    inb_relations.inbox_id_type = 2;
-                    inb_relations.Related_ID = obj.ID ;
-                    inb_relations.Related_ID_Type = 1;
-                    inb_relations.foundation_id = found;
-                    InsertOrUpdate_InboxRelations(inb_relations);
+                    //Inbox_Relations inb_relations = new Inbox_Relations();
+                    //inb_relations.ID = obj.ID;
+                    //inb_relations.inbox_id_type = 1;
+                    //inb_relations.Related_ID = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue);
+                    //inb_relations.Related_ID_Type = 2;
+                    //inb_relations.foundation_id = found;
+                    //InsertOrUpdate_InboxRelations(inb_relations);
+                    //inb_relations.ID = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue);
+                    //inb_relations.inbox_id_type = 2;
+                    //inb_relations.Related_ID = obj.ID ;
+                    //inb_relations.Related_ID_Type = 1;
+                    //inb_relations.foundation_id = found;
+                    //InsertOrUpdate_InboxRelations(inb_relations);
+
+
+
+                    Inbox_Relations InboxRelation1 = new Inbox_Relations
+                    {
+                        ID = obj.ID,
+
+                       // inbox_id = CDataConverter.ConvertToInt(Inbox_ID.Value),
+                        inbox_id_type = 1,
+                        Related_ID = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue),
+                        Related_ID_Type = 2,
+                        foundation_id = found
+                    };
+                    Inbox_Relations InboxRelation2 = new Inbox_Relations
+                    {
+                        ID = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue),
+                        inbox_id_type = 2,
+                        Related_ID = obj.ID ,
+                        Related_ID_Type = 1,
+                        foundation_id = found
+                    };
+
+                    inboxContext.Inbox_Relations.Add(InboxRelation1);
+                    inboxContext.Inbox_Relations.Add(InboxRelation2);
+                    inboxContext.SaveChanges();
 
                 }
                 else if (ddl_Related_Type.SelectedValue == "3" || ddl_Related_Type.SelectedValue == "4")
