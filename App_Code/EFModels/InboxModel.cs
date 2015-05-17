@@ -454,6 +454,14 @@ namespace EFModels
 {
     using System;
     
+    public partial class get_max_code_inbox
+    {
+    }
+}
+namespace EFModels
+{
+    using System;
+    
     public partial class get_related_inbox_inbox_page
     {
     }

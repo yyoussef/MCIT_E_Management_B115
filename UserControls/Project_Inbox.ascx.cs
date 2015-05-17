@@ -477,6 +477,22 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
         // Session_CS.Project_id = null;
 
     }
+
+    public void InsertOrUpdate_Inbox(Inbox blog)
+    {
+
+
+        using (var context = new InboxContext())
+        {
+
+            context.Entry(blog).State = blog.ID  == 0 ?
+                                      System.Data.Entity.EntityState.Added :
+                                      System.Data.Entity.EntityState.Modified;
+
+            context.SaveChanges();
+        }
+    }
+
     protected void btnSave_Click(object sender, EventArgs e)
     {
         if ((CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 2 && CDataConverter.ConvertToInt(Smart_Org_ID.SelectedValue) > 0) || CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 1 || CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 3)
@@ -487,8 +503,24 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                
                     if (Session_CS.code_outbox == 1)
                     {
+                        int session_found = Session_CS.foundation_id;
                       DataTable getmax = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_max_code_inbox", Session_CS.foundation_id).Tables[0];
-                        txt_Code.Text = getmax.Rows[0]["code"].ToString();
+
+                  // DataTable getmax = pm_inbox.get_max_code_inbox(Session_CS.foundation_id).ToDataTable();
+
+                      //using (var context = new InboxContext())
+                      //{
+                      //    var foundation_id = session_found ;
+
+                      //    var blogs = context.Database.SqlQuery<int>("dbo.get_max_code_inbox foundation_id", foundation_id).ToDataTable();
+                      //    DataTable getmax = blogs;
+                      //    txt_Code.Text = getmax.Rows[0]["code"].ToString();
+
+                      //}
+
+                      txt_Code.Text = getmax.Rows[0]["code"].ToString();
+                        
+                        
                     }
                 
             }
@@ -496,7 +528,12 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
             int dept = 0;
             int pmp = 0;
             int group = 0;
-            Inbox_DT obj = new Inbox_DT();
+
+          //  Inbox_DT obj = new Inbox_DT();
+
+            Inbox obj = new Inbox();
+
+
             obj.ID = CDataConverter.ConvertToInt(hidden_Id.Value);
             if (Smart_Search_Proj.SelectedValue != "")
             {
@@ -512,36 +549,36 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
             obj.Code = txt_Code.Text;
             obj.Date = txt_Date.Text;
-            if (obj.ID == 0)
-            {
+          //  if (obj.ID == 0)
+       //     {
                 datenow = CDataConverter.ConvertDateTimeNowRtrnString();//DateTime.Now.ToString();
                 obj.Enter_Date = datenow;
                 dept = int.Parse(Session_CS.dept_id.ToString());
                 pmp = int.Parse(Session_CS.pmp_id.ToString());
                 group = int.Parse(Session_CS.group_id.ToString());
-                obj.Dept_Dept_id = dept;
+                obj.Dept_Dept_ID = dept;
                 obj.pmp_pmp_id = pmp;
                 obj.Group_id = group;
 
-            }
-            else
-            {
-                //SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
-                //con.Open();
-                //string sql = "select Enter_Date,Dept_Dept_id,Group_id,pmp_pmp_id from inbox where ID = " + obj.ID;
-                //SqlDataAdapter da = new SqlDataAdapter(sql, con);
-                //DataSet ds = new DataSet();
-                //da.Fill(ds);
-                DataTable dt_par = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_par_by_inbox_id", obj.ID).Tables[0];
-                datenow = dt_par.Rows[0]["Enter_Date"].ToString();
-                dept = int.Parse(dt_par.Rows[0]["Dept_Dept_id"].ToString());
-                group = int.Parse(dt_par.Rows[0]["Group_id"].ToString());
-                pmp = int.Parse(dt_par.Rows[0]["pmp_pmp_id"].ToString());
-                obj.Enter_Date = datenow;
-                obj.Dept_Dept_id = dept;
-                obj.Group_id = group;
-                obj.pmp_pmp_id = pmp;
-            }
+         //   }
+            //else
+            //{
+            //    //SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
+            //    //con.Open();
+            //    //string sql = "select Enter_Date,Dept_Dept_id,Group_id,pmp_pmp_id from inbox where ID = " + obj.ID;
+            //    //SqlDataAdapter da = new SqlDataAdapter(sql, con);
+            //    //DataSet ds = new DataSet();
+            //    //da.Fill(ds);
+            //    DataTable dt_par = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_par_by_inbox_id", obj.ID).Tables[0];
+            //    datenow = dt_par.Rows[0]["Enter_Date"].ToString();
+            //    dept = int.Parse(dt_par.Rows[0]["Dept_Dept_id"].ToString());
+            //    group = int.Parse(dt_par.Rows[0]["Group_id"].ToString());
+            //    pmp = int.Parse(dt_par.Rows[0]["pmp_pmp_id"].ToString());
+            //    obj.Enter_Date = datenow;
+            //    obj.Dept_Dept_ID = dept;
+            //    obj.Group_id = group;
+            //    obj.pmp_pmp_id = pmp;
+            //}
 
             obj.Type = CDataConverter.ConvertToInt(ddl_Type.SelectedValue);
             if (CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 1)
@@ -602,7 +639,11 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
             {
                 if (CDataConverter.ConvertToInt(Session_CS.group_id.ToString()) == 3)
                 {
-                    DataTable dt_code = General_Helping.GetDataTable("select * from inbox where code = '" + txt_Code.Text + "' and group_id = 3");
+                  //DataTable dt_code = General_Helping.GetDataTable("select * from inbox where code = '" + txt_Code.Text + "' and group_id = 3");
+
+                    var query = from inbx in pm_inbox.Inboxes where inbx.Code==txt_Code.Text && inbx.Group_id== 3 select inbx ;
+                    DataTable dt_code = query.ToDataTable();
+
                     if (dt_code.Rows.Count > 0)
                     {
                         string year_inbox_DB = CDataConverter.ConvertToDate(dt_code.Rows[0]["Date"].ToString()).Year.ToString();
@@ -619,7 +660,11 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                 }
             }
             obj.foundation_id = CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString());
-            obj.ID = Inbox_DB.Save(obj);
+
+          //  obj.ID = Inbox_DB.Save(obj);
+
+            InsertOrUpdate_Inbox(obj);
+
 
             
 
@@ -633,18 +678,21 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
             {
                 if (item.Selected)
                 {
-                    ////string Sql_insert = "insert into inbox_cat ( inbox_id , Cat_id ,Type,inbox_type) values ( " + obj.ID + "," + item.Value + ",1,1 " + ")";
-                    ////General_Helping.ExcuteQuery(Sql_insert);
-                    Inbox_DB.inbox_cat_save(CDataConverter.ConvertToInt(obj.ID), CDataConverter.ConvertToInt(item.Value), 1, 1);
+                    
+                   // Inbox_DB.inbox_cat_save(CDataConverter.ConvertToInt(obj.ID), CDataConverter.ConvertToInt(item.Value), 1, 1);
+
+                    pm_inbox.Inbox_cat_save(CDataConverter.ConvertToInt(obj.ID), CDataConverter.ConvertToInt(item.Value), 1, 1);
+
                 }
             }
             foreach (ListItem item in Chk_sub_cat.Items)
             {
                 if (item.Selected)
                 {
-                    //string Sql_insert = "insert into inbox_cat ( inbox_id , Cat_id ,Type,inbox_type) values ( " + obj.ID + "," + item.Value + ",2,1 " + ")";
-                    //General_Helping.ExcuteQuery(Sql_insert);
-                    Inbox_DB.inbox_cat_save(CDataConverter.ConvertToInt(obj.ID), CDataConverter.ConvertToInt(item.Value), 2, 1);
+                   
+                    //Inbox_DB.inbox_cat_save(CDataConverter.ConvertToInt(obj.ID), CDataConverter.ConvertToInt(item.Value), 2, 1);
+
+                    pm_inbox.Inbox_cat_save(CDataConverter.ConvertToInt(obj.ID), CDataConverter.ConvertToInt(item.Value), 2, 1);
                 }
             }
             hidden_Id.Value = obj.ID.ToString();
@@ -667,19 +715,41 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
                 if (ddl_Related_Type.SelectedValue == "2")
                 {
+                   
+                    //sql_related = "insert into Inbox_Relations values ( " + obj.ID + ",1," + CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue) + ",2," + found + " )";
+                    //sql_related += ", values ( " + CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue) + ",2," + obj.ID + ",1," + found + " )";
 
-                    //sql_related = "insert into Inbox_Relations values ( " + obj.ID + "," + CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue) + ",2,1," + found + " )";
-                    sql_related = "insert into Inbox_Relations values ( " + obj.ID + ",1," + CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue) + ",2," + found + " )";
-                    sql_related += ", values ( " + CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue) + ",2," + obj.ID + ",1," + found + " )";
+              
+                    //General_Helping.ExcuteQuery(sql_related);
 
+                    Inbox_Relations inb_relations = new Inbox_Relations();
+                    inb_relations.ID = obj.ID;
+                    inb_relations.inbox_id_type = 1;
+                    inb_relations.Related_ID = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue);
+                    inb_relations.Related_ID_Type = 2;
+                    inb_relations.foundation_id = found;
+                    InsertOrUpdate_InboxRelations(inb_relations);
+                    inb_relations.ID = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue);
+                    inb_relations.inbox_id_type = 2;
+                    inb_relations.Related_ID = obj.ID ;
+                    inb_relations.Related_ID_Type = 1;
+                    inb_relations.foundation_id = found;
+                    InsertOrUpdate_InboxRelations(inb_relations);
 
-                    General_Helping.ExcuteQuery(sql_related);
                 }
                 else if (ddl_Related_Type.SelectedValue == "3" || ddl_Related_Type.SelectedValue == "4")
                 {
-                    // sql_related = "insert into Inbox_Relations values ( " + obj.ID + "," + CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue) + ",1,1," + found + " )";
-                    sql_related = "insert into Inbox_Relations values ( " + obj.ID + ",1," + CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue) + ",1," + found + " )";
-                    General_Helping.ExcuteQuery(sql_related);
+
+                    //sql_related = "insert into Inbox_Relations values ( " + obj.ID + ",1," + CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue) + ",1," + found + " )";
+                    //General_Helping.ExcuteQuery(sql_related);
+
+                    Inbox_Relations inb_relations = new Inbox_Relations();
+                    inb_relations.ID = obj.ID;
+                    inb_relations.inbox_id_type = 1;
+                    inb_relations.Related_ID = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue);
+                    inb_relations.Related_ID_Type = 1;
+                    inb_relations.foundation_id = found;
+                    InsertOrUpdate_InboxRelations(inb_relations);
                 }
 
 
@@ -693,8 +763,17 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
             }
             if (ddl_Related_Type.SelectedValue == "2")
             {
-                string sql = "update Outbox set Related_Type =5 , Related_Id = " + hidden_Id.Value + " where ID = " + Smart_Related_Id.SelectedValue + " and Related_Type=1";
-                General_Helping.ExcuteQuery(sql);
+                //string sql = "update Outbox set Related_Type =5 , Related_Id = " + hidden_Id.Value + " where ID = " + Smart_Related_Id.SelectedValue + " and Related_Type=1";
+                //General_Helping.ExcuteQuery(sql);
+
+                int smartValue = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue);
+                IEnumerable<Outbox> outboxObjs = outboxDBContext.Outboxes.Where(x => x.ID == smartValue && x.Related_Type == 1);
+                foreach (Outbox outboxObj in outboxObjs)
+                {
+                    outboxObj.Related_Type = 5;
+                    outboxObj.Related_Id = CDataConverter.ConvertToInt(hidden_Id.Value);
+                }
+                outboxDBContext.SaveChanges();
             }
 
         }
@@ -712,6 +791,23 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
         //Session_CS.Project_id = null;
     }
+   
+
+    public void InsertOrUpdate_InboxRelations(Inbox_Relations  blog)
+    {
+
+
+        using (var context = new InboxContext())
+        {
+
+            context.Entry(blog).State = blog.ID == 0 ?
+                                      System.Data.Entity.EntityState.Added :
+                                      System.Data.Entity.EntityState.Modified;
+
+            context.SaveChanges();
+        }
+    }
+
     private void Fil_Dll()
     {
         //    DataTable DT = new DataTable();
@@ -1253,6 +1349,21 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
               Smart_Related_Id.DataBind();
           }
     }
+    public void InsertOrUpdate_Inbox_Outbox_files(Inbox_OutBox_Files blog)
+    {
+
+
+        using (var context = new InboxContext())
+        {
+            context.Entry(blog).State = blog.Inbox_OutBox_File_ID == 0 ?
+                                      System.Data.Entity.EntityState.Added :
+                                      System.Data.Entity.EntityState.Modified;
+
+            context.SaveChanges();
+
+        }
+    }
+
 
     protected void btn_Doc_Click(object sender, EventArgs e)
     {
@@ -1264,6 +1375,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
         //SqlConnection con_local = new SqlConnection();
         //con = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
         //con_local = new SqlConnection(Session_CS.local_connectionstring);
+
         int out_box = 0;
         
 
@@ -1284,9 +1396,9 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                 myStream = FileUpload1.FileContent;
                 myStream.Read(Input, 0, fileLen);
 
-             Stream fss=   FileUpload1.PostedFile.InputStream;
-             BinaryReader br = new BinaryReader(fss);
-             byte[] bytes = br.ReadBytes((Int32)fss.Length);
+                Stream fss = FileUpload1.PostedFile.InputStream;
+                BinaryReader br = new BinaryReader(fss);
+                byte[] bytes = br.ReadBytes((Int32)fss.Length);
 
                 //cmd.Parameters.Add("@File_data", SqlDbType.VarBinary);
                 //cmd.Parameters.Add("@Inbox_OutBox_File_ID", SqlDbType.Int);
@@ -1305,93 +1417,117 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                 if (CDataConverter.ConvertToInt(hidden_Inbox_OutBox_File_ID.Value) > 0)
                 {
                     int xx = CDataConverter.ConvertToInt(hidden_Inbox_OutBox_File_ID.Value);
-                  //  cmd.CommandText = " update Inbox_OutBox_Files set Original_Or_Attached=@Original_Or_Attached ,File_data=@File_data ,File_name=@File_name,File_ext=@File_ext where Inbox_OutBox_File_ID =@Inbox_OutBox_File_ID";
+                    //  cmd.CommandText = " update Inbox_OutBox_Files set Original_Or_Attached=@Original_Or_Attached ,File_data=@File_data ,File_name=@File_name,File_ext=@File_ext where Inbox_OutBox_File_ID =@Inbox_OutBox_File_ID";
 
                     Inbox_OutBox_Files in_out_files = pm_inbox.Inbox_OutBox_Files.Where((x => x.Inbox_OutBox_File_ID == xx)).SingleOrDefault();
 
-                    if (string.IsNullOrEmpty(Session_CS.local_connectionstring))
-                    {
-                        //cmd.Connection = con;
-                        //cmd.Parameters["@File_data"].Value = bytes;
-                        //cmd.Parameters["@Inbox_Outbox_ID"].Value = CDataConverter.ConvertToInt(hidden_Id.Value);
-                        //con.Open();
-                        //cmd.ExecuteScalar();
-                        //con.Close();
-                    }
-                    else
-                    {
-                        //cmd.Connection = con;
-                        //cmd.Parameters["@File_data"].Value = DBNull.Value;
-                        //cmd.Parameters["@Inbox_Outbox_ID"].Value = CDataConverter.ConvertToInt(hidden_Id.Value);
-                        //con.Open();
-                        //cmd.ExecuteScalar();
-                        //con.Close();
-                        try
-                        {
-                            //cmd.Connection = con_local;
-                            //cmd.Parameters["@File_data"].Value = bytes;
-                            //cmd.Parameters["@Inbox_Outbox_ID"].Value = CDataConverter.ConvertToInt(hidden_Id.Value);
+                    in_out_files.Original_Or_Attached = CDataConverter.ConvertToInt(ddl_Original_Or_Attached.SelectedValue);
+                    in_out_files.File_ext = type;
+                    in_out_files.File_name = txtFileName.Text;
+                    in_out_files.Inbox_Or_Outbox = 1;
+                    in_out_files.File_data = Input;
 
-                            //con_local.Open();
-                            //cmd.ExecuteScalar();
-                            //con_local.Close();
-                        }
-                        catch
-                        {
-                            // can't connect to sql local, we should show message here
-                           // ShowAlertMessage(" عفوا لم يتم الإتصال بقاعدة البيانات الداخلية");
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('عفوا لم يتم الإتصال بقاعدة البيانات الداخلية ');", true);
 
-                        }
-                    }
+                    //   if (string.IsNullOrEmpty(Session_CS.local_connectionstring))
+                    // {
+                    //cmd.Connection = con;
+                    //cmd.Parameters["@File_data"].Value = bytes;
+                    //cmd.Parameters["@Inbox_Outbox_ID"].Value = CDataConverter.ConvertToInt(hidden_Id.Value);
+                    //con.Open();
+                    //cmd.ExecuteScalar();
+                    //con.Close();
+                    //  }
+                    //   else
+                    //     {
+                    //cmd.Connection = con;
+                    //cmd.Parameters["@File_data"].Value = DBNull.Value;
+                    //cmd.Parameters["@Inbox_Outbox_ID"].Value = CDataConverter.ConvertToInt(hidden_Id.Value);
+                    //con.Open();
+                    //cmd.ExecuteScalar();
+                    //con.Close();
+                    // try
+                    //{
+                    //     //cmd.Connection = con_local;
+                    //     //cmd.Parameters["@File_data"].Value = bytes;
+                    //     //cmd.Parameters["@Inbox_Outbox_ID"].Value = CDataConverter.ConvertToInt(hidden_Id.Value);
+
+                    //     //con_local.Open();
+                    //     //cmd.ExecuteScalar();
+                    //     //con_local.Close();
+                    // }
+                    // catch
+                    // {
+                    //     // can't connect to sql local, we should show message here
+                    //    // ShowAlertMessage(" عفوا لم يتم الإتصال بقاعدة البيانات الداخلية");
+                    //     ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('عفوا لم يتم الإتصال بقاعدة البيانات الداخلية ');", true);
+
+                    // }
 
                     txtFileName.Text =
-                    hidden_Inbox_OutBox_File_ID.Value = "";
+                   hidden_Inbox_OutBox_File_ID.Value = "";
+
+                    InsertOrUpdate_Inbox_Outbox_files(in_out_files);
+
                 }
+
+
+
                 else
                 {
-                    cmd.CommandText = " insert into Inbox_OutBox_Files (Inbox_Outbox_ID, Inbox_Or_Outbox, Original_Or_Attached, File_data, File_name, File_ext) VALUES ( @Inbox_Outbox_ID, @Inbox_Or_Outbox, @Original_Or_Attached, @File_data, @File_name, @File_ext) select @@identity";
+                    //  cmd.CommandText = " insert into Inbox_OutBox_Files (Inbox_Outbox_ID, Inbox_Or_Outbox, Original_Or_Attached, File_data, File_name, File_ext) VALUES ( @Inbox_Outbox_ID, @Inbox_Or_Outbox, @Original_Or_Attached, @File_data, @File_name, @File_ext) select @@identity";
 
-                    if (string.IsNullOrEmpty(Session_CS.local_connectionstring))
-                    {
-                        cmd.Connection = con;
-                        cmd.Parameters["@File_data"].Value = Input;
-                        cmd.Parameters["@Inbox_Outbox_ID"].Value = CDataConverter.ConvertToInt(hidden_Id.Value);
-                        con.Open();
-                        cmd.ExecuteScalar();
-                        con.Close();
+                    Inbox_OutBox_Files in_out_file = new Inbox_OutBox_Files();
 
-                    }
-                    else
-                    {
-
-                        cmd.Connection = con;
-                        cmd.Parameters["@File_data"].Value = DBNull.Value;
-                        cmd.Parameters["@Inbox_Outbox_ID"].Value = CDataConverter.ConvertToInt(hidden_Id.Value);
-                        con.Open();
-                        out_box = CDataConverter.ConvertToInt(cmd.ExecuteScalar());
-                        con.Close();
-                        try
-                        {
-                            cmd.CommandText = " insert into Inbox_OutBox_Files ( Inbox_OutBox_File_ID,Inbox_Outbox_ID, Inbox_Or_Outbox, Original_Or_Attached, File_data,File_name, File_ext) VALUES ( @Inbox_OutBox_File_ID,@Inbox_Outbox_ID, @Inbox_Or_Outbox, @Original_Or_Attached, @File_data, @File_name, @File_ext) select @@identity";
-                            cmd.Connection = con_local;
-                            cmd.Parameters["@File_data"].Value = Input;
-                            cmd.Parameters["@Inbox_OutBox_File_ID"].Value = out_box;
-                            con_local.Open();
-                            cmd.ExecuteScalar();
-                            con_local.Close();
+                    in_out_file.Inbox_Outbox_ID = CDataConverter.ConvertToInt(hidden_Id.Value);
+                    in_out_file.Original_Or_Attached = CDataConverter.ConvertToInt(ddl_Original_Or_Attached.SelectedValue);
+                    in_out_file.File_ext = type;
+                    in_out_file.File_name = txtFileName.Text;
+                    in_out_file.Inbox_Or_Outbox = 1;
+                    in_out_file.File_data = Input;
 
 
-                        }
-                        catch
-                        {
-                            // can't connect to sql local, we should show message here
+                    InsertOrUpdate_Inbox_Outbox_files(in_out_file);
 
-                           // ShowAlertMessage(" عفوا لم يتم الإتصال بقاعدة البيانات الداخلية");
-                            ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('عفوا لم يتم الإتصال بقاعدة البيانات الداخلية ');", true);
+                    //if (string.IsNullOrEmpty(Session_CS.local_connectionstring))
+                    //{
+                    //    cmd.Connection = con;
+                    //    cmd.Parameters["@File_data"].Value = Input;
+                    //    cmd.Parameters["@Inbox_Outbox_ID"].Value = CDataConverter.ConvertToInt(hidden_Id.Value);
+                    //    con.Open();
+                    //    cmd.ExecuteScalar();
+                    //    con.Close();
 
-                        }
-                    }
+                    //}
+                    //else
+                    //{
+
+                    //    cmd.Connection = con;
+                    //    cmd.Parameters["@File_data"].Value = DBNull.Value;
+                    //    cmd.Parameters["@Inbox_Outbox_ID"].Value = CDataConverter.ConvertToInt(hidden_Id.Value);
+                    //    con.Open();
+                    //    out_box = CDataConverter.ConvertToInt(cmd.ExecuteScalar());
+                    //    con.Close();
+                    //    try
+                    //    {
+                    //        cmd.CommandText = " insert into Inbox_OutBox_Files ( Inbox_OutBox_File_ID,Inbox_Outbox_ID, Inbox_Or_Outbox, Original_Or_Attached, File_data,File_name, File_ext) VALUES ( @Inbox_OutBox_File_ID,@Inbox_Outbox_ID, @Inbox_Or_Outbox, @Original_Or_Attached, @File_data, @File_name, @File_ext) select @@identity";
+                    //        cmd.Connection = con_local;
+                    //        cmd.Parameters["@File_data"].Value = Input;
+                    //        cmd.Parameters["@Inbox_OutBox_File_ID"].Value = out_box;
+                    //        con_local.Open();
+                    //        cmd.ExecuteScalar();
+                    //        con_local.Close();
+
+
+                    //    }
+                    //    catch
+                    //    {
+                    //        // can't connect to sql local, we should show message here
+
+                    //       // ShowAlertMessage(" عفوا لم يتم الإتصال بقاعدة البيانات الداخلية");
+                    //        ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('عفوا لم يتم الإتصال بقاعدة البيانات الداخلية ');", true);
+
+                    //    }
+                    //}
 
 
                     txtFileName.Text =
@@ -1401,19 +1537,14 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
 
 
+                Fil_Grid_Documents();
             }
-
-
-
-
-
-            // Clear_Cntrl();
-            Fil_Grid_Documents();
-            //fill_Inbox_Visa_Follows();
+           
         }
+  
         else
         {
-            //Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('يجب إدخال بيانات الخطاب أولا')</script>");
+
             ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('يجب إدخال بيانات الخطاب أولا ');", true);
 
 

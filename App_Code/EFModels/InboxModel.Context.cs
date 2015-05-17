@@ -1257,5 +1257,14 @@ namespace EFModels
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_employee_accoording_to_radiochek>("get_employee_accoording_to_radiochek", radiocheckParameter, pmp_idParameter, dept_idParameter, found_idParameter);
         }
+    
+        public virtual ObjectResult<get_max_code_inbox> get_max_code_inbox(Nullable<int> foundation_id)
+        {
+            var foundation_idParameter = foundation_id.HasValue ?
+                new ObjectParameter("foundation_id", foundation_id) :
+                new ObjectParameter("foundation_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_max_code_inbox>("get_max_code_inbox", foundation_idParameter);
+        }
     }
 }

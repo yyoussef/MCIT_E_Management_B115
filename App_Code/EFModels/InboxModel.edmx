@@ -371,6 +371,9 @@ warning 6002: The table/view 'Projects_Management.dbo.vw_outbox_DateSubject' doe
           <Parameter Name="dept_id" Type="int" Mode="In" />
           <Parameter Name="found_id" Type="int" Mode="In" />
         </Function>
+        <Function Name="get_max_code_inbox" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="foundation_id" Type="int" Mode="In" />
+        </Function>
         <Function Name="get_related_inbox_inbox_page" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="group_id" Type="int" Mode="In" />
           <Parameter Name="proj_id" Type="int" Mode="In" />
@@ -1482,6 +1485,9 @@ warning 6002: The table/view 'Projects_Management.dbo.vw_outbox_DateSubject' doe
           <EntitySet Name="vw_outbox_DateString" EntityType="Inbox.vw_outbox_DateString" />
           <EntitySet Name="vw_outbox_DateSubject" EntityType="Inbox.vw_outbox_DateSubject" />
           <EntitySet Name="vw_inbox_DateSubject" EntityType="Inbox.vw_inbox_DateSubject" />
+          <FunctionImport Name="get_max_code_inbox" ReturnType="Collection(Inbox.get_max_code_inbox)">
+            <Parameter Name="foundation_id" Mode="In" Type="Int32" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="Inbox_by_emp_in_visa_Result">
           <Property Type="Int32" Name="Visa_Id" Nullable="false" />
@@ -1977,6 +1983,7 @@ warning 6002: The table/view 'Projects_Management.dbo.vw_outbox_DateSubject' doe
           <Property Name="Group_id" Type="Int32" />
           <Property Name="Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <ComplexType Name="get_max_code_inbox" />
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2941,6 +2948,11 @@ warning 6002: The table/view 'Projects_Management.dbo.vw_outbox_DateSubject' doe
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="get_max_code_inbox" FunctionName="Inbox.Store.get_max_code_inbox">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Inbox.get_max_code_inbox" />
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
