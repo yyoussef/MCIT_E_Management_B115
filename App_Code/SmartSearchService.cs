@@ -4,30 +4,30 @@ using System.Linq;
 using System.Web;
 using System.Web.Services;
 using System.Data;
-using EFModels;
 
 
-public class Department
+
+public class DepartmentSmartSearch
 {
     public string name;//Department Name
     public long id;//Department ID
 
 }
 
-public class Employee
+public class EmployeeSmartSearch
 {
     public string name;//Employee Name
     public long id;//Employee ID
 
 }
 
-//public partial class Inbox
-//{
-//    public string name;//Inbox Name
-//    public int id;//Inbox ID
+public class InboxSmartSearch
+{
+    public string name;//Inbox Name
+    public int id;//Inbox ID
 
-//}
-public class Organization
+}
+public class OrganizationSmartSearch
 {
     public string name;//The Organization name
     public long id;//the Organization ID
@@ -49,15 +49,15 @@ public class SmartSearchService : System.Web.Services.WebService
         //Uncomment the following line if using designed components 
         //InitializeComponent(); 
     }
-    [WebMethod]https://www.facebook.com/l.php?u=https%3A%2F%2Fwww.facebook.com%2Fprofile.php%3Fid%3D100009627397643%26ref%3D%252Fpymk-chain%26fref%3Dpymk&h=oAQGpTHeV&enc=AZMDte8hKwe0OWZzUTVrLKiDqdQU7Q0LSyFOqHAkQnezvyXfprQqc_4UgnHR_UPQ-GUVTWBIPQ146UC9sTZe78mFw7doALdNnim6IHC8El2uTIt8vY98DEAKO1ObSLCMMGnclkQifm85Aj3JPgWWM6xcJSVwpNzH2REjAq6REF81HpJM-pV46D57KkGA4Lx5ExL4GczNIxZ4I_oFf2L4uLjn_4zNWe4AJ2ic0W_iivzcKYp6d8DfM9rdh6QULpEeSGm72OxRAL2GG3zgNpZfw-wN2I3c-G3GnKJW0Vl5s5tV_OfznF122VbLXjU4JUILWYVrrasv7ZSrgHR3e3AL6YNFc5F8AE1aCd16g7r4mTAcS2tirq9FVhcWLmyAc6VY7d37Bxe16hAwXuSoFtMlEctnlQept66F6Nd8-EeFdEmWgbRjGkEXA42DYNCGarKSr_zXAIesb8AilGT-1DKfiU5odl_yJZZGoINh_Hod3m7ha2BTgMI1CTrOPwfYbqaDP_n9pD_p6JzqpzOPHZRtt-o2gfFzYuzjnOysaNBavK4NaKQIISbSwCcjsG1BtDBbLEPaNrbqyYQehra2sZYh_ymH
-    public List<Department> GetAllDepartments()//Gets all the departments
+    [WebMethod]
+    public List<DepartmentSmartSearch> GetAllDepartments()//Gets all the departments
     {
-        List<Department> deptList = null;
+        List<DepartmentSmartSearch> deptList = null;
         try
         {
             DataTable dt = General_Helping.GetDataTable("select Dept_id as ID, Dept_name as Name from Departments ");
 
-            deptList = dt.AsEnumerable().Select(m => new Department()
+            deptList = dt.AsEnumerable().Select(m => new DepartmentSmartSearch()
             {
                 id = m.Field<long>("ID"),
                 name = m.Field<string>("Name"),
@@ -74,11 +74,11 @@ public class SmartSearchService : System.Web.Services.WebService
     }
 
     [WebMethod]
-    public List<Employee> GetEmployeeByDept(string id)//Returns all the Employees employed in the supplied Department ID
+    public List<EmployeeSmartSearch> GetEmployeeByDept(string id)//Returns all the Employees employed in the supplied Department ID
     {
         DataTable dt = General_Helping.GetDataTable("select pmp_id as ID ,pmp_name as Name from Employee where dept_dept_id=" + id);
 
-        List<Employee> empList = dt.AsEnumerable().Select(m => new Employee()
+        List<EmployeeSmartSearch> empList = dt.AsEnumerable().Select(m => new EmployeeSmartSearch()
              {
                  id = m.Field<long>("ID"),
                  name = m.Field<string>("Name"),
@@ -88,14 +88,14 @@ public class SmartSearchService : System.Web.Services.WebService
         return empList;
     }
     [WebMethod]
-    public List<Inbox> GetAllInboxByEmpId(string id)//Returns all the inbox related to that employee ID
+    public List<InboxSmartSearch> GetAllInboxByEmpId(string id)//Returns all the inbox related to that employee ID
     {
         DataTable dt = General_Helping.GetDataTable("SELECT ID,Name FROM [dbo].[Inbox] WHERE Emp_ID =" + id);
 
-        List<Inbox> inboxList = dt.AsEnumerable().Select(m => new Inbox()
+        List<InboxSmartSearch> inboxList = dt.AsEnumerable().Select(m => new InboxSmartSearch()
         {
-            ID = m.Field<int>("ID"),
-            Name = m.Field<string>("Name"),
+            id = m.Field<int>("ID"),
+            name = m.Field<string>("Name"),
 
         }).ToList();
 
@@ -106,12 +106,12 @@ public class SmartSearchService : System.Web.Services.WebService
 
 
     [WebMethod]
-    public List<Organization> GetAllOrgByFoundId()//web service to get organization based on the foundation id saved in session
+    public List<OrganizationSmartSearch> GetAllOrgByFoundId()//web service to get organization based on the foundation id saved in session
     {
         int found_id = CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString());
     
         DataTable DT = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_org_by_found", found_id).Tables[0];
-        List<Organization> OrgList = DT.AsEnumerable().Select(m => new Organization()
+        List<OrganizationSmartSearch> OrgList = DT.AsEnumerable().Select(m => new OrganizationSmartSearch()
         {
             id = m.Field<long>("Org_ID"),
             name = m.Field<string>("Org_Desc"),
