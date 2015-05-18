@@ -1258,6 +1258,37 @@ namespace EFModels
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_employee_accoording_to_radiochek>("get_employee_accoording_to_radiochek", radiocheckParameter, pmp_idParameter, dept_idParameter, found_idParameter);
         }
     
+        public virtual ObjectResult<get_data_from_parent_employee> get_data_from_parent_employee(Nullable<int> pmp_id)
+        {
+            var pmp_idParameter = pmp_id.HasValue ?
+                new ObjectParameter("pmp_id", pmp_id) :
+                new ObjectParameter("pmp_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_data_from_parent_employee>("get_data_from_parent_employee", pmp_idParameter);
+        }
+    
+        public virtual int Inbox_TrackManager_update(string visa_Desc, Nullable<int> inbox_id)
+        {
+            var visa_DescParameter = visa_Desc != null ?
+                new ObjectParameter("Visa_Desc", visa_Desc) :
+                new ObjectParameter("Visa_Desc", typeof(string));
+    
+            var inbox_idParameter = inbox_id.HasValue ?
+                new ObjectParameter("inbox_id", inbox_id) :
+                new ObjectParameter("inbox_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Inbox_TrackManager_update", visa_DescParameter, inbox_idParameter);
+        }
+    
+        public virtual int InboxTrack_Empupdate(Nullable<int> inbox_id)
+        {
+            var inbox_idParameter = inbox_id.HasValue ?
+                new ObjectParameter("inbox_id", inbox_id) :
+                new ObjectParameter("inbox_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InboxTrack_Empupdate", inbox_idParameter);
+        }
+    
         public virtual ObjectResult<get_max_code_inbox> get_max_code_inbox(Nullable<int> foundation_id)
         {
             var foundation_idParameter = foundation_id.HasValue ?

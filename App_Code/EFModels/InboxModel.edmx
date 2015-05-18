@@ -365,6 +365,9 @@ warning 6002: The table/view 'Projects_Management.dbo.vw_outbox_DateSubject' doe
           <Property Name="Group_id" Type="int" />
           <Property Name="Date" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <Function Name="get_data_from_parent_employee" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="pmp_id" Type="int" Mode="In" />
+        </Function>
         <Function Name="get_employee_accoording_to_radiochek" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="radiocheck" Type="nvarchar" Mode="In" />
           <Parameter Name="pmp_id" Type="int" Mode="In" />
@@ -643,6 +646,10 @@ warning 6002: The table/view 'Projects_Management.dbo.vw_outbox_DateSubject' doe
         <Function Name="Inbox_Track_Manager_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="inbox_id" Type="int" Mode="In" />
         </Function>
+        <Function Name="Inbox_TrackManager_update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Visa_Desc" Type="nvarchar" Mode="In" />
+          <Parameter Name="inbox_id" Type="int" Mode="In" />
+        </Function>
         <Function Name="Inbox_Visa_Delete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Visa_Id" Type="int" Mode="In" />
         </Function>
@@ -715,6 +722,9 @@ warning 6002: The table/view 'Projects_Management.dbo.vw_outbox_DateSubject' doe
         </Function>
         <Function Name="InboxOutbox_DeleteByOrg" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Org_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="InboxTrack_Empupdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="inbox_id" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="InboxStoreContainer">
           <EntitySet Name="Inbox" EntityType="Self.Inbox" Schema="dbo" store:Type="Tables" />
@@ -1485,6 +1495,16 @@ warning 6002: The table/view 'Projects_Management.dbo.vw_outbox_DateSubject' doe
           <EntitySet Name="vw_outbox_DateString" EntityType="Inbox.vw_outbox_DateString" />
           <EntitySet Name="vw_outbox_DateSubject" EntityType="Inbox.vw_outbox_DateSubject" />
           <EntitySet Name="vw_inbox_DateSubject" EntityType="Inbox.vw_inbox_DateSubject" />
+          <FunctionImport Name="get_data_from_parent_employee" ReturnType="Collection(Inbox.get_data_from_parent_employee)">
+          <Parameter Name="pmp_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Inbox_TrackManager_update">
+            <Parameter Name="Visa_Desc" Mode="In" Type="String" />
+            <Parameter Name="inbox_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="InboxTrack_Empupdate">
+          <Parameter Name="inbox_id" Mode="In" Type="Int32" />
+          </FunctionImport>
           <FunctionImport Name="get_max_code_inbox" ReturnType="Collection(Inbox.get_max_code_inbox)">
             <Parameter Name="foundation_id" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -1983,6 +2003,7 @@ warning 6002: The table/view 'Projects_Management.dbo.vw_outbox_DateSubject' doe
           <Property Name="Group_id" Type="Int32" />
           <Property Name="Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
+        <ComplexType Name="get_data_from_parent_employee" />
         <ComplexType Name="get_max_code_inbox" />
       </Schema>
     </edmx:ConceptualModels>
@@ -2948,6 +2969,13 @@ warning 6002: The table/view 'Projects_Management.dbo.vw_outbox_DateSubject' doe
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="get_data_from_parent_employee" FunctionName="Inbox.Store.get_data_from_parent_employee">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Inbox.get_data_from_parent_employee" />
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Inbox_TrackManager_update" FunctionName="Inbox.Store.Inbox_TrackManager_update" />
+          <FunctionImportMapping FunctionImportName="InboxTrack_Empupdate" FunctionName="Inbox.Store.InboxTrack_Empupdate" />
           <FunctionImportMapping FunctionImportName="get_max_code_inbox" FunctionName="Inbox.Store.get_max_code_inbox">
             <ResultMapping>
               <ComplexTypeMapping TypeName="Inbox.get_max_code_inbox" />

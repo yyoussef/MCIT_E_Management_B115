@@ -446,6 +446,14 @@ namespace EFModels
 {
     using System;
     
+    public partial class get_data_from_parent_employee
+    {
+    }
+}
+namespace EFModels
+{
+    using System;
+    
     public partial class get_employee_accoording_to_radiochek
     {
     }
