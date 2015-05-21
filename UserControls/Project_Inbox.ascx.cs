@@ -674,9 +674,12 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
             ////// save the categories for the inbox
             // Dear Motaz please convert all these query to SP and then put all below code in another function
 
-            string Sql_Delete = "delete from  inbox_cat where  inbox_id = " + obj.ID;
-            General_Helping.ExcuteQuery(Sql_Delete);
-            //inbox_cat_save
+            //string Sql_Delete = "delete from  inbox_cat where  inbox_id = " + obj.ID;
+            //General_Helping.ExcuteQuery(Sql_Delete);
+            
+           
+          
+
             foreach (ListItem item in Chk_main_cat.Items)
             {
                 if (item.Selected)

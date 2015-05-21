@@ -43,6 +43,14 @@
           <Property Name="foundation_id" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6013: The table/view 'Projects_Management.dbo.inbox_cat' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="inbox_cat">
+          <Property Name="inbox_id" Type="int" />
+          <Property Name="Cat_id" Type="int" />
+          <Property Name="Type" Type="int" />
+          <Property Name="inbox_type" Type="int" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'Projects_Management.dbo.inbox_follow_emp' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="inbox_follow_emp">
           <Key>
@@ -1506,7 +1514,7 @@ warning 6002: The table/view 'Projects_Management.dbo.vw_outbox_DateSubject' doe
           <Parameter Name="inbox_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="get_max_code_inbox" ReturnType="Collection(Inbox.get_max_code_inbox)">
-            <Parameter Name="foundation_id" Mode="In" Type="Int32" />
+          <Parameter Name="foundation_id" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="Inbox_by_emp_in_visa_Result">
