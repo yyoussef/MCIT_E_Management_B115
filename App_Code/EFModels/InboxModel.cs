@@ -446,6 +446,17 @@ namespace EFModels
 {
     using System;
     
+    public partial class Fil_Emp_Visa_Follow_Result
+    {
+        public long PMP_ID { get; set; }
+        public string pmp_name { get; set; }
+        public Nullable<int> Inbox_ID { get; set; }
+    }
+}
+namespace EFModels
+{
+    using System;
+    
     public partial class get_data_from_parent_employee
     {
     }
@@ -456,6 +467,21 @@ namespace EFModels
     
     public partial class get_employee_accoording_to_radiochek
     {
+    }
+}
+namespace EFModels
+{
+    using System;
+    
+    public partial class get_files_by_inbox_id_Result
+    {
+        public int Inbox_OutBox_File_ID { get; set; }
+        public Nullable<int> Inbox_Outbox_ID { get; set; }
+        public Nullable<int> Inbox_Or_Outbox { get; set; }
+        public Nullable<int> Original_Or_Attached { get; set; }
+        public byte[] File_data { get; set; }
+        public string File_name { get; set; }
+        public string File_ext { get; set; }
     }
 }
 namespace EFModels
@@ -480,6 +506,23 @@ namespace EFModels
     
     public partial class get_related_outbox_inbox_page
     {
+    }
+}
+namespace EFModels
+{
+    using System;
+    
+    public partial class get_visa_follows_for_grid_Result
+    {
+        public int Follow_ID { get; set; }
+        public string Entery_Date { get; set; }
+        public string File_name { get; set; }
+        public string time_follow { get; set; }
+        public Nullable<int> Inbox_ID { get; set; }
+        public string Descrption { get; set; }
+        public string Date { get; set; }
+        public Nullable<int> Visa_Emp_id { get; set; }
+        public string pmp_name { get; set; }
     }
 }
 namespace EFModels

@@ -1297,5 +1297,63 @@ namespace EFModels
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_max_code_inbox>("get_max_code_inbox", foundation_idParameter);
         }
+    
+        public virtual ObjectResult<Fil_Emp_Visa_Follow_Result> Fil_Emp_Visa_Follow(Nullable<int> inbox_id)
+        {
+            var inbox_idParameter = inbox_id.HasValue ?
+                new ObjectParameter("inbox_id", inbox_id) :
+                new ObjectParameter("inbox_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Fil_Emp_Visa_Follow_Result>("Fil_Emp_Visa_Follow", inbox_idParameter);
+        }
+    
+        public virtual ObjectResult<get_files_by_inbox_id_Result> get_files_by_inbox_id(Nullable<int> inbox_Outbox_ID)
+        {
+            var inbox_Outbox_IDParameter = inbox_Outbox_ID.HasValue ?
+                new ObjectParameter("Inbox_Outbox_ID", inbox_Outbox_ID) :
+                new ObjectParameter("Inbox_Outbox_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_files_by_inbox_id_Result>("get_files_by_inbox_id", inbox_Outbox_IDParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> get_data_from_inbox_track_manager(Nullable<int> inbox_id)
+        {
+            var inbox_idParameter = inbox_id.HasValue ?
+                new ObjectParameter("inbox_id", inbox_id) :
+                new ObjectParameter("inbox_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("get_data_from_inbox_track_manager", inbox_idParameter);
+        }
+    
+        public virtual int Inbox_TrackManagerupdate(Nullable<int> inbox_id)
+        {
+            var inbox_idParameter = inbox_id.HasValue ?
+                new ObjectParameter("inbox_id", inbox_id) :
+                new ObjectParameter("inbox_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Inbox_TrackManagerupdate", inbox_idParameter);
+        }
+    
+        public virtual ObjectResult<Nullable<int>> get_data_from_inbox_track_emp_by_inbox_emp(Nullable<int> inbox_id, Nullable<int> pmp_id)
+        {
+            var inbox_idParameter = inbox_id.HasValue ?
+                new ObjectParameter("inbox_id", inbox_id) :
+                new ObjectParameter("inbox_id", typeof(int));
+    
+            var pmp_idParameter = pmp_id.HasValue ?
+                new ObjectParameter("pmp_id", pmp_id) :
+                new ObjectParameter("pmp_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("get_data_from_inbox_track_emp_by_inbox_emp", inbox_idParameter, pmp_idParameter);
+        }
+    
+        public virtual ObjectResult<get_visa_follows_for_grid_Result> get_visa_follows_for_grid(Nullable<int> inbox_id)
+        {
+            var inbox_idParameter = inbox_id.HasValue ?
+                new ObjectParameter("inbox_id", inbox_id) :
+                new ObjectParameter("inbox_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_visa_follows_for_grid_Result>("get_visa_follows_for_grid", inbox_idParameter);
+        }
     }
 }
