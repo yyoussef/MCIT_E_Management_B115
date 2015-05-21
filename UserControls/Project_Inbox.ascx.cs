@@ -507,7 +507,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
                    //   DataTable getmax = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_max_code_inbox", Session_CS.foundation_id).Tables[0];
 
-                        DataTable getmax = pm_inbox.get_max_code_inbox(Session_CS.foundation_id).ToDataTable();
+                     //   DataTable getmax = pm_inbox.get_max_code_inbox(Session_CS.foundation_id).ToDataTable();
 
                   // DataTable getmax = pm_inbox.get_max_code_inbox(Session_CS.foundation_id).ToDataTable();
 
@@ -521,8 +521,19 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
                       //}
 
-                      txt_Code.Text = getmax.Rows[0]["code"].ToString();
-                        
+                   //   txt_Code.Text = getmax.Rows[0]["code"].ToString();
+
+
+                      using (var context = new InboxContext())
+                      {
+                          var OutboxVisaEmpDT = context.get_max_code_inbox(Session_CS.foundation_id);
+
+                        DataTable   getmax = extentionMethods.ToDataTable<get_max_code_inbox>(OutboxVisaEmpDT);
+                        if (getmax.Rows.Count > 0)
+                        {
+                            txt_Code.Text = getmax.Rows[0]["code"].ToString();
+                        }
+                      }
                         
                     }
                 
@@ -872,7 +883,8 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
         
       //  DataTable dtt = SqlHelper.ExecuteDataset(Database.ConnectionString, "fill_employee2", CDataConverter.ConvertToInt(Smart_Search_structure.SelectedValue)).Tables[0];
 
-        DataTable dtt = ADContext.fill_employee2(CDataConverter.ConvertToInt(Smart_Search_structure.SelectedValue)).ToDataTable();
+        int smrt_sel = CDataConverter.ConvertToInt(Smart_Search_structure.SelectedValue);
+        DataTable dtt = ADContext.fill_employee2(smrt_sel).ToDataTable();
 
         Smart_Emp_ID.datatble = dtt;
         Smart_Emp_ID.Value_Field = "PMP_ID";
@@ -929,8 +941,8 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
         Smart_Emp_ID.sql_Connection = sql_Connection;
       
        // Query = "SELECT PMP_ID, pmp_name FROM EMPLOYEE where foundation_id='"+CDataConverter.ConvertToInt(Session_CS.foundation_id )+"' ";
-
-        var query = from ad in ADContext.EMPLOYEEs where ad.foundation_id == CDataConverter.ConvertToInt(Session_CS.foundation_id) select ad;
+        int found= CDataConverter.ConvertToInt(Session_CS.foundation_id);
+        var query = from ad in ADContext.EMPLOYEEs where ad.foundation_id == found  select ad;
         DataTable dtemp = query.ToDataTable();
 
        // Smart_Emp_ID.datatble = General_Helping.GetDataTable(Query);
