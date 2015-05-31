@@ -1355,5 +1355,23 @@ namespace EFModels
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_visa_follows_for_grid_Result>("get_visa_follows_for_grid", inbox_idParameter);
         }
+    
+        public virtual ObjectResult<get_sub_cat_by_main_cat> get_sub_cat_by_main_cat(Nullable<int> cat_id)
+        {
+            var cat_idParameter = cat_id.HasValue ?
+                new ObjectParameter("cat_id", cat_id) :
+                new ObjectParameter("cat_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_sub_cat_by_main_cat>("get_sub_cat_by_main_cat", cat_idParameter);
+        }
+    
+        public virtual ObjectResult<Get_Visa_Emp> Get_Visa_Emp(Nullable<int> visa_id)
+        {
+            var visa_idParameter = visa_id.HasValue ?
+                new ObjectParameter("visa_id", visa_id) :
+                new ObjectParameter("visa_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Get_Visa_Emp>("Get_Visa_Emp", visa_idParameter);
+        }
     }
 }

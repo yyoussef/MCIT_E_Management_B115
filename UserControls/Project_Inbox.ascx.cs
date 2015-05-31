@@ -507,7 +507,9 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
                    //   DataTable getmax = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_max_code_inbox", Session_CS.foundation_id).Tables[0];
 
-                     //   DataTable getmax = pm_inbox.get_max_code_inbox(Session_CS.foundation_id).ToDataTable();
+                    DataTable getmax = pm_inbox.get_max_code_inbox(Session_CS.foundation_id).ToDataTable();
+
+                
 
                   // DataTable getmax = pm_inbox.get_max_code_inbox(Session_CS.foundation_id).ToDataTable();
 
@@ -521,19 +523,35 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
                       //}
 
-                   //   txt_Code.Text = getmax.Rows[0]["code"].ToString();
+                   txt_Code.Text = getmax.Rows[0]["code"].ToString();
 
 
-                      using (var context = new InboxContext())
-                      {
-                          var OutboxVisaEmpDT = context.get_max_code_inbox(Session_CS.foundation_id);
 
-                        DataTable   getmax = extentionMethods.ToDataTable<get_max_code_inbox>(OutboxVisaEmpDT);
-                        if (getmax.Rows.Count > 0)
-                        {
-                            txt_Code.Text = getmax.Rows[0]["code"].ToString();
-                        }
-                      }
+
+//////////////////////////////////
+
+
+                   
+
+
+
+                      //using (var context = new InboxContext())
+                      //{
+                      //  var OutboxVisaEmpDT = context.get_max_code_inbox(Session_CS.foundation_id);
+
+                      //  DataTable   getmax = extentionMethods.ToDataTable<get_max_code_inbox>(OutboxVisaEmpDT);
+                       
+                      //  if (getmax.Rows.Count > 0)
+                      //  {
+                      //      txt_Code.Text = getmax.Rows[0]["code"].ToString();
+
+                           
+
+
+                      //  }
+                      //}
+
+
                         
                     }
                 
@@ -3327,7 +3345,10 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
         DataTable DT = new DataTable();
         //DT = General_Helping.GetDataTable("SELECT EMPLOYEE.pmp_name FROM Inbox_Visa_Emp INNER JOIN EMPLOYEE ON Inbox_Visa_Emp.Emp_ID = EMPLOYEE.PMP_ID WHERE Inbox_Visa_Emp.Visa_Id  =" + visa_ID);
 
-         DT = SqlHelper.ExecuteDataset(Database.ConnectionString, "Get_Visa_Emp", visa_ID).Tables[0];
+       //  DT = SqlHelper.ExecuteDataset(Database.ConnectionString, "Get_Visa_Emp", visa_ID).Tables[0];
+
+         DT = pm_inbox.Get_Visa_Emp(CDataConverter.ConvertToInt( visa_ID)).ToDataTable();
+
         foreach (DataRow dr in DT.Rows)
         {
             emp_name += dr["pmp_name"].ToString() + ",";
@@ -3518,7 +3539,11 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
             else
             {
                 //dt = General_Helping.GetDataTable(" select * from Inbox_sub_categories where main_id = " + item.Value);
-                dt = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_sub_cat_by_main_cat", item.Value).Tables[0];
+
+               // dt = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_sub_cat_by_main_cat", item.Value).Tables[0];
+
+                dt = pm_inbox.get_sub_cat_by_main_cat(CDataConverter.ConvertToInt( item.Value)).ToDataTable();
+
                 for (int i = 0; i < dt.Rows.Count; i++)
                 {
                     obj = new ListItem(dt.Rows[i]["name"].ToString(), dt.Rows[i]["id"].ToString());

@@ -398,6 +398,12 @@ warning 6002: The table/view 'Projects_Management.dbo.vw_outbox_DateSubject' doe
           <Parameter Name="group_id" Type="int" Mode="In" />
           <Parameter Name="proj_id" Type="int" Mode="In" />
         </Function>
+        <Function Name="get_sub_cat_by_main_cat" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="cat_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Get_Visa_Emp" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="visa_id" Type="int" Mode="In" />
+        </Function>
         <Function Name="get_visa_follows_for_grid" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="inbox_id" Type="int" Mode="In" />
         </Function>
@@ -1544,7 +1550,13 @@ warning 6002: The table/view 'Projects_Management.dbo.vw_outbox_DateSubject' doe
             <Parameter Name="pmp_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="get_visa_follows_for_grid" ReturnType="Collection(Inbox.get_visa_follows_for_grid_Result)">
-            <Parameter Name="inbox_id" Mode="In" Type="Int32" />
+          <Parameter Name="inbox_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="get_sub_cat_by_main_cat" ReturnType="Collection(Inbox.get_sub_cat_by_main_cat)">
+          <Parameter Name="cat_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Get_Visa_Emp" ReturnType="Collection(Inbox.Get_Visa_Emp)">
+            <Parameter Name="visa_id" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="Inbox_by_emp_in_visa_Result">
@@ -2068,6 +2080,8 @@ warning 6002: The table/view 'Projects_Management.dbo.vw_outbox_DateSubject' doe
           <Property Type="Int32" Name="Visa_Emp_id" Nullable="true" />
           <Property Type="String" Name="pmp_name" Nullable="true" MaxLength="255" />
         </ComplexType>
+        <ComplexType Name="get_sub_cat_by_main_cat" />
+        <ComplexType Name="Get_Visa_Emp" />
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3082,6 +3096,16 @@ warning 6002: The table/view 'Projects_Management.dbo.vw_outbox_DateSubject' doe
                 <ScalarProperty Name="Visa_Emp_id" ColumnName="Visa_Emp_id" />
                 <ScalarProperty Name="pmp_name" ColumnName="pmp_name" />
               </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_sub_cat_by_main_cat" FunctionName="Inbox.Store.get_sub_cat_by_main_cat">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Inbox.get_sub_cat_by_main_cat" />
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Get_Visa_Emp" FunctionName="Inbox.Store.Get_Visa_Emp">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Inbox.Get_Visa_Emp" />
             </ResultMapping>
           </FunctionImportMapping>
         </EntityContainerMapping>

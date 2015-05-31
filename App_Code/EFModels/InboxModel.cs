@@ -512,6 +512,22 @@ namespace EFModels
 {
     using System;
     
+    public partial class get_sub_cat_by_main_cat
+    {
+    }
+}
+namespace EFModels
+{
+    using System;
+    
+    public partial class Get_Visa_Emp
+    {
+    }
+}
+namespace EFModels
+{
+    using System;
+    
     public partial class get_visa_follows_for_grid_Result
     {
         public int Follow_ID { get; set; }
