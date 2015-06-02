@@ -495,7 +495,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
     protected void btnSave_Click(object sender, EventArgs e)
     {
-        if ((CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 2 && CDataConverter.ConvertToInt(Smart_Org_ID.SelectedValue) > 0) || CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 1 || CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 3)
+        if ((CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 2 && CDataConverter.ConvertToInt(/**Smart_Org_ID**/OrgID.Value) > 0) || CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 1 || CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 3)
         {
 
             if (Request["id"] == null)
@@ -1316,7 +1316,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
         Related_type_Changed();
 
     }
-type=4
+
     private void Related_type_Changed()
     {
         if (ddl_Related_Type.SelectedValue == "1")
