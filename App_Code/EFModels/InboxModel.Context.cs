@@ -1193,15 +1193,6 @@ namespace EFModels
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Inbox_Visa_Select_For_Doc_Result>("Inbox_Visa_Select_For_Doc", idParameter);
         }
     
-        public virtual ObjectResult<inboxinside_data_Result> inboxinside_data(Nullable<int> inbox_id)
-        {
-            var inbox_idParameter = inbox_id.HasValue ?
-                new ObjectParameter("inbox_id", inbox_id) :
-                new ObjectParameter("inbox_id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<inboxinside_data_Result>("inboxinside_data", inbox_idParameter);
-        }
-    
         public virtual ObjectResult<string> InboxOutbox_DeleteByOrg(Nullable<int> org_ID)
         {
             var org_IDParameter = org_ID.HasValue ?
@@ -1258,13 +1249,13 @@ namespace EFModels
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_employee_accoording_to_radiochek>("get_employee_accoording_to_radiochek", radiocheckParameter, pmp_idParameter, dept_idParameter, found_idParameter);
         }
     
-        public virtual ObjectResult<get_data_from_parent_employee> get_data_from_parent_employee(Nullable<int> pmp_id)
+        public virtual ObjectResult<get_data_from_parent_employee_result> get_data_from_parent_employee(Nullable<int> pmp_id)
         {
             var pmp_idParameter = pmp_id.HasValue ?
                 new ObjectParameter("pmp_id", pmp_id) :
                 new ObjectParameter("pmp_id", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_data_from_parent_employee>("get_data_from_parent_employee", pmp_idParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_data_from_parent_employee_result>("get_data_from_parent_employee", pmp_idParameter);
         }
     
         public virtual int Inbox_TrackManager_update(string visa_Desc, Nullable<int> inbox_id)
@@ -1287,15 +1278,6 @@ namespace EFModels
                 new ObjectParameter("inbox_id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("InboxTrack_Empupdate", inbox_idParameter);
-        }
-    
-        public virtual ObjectResult<get_max_code_inbox> get_max_code_inbox(Nullable<int> foundation_id)
-        {
-            var foundation_idParameter = foundation_id.HasValue ?
-                new ObjectParameter("foundation_id", foundation_id) :
-                new ObjectParameter("foundation_id", typeof(int));
-    
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_max_code_inbox>("get_max_code_inbox", foundation_idParameter);
         }
     
         public virtual ObjectResult<Fil_Emp_Visa_Follow_Result> Fil_Emp_Visa_Follow(Nullable<int> inbox_id)
@@ -1372,6 +1354,141 @@ namespace EFModels
                 new ObjectParameter("visa_id", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Get_Visa_Emp>("Get_Visa_Emp", visa_idParameter);
+        }
+    
+        public virtual ObjectResult<get_max_code_inbox_Result> get_max_code_inbox(Nullable<int> foundation_id)
+        {
+            var foundation_idParameter = foundation_id.HasValue ?
+                new ObjectParameter("foundation_id", foundation_id) :
+                new ObjectParameter("foundation_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_max_code_inbox_Result>("get_max_code_inbox", foundation_idParameter);
+        }
+    
+        public virtual ObjectResult<inboxinside_data_Result> inboxinside_data(Nullable<int> inbox_id)
+        {
+            var inbox_idParameter = inbox_id.HasValue ?
+                new ObjectParameter("inbox_id", inbox_id) :
+                new ObjectParameter("inbox_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<inboxinside_data_Result>("inboxinside_data", inbox_idParameter);
+        }
+    
+        public virtual ObjectResult<get_mail_pmpname_from_employee_by_parent_Result> get_mail_pmpname_from_employee_by_parent(Nullable<int> parent_id)
+        {
+            var parent_idParameter = parent_id.HasValue ?
+                new ObjectParameter("parent_id", parent_id) :
+                new ObjectParameter("parent_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_mail_pmpname_from_employee_by_parent_Result>("get_mail_pmpname_from_employee_by_parent", parent_idParameter);
+        }
+    
+        public virtual ObjectResult<get_attachment_for_mail_Result> get_attachment_for_mail(Nullable<int> inbox_id)
+        {
+            var inbox_idParameter = inbox_id.HasValue ?
+                new ObjectParameter("inbox_id", inbox_id) :
+                new ObjectParameter("inbox_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_attachment_for_mail_Result>("get_attachment_for_mail", inbox_idParameter);
+        }
+    
+        public virtual ObjectResult<get_data_from_parent_employee_inbox_type_only_result> get_data_from_parent_employee_inbox_type_only()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_data_from_parent_employee_inbox_type_only_result>("get_data_from_parent_employee_inbox_type_only");
+        }
+    
+        public virtual ObjectResult<get_emp_id_from_visa_Result> get_emp_id_from_visa(Nullable<int> visa_id)
+        {
+            var visa_idParameter = visa_id.HasValue ?
+                new ObjectParameter("visa_id", visa_id) :
+                new ObjectParameter("visa_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_emp_id_from_visa_Result>("get_emp_id_from_visa", visa_idParameter);
+        }
+    
+        public virtual ObjectResult<get_attachment_for_mail_visa_tab_Result> get_attachment_for_mail_visa_tab(Nullable<int> inbox_Outbox_ID)
+        {
+            var inbox_Outbox_IDParameter = inbox_Outbox_ID.HasValue ?
+                new ObjectParameter("Inbox_Outbox_ID", inbox_Outbox_ID) :
+                new ObjectParameter("Inbox_Outbox_ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_attachment_for_mail_visa_tab_Result>("get_attachment_for_mail_visa_tab", inbox_Outbox_IDParameter);
+        }
+    
+        public virtual ObjectResult<get_mail_sent_from_visa_Result> get_mail_sent_from_visa(Nullable<int> visa_id, Nullable<int> inbox_id)
+        {
+            var visa_idParameter = visa_id.HasValue ?
+                new ObjectParameter("visa_id", visa_id) :
+                new ObjectParameter("visa_id", typeof(int));
+    
+            var inbox_idParameter = inbox_id.HasValue ?
+                new ObjectParameter("inbox_id", inbox_id) :
+                new ObjectParameter("inbox_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_mail_sent_from_visa_Result>("get_mail_sent_from_visa", visa_idParameter, inbox_idParameter);
+        }
+    
+        public virtual ObjectResult<Inbox_Track_Managerupdate_result> Inbox_Track_Managerupdate(Nullable<int> inbox_id)
+        {
+            var inbox_idParameter = inbox_id.HasValue ?
+                new ObjectParameter("inbox_id", inbox_id) :
+                new ObjectParameter("inbox_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Inbox_Track_Managerupdate_result>("Inbox_Track_Managerupdate", inbox_idParameter);
+        }
+    
+        public virtual ObjectResult<get_Fil_Visa_Lstbox_Result> get_Fil_Visa_Lstbox(Nullable<int> visa_id)
+        {
+            var visa_idParameter = visa_id.HasValue ?
+                new ObjectParameter("visa_id", visa_id) :
+                new ObjectParameter("visa_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_Fil_Visa_Lstbox_Result>("get_Fil_Visa_Lstbox", visa_idParameter);
+        }
+    
+        public virtual ObjectResult<get_all_cat_sub_main_Result> get_all_cat_sub_main(Nullable<int> inbox_id)
+        {
+            var inbox_idParameter = inbox_id.HasValue ?
+                new ObjectParameter("inbox_id", inbox_id) :
+                new ObjectParameter("inbox_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_all_cat_sub_main_Result>("get_all_cat_sub_main", inbox_idParameter);
+        }
+    
+        public virtual ObjectResult<get_all_subs_result> get_all_subs(Nullable<int> inbox_id)
+        {
+            var inbox_idParameter = inbox_id.HasValue ?
+                new ObjectParameter("inbox_id", inbox_id) :
+                new ObjectParameter("inbox_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_all_subs_result>("get_all_subs", inbox_idParameter);
+        }
+    
+        public virtual ObjectResult<get_inbox_visa_result> get_inbox_visa(Nullable<int> inbox_id)
+        {
+            var inbox_idParameter = inbox_id.HasValue ?
+                new ObjectParameter("inbox_id", inbox_id) :
+                new ObjectParameter("inbox_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_inbox_visa_result>("get_inbox_visa", inbox_idParameter);
+        }
+    
+        public virtual ObjectResult<InboxTrackManagerupdate_result> InboxTrackManagerupdate(Nullable<int> inbox_id)
+        {
+            var inbox_idParameter = inbox_id.HasValue ?
+                new ObjectParameter("inbox_id", inbox_id) :
+                new ObjectParameter("inbox_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<InboxTrackManagerupdate_result>("InboxTrackManagerupdate", inbox_idParameter);
+        }
+    
+        public virtual ObjectResult<Get_mail_sent_from_inbox_visa_by_visa_result> Get_mail_sent_from_inbox_visa_by_visa(Nullable<int> visa_id)
+        {
+            var visa_idParameter = visa_id.HasValue ?
+                new ObjectParameter("visa_id", visa_id) :
+                new ObjectParameter("visa_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Get_mail_sent_from_inbox_visa_by_visa_result>("Get_mail_sent_from_inbox_visa_by_visa", visa_idParameter);
         }
     }
 }

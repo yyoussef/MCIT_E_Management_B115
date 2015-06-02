@@ -457,8 +457,84 @@ namespace EFModels
 {
     using System;
     
-    public partial class get_data_from_parent_employee
+    public partial class get_all_cat_sub_main_Result
     {
+        public Nullable<int> inbox_id { get; set; }
+        public Nullable<int> Cat_id { get; set; }
+        public Nullable<int> Type { get; set; }
+        public Nullable<int> inbox_type { get; set; }
+    }
+}
+namespace EFModels
+{
+    using System;
+    
+    public partial class get_all_subs_result
+    {
+        public int id { get; set; }
+        public string name { get; set; }
+        public Nullable<int> Type { get; set; }
+    }
+}
+namespace EFModels
+{
+    using System;
+    
+    public partial class get_attachment_for_mail_Result
+    {
+        public int Follow_ID { get; set; }
+        public byte[] File_data { get; set; }
+        public string File_name { get; set; }
+        public string File_ext { get; set; }
+        public Nullable<int> Inbox_ID { get; set; }
+        public string Descrption { get; set; }
+        public string Date { get; set; }
+        public Nullable<int> Visa_Emp_id { get; set; }
+        public string pmp_name { get; set; }
+    }
+}
+namespace EFModels
+{
+    using System;
+    
+    public partial class get_attachment_for_mail_visa_tab_Result
+    {
+        public byte[] File_data { get; set; }
+        public string FILE_NAME { get; set; }
+        public string File_ext { get; set; }
+    }
+}
+namespace EFModels
+{
+    using System;
+    
+    public partial class get_data_from_parent_employee_inbox_type_only_result
+    {
+        public int ID { get; set; }
+        public int pmp_id { get; set; }
+        public int parent_pmp_id { get; set; }
+        public int Type { get; set; }
+    }
+}
+namespace EFModels
+{
+    using System;
+    
+    public partial class get_data_from_parent_employee_result
+    {
+        public int ID { get; set; }
+        public int pmp_id { get; set; }
+        public int parent_pmp_id { get; set; }
+        public int Type { get; set; }
+    }
+}
+namespace EFModels
+{
+    using System;
+    
+    public partial class get_emp_id_from_visa_Result
+    {
+        public Nullable<int> Emp_ID { get; set; }
     }
 }
 namespace EFModels
@@ -467,6 +543,17 @@ namespace EFModels
     
     public partial class get_employee_accoording_to_radiochek
     {
+    }
+}
+namespace EFModels
+{
+    using System;
+    
+    public partial class get_Fil_Visa_Lstbox_Result
+    {
+        public string pmp_name { get; set; }
+        public Nullable<int> Emp_ID { get; set; }
+        public Nullable<int> Visa_Id { get; set; }
     }
 }
 namespace EFModels
@@ -488,8 +575,68 @@ namespace EFModels
 {
     using System;
     
-    public partial class get_max_code_inbox
+    public partial class get_inbox_visa_result
     {
+        public int Visa_Id { get; set; }
+        public Nullable<int> Inbox_ID { get; set; }
+        public string Visa_date { get; set; }
+        public Nullable<int> Important_Degree { get; set; }
+        public Nullable<int> Dept_ID { get; set; }
+        public Nullable<int> Emp_ID { get; set; }
+        public string Important_Degree_Txt { get; set; }
+        public string Dept_ID_Txt { get; set; }
+        public string Emp_ID_Txt { get; set; }
+        public string Visa_Desc { get; set; }
+        public string Visa_Period { get; set; }
+        public Nullable<int> Visa_Satus { get; set; }
+        public Nullable<int> Follow_Up_Dept_ID { get; set; }
+        public Nullable<int> Follow_Up_Emp_ID { get; set; }
+        public string Follow_Up_Notes { get; set; }
+        public string saving_file { get; set; }
+        public string Dead_Line_DT { get; set; }
+        public Nullable<int> Visa_Goal_ID { get; set; }
+        public Nullable<int> mail_sent { get; set; }
+        public string Entery_Date { get; set; }
+        public byte[] File_data { get; set; }
+        public string File_name { get; set; }
+        public string File_ext { get; set; }
+    }
+}
+namespace EFModels
+{
+    using System;
+    
+    public partial class get_mail_pmpname_from_employee_by_parent_Result
+    {
+        public string mail { get; set; }
+        public string pmp_name { get; set; }
+    }
+}
+namespace EFModels
+{
+    using System;
+    
+    public partial class Get_mail_sent_from_inbox_visa_by_visa_result
+    {
+        public Nullable<int> mail_sent { get; set; }
+    }
+}
+namespace EFModels
+{
+    using System;
+    
+    public partial class get_mail_sent_from_visa_Result
+    {
+        public int Visa_Id { get; set; }
+    }
+}
+namespace EFModels
+{
+    using System;
+    
+    public partial class get_max_code_inbox_Result
+    {
+        public Nullable<long> code { get; set; }
     }
 }
 namespace EFModels
@@ -1021,6 +1168,14 @@ namespace EFModels
 {
     using System;
     
+    public partial class Inbox_Track_Managerupdate_result
+    {
+    }
+}
+namespace EFModels
+{
+    using System;
+    
     public partial class Inbox_Visa_Follows_Search_Result
     {
         public int Follow_ID { get; set; }
@@ -1149,5 +1304,13 @@ namespace EFModels
         public Nullable<long> Org_Id { get; set; }
         public string Dept_name { get; set; }
         public Nullable<long> Sec_sec_id { get; set; }
+    }
+}
+namespace EFModels
+{
+    using System;
+    
+    public partial class InboxTrackManagerupdate_result
+    {
     }
 }

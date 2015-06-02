@@ -43,6 +43,14 @@
           <Property Name="foundation_id" Type="int" />
         </EntityType>
         <!--Errors Found During Generation:
+warning 6013: The table/view 'Projects_Management.dbo.inbox_cat' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="inbox_cat">
+          <Property Name="inbox_id" Type="int" />
+          <Property Name="Cat_id" Type="int" />
+          <Property Name="Type" Type="int" />
+          <Property Name="inbox_type" Type="int" />
+        </EntityType>-->
+        <!--Errors Found During Generation:
 warning 6002: The table/view 'Projects_Management.dbo.inbox_follow_emp' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="inbox_follow_emp">
           <Key>
@@ -368,6 +376,18 @@ warning 6002: The table/view 'Projects_Management.dbo.vw_outbox_DateSubject' doe
         <Function Name="Fil_Emp_Visa_Follow" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="inbox_id" Type="int" Mode="In" />
         </Function>
+        <Function Name="get_all_cat_sub_main" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="inbox_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="get_all_subs" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="inbox_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="get_attachment_for_mail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="inbox_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="get_attachment_for_mail_visa_tab" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Inbox_Outbox_ID" Type="int" Mode="In" />
+        </Function>
         <Function Name="get_data_from_inbox_track_emp_by_inbox_emp" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="inbox_id" Type="int" Mode="In" />
           <Parameter Name="pmp_id" Type="int" Mode="In" />
@@ -378,14 +398,34 @@ warning 6002: The table/view 'Projects_Management.dbo.vw_outbox_DateSubject' doe
         <Function Name="get_data_from_parent_employee" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="pmp_id" Type="int" Mode="In" />
         </Function>
+        <Function Name="get_data_from_parent_employee_inbox_type_only" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="get_emp_id_from_visa" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="visa_id" Type="int" Mode="In" />
+        </Function>
         <Function Name="get_employee_accoording_to_radiochek" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="radiocheck" Type="nvarchar" Mode="In" />
           <Parameter Name="pmp_id" Type="int" Mode="In" />
           <Parameter Name="dept_id" Type="int" Mode="In" />
           <Parameter Name="found_id" Type="int" Mode="In" />
         </Function>
+        <Function Name="get_Fil_Visa_Lstbox" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="visa_id" Type="int" Mode="In" />
+        </Function>
         <Function Name="get_files_by_inbox_id" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Inbox_Outbox_ID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="get_inbox_visa" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="inbox_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="get_mail_pmpname_from_employee_by_parent" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="parent_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="Get_mail_sent_from_inbox_visa_by_visa" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="visa_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="get_mail_sent_from_visa" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="visa_id" Type="int" Mode="In" />
+          <Parameter Name="inbox_id" Type="int" Mode="In" />
         </Function>
         <Function Name="get_max_code_inbox" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="foundation_id" Type="int" Mode="In" />
@@ -668,6 +708,9 @@ warning 6002: The table/view 'Projects_Management.dbo.vw_outbox_DateSubject' doe
         <Function Name="Inbox_Track_Manager_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="inbox_id" Type="int" Mode="In" />
         </Function>
+        <Function Name="Inbox_Track_Managerupdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="inbox_id" Type="int" Mode="In" />
+        </Function>
         <Function Name="Inbox_TrackManager_update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Visa_Desc" Type="nvarchar" Mode="In" />
           <Parameter Name="inbox_id" Type="int" Mode="In" />
@@ -749,6 +792,9 @@ warning 6002: The table/view 'Projects_Management.dbo.vw_outbox_DateSubject' doe
           <Parameter Name="Org_ID" Type="int" Mode="In" />
         </Function>
         <Function Name="InboxTrack_Empupdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="inbox_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="InboxTrackManagerupdate" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="inbox_id" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="InboxStoreContainer">
@@ -1496,9 +1542,6 @@ warning 6002: The table/view 'Projects_Management.dbo.vw_outbox_DateSubject' doe
           <FunctionImport Name="Inbox_Visa_Select_For_Doc" ReturnType="Collection(Inbox.Inbox_Visa_Select_For_Doc_Result)">
           <Parameter Name="id" Mode="In" Type="Int32" />
           </FunctionImport>
-          <FunctionImport Name="inboxinside_data" ReturnType="Collection(Inbox.inboxinside_data_Result)">
-          <Parameter Name="inbox_id" Mode="In" Type="Int32" />
-          </FunctionImport>
           <FunctionImport Name="InboxOutbox_DeleteByOrg" ReturnType="Collection(String)">
           <Parameter Name="Org_ID" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -1520,7 +1563,7 @@ warning 6002: The table/view 'Projects_Management.dbo.vw_outbox_DateSubject' doe
           <EntitySet Name="vw_outbox_DateString" EntityType="Inbox.vw_outbox_DateString" />
           <EntitySet Name="vw_outbox_DateSubject" EntityType="Inbox.vw_outbox_DateSubject" />
           <EntitySet Name="vw_inbox_DateSubject" EntityType="Inbox.vw_inbox_DateSubject" />
-          <FunctionImport Name="get_data_from_parent_employee" ReturnType="Collection(Inbox.get_data_from_parent_employee)">
+          <FunctionImport Name="get_data_from_parent_employee" ReturnType="Collection(Inbox.get_data_from_parent_employee_result)">
           <Parameter Name="pmp_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Inbox_TrackManager_update">
@@ -1529,9 +1572,6 @@ warning 6002: The table/view 'Projects_Management.dbo.vw_outbox_DateSubject' doe
           </FunctionImport>
           <FunctionImport Name="InboxTrack_Empupdate">
           <Parameter Name="inbox_id" Mode="In" Type="Int32" />
-          </FunctionImport>
-          <FunctionImport Name="get_max_code_inbox" ReturnType="Collection(Inbox.get_max_code_inbox)">
-          <Parameter Name="foundation_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Fil_Emp_Visa_Follow" ReturnType="Collection(Inbox.Fil_Emp_Visa_Follow_Result)">
           <Parameter Name="inbox_id" Mode="In" Type="Int32" />
@@ -1556,7 +1596,51 @@ warning 6002: The table/view 'Projects_Management.dbo.vw_outbox_DateSubject' doe
           <Parameter Name="cat_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Get_Visa_Emp" ReturnType="Collection(Inbox.Get_Visa_Emp)">
+          <Parameter Name="visa_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="get_max_code_inbox" ReturnType="Collection(Inbox.get_max_code_inbox_Result)">
+          <Parameter Name="foundation_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="inboxinside_data" ReturnType="Collection(Inbox.inboxinside_data_Result)">
+          <Parameter Name="inbox_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="get_mail_pmpname_from_employee_by_parent" ReturnType="Collection(Inbox.get_mail_pmpname_from_employee_by_parent_Result)">
+          <Parameter Name="parent_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="get_attachment_for_mail" ReturnType="Collection(Inbox.get_attachment_for_mail_Result)">
+          <Parameter Name="inbox_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="get_data_from_parent_employee_inbox_type_only" ReturnType="Collection(Inbox.get_data_from_parent_employee_inbox_type_only_result)" />
+          <FunctionImport Name="get_emp_id_from_visa" ReturnType="Collection(Inbox.get_emp_id_from_visa_Result)">
+          <Parameter Name="visa_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="get_attachment_for_mail_visa_tab" ReturnType="Collection(Inbox.get_attachment_for_mail_visa_tab_Result)">
+          <Parameter Name="Inbox_Outbox_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="get_mail_sent_from_visa" ReturnType="Collection(Inbox.get_mail_sent_from_visa_Result)">
             <Parameter Name="visa_id" Mode="In" Type="Int32" />
+            <Parameter Name="inbox_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Inbox_Track_Managerupdate" ReturnType="Collection(Inbox.Inbox_Track_Managerupdate_result)">
+          <Parameter Name="inbox_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="get_Fil_Visa_Lstbox" ReturnType="Collection(Inbox.get_Fil_Visa_Lstbox_Result)">
+          <Parameter Name="visa_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="get_all_cat_sub_main" ReturnType="Collection(Inbox.get_all_cat_sub_main_Result)">
+          <Parameter Name="inbox_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="get_all_subs" ReturnType="Collection(Inbox.get_all_subs_result)">
+          <Parameter Name="inbox_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="get_inbox_visa" ReturnType="Collection(Inbox.get_inbox_visa_result)">
+          <Parameter Name="inbox_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="InboxTrackManagerupdate" ReturnType="Collection(Inbox.InboxTrackManagerupdate_result)">
+          <Parameter Name="inbox_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="Get_mail_sent_from_inbox_visa_by_visa" ReturnType="Collection(Inbox.Get_mail_sent_from_inbox_visa_by_visa_result)">
+          <Parameter Name="visa_id" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="Inbox_by_emp_in_visa_Result">
@@ -2053,8 +2137,6 @@ warning 6002: The table/view 'Projects_Management.dbo.vw_outbox_DateSubject' doe
           <Property Name="Group_id" Type="Int32" />
           <Property Name="Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
-        <ComplexType Name="get_data_from_parent_employee" />
-        <ComplexType Name="get_max_code_inbox" />
         <ComplexType Name="Fil_Emp_Visa_Follow_Result">
           <Property Type="Int64" Name="PMP_ID" Nullable="false" />
           <Property Type="String" Name="pmp_name" Nullable="true" MaxLength="255" />
@@ -2082,6 +2164,93 @@ warning 6002: The table/view 'Projects_Management.dbo.vw_outbox_DateSubject' doe
         </ComplexType>
         <ComplexType Name="get_sub_cat_by_main_cat" />
         <ComplexType Name="Get_Visa_Emp" />
+        <ComplexType Name="get_max_code_inbox_Result" >
+          <Property Type="Int64" Name="code" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="get_mail_pmpname_from_employee_by_parent_Result" >
+          <Property Type="String" Name="mail" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="pmp_name" Nullable="true" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="get_attachment_for_mail_Result" >
+          <Property Type="Int32" Name="Follow_ID" Nullable="false" />
+          <Property Type="Binary" Name="File_data" Nullable="true" />
+          <Property Type="String" Name="File_name" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="File_ext" Nullable="true" MaxLength="250" />
+          <Property Type="Int32" Name="Inbox_ID" Nullable="true" />
+          <Property Type="String" Name="Descrption" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Date" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Visa_Emp_id" Nullable="true" />
+          <Property Type="String" Name="pmp_name" Nullable="true" MaxLength="255" />
+        </ComplexType>
+        <ComplexType Name="get_data_from_parent_employee_inbox_type_only_result" >
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="pmp_id" Nullable="false" />
+          <Property Type="Int32" Name="parent_pmp_id" Nullable="false" />
+          <Property Type="Int32" Name="Type" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="get_emp_id_from_visa_Result" >
+          <Property Type="Int32" Name="Emp_ID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="get_attachment_for_mail_visa_tab_Result" >
+          <Property Type="Binary" Name="File_data" Nullable="true" />
+          <Property Type="String" Name="FILE_NAME" Nullable="true" MaxLength="4000" />
+          <Property Type="String" Name="File_ext" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="get_mail_sent_from_visa_Result" >
+          <Property Type="Int32" Name="Visa_Id" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="Inbox_Track_Managerupdate_result" />
+        <ComplexType Name="get_Fil_Visa_Lstbox_Result" >
+          <Property Type="String" Name="pmp_name" Nullable="true" MaxLength="255" />
+          <Property Type="Int32" Name="Emp_ID" Nullable="true" />
+          <Property Type="Int32" Name="Visa_Id" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="get_all_cat_sub_main_Result" >
+          <Property Type="Int32" Name="inbox_id" Nullable="true" />
+          <Property Type="Int32" Name="Cat_id" Nullable="true" />
+          <Property Type="Int32" Name="Type" Nullable="true" />
+          <Property Type="Int32" Name="inbox_type" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="get_all_subs_result" >
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="name" Nullable="true" MaxLength="4000" />
+          <Property Type="Int32" Name="Type" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="get_inbox_visa_result" >
+          <Property Type="Int32" Name="Visa_Id" Nullable="false" />
+          <Property Type="Int32" Name="Inbox_ID" Nullable="true" />
+          <Property Type="String" Name="Visa_date" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Important_Degree" Nullable="true" />
+          <Property Type="Int32" Name="Dept_ID" Nullable="true" />
+          <Property Type="Int32" Name="Emp_ID" Nullable="true" />
+          <Property Type="String" Name="Important_Degree_Txt" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="Dept_ID_Txt" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="Emp_ID_Txt" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="Visa_Desc" Nullable="true" MaxLength="Max" />
+          <Property Type="String" Name="Visa_Period" Nullable="true" MaxLength="1000" />
+          <Property Type="Int32" Name="Visa_Satus" Nullable="true" />
+          <Property Type="Int32" Name="Follow_Up_Dept_ID" Nullable="true" />
+          <Property Type="Int32" Name="Follow_Up_Emp_ID" Nullable="true" />
+          <Property Type="String" Name="Follow_Up_Notes" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="saving_file" Nullable="true" MaxLength="500" />
+          <Property Type="String" Name="Dead_Line_DT" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Visa_Goal_ID" Nullable="true" />
+          <Property Type="Int32" Name="mail_sent" Nullable="true" />
+          <Property Type="String" Name="Entery_Date" Nullable="true" MaxLength="50" />
+          <Property Type="Binary" Name="File_data" Nullable="true" />
+          <Property Type="String" Name="File_name" Nullable="true" MaxLength="1000" />
+          <Property Type="String" Name="File_ext" Nullable="true" MaxLength="250" />
+        </ComplexType>
+        <ComplexType Name="InboxTrackManagerupdate_result" />
+        <ComplexType Name="Get_mail_sent_from_inbox_visa_by_visa_result" >
+          <Property Type="Int32" Name="mail_sent" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="get_data_from_parent_employee_result" >
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="pmp_id" Nullable="false" />
+          <Property Type="Int32" Name="parent_pmp_id" Nullable="false" />
+          <Property Type="Int32" Name="Type" Nullable="false" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2972,17 +3141,6 @@ warning 6002: The table/view 'Projects_Management.dbo.vw_outbox_DateSubject' doe
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
-          <FunctionImportMapping FunctionImportName="inboxinside_data" FunctionName="Inbox.Store.inboxinside_data">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="Inbox.inboxinside_data_Result">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="Org_Id" ColumnName="Org_Id" />
-                <ScalarProperty Name="Dept_name" ColumnName="Dept_name" />
-                <ScalarProperty Name="Sec_sec_id" ColumnName="Sec_sec_id" />
-              </ComplexTypeMapping>
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="InboxOutbox_DeleteByOrg" FunctionName="Inbox.Store.InboxOutbox_DeleteByOrg" />
           <FunctionImportMapping FunctionImportName="get_related_outbox_inbox_page" FunctionName="Inbox.Store.get_related_outbox_inbox_page">
             <ResultMapping>
@@ -3048,16 +3206,16 @@ warning 6002: The table/view 'Projects_Management.dbo.vw_outbox_DateSubject' doe
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="get_data_from_parent_employee" FunctionName="Inbox.Store.get_data_from_parent_employee">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="Inbox.get_data_from_parent_employee" />
+              <ComplexTypeMapping TypeName="Inbox.get_data_from_parent_employee_result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="pmp_id" ColumnName="pmp_id" />
+                <ScalarProperty Name="parent_pmp_id" ColumnName="parent_pmp_id" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="Inbox_TrackManager_update" FunctionName="Inbox.Store.Inbox_TrackManager_update" />
           <FunctionImportMapping FunctionImportName="InboxTrack_Empupdate" FunctionName="Inbox.Store.InboxTrack_Empupdate" />
-          <FunctionImportMapping FunctionImportName="get_max_code_inbox" FunctionName="Inbox.Store.get_max_code_inbox">
-            <ResultMapping>
-              <ComplexTypeMapping TypeName="Inbox.get_max_code_inbox" />
-            </ResultMapping>
-          </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="Fil_Emp_Visa_Follow" FunctionName="Inbox.Store.Fil_Emp_Visa_Follow">
             <ResultMapping>
               <ComplexTypeMapping TypeName="Inbox.Fil_Emp_Visa_Follow_Result">
@@ -3106,6 +3264,154 @@ warning 6002: The table/view 'Projects_Management.dbo.vw_outbox_DateSubject' doe
           <FunctionImportMapping FunctionImportName="Get_Visa_Emp" FunctionName="Inbox.Store.Get_Visa_Emp">
             <ResultMapping>
               <ComplexTypeMapping TypeName="Inbox.Get_Visa_Emp" />
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_max_code_inbox" FunctionName="Inbox.Store.get_max_code_inbox">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Inbox.get_max_code_inbox_Result">
+                <ScalarProperty Name="code" ColumnName="code" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="inboxinside_data" FunctionName="Inbox.Store.inboxinside_data">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Inbox.inboxinside_data_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Org_Id" ColumnName="Org_Id" />
+                <ScalarProperty Name="Dept_name" ColumnName="Dept_name" />
+                <ScalarProperty Name="Sec_sec_id" ColumnName="Sec_sec_id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_mail_pmpname_from_employee_by_parent" FunctionName="Inbox.Store.get_mail_pmpname_from_employee_by_parent">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Inbox.get_mail_pmpname_from_employee_by_parent_Result">
+                <ScalarProperty Name="mail" ColumnName="mail" />
+                <ScalarProperty Name="pmp_name" ColumnName="pmp_name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_attachment_for_mail" FunctionName="Inbox.Store.get_attachment_for_mail">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Inbox.get_attachment_for_mail_Result">
+                <ScalarProperty Name="Follow_ID" ColumnName="Follow_ID" />
+                <ScalarProperty Name="File_data" ColumnName="File_data" />
+                <ScalarProperty Name="File_name" ColumnName="File_name" />
+                <ScalarProperty Name="File_ext" ColumnName="File_ext" />
+                <ScalarProperty Name="Inbox_ID" ColumnName="Inbox_ID" />
+                <ScalarProperty Name="Descrption" ColumnName="Descrption" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Visa_Emp_id" ColumnName="Visa_Emp_id" />
+                <ScalarProperty Name="pmp_name" ColumnName="pmp_name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_data_from_parent_employee_inbox_type_only" FunctionName="Inbox.Store.get_data_from_parent_employee_inbox_type_only">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Inbox.get_data_from_parent_employee_inbox_type_only_result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="pmp_id" ColumnName="pmp_id" />
+                <ScalarProperty Name="parent_pmp_id" ColumnName="parent_pmp_id" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_emp_id_from_visa" FunctionName="Inbox.Store.get_emp_id_from_visa">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Inbox.get_emp_id_from_visa_Result">
+                <ScalarProperty Name="Emp_ID" ColumnName="Emp_ID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_attachment_for_mail_visa_tab" FunctionName="Inbox.Store.get_attachment_for_mail_visa_tab">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Inbox.get_attachment_for_mail_visa_tab_Result">
+                <ScalarProperty Name="File_data" ColumnName="File_data" />
+                <ScalarProperty Name="FILE_NAME" ColumnName="FILE_NAME" />
+                <ScalarProperty Name="File_ext" ColumnName="File_ext" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_mail_sent_from_visa" FunctionName="Inbox.Store.get_mail_sent_from_visa">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Inbox.get_mail_sent_from_visa_Result">
+                <ScalarProperty Name="Visa_Id" ColumnName="Visa_Id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Inbox_Track_Managerupdate" FunctionName="Inbox.Store.Inbox_Track_Managerupdate">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Inbox.Inbox_Track_Managerupdate_result" />
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_Fil_Visa_Lstbox" FunctionName="Inbox.Store.get_Fil_Visa_Lstbox">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Inbox.get_Fil_Visa_Lstbox_Result">
+                <ScalarProperty Name="pmp_name" ColumnName="pmp_name" />
+                <ScalarProperty Name="Emp_ID" ColumnName="Emp_ID" />
+                <ScalarProperty Name="Visa_Id" ColumnName="Visa_Id" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_all_cat_sub_main" FunctionName="Inbox.Store.get_all_cat_sub_main">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Inbox.get_all_cat_sub_main_Result">
+                <ScalarProperty Name="inbox_id" ColumnName="inbox_id" />
+                <ScalarProperty Name="Cat_id" ColumnName="Cat_id" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="inbox_type" ColumnName="inbox_type" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_all_subs" FunctionName="Inbox.Store.get_all_subs">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Inbox.get_all_subs_result">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="get_inbox_visa" FunctionName="Inbox.Store.get_inbox_visa">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Inbox.get_inbox_visa_result">
+                <ScalarProperty Name="Visa_Id" ColumnName="Visa_Id" />
+                <ScalarProperty Name="Inbox_ID" ColumnName="Inbox_ID" />
+                <ScalarProperty Name="Visa_date" ColumnName="Visa_date" />
+                <ScalarProperty Name="Important_Degree" ColumnName="Important_Degree" />
+                <ScalarProperty Name="Dept_ID" ColumnName="Dept_ID" />
+                <ScalarProperty Name="Emp_ID" ColumnName="Emp_ID" />
+                <ScalarProperty Name="Important_Degree_Txt" ColumnName="Important_Degree_Txt" />
+                <ScalarProperty Name="Dept_ID_Txt" ColumnName="Dept_ID_Txt" />
+                <ScalarProperty Name="Emp_ID_Txt" ColumnName="Emp_ID_Txt" />
+                <ScalarProperty Name="Visa_Desc" ColumnName="Visa_Desc" />
+                <ScalarProperty Name="Visa_Period" ColumnName="Visa_Period" />
+                <ScalarProperty Name="Visa_Satus" ColumnName="Visa_Satus" />
+                <ScalarProperty Name="Follow_Up_Dept_ID" ColumnName="Follow_Up_Dept_ID" />
+                <ScalarProperty Name="Follow_Up_Emp_ID" ColumnName="Follow_Up_Emp_ID" />
+                <ScalarProperty Name="Follow_Up_Notes" ColumnName="Follow_Up_Notes" />
+                <ScalarProperty Name="saving_file" ColumnName="saving_file" />
+                <ScalarProperty Name="Dead_Line_DT" ColumnName="Dead_Line_DT" />
+                <ScalarProperty Name="Visa_Goal_ID" ColumnName="Visa_Goal_ID" />
+                <ScalarProperty Name="mail_sent" ColumnName="mail_sent" />
+                <ScalarProperty Name="Entery_Date" ColumnName="Entery_Date" />
+                <ScalarProperty Name="File_data" ColumnName="File_data" />
+                <ScalarProperty Name="File_name" ColumnName="File_name" />
+                <ScalarProperty Name="File_ext" ColumnName="File_ext" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="InboxTrackManagerupdate" FunctionName="Inbox.Store.InboxTrackManagerupdate">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Inbox.InboxTrackManagerupdate_result" />
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="Get_mail_sent_from_inbox_visa_by_visa" FunctionName="Inbox.Store.Get_mail_sent_from_inbox_visa_by_visa">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="Inbox.Get_mail_sent_from_inbox_visa_by_visa_result">
+                <ScalarProperty Name="mail_sent" ColumnName="mail_sent" />
+              </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
         </EntityContainerMapping>
