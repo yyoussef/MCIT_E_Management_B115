@@ -25,7 +25,11 @@
     }
 </script>
 
+<div  ng-app="SmartSearch" ng-controller="SmartSearchCtrl" ng-init="type=1;loadOrganization()">
+<input type="hidden" runat="server" id="OrgDesc" name="OrgDesc" value="--اختر الجهة--" />
+<input type="hidden" runat="server" id="OrgID" name="OrgID" value="0" />
 <input id="Inbox_ID" runat="server" type="hidden" value="0" />
+<input type="hidden" runat="server" id="type" name="type" value="2" />
 <input id="mode" runat="server" type="hidden" value="new" />
 <input id="id2" runat="server" type="hidden" />
 <input id="id3" runat="server" type="hidden" />
@@ -175,7 +179,15 @@
                                                         <asp:Label ID="Label7" runat="server" CssClass="Label" Text="جهة الورود :" />
                                                     </td>
                                                     <td>
-                                                        <uc1:Smart_Search ID="Smart_Org_ID" runat="server" />
+                                                       <%-- <uc1:Smart_Search ID="Smart_Org_ID" runat="server" />--%>
+                                                        <div id="myDiv">
+                                                        <ui-select ng-model="organization.selected" theme="select2"  ng-disabled="disabled" style="min-width: 300px;" on-select="setHiddenWithOrg1($item)">
+                                                              <ui-select-match placeholder="{{initialSelectedOrganization}}">{{$select.selected.name}}</ui-select-match>
+                                                                <ui-select-choices repeat="organization in organizations | propsFilter: {name: $select.search}">
+                                                                  <div ng-bind-html="organization.name | highlight: $select.search"></div>                                                                    
+                                                                </ui-select-choices>
+                                                              </ui-select>  
+                                                      </div>
                                                     </td>
                                                     <td colspan="2" style="display: none">
                                                         <asp:TextBox runat="server" CssClass="Text" ID="txt_New_Org" Width="300px"></asp:TextBox>
@@ -870,3 +882,4 @@
         <asp:PostBackTrigger ControlID="TabPanel_All$TabPanel_Visa_Folow$btn_print_report" />
     </Triggers>
 </asp:UpdatePanel>
+</div>

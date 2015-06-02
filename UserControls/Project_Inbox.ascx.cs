@@ -386,8 +386,8 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
             fil_emp2();
             if (obj.Emp_ID > 0)
                 Smart_Emp_ID.SelectedValue = obj.Emp_ID.ToString();
-            if (obj.Org_Id > 0)
-                Smart_Org_ID.SelectedValue = obj.Org_Id.ToString();
+           // if (obj.Org_Id > 0)
+            //    Smart_Org_ID.SelectedValue = obj.Org_Id.ToString();
             // lbl_Org_Name.Text = obj.Org_Name;
             txt_Org_Out_Box_Code.Text = obj.Org_Out_Box_Code;
             txt_Org_Out_Box_DT.Text = obj.Org_Out_Box_DT;
@@ -453,7 +453,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
         //    object obj = cmd_tbl.ExecuteScalar();
         //    con.Close();
         //    int id = CDataConverter.ConvertToInt(obj.ToString());
-        //    Smart_Org_ID.SelectedValue = id.ToString();
+            //Smart_Org_ID.SelectedValue = id.ToString();
 
         //}
     }
@@ -461,7 +461,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
     {
         hidden_Id.Value = "";
         txt_Code.Text = "";
-        Smart_Org_ID.SelectedValue = "";
+       // Smart_Org_ID.SelectedValue = "";
         Smart_Related_Id.SelectedValue = "";
         Smart_Related_Id.Text_Field = "";
         Smart_Search_structure.SelectedValue = "0";
@@ -502,7 +502,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
     protected void btnSave_Click(object sender, EventArgs e)
     {
-        if ((CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 2 && CDataConverter.ConvertToInt(Smart_Org_ID.SelectedValue) > 0) || CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 1 || CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 3)
+        if ((CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 2 && CDataConverter.ConvertToInt(/**Smart_Org_ID**/OrgID.Value) > 0) || CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 1 || CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 3)
         {
 
             if (Request["id"] == null)
@@ -651,7 +651,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
             else
             {
                 obj.Dept_ID = 0;
-                obj.Org_Id = CDataConverter.ConvertToInt(Smart_Org_ID.SelectedValue);
+                obj.Org_Id = CDataConverter.ConvertToInt(/*Smart_Org_ID.SelectedValue*/OrgID.Value);
             }
 
             obj.Emp_ID = CDataConverter.ConvertToInt(Smart_Emp_ID.SelectedValue);
@@ -956,18 +956,18 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
      
         int found_id = CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString());
         string Query = "";
-        Smart_Org_ID.sql_Connection = sql_Connection;
+       // Smart_Org_ID.sql_Connection = sql_Connection;
    
-       // DataTable DT = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_org_by_found", Session_CS.foundation_id).Tables[0];
+       //// DataTable DT = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_org_by_found", Session_CS.foundation_id).Tables[0];
 
-        DataTable DT = ADContext.get_org_by_found(Session_CS.foundation_id).ToDataTable();
+       // DataTable DT = ADContext.get_org_by_found(Session_CS.foundation_id).ToDataTable();
 
 
-        Smart_Org_ID.datatble = DT;
-        Smart_Org_ID.Value_Field = "Org_ID";
-        Smart_Org_ID.Text_Field = "Org_Desc";
+       // Smart_Org_ID.datatble = DT;
+       // Smart_Org_ID.Value_Field = "Org_ID";
+       // Smart_Org_ID.Text_Field = "Org_Desc";
        
-        Smart_Org_ID.DataBind();
+       // Smart_Org_ID.DataBind();
 
         //fil_emp();
 
@@ -1281,7 +1281,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
         {
             Smart_Emp_ID.sql_Connection = sql_Connection;
 
-           // DataTable DT = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_pmp_by_dept", Session_CS.dept_id).Tables[0];
+           // DataTable DT = SqlHelper.ExecuteDatasetype=4t(Database.ConnectionString, "get_pmp_by_dept", Session_CS.dept_id).Tables[0];
 
             DataTable DT = ADContext.get_pmp_by_dept(Session_CS.dept_id).ToDataTable();
             Smart_Emp_ID.datatble = DT;
@@ -2508,7 +2508,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
             _Message.Body += parent_name;
             _Message.Body += " </h3>";
             //_Message.Body += " <h1 style=text-align:right>    وصلكم وارد من نظام إدارة مشروعات قطاع البنية المعلوماتية  </h1> ";
-            _Message.Body += " <h3 > إيماءً إلى الوارد من  " + Smart_Org_ID.SelectedText + " بتاريخ " + txt_Date.Text + " بخصوص " + txt_Subject.Text + " </h3>";
+            _Message.Body += " <h3 > إيماءً إلى الوارد من  " + /*Smart_Org_ID.SelectedText*/OrgDesc.Value + " بتاريخ " + txt_Date.Text + " بخصوص " + txt_Subject.Text + " </h3>";
 
             bool flag = false;
 
@@ -3320,7 +3320,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                 _Message.Body += " " + parent_name + "    </h3> ";
                 // _Message.Body += " <h1 style=text-align:right>    وصلكم وارد من نظام إدارة مشروعات قطاع البنية المعلوماتية  </h1> ";
 
-                _Message.Body += " <h3 > " + " وصلكم وارد من " + Smart_Org_ID.SelectedText + " بتاريخ " + txt_Date.Text + " بخصوص <br/>" + "<h3 style=" + "color:blue >" + txt_Subject.Text + "</h3>";
+                _Message.Body += " <h3 > " + " وصلكم وارد من " + /*Smart_Org_ID.SelectedText*/OrgDesc.Value + " بتاريخ " + txt_Date.Text + " بخصوص <br/>" + "<h3 style=" + "color:blue >" + txt_Subject.Text + "</h3>";
                 bool flag = false;
                 string file = "";
                 byte[] files = new byte[0];

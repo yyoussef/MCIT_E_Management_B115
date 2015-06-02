@@ -32,7 +32,11 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
 </asp:UpdateProgress>
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
-        <input id="Outbox_ID" runat="server" type="hidden"  />
+<div  ng-app="SmartSearch" ng-controller="SmartSearchCtrl" ng-init="type=2;loadOrganization()">
+<input type="hidden" runat="server" id="OrgDesc" name="OrgDesc" value="--اختر الجهة--" />
+<input type="hidden" runat="server" id="OrgID" name="OrgID" value="0" />
+    <input type="hidden" runat="server" id="type" name="type" value="3" />
+<input id="Outbox_ID" runat="server" type="hidden"  />
 <input id="mode" runat="server" type="hidden" value="new" />
 <input id="id2" runat="server" type="hidden" />
 <input id="id3" runat="server" type="hidden" />
@@ -153,7 +157,15 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                                         <asp:Label ID="Label7" runat="server" CssClass="Label" Text="الجهة الصادر لها :" />
                                                     </td>
                                                     <td>
-                                                        <uc1:Smart_Search ID="Smart_Org_ID" runat="server" />
+                                                        <%--<uc1:Smart_Search ID="Smart_Org_ID" runat="server" />--%>
+                                                        <div id="myDiv">
+                                                        <ui-select ng-model="organization.selected" theme="select2"  ng-disabled="disabled" style="min-width: 300px;" on-select="setHiddenWithOrg3($item)">
+                                                              <ui-select-match placeholder="{{initialSelectedOrganization1}}">{{$select.selected.name}}</ui-select-match>
+                                                                <ui-select-choices repeat="organization in organizations | propsFilter: {name: $select.search}">
+                                                                  <div ng-bind-html="organization.name | highlight: $select.search"></div>                                                                    
+                                                                </ui-select-choices>
+                                                              </ui-select>  
+                                                      </div>
                                                     </td>
                                                     <td colspan="2">
                                                     </td>
