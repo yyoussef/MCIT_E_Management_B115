@@ -10,7 +10,7 @@
 </style>
 
 <div ng-app="SmartSearch" ng-controller="SmartSearchCtrl" ng-init="type=3;loadOrganization()">
-<input type="hidden" runat="server" id="OrgDesc" name="OrgDesc" value="--Choose Organization--" />
+<input type="hidden" runat="server" id="OrgDesc" name="OrgDesc" value="--اختر الجهة--" />
 <input type="hidden" runat="server" id="OrgID" name="OrgID" value="0" />
     <input type="hidden" runat="server" id="type" name="type" value="4" />
 <table dir="rtl" style="line-height: 2; width: 99%;">

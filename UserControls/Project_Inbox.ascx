@@ -26,7 +26,7 @@
 </script>
 
 <div  ng-app="SmartSearch" ng-controller="SmartSearchCtrl" ng-init="type=1;loadOrganization()">
-<input type="hidden" runat="server" id="OrgDesc" name="OrgDesc" value="--Choose Organization--" />
+<input type="hidden" runat="server" id="OrgDesc" name="OrgDesc" value="--اختر الجهة--" />
 <input type="hidden" runat="server" id="OrgID" name="OrgID" value="0" />
 <input id="Inbox_ID" runat="server" type="hidden" value="0" />
 <input type="hidden" runat="server" id="type" name="type" value="2" />

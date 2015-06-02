@@ -33,7 +33,7 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
 <div  ng-app="SmartSearch" ng-controller="SmartSearchCtrl" ng-init="type=2;loadOrganization()">
-<input type="hidden" runat="server" id="OrgDesc" name="OrgDesc" value="--Choose Organization--" />
+<input type="hidden" runat="server" id="OrgDesc" name="OrgDesc" value="--اختر الجهة--" />
 <input type="hidden" runat="server" id="OrgID" name="OrgID" value="0" />
     <input type="hidden" runat="server" id="type" name="type" value="3" />
 <input id="Outbox_ID" runat="server" type="hidden"  />
