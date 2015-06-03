@@ -179,15 +179,15 @@
                                                         <asp:Label ID="Label7" runat="server" CssClass="Label" Text="جهة الورود :" />
                                                     </td>
                                                     <td>
-                                                       <%-- <uc1:Smart_Search ID="Smart_Org_ID" runat="server" />--%>
-                                                        <div id="myDiv">
+                                                       <uc1:Smart_Search ID="Smart_Org_ID" runat="server" />
+                                                   <%--     <div id="myDiv">
                                                         <ui-select ng-model="organization.selected" theme="select2"  ng-disabled="disabled" style="min-width: 300px;" on-select="setHiddenWithOrg1($item)">
                                                               <ui-select-match placeholder="{{initialSelectedOrganization}}">{{$select.selected.name}}</ui-select-match>
                                                                 <ui-select-choices repeat="organization in organizations | propsFilter: {name: $select.search}">
                                                                   <div ng-bind-html="organization.name | highlight: $select.search"></div>                                                                    
                                                                 </ui-select-choices>
                                                               </ui-select>  
-                                                      </div>
+                                                      </div>--%>
                                                     </td>
                                                     <td colspan="2" style="display: none">
                                                         <asp:TextBox runat="server" CssClass="Text" ID="txt_New_Org" Width="300px"></asp:TextBox>

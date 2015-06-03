@@ -162,7 +162,8 @@ app.controller('SmartSearchCtrl', function($scope, $http, $timeout) {
         //}
         //else if(type==4)
         //    $scope.initialSelectedOrganization3 = document.getElementById('ctl00_ContentPlaceHolder1_Inbox_Search1_OrgDesc').value;
-        //    $.ajax({
+
+            $.ajax({
                 type: "POST",
                 url: "../Webservices/SmartSearchService.asmx/GetAllOrgByFoundId",
                 data: "{}",

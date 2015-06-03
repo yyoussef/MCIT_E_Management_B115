@@ -543,6 +543,8 @@ namespace EFModels
     
     public partial class get_employee_accoording_to_radiochek
     {
+        public long pmp_id { get; set; }
+        public string pmp_name { get; set; }
     }
 }
 namespace EFModels
@@ -645,6 +647,13 @@ namespace EFModels
     
     public partial class get_related_inbox_inbox_page
     {
+        public int ID { get; set; }
+        public Nullable<int> Proj_id { get; set; }
+        public string Code { get; set; }
+        public string con { get; set; }
+        public Nullable<int> Group_id { get; set; }
+        public string Date { get; set; }
+        public Nullable<System.DateTime> date1 { get; set; }
     }
 }
 namespace EFModels
@@ -653,6 +662,13 @@ namespace EFModels
     
     public partial class get_related_outbox_inbox_page
     {
+        public int ID { get; set; }
+        public Nullable<int> Proj_id { get; set; }
+        public string Code { get; set; }
+        public string con { get; set; }
+        public Nullable<int> Group_id { get; set; }
+        public string Date { get; set; }
+        public Nullable<System.DateTime> date1 { get; set; }
     }
 }
 namespace EFModels
@@ -661,6 +677,9 @@ namespace EFModels
     
     public partial class get_sub_cat_by_main_cat
     {
+        public int id { get; set; }
+        public string name { get; set; }
+        public Nullable<int> main_id { get; set; }
     }
 }
 namespace EFModels
@@ -669,6 +688,7 @@ namespace EFModels
     
     public partial class Get_Visa_Emp
     {
+        public string pmp_name { get; set; }
     }
 }
 namespace EFModels

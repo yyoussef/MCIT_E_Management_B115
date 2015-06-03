@@ -822,30 +822,11 @@ warning 6002: The table/view 'Projects_Management.dbo.vw_outbox_DateSubject' doe
     [inbox_follow_emp].[inbox_id] AS [inbox_id]
     FROM [dbo].[inbox_follow_emp] AS [inbox_follow_emp]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="Inbox_Relations" EntityType="Self.Inbox_Relations" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Inbox_Relations].[ID] AS [ID], 
-    [Inbox_Relations].[inbox_id] AS [inbox_id], 
-    [Inbox_Relations].[inbox_id_type] AS [inbox_id_type], 
-    [Inbox_Relations].[Related_ID] AS [Related_ID], 
-    [Inbox_Relations].[Related_ID_Type] AS [Related_ID_Type], 
-    [Inbox_Relations].[foundation_id] AS [foundation_id]
-    FROM [dbo].[Inbox_Relations] AS [Inbox_Relations]</DefiningQuery>
+          <EntitySet Name="Inbox_Relations" EntityType="Self.Inbox_Relations" store:Type="Tables" Schema="dbo">
+          
           </EntitySet>
-          <EntitySet Name="Inbox_Track_Manager" EntityType="Self.Inbox_Track_Manager" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [Inbox_Track_Manager].[inbox_id] AS [inbox_id], 
-    [Inbox_Track_Manager].[status] AS [status], 
-    [Inbox_Track_Manager].[IS_New_Mail] AS [IS_New_Mail], 
-    [Inbox_Track_Manager].[Have_Follow] AS [Have_Follow], 
-    [Inbox_Track_Manager].[Have_Visa] AS [Have_Visa], 
-    [Inbox_Track_Manager].[Visa_Desc] AS [Visa_Desc], 
-    [Inbox_Track_Manager].[IS_Old_Mail] AS [IS_Old_Mail], 
-    [Inbox_Track_Manager].[pmp_id] AS [pmp_id], 
-    [Inbox_Track_Manager].[parent_pmp_id] AS [parent_pmp_id], 
-    [Inbox_Track_Manager].[Type_Track] AS [Type_Track], 
-    [Inbox_Track_Manager].[All_visa_sent] AS [All_visa_sent]
-    FROM [dbo].[Inbox_Track_Manager] AS [Inbox_Track_Manager]</DefiningQuery>
+          <EntitySet Name="Inbox_Track_Manager" EntityType="Self.Inbox_Track_Manager" store:Type="Tables" Schema="dbo">
+            
           </EntitySet>
           <EntitySet Name="pmp_fav_View" EntityType="Self.pmp_fav_View" store:Type="Views" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -2091,9 +2072,28 @@ warning 6002: The table/view 'Projects_Management.dbo.vw_outbox_DateSubject' doe
           <Property Type="String" Name="Dept_name" Nullable="true" MaxLength="3000" />
           <Property Type="Int64" Name="Sec_sec_id" Nullable="true" />
         </ComplexType>
-        <ComplexType Name="get_related_outbox_inbox_page" />
-        <ComplexType Name="get_related_inbox_inbox_page" />
-        <ComplexType Name="get_employee_accoording_to_radiochek" />
+        <ComplexType Name="get_related_outbox_inbox_page" >
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="Proj_id" Nullable="true" />
+          <Property Type="String" Name="Code" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="con" Nullable="true" MaxLength="304" />
+          <Property Type="Int32" Name="Group_id" Nullable="true" />
+          <Property Type="String" Name="Date" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="date1" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="get_related_inbox_inbox_page" >
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="Proj_id" Nullable="true" />
+          <Property Type="String" Name="Code" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="con" Nullable="true" MaxLength="304" />
+          <Property Type="Int32" Name="Group_id" Nullable="true" />
+          <Property Type="String" Name="Date" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="date1" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="get_employee_accoording_to_radiochek" >
+          <Property Type="Int64" Name="pmp_id" Nullable="false" />
+          <Property Type="String" Name="pmp_name" Nullable="true" MaxLength="255" />
+        </ComplexType>
         <EntityType Name="pmp_fav_View">
           <Key>
             <PropertyRef Name="PMP_ID" />
@@ -2162,8 +2162,14 @@ warning 6002: The table/view 'Projects_Management.dbo.vw_outbox_DateSubject' doe
           <Property Type="Int32" Name="Visa_Emp_id" Nullable="true" />
           <Property Type="String" Name="pmp_name" Nullable="true" MaxLength="255" />
         </ComplexType>
-        <ComplexType Name="get_sub_cat_by_main_cat" />
-        <ComplexType Name="Get_Visa_Emp" />
+        <ComplexType Name="get_sub_cat_by_main_cat" >
+          <Property Type="Int32" Name="id" Nullable="false" />
+          <Property Type="String" Name="name" Nullable="true" MaxLength="4000" />
+          <Property Type="Int32" Name="main_id" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="Get_Visa_Emp" >
+          <Property Type="String" Name="pmp_name" Nullable="true" MaxLength="255" />
+        </ComplexType>
         <ComplexType Name="get_max_code_inbox_Result" >
           <Property Type="Int64" Name="code" Nullable="true" />
         </ComplexType>
@@ -3144,17 +3150,36 @@ warning 6002: The table/view 'Projects_Management.dbo.vw_outbox_DateSubject' doe
           <FunctionImportMapping FunctionImportName="InboxOutbox_DeleteByOrg" FunctionName="Inbox.Store.InboxOutbox_DeleteByOrg" />
           <FunctionImportMapping FunctionImportName="get_related_outbox_inbox_page" FunctionName="Inbox.Store.get_related_outbox_inbox_page">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="Inbox.get_related_outbox_inbox_page" />
+              <ComplexTypeMapping TypeName="Inbox.get_related_outbox_inbox_page" >
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Proj_id" ColumnName="Proj_id" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="con" ColumnName="con" />
+                <ScalarProperty Name="Group_id" ColumnName="Group_id" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="date1" ColumnName="date1" />
+              </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="get_related_inbox_inbox_page" FunctionName="Inbox.Store.get_related_inbox_inbox_page">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="Inbox.get_related_inbox_inbox_page" />
+              <ComplexTypeMapping TypeName="Inbox.get_related_inbox_inbox_page" >
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Proj_id" ColumnName="Proj_id" />
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="con" ColumnName="con" />
+                <ScalarProperty Name="Group_id" ColumnName="Group_id" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="date1" ColumnName="date1" />
+              </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="get_employee_accoording_to_radiochek" FunctionName="Inbox.Store.get_employee_accoording_to_radiochek">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="Inbox.get_employee_accoording_to_radiochek" />
+              <ComplexTypeMapping TypeName="Inbox.get_employee_accoording_to_radiochek" >
+                <ScalarProperty Name="pmp_id" ColumnName="pmp_id" />
+                <ScalarProperty Name="pmp_name" ColumnName="pmp_name" />
+              </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
           <EntitySetMapping Name="pmp_fav_View">
@@ -3258,12 +3283,18 @@ warning 6002: The table/view 'Projects_Management.dbo.vw_outbox_DateSubject' doe
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="get_sub_cat_by_main_cat" FunctionName="Inbox.Store.get_sub_cat_by_main_cat">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="Inbox.get_sub_cat_by_main_cat" />
+              <ComplexTypeMapping TypeName="Inbox.get_sub_cat_by_main_cat" >
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="main_id" ColumnName="main_id" />
+              </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="Get_Visa_Emp" FunctionName="Inbox.Store.Get_Visa_Emp">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="Inbox.Get_Visa_Emp" />
+              <ComplexTypeMapping TypeName="Inbox.Get_Visa_Emp" >
+                <ScalarProperty Name="pmp_name" ColumnName="pmp_name" />
+              </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="get_max_code_inbox" FunctionName="Inbox.Store.get_max_code_inbox">

@@ -1671,7 +1671,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
         if (e.CommandName == "RemoveItem")
         {
-            Inbox_OutBox_Files_DB.Delete(CDataConverter.ConvertToInt(e.CommandArgument));
+           // Inbox_OutBox_Files_DB.Delete(CDataConverter.ConvertToInt(e.CommandArgument));
 
             Inbox_OutBox_Files inout = new Inbox_OutBox_Files()
             {
@@ -1813,7 +1813,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
                
 
-                   hidden_Id.Value = obj.Visa_Id.ToString();
+                //   hidden_Id.Value = obj.Visa_Id.ToString();
 
                     if (FileUpload_Visa.HasFile)
                     {
@@ -2637,7 +2637,10 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                         obj.All_visa_sent = 0;
                       // obj.inbox_id = Inbox_track_manager_DB.Save(obj);
 
-                        InsertOrUpdate_Inbox_track_manager(obj);
+                       // InsertOrUpdate_Inbox_track_manager(obj);
+
+                        pm_inbox.Inbox_Track_Manager.Add(obj);
+                        pm_inbox.SaveChanges();
 
                     }
 
@@ -2665,7 +2668,8 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
             
           //  Inbox_Visa_DB.Delete(CDataConverter.ConvertToInt(e.CommandArgument));
 
-            pm_inbox.Inbox_Visa.RemoveRange(pm_inbox.Inbox_Visa.Where(x => x.Visa_Id == inb_visa)).SingleOrDefault();
+            pm_inbox.Inbox_Visa.RemoveRange(pm_inbox.Inbox_Visa.Where(x => x.Visa_Id == inb_visa));
+            pm_inbox.SaveChanges();
           
 
             ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('لقد تم الحذف بنجاح');", true);
@@ -2865,7 +2869,9 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
             //    Inbox_Visa_Follows_DT obj_follow = Inbox_Visa_Follows_DB.SelectByID(CDataConverter.ConvertToInt(hidden_Follow_ID.Value));
 
                 int vis_id = CDataConverter.ConvertToInt(hidden_Follow_ID.Value);
-                Inbox_Visa_Follows obj_follow = pm_inbox.Inbox_Visa_Follows.Where(x => x.Follow_ID == vis_id).SingleOrDefault();
+              //  Inbox_Visa_Follows obj_follow = pm_inbox.Inbox_Visa_Follows.Where(x => x.Follow_ID == vis_id).SingleOrDefault();
+
+                Inbox_Visa_Follows obj_follow = new Inbox_Visa_Follows();
 
                 obj_follow.Follow_ID = CDataConverter.ConvertToInt(hidden_Follow_ID.Value);
                 obj_follow.Inbox_ID = CDataConverter.ConvertToInt(hidden_Id.Value);
@@ -3144,7 +3150,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
        //DataTable DT = new DataTable();
     //    DT = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_inbox_visa", hidden_Id.Value).Tables[0];
 
-        DataTable DT = pm_inbox.get_inbox_visa( CDataConverter.ConvertToInt( hidden_Id)).ToDataTable();
+        DataTable DT = pm_inbox.get_inbox_visa( CDataConverter.ConvertToInt( hidden_Id.Value )).ToDataTable();
 
        // int empid = CDataConverter.ConvertToInt(DT.Rows[0]["Emp_ID"].ToString()); 
 
@@ -3222,9 +3228,12 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                     //obj.parent_pmp_id = CDataConverter.ConvertToInt(Session_CS.parent_id.ToString());
                     obj.All_visa_sent = 0;
 
-                  //  obj.inbox_id = Inbox_track_manager_DB.Save(obj);
+            
 
-                    InsertOrUpdate_Inbox_track_manager(obj);
+                  //  InsertOrUpdate_Inbox_track_manager(obj);
+
+                    pm_inbox.Inbox_Track_Manager.Add(obj);
+                    pm_inbox.SaveChanges();
 
                     if (obj.inbox_id > 0)
 
@@ -3234,11 +3243,13 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
                 ///////////////  to store that mohammed eid send to dr hesham the mail
 
-             //   Inbox_Visa_Follows_DT obj_follow = Inbox_Visa_Follows_DB.SelectByID(CDataConverter.ConvertToInt(hidden_Follow_ID.Value));
+              //Inbox_Visa_Follows_DT obj_follow = Inbox_Visa_Follows_DB.SelectByID(CDataConverter.ConvertToInt(hidden_Follow_ID.Value));
 
                 int f_id = CDataConverter.ConvertToInt(hidden_Follow_ID.Value);
-                Inbox_Visa_Follows obj_follow = pm_inbox.Inbox_Visa_Follows.Where(x => x.Follow_ID == f_id).SingleOrDefault();
 
+           //  Inbox_Visa_Follows obj_follow = pm_inbox.Inbox_Visa_Follows.Where(x => x.Follow_ID == f_id).SingleOrDefault();
+
+                Inbox_Visa_Follows obj_follow = new Inbox_Visa_Follows();
 
                 obj_follow.Follow_ID = CDataConverter.ConvertToInt(hidden_Follow_ID.Value);
                 obj_follow.Inbox_ID = CDataConverter.ConvertToInt(hidden_Id.Value);
@@ -3252,9 +3263,9 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                 obj_follow.entery_pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
                 obj_follow.Visa_Emp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
 
-          //      obj_follow.Follow_ID = Inbox_Visa_Follows_DB.Save(obj_follow);
+          //  obj_follow.Follow_ID = Inbox_Visa_Follows_DB.Save(obj_follow);
 
-                InsertOrUpdate_Inbox_Visa_follows(obj_follow);
+                 InsertOrUpdate_Inbox_Visa_follows(obj_follow);
 
                 Fil_Grid_Visa_Follow();
 
