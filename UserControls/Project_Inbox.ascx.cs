@@ -825,7 +825,12 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                     inb_relations.Related_ID = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue);
                     inb_relations.Related_ID_Type = 1;
                     inb_relations.foundation_id = found;
-                    InsertOrUpdate_InboxRelations(inb_relations);
+
+                   // InsertOrUpdate_InboxRelations(inb_relations);
+                    pm_inbox.Inbox_Relations.Add(inb_relations);
+                    pm_inbox.SaveChanges();
+
+
                 }
 
 
