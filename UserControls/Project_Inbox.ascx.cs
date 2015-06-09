@@ -485,7 +485,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
     }
 
-    public void InsertOrUpdate_Inbox(Inbox blog)
+    public int InsertOrUpdate_Inbox(Inbox blog)
     {
 
 
@@ -497,6 +497,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                                       System.Data.Entity.EntityState.Modified;
 
             context.SaveChanges();
+            return blog.ID;
         }
     }
 
@@ -708,7 +709,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
           //  obj.ID = Inbox_DB.Save(obj);
 
-            InsertOrUpdate_Inbox(obj);
+              obj.ID = InsertOrUpdate_Inbox(obj);
 
 
             
@@ -791,7 +792,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
                     Inbox_Relations InboxRelation1 = new Inbox_Relations
                     {
-                        ID = obj.ID,
+                        inbox_id = obj.ID,
 
                        // inbox_id = CDataConverter.ConvertToInt(Inbox_ID.Value),
                         inbox_id_type = 1,
@@ -799,17 +800,20 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                         Related_ID_Type = 2,
                         foundation_id = found
                     };
-                    Inbox_Relations InboxRelation2 = new Inbox_Relations
-                    {
-                        ID = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue),
-                        inbox_id_type = 2,
-                        Related_ID = obj.ID ,
-                        Related_ID_Type = 1,
-                        foundation_id = found
-                    };
+
+                    //Inbox_Relations InboxRelation2 = new Inbox_Relations
+                    //{
+                    //    ID = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue),
+                    //    inbox_id_type = 2,
+                    //    Related_ID = obj.ID ,
+                    //    Related_ID_Type = 1,
+                    //    foundation_id = found
+                    //};
 
                     inboxContext.Inbox_Relations.Add(InboxRelation1);
-                    inboxContext.Inbox_Relations.Add(InboxRelation2);
+
+                   // inboxContext.Inbox_Relations.Add(InboxRelation2);
+
                     inboxContext.SaveChanges();
 
                 }

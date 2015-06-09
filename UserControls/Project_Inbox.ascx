@@ -180,14 +180,16 @@
                                                     </td>
                                                     <td>
                                                      
-                                                        <div id="myDiv">
+                                                        <%--<div id="myDiv">
                                                         <ui-select ng-model="organization.selected" theme="select2"  ng-disabled="disabled" style="min-width: 300px;">
                                                                 <ui-select-match placeholder="{{initialSelectedOrganization}}">{{$select.selected.name}}</ui-select-match>
                                                                 <ui-select-choices repeat="organization in organizations | propsFilter: {name: $select.search}">
                                                                 <div ng-bind-html="organization.name | highlight: $select.search"></div>                                                                    
                                                                 </ui-select-choices>
                                                               </ui-select>  
-                                                      </div>
+                                                      </div>--%>
+
+                                                        <uc1:Smart_Search ID="Smart_Org_ID" runat="server" />
                                                     </td>
                                                     <td colspan="2" style="display: none">
                                                         <asp:TextBox runat="server" CssClass="Text" ID="txt_New_Org" Width="300px"></asp:TextBox>
