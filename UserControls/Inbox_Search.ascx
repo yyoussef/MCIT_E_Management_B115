@@ -1,13 +1,15 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="Inbox_Search.ascx.cs"
-    Inherits="UserControls_Inbox_Search" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="Inbox_Search.ascx.cs" Inherits="UserControls_Inbox_Search" %>
 <%@ Register Src="Smart_Search.ascx" TagName="Smart_Search" TagPrefix="uc1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
 
-<div ng-app="SmartSearch" ng-controller="SmartSearchCtrl" ng-init="type=4;loadOrganization()">
+
 <input type="hidden" runat="server" id="OrgDesc" name="OrgDesc" value="--اختر الجهة--" />
 <input type="hidden" runat="server" id="OrgID" name="OrgID" value="0" />
-<input type="hidden" runat="server" id="type" name="type" value="1" />
+
+<div ng-app="SmartSearch" ng-controller="SmartSearchCtrl" ng-init="type=4;loadOrganization()">
+<asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
+<ContentTemplate>
 <table dir="rtl" style="line-height: 2; width: 99%;" >
     <tr>
         <td align="center" colspan="3" style="height: 33px">
@@ -142,14 +144,14 @@
             <asp:Label ID="Label3" runat="server" CssClass="Label" Text="جهة الورود : "></asp:Label>
         </td>
         <td align="right" dir="rtl" colspan="2">
-               <div id="myDiv">
-                 <ui-select ng-model="organization.selected" theme="select2"  ng-disabled="disabled" style="min-width:300px;">
-                   <ui-select-match placeholder="{{initialSelectedOrganization3}}">{{$select.selected.name}}</ui-select-match>
-                     <ui-select-choices repeat="organization in organizations | propsFilter: {name: $select.search}">
-                      <div ng-bind-html="organization.name | highlight: $select.search"></div>                                                                    
-                     </ui-select-choices>
-                 </ui-select>    
-              </div>
+             <div id="myDiv">  
+                <ui-select ng-model="organization.selected" theme="select2"  ng-disabled="disabled" style="min-width: 300px;" on-select="setHiddenWithOrg($item)">
+                  <ui-select-match placeholder="{{initialSelectedOrganization}}">{{$select.selected.name}}</ui-select-match>
+                  <ui-select-choices repeat="organization in organizations | propsFilter: {name: $select.search}">
+                   <div ng-bind-html="organization.name | highlight: $select.search"></div>                                                                    
+                    </ui-select-choices>
+                    </ui-select>  
+                </div>  
         </td>
     </tr>
     <tr>
@@ -323,4 +325,6 @@
         </td>
     </tr>
 </table>
+</ContentTemplate>
+</asp:UpdatePanel>
 </div>

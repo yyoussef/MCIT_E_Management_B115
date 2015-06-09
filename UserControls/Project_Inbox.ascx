@@ -1,5 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="Project_Inbox.ascx.cs"
-    Inherits="UserControls_Project_Inbox" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="Project_Inbox.ascx.cs" Inherits="UserControls_Project_Inbox" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Src="~/UserControls/Smart_Search.ascx" TagName="Smart_Search" TagPrefix="uc1" %>
 <style type="text/css">
@@ -25,7 +24,7 @@
     }
 </script>
 
-<div  ng-app="SmartSearch" ng-controller="SmartSearchCtrl" ng-init="type=1;loadOrganization()">
+<div  ng-app="SmartSearch" ng-controller="SmartSearchCtrl" ng-init="loadOrganization()">
 <input type="hidden" runat="server" id="OrgDesc" name="OrgDesc" value="--اختر الجهة--" />
 <input type="hidden" runat="server" id="OrgID" name="OrgID" value="0" />
 <input id="Inbox_ID" runat="server" type="hidden" value="0" />
@@ -181,7 +180,7 @@
                                                     <td>
                                                      
                                                         <div id="myDiv">
-                                                        <ui-select ng-model="organization.selected" theme="select2"  ng-disabled="disabled" style="min-width: 300px;">
+                                                        <ui-select ng-model="organization.selected" theme="select2"  ng-disabled="disabled" style="min-width: 300px;" on-select="setHiddenWithOrg($item)">
                                                                 <ui-select-match placeholder="{{initialSelectedOrganization}}">{{$select.selected.name}}</ui-select-match>
                                                                 <ui-select-choices repeat="organization in organizations | propsFilter: {name: $select.search}">
                                                                 <div ng-bind-html="organization.name | highlight: $select.search"></div>                                                                    
