@@ -503,7 +503,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
     protected void btnSave_Click(object sender, EventArgs e)
     {
-        if ((CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 2 && CDataConverter.ConvertToInt(OrgID.Value) > 0) || CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 1 || CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 3)
+        if ((CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 2 && Smart_Org_ID.SelectedValue != "0") || CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 1 || CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 3)
         {
 
             if (Request["id"] == null)
@@ -761,13 +761,16 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
                 string sql_related = "";
              
-                ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('لقد تم الحفظ بنجاح');", true);
+             //   ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('لقد تم الحفظ بنجاح');", true);
+
                 var inboxContext = new InboxContext();
 
 
                 if (ddl_Related_Type.SelectedValue == "2")
                 {
-                   
+
+                    int selected = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue);
+
                     //sql_related = "insert into Inbox_Relations values ( " + obj.ID + ",1," + CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue) + ",2," + found + " )";
                     //sql_related += ", values ( " + CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue) + ",2," + obj.ID + ",1," + found + " )";
 
@@ -872,7 +875,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
         Fil_Smrt_From_InBox();
         ///////////////// to make the related outbox with related type "اخري" \\\\\
 
-        Smart_Related_Id.SelectedValue = "";
+      //  Smart_Related_Id.SelectedValue = "";
 
         //Session_CS.Project_id = null;
     }
@@ -969,14 +972,14 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
    
        //// DataTable DT = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_org_by_found", Session_CS.foundation_id).Tables[0];
 
-        //DataTable DT = ADContext.get_org_by_found(Session_CS.foundation_id).ToDataTable();
+        DataTable DT = ADContext.get_org_by_found(Session_CS.foundation_id).ToDataTable();
 
 
-        //Smart_Org_ID.datatble = DT;
-        //Smart_Org_ID.Value_Field = "Org_ID";
-        //Smart_Org_ID.Text_Field = "Org_Desc";
+        Smart_Org_ID.datatble = DT;
+        Smart_Org_ID.Value_Field = "Org_ID";
+        Smart_Org_ID.Text_Field = "Org_Desc";
 
-        //Smart_Org_ID.DataBind();
+        Smart_Org_ID.DataBind();
 
         //fil_emp();
 
