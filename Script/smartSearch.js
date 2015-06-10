@@ -96,57 +96,35 @@ app.controller('SmartSearchCtrl', function($scope, $http, $timeout) {
     };
 
    
-    $scope.$watchCollection('organization.selected', function (newVal,oldVal)
-    {
-        console.info("Here is watch collection");
-        if (newVal !== oldVal) {
-            if (type == 1)
-            {
-                document.getElementById('ctl00_ContentPlaceHolder1_Project_Inbox1_OrgDesc').value = newVal.name;
-                document.getElementById('ctl00_ContentPlaceHolder1_Project_Inbox1_OrgID').value = newVal.id;
+    //$scope.$watchCollection('organization.selected', function (newVal,oldVal)
+    //{
+    //    console.info("success");
+    //    if (newVal !== oldVal) {
+    //        if ($scope.type == 1)
+    //        {
+    //            document.getElementById('ctl00_ContentPlaceHolder1_Project_Inbox1_OrgDesc').value = newVal.name;
+    //            document.getElementById('ctl00_ContentPlaceHolder1_Project_Inbox1_OrgID').value = newVal.id;
 
-            }
-            if (type == 2)
-            {
-                document.getElementById('ctl00_ContentPlaceHolder1_Project_Outbox1_OrgDesc').value=newVal.name;
-                document.getElementById('ctl00_ContentPlaceHolder1_Project_Outbox1_OrgID').value=newVal.id;
-            }
-            if (type == 3)
-            {
-                document.getElementById('ctl00_ContentPlaceHolder1_Outbox_Search1_OrgDesc').value=newVal.name;
-                document.getElementById('ctl00_ContentPlaceHolder1_Outbox_Search1_OrgID').value=newVal.id;
-            }
-            if (type == 4)
-            {
-                document.getElementById('ctl00_ContentPlaceHolder1_Inbox_Search1_OrgDesc').value=newVal.name;
-                document.getElementById('ctl00_ContentPlaceHolder1_Inbox_Search1_OrgID').value = newVal.id;
-            }
+    //        }
+    //        if ($scope.type == 2)
+    //        {
+    //            document.getElementById('ctl00_ContentPlaceHolder1_Project_Outbox1_OrgDesc').value=newVal.name;
+    //            document.getElementById('ctl00_ContentPlaceHolder1_Project_Outbox1_OrgID').value=newVal.id;
+    //        }
+    //        if ($scope.type == 3)
+    //        {
+    //            document.getElementById('ctl00_ContentPlaceHolder1_Outbox_Search1_OrgDesc').value=newVal.name;
+    //            document.getElementById('ctl00_ContentPlaceHolder1_Outbox_Search1_OrgID').value=newVal.id;
+    //        }
+    //        if ($scope.type == 4)
+    //        {
+    //            document.getElementById('ctl00_ContentPlaceHolder1_Inbox_Search1_OrgDesc').value = newVal.name;
+    //            document.getElementById('ctl00_ContentPlaceHolder1_Inbox_Search1_OrgID').value = newVal.id;
+    //        }
            
-        }
-    });
-
-    $scope.setHiddenWithOrg = function (item)
-    {
-        if (type == 1) {
-            document.getElementById('ctl00_ContentPlaceHolder1_Project_Inbox1_OrgDesc').value = item.name;
-            document.getElementById('ctl00_ContentPlaceHolder1_Project_Inbox1_OrgID').value = item.id;
-
-        }
-        if (type == 2) {
-            document.getElementById('ctl00_ContentPlaceHolder1_Project_Outbox1_OrgDesc').value = item.name;
-
-            document.getElementById('ctl00_ContentPlaceHolder1_Project_Outbox1_OrgID').value = item.id;
-        }
-        if (type == 3) {
-            document.getElementById('ctl00_ContentPlaceHolder1_Outbox_Search1_OrgDesc').value = item.name;
-            document.getElementById('ctl00_ContentPlaceHolder1_Outbox_Search1_OrgID').value = item.id;
-        }
-        if (type == 4) {
-            document.getElementById('ctl00_ContentPlaceHolder1_Inbox_Search1_OrgDesc').value = item.name;
-            document.getElementById('ctl00_ContentPlaceHolder1_Inbox_Search1_OrgID').value = item.id;
-        }
-    };
-      
+    //    }
+    //});
+         
 
     $scope.someFunction = function(item) 
     {
@@ -166,14 +144,16 @@ app.controller('SmartSearchCtrl', function($scope, $http, $timeout) {
     $scope.type=0;
     $scope.loadOrganization = function ()
     {
-        if($scope.type==1)
-        $scope.initialSelectedOrganization = document.getElementById('ctl00_ContentPlaceHolder1_Project_Inbox1_OrgDesc').value;;
-        if($scope.type==2)
-        $scope.initialSelectedOrganization1 = document.getElementById('ctl00_ContentPlaceHolder1_Project_Outbox1_OrgDesc').value;
-        if($scope.type==3)
-        $scope.initialSelectedOrganization2 = document.getElementById('ctl00_ContentPlaceHolder1_Outbox_Search1_OrgDesc').value;
-        if($scope.type==4)
-            $scope.initialSelectedOrganization3 = document.getElementById('ctl00_ContentPlaceHolder1_Inbox_Search1_OrgDesc').value;
+        
+
+        if ($scope.type == 1)
+            $scope.initialSelectedOrganization = document.getElementById('ctl00_ContentPlaceHolder1_Project_Inbox1_OrgDesc').value;
+        if ($scope.type == 2)
+            $scope.initialSelectedOrganization = document.getElementById('ctl00_ContentPlaceHolder1_Project_Outbox1_OrgDesc').value;
+        if ($scope.type == 3)
+            $scope.initialSelectedOrganization = document.getElementById('ctl00_ContentPlaceHolder1_Outbox_Search1_OrgDesc').value;
+        if ($scope.type == 4)
+            $scope.initialSelectedOrganization = document.getElementById('ctl00_ContentPlaceHolder1_Inbox_Search1_OrgDesc').value;
         $.ajax({
                 type: "POST",
                 url: "../Webservices/SmartSearchService.asmx/GetAllOrgByFoundId",
@@ -196,6 +176,26 @@ app.controller('SmartSearchCtrl', function($scope, $http, $timeout) {
     };
 
    
+    $scope.setHiddenWithOrg = function (item) {
+
+        if ($scope.type == 1) {
+        document.getElementById('ctl00_ContentPlaceHolder1_Project_Inbox1_OrgDesc').value = item.name;
+        document.getElementById('ctl00_ContentPlaceHolder1_Project_Inbox1_OrgID').value = item.id;
+
+        }
+        if ($scope.type == 2) {
+            document.getElementById('ctl00_ContentPlaceHolder1_Project_Outbox1_OrgDesc').value = item.name;
+            document.getElementById('ctl00_ContentPlaceHolder1_Project_Outbox1_OrgID').value = item.id;
+        }
+        if ($scope.type == 3) {
+            document.getElementById('ctl00_ContentPlaceHolder1_Outbox_Search1_OrgDesc').value = item.name;
+            document.getElementById('ctl00_ContentPlaceHolder1_Outbox_Search1_OrgID').value = item.id;
+        }
+        if ($scope.type == 4) {
+            document.getElementById('ctl00_ContentPlaceHolder1_Inbox_Search1_OrgDesc').value = item.name;
+            document.getElementById('ctl00_ContentPlaceHolder1_Inbox_Search1_OrgID').value = item.id;
+        //}
+    };
 
     function indexOfExt(list, item)
     {

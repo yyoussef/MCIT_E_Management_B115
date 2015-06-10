@@ -503,7 +503,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
     protected void btnSave_Click(object sender, EventArgs e)
     {
-        if ((CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 2 && CDataConverter.ConvertToInt(Smart_Org_ID.SelectedValue) > 0) || CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 1 || CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 3)
+        if ((CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 2 && CDataConverter.ConvertToInt(OrgID.Value) > 0) || CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 1 || CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 3)
         {
 
             if (Request["id"] == null)
@@ -652,7 +652,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
             else
             {
                 obj.Dept_ID = 0;
-                obj.Org_Id = CDataConverter.ConvertToInt(Smart_Org_ID.SelectedValue);
+                obj.Org_Id = CDataConverter.ConvertToInt(OrgID.Value);
             }
 
             obj.Emp_ID = CDataConverter.ConvertToInt(Smart_Emp_ID.SelectedValue);
@@ -969,14 +969,14 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
    
        //// DataTable DT = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_org_by_found", Session_CS.foundation_id).Tables[0];
 
-        DataTable DT = ADContext.get_org_by_found(Session_CS.foundation_id).ToDataTable();
+        //DataTable DT = ADContext.get_org_by_found(Session_CS.foundation_id).ToDataTable();
 
 
-        Smart_Org_ID.datatble = DT;
-        Smart_Org_ID.Value_Field = "Org_ID";
-        Smart_Org_ID.Text_Field = "Org_Desc";
+        //Smart_Org_ID.datatble = DT;
+        //Smart_Org_ID.Value_Field = "Org_ID";
+        //Smart_Org_ID.Text_Field = "Org_Desc";
 
-        Smart_Org_ID.DataBind();
+        //Smart_Org_ID.DataBind();
 
         //fil_emp();
 

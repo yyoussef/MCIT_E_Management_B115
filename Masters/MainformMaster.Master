@@ -28,13 +28,13 @@
     <link rel="stylesheet" href="../Script/select.css"/>
     <script type="text/javascript"  src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular.js"></script>
     <script type="text/javascript"  src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-sanitize.js"></script>
-    <!-- ui-select files -->
-   <script type="text/javascript" src="../Script/select.js"></script>
+        <!-- ui-select files -->
+    <script type="text/javascript" src="../Script/select.js"></script>
     <script type="text/javascript"  src="../Script/smartSearch.js"></script>
-    <!-- Select2 theme -->
-    <script type="text/javascript" src="../Script/jquery-1.2.6.min.js"></script>  
+        <!-- Select2 theme -->
+    <script type="text/javascript" src="../Script/jquery-1.2.6.min.js"></script> 
     
-    <script type="text/javascript">
+ <script type="text/javascript">
         var app = angular.module("SmartSearch", ['ngSanitize', 'ui.select']);
 
         app.filter('propsFilter', function () {
@@ -70,17 +70,17 @@
         app.controller('SmartSearchCtrl', function ($scope, $compile) {
             $scope.organizations;
             $scope.organization = {};
-            $scope.type = 0;
+         //   $scope.type = 0;
             $scope.loadOrganization = function () {
 
                 if ($scope.type == 1)
                     $scope.initialSelectedOrganization = document.getElementById('ctl00_ContentPlaceHolder1_Project_Inbox1_OrgDesc').value;
                 if ($scope.type == 2)
-                    $scope.initialSelectedOrganization1 = document.getElementById('ctl00_ContentPlaceHolder1_Project_Outbox1_OrgDesc').value;
+                    $scope.initialSelectedOrganization = document.getElementById('ctl00_ContentPlaceHolder1_Project_Outbox1_OrgDesc').value;
                 if ($scope.type == 3)
-                    $scope.initialSelectedOrganization2 = document.getElementById('ctl00_ContentPlaceHolder1_Outbox_Search1_OrgDesc').value;
+                    $scope.initialSelectedOrganization = document.getElementById('ctl00_ContentPlaceHolder1_Outbox_Search1_OrgDesc').value;
                 if ($scope.type == 4)
-                    $scope.initialSelectedOrganization3 = document.getElementById('ctl00_ContentPlaceHolder1_Inbox_Search1_OrgDesc').value;
+                    $scope.initialSelectedOrganization = document.getElementById('ctl00_ContentPlaceHolder1_Inbox_Search1_OrgDesc').value;
            
                 $.ajax({
                     type: "POST",
@@ -91,7 +91,7 @@
                     success: function (response) {
                         var organizations = response.d;
                         $scope.organizations = organizations;
-                        //console.info("success");
+                       // console.info("success");
                         $('#output').empty();
                         var out = "";
                     },

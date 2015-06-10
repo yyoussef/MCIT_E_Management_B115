@@ -12,7 +12,10 @@
 <div ng-app="SmartSearch" ng-controller="SmartSearchCtrl" ng-init="type=3;loadOrganization()">
 <input type="hidden" runat="server" id="OrgDesc" name="OrgDesc" value="--اختر الجهة--" />
 <input type="hidden" runat="server" id="OrgID" name="OrgID" value="0" />
-    <input type="hidden" runat="server" id="type" name="type" value="4" />
+<input type="hidden" runat="server" id="type" name="type" value="4" />
+
+<asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
+<ContentTemplate>
 <table dir="rtl" style="line-height: 2; width: 99%;">
     <tr>
         <td align="center" colspan="3" style="height: 33px">
@@ -119,8 +122,8 @@
         <td align="right" dir="rtl" colspan="2">
             <%--<uc1:Smart_Search ID="Smrt_Srch_org" runat="server" />--%>
              <div id="myDiv">
-                <ui-select ng-model="organization.selected" theme="select2"  ng-disabled="disabled" style="min-width: 300px;">
-                 <ui-select-match placeholder="{{initialSelectedOrganization2}}">{{$select.selected.name}}</ui-select-match>
+                <ui-select ng-model="organization.selected" theme="select2"  ng-disabled="disabled" style="min-width: 300px;" on-select="setHiddenWithOrg($item)">
+                 <ui-select-match placeholder="{{initialSelectedOrganization}}">{{$select.selected.name}}</ui-select-match>
                    <ui-select-choices repeat="organization in organizations | propsFilter: {name: $select.search}">
                   <div ng-bind-html="organization.name | highlight: $select.search"></div>                                                                    
                   </ui-select-choices>
@@ -237,4 +240,6 @@
         </td>
     </tr>
 </table>
+    </ContentTemplate>
+    </asp:UpdatePanel>
 </div>
