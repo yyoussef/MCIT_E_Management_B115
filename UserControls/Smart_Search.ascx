@@ -138,7 +138,7 @@
                     <asp:TextBox ID="txt_Name" runat="server" BackColor="#C8C8C8" Width="200px" AutoPostBack="true"
                         OnTextChanged="txt_Name_TextChanged"  ></asp:TextBox>
                            <cc1:FilteredTextBoxExtender ID="FilteredTextBoxExtender2" runat="server" TargetControlID="txt_Name"
-                            Enabled="True"  FilterMode="InvalidChars"  InvalidChars="+-=*()'_[]@%$#^~?;:\,’&}{|><"  FilterType="UppercaseLetters,LowercaseLetters"/>
+                            Enabled="True"  FilterMode="InvalidChars"  InvalidChars="+=*()'_[]@%$#^~?;:\,’&}{|><"  FilterType="UppercaseLetters,LowercaseLetters"/>
            
 
 

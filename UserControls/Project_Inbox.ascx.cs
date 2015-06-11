@@ -761,7 +761,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
                 string sql_related = "";
              
-             //   ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('لقد تم الحفظ بنجاح');", true);
+               ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('لقد تم الحفظ بنجاح');", true);
 
                 var inboxContext = new InboxContext();
 
@@ -791,7 +791,10 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                     //inb_relations.foundation_id = found;
                     //InsertOrUpdate_InboxRelations(inb_relations);
 
+                    if (Request["id"] == null &&Request["id"] == "" )
+                    {
 
+                    
 
                     Inbox_Relations InboxRelation1 = new Inbox_Relations
                     {
@@ -804,6 +807,11 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                         foundation_id = found
                     };
 
+                    inboxContext.Inbox_Relations.Add(InboxRelation1);
+                    inboxContext.SaveChanges();
+                  }
+                  
+
                     //Inbox_Relations InboxRelation2 = new Inbox_Relations
                     //{
                     //    ID = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue),
@@ -813,11 +821,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                     //    foundation_id = found
                     //};
 
-                    inboxContext.Inbox_Relations.Add(InboxRelation1);
-
-                   // inboxContext.Inbox_Relations.Add(InboxRelation2);
-
-                    inboxContext.SaveChanges();
+                   
 
                 }
                 else if (ddl_Related_Type.SelectedValue == "3" || ddl_Related_Type.SelectedValue == "4")
