@@ -27,6 +27,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
     //Session_CS Session_CS = new Session_CS();
     private string sql_Connection = Database.ConnectionString;
     General_Helping Obj_General_Helping = new General_Helping();
+        InboxContext pm_inbox = new InboxContext();
     int id;
     //OutboxDataContext outboxDBContext = new OutboxDataContext();
    // OutboxContext outboxDBContext = new OutboxContext();
@@ -2005,6 +2006,103 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         }
         if (e.CommandName == "SendItem")
         {
+
+
+            /////////////////////////////////////////////////check if internal outbox then save it inbox table and act the outbox as new inbox in user profile //////////////////////////////////////////////////////////////
+
+
+
+            if (CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 1)
+            {
+
+
+
+                if (Session_CS.code_outbox == 1)
+                {
+                    int session_found = Session_CS.foundation_id;
+
+                    DataTable getmax = null;
+
+                    getmax = pm_inbox.get_max_code_inbox(Session_CS.foundation_id).ToDataTable();
+
+
+
+                    txt_Code.Text = getmax.Rows[0]["code"].ToString();
+                }
+
+
+                string datenow = "";
+                int dept_id = 0;
+                int Org_Id = 0;
+                datenow = CDataConverter.ConvertDateTimeNowRtnDt().ToString();
+                if (CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 1)
+                {
+                    if (CDataConverter.ConvertToInt(Smrt_Srch_structure2.SelectedValue) > 0)
+                    {
+                        dept_id = CDataConverter.ConvertToInt(Smrt_Srch_structure2.SelectedValue);
+                    }
+                    else
+                    {
+                        ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('يجب إختيار الإدارة ');", true);
+                        return;
+                    }
+                }
+                else
+                {
+                    Org_Id = CDataConverter.ConvertToInt(/*Smart_Org_ID.SelectedValue*/OrgID.Value);
+                }
+                using (var context = new InboxContext())
+                {
+                    if (CDataConverter.ConvertToInt(Outbox_ID.Value) > 0)
+                    {
+
+                        Inbox OutboxObj = new Inbox();
+
+                        OutboxObj.Proj_id = int.Parse(Session_CS.Project_id.ToString());
+                        OutboxObj.Name = txt_Name.Text;
+                        OutboxObj.Code = txt_Code.Text;
+                        OutboxObj.Date = txt_Date.Text;
+                        OutboxObj.Enter_Date = datenow;
+                        OutboxObj.Dept_Dept_ID = int.Parse(Session_CS.dept_id.ToString());
+                        OutboxObj.pmp_pmp_id = int.Parse(Session_CS.pmp_id.ToString());
+                        OutboxObj.Group_id = int.Parse(Session_CS.group_id.ToString());
+                        OutboxObj.Type = CDataConverter.ConvertToInt(ddl_Type.SelectedValue);
+                        OutboxObj.Dept_ID = dept_id;
+                        OutboxObj.Org_Id = Org_Id;
+                        OutboxObj.Emp_ID = CDataConverter.ConvertToInt(Smart_Emp_ID.SelectedValue);
+                        OutboxObj.Org_Out_Box_Code = txt_Org_Out_Box_Code.Text;
+                        OutboxObj.Org_Out_Box_DT = txt_Org_Out_Box_DT.Text;
+                        OutboxObj.Org_Out_Box_Person = txt_Org_Out_Box_Person.Text;
+                        OutboxObj.Subject = txt_Subject.Text;
+                        OutboxObj.Related_Type = CDataConverter.ConvertToInt(ddl_Related_Type.SelectedValue);
+                        OutboxObj.Related_Id = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue);
+                        OutboxObj.Notes = txt_Notes.Text;
+                        OutboxObj.Paper_No = txt_Paper_No.Text;
+                        OutboxObj.Paper_Attached = txt_Paper_Attached.Text;
+                        OutboxObj.Follow_Up_Dept_ID = 0;
+                        OutboxObj.Follow_Up_Emp_ID = 0;
+                        OutboxObj.Dept_Desc = txt_Dept_Desc.Text;
+                        OutboxObj.Source_Type = CDataConverter.ConvertToInt(ddl_Source_Type.SelectedValue);
+                        OutboxObj.Status = 0;
+                        OutboxObj.finished = 0;
+                        OutboxObj.Org_Dept_Name = txt_Org_Dept_Name.Text;
+                        OutboxObj.foundation_id = CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString());
+
+                        context.Inboxes.Add(OutboxObj);
+                        context.SaveChanges();
+
+
+                    }
+                }
+
+
+            }
+
+
+
+           
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
             Save_trackmanager(CDataConverter.ConvertToInt(Outbox_ID.Value));
             ////////////////////////////////////////////////////////////////////////////////////////////
             /////////////////// Sending Mail Code /////////////////////////////////////////
