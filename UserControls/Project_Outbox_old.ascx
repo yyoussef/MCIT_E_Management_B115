@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="Project_Outbox.ascx.cs"
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="Project_Outbox_old.ascx.cs"
     Inherits="UserControls_Project_Outbox" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 <%@ Register Src="Smart_Search.ascx" TagName="Smart_Search" TagPrefix="uc1" %>
@@ -501,9 +501,6 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                 <td colspan="2">
                                     <asp:Label ID="txt_Dept_ID_Txt" runat="server" CssClass="Label" Width="293px"></asp:Label>
                                 </td>--%>
-                                          <td colspan="2">
-                                    <asp:Label ID="txt_Dept_ID_Txt" runat="server" CssClass="Label" Width="293px"></asp:Label>
-                                   </td>
                                         <td>
                                             <asp:Label ID="Label15" runat="server" Text="  الادارة :" CssClass="Label" Font-Underline="False"></asp:Label>
                                         </td>
