@@ -689,6 +689,40 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
     }
     private void Fil_Grid_Visa()
     {
+
+        if (CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 1)
+        {
+
+         DataTable DT = pm_inbox.get_inbox_visa(inbx_id).ToDataTable();
+
+
+        GridView_Visa.DataSource = DT;
+        GridView_Visa.DataBind();
+
+            foreach (GridViewRow row in GridView_Visa.Rows)
+            {
+                CheckBox chk = (CheckBox)row.FindControl("chkSent");
+                Label lbl_emp = (Label)row.FindControl("lbl_emp");
+
+                if (chk.Checked == true || lbl_emp.Text  != Session_CS.pmp_id.ToString())
+                {
+                    ImageButton img = (ImageButton)row.FindControl("ImgBtnEdit");
+                    ImageButton img2 = (ImageButton)row.FindControl("ImgBtnDelete");
+                    ImageButton img3 = (ImageButton)row.FindControl("ImgBtnEdit123");
+                    img.Visible = false;
+                    img2.Visible = false;
+                    img3.Visible = false;
+                //img.Visible = false;
+                //img2.Visible = false;
+
+               }
+
+          }
+
+        }
+
+        else 
+        {
         //refactored by hafs
         //DataTable DT = new DataTable();
         //DT = General_Helping.GetDataTable("select * from Outbox_Visa where Outbox_ID=" + Outbox_ID.Value);
@@ -716,15 +750,13 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                 img.Visible = false;
                 img2.Visible = false;
                 img3.Visible = false;
-                //img.Visible = false;
-                //img2.Visible = false;
-
+         
             }
 
         }
 
 
-
+        }
 
 
     }
@@ -2051,84 +2083,6 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
 
 
 
-                if (Session_CS.code_outbox == 1)
-                {
-                    int session_found = Session_CS.foundation_id;
-
-                    DataTable getmax = null;
-
-                    getmax = pm_inbox.get_max_code_inbox(Session_CS.foundation_id).ToDataTable();
-
-
-
-                    txt_Code.Text = getmax.Rows[0]["code"].ToString();
-                }
-
-
-                string datenow = "";
-                int dept_id = 0;
-                int Org_Id = 0;
-                datenow = CDataConverter.ConvertDateTimeNowRtnDt().ToString();
-                if (CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 1)
-                {
-                    if (CDataConverter.ConvertToInt(Smrt_Srch_structure2.SelectedValue) > 0)
-                    {
-                        dept_id = CDataConverter.ConvertToInt(Smrt_Srch_structure2.SelectedValue);
-                    }
-                    else
-                    {
-                        ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('يجب إختيار الإدارة ');", true);
-                        return;
-                    }
-                }
-                else
-                {
-                    Org_Id = CDataConverter.ConvertToInt(/*Smart_Org_ID.SelectedValue*/OrgID.Value);
-                }
-                using (var context = new InboxContext())
-                {
-                    if (CDataConverter.ConvertToInt(Outbox_ID.Value) > 0)
-                    {
-
-                        Inbox inboxObj = new Inbox();
-
-                        inboxObj.Proj_id = int.Parse(Session_CS.Project_id.ToString());
-                        inboxObj.Name = txt_Name.Text;
-                        inboxObj.Code = txt_Code.Text;
-                        inboxObj.Date = txt_Date.Text;
-                        inboxObj.Enter_Date = datenow;
-                        inboxObj.Dept_Dept_ID = int.Parse(Session_CS.dept_id.ToString());
-                        inboxObj.pmp_pmp_id = int.Parse(Session_CS.pmp_id.ToString());
-                        inboxObj.Group_id = int.Parse(Session_CS.group_id.ToString());
-                        inboxObj.Type = CDataConverter.ConvertToInt(ddl_Type.SelectedValue);
-                        inboxObj.Dept_ID = dept_id;
-                        inboxObj.Org_Id = Org_Id;
-                        inboxObj.Emp_ID = CDataConverter.ConvertToInt(Smart_Emp_ID.SelectedValue);
-                        inboxObj.Org_Out_Box_Code = txt_Org_Out_Box_Code.Text;
-                        inboxObj.Org_Out_Box_DT = txt_Org_Out_Box_DT.Text;
-                        inboxObj.Org_Out_Box_Person = txt_Org_Out_Box_Person.Text;
-                        inboxObj.Subject = txt_Subject.Text;
-                        inboxObj.Related_Type = CDataConverter.ConvertToInt(ddl_Related_Type.SelectedValue);
-                        inboxObj.Related_Id = CDataConverter.ConvertToInt(Outbox_ID.Value);
-                        inboxObj.Notes = txt_Notes.Text;
-                        inboxObj.Paper_No = txt_Paper_No.Text;
-                        inboxObj.Paper_Attached = txt_Paper_Attached.Text;
-                        inboxObj.Follow_Up_Dept_ID = 0;
-                        inboxObj.Follow_Up_Emp_ID = 0;
-                        inboxObj.Dept_Desc = txt_Dept_Desc.Text;
-                        inboxObj.Source_Type = CDataConverter.ConvertToInt(ddl_Source_Type.SelectedValue);
-                        inboxObj.Status = 0;
-                        inboxObj.finished = 0;
-                        inboxObj.Org_Dept_Name = txt_Org_Dept_Name.Text;
-                        inboxObj.foundation_id = CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString());
-
-                     //   context.Inboxes.Add(inboxObj);
-                       // context.SaveChanges();
-                  inbx_id =   InsertOrUpdate_Inbox(inboxObj);
-
-
-                    }
-                }
 
                 //////////////inbox //////////////////
 
@@ -2818,7 +2772,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
 
     }
 
-    public void InsertOrUpdate_Inbox_Visa(Inbox_Visa blog)
+    public int  InsertOrUpdate_Inbox_Visa(Inbox_Visa blog)
     {
 
 
@@ -2830,6 +2784,8 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                                       System.Data.Entity.EntityState.Modified;
 
             context.SaveChanges();
+            return blog.Visa_Id;
+
         }
     }
 
@@ -2870,6 +2826,93 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
     {
         if (CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 1)
         {
+
+
+            ////////////////////////////////////  add row in inbox table /////////////////
+
+
+            if (Session_CS.code_outbox == 1)
+            {
+                int session_found = Session_CS.foundation_id;
+
+                DataTable getmax = null;
+
+                getmax = pm_inbox.get_max_code_inbox(Session_CS.foundation_id).ToDataTable();
+
+
+
+                txt_Code.Text = getmax.Rows[0]["code"].ToString();
+            }
+
+
+            string datenow = "";
+            int dept_id = 0;
+            int Org_Id = 0;
+            datenow = CDataConverter.ConvertDateTimeNowRtnDt().ToString();
+            if (CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 1)
+            {
+                if (CDataConverter.ConvertToInt(Smrt_Srch_structure2.SelectedValue) > 0)
+                {
+                    dept_id = CDataConverter.ConvertToInt(Smrt_Srch_structure2.SelectedValue);
+                }
+                else
+                {
+                    ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('يجب إختيار الإدارة ');", true);
+                    return;
+                }
+            }
+            else
+            {
+                Org_Id = CDataConverter.ConvertToInt(/*Smart_Org_ID.SelectedValue*/OrgID.Value);
+            }
+            using (var context = new InboxContext())
+            {
+                if (CDataConverter.ConvertToInt(Outbox_ID.Value) > 0)
+                {
+
+                    Inbox inboxObj = new Inbox();
+
+                    inboxObj.Proj_id = int.Parse(Session_CS.Project_id.ToString());
+                    inboxObj.Name = txt_Name.Text;
+                    inboxObj.Code = txt_Code.Text;
+                    inboxObj.Date = txt_Date.Text;
+                    inboxObj.Enter_Date = datenow;
+                    inboxObj.Dept_Dept_ID = int.Parse(Session_CS.dept_id.ToString());
+                    inboxObj.pmp_pmp_id = int.Parse(Session_CS.pmp_id.ToString());
+                    inboxObj.Group_id = int.Parse(Session_CS.group_id.ToString());
+                    inboxObj.Type = CDataConverter.ConvertToInt(ddl_Type.SelectedValue);
+                    inboxObj.Dept_ID = dept_id;
+                    inboxObj.Org_Id = Org_Id;
+                    inboxObj.Emp_ID = CDataConverter.ConvertToInt(Smart_Emp_ID.SelectedValue);
+                    inboxObj.Org_Out_Box_Code = txt_Org_Out_Box_Code.Text;
+                    inboxObj.Org_Out_Box_DT = txt_Org_Out_Box_DT.Text;
+                    inboxObj.Org_Out_Box_Person = txt_Org_Out_Box_Person.Text;
+                    inboxObj.Subject = txt_Subject.Text;
+                    inboxObj.Related_Type = CDataConverter.ConvertToInt(ddl_Related_Type.SelectedValue);
+                    inboxObj.Related_Id = CDataConverter.ConvertToInt(Outbox_ID.Value);
+                    inboxObj.Notes = txt_Notes.Text;
+                    inboxObj.Paper_No = txt_Paper_No.Text;
+                    inboxObj.Paper_Attached = txt_Paper_Attached.Text;
+                    inboxObj.Follow_Up_Dept_ID = 0;
+                    inboxObj.Follow_Up_Emp_ID = 0;
+                    inboxObj.Dept_Desc = txt_Dept_Desc.Text;
+                    inboxObj.Source_Type = CDataConverter.ConvertToInt(ddl_Source_Type.SelectedValue);
+                    inboxObj.Status = 0;
+                    inboxObj.finished = 0;
+                    inboxObj.Org_Dept_Name = txt_Org_Dept_Name.Text;
+                    inboxObj.foundation_id = CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString());
+
+                    //   context.Inboxes.Add(inboxObj);
+                    // context.SaveChanges();
+                    inbx_id = InsertOrUpdate_Inbox(inboxObj);
+
+
+                }
+            }
+
+
+            /////////////////////////////////////save inbox_visa table//////////////////////////////////////////////
+
 
             string today = CDataConverter.ConvertDateTimeNowRtrnString();//VB_Classes.Dates.Dates_Operation.date_validate(CDataConverter.ConvertDateTimeNowRtnDt().ToShortDateString().ToString());
           
@@ -2945,7 +2988,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                         Update_Have_Visa_all_emp(CDataConverter.ConvertToInt(obj.Inbox_ID));
 
                         lst_emp.Items.Clear();
-                    }
+                     }
                     else
                     {
                         ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('أخر تاريخ يجب ان يكون اكبر من تاريخ التأشيره');", true);
