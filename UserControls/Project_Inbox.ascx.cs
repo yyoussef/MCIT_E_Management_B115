@@ -2711,10 +2711,39 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
             DataTable dt_Inbox_Visa = pm_inbox.get_emp_id_from_visa(CDataConverter.ConvertToInt(e.CommandArgument.ToString())).ToDataTable();
             foreach (DataRow item in dt_Inbox_Visa.Rows)
             {
-                Inbox_DB.update_inbox_Track_Emp(hidden_Id.Value, item["Emp_ID"].ToString(), 1, 1);
-            
+             //  Inbox_DB.update_inbox_Track_Emp(hidden_Id.Value, item["Emp_ID"].ToString(), 1, 1);
 
-             //   DataTable dt_emp = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_mail_pmpname_from_employee_by_parent", CDataConverter.ConvertToInt( item["Emp_ID"].ToString())).Tables[0];
+
+                DataTable dt1 = pm_inbox.get_data_from_inbox_track_emp_by_inbox_emp(CDataConverter.ConvertToInt(hidden_Id.Value), CDataConverter.ConvertToInt(item["Emp_ID"].ToString())).ToDataTable();
+
+                if (dt1.Rows.Count > 0)
+                {
+
+
+
+                    var result = pm_inbox.Inbox_Track_Emp.SingleOrDefault(b => b.inbox_id == CDataConverter.ConvertToInt(hidden_Id.Value) && b.Emp_ID == CDataConverter.ConvertToInt(item["Emp_ID"].ToString()));
+                    if (result != null)
+                    {
+                        result.Inbox_Status = 2;
+                        pm_inbox.SaveChanges();
+                    }
+
+
+                }
+                else
+                {
+
+
+                    Inbox_Track_Emp inbemp = new Inbox_Track_Emp();
+                    inbemp.inbox_id = CDataConverter.ConvertToInt(id.ToString());
+                    inbemp.Emp_ID = CDataConverter.ConvertToInt(item["Emp_ID"].ToString());
+                    inbemp.Inbox_Status = 2;
+                    inbemp.Type_Track_emp = 1;
+                    pm_inbox.SaveChanges();
+                }
+
+
+
 
                 DataTable dt_emp = pm_inbox.get_mail_pmpname_from_employee_by_parent(CDataConverter.ConvertToInt(item["Emp_ID"].ToString())).ToDataTable();
 

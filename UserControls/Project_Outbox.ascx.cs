@@ -32,6 +32,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
     int inbx_id;
     string v_desc;
   
+    int  in_id ;
     //OutboxDataContext outboxDBContext = new OutboxDataContext();
    // OutboxContext outboxDBContext = new OutboxContext();
     //InboxContext inboxContext = new InboxContext();
@@ -688,7 +689,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         }
     }
     private void Fil_Grid_Visa()
-    {
+     {
 
         if (CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 1)
         {
@@ -2071,7 +2072,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
             Fil_Emp_Visa_Follow();
         }
         if (e.CommandName == "SendItem")
-        {
+         {
 
 
             /////////////////////////////////////////////////check if internal outbox then save it inbox table and act the outbox as new inbox in user profile //////////////////////////////////////////////////////////////
@@ -2081,13 +2082,17 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
             if (CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 1)
             {
 
+                int commarg = CDataConverter.ConvertToInt(e.CommandArgument);
 
+                var inbb = from inbx in pm_inbox.Inbox_Visa where inbx.Visa_Id == commarg select inbx;
+                DataTable dtx = inbb.ToDataTable();
+                 in_id = CDataConverter.ConvertToInt( dtx.Rows[0]["Inbox_ID"].ToString());
 
 
                 //////////////inbox //////////////////
 
 
-                Save_trackmanager(inbx_id);
+                Save_trackmanager(in_id);
                 ////////////////////////////////////////////////////////////////////////////////////////////
                 /////////////////// Sending Mail Code /////////////////////////////////////////
                 //////////////////////////////////////////////////////////////////////////////////////////
@@ -2097,7 +2102,37 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                 DataTable dt_Inbox_Visa = pm_inbox.get_emp_id_from_visa(CDataConverter.ConvertToInt(e.CommandArgument.ToString())).ToDataTable();
                 foreach (DataRow item in dt_Inbox_Visa.Rows)
                 {
-                    Inbox_DB.update_inbox_Track_Emp(hidden_Id.Value, item["Emp_ID"].ToString(), 1, 1);
+                   // Inbox_DB.update_inbox_Track_Emp(hidden_Id.Value, item["Emp_ID"].ToString(), 1, 1);
+
+
+                    DataTable dt1 = pm_inbox.get_data_from_inbox_track_emp_by_inbox_emp(in_id, CDataConverter.ConvertToInt(item["Emp_ID"].ToString())).ToDataTable();
+
+                    if (dt1.Rows.Count > 0)
+                    {
+
+
+
+                        var result = pm_inbox.Inbox_Track_Emp.SingleOrDefault(b => b.inbox_id == in_id && b.Emp_ID == CDataConverter.ConvertToInt(item["Emp_ID"].ToString()));
+                        if (result != null)
+                        {
+                            result.Inbox_Status = 2;
+                            pm_inbox.SaveChanges();
+                        }
+
+
+                    }
+                    else
+                    {
+
+
+                        Inbox_Track_Emp inbemp = new Inbox_Track_Emp();
+                        inbemp.inbox_id = in_id;
+                        inbemp.Emp_ID = CDataConverter.ConvertToInt(item["Emp_ID"].ToString());
+                        inbemp.Inbox_Status = 2;
+                        inbemp.Type_Track_emp = 1;
+                        pm_inbox.SaveChanges();
+                    }
+         
 
                     DataTable dt_emp = pm_inbox.get_mail_pmpname_from_employee_by_parent(CDataConverter.ConvertToInt(item["Emp_ID"].ToString())).ToDataTable();
 
@@ -2147,7 +2182,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                     MemoryStream ms = new MemoryStream();
 
 
-                    DataTable dt = pm_inbox.get_attachment_for_mail_visa_tab(CDataConverter.ConvertToInt(hidden_Id.Value)).ToDataTable();
+                    DataTable dt = pm_inbox.get_attachment_for_mail_visa_tab(in_id).ToDataTable();
 
                     foreach (DataRow dr in dt.Rows)
                     {
@@ -2165,7 +2200,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                     }
 
              
-                    String encrypted_id = Encryption.Encrypt(hidden_Id.Value);
+                    String encrypted_id = Encryption.Encrypt(in_id.ToString());
                     string address2 = System.Web.HttpContext.Current.Request.Url.Authority.ToString();
                     _Message.IsBodyHtml = true;
                     _Message.Body = "<html><body dir='rtl'><h3 > السيد - " + name + " </h3>";
@@ -2185,7 +2220,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                     _Message.Body += "</body></html>";
 
                     /////////////////////// update have visa = 0/////////////////////////////////////////////
-                    Update_Have_Visa(e.CommandArgument.ToString());
+                    Update_Have_Visa_inbox(e.CommandArgument.ToString());
 
                     try
                     {
@@ -2215,7 +2250,8 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                     Inbox_Visa_Follows obj_follow = new Inbox_Visa_Follows();
 
                     obj_follow.Follow_ID = CDataConverter.ConvertToInt(hidden_Follow_ID.Value);
-                    obj_follow.Inbox_ID = CDataConverter.ConvertToInt(hidden_Id.Value);
+
+                    obj_follow.Inbox_ID = in_id;
 
                     GridViewRow row = (GridViewRow)((ImageButton)e.CommandSource).NamingContainer;
                     int xx = row.RowIndex;
@@ -2523,6 +2559,36 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
 
             }
         }
+    }
+
+
+
+
+
+    private void Update_Have_Visa_inbox(string Visa_Id)
+    {
+      //  DataTable dt_mail_sent = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_mail_sent_from_visa", Visa_Id, CDataConverter.ConvertToInt(hidden_Id.Value)).Tables[0];
+
+        DataTable dt_mail_sent = pm_inbox.get_mail_sent_from_visa(CDataConverter.ConvertToInt(Visa_Id), in_id ).ToDataTable();
+
+        int Visa_Sent_Count = dt_mail_sent.Rows.Count;
+        if (Visa_Sent_Count == GridView_Visa.Rows.Count - 1)
+        {
+
+         //   DataTable DT = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_data_from_inbox_track_manager", CDataConverter.ConvertToInt(hidden_Id.Value)).Tables[0];
+
+            DataTable DT = pm_inbox.get_data_from_inbox_track_manager(in_id).ToDataTable();
+
+            if (DT.Rows.Count > 0)
+            {
+                //string sql = "update Inbox_Track_Manager set Have_visa=0 , All_visa_sent=1 where inbox_id =" + hidden_Id.Value;
+
+               // General_Helping.ExcuteQuery(sql);
+
+                pm_inbox.Inbox_Track_Managerupdate(in_id );
+            }
+        }
+
     }
     protected void Chk_main_cat_SelectedIndexChanged(object sender, EventArgs e)
     {

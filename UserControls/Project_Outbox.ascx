@@ -41,6 +41,9 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
 <input id="id2" runat="server" type="hidden" />
 <input id="id3" runat="server" type="hidden" />
 <input id="empId" runat="server" type="hidden" />
+
+    <input id="hid_inb_id" runat="server" type="hidden"  />
+
         <table dir="rtl" style="line-height: 2; width: 99%;">
             <tr>
                 <td align="center" colspan="4" style="height: 33px">
