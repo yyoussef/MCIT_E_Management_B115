@@ -191,7 +191,8 @@ public partial class UserControls_Outbox_Grid_Page : System.Web.UI.UserControl
     public void update_Outbox_Track_Emp(string Outbox_id, int Emp_ID, int Outbox_Status, int Type)
     {
         ////DataTable DT = General_Helping.GetDataTable("select * from Outbox_Track_Emp where Outbox_id = " + Outbox_id + " and Emp_ID =" + Emp_ID);
-        var Outbox_Track_Emps = outboxDBContext.Outbox_Track_Emp.Where(x => x.Outbox_id == CDataConverter.ConvertToInt(Outbox_id) && x.Emp_ID == Emp_ID);
+        int out_id = CDataConverter.ConvertToInt(Outbox_id);
+        var Outbox_Track_Emps = outboxDBContext.Outbox_Track_Emp.Where(x => x.Outbox_id == out_id && x.Emp_ID == Emp_ID);
         if (Outbox_Track_Emps.Count() > 0)
         {
 

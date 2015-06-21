@@ -44,7 +44,7 @@ public partial class UserControls_Mng_Vacation : System.Web.UI.UserControl
 
         string Query = "";
         Query = "SELECT  * from    Departments  where foundation_id='" + Session_CS.foundation_id + "' ";
-        if (Session_CS.UROL_UROL_ID != 12)
+        if (Session_CS.UROL_UROL_ID != 12 || Session_CS.UROL_UROL_ID != 2)
         {
             Query += " and Dept_id = '"+Session_CS.dept_id+"'";
         }
@@ -328,7 +328,7 @@ public partial class UserControls_Mng_Vacation : System.Web.UI.UserControl
     {
         string t1, t2;
         string sql = "set dateformat dmy SELECT     EMPLOYEE.pmp_name, Vacations_errand.id, Vacations_errand.user_id, Vacations_errand.request_user_id, Vacations_errand.alternative_user_id,                       Vacations_errand.vacation_id,dbo.Vacations_errand.start_date,CONVERT(datetime, dbo.datevalid(dbo.Vacations_errand.start_date)) AS start_date ,dbo.Vacations_errand.end_date,CONVERT(datetime, dbo.datevalid(dbo.Vacations_errand.end_date)) AS end_date ,   Vacations_errand.no_days, Vacations_errand.manager_approve,                       Vacations_errand.general_manager_approve, Vacations_errand.dept_id, Vacations_errand.location, Vacations_errand.purpose,                       Vacations_errand.person_to_meet, Vacations_errand.notes, Vacations_errand.start_hour, Vacations_errand.end_hour, Vacations_errand.day_off,                       Departments.Dept_name FROM         Departments INNER JOIN                      EMPLOYEE ON Departments.Dept_ID = EMPLOYEE.Dept_Dept_id INNER JOIN                      Vacations_errand ON EMPLOYEE.PMP_ID = Vacations_errand.user_id  WHERE (1 = 1)  AND (dbo.EMPLOYEE.group_id <> 3 or dbo.EMPLOYEE.group_id is null) ";
-        if (Session_CS.UROL_UROL_ID != 12)
+        if (Session_CS.UROL_UROL_ID != 12 || Session_CS.UROL_UROL_ID != 2)
         {
             sql += " AND dbo.Departments.Dept_ID = " + Session_CS.dept_id;
         }
@@ -416,7 +416,7 @@ public partial class UserControls_Mng_Vacation : System.Web.UI.UserControl
         gvMain_errand.DataSource = dt;
         gvMain_errand.DataBind();
 
-        if (Session_CS.UROL_UROL_ID != 12)
+        if (Session_CS.UROL_UROL_ID != 12 || Session_CS.UROL_UROL_ID != 2)
         {
 
             gvMain_errand.Columns[6].Visible = false;
@@ -433,7 +433,7 @@ public partial class UserControls_Mng_Vacation : System.Web.UI.UserControl
         string t1, t2;
         string sql = "set dateformat dmy SELECT dbo.Vacations_users.id, dbo.Vacations.vacation_title,Vacations_users.vacation_id, dbo.Vacations_users.start_date, CONVERT(datetime, dbo.datevalid(dbo.Vacations_users.start_date)) AS start_date, dbo.Vacations_users.end_date, CONVERT(datetime, dbo.datevalid(dbo.Vacations_users.end_date)) AS end_date, dbo.Vacations_users.no_days, dbo.Departments.Dept_ID, dbo.Departments.Dept_name, dbo.Vacations_users.manager_approve, dbo.Vacations_users.general_manager_approve, dbo.EMPLOYEE.pmp_name,dbo.EMPLOYEE.group_id, dbo.Vacations_users.request_date, CONVERT(datetime, dbo.datevalid(dbo.Vacations_users.request_date)) AS request_date, dbo.EMPLOYEE.PMP_ID, dbo.Vacations_summary.unusual, dbo.Vacations_summary.exhibitor, dbo.Vacations_summary.sick, dbo.Vacations_summary.hajj, dbo.Vacations_summary.birth, dbo.Vacations_summary.year, dbo.Vacations_summary.repeat FROM dbo.Vacations_users INNER JOIN dbo.EMPLOYEE INNER JOIN dbo.Departments ON dbo.EMPLOYEE.Dept_Dept_id = dbo.Departments.Dept_ID ON dbo.Vacations_users.user_id = dbo.EMPLOYEE.PMP_ID INNER JOIN dbo.Vacations ON dbo.Vacations_users.vacation_id = dbo.Vacations.id LEFT OUTER JOIN dbo.Vacations_summary ON dbo.EMPLOYEE.PMP_ID = dbo.Vacations_summary.emp_id WHERE (1 = 1) and Vacations_summary.year='" + CDataConverter.ConvertDateTimeNowRtnDt().Year.ToString() + "' AND (dbo.EMPLOYEE.group_id <> 3 or dbo.EMPLOYEE.group_id is null) ";
 
-        if (Session_CS.UROL_UROL_ID != 12)
+        if (Session_CS.UROL_UROL_ID != 12 || Session_CS.UROL_UROL_ID != 2)
         {
             sql += " AND dbo.Departments.Dept_ID = " + Session_CS.dept_id ;
         }
@@ -531,7 +531,7 @@ public partial class UserControls_Mng_Vacation : System.Web.UI.UserControl
         //    CheckBox chk = (CheckBox)row.FindControl("chkSent");
         //    Label lbl_emp = (Label)row.FindControl("lbl_emp");
 
-        if (Session_CS.UROL_UROL_ID != 12)
+        if (Session_CS.UROL_UROL_ID != 12 || Session_CS.UROL_UROL_ID != 2)
         {
             //ImageButton img = (ImageButton)row.FindControl("ImgBtnEdit");
             //ImageButton img2 = (ImageButton)row.FindControl("ImgBtnDelete");
