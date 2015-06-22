@@ -2586,15 +2586,16 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
 
             if (DT.Rows.Count > 0)
             {
-                //string sql = "update Inbox_Track_Manager set Have_visa=0 , All_visa_sent=1 where inbox_id =" + hidden_Id.Value;
+               // string sql = "update Inbox_Track_Manager set Have_visa=0 , All_visa_sent=1 where inbox_id =" + hidden_Id.Value;
 
                // General_Helping.ExcuteQuery(sql);
 
-                pm_inbox.Inbox_Track_Managerupdate(in_id );
+                pm_inbox.Inbox_Track_Managerupdate(in_id);
             }
         }
 
     }
+
     protected void Chk_main_cat_SelectedIndexChanged(object sender, EventArgs e)
     {
         Chk_sub_cat.Visible = true;
@@ -3966,42 +3967,63 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
     }
     public string Get_Visa_Emp(object obj)
     {
-        string visa_ID = obj.ToString();
-        string emp_name = "";
-
-
-        using (var outboxContext = new OutboxContext())
+        if (CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 1)
         {
-            string result = "";
-            var visaVal = CDataConverter.ConvertToInt(visa_ID);
-           
-            List<string> OutboxVisaEmps = outboxContext.get_OutboxVisaEmps(visaVal).ToList();
-            //    SELECT EMPLOYEE.pmp_name 
-            //      FROM Outbox_Visa_Emp INNER JOIN EMPLOYEE ON Outbox_Visa_Emp.Emp_ID = EMPLOYEE.PMP_ID 
-            //      WHERE Outbox_Visa_Emp.Visa_Id  = @visa_ID
-            //DataTable DT = extentionMethods.ToDataTable(OutboxVisaEmps);
-            if (OutboxVisaEmps.Count() > 0)
-            {
-                foreach (string item in OutboxVisaEmps)
-                {
+            string visa_ID = obj.ToString();
+            string emp_name = "";
+            DataTable DT = new DataTable();
 
-                    emp_name += item + ",";
-                }
-                int lastindx = emp_name.LastIndexOf(',');
-                result = emp_name.Substring(0, lastindx);
+
+
+            DT = pm_inbox.Get_Visa_Emp(CDataConverter.ConvertToInt(visa_ID)).ToDataTable();
+
+            foreach (DataRow dr in DT.Rows)
+            {
+                emp_name += dr["pmp_name"].ToString() + ",";
             }
-            
-           
-            return result;
-            //string visa_ID = obj.ToString();
-            //string emp_name = "";
-            //DataTable DT = new DataTable();
-            //DT = General_Helping.GetDataTable("SELECT EMPLOYEE.pmp_name FROM Outbox_Visa_Emp INNER JOIN EMPLOYEE ON Outbox_Visa_Emp.Emp_ID = EMPLOYEE.PMP_ID WHERE Outbox_Visa_Emp.Visa_Id  =" + visa_ID);
-            //foreach (DataRow dr in DT.Rows)
-            //{
-            //    emp_name += dr["pmp_name"].ToString() + ",";
-            //}
-            //return emp_name;
+            return emp_name;
+        }
+
+        else
+        {
+
+            string visa_ID = obj.ToString();
+            string emp_name = "";
+
+
+            using (var outboxContext = new OutboxContext())
+            {
+                string result = "";
+                var visaVal = CDataConverter.ConvertToInt(visa_ID);
+
+                List<string> OutboxVisaEmps = outboxContext.get_OutboxVisaEmps(visaVal).ToList();
+                //    SELECT EMPLOYEE.pmp_name 
+                //      FROM Outbox_Visa_Emp INNER JOIN EMPLOYEE ON Outbox_Visa_Emp.Emp_ID = EMPLOYEE.PMP_ID 
+                //      WHERE Outbox_Visa_Emp.Visa_Id  = @visa_ID
+                //DataTable DT = extentionMethods.ToDataTable(OutboxVisaEmps);
+                if (OutboxVisaEmps.Count() > 0)
+                {
+                    foreach (string item in OutboxVisaEmps)
+                    {
+
+                        emp_name += item + ",";
+                    }
+                    int lastindx = emp_name.LastIndexOf(',');
+                    result = emp_name.Substring(0, lastindx);
+                }
+
+
+                return result;
+                //string visa_ID = obj.ToString();
+                //string emp_name = "";
+                //DataTable DT = new DataTable();
+                //DT = General_Helping.GetDataTable("SELECT EMPLOYEE.pmp_name FROM Outbox_Visa_Emp INNER JOIN EMPLOYEE ON Outbox_Visa_Emp.Emp_ID = EMPLOYEE.PMP_ID WHERE Outbox_Visa_Emp.Visa_Id  =" + visa_ID);
+                //foreach (DataRow dr in DT.Rows)
+                //{
+                //    emp_name += dr["pmp_name"].ToString() + ",";
+                //}
+                //return emp_name;
+            }
         }
     }
     #endregion
