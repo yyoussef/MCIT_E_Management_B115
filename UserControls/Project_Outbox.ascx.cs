@@ -2132,7 +2132,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                         Inbox_Track_Emp inbemp = new Inbox_Track_Emp();
                         inbemp.inbox_id = in_id;
                         inbemp.Emp_ID = CDataConverter.ConvertToInt(item["Emp_ID"].ToString());
-                        inbemp.Inbox_Status = 2;
+                        inbemp.Inbox_Status = 1;
                         inbemp.Type_Track_emp = 1;
                         pm_inbox.Inbox_Track_Emp.Add(inbemp);
                         pm_inbox.SaveChanges();
