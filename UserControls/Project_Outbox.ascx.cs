@@ -2960,7 +2960,8 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                     inboxObj.Org_Out_Box_DT = txt_Org_Out_Box_DT.Text;
                     inboxObj.Org_Out_Box_Person = txt_Org_Out_Box_Person.Text;
                     inboxObj.Subject = txt_Subject.Text;
-                    inboxObj.Related_Type = CDataConverter.ConvertToInt(ddl_Related_Type.SelectedValue);
+                   // inboxObj.Related_Type = CDataConverter.ConvertToInt(ddl_Related_Type.SelectedValue);
+                     inboxObj.Related_Type = 6;
                     inboxObj.Related_Id = CDataConverter.ConvertToInt(Outbox_ID.Value);
                     inboxObj.Notes = txt_Notes.Text;
                     inboxObj.Paper_No = txt_Paper_No.Text;

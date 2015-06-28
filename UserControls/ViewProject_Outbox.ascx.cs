@@ -736,6 +736,8 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
                 if (Outall["Related_Type"].ToString() == "5")
                 { lblRelatedType.Text = "أخري"; }
 
+                if (Outall["Related_Type"].ToString() == "6")
+                { lblRelatedType.Text = "وارد لصادر داخلي"; }
 
             }
             GrdView_Relation.DataSource = Inbox_DB.SelectRelated(id, 2);
@@ -747,6 +749,8 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
 
             if (Outall["Related_Type"].ToString() != "")
             {
+       
+
                 DataTable dt_direct_related = Outbox_DB.Outbox_Direct_Relating(CDataConverter.ConvertToInt(Outall["Related_Type"].ToString()), CDataConverter.ConvertToInt(Outall["Related_Id"].ToString()));
                 if (Outall["Related_Type"].ToString() == "1")
                 {

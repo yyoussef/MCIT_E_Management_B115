@@ -656,7 +656,8 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
                 if (inall["Related_Type"].ToString() == "5")
                 { lblRelatedType.Text = "أخري"; }
 
-
+                if (inall["Related_Type"].ToString() == "6")
+                { lblRelatedType.Text = "وارد لصادر داخلي"; }
             }
 
             txt_Visa_Desc.Text = inall["Visa_Desc"].ToString();
@@ -672,6 +673,9 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
 
             if (inall["Related_Type"].ToString() != "")
             {
+                int x = CDataConverter.ConvertToInt(inall["Related_Type"].ToString());
+                int yy = CDataConverter.ConvertToInt(inall["Related_Id"].ToString());
+
                 DataTable dt_direct_related = Inbox_DB.inbox_Direct_Relating(CDataConverter.ConvertToInt(inall["Related_Type"].ToString()), CDataConverter.ConvertToInt(inall["Related_Id"].ToString()));
                 if (inall["Related_Type"].ToString() == "1")
                 {
@@ -720,6 +724,26 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
 
                     }
 
+                }
+
+                if (inall["Related_Type"].ToString() == "6")
+                {
+                    all = dt_direct_related.Rows[0]["con"].ToString();
+                    string[] res = all.Split('-');
+                    idrelated = CDataConverter.ConvertToInt(res[3].ToString());
+                    lbl_Inbox_type.Text = "وارد لصادر داخلي :";
+
+
+                    if (dt_direct_related.Rows.Count > 0)
+                    {
+
+                        int outid = idrelated;
+                        string encrypted = Encryption.Encrypt(outid.ToString());
+
+
+                        lbl_letter.Text = dt_direct_related.Rows[0]["con"].ToString();
+                        lbl_letter.NavigateUrl = "../mainform/ViewProjectOutbox.aspx?id=" + encrypted;
+                    }
                 }
 
 

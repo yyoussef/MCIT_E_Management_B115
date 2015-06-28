@@ -130,7 +130,8 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                                 <asp:ListItem Text="صادر جديد" Value="1" Selected="True"></asp:ListItem>
                                                 <asp:ListItem Text="رد على وارد" Value="2"></asp:ListItem>
                                                 <asp:ListItem Text="رد على تأشيرة وزير" Value="4"></asp:ListItem>
-                                                <asp:ListItem Text="استعجال صادر" Value="3"></asp:ListItem>
+                                                <asp:ListItem Text="استعجال صادر" Value="3"></asp:ListItem>                                            
+                                                 <asp:ListItem Text="وارد لصادر داخلي " Value="6"></asp:ListItem>
                                                 <asp:ListItem Text="أخري.." Value="5"></asp:ListItem>
                                             </asp:DropDownList>
                                             &nbsp;&nbsp;&nbsp;&nbsp;
