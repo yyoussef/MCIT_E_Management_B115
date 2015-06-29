@@ -162,7 +162,7 @@ window.location = "Default.aspx?errorCode=" + errorCode ;
                     <tr>
                         <td colspan="2" align="center" bgcolor="#f9fdff" dir="rtl">
                             &nbsp;
-                            <asp:Label runat="server" Text="دخـــول المسـتخــــدميـن    " ID="enterlab" ForeColor="#990000"
+                            <asp:Label runat="server" Text="تسجيل دخـــول مدير النظام    " ID="enterlab" ForeColor="#990000"
                                 Font-Bold="False" Font-Names="Arial" Font-Underline="False" Font-Size="24px"></asp:Label>
                             <br />
                             <br />

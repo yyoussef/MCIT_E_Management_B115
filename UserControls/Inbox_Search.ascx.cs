@@ -401,7 +401,9 @@ public partial class UserControls_Inbox_Search : System.Web.UI.UserControl
         }
         else
         {
-            parms[18] = new SqlParameter("@Dept_Dept_ID", CDataConverter.ConvertToInt(Smart_Search_depts.SelectedValue));
+            int xxx = CDataConverter.ConvertToInt(Smart_Search_depts.SelectedValue);
+            parms[18] = new SqlParameter("@Dept_Dept_ID", xxx);
+      
         }
      
          
