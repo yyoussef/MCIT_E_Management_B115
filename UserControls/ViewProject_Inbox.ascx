@@ -654,6 +654,14 @@
                                                   <asp:Label ID="lbl_desc" runat="server" Text='<%# Eval("Visa_Desc")%>' Visible ="false" ></asp:Label>
 
                                                 </ItemTemplate>
+
+                                                        <asp:TemplateField HeaderText="  الادارة التابع لها ">
+                                                            <ItemTemplate>
+
+                                                                <%# Get_Visa_Emp_Dept(Eval("Emp_ID"))%>
+
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
                                             </asp:TemplateField>
                                             <asp:TemplateField HeaderText="موقف المتابعة">
                                                 <ItemTemplate>

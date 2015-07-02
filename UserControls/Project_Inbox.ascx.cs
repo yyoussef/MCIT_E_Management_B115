@@ -501,6 +501,22 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
         }
     }
 
+    public string Get_Visa_Emp_Dept(object obj)
+    {
+        string Emp_ID = obj.ToString();
+        string dept_name = "";
+        DataTable DT = new DataTable();
+        DT = General_Helping.GetDataTable("SELECT distinct Departments.Dept_name FROM Departments INNER JOIN EMPLOYEE on EMPLOYEE.Dept_Dept_id=Departments.Dept_id INNER JOIN  Inbox_Visa ON Inbox_Visa.Emp_ID = EMPLOYEE.PMP_ID WHERE Inbox_Visa.Emp_ID  =" + Emp_ID);
+
+        foreach (DataRow dr in DT.Rows)
+        {
+            dept_name += dr["Dept_name"].ToString() + ",";
+        }
+        return dept_name;
+
+    }
+
+
     protected void btnSave_Click(object sender, EventArgs e)
     {
         if ((CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 2 && Smart_Org_ID.SelectedValue != "0") || CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 1 || CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 3)

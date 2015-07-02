@@ -777,6 +777,21 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
         }
         else return "";
     }
+
+    public string Get_Visa_Emp_Dept(object obj)
+    {
+        string Emp_ID = obj.ToString();
+        string dept_name = "";
+        DataTable DT = new DataTable();
+        DT = General_Helping.GetDataTable("SELECT distinct Departments.Dept_name FROM Departments INNER JOIN EMPLOYEE on EMPLOYEE.Dept_Dept_id=Departments.Dept_id INNER JOIN  Inbox_Visa ON Inbox_Visa.Emp_ID = EMPLOYEE.PMP_ID WHERE Inbox_Visa.Emp_ID  =" + Emp_ID);
+
+        foreach (DataRow dr in DT.Rows)
+        {
+            dept_name += dr["Dept_name"].ToString() + ",";
+        }
+        return dept_name;
+
+    }
     protected void GrdView_Relation_RowCommand(object sender, GridViewCommandEventArgs e)
     {
         if (e.CommandName == "EditItem")

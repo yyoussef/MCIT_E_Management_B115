@@ -858,6 +858,23 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
         catch
         { }
     }
+    public string Get_Visa_Emp_Dept(object obj)
+    {
+        string Visa_Id = obj.ToString();
+        string dept_name = "";
+        DataTable DT = new DataTable();
+
+        DT = General_Helping.GetDataTable("SELECT distinct Departments.Dept_name FROM Departments INNER JOIN EMPLOYEE on EMPLOYEE.Dept_Dept_id=Departments.Dept_id INNER JOIN  Outbox_Visa_Emp ON Outbox_Visa_Emp.Emp_ID = EMPLOYEE.PMP_ID WHERE Outbox_Visa_Emp.Visa_Id  =" + Visa_Id);
+
+        foreach (DataRow dr in DT.Rows)
+        {
+            dept_name += dr["Dept_name"].ToString() + ",";
+        }
+        return dept_name;
+
+    }
+
+
     protected void btn_Visa_Follow_Click(object sender, EventArgs e)
     {
         if (CDataConverter.ConvertToInt(hidden_Id.Value) > 0)
