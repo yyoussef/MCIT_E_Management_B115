@@ -696,7 +696,7 @@
                                                            <asp:TemplateField HeaderText="  الادارة التابع لها ">
                                                             <ItemTemplate>
 
-                                                                <%# Get_Visa_Emp_Dept(Eval("Dept_ID"))%>
+                                                                <%# Get_Visa_Emp_Dept(Eval("Emp_ID"))%>
 
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
