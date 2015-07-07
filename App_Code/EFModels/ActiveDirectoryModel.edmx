@@ -523,7 +523,10 @@
           <Property Type="String" Name="Password" Nullable="true" MaxLength="250" />
           <Property Type="Boolean" Name="account_active" Nullable="true" />
         </ComplexType>
-        <ComplexType Name="get_pmp_by_dept" />
+        <ComplexType Name="get_pmp_by_dept" >
+          <Property Type="Int64" Name="PMP_ID" Nullable="false" />
+          <Property Type="String" Name="pmp_name" Nullable="true" MaxLength="255" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -810,7 +813,10 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="get_pmp_by_dept" FunctionName="ActiveDirectory.Store.get_pmp_by_dept">
             <ResultMapping>
-              <ComplexTypeMapping TypeName="ActiveDirectory.get_pmp_by_dept" />
+              <ComplexTypeMapping TypeName="ActiveDirectory.get_pmp_by_dept">
+                <ScalarProperty Name="PMP_ID" ColumnName="PMP_ID" />
+                <ScalarProperty Name="pmp_name" ColumnName="pmp_name" />
+              </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
         </EntityContainerMapping>
