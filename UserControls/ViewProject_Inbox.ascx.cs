@@ -1097,10 +1097,14 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
     }
     private void Clear_visa_Follow()
     {
-        hidden_Follow_ID.Value =
-        txt_Descrption.Text =
-        txt_Follow_Date.Text = "";
         ddl_Visa_Emp_id.SelectedIndex = 0;
+        hidden_Follow_ID.Value =
+
+        txt_Descrption.Text = "";
+
+       // txt_Follow_Date.Text = "";
+
+      
     }
     private void Fil_Grid_Visa_Follow()
     {
@@ -1832,13 +1836,13 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
             Fil_Visa_Lstbox(CDataConverter.ConvertToInt(e.CommandArgument));
 
         }
-        //if (e.CommandName == "RemoveItem")
-        //{
-        //    Inbox_Visa_DB.Delete(CDataConverter.ConvertToInt(e.CommandArgument));
-        //    Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('لقد تم الحذف بنجاح')</script>");
-        //    Fil_Grid_Visa();
-        //    Fil_Emp_Visa_Follow();
-        //}
+        if (e.CommandName == "RemoveItem")
+        {
+            Inbox_Visa_DB.Delete(CDataConverter.ConvertToInt(e.CommandArgument));
+            Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('لقد تم الحذف بنجاح')</script>");
+            Fil_Grid_Visa();
+            Fil_Emp_Visa_Follow();
+        }
         if (e.CommandName == "SendItem")
         {
             string Visa_ID = e.CommandArgument.ToString();

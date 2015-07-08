@@ -3104,7 +3104,9 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
 
                                 if (CDataConverter.ConvertToInt(hidden_Visa_Id.Value) > 0)
                                 {
-                                    Outbox_Visa OutboxVisaObj = outboxContext.Outbox_Visa.SingleOrDefault(x => x.Visa_Id == CDataConverter.ConvertToInt(hidden_Visa_Id.Value));
+                                    int idd = CDataConverter.ConvertToInt(hidden_Visa_Id.Value);
+
+                                    Outbox_Visa OutboxVisaObj = outboxContext.Outbox_Visa.SingleOrDefault(x => x.Visa_Id == idd);
                                     OutboxVisaObj.Outbox_ID = CDataConverter.ConvertToInt(Outbox_ID.Value);
                                     OutboxVisaObj.Visa_date = txt_Visa_date.Text;
                                     OutboxVisaObj.Important_Degree = CDataConverter.ConvertToInt(ddl_Important_Degree.SelectedValue);

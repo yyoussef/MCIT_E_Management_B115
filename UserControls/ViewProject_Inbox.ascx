@@ -655,14 +655,15 @@
 
                                                 </ItemTemplate>
 
-                                                        <asp:TemplateField HeaderText="  الادارة التابع لها ">
+                                                      
+                                            </asp:TemplateField>
+                                              <asp:TemplateField HeaderText="  الادارة التابع لها ">
                                                             <ItemTemplate>
 
                                                                 <%# Get_Visa_Emp_Dept(Eval("Emp_ID"))%>
 
                                                             </ItemTemplate>
                                                         </asp:TemplateField>
-                                            </asp:TemplateField>
                                             <asp:TemplateField HeaderText="موقف المتابعة">
                                                 <ItemTemplate>
                                                     <%# Eval("Follow_Up_Notes")%>
