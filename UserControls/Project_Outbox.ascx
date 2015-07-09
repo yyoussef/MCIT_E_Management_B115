@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="Project_Outbox.ascx.cs"
     Inherits="UserControls_Project_Outbox" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
-<%@ Register Src="Smart_Search.ascx" TagName="Smart_Search" TagPrefix="uc1" %>
+<%@ Register Src="~/UserControls/Smart_Search.ascx" TagName="Smart_Search" TagPrefix="uc1" %>
 
 <script language="javascript" type="text/javascript">
 
@@ -19,7 +19,15 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
 //alert('you selected the file: '+ name);
 }
 </script>
-
+  <div  ng-app="SmartSearch" ng-controller="SmartSearchCtrl" ng-init="type=2;loadOrganization()"></div>
+<input type="hidden" runat="server" id="OrgDesc" name="OrgDesc" value="--اختر الجهة--" />
+<input type="hidden" runat="server" id="OrgID" name="OrgID" value="0" />
+    <input type="hidden" runat="server" id="type" name="type" value="3" />
+        <input id="Outbox_ID" runat="server" type="hidden"  />
+<input id="mode" runat="server" type="hidden" value="new" />
+<input id="id2" runat="server" type="hidden" />
+<input id="id3" runat="server" type="hidden" />
+<input id="empId" runat="server" type="hidden" />
 
 <asp:UpdateProgress ID="UpdateProgress1" runat="server" DisplayAfter="30" AssociatedUpdatePanelID="UpdatePanel1">
     <ProgressTemplate>
@@ -30,17 +38,10 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
         </div>
     </ProgressTemplate>
 </asp:UpdateProgress>
+
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
-    <div  ng-app="SmartSearch" ng-controller="SmartSearchCtrl" ng-init="type=2;loadOrganization()">
-<input type="hidden" runat="server" id="OrgDesc" name="OrgDesc" value="--اختر الجهة--" />
-<input type="hidden" runat="server" id="OrgID" name="OrgID" value="0" />
-    <input type="hidden" runat="server" id="type" name="type" value="3" />
-        <input id="Outbox_ID" runat="server" type="hidden"  />
-<input id="mode" runat="server" type="hidden" value="new" />
-<input id="id2" runat="server" type="hidden" />
-<input id="id3" runat="server" type="hidden" />
-<input id="empId" runat="server" type="hidden" />
+
         <table dir="rtl" style="line-height: 2; width: 99%;">
             <tr>
                 <td align="center" colspan="4" style="height: 33px">
