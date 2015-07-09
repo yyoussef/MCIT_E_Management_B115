@@ -672,7 +672,17 @@
                                                      <asp:Label ID="lbl_emp" runat="server" Text='<%# Eval("Emp_ID")%>' Visible ="false" ></asp:Label>
                                                  
                                                 </ItemTemplate>
+
+
                                             </asp:TemplateField>
+
+                                                       <asp:TemplateField HeaderText="  الادارة التابع لها ">
+                                                            <ItemTemplate>
+
+                                                                <%# Get_Visa_Emp_Dept(Eval("Visa_Id"))%>
+
+                                                            </ItemTemplate>
+                                                        </asp:TemplateField>
                                             <asp:TemplateField HeaderText="موقف المتابعة">
                                                 <ItemTemplate>
                                                     <%# Eval("Follow_Up_Notes")%>

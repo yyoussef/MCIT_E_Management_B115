@@ -656,7 +656,8 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
                 if (inall["Related_Type"].ToString() == "5")
                 { lblRelatedType.Text = "أخري"; }
 
-
+                if (inall["Related_Type"].ToString() == "6")
+                { lblRelatedType.Text = "وارد لصادر داخلي"; }
             }
 
             txt_Visa_Desc.Text = inall["Visa_Desc"].ToString();
@@ -672,6 +673,9 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
 
             if (inall["Related_Type"].ToString() != "")
             {
+                int x = CDataConverter.ConvertToInt(inall["Related_Type"].ToString());
+                int yy = CDataConverter.ConvertToInt(inall["Related_Id"].ToString());
+
                 DataTable dt_direct_related = Inbox_DB.inbox_Direct_Relating(CDataConverter.ConvertToInt(inall["Related_Type"].ToString()), CDataConverter.ConvertToInt(inall["Related_Id"].ToString()));
                 if (inall["Related_Type"].ToString() == "1")
                 {
@@ -722,6 +726,26 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
 
                 }
 
+                if (inall["Related_Type"].ToString() == "6")
+                {
+                    all = dt_direct_related.Rows[0]["con"].ToString();
+                    string[] res = all.Split('-');
+                    idrelated = CDataConverter.ConvertToInt(res[3].ToString());
+                    lbl_Inbox_type.Text = "وارد لصادر داخلي :";
+
+
+                    if (dt_direct_related.Rows.Count > 0)
+                    {
+
+                        int outid = idrelated;
+                        string encrypted = Encryption.Encrypt(outid.ToString());
+
+
+                        lbl_letter.Text = dt_direct_related.Rows[0]["con"].ToString();
+                        lbl_letter.NavigateUrl = "../mainform/ViewProjectOutbox.aspx?id=" + encrypted;
+                    }
+                }
+
 
             }
 
@@ -752,6 +776,21 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
             return "صادر";
         }
         else return "";
+    }
+
+    public string Get_Visa_Emp_Dept(object obj)
+    {
+        string Emp_ID = obj.ToString();
+        string dept_name = "";
+        DataTable DT = new DataTable();
+        DT = General_Helping.GetDataTable("SELECT distinct Departments.Dept_name FROM Departments INNER JOIN EMPLOYEE on EMPLOYEE.Dept_Dept_id=Departments.Dept_id INNER JOIN  Inbox_Visa ON Inbox_Visa.Emp_ID = EMPLOYEE.PMP_ID WHERE Inbox_Visa.Emp_ID  =" + Emp_ID);
+
+        foreach (DataRow dr in DT.Rows)
+        {
+            dept_name += dr["Dept_name"].ToString() + ",";
+        }
+        return dept_name;
+
     }
     protected void GrdView_Relation_RowCommand(object sender, GridViewCommandEventArgs e)
     {
@@ -1058,10 +1097,14 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
     }
     private void Clear_visa_Follow()
     {
-        hidden_Follow_ID.Value =
-        txt_Descrption.Text =
-        txt_Follow_Date.Text = "";
         ddl_Visa_Emp_id.SelectedIndex = 0;
+        hidden_Follow_ID.Value =
+
+        txt_Descrption.Text = "";
+
+       // txt_Follow_Date.Text = "";
+
+      
     }
     private void Fil_Grid_Visa_Follow()
     {
@@ -1793,13 +1836,13 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
             Fil_Visa_Lstbox(CDataConverter.ConvertToInt(e.CommandArgument));
 
         }
-        //if (e.CommandName == "RemoveItem")
-        //{
-        //    Inbox_Visa_DB.Delete(CDataConverter.ConvertToInt(e.CommandArgument));
-        //    Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('لقد تم الحذف بنجاح')</script>");
-        //    Fil_Grid_Visa();
-        //    Fil_Emp_Visa_Follow();
-        //}
+        if (e.CommandName == "RemoveItem")
+        {
+            Inbox_Visa_DB.Delete(CDataConverter.ConvertToInt(e.CommandArgument));
+            Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('لقد تم الحذف بنجاح')</script>");
+            Fil_Grid_Visa();
+            Fil_Emp_Visa_Follow();
+        }
         if (e.CommandName == "SendItem")
         {
             string Visa_ID = e.CommandArgument.ToString();

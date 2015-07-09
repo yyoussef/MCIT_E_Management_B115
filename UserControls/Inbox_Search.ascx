@@ -1,17 +1,25 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="Inbox_Search.ascx.cs"
-    Inherits="UserControls_Inbox_Search" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="Inbox_Search.ascx.cs" Inherits="UserControls_Inbox_Search" %>
 <%@ Register Src="Smart_Search.ascx" TagName="Smart_Search" TagPrefix="uc1" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
-<table dir="rtl" style="line-height: 2; width: 99%;">
+
+
+
+<input type="hidden" runat="server" id="OrgDesc" name="OrgDesc" value="--اختر الجهة--" />
+<input type="hidden" runat="server" id="OrgID" name="OrgID" value="0" />
+
+<div ng-app="SmartSearch" ng-controller="SmartSearchCtrl" ng-init="type=4;loadOrganization()">
+<asp:UpdatePanel ID="UpdatePanel1" runat="server" UpdateMode="Conditional">
+<ContentTemplate>
+<table dir="rtl" style="line-height: 2; width: 99%;" >
     <tr>
         <td align="center" colspan="3" style="height: 33px">
             <asp:Label ID="Label2" runat="server" CssClass="PageTitle" Text="الوارد" />
         </td>
     </tr>
-    <tr>
+    <%--<tr>
         <td align="center" colspan="3" style="height: 29px">
         </td>
-    </tr>
+    </tr>--%>
     <tr id="tr_smart_proj" runat="server" visible="false">
         <td> 
             <asp:Label ID="Label443" runat="server" CssClass="Label" Text="المشروع :" />
@@ -111,6 +119,7 @@
                                         <asp:ListItem Text="رد على صادر" Value="2"></asp:ListItem>
                                         <asp:ListItem Text="استعجال وارد" Value="3"></asp:ListItem>
                                         <asp:ListItem Text="استكمال وارد" Value="4"></asp:ListItem>
+                                        <asp:ListItem Text="وارد لصادر داخلي " Value="6"></asp:ListItem>
                                         <asp:ListItem Text="أخري.." Value="5"></asp:ListItem>
                                     </asp:DropDownList>
                                     &nbsp;&nbsp;&nbsp;&nbsp;
@@ -136,7 +145,14 @@
             <asp:Label ID="Label3" runat="server" CssClass="Label" Text="جهة الورود : "></asp:Label>
         </td>
         <td align="right" dir="rtl" colspan="2">
-            <uc1:Smart_Search ID="Smrt_Srch_org" runat="server" />
+             <div id="myDiv">  
+                <ui-select ng-model="organization.selected" theme="select2"  ng-disabled="disabled" style="min-width: 300px;" on-select="setHiddenWithOrg($item)">
+                  <ui-select-match placeholder="{{initialSelectedOrganization}}">{{$select.selected.name}}</ui-select-match>
+                  <ui-select-choices repeat="organization in organizations | propsFilter: {name: $select.search}">
+                   <div ng-bind-html="organization.name | highlight: $select.search"></div>                                                                    
+                    </ui-select-choices>
+                    </ui-select>  
+                </div>  
         </td>
     </tr>
     <tr>
@@ -147,7 +163,8 @@
             <uc1:Smart_Search ID="Smart_Search_depts" runat="server" />
         </td>--%>
          <td align="right" dir="rtl" style="width: 142px">
-                                    <asp:Label ID="txt_Dept_ID_Txt" runat="server" CssClass="Label" Width="293px"></asp:Label></td></tr><tr>
+                                    <asp:Label ID="txt_Dept_ID_Txt" runat="server" CssClass="Label" Width="293px"></asp:Label></td></tr>
+    <tr>
                                             <td>
                                                 <asp:Label ID="Label30" runat="server" CssClass="Label" Text="الادارة :" />
                                             </td>
@@ -309,3 +326,6 @@
         </td>
     </tr>
 </table>
+</ContentTemplate>
+</asp:UpdatePanel>
+</div>

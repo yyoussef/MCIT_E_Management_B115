@@ -199,13 +199,13 @@ public partial class UserControls_Inbox_Search : System.Web.UI.UserControl
     {
         string Query = "";
         int found_id = CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString());
-        Smrt_Srch_org.sql_Connection = sql_Connection;
-        //Smrt_Srch_org.Query = "select Org_ID,Org_Desc from Organization where foundation_id = " + found_id;
-        Query = "select Org_ID,Org_Desc from Organization where foundation_id = " + found_id;
-        Smrt_Srch_org.datatble = General_Helping.GetDataTable(Query);
-        Smrt_Srch_org.Value_Field = "Org_ID";
-        Smrt_Srch_org.Text_Field = "Org_Desc";
-        Smrt_Srch_org.DataBind();
+        //Smrt_Srch_org.sql_Connection = sql_Connection;
+        ////Smrt_Srch_org.Query = "select Org_ID,Org_Desc from Organization where foundation_id = " + found_id;
+        //Query = "select Org_ID,Org_Desc from Organization where foundation_id = " + found_id;
+        //Smrt_Srch_org.datatble = General_Helping.GetDataTable(Query);
+        //Smrt_Srch_org.Value_Field = "Org_ID";
+        //Smrt_Srch_org.Text_Field = "Org_Desc";
+        //Smrt_Srch_org.DataBind();
 
         Smart_Search_depts.sql_Connection = sql_Connection;
         //Smart_Search_depts.Query = "select Dept_ID,Dept_name from Departments inner join dbo.Sectors on Departments.Sec_sec_id=Sectors.Sec_id where Sectors.foundation_id='" + Session_CS.foundation_id + "' ";
@@ -348,13 +348,13 @@ public partial class UserControls_Inbox_Search : System.Web.UI.UserControl
         parms[6] = new SqlParameter("@code", Txtcode.Text);
         parms[7] = new SqlParameter("@subject", Inbox_name_text.Text);
 
-        if (Smrt_Srch_org.SelectedValue == "")
+        if (/*Smrt_Srch_org.SelectedValue*/OrgID.Value == "")
         {
             parms[8] = new SqlParameter("@Org_id", CDataConverter.ConvertToInt(DBNull.Value));
         }
         else
         {
-            parms[8] = new SqlParameter("@Org_id", CDataConverter.ConvertToInt(Smrt_Srch_org.SelectedValue));
+            parms[8] = new SqlParameter("@Org_id", CDataConverter.ConvertToInt(/*Smrt_Srch_org.SelectedValue*/OrgID.Value));
         }
         if (Inbox_date_from.Text == "")
         {
@@ -401,7 +401,9 @@ public partial class UserControls_Inbox_Search : System.Web.UI.UserControl
         }
         else
         {
-            parms[18] = new SqlParameter("@Dept_Dept_ID", CDataConverter.ConvertToInt(Smart_Search_depts.SelectedValue));
+            int xxx = CDataConverter.ConvertToInt(Smart_Search_depts.SelectedValue);
+            parms[18] = new SqlParameter("@Dept_Dept_ID", xxx);
+      
         }
      
          

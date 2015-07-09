@@ -329,6 +329,8 @@ namespace EFModels
     
     public partial class get_pmp_by_dept
     {
+        public long PMP_ID { get; set; }
+        public string pmp_name { get; set; }
     }
 }
 namespace EFModels

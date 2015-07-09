@@ -100,7 +100,7 @@
                 AutoGenerateColumns="False" CellPadding="3"
                 AllowPaging="True" AllowSorting="True" Width="99%" BackColor="White" ForeColor="Black"
                 BorderColor="#999999" BorderStyle="Solid" BorderWidth="1px" EmptyDataText="... عفوا لا يوجد بيانات ..."
-                CssClass="mGrid" PagerStyle-CssClass="pgr" AlternatingRowStyle-CssClass="alt"
+                CssClass="mGrid" PagerStyle-CssClass="pgr" AlternatingRowStyle-CssClass="alt" 
                 OnRowCommand="gvMain_RowCommand" 
                 OnPageIndexChanging="gvMain_PageIndexChanging" GridLines="Vertical">
                 <Columns>
