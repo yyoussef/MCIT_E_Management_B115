@@ -256,7 +256,7 @@ public partial class UserControls_Inbox_Search : System.Web.UI.UserControl
     }
 
     public void SearchRecord()
-    {
+     {
         int dept = int.Parse(Session_CS.dept_id.ToString());
         string t1 = "";
         string t2 = "";

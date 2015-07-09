@@ -3749,17 +3749,27 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
     }
     private void fill_Inbox_Visa_Follows()
     {
-        //Inbox_Visa_Follows_DT obj_follow = Inbox_Visa_Follows_DB.SelectByID(CDataConverter.ConvertToInt(hidden_Follow_ID.Value));
-        //obj_follow.Follow_ID = CDataConverter.ConvertToInt(hidden_Follow_ID.Value);
-        //obj_follow.Inbox_ID = CDataConverter.ConvertToInt(hidden_Id.Value);
+        Inbox_Visa_Follows_DT obj_follow = Inbox_Visa_Follows_DB.SelectByID(CDataConverter.ConvertToInt(hidden_Follow_ID.Value));
 
-        //obj_follow.Descrption = "تم التعديل في بيانات الخطاب";
-        //string date = DateTime.Now.ToShortDateString().ToString();
-        //obj_follow.Date = date;
-        //obj_follow.time_follow = DateTime.UtcNow.ToLocalTime().ToLongTimeString();
-        //obj_follow.entery_pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
-        //obj_follow.Visa_Emp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
-        //obj_follow.Follow_ID = Inbox_Visa_Follows_DB.Save(obj_follow);
-        //Fil_Grid_Visa_Follow();
+        int vis_id = CDataConverter.ConvertToInt(hidden_Follow_ID.Value);
+      //  Inbox_Visa_Follows obj_follow = pm_inbox.Inbox_Visa_Follows.Where(x => x.Follow_ID == vis_id).SingleOrDefault();
+
+
+        obj_follow.Follow_ID = vis_id ;
+        obj_follow.Inbox_ID = CDataConverter.ConvertToInt(hidden_Id.Value);
+
+        obj_follow.Descrption = "تم التعديل في بيانات الخطاب";
+        string date = DateTime.Now.ToShortDateString().ToString();
+        obj_follow.Date = date;
+        obj_follow.time_follow = DateTime.UtcNow.ToLocalTime().ToLongTimeString();
+        obj_follow.entery_pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
+        obj_follow.Visa_Emp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
+
+      obj_follow.Follow_ID = Inbox_Visa_Follows_DB.Save(obj_follow);
+
+     //   InsertOrUpdate_Inbox_Visa_follows(obj_follow);
+
+
+        Fil_Grid_Visa_Follow();
     }
 }
