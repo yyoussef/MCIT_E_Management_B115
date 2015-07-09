@@ -2,19 +2,22 @@
     Inherits="Masters_MainformMaster"   %>
 
 <%@ Register Src="~/UserControls/Sticker.ascx" TagName="Sticker" TagPrefix="uc3" %>
-<%@ Register Src="~/UserControls/Site_Menu3.ascx" TagName="Site_Menu" TagPrefix="uc4" %>
+<%@ Register Src="~/UserControls/Site_Menu3Copy.ascx" TagName="Site_Menu" TagPrefix="uc4" %>
 <%--<%@ Register Src="../UserControls/slidingmenu.ascx" TagName="slidingmenu" TagPrefix="uc5" %>
 --%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<meta http-equiv="X-UA-Compatible" content="IE=7;" />
-<meta http-equiv="X-UA-Compatible" content="chrome=1;" />
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head id="Head1" runat="server">
+    <meta http-equiv="X-UA-Compatible" content="IE=7;" />
+<meta http-equiv="X-UA-Compatible" content="chrome=1;" />
+
     <%--<META http-equiv="Content-Type" content="text/html; charset=utf-8">   --%>
     <title></title>
-    <link rel="stylesheet" href="../css/style (2).css" type="text/css" />
-    <link rel="stylesheet" href="../css/Arcssverticalmenu.css" type="text/css" />
-
+     <link rel="stylesheet" href="../CSS/Orange.css" type="text/css" />
+    
+   <%-- <link rel="stylesheet" href="../css/style(2).css" type="text/css" />
+    <link rel="stylesheet" href="../css/Arcssverticalmenu.css" type="text/css" />--%>
+  
     <script type="text/javascript" src="../Script/stmenu.js"></script>
 
     <script type="text/javascript" src="../Script/AC_RunActiveContent.js"></script>
@@ -123,6 +126,7 @@
             width: 997px;
         }
         </style>--%>
+    
 </head>
 <body dir="rtl" >
     <form id="form1" runat="server">
@@ -139,41 +143,23 @@
     </div>
     <table width="100%">
         <tr>
-            <td width="990px" bgcolor="#C2DDF0">
+            <td width="990px" bgcolor="#F3F3F3">
                 <table id="Table_01" border="0" align="right" dir="rtl" cellpadding="0" cellspacing="0">
                     <tr>
                         <td align="right" dir="rtl">
                             <asp:Image ID="headerImage" runat="server" Height="120px" Width="1000px" />
                         </td>
-                        <td dir="rtl" bgcolor="#C2DDF0" align="center" valign="top">
-                            <br />
-                            <asp:Label ID="lblUserName" runat="server" Font-Size="16px" Font-Names="arial" Font-Bold="True"
-                                ForeColor="#436485"></asp:Label>
-                            <br />
-                            <br />
-                            <asp:Label ID="lblDepts" align="right" runat="server" Font-Size="16px" Font-Bold="True"
-                                Font-Names="arial" ForeColor="#436485" Width="154px"></asp:Label>
-                            <br />
-                            <br />
-                        </td>
-                        <td dir="ltr" align="center" bgcolor="#C2DDF0" width="60px" valign="bottom">
-                            <br />
-                            <asp:LinkButton ID="LinkMain" runat="server" Text="الرئيسية" Font-Bold="True" ForeColor="#436485"
-                                align="right" BackColor="#F9FDFF" PostBackUrl="~/MainForm/Default.aspx" Width="48px"
-                                valign="bottom" Font-Names="arial" Font-Size="16px" />
-                            <br />
-                            <br />
-                            <asp:LinkButton ID="lnklogin" runat="server" Text="خروج" Font-Bold="True" ForeColor="#436485"
-                                BackColor="#F9FDFF" OnClick="lnklogin_Click" Width="44px" valign="bottom"
-                                Font-Names="arial" Font-Size="16px" />
-                            <%-- <asp:LoginStatus ID="MasterLoginStatus" runat="server" LoginText="" LogoutText="خروج"
-                                Font-Bold="True" ForeColor="#436485" BackColor="#F9FDFF" LogoutAction="Redirect"
-                                LogoutPageUrl="~/WebForm2.aspx"  Width="44px" valign="bottom" Font-Names="arial"
-                                Font-Size="16px" />
-                                --%>
-                            <br />
-                            <br />
-                        </td>
+                        <td dir="rtl" align="center" valign="top">
+                                <h3>
+                                    <asp:Label ID="lblUserName" align="right" runat="server"></asp:Label></h3>
+
+                                <br />
+                                <h3>
+                                    <asp:Label ID="lblDepts" align="right" runat="server"></asp:Label>
+                                </h3>
+
+                            </td>
+                      
                     </tr>
                 </table>
             </td>
@@ -190,14 +176,54 @@
         <tr>
             <td>
                 <table align="center" style="width: 100%; height: 550px">
+                     <tr>
+                            <td>
+                                <div id="menu">
+                                    <ul>
+
+
+
+
+
+                                        <li id="current"><a href="Default.aspx">الرئيسية</a></li>
+                                        <li>
+                                            <a href="Inbox_Search.aspx">بحث في الخطابات الواردة</a>
+
+                                        </li>
+                                        <li>
+                                            <a href="Outbox_Search.aspx">بحث في الخطابات الصادرة</a>
+
+                                        </li>
+                                        <li>
+                                            <a href="Commission_Search.aspx">بحث في التكليفات </a>
+
+                                        </li>
+                                        <li>
+                                            <a href="Add_fav.aspx">إضافة للمفضلة</a>
+
+                                        </li>
+                                        <li>
+                                            <asp:LinkButton ID="lnklogin" runat="server" Text="خروج" OnClick="lnklogin_Click" />
+
+                                        </li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
                     <tr>
-                        <td align="right" width="20%" valign="top">
-                            <uc4:Site_Menu ID="Site_Menu1" runat="server" Visible="true" />
-                        </td>
-                        <td class="border" style="width: 80%; height: 550px;" valign="top">
-                            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-                            </asp:ContentPlaceHolder>
-                        </td>
+
+                         <td valign="top">
+                                <div id="content-wrap">
+                                    <div id="main">
+                                        <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                                        </asp:ContentPlaceHolder>
+                                    </div>
+                                    <div id="sidebar">
+
+                                        <uc4:Site_Menu ID="Site_Menu1" runat="server" Visible="true" />
+                                    </div>
+                                </div>
+                            </td>
                     </tr>
                 </table>
             </td>
@@ -206,10 +232,10 @@
             <td>
                 <table border="0" align="center" cellpadding="0" cellspacing="0" style="width: 100%;">
                     <tr align="center">
-                        <td valign="top" dir="ltr" bgcolor="#C2DDF0">
+                        <td valign="top" dir="ltr" bgcolor="#F3F3F3">
                             <marquee behavior="scroll" direction="right">
                         <asp:Label runat="server" ID="Footerlab" Text="حقوق النسخ محفوظة للإدارة المركزية للإستشارات الفنية وتطوير النظم بقطاع البنية المعلوماتية بوزارة الاتصالات وتكنولوجيا المعلومات  ... "
-                            Style="text-align: center" ForeColor="#244A6F" Width="100%" Font-Size="12pt"
+                            Style="text-align: center" ForeColor="#555" Width="100%" Font-Size="12pt"
                             Font-Bold="True" Font-Names="Times New Roman"></asp:Label></marquee>
                         </td>
                     </tr>

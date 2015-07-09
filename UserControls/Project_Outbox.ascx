@@ -40,7 +40,9 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
         <table dir="rtl" style="line-height: 2; width: 99%;">
             <tr>
                 <td align="center" colspan="4" style="height: 33px">
-                    <asp:Label ID="Label2" runat="server" CssClass="PageTitle" Text="الخطابات الصادرة" />
+                  <h1><asp:Label ID="Label2" runat="server" Text="الخطابات الصادرة" />
+                    
+                      </h1>  
                 </td>
             </tr>
             <tr>
@@ -53,18 +55,20 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                     <cc1:TabContainer runat="server" ID="TabPanel_All" Height="1500px">
                         <cc1:TabPanel ID="TabPanel_dtl" runat="server">
                             <HeaderTemplate>
-                                <asp:Label ID="Label14" runat="server" CssClass="Label" Font-Size="11px" Text="تفاصيل الخطاب" />
-                                <input type="hidden" runat="server" id="hidden_Id"> 
-                                    <input id="hidden_Proj_id" runat="server" type="hidden"></input>
+                                <asp:Label ID="Label14" runat="server" CssClass="Label"  Text="تفاصيل الخطاب" />
+                                <input type="hidden" runat="server" id="hidden_Id"/>  
+                                    <input id="hidden_Proj_id" runat="server" type="hidden"/>
                                     
-                                </input>
-                                </input>
+                               
+                              
                             </HeaderTemplate>
                             <ContentTemplate>
                                 <table>
                                     <tr>
                                         <td>
-                                            <asp:Label ID="Label12" runat="server" CssClass="Label" Text="نوع الخطاب" />
+                                          
+                                            <asp:Label ID="Label12" runat="server" CssClass="Label" Text="نوع الخطاب:" />
+                                                
                                         </td>
                                         <td>
                                             <asp:DropDownList ID="ddl_Type" runat="server" CssClass="drop" Width="319px" AutoPostBack="True"
@@ -307,7 +311,7 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                         </cc1:TabPanel>
                         <cc1:TabPanel ID="TabPanel_Files" runat="server">
                             <HeaderTemplate>
-                                <asp:Label ID="Label18" runat="server" CssClass="Label" Font-Size="11px" Text="ملفات الخطاب" />
+                                <asp:Label ID="Label18" runat="server" CssClass="Label"  Text="ملفات الخطاب" />
                             </HeaderTemplate>
                             <ContentTemplate>
                                 <table width="100%">
@@ -392,7 +396,7 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                         </cc1:TabPanel>
                         <cc1:TabPanel ID="TabPanel_Visa" runat="server">
                             <HeaderTemplate>
-                                <asp:Label ID="Label24" runat="server" CssClass="Label" Font-Size="11px" Text="التأشيرات" />
+                                <asp:Label ID="Label24" runat="server" CssClass="Label"  Text="التأشيرات" />
                             </HeaderTemplate>
                             <ContentTemplate>
                                 <table width="100%">
@@ -726,7 +730,7 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                         </cc1:TabPanel>
                         <cc1:TabPanel ID="TabPanel_Visa_Folow" runat="server">
                             <HeaderTemplate>
-                                <asp:Label ID="Label38" runat="server" CssClass="Label" Font-Size="11px" Text="المسير" />
+                                <asp:Label ID="Label38" runat="server" CssClass="Label"  Text="المسير" />
                             </HeaderTemplate>
                             <ContentTemplate>
                                 <table width="100%">
