@@ -32,6 +32,10 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
 </asp:UpdateProgress>
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
+    <div  ng-app="SmartSearch" ng-controller="SmartSearchCtrl" ng-init="type=2;loadOrganization()">
+<input type="hidden" runat="server" id="OrgDesc" name="OrgDesc" value="--اختر الجهة--" />
+<input type="hidden" runat="server" id="OrgID" name="OrgID" value="0" />
+    <input type="hidden" runat="server" id="type" name="type" value="3" />
         <input id="Outbox_ID" runat="server" type="hidden"  />
 <input id="mode" runat="server" type="hidden" value="new" />
 <input id="id2" runat="server" type="hidden" />
@@ -207,6 +211,9 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                         <td colspan="4" align="right" runat="server">
                                             <table>
                                                 <tr>
+                                                     <td colspan="2">
+                                                     <asp:Label ID="txt_Dept_ID_Txt" runat="server" CssClass="Label" Width="293px"></asp:Label>
+                                                         </td>
                                                     <td>
                                                         <asp:Label ID="Label6" runat="server" Text="  الادارة :" CssClass="Label" Font-Underline="False"></asp:Label>
                                                     </td>
