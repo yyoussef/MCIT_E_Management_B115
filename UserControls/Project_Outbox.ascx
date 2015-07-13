@@ -1,7 +1,7 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="Project_Outbox.ascx.cs"
     Inherits="UserControls_Project_Outbox" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
-<%@ Register Src="Smart_Search.ascx" TagName="Smart_Search" TagPrefix="uc1" %>
+<%@ Register Src="~/UserControls/Smart_Search.ascx" TagName="Smart_Search" TagPrefix="uc1" %>
 
 <script language="javascript" type="text/javascript">
 
@@ -19,7 +19,15 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
 //alert('you selected the file: '+ name);
 }
 </script>
-
+  <div  ng-app="SmartSearch" ng-controller="SmartSearchCtrl" ng-init="type=2;loadOrganization()"></div>
+<input type="hidden" runat="server" id="OrgDesc" name="OrgDesc" value="--اختر الجهة--" />
+<input type="hidden" runat="server" id="OrgID" name="OrgID" value="0" />
+    <input type="hidden" runat="server" id="type" name="type" value="3" />
+        <input id="Outbox_ID" runat="server" type="hidden"  />
+<input id="mode" runat="server" type="hidden" value="new" />
+<input id="id2" runat="server" type="hidden" />
+<input id="id3" runat="server" type="hidden" />
+<input id="empId" runat="server" type="hidden" />
 
 <asp:UpdateProgress ID="UpdateProgress1" runat="server" DisplayAfter="30" AssociatedUpdatePanelID="UpdatePanel1">
     <ProgressTemplate>
@@ -30,24 +38,16 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
         </div>
     </ProgressTemplate>
 </asp:UpdateProgress>
+
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
-<div  ng-app="SmartSearch" ng-controller="SmartSearchCtrl" ng-init="type=2;loadOrganization()">
-<input type="hidden" runat="server" id="OrgDesc" name="OrgDesc" value="--اختر الجهة--" />
-<input type="hidden" runat="server" id="OrgID" name="OrgID" value="0" />
-    <input type="hidden" runat="server" id="type" name="type" value="3" />
-<input id="Outbox_ID" runat="server" type="hidden"  />
-<input id="mode" runat="server" type="hidden" value="new" />
-<input id="id2" runat="server" type="hidden" />
-<input id="id3" runat="server" type="hidden" />
-<input id="empId" runat="server" type="hidden" />
-
-    <input id="hid_inb_id" runat="server" type="hidden"  />
 
         <table dir="rtl" style="line-height: 2; width: 99%;">
             <tr>
                 <td align="center" colspan="4" style="height: 33px">
-                    <asp:Label ID="Label2" runat="server" CssClass="PageTitle" Text="الخطابات الصادرة" />
+                  <h1><asp:Label ID="Label2" runat="server" Text="الخطابات الصادرة" />
+                    
+                      </h1>  
                 </td>
             </tr>
             <tr>
@@ -60,18 +60,20 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                     <cc1:TabContainer runat="server" ID="TabPanel_All" Height="1500px">
                         <cc1:TabPanel ID="TabPanel_dtl" runat="server">
                             <HeaderTemplate>
-                                <asp:Label ID="Label14" runat="server" CssClass="Label" Font-Size="11px" Text="تفاصيل الخطاب" />
-                                <input type="hidden" runat="server" id="hidden_Id"> 
-                                    <input id="hidden_Proj_id" runat="server" type="hidden"></input>
+                                <asp:Label ID="Label14" runat="server" CssClass="Label"  Text="تفاصيل الخطاب" />
+                                <input type="hidden" runat="server" id="hidden_Id"/>  
+                                    <input id="hidden_Proj_id" runat="server" type="hidden"/>
                                     
-                                </input>
-                                </input>
+                               
+                              
                             </HeaderTemplate>
                             <ContentTemplate>
                                 <table>
                                     <tr>
                                         <td>
-                                            <asp:Label ID="Label12" runat="server" CssClass="Label" Text="نوع الخطاب" />
+                                          
+                                            <asp:Label ID="Label12" runat="server" CssClass="Label" Text="نوع الخطاب:" />
+                                                
                                         </td>
                                         <td>
                                             <asp:DropDownList ID="ddl_Type" runat="server" CssClass="drop" Width="319px" AutoPostBack="True"
@@ -130,8 +132,7 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                                 <asp:ListItem Text="صادر جديد" Value="1" Selected="True"></asp:ListItem>
                                                 <asp:ListItem Text="رد على وارد" Value="2"></asp:ListItem>
                                                 <asp:ListItem Text="رد على تأشيرة وزير" Value="4"></asp:ListItem>
-                                                <asp:ListItem Text="استعجال صادر" Value="3"></asp:ListItem>                                            
-                                                 <asp:ListItem Text="وارد لصادر داخلي " Value="6"></asp:ListItem>
+                                                <asp:ListItem Text="استعجال صادر" Value="3"></asp:ListItem>
                                                 <asp:ListItem Text="أخري.." Value="5"></asp:ListItem>
                                             </asp:DropDownList>
                                             &nbsp;&nbsp;&nbsp;&nbsp;
@@ -161,15 +162,7 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                                         <asp:Label ID="Label7" runat="server" CssClass="Label" Text="الجهة الصادر لها :" />
                                                     </td>
                                                     <td>
-                                
-                                                        <div id="myDiv">
-                                                        <ui-select ng-model="organization.selected" theme="select2"  ng-disabled="disabled" style="min-width: 300px;" on-select="setHiddenWithOrg($item)">
-                                                              <ui-select-match placeholder="{{initialSelectedOrganization}}">{{$select.selected.name}}</ui-select-match>
-                                                                <ui-select-choices repeat="organization in organizations | propsFilter: {name: $select.search}">
-                                                                  <div ng-bind-html="organization.name | highlight: $select.search"></div>                                                                    
-                                                                </ui-select-choices>
-                                                              </ui-select>  
-                                                      </div>
+                                                        <uc1:Smart_Search ID="Smart_Org_ID" runat="server" />
                                                     </td>
                                                     <td colspan="2">
                                                     </td>
@@ -219,6 +212,9 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                         <td colspan="4" align="right" runat="server">
                                             <table>
                                                 <tr>
+                                                     <td colspan="2">
+                                                     <asp:Label ID="txt_Dept_ID_Txt" runat="server" CssClass="Label" Width="293px"></asp:Label>
+                                                         </td>
                                                     <td>
                                                         <asp:Label ID="Label6" runat="server" Text="  الادارة :" CssClass="Label" Font-Underline="False"></asp:Label>
                                                     </td>
@@ -323,7 +319,7 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                         </cc1:TabPanel>
                         <cc1:TabPanel ID="TabPanel_Files" runat="server">
                             <HeaderTemplate>
-                                <asp:Label ID="Label18" runat="server" CssClass="Label" Font-Size="11px" Text="ملفات الخطاب" />
+                                <asp:Label ID="Label18" runat="server" CssClass="Label"  Text="ملفات الخطاب" />
                             </HeaderTemplate>
                             <ContentTemplate>
                                 <table width="100%">
@@ -408,7 +404,7 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                         </cc1:TabPanel>
                         <cc1:TabPanel ID="TabPanel_Visa" runat="server">
                             <HeaderTemplate>
-                                <asp:Label ID="Label24" runat="server" CssClass="Label" Font-Size="11px" Text="التأشيرات" />
+                                <asp:Label ID="Label24" runat="server" CssClass="Label"  Text="التأشيرات" />
                             </HeaderTemplate>
                             <ContentTemplate>
                                 <table width="100%">
@@ -505,9 +501,6 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                 <td colspan="2">
                                     <asp:Label ID="txt_Dept_ID_Txt" runat="server" CssClass="Label" Width="293px"></asp:Label>
                                 </td>--%>
-                                          <td colspan="2">
-                                    <asp:Label ID="txt_Dept_ID_Txt" runat="server" CssClass="Label" Width="293px"></asp:Label>
-                                   </td>
                                         <td>
                                             <asp:Label ID="Label15" runat="server" Text="  الادارة :" CssClass="Label" Font-Underline="False"></asp:Label>
                                         </td>
@@ -745,7 +738,7 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                         </cc1:TabPanel>
                         <cc1:TabPanel ID="TabPanel_Visa_Folow" runat="server">
                             <HeaderTemplate>
-                                <asp:Label ID="Label38" runat="server" CssClass="Label" Font-Size="11px" Text="المسير" />
+                                <asp:Label ID="Label38" runat="server" CssClass="Label"  Text="المسير" />
                             </HeaderTemplate>
                             <ContentTemplate>
                                 <table width="100%">
