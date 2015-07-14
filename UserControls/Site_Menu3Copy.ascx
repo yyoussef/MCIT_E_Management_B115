@@ -51,7 +51,7 @@
                     <li id="Li69" runat="server" visible="false">
                         <a href="javascript: void(0);">خطط زمنية</a>
                         <input type="hidden" runat="server" id="hidden72" value="87" />
-                        <ul>
+                        <ul  class="newclass" style="right: 25px; display: none;" >
                             <li ><a href="Project_Activities.aspx">أنشطة المشــــروع</a></li>
                             <li><a href="../MainForm/ProjectActivities.aspx">تعديل أنشطة المشــــروع </a></li>
                             <li><a href="Planning_Stages.aspx">أنشطة مراحل المشـــروع</a></li>
@@ -59,33 +59,33 @@
                             <li><a href="Import_From_MPP.aspx">إستيراد أنشطة المشــــروع</a></li>
                             <li><a href="Indicators_History.aspx">قياس المؤشرات</a></li>
                             <li><a href="Project_Constraints.aspx">معوقات المشــــروع</a></li>
-                            <li></li>
+                           
                         </ul>
                     </li>
                     <li id="Li70" runat="server" visible="false">
                         <a href="javascript: void(0);">احتياجات المشروع</a>
                         <input type="hidden" runat="server" id="hidden73" value="88" />
-                        <ul >
+                        <ul  class="newclass" style="right: 25px; display: none;">
                             <li><a href="Project_Needs.aspx">طلب احتياجات </a></li>
                             <li><a href="Needs_Approvment.aspx">تصديق احتياجات</a> </li>
                             <li><a href="Need_Available.aspx">إتاحة احتياجات</a> </li>
                             <li><a href="Need_Recieve.aspx">صرف احتياجات</a> </li>
-                            <li></li>
+                           
                         </ul>
                     </li>
                     <li id="Li133" runat="server" visible="false">
                         <a href="javascript: void(0);">أوامر التوريد</a>
                         <input type="hidden" runat="server" id="hidden10" value="10" />
-                        <ul >
+                        <ul  class="newclass" style="right: 25px; display: none;">
                             <li><a href="Fin_Work_Order.aspx">أوامر التوريد</a></li>
                             <li><a href="Fin_Bills.aspx">فواتير</a></li>
-                            <li></li>
+                            
                         </ul>
                     </li>
                     <li id="Li66" runat="server" visible="false">
                         <a href="javascript: void(0);">وثائق</a>
                         <input type="hidden" runat="server" id="hidden69" value="84" />
-                        <ul >
+                        <ul  class="newclass" style="right: 25px; display: none;">
                             <li><a href="Deprt_Documnts.aspx">وثائق عامة</a></li>
                             <li><a href="Project_Inbox.aspx">وارد</a></li>
                             <li><a href="Project_Outbox.aspx">صادر</a></li>
@@ -94,13 +94,13 @@
                             <li><a href="Project_presentation.aspx">عروض تقديمية </a></li>
                             <li style="display: none;"><a href="Project_protocol.aspx">بروتوكولات </a></li>
                             <li><a href="Project_Complain.aspx">المناقضات </a></li>
-                            <li></li>
+                            
                         </ul>
                     </li>
                     <li id="Li67" runat="server" visible="false">
                         <a href="javascript: void(0);">استعلام عن الوثائق</a>
                         <input type="hidden" runat="server" id="hidden70" value="86" />
-                        <ul >
+                        <ul  class="newclass" style="right: 25px; display: none;">
                             <li><a href="General_Search.aspx">وثائق عامة</a></li>
                             <li><a href="Connecting_inbox_outbox.aspx">وارد / صادر</a></li>
                             <li ><a href="Inbox_Search.aspx">وارد</a></li>
@@ -109,13 +109,13 @@
                             <li><a href="Project_presentation_search.aspx">عروض تقديمية </a></li>
                             <li><a href="Project_event_search.aspx">أحداث </a></li>
                             <li style="display: none;"><a href="Project_protocol_search.aspx">بروتوكولات </a></li>
-                            <li></li>
+                            
                         </ul>
                     </li>
                     <li id="Li71" runat="server" visible="false">
                         <a href="javascript: void(0);">بوابة القطاع</a>
                         <input type="hidden" runat="server" id="hidden74" value="89" />
-                        <ul >
+                        <ul  class="newclass" style="right: 25px; display: none;">
                             <li><a href="Service_Info.aspx">كيفية الحصول على الخدمة</a></li>
                             <li><a href="project_img_service.aspx">مكتبة الصور </a></li>
                             <li><a href="project_statistics_service.aspx">الاحصائيات </a></li>
@@ -125,11 +125,11 @@
                     <li id="Li72" runat="server" visible="false">
                         <a href="javascript: void(0);">استعلام عن الوثائق</a>
                         <input type="hidden" runat="server" id="hidden75" value="90" />
-                        <ul >
+                        <ul  class="newclass" style="right: 25px; display: none;">
                             <li><a href="Search_ALL_Documents.aspx">بحث عام</a></li>
                             <li><a href="Connecting_inbox_outbox.aspx">مرتبط وارد / صادر</a></li>
                             <li style="display: none;"><a href="Project_protocol_search.aspx">بروتوكولات </a></li>
-                            <li></li>
+                           
                         </ul>
                     </li>
                     <li id="Li73" runat="server" visible="false">
@@ -158,11 +158,7 @@
                         <a href="Needs_Sub_Type_Entry_Screen.aspx">أنواع الاحتياج الفرعي </a>
                         <input type="hidden" runat="server" id="hidden81" value="96" />
                     </li>
-                    <%--
-                    <li id="Li79" runat="server" visible="false">
-                        <a href="Employee_Entry_Screen.aspx">موظفيــــــــن </a>
-                        <input type="hidden" runat="server" id="hidden82" value="97" />
-                    </li>--%>
+                   
                     <li id="Li80" runat="server" visible="false">
                         <a href="Organization_Entry_Screen.aspx">الجهات المستفيده </a>
                         <input type="hidden" runat="server" id="hidden83" value="98" />
@@ -175,11 +171,7 @@
                         <a href="FDocuments.aspx">ملفات </a>
                         <input type="hidden" runat="server" id="hidden63" value="1" />
                     </li>
-                    <%--
-                    <li id="Li84" runat="server" visible="false">
-                        <a href="../MainForm/File_Archive.aspx">أرشفة الملفات </a>
-                        <input type="hidden" runat="server" id="hidden85" value="110" />
-                    </li>--%>
+                   
                     <li id="Li18" runat="server" visible="false">
                         <a href="File_Search.aspx">بحث في ملفات</a>
                         <input type="hidden" runat="server" id="hidden2" value="2" />
@@ -243,11 +235,7 @@
                         <a href="Project_Activities.aspx">أنشطة المشــــروع</a>
                         <input type="hidden" runat="server" id="hidden11" value="11" />
                     </li>
-                    <%--
-                    <li id="Li122" runat="server" visible="false">
-                        <a href="Emp_ADD.aspx">إضافة موظف</a>
-                        <input type="hidden" runat="server" id="hidden13" value="13" />
-                    </li>--%>
+                   
                     <li id="Li3" runat="server" visible="false">
                         <a href="Project_Inbox_Minister.aspx">تأشيرة الوزير </a>
                         <input type="hidden" runat="server" id="hidden14" value="14" />
@@ -287,19 +275,19 @@
                     <li id="Li28" runat="server" visible="false">
                         <a href="javascript: void(0);">أوامر التوريد</a>
                         <input type="hidden" runat="server" id="hidden31" value="31" />
-                        <ul >
+                        <ul  class="newclass" style="right: 25px; display: none;">
                             <li><a href="Agreement_Work_Order.aspx">أوامر التوريد</a></li>
                             <li><a href="Agreement_Bills.aspx">فواتير </a></li>
-                            <li></li>
+                            
                         </ul>
                     </li>
                     <li id="Li4" runat="server" visible="false">
                         <a href="javascript: void(0);">البروتوكولات</a>
                         <input type="hidden" runat="server" id="hidden16" value="16" />
-                        <ul >
+                        <ul  class="newclass" style="right: 25px; display: none;">
                             <li><a href="Protocol_Main.aspx">إضافة بروتوكول</a></li>
                             <li><a href="Protocol_Main_Search.aspx">بحث عن بروتوكول</a></li>
-                            <li></li>
+                            
                         </ul>
                     </li>
                     <li id="Li21" runat="server" visible="false">
@@ -313,21 +301,17 @@
                     <li id="Li29" runat="server" visible="false">
                         <a href="javascript: void(0);">التصنيفات</a>
                         <input type="hidden" runat="server" id="hidden32" value="29" />
-                        <ul >
+                        <ul  class="newclass" style="right: 25px; display: none;">
                             <li><a href="Adding_Inbox_Main_Categories.aspx">اضافة تصنيف رئيسى</a></li>
                             <li><a href="Adding_Inbox_Sub_Categories.aspx">اضافة تصنيف فرعى</a></li>
-                            <li></li>
+                            
                         </ul>
                     </li>
                     <li id="Li10" runat="server" visible="false">
                         <a href="Project.aspx">وثيقة مشروع</a>
                         <input type="hidden" runat="server" id="hidden22" value="22" />
                     </li>
-                    <%--
-                    <li id="Li23" runat="server" visible="false">
-                        <a href="MMallReports.aspx">تقارير</a>
-                        <input type="hidden" runat="server" id="hidden26" value="26" />
-                    </li>--%>
+                   
                     <li id="Li30" runat="server" visible="false">
                         <a href="IR_Reports.aspx">تقارير-متابعة موظفين</a>
                         <input type="hidden" runat="server" id="hidden33" value="33" />
@@ -362,7 +346,7 @@
                                     بحث عن وثيقة
                                 </a>
                             </li>
-                            <li></li>
+                            
                         </ul>
                     </li>--%>
                     <%--
@@ -438,7 +422,7 @@
                     <li id="Li41" runat="server" visible="false">
                         <a href="javascript: void(0);">ادارة التدريب </a>
                         <input type="hidden" runat="server" id="hidden42" value="121" />
-                        <ul >
+                        <ul  class="newclass" style="right: 25px; display: none;">
                             <li id="li56" runat="server">
                                 <a href="Course_Programs.aspx">تسجيل بيانات البرامج</a>
                                 <input type="hidden" runat="server" id="hidden59" value="73" />
@@ -500,7 +484,7 @@
                     </li>
                     <li id="Mod_Training_10" runat="server">
                         <a href="javascript: void(0);">التدريب</a>
-                        <ul >
+                        <ul  class="newclass" style="right: 25px; display: none;">
                             <li id="li87" runat="server">
                                 <a href="Training_ViewUserRegisteredCourses.aspx">دوراتى</a>
                             </li>
@@ -514,7 +498,7 @@
                     <li id="Mod_Evaluation_11" runat="server">
                         <a href="javascript: void(0);">تقييم الأداء</a>
                         <%--  <input type="hidden" runat="server" id="hidden71" value="85" />--%>
-                        <ul >
+                        <ul  class="newclass" style="right: 25px; display: none;">
                             <li><a href="Eval_For_Employee.aspx">تقييم أداء موظف</a></li>
 
                             <%--
@@ -537,7 +521,7 @@
                     <li id="Mod_Vacation_9" runat="server">
                         <a href="javascript: void(0);">الأجازات والمأموريات</a>
                         <input type="hidden" runat="server" id="hidden34" value="40" />
-                        <ul >
+                        <ul  class="newclass" style="right: 25px; display: none;">
                             <li id="lip" runat="server">
                                 <a href="vacations.aspx">الأجازات</a>
                             </li>
@@ -554,7 +538,7 @@
                                 <a href="vacations_Reports2.aspx">تقارير</a>
                                 <input type="hidden" runat="server" id="hidden344" value="34" />
                             </li>
-                            <li></li>
+                            
                         </ul>
                     </li>
                     <li id="li86" runat="server" visible="false">

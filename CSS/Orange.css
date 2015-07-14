@@ -22,7 +22,7 @@ body {
     font: 71%/1.5em Verdana, 'Trebuchet MS', Arial, Sans-serif;
     /*background: url(../images/headerbg-orange.gif) repeat-x;*/
     color: #666666;
-    text-align: center;
+    text-align: right;
 }
 
 /* links */
@@ -58,13 +58,13 @@ h3 {
 span{
      
      font: bold 1.1em Sans-serif;
-     margin: 0 0 0 2px;
+     margin: 0 0 0 0px;
 }
 #main h1, #rightbar h1 {
     padding: 10px 0 5px 5px;
     margin: 0 0 0 10px;
     text-transform: uppercase;
-    border-bottom: 1px solid #f2f2f2;
+    /*border-bottom: 1px solid #f2f2f2;*/
 }
 
 #sidebar h1 {
@@ -300,17 +300,26 @@ form.searchform {
         text-align: right;
         float: right;
         margin: 0 0 8px 0;
-       padding: 30px 20px 0 0;
+       padding: 7px 20px 0 0;
         text-decoration: none;
     }
 
         #sidebar ul.sidemenu li {
-            border-bottom: 1px solid #EFF0F1;
+            /*border-bottom: 1px solid #EFF0F1;
            
             padding: 2px 10px 2px 2px;
               direction: rtl;
             list-style-type: square;
-            font-size: 18px;
+            font-size: 18px;*/
+           
+
+              border-bottom: 1px solid #EFF0F1;
+  
+  padding: 3px 5px 2px 2px;
+   direction: rtl;
+   font-size: 18px;
+   list-style-type: square;
+   display:list-item;
         }
 
       
@@ -323,6 +332,7 @@ form.searchform {
     font-weight: bold;
     background-image: none;
     text-decoration: none;
+   
 }
 
 /* rightbar */

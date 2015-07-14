@@ -39,18 +39,18 @@ Partial Public Class Masters_MainformMaster
             '    Response.Redirect("~/Default.aspx")
             'Else
             If Request.QueryString("LogOut") <> 1 Then
-                Response.Write(Session_CS.pmp_name)
+                'Response.Write(Session_CS.pmp_name)
                 lblUserName.Text = Server.UrlDecode(Session_CS.pmp_name)
                 lblDepts.Text = Server.UrlDecode(Session_CS.dept)
 
             End If
-        Else
-            'Session.Clear()
-            Sticker1.Visible = False
+            'Else
+            '    'Session.Clear()
+            '    Sticker1.Visible = False
         End If
-        If Request.QueryString("main") = 1 Then
-            Sticker1.Visible = False
-        End If
+        'If Request.QueryString("main") = 1 Then
+        '    Sticker1.Visible = False
+        'End If
         'If Session_CS.UROL_UROL_ID = 2 Then
         '    Site_Menu1.Visible = True
 
@@ -75,15 +75,15 @@ Partial Public Class Masters_MainformMaster
         '    Site_Menu1.Visible = True
 
         'End If
-        If Not Request.QueryString("proj_id") Is Nothing Then
-            Sticker1.Visible = True
-        End If
+        'If Not Request.QueryString("proj_id") Is Nothing Then
+        '    Sticker1.Visible = True
         'End If
-        If Not Request.QueryString("proj_id") Is Nothing Or CDataConverter.ConvertToInt(Session_CS.Project_id) > 0 Then
-            Sticker1.Visible = True
-        Else
-            Sticker1.Visible = False
-        End If
+        ''End If
+        'If Not Request.QueryString("proj_id") Is Nothing Or CDataConverter.ConvertToInt(Session_CS.Project_id) > 0 Then
+        '    Sticker1.Visible = True
+        'Else
+        '    Sticker1.Visible = False
+        'End If
 
     End Sub
 

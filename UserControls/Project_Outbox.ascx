@@ -42,7 +42,7 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
 <asp:UpdatePanel ID="UpdatePanel1" runat="server">
     <ContentTemplate>
 
-        <table dir="rtl" style="line-height: 2; width: 99%;">
+        <table dir="rtl" style="width: 99%;">
             <tr>
                 <td align="center" colspan="4" style="height: 33px">
                   <h1><asp:Label ID="Label2" runat="server" Text="الخطابات الصادرة" />
