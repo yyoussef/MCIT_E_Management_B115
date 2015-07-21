@@ -128,7 +128,12 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
                 {
                     if (CDataConverter.ConvertToInt(dt.Rows[0]["parent_pmp_id"].ToString()) == CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()))
                     {
-                        Trfollow.Visible = false;
+                      //  Trfollow.Visible = false;
+
+                       // Trfollow.Visible = true ;
+                        Trfollow.Style.Add("display", "block");
+
+
                         TemplateE.Visible = false;
                         TemplateA.Visible = false;
                         tr_follow_date.Visible = false;

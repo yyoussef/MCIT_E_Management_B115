@@ -17,8 +17,9 @@
     }
 </style>
 
+
 <script language="javascript" type="text/javascript">
-   
+
 
     function ChangeMeCase(divid, imgid, Number) {
 
@@ -723,21 +724,23 @@
             </tr>
         </table>
         <table width="99%" dir="rtl" runat="server" id="Trfollow">
-            <tr bgcolor="#E6F3FF">
+         
+               <tr bgcolor="#E6F3FF">
                 <td valign="top" align="right" width="95%">
                     <table width="100%" cellpadding="0" cellspacing="0" style="height: 50px">
                         <tr bgcolor="#E6F3FF">
-                            <td width="35px" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div3','image3','3');">
+                            <td width="35px" onmouseover="this.style.cursor='hand'" >
                                 <img border="0" id="image3" src="../Images/collapse.gif" />
                             </td>
                             <td style="font-size: large; color: #0C6AC8; text-decoration: underline blink; font-weight: bold;"
-                                onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div3','image3','3');">
+                               >
                                 المتابعة
                             </td>
                         </tr>
                     </table>
                 </td>
             </tr>
+
             <tr id="tr_follow_person" runat="server">
                 <td align="right" colspan="2">
                     <div id="div3" style="display: block">
@@ -756,7 +759,7 @@
                                         MinimumValue="1" ValidationGroup="VF">*</asp:RangeValidator>
                                 </td>
                             </tr>
-                            <tr id="tr_follow_proj" runat="server" visible="false">
+                            <tr id="tr_follow_proj" runat="server" style="display: none ">
                                 <td colspan="1" class="style32">
                                     <asp:Label ID="Label13" runat="server" CssClass="Label" Text="المشروع :" />
                                 </td>
