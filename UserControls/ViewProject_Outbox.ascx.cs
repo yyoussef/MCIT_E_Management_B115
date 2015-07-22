@@ -33,9 +33,8 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
         {
             string Div = "div" + hidden_Number.Value;
             string image = "image" + hidden_Number.Value;
-          //  Page.RegisterStartupScript("Sucess", "<script language=javascript>ChangeMeCase('" + Div + "','" + image + "','" + hidden_Number.Value + "');</script>");
 
-            ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "success", "<script language=javascript>ChangeMeCase('" + Div + "','" + image + "','" + hidden_Number.Value + "');</script>", true);
+         //   ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "success", "<script language=javascript>ChangeMeCase('" + Div + "','" + image + "','" + hidden_Number.Value + "');</script>", true);
 
         }
 
@@ -136,13 +135,22 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
 
                         TemplateE.Visible = false;
                         TemplateA.Visible = false;
-                        tr_follow_date.Visible = false;
-                        tr_follow_desc.Visible = false;
-                        tr_follow_doc.Visible = false;
-                        tr_follow_person.Visible = false;
-                        tr_follow_save.Visible = false;
-                        tr_follow_proj.Visible = false;
-                        tr_follow_time.Visible = false;
+
+                       // tr_follow_date.Visible = false;
+                      //  tr_follow_desc.Visible = false;
+                   //     tr_follow_doc.Visible = false;
+                 //       tr_follow_person.Visible = false;
+                //        tr_follow_save.Visible = false;
+                //        tr_follow_proj.Visible = false;
+                       
+
+                        tr_follow_date.Style.Add("display", "none");
+                        tr_follow_desc.Style.Add("display", "none");
+                        tr_follow_doc.Style.Add("display", "none");
+                        tr_follow_person.Style.Add("display", "none");
+                        tr_follow_save.Style.Add("display", "none");
+                        tr_follow_proj.Style.Add("display", "none");
+
                         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
                         DataTable DT = new DataTable();
                         DT = General_Helping.GetDataTable("select * from Outbox_Track_Manager where Outbox_id = " + id);
@@ -223,12 +231,22 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
                         if (pmp == 70)
                         {
                             //Trfollow.Visible = false;
-                            tr_follow_date.Visible = false;
-                            tr_follow_desc.Visible = false;
-                            tr_follow_doc.Visible = false;
-                            tr_follow_person.Visible = false;
-                            tr_follow_save.Visible = false;
-                            tr_follow_proj.Visible = false;
+
+                            //tr_follow_date.Visible = false;
+                            //tr_follow_desc.Visible = false;
+                            //tr_follow_doc.Visible = false;
+                            //tr_follow_person.Visible = false;
+                            //tr_follow_save.Visible = false;
+                            //tr_follow_proj.Visible = false;
+
+
+                            tr_follow_date.Style.Add("display", "none");
+                            tr_follow_desc.Style.Add("display", "none");
+                            tr_follow_doc.Style.Add("display", "none");
+                            tr_follow_person.Style.Add("display", "none");
+                            tr_follow_save.Style.Add("display", "none");
+                            tr_follow_proj.Style.Add("display", "none");
+
                             //     tr_mngr1.Visible =
                             //tr_mngr2.Visible = true;
                             //     GridView_Visa.Columns[6].Visible = true;
