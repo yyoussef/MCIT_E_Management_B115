@@ -80,10 +80,10 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
 
             DataTable orgsdt = extentionMethods.ToDataTable<Organization>(orgsquery);
 
-            //Smart_Org_ID.datatble = orgsdt;
-            //Smart_Org_ID.Value_Field = "Org_ID";
-            //Smart_Org_ID.Text_Field = "Org_Desc";
-            //Smart_Org_ID.DataBind();
+            Smart_Org_ID.datatble = orgsdt;
+            Smart_Org_ID.Value_Field = "Org_ID";
+            Smart_Org_ID.Text_Field = "Org_Desc";
+            Smart_Org_ID.DataBind();
         }
         //Smart_Search_dept.sql_Connection = sql_Connection;
         //Query = "SELECT Dept_id, Dept_name FROM Departments ";
@@ -1012,7 +1012,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
             _Message.Body += parent_name;
             _Message.Body += " </h3>";
             //_Message.Body += " <h1 style=text-align:right>    وصلكم وارد من نظام إدارة مشروعات قطاع البنية المعلوماتية  </h1> ";
-            _Message.Body += " <h3 > إيماءً إلى الوارد من  " + /*Smart_Org_ID.SelectedText*/OrgDesc.Value + " بتاريخ " + txt_Date.Text + " بخصوص " + txt_Subject.Text + " </h3>";
+            _Message.Body += " <h3 > إيماءً إلى الوارد من  " + /*OrgDesc.Value*/ Smart_Org_ID.SelectedText + " بتاريخ " + txt_Date.Text + " بخصوص " + txt_Subject.Text + " </h3>";
 
             bool flag = false;
 
@@ -1301,7 +1301,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                 _Message.Body += " " + parent_name + "    </h3> ";
                 // _Message.Body += " <h1 style=text-align:right>    وصلكم وارد من نظام إدارة مشروعات قطاع البنية المعلوماتية  </h1> ";
 
-                _Message.Body += " <h3 > " + " وصلكم صادر من " + /*Smart_Org_ID.SelectedText*/OrgDesc.Value + " بتاريخ " + txt_Date.Text + " بخصوص <br/>" + "<h3 style=" + "color:blue >" + txt_Subject.Text + "</h3>";
+                _Message.Body += " <h3 > " + " وصلكم صادر من " + Smart_Org_ID.SelectedText /*OrgDesc.Value*/ + " بتاريخ " + txt_Date.Text + " بخصوص <br/>" + "<h3 style=" + "color:blue >" + txt_Subject.Text + "</h3>";
                 bool flag = false;
                 string file = "";
                 byte[] files = new byte[0];
@@ -1397,7 +1397,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
     {
 
 
-        if ((CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 2 && CDataConverter.ConvertToInt(/*Smart_Org_ID.SelectedValue*/OrgID.Value) > 0) || CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 1)
+        if ((CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 2 && CDataConverter.ConvertToInt(/*OrgID.Value*/Smart_Org_ID.SelectedValue) > 0) || CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 1)
         {
 
             if (Session_CS.code_outbox == 1)
@@ -1426,7 +1426,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
             }
             else
             {
-                Org_Id = CDataConverter.ConvertToInt(/*Smart_Org_ID.SelectedValue*/OrgID.Value);
+                Org_Id = CDataConverter.ConvertToInt(Smart_Org_ID.SelectedValue /*OrgID.Value*/);
             }
             using (var context = new OutboxContext())
             {
@@ -2935,7 +2935,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
             }
             else
             {
-                Org_Id = CDataConverter.ConvertToInt(/*Smart_Org_ID.SelectedValue*/OrgID.Value);
+                Org_Id = CDataConverter.ConvertToInt(Smart_Org_ID.SelectedValue /*OrgID.Value*/);
             }
             using (var context = new InboxContext())
             {
