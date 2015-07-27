@@ -240,11 +240,15 @@ namespace EFModels
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("Outbox_Save", iD, proj_idParameter, typeParameter, dept_IDParameter, emp_IDParameter, org_IdParameter, group_idParameter, pmp_pmp_idParameter, related_TypeParameter, related_IdParameter, follow_Up_Dept_IDParameter, dept_Dept_idParameter, follow_Up_Emp_IDParameter, statusParameter, subjectParameter, notesParameter, nameParameter, codeParameter, dateParameter, enter_DateParameter, org_NameParameter, org_Out_Box_CodeParameter, org_Out_Box_DTParameter, paper_NoParameter, paper_AttachedParameter, dept_DescParameter, org_Out_Box_PersonParameter, source_TypeParameter, org_Dept_NameParameter, sub_Cat_idParameter, finishedParameter, foundation_idParameter);
         }
     
-        public virtual ObjectResult<Outbox_search_par_Result> Outbox_search_par(Nullable<int> group_id, Nullable<int> pmp, Nullable<int> main_cat, Nullable<int> sub_cat, string code, string subject, Nullable<int> org_id, string outbox_date_from, string outbox_date_to, string visa_desc, string notes_word, Nullable<int> related_type_par, Nullable<int> visa_emp, Nullable<int> found_id, Nullable<int> dept_Dept_ID)
+        public virtual ObjectResult<Outbox_search_par_Result> Outbox_search_par(Nullable<int> selected_group_id, Nullable<int> session_User_group_id, Nullable<int> pmp, Nullable<int> main_cat, Nullable<int> sub_cat, string code, string subject, Nullable<int> org_id, string outbox_date_from, string outbox_date_to, string visa_desc, string notes_word, Nullable<int> related_type_par, Nullable<int> visa_emp, Nullable<int> found_id, Nullable<int> dept_Dept_ID)
         {
-            var group_idParameter = group_id.HasValue ?
-                new ObjectParameter("group_id", group_id) :
-                new ObjectParameter("group_id", typeof(int));
+            var selected_group_idParameter = selected_group_id.HasValue ?
+                new ObjectParameter("selected_group_id", selected_group_id) :
+                new ObjectParameter("selected_group_id", typeof(int));
+    
+            var session_User_group_idParameter = session_User_group_id.HasValue ?
+                new ObjectParameter("session_User_group_id", session_User_group_id) :
+                new ObjectParameter("session_User_group_id", typeof(int));
     
             var pmpParameter = pmp.HasValue ?
                 new ObjectParameter("pmp", pmp) :
@@ -302,7 +306,7 @@ namespace EFModels
                 new ObjectParameter("Dept_Dept_ID", dept_Dept_ID) :
                 new ObjectParameter("Dept_Dept_ID", typeof(int));
     
-            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Outbox_search_par_Result>("Outbox_search_par", group_idParameter, pmpParameter, main_catParameter, sub_catParameter, codeParameter, subjectParameter, org_idParameter, outbox_date_fromParameter, outbox_date_toParameter, visa_descParameter, notes_wordParameter, related_type_parParameter, visa_empParameter, found_idParameter, dept_Dept_IDParameter);
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Outbox_search_par_Result>("Outbox_search_par", selected_group_idParameter, session_User_group_idParameter, pmpParameter, main_catParameter, sub_catParameter, codeParameter, subjectParameter, org_idParameter, outbox_date_fromParameter, outbox_date_toParameter, visa_descParameter, notes_wordParameter, related_type_parParameter, visa_empParameter, found_idParameter, dept_Dept_IDParameter);
         }
     
         public virtual ObjectResult<Outbox_Select_Result> Outbox_Select(Nullable<int> iD)
@@ -704,6 +708,23 @@ namespace EFModels
                 new ObjectParameter("visa_ID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("get_OutboxVisaEmps", visa_IDParameter);
+        }
+    
+        public virtual int update_outbox_relatedtype(Nullable<int> iD, Nullable<int> related_Type, Nullable<int> related_Id)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            var related_TypeParameter = related_Type.HasValue ?
+                new ObjectParameter("Related_Type", related_Type) :
+                new ObjectParameter("Related_Type", typeof(int));
+    
+            var related_IdParameter = related_Id.HasValue ?
+                new ObjectParameter("Related_Id", related_Id) :
+                new ObjectParameter("Related_Id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("update_outbox_relatedtype", iDParameter, related_TypeParameter, related_IdParameter);
         }
     }
 }

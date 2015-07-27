@@ -2107,6 +2107,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                 {
                    // Inbox_DB.update_inbox_Track_Emp(hidden_Id.Value, item["Emp_ID"].ToString(), 1, 1);
 
+               
 
                     DataTable dt1 = pm_inbox.get_data_from_inbox_track_emp_by_inbox_emp(in_id, CDataConverter.ConvertToInt(item["Emp_ID"].ToString())).ToDataTable();
 
@@ -2894,6 +2895,23 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
 
      }
 
+    public int InsertOrUpdate_Outbox (Outbox  blog)
+    {
+
+
+        using (var context = new OutboxContext())
+        {
+
+            context.Entry(blog).State = blog.ID == 0 ?
+                                      System.Data.Entity.EntityState.Added :
+                                      System.Data.Entity.EntityState.Modified;
+
+            context.SaveChanges();
+            return blog.ID;
+        }
+    }
+
+
     protected void btn_Visa_Click(object sender, EventArgs e)
     {
         if (CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 1)
@@ -2979,6 +2997,17 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                     // context.SaveChanges();
                     inbx_id = InsertOrUpdate_Inbox(inboxObj);
 
+
+                    ////////////////////////////////update outbox status to 6 ///////////////////////////////////
+                    int idd;
+                    Outbox outbx = new Outbox();
+                    outbx.ID = CDataConverter.ConvertToInt(Outbox_ID.Value);
+                    outbx.Related_Type = 6;
+                    outbx.Related_Id = inbx_id;
+
+                    idd = InsertOrUpdate_Outbox(outbx);
+
+                    ///////////////////////////////////////////////////////////////////////////////////////////
 
                 }
             }

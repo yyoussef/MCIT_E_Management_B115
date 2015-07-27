@@ -208,7 +208,8 @@ warning 6002: The table/view 'Projects_Management.dbo.Outbox_follow_emp' does no
           <Parameter Name="foundation_id" Type="int" Mode="In" />
         </Function>
         <Function Name="Outbox_search_par" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
-          <Parameter Name="group_id" Type="int" Mode="In" />
+          <Parameter Name="selected_group_id" Type="int" Mode="In" />
+          <Parameter Name="session_User_group_id" Type="int" Mode="In" />
           <Parameter Name="pmp" Type="int" Mode="In" />
           <Parameter Name="main_cat" Type="int" Mode="In" />
           <Parameter Name="sub_cat" Type="int" Mode="In" />
@@ -342,6 +343,11 @@ warning 6002: The table/view 'Projects_Management.dbo.Outbox_follow_emp' does no
         </Function>
         <Function Name="SPOutboxCatDelete" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="outbox_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="update_outbox_relatedtype" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="Related_Type" Type="int" Mode="In" />
+          <Parameter Name="Related_Id" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="OutboxStoreContainer">
           <EntitySet Name="Outbox" EntityType="Self.Outbox" Schema="dbo" store:Type="Tables" />
@@ -573,7 +579,8 @@ warning 6002: The table/view 'Projects_Management.dbo.Outbox_follow_emp' does no
             <Parameter Name="foundation_id" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="Outbox_search_par" ReturnType="Collection(Outbox.Outbox_search_par_Result)">
-            <Parameter Name="group_id" Mode="In" Type="Int32" />
+            <Parameter Name="selected_group_id" Mode="In" Type="Int32" />
+            <Parameter Name="session_User_group_id" Mode="In" Type="Int32" />
             <Parameter Name="pmp" Mode="In" Type="Int32" />
             <Parameter Name="main_cat" Mode="In" Type="Int32" />
             <Parameter Name="sub_cat" Mode="In" Type="Int32" />
@@ -709,7 +716,12 @@ warning 6002: The table/view 'Projects_Management.dbo.Outbox_follow_emp' does no
             <Parameter Name="ProjectID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="get_OutboxVisaEmps" ReturnType="Collection(String)">
-            <Parameter Name="visa_ID" Mode="In" Type="Int32" />
+          <Parameter Name="visa_ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="update_outbox_relatedtype">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="Related_Type" Mode="In" Type="Int32" />
+            <Parameter Name="Related_Id" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="outbox_cat_select_Result">
@@ -1542,6 +1554,7 @@ warning 6002: The table/view 'Projects_Management.dbo.Outbox_follow_emp' does no
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="get_OutboxVisaEmps" FunctionName="Outbox.Store.get_OutboxVisaEmps" />
+          <FunctionImportMapping FunctionImportName="update_outbox_relatedtype" FunctionName="Outbox.Store.update_outbox_relatedtype" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1556,8 +1569,8 @@ warning 6002: The table/view 'Projects_Management.dbo.Outbox_follow_emp' does no
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="true" />
-        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="False" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>

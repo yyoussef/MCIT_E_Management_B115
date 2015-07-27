@@ -558,13 +558,6 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
 
 
-//////////////////////////////////
-
-
-                   
-
-
-
                       //using (var context = new InboxContext())
                       //{
                       //  var OutboxVisaEmpDT = context.get_max_code_inbox(Session_CS.foundation_id);
