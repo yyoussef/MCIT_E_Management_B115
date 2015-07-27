@@ -20,10 +20,10 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
 }
 </script>
   <div  ng-app="SmartSearch" ng-controller="SmartSearchCtrl" ng-init="type=2;loadOrganization()"></div>
-<input type="hidden" runat="server" id="OrgDesc" name="OrgDesc" value="--اختر الجهة--" />
-<input type="hidden" runat="server" id="OrgID" name="OrgID" value="0" />
+<%--<input type="hidden" runat="server" id="OrgDesc" name="OrgDesc" value="--اختر الجهة--" />
+<input type="hidden" runat="server" id="OrgID" name="OrgID" value="0" />--%>
     <input type="hidden" runat="server" id="type" name="type" value="3" />
-        <input id="Outbox_ID" runat="server" type="hidden"  />
+       
 <input id="mode" runat="server" type="hidden" value="new" />
 <input id="id2" runat="server" type="hidden" />
 <input id="id3" runat="server" type="hidden" />
@@ -63,7 +63,7 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                 <asp:Label ID="Label14" runat="server" CssClass="Label"  Text="تفاصيل الخطاب" />
                                 <input type="hidden" runat="server" id="hidden_Id"/>  
                                     <input id="hidden_Proj_id" runat="server" type="hidden"/>
-                                    
+                                     <input id="Outbox_ID" runat="server" type="hidden"  />
                                
                               
                             </HeaderTemplate>
