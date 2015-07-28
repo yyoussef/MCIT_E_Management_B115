@@ -1395,6 +1395,16 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
         {
             trSmart.Style.Add("display", "none");
         }
+
+        else if (ddl_Related_Type.SelectedValue == "6")
+        {
+
+            //trSmart.Visible = true;
+            trSmart.Style.Add("display", "block");
+            lbl_Inbox_type.Text = "وارد لصادر داخلي";
+            Fil_Smrt_From_OutBox();
+        }
+
         TabPanel_All.ActiveTab = TabPanel_dtl;
     }
 

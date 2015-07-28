@@ -28,6 +28,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
     private string sql_Connection = Database.ConnectionString;
     General_Helping Obj_General_Helping = new General_Helping();
         InboxContext pm_inbox = new InboxContext();
+        OutboxContext pm_outbox = new OutboxContext();
     int id;
     int inbx_id;
     string v_desc;
@@ -1860,6 +1861,20 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         {
             trSmart.Style.Add("display", "none");
         }
+
+
+        else if (ddl_Related_Type.SelectedValue == "6")
+        {
+
+       
+            trSmart.Style.Add("display", "block");
+            lbl_Inbox_type.Text = " وارد لصادر داخلي رقم ";
+            Fil_Smrt_From_InBox();
+
+
+
+        }
+
         TabPanel_All.ActiveTab = TabPanel_dtl;
     }
 
@@ -2999,13 +3014,16 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
 
 
                     ////////////////////////////////update outbox status to 6 ///////////////////////////////////
-                    int idd;
-                    Outbox outbx = new Outbox();
-                    outbx.ID = CDataConverter.ConvertToInt(Outbox_ID.Value);
-                    outbx.Related_Type = 6;
-                    outbx.Related_Id = inbx_id;
+                    //int idd;
+                    //Outbox outbx = new Outbox();
+                    //outbx.ID = CDataConverter.ConvertToInt(Outbox_ID.Value);
+                    //outbx.Related_Type = 6;
+                    //outbx.Related_Id = inbx_id;
 
-                    idd = InsertOrUpdate_Outbox(outbx);
+                    //idd = InsertOrUpdate_Outbox(outbx);
+
+                    pm_outbox.update_outbox_relatedtype(CDataConverter.ConvertToInt(Outbox_ID.Value), 6, inbx_id);
+
 
                     ///////////////////////////////////////////////////////////////////////////////////////////
 
