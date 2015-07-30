@@ -172,6 +172,14 @@
                                             </table>
                                         </td>
                                     </tr>
+                                      <tr id="tr_link" runat="server" style="display:block">
+                                           
+                                            <td >
+                                                <asp:HyperLink ID="lbl_letter" runat="server" CssClass="Label" Font-Bold="False"
+                                                    ForeColor="Black">HyperLink</asp:HyperLink>
+                                            </td>
+                                       </tr>
+
                                     <tr runat="server" id="tr_Inbox_out" style="width:10px" >
                                         <td colspan="4" align="right" runat="server">
                                             <table>

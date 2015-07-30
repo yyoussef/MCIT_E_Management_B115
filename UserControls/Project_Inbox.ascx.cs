@@ -155,6 +155,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
                 hidden_Id.Value = id.ToString();
                 Fill_Controll(id);
+                
                 Fil_Grid_Documents();
                 Fil_Grid_Visa();
                 Fil_chk_main_category(id);
@@ -210,8 +211,115 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
     }
 
 
-  
 
+    private void Fill__related_Controll(int id)
+    {
+        try
+        {
+            //  DataTable allinboxdata = Inbox_DB.inbox_fillcontrol(id);
+            DataTable allinboxdata = pm_inbox.inbox_fillcontrol(id).ToDataTable();
+
+            DataRow inall = allinboxdata.Rows[0];
+
+            hidden_Id.Value = inall["id"].ToString();
+
+            hidden_Proj_id.Value = inall["Proj_id"].ToString();
+
+            string all = "";
+            int idrelated = 0;
+
+            if (inall["Related_Type"].ToString() != "")
+            {
+                int x = CDataConverter.ConvertToInt(inall["Related_Type"].ToString());
+                int yy = CDataConverter.ConvertToInt(inall["Related_Id"].ToString());
+
+               // DataTable dt_direct_related = Inbox_DB.inbox_Direct_Relating(CDataConverter.ConvertToInt(inall["Related_Type"].ToString()), CDataConverter.ConvertToInt(inall["Related_Id"].ToString()));
+                DataTable dt_direct_related = pm_inbox.inbox_DIrect_Relating(CDataConverter.ConvertToInt(inall["Related_Type"].ToString()), CDataConverter.ConvertToInt(inall["Related_Id"].ToString())).ToDataTable();
+                if (inall["Related_Type"].ToString() == "1")
+                {
+
+                   // lbl_Inbox_type.Visible = false;
+                   // lbl_letter.Visible = false;
+
+                    tr_link.Style.Add("Display", "None");
+
+                }
+                if (inall["Related_Type"].ToString() == "2" || inall["Related_Type"].ToString() == "5")
+                {
+                    tr_link.Style.Add("Display", "block");
+
+                    all = dt_direct_related.Rows[0]["con"].ToString();
+                    string[] res = all.Split('-');
+                    idrelated = CDataConverter.ConvertToInt(res[3].ToString());
+                  //  lbl_Inbox_type.Text = "موضوع الخطاب الصادر :";
+
+
+                    if (dt_direct_related.Rows.Count > 0)
+                    {
+
+                        int outid = idrelated;
+                        string encrypted = Encryption.Encrypt(outid.ToString());
+
+
+                        lbl_letter.Text = dt_direct_related.Rows[0]["con"].ToString();
+                        lbl_letter.NavigateUrl = "../mainform/Project_outbox.aspx?id=" + encrypted;
+                    }
+                }
+                if (inall["Related_Type"].ToString() == "3" || inall["Related_Type"].ToString() == "4")
+                {
+                    tr_link.Style.Add("Display", "block");
+
+                    all = dt_direct_related.Rows[0]["con"].ToString();
+                    string[] res = all.Split('-');
+                    idrelated = CDataConverter.ConvertToInt(res[3].ToString());
+                    lbl_Inbox_type.Text = "موضوع الخطاب الوارد :";
+
+
+                    if (dt_direct_related.Rows.Count > 0)
+                    {
+
+                        int INid = idrelated;
+                        string encrypted = Encryption.Encrypt(INid.ToString());
+
+
+                        lbl_letter.Text = dt_direct_related.Rows[0]["con"].ToString();
+                        lbl_letter.NavigateUrl = "../mainform/Project_outbox.aspx?id=" + encrypted;
+
+
+                    }
+
+                }
+
+                if (inall["Related_Type"].ToString() == "6")
+                {
+                    tr_link.Style.Add("Display", "block");
+
+                    all = dt_direct_related.Rows[0]["con"].ToString();
+                    string[] res = all.Split('-');
+                    idrelated = CDataConverter.ConvertToInt(res[3].ToString());
+                    lbl_Inbox_type.Text = "وارد لصادر داخلي :";
+
+
+                    if (dt_direct_related.Rows.Count > 0)
+                    {
+
+                        int outid = idrelated;
+                        string encrypted = Encryption.Encrypt(outid.ToString());
+
+
+                        lbl_letter.Text = dt_direct_related.Rows[0]["con"].ToString();
+                        lbl_letter.NavigateUrl = "../mainform/Project_outbox.aspx?id=" + encrypted;
+                    }
+                }
+
+
+            }
+
+
+        }
+        catch
+        { }
+    }
 
 
     //    this.Smart_Search_structure.Value_Handler += new Smart_Search.Delegate_Selected_Value(MOnMember_Data_Depart);
@@ -397,6 +505,10 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
             ddl_Related_Type.SelectedValue = obj.Related_Type.ToString();
             Related_type_Changed();
             Smart_Related_Id.SelectedValue = obj.Related_Id.ToString();
+
+            Fill__related_Controll(id);
+      
+
             txt_Notes.Text = obj.Notes;
             txt_Paper_No.Text = obj.Paper_No;
             txt_Paper_Attached.Text = obj.Paper_Attached;
@@ -1366,6 +1478,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
         if (ddl_Related_Type.SelectedValue == "1")
         {
             trSmart.Style.Add("display", "none");
+            tr_link.Style.Add("Display", "None");
             //trSmart.Visible = false;
         }
         else if (ddl_Related_Type.SelectedValue == "2")
@@ -1373,6 +1486,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
             //trSmart.Visible = true;
             trSmart.Style.Add("display", "block");
+            tr_link.Style.Add("Display", "block");
             lbl_Inbox_type.Text = "رد على الصادر رقم";
             Fil_Smrt_From_OutBox();
         }
@@ -1380,6 +1494,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
         {
 
             trSmart.Style.Add("display", "block");
+            tr_link.Style.Add("Display", "block");
            // trSmart.Visible = true;
             lbl_Inbox_type.Text = " استعجال الوارد للوارد رقم";
             Fil_Smrt_From_InBox();
@@ -1387,6 +1502,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
         else if (ddl_Related_Type.SelectedValue == "4")
         {
             trSmart.Style.Add("display", "block");
+            tr_link.Style.Add("Display", "block");
             //trSmart.Visible = true;
             lbl_Inbox_type.Text = " استكمال الوارد للوارد رقم";
             Fil_Smrt_From_InBox();
@@ -1394,6 +1510,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
         else if (ddl_Related_Type.SelectedValue == "5")
         {
             trSmart.Style.Add("display", "none");
+            tr_link.Style.Add("Display", "none");
         }
 
         else if (ddl_Related_Type.SelectedValue == "6")
@@ -1401,6 +1518,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
             //trSmart.Visible = true;
             trSmart.Style.Add("display", "block");
+            tr_link.Style.Add("Display", "none");
             lbl_Inbox_type.Text = "وارد لصادر داخلي";
             Fil_Smrt_From_OutBox();
         }

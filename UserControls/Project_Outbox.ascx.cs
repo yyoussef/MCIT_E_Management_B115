@@ -94,7 +94,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         //Smart_Search_dept.DataBind();
         this.Smrt_Srch_structure.Value_Handler += new Smart_Search.Delegate_Selected_Value(MOnMember_Data);
         this.Smrt_Srch_structure2.Value_Handler += new Smart_Search.Delegate_Selected_Value(MOnMember_Data2);
-
+        TabPanel_All.ActiveTabIndex = 0;
         #endregion
         base.OnInit(e);
     }
@@ -515,6 +515,10 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                 ddl_Related_Type.SelectedValue = OutboxObj.Related_Type.ToString();
                 Related_type_Changed();
                 Smart_Related_Id.SelectedValue = OutboxObj.Related_Id.ToString();
+
+                Fill__related_Controll(id);
+
+
                 txt_Notes.Text = OutboxObj.Notes;
                 txt_Paper_No.Text = OutboxObj.Paper_No;
                 txt_Paper_Attached.Text = OutboxObj.Paper_Attached;
@@ -610,6 +614,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         Smart_Emp_ID.Value_Field = "pmp_id";
         Smart_Emp_ID.Text_Field = "pmp_name";
         Smart_Emp_ID.DataBind();
+        TabPanel_All.ActiveTabIndex = 0;
 
 
     }
@@ -658,6 +663,117 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         //else
         //    Smart_Visa_Emp.Clear_Controls();
     }
+
+
+    private void Fill__related_Controll(int id)
+    {
+        try
+        {
+            DataTable allinboxdata = pm_outbox.Outbox_fillcontrol(id).ToDataTable();
+
+            DataRow inall = allinboxdata.Rows[0];
+
+            hidden_Id.Value = inall["id"].ToString();
+
+            hidden_Proj_id.Value = inall["Proj_id"].ToString();
+
+            string all = "";
+            int idrelated = 0;
+
+            if (inall["Related_Type"].ToString() != "")
+            {
+                int x = CDataConverter.ConvertToInt(inall["Related_Type"].ToString());
+                int yy = CDataConverter.ConvertToInt(inall["Related_Id"].ToString());
+
+                // DataTable dt_direct_related = Inbox_DB.inbox_Direct_Relating(CDataConverter.ConvertToInt(inall["Related_Type"].ToString()), CDataConverter.ConvertToInt(inall["Related_Id"].ToString()));
+                DataTable dt_direct_related = pm_outbox.Outbox_DIrect_Relating(CDataConverter.ConvertToInt(inall["Related_Type"].ToString()), CDataConverter.ConvertToInt(inall["Related_Id"].ToString())).ToDataTable();
+                if (inall["Related_Type"].ToString() == "1")
+                {
+
+                    // lbl_Inbox_type.Visible = false;
+                    // lbl_letter.Visible = false;
+
+                    tr_link.Style.Add("Display", "None");
+
+                }
+                if (inall["Related_Type"].ToString() == "2" || inall["Related_Type"].ToString() == "5")
+                {
+                    tr_link.Style.Add("Display", "block");
+
+                    all = dt_direct_related.Rows[0]["con"].ToString();
+                    string[] res = all.Split('-');
+                    idrelated = CDataConverter.ConvertToInt(res[3].ToString());
+                    //  lbl_Inbox_type.Text = "موضوع الخطاب الصادر :";
+
+
+                    if (dt_direct_related.Rows.Count > 0)
+                    {
+
+                        int outid = idrelated;
+                        string encrypted = Encryption.Encrypt(outid.ToString());
+
+
+                        lbl_letter.Text = dt_direct_related.Rows[0]["con"].ToString();
+                        lbl_letter.NavigateUrl = "../mainform/Project_inbox.aspx?id=" + encrypted;
+                    }
+                }
+                if (inall["Related_Type"].ToString() == "3" || inall["Related_Type"].ToString() == "4")
+                {
+                    tr_link.Style.Add("Display", "block");
+
+                    all = dt_direct_related.Rows[0]["con"].ToString();
+                    string[] res = all.Split('-');
+                    idrelated = CDataConverter.ConvertToInt(res[3].ToString());
+                    lbl_Inbox_type.Text = "موضوع الخطاب الوارد :";
+
+
+                    if (dt_direct_related.Rows.Count > 0)
+                    {
+
+                        int INid = idrelated;
+                        string encrypted = Encryption.Encrypt(INid.ToString());
+
+
+                        lbl_letter.Text = dt_direct_related.Rows[0]["con"].ToString();
+                        lbl_letter.NavigateUrl = "../mainform/Project_inbox.aspx?id=" + encrypted;
+
+
+                    }
+
+                }
+
+                if (inall["Related_Type"].ToString() == "6")
+                {
+                    tr_link.Style.Add("Display", "block");
+
+                    all = dt_direct_related.Rows[0]["con"].ToString();
+                    string[] res = all.Split('-');
+                    idrelated = CDataConverter.ConvertToInt(res[3].ToString());
+                    lbl_Inbox_type.Text = "وارد لصادر داخلي :";
+
+
+                    if (dt_direct_related.Rows.Count > 0)
+                    {
+
+                        int outid = idrelated;
+                        string encrypted = Encryption.Encrypt(outid.ToString());
+
+
+                        lbl_letter.Text = dt_direct_related.Rows[0]["con"].ToString();
+                        lbl_letter.NavigateUrl = "../mainform/Project_outbox.aspx?id=" + encrypted;
+                    }
+                }
+
+
+            }
+
+
+        }
+        catch
+        { }
+    }
+
+
     private void Fil_Smrt_From(DataTable dt)
     {
         Smart_Related_Id.datatble = dt;

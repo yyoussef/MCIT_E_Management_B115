@@ -141,7 +141,7 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                         <td colspan="2">
                                         </td>
                                     </tr>
-                                    <tr runat="server" id="trSmart"  style="display:none" >
+                                    <tr runat="server" id="trSmart"  style="display:block" >
                                         <td colspan="4" runat="server">
                                             <table>
                                                 <tr>
@@ -155,6 +155,13 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                             </table>
                                         </td>
                                     </tr>
+                                      <tr id="tr_link" runat="server" style="display:block">
+                                           
+                                            <td >
+                                                <asp:HyperLink ID="lbl_letter" runat="server" CssClass="Label" Font-Bold="False"
+                                                    ForeColor="Black">HyperLink</asp:HyperLink>
+                                            </td>
+                                       </tr>
                                     <tr runat="server" id="tr_Inbox_out">
                                         <td colspan="4" align="right" runat="server">
                                             <table>
