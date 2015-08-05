@@ -106,6 +106,9 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         Smrt_Srch_structure2.Show_OrgTree = true;
         if (!IsPostBack)
         {
+            fill_txt_data();
+
+
             // Smrt_Srch_structure.Show_OrgTree = true;
             int grp = CDataConverter.ConvertToInt(Session_CS.group_id.ToString());
             if (CDataConverter.ConvertToInt(Session_CS.Project_id.ToString()) > 0)
@@ -248,6 +251,8 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
     }
     #endregion
 
+
+
     #region "Fills"
     protected void fill_structure()
     {
@@ -263,6 +268,8 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
             Smrt_Srch_structure.Text_Field = Smrt_Srch_structure2.Text_Field = "Dept_name";
             Smrt_Srch_structure.DataBind(); Smrt_Srch_structure2.DataBind();
         }
+
+
         //refactored by hafs
         //string Query = "";
         //Query = "SELECT  * from    Departments  where foundation_id='" + Session_CS.foundation_id + "'";
@@ -285,6 +292,39 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
 
         //Smrt_Srch_structure.datatble = General_Helping.GetDataTable(Query);
 
+
+    }
+
+    protected void fill_txt_data()
+    {
+
+        if (Session["txt_subject"] != null)
+        {
+
+            txt_Subject.Text = Session["txt_subject"].ToString();
+
+            Session["txt_subject"] = "";
+            
+        }
+
+        if (Session["inb_id"]!="")
+
+        {
+            ddl_Related_Type.SelectedValue = "2";
+            trSmart.Style.Add("Display","Block");
+            lbl_Inbox_type.Text = "موضوع الخطاب الوارد :";
+            Fil_Smrt_From_InBox();
+            Smart_Related_Id.SelectedValue = Session["inb_id"].ToString();
+
+            Session["inb_id"] = "";
+        }
+
+        if (Session["Smart_Org_ID"]!="")
+
+        {
+          Smart_Org_ID.SelectedValue=  Session["Smart_Org_ID"].ToString();
+          Session["Smart_Org_ID"] = "";
+        }
 
     }
     protected void fill_depts()
@@ -760,7 +800,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
 
 
                         lbl_letter.Text = dt_direct_related.Rows[0]["con"].ToString();
-                        lbl_letter.NavigateUrl = "../mainform/Project_outbox.aspx?id=" + encrypted;
+                        lbl_letter.NavigateUrl = "../mainform/Project_inbox.aspx?id=" + encrypted;
                     }
                 }
 
@@ -3141,7 +3181,13 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                     pm_outbox.update_outbox_relatedtype(CDataConverter.ConvertToInt(Outbox_ID.Value), 6, inbx_id);
 
 
-                    ///////////////////////////////////////////////////////////////////////////////////////////
+                    //////////////////////////////////////////update outbox related type to 6   وارد لصادر داخلي  /////////////////////////////////////////////////
+
+
+
+
+
+                    ////////////////////////////////////////////////////////////////////////////////////////
 
                 }
             }
@@ -4096,6 +4142,8 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         GridView_Visa.DataBind();
         lst_emp.Items.Clear();
     }
+
+   
     public void update_Outbox_Track_Emp(string Outbox_id, int Emp_ID, int Outbox_Status, int Type)
     {
         ////DataTable DT = General_Helping.GetDataTable("select * from Outbox_Track_Emp where Outbox_id = " + Outbox_id + " and Emp_ID =" + Emp_ID);

@@ -26,6 +26,7 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
     int id;
     string v_desc;
     OutboxContext outboxDBContext = new OutboxContext();
+    OutboxContext pm_outbox = new OutboxContext();
     //Session_CS Session_CS = new Session_CS();
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -794,6 +795,7 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
 
                     if (dt_direct_related.Rows.Count > 0)
                     {
+                        lbl_letter.Style.Add("Display", "Block");
                         int INid = idrelated;// CDataConverter.ConvertToInt(dt_direct_related.Rows[0]["id"].ToString());
                         string encrypted = Encryption.Encrypt(INid.ToString());
                         lbl_letter.Text = dt_direct_related.Rows[0]["con"].ToString();
@@ -817,6 +819,7 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
                     //DataTable dt = General_Helping.GetDataTable(sql);
                     if (dt_direct_related.Rows.Count > 0)
                     {
+                        lbl_letter.Style.Add("Display", "Block");
                         int Outid = idrelated; //CDataConverter.ConvertToInt(dt.Rows[0]["id"].ToString());
                         string encrypted = Encryption.Encrypt(Outid.ToString());
                         lbl_letter.Text = dt_direct_related.Rows[0]["con"].ToString();
@@ -843,6 +846,32 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
                     if (dt_direct_related.Rows.Count > 0)
                     {
                         lbl_letter.Text = dt_direct_related.Rows[0]["con"].ToString();
+                    }
+                    lbl_letter.Style.Add("Display", "Block");
+                }
+
+
+                if (Outall["Related_Type"].ToString() == "6" )
+                {
+
+
+                    lbl_letter.Style.Add("Display", "block");
+
+                    all = dt_direct_related.Rows[0]["con"].ToString();
+                    string[] res = all.Split('-');
+                    idrelated = CDataConverter.ConvertToInt(res[3].ToString());
+                    lbl_Inbox_type.Text = "وارد لصادر داخلي :";
+
+
+                    if (dt_direct_related.Rows.Count > 0)
+                    {
+
+                        int outid = idrelated;
+                        string encrypted = Encryption.Encrypt(outid.ToString());
+
+
+                        lbl_letter.Text = dt_direct_related.Rows[0]["con"].ToString();
+                        lbl_letter.NavigateUrl = "../mainform/ViewProjectinbox.aspx?id=" + encrypted;
                     }
 
                 }
@@ -881,6 +910,10 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
         catch
         { }
     }
+
+
+
+
     public string Get_Visa_Emp_Dept(object obj)
     {
         string Visa_Id = obj.ToString();

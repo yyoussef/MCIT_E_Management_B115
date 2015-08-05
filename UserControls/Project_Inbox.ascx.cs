@@ -47,6 +47,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
         
             Smart_Search_structure.Show_OrgTree = true;
             Smart_Search_structure2.Show_OrgTree = true;
+            tr_link.Style.Add("display","None");
         
             //fill_structure();
             //if (CDataConverter.ConvertToInt(Session_CS.Project_id.ToString()) > 0)
@@ -1466,6 +1467,38 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
 
     }
+
+    protected void btn_outbx_Click(object sender, EventArgs e)
+    {
+        Session["inb_id"] = "";
+
+         if(txt_Subject.Text !="")
+         {
+             Session["txt_subject"] = txt_Subject.Text;
+         }
+         if (Request["id"] != null )
+         {
+             Session["inb_id"] = Request["id"].ToString();
+
+         }
+         if (hidden_Id.Value != "")
+        {
+            Session["inb_id"] = hidden_Id.Value;
+
+        }
+         if (Smart_Org_ID.SelectedValue !="")
+         {
+
+             Session["Smart_Org_ID"] = Smart_Org_ID.SelectedValue;
+         }
+
+        Response.Redirect("project_outbox.aspx");
+       
+
+     
+
+    }
+
 
     protected void ddl_Related_Type_SelectedIndexChanged(object sender, EventArgs e)
     {

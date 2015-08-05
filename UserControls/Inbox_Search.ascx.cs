@@ -32,6 +32,10 @@ public partial class UserControls_Inbox_Search : System.Web.UI.UserControl
         Smart_Search_depts.Show_OrgTree = true;
         if (!IsPostBack)
         {
+
+           
+            
+
            // Fillddl();
             Fill_Groups();
 
@@ -472,13 +476,34 @@ public partial class UserControls_Inbox_Search : System.Web.UI.UserControl
     {
 
     }
+
+    public string Get_Encrypted_ID(object obj)
+    {
+        string str = obj.ToString();
+        if (str != "")
+        {
+            string encrypted = Encryption.Encrypt(str);
+            return encrypted;
+        }
+       
+        else return "";
+    }
+
+
     protected void gvMain_RowCommand(object sender, GridViewCommandEventArgs e)
     {
         int pmp = int.Parse(Session_CS.pmp_id.ToString());
         DataTable dt = General_Helping.GetDataTable("select * from parent_employee where pmp_id = " + pmp);
+
+        ///////////////////////////////////////////////////////////////////////////////////
+    
+
+
         if (e.CommandName == "EditItem")
         {
             string encrypted = Encryption.Encrypt(e.CommandArgument.ToString());
+            Get_Encrypted_ID(e.CommandArgument.ToString());
+
             //Session["encrypted"] = encrypted;
              DataTable dtissec = General_Helping.GetDataTable("select * from inbox where id = " + e.CommandArgument + "and pmp_pmp_id = " + pmp + "or group_id = " + CDataConverter.ConvertToInt(Session_CS.group_id.ToString()));
             if (dt.Rows.Count > 0)
@@ -487,34 +512,32 @@ public partial class UserControls_Inbox_Search : System.Web.UI.UserControl
                 if (dtissec.Rows.Count > 0)
                 {
                     ///////// ده لو هو سكرتير وهو اللي دخل الوارد ده 
+
                     Response.Redirect("Project_Inbox.aspx?id=" + encrypted);
+
+                  
+                 
+                     
                 }
+
                 else
                     Response.Redirect("ViewProjectInbox.aspx?id=" + encrypted); ////ده لو هو سكرتير بس مش هو اللي دخل الوارد
+
+                
             }
 
             else if (dtissec.Rows.Count>0 && dtissec.Rows[0]["pmp_pmp_id"].ToString() == Session_CS.pmp_id.ToString())
             {
                 Response.Redirect("Project_Inbox.aspx?id=" + encrypted); // ده لو موظف عادي هو اللي دخل الوارد
+
+                
             }
             else
                 Response.Redirect("ViewProjectInbox.aspx?id=" + encrypted);///  لو مش سكرتير 
-        }
-        //if (e.CommandName == "RemoveItem")
-        //{
-        //    SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
-        //    conn.Open();
-
-        //    sql += "delete from Inbox where ID= " + e.CommandArgument;
-        //    cmd = new SqlCommand(sql, conn);
-        //    cmd.ExecuteNonQuery();
-        //    conn.Close();
-
-        //    gvMain.DataBind();
-
-        //    Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('لقد تم الحذف بنجاح')</script>");
-        //    SearchRecord();
-        //}
+                                                                           ///  
+            
+     }
+    
 
     }
     protected void gvMain_PageIndexChanging(object sender, GridViewPageEventArgs e)

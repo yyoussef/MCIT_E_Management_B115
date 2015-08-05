@@ -173,7 +173,10 @@
                                         </td>
                                     </tr>
                                       <tr id="tr_link" runat="server" style="display:block">
-                                           
+                                             <td>
+                                                        <asp:Label ID="Label35" runat="server" CssClass="Label" Text="وارد لصادر داخلي :" />
+                                             </td>
+
                                             <td >
                                                 <asp:HyperLink ID="lbl_letter" runat="server" CssClass="Label" Font-Bold="False"
                                                     ForeColor="Black">HyperLink</asp:HyperLink>
@@ -316,6 +319,8 @@
                                                 ValidationGroup="A" Width="99px" />
                                             <asp:Button runat="server" CssClass="Button" Text="جديد" ID="btnClear" OnClick="btnClear_Click"
                                                 Width="50px" />
+                                             <asp:Button runat="server" CssClass="Button" Text="إنشاء خطاب صادر" ID="btn_outbx" OnClick="btn_outbx_Click"
+                                                 Width="150px" />
                                             <asp:Button runat="server" CssClass="Button" Text="إرسال إلي المدير المختص" ID="Button2"
                                                 OnClick="btnSend_Click" ValidationGroup="A" Width="170px" />
                                             <asp:ValidationSummary ID="ValidationSummary1" runat="server" ValidationGroup="A"
