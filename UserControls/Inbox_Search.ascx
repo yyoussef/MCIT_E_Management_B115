@@ -298,10 +298,16 @@
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="عرض">
                         <ItemTemplate>
-                            <a href="<%# "Project_Inbox.aspx?ID="+Get_Encrypted_ID(Eval("ID")) %>" target="_blank"   >show</a>
+                            <a href="<%# "Project_Inbox.aspx?ID="+Get_Encrypted_ID(Eval("ID")) %>" target="_blank"   >
+                                
+                                
+                                <asp:ImageButton ID="ImgBtnEdit" CommandName="EditItem" runat="server" ImageUrl="../Images/Edit.jpg" 
+                                CommandArgument='<%# Eval("ID") %>'   />
+
+
+                            </a>
                             <%--<a href="<%String.Format("Project_Inbox.aspx?ID={0}",  Get_Encrypted_ID(Eval("ID"))) %>" target="_blank"  id="lnk_newtab" runat="server"  >--%>
-                            <%--<asp:ImageButton ID="ImgBtnEdit" CommandName="EditItem" runat="server" ImageUrl="../Images/Edit.jpg" 
-                                CommandArgument='<%# Eval("ID") %>'   />--%>
+                       
 
 
                                
@@ -319,9 +325,13 @@
                     <asp:TemplateField HeaderText="عرض" Visible="false">
                         <ItemTemplate>
                          
-                             <%--<a href="<%# String.Format("Project_Inbox.aspx?ID={0}",  Get_Encrypted_ID(Eval("ID"))) %>" target="_blank"  >--%>
-                              <asp:ImageButton ID="ImgBtnEdit123" CommandName="EditItem" runat="server" ImageUrl="../Images/Edit.jpg" 
-                                CommandArgument='<%# Eval("ID") %>' />
+                              <a href="<%# "Project_Inbox.aspx?ID="+Get_Encrypted_ID(Eval("ID")) %>" target="_blank"   >
+                                
+                                
+                                <asp:ImageButton ID="ImgBtnEdit" CommandName="EditItem" runat="server" ImageUrl="../Images/Edit.jpg" 
+                                CommandArgument='<%# Eval("ID") %>'   />
+
+
                             </a>
 
                         </ItemTemplate>

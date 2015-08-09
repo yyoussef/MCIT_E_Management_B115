@@ -222,14 +222,28 @@
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="عرض">
                         <ItemTemplate>
-                            <asp:ImageButton ID="ImgBtnEdit" CommandName="EditItem" runat="server" ImageUrl="../Images/Edit.jpg"
-                                CommandArgument='<%# Eval("ID") %>' />
+                        
+
+                               <a href="<%# "Project_Inbox.aspx?ID="+Get_Encrypted_ID(Eval("ID")) %>" target="_blank"   >
+                                
+                                
+                                <asp:ImageButton ID="ImageButton1" CommandName="EditItem" runat="server" ImageUrl="../Images/Edit.jpg" 
+                                CommandArgument='<%# Eval("ID") %>'   />
+
+
+                            </a>
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="عرض" Visible="false">
                         <ItemTemplate>
-                            <asp:ImageButton ID="ImgBtnEdit123" CommandName="EditItem" runat="server" ImageUrl="../Images/Edit.jpg"
-                                CommandArgument='<%# Eval("ID") %>' />
+                            <a href="<%# "Project_Inbox.aspx?ID="+Get_Encrypted_ID(Eval("ID")) %>" target="_blank"   >
+                                
+                                
+                                <asp:ImageButton ID="ImgBtnEdit" CommandName="EditItem" runat="server" ImageUrl="../Images/Edit.jpg" 
+                                CommandArgument='<%# Eval("ID") %>'   />
+
+
+                            </a>
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>
