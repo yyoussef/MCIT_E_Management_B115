@@ -683,6 +683,9 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
                     lbl_Inbox_type.Visible = false;
                     lbl_letter.Visible = false;
 
+                    //tr_lnk.Style.Add("dispaly","None");
+                    //lbl_Inbox_type.Style.Add("dispaly", "None");
+                    //lbl_letter.Style.Add("dispaly", "None");
                 }
                 if (inall["Related_Type"].ToString() == "2" || inall["Related_Type"].ToString() == "5")
                 {

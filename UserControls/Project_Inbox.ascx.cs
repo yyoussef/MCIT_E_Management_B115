@@ -632,7 +632,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
     protected void btnSave_Click(object sender, EventArgs e)
     {
-        if ((CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 2 && Smart_Org_ID.SelectedValue != "0") || CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 1 || CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 3)
+        if ((CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 2 && Smart_Org_ID.SelectedValue != "0" && Smart_Org_ID.SelectedValue !="") || CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 1 || CDataConverter.ConvertToInt(ddl_Type.SelectedValue) == 3)
         {
 
             if (Request["id"] == null)
@@ -1519,7 +1519,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
             //trSmart.Visible = true;
             trSmart.Style.Add("display", "block");
-            tr_link.Style.Add("Display", "block");
+            tr_link.Style.Add("Display", "None");
             lbl_Inbox_type.Text = "رد على الصادر رقم";
             Fil_Smrt_From_OutBox();
         }
@@ -1527,7 +1527,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
         {
 
             trSmart.Style.Add("display", "block");
-            tr_link.Style.Add("Display", "block");
+            tr_link.Style.Add("Display", "None");
            // trSmart.Visible = true;
             lbl_Inbox_type.Text = " استعجال الوارد للوارد رقم";
             Fil_Smrt_From_InBox();
@@ -1535,7 +1535,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
         else if (ddl_Related_Type.SelectedValue == "4")
         {
             trSmart.Style.Add("display", "block");
-            tr_link.Style.Add("Display", "block");
+            tr_link.Style.Add("Display", "None");
             //trSmart.Visible = true;
             lbl_Inbox_type.Text = " استكمال الوارد للوارد رقم";
             Fil_Smrt_From_InBox();
@@ -1543,7 +1543,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
         else if (ddl_Related_Type.SelectedValue == "5")
         {
             trSmart.Style.Add("display", "none");
-            tr_link.Style.Add("Display", "none");
+            tr_link.Style.Add("Display", "None");
         }
 
         else if (ddl_Related_Type.SelectedValue == "6")
@@ -2477,6 +2477,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                 inbemp.Emp_ID=CDataConverter.ConvertToInt(obj.Visa_Emp_id.ToString());
                 inbemp.Inbox_Status=2;
                 inbemp.Type_Track_emp=1;
+                pm_inbox.Inbox_Track_Emp.Add(inbemp);
                 pm_inbox.SaveChanges();
         }
 
@@ -2789,6 +2790,22 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
         }
     }
 
+
+    public void InsertOrUpdate_Inbox_track_Emp(Inbox_Track_Emp  blog)
+    {
+
+
+        using (var context = new InboxContext())
+        {
+            context.Entry(blog).State = blog.ID == 0 ?
+                                      System.Data.Entity.EntityState.Added :
+                                      System.Data.Entity.EntityState.Modified;
+
+            context.SaveChanges();
+
+        }
+    }
+
     private void Save_trackmanager(int id)
     {
        // DataTable dt = SqlHelper.ExecuteDataset(Database.ConnectionString, "get_data_from_parent_employee_inbox_type_only").Tables[0];
@@ -2895,6 +2912,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                     if (result != null)
                     {
                         result.Inbox_Status = 2;
+                       // pm_inbox.Inbox_Track_Emp.Add(inbemp);
                         pm_inbox.SaveChanges();
                     }
 
@@ -2905,11 +2923,15 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
 
                     Inbox_Track_Emp inbemp = new Inbox_Track_Emp();
-                    inbemp.inbox_id = CDataConverter.ConvertToInt(id.ToString());
+
+                    inbemp.inbox_id = CDataConverter.ConvertToInt(hidden_Id.Value);
                     inbemp.Emp_ID = CDataConverter.ConvertToInt(item["Emp_ID"].ToString());
                     inbemp.Inbox_Status = 2;
                     inbemp.Type_Track_emp = 1;
-                    pm_inbox.SaveChanges();
+                    //pm_inbox.Inbox_Track_Emp.Add(inbemp);
+                    //pm_inbox.SaveChanges();
+
+                    InsertOrUpdate_Inbox_track_Emp(inbemp);
                 }
 
 

@@ -298,7 +298,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
     protected void fill_txt_data()
     {
 
-        if (Session["txt_subject"] != null)
+        if (Session["txt_subject"] != null && Session["txt_subject"] != "")
         {
 
             txt_Subject.Text = Session["txt_subject"].ToString();
@@ -307,7 +307,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
             
         }
 
-        if (Session["inb_id"]!="")
+        if (Session["inb_id"]!="" && Session["inb_id"]!=null )
 
         {
             ddl_Related_Type.SelectedValue = "2";
@@ -319,7 +319,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
             Session["inb_id"] = "";
         }
 
-        if (Session["Smart_Org_ID"]!="")
+        if (Session["Smart_Org_ID"] != "" && Session["Smart_Org_ID"] != null)
 
         {
           Smart_Org_ID.SelectedValue=  Session["Smart_Org_ID"].ToString();
@@ -1375,7 +1375,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                 ////Outbox_Visa_Follows_DT obj_follow = Outbox_Visa_Follows_DB.SelectByID(CDataConverter.ConvertToInt(hidden_Follow_ID.Value));
                 if (OutboxVisaFollows != null)
                 {
-                    OutboxVisaFollows.Follow_ID = CDataConverter.ConvertToInt(hidden_Follow_ID.Value);
+                   // OutboxVisaFollows.Follow_ID = CDataConverter.ConvertToInt(hidden_Follow_ID.Value);
                     OutboxVisaFollows.Outbox_ID = CDataConverter.ConvertToInt(Outbox_ID.Value);
 
                     OutboxVisaFollows.Descrption = "تم الارسال الي المدير المختص";
@@ -1385,6 +1385,8 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
 
                     OutboxVisaFollows.entery_pmp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
                     OutboxVisaFollows.Visa_Emp_id = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
+
+                    context.Outbox_Visa_Follows.Add(OutboxVisaFollows);
                 }
                 else
                 {
@@ -1400,6 +1402,8 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                     };
                     context.Outbox_Visa_Follows.Add(OutboxVisaFollowsnew);
                 }
+
+                
                 context.SaveChanges();
                 ////obj_follow.Follow_ID = Outbox_Visa_Follows_DB.Save(obj_follow);
                 Fil_Grid_Visa_Follow();
@@ -1589,8 +1593,9 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
             {
                 if (CDataConverter.ConvertToInt(Outbox_ID.Value) > 0)
                 {
+                    int xy = CDataConverter.ConvertToInt(Outbox_ID.Value);
 
-                    Outbox OutboxObj = context.Outboxes.SingleOrDefault(x => x.ID == CDataConverter.ConvertToInt(Outbox_ID.Value));
+                    Outbox OutboxObj = context.Outboxes.SingleOrDefault(x => x.ID == xy );
                     OutboxObj.Proj_id = int.Parse(Session_CS.Project_id.ToString());
                     OutboxObj.Name = txt_Name.Text;
                     OutboxObj.Code = txt_Code.Text;

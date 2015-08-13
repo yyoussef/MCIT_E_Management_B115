@@ -328,7 +328,7 @@
                               <a href="<%# "Project_Inbox.aspx?ID="+Get_Encrypted_ID(Eval("ID")) %>" target="_blank"   >
                                 
                                 
-                                <asp:ImageButton ID="ImgBtnEdit" CommandName="EditItem" runat="server" ImageUrl="../Images/Edit.jpg" 
+                                <asp:ImageButton ID="ImgBtnEdit1" CommandName="EditItem" runat="server" ImageUrl="../Images/Edit.jpg" 
                                 CommandArgument='<%# Eval("ID") %>'   />
 
 
