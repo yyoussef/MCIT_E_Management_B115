@@ -27,6 +27,7 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
     string v_desc;
     OutboxContext outboxDBContext = new OutboxContext();
     OutboxContext pm_outbox = new OutboxContext();
+    InboxContext pm_inbox = new InboxContext();
     //Session_CS Session_CS = new Session_CS();
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -94,13 +95,16 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
 
 
                 DataTable dt_closing = General_Helping.GetDataTable("SELECT   distinct  Outbox.ID, Outbox.pmp_pmp_id, parent_employee.parent_pmp_id, Outbox.foundation_id FROM         Outbox INNER JOIN   parent_employee ON Outbox.pmp_pmp_id = parent_employee.pmp_id where Outbox.id = " + id);
-                if (CDataConverter.ConvertToInt(dt_closing.Rows[0]["parent_pmp_id"].ToString()) == pmp)
+                if (dt_closing.Rows.Count > 0)
                 {
-                    btn_close_Outbox.Visible = true;
-                    btn_end_late.Visible = true;
-                    
-                    
+                    if (CDataConverter.ConvertToInt(dt_closing.Rows[0]["parent_pmp_id"].ToString()) == pmp)
+                    {
+                        btn_close_Outbox.Visible = true;
+                        btn_end_late.Visible = true;
 
+
+
+                    }
                 }
 
 
@@ -775,7 +779,7 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
             {
        
 
-                DataTable dt_direct_related = Outbox_DB.Outbox_Direct_Relating(CDataConverter.ConvertToInt(Outall["Related_Type"].ToString()), CDataConverter.ConvertToInt(Outall["Related_Id"].ToString()));
+                DataTable dt_direct_related = pm_inbox.inbox_DIrect_Relating(CDataConverter.ConvertToInt(Outall["Related_Type"].ToString()), CDataConverter.ConvertToInt(Outall["Related_Id"].ToString())).ToDataTable();
                 if (Outall["Related_Type"].ToString() == "1")
                 {
 

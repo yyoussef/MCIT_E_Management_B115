@@ -235,7 +235,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                 int yy = CDataConverter.ConvertToInt(inall["Related_Id"].ToString());
 
                // DataTable dt_direct_related = Inbox_DB.inbox_Direct_Relating(CDataConverter.ConvertToInt(inall["Related_Type"].ToString()), CDataConverter.ConvertToInt(inall["Related_Id"].ToString()));
-                DataTable dt_direct_related = pm_inbox.inbox_DIrect_Relating(CDataConverter.ConvertToInt(inall["Related_Type"].ToString()), CDataConverter.ConvertToInt(inall["Related_Id"].ToString())).ToDataTable();
+                DataTable dt_direct_related = outboxDBContext.Outbox_DIrect_Relating(CDataConverter.ConvertToInt(inall["Related_Type"].ToString()), CDataConverter.ConvertToInt(inall["Related_Id"].ToString())).ToDataTable();
                 if (inall["Related_Type"].ToString() == "1")
                 {
 
