@@ -1578,8 +1578,8 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
            dt = pm_inbox.get_related_outbox_inbox_page(Session_CS.group_id, Session_CS.Project_id).ToDataTable();
 
-           var query = from out_in in pm_inbox.vw_outbox_DateString where out_in.Proj_id == Session_CS.Project_id select out_in;
-           dt = query.ToDataTable();
+        //   var query = from out_in in pm_inbox.vw_outbox_DateString where out_in.Proj_id == Session_CS.Project_id select out_in;
+        //   dt = query.ToDataTable();
 
               Smart_Related_Id.datatble = dt;
               Smart_Related_Id.Value_Field = "id";
