@@ -133,6 +133,7 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                                 <asp:ListItem Text="رد على وارد" Value="2"></asp:ListItem>
                                                 <asp:ListItem Text="رد على تأشيرة وزير" Value="4"></asp:ListItem>
                                                 <asp:ListItem Text="استعجال صادر" Value="3"></asp:ListItem>
+                                                  <asp:ListItem Text="وارد لصادر داخلي " Value="6"></asp:ListItem>
                                                 <asp:ListItem Text="أخري.." Value="5"></asp:ListItem>
                                             </asp:DropDownList>
                                             &nbsp;&nbsp;&nbsp;&nbsp;
@@ -154,6 +155,15 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                             </table>
                                         </td>
                                     </tr>
+                                      <tr id="tr_link" runat="server" style="display:none">
+                                           <td>
+                                                        <asp:Label ID="Label31" runat="server" CssClass="Label" Text="وارد لصادر داخلي :" />
+                                             </td>
+                                            <td >
+                                                <asp:HyperLink ID="lbl_letter" runat="server" CssClass="Label" Font-Bold="False"
+                                                    ForeColor="Black">HyperLink</asp:HyperLink>
+                                            </td>
+                                       </tr>
                                     <tr runat="server" id="tr_Inbox_out">
                                         <td colspan="4" align="right" runat="server">
                                             <table>
@@ -308,6 +318,8 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                                 ValidationGroup="A" Width="99px" />
                                             <asp:Button runat="server" CssClass="Button" Text="جديد" ID="btnClear" OnClick="btnClear_Click"
                                                  Width="50px" />
+                                              
+
                                             <asp:Button runat="server" CssClass="Button" Text="ارسال إلي المدير المختص" ID="Button2"
                                                 OnClick="btnSend_Click" ValidationGroup="A" Width="170px" />
                                             <asp:ValidationSummary ID="ValidationSummary1" runat="server" ValidationGroup="A"

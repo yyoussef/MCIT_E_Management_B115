@@ -3,7 +3,6 @@
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
 
 
-
 <input type="hidden" runat="server" id="OrgDesc" name="OrgDesc" value="--اختر الجهة--" />
 <input type="hidden" runat="server" id="OrgID" name="OrgID" value="0" />
 
@@ -299,8 +298,22 @@
                     </asp:TemplateField>
                     <asp:TemplateField HeaderText="عرض">
                         <ItemTemplate>
-                            <asp:ImageButton ID="ImgBtnEdit" CommandName="EditItem" runat="server" ImageUrl="../Images/Edit.jpg"
-                                CommandArgument='<%# Eval("ID") %>' />
+                            <a href="<%# "Project_Inbox.aspx?ID="+Get_Encrypted_ID(Eval("ID")) %>" target="_blank"   >
+                                
+                                
+                                <asp:ImageButton ID="ImgBtnEdit" CommandName="EditItem" runat="server" ImageUrl="../Images/Edit.jpg" 
+                                CommandArgument='<%# Eval("ID") %>'   />
+
+
+                            </a>
+                            <%--<a href="<%String.Format("Project_Inbox.aspx?ID={0}",  Get_Encrypted_ID(Eval("ID"))) %>" target="_blank"  id="lnk_newtab" runat="server"  >--%>
+                       
+
+
+                               
+
+                            </a>
+                            
                         </ItemTemplate>
                     </asp:TemplateField>
                    <%-- <asp:TemplateField HeaderText="حذف">
@@ -311,8 +324,16 @@
                     </asp:TemplateField>--%>
                     <asp:TemplateField HeaderText="عرض" Visible="false">
                         <ItemTemplate>
-                            <asp:ImageButton ID="ImgBtnEdit123" CommandName="EditItem" runat="server" ImageUrl="../Images/Edit.jpg"
-                                CommandArgument='<%# Eval("ID") %>' />
+                         
+                              <a href="<%# "Project_Inbox.aspx?ID="+Get_Encrypted_ID(Eval("ID")) %>" target="_blank"   >
+                                
+                                
+                                <asp:ImageButton ID="ImgBtnEdit1" CommandName="EditItem" runat="server" ImageUrl="../Images/Edit.jpg" 
+                                CommandArgument='<%# Eval("ID") %>'   />
+
+
+                            </a>
+
                         </ItemTemplate>
                     </asp:TemplateField>
                 </Columns>

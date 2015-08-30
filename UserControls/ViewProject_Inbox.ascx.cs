@@ -20,6 +20,7 @@ using CrystalDecisions.Shared;
 using System.Security.Cryptography;
 using ReportsClass;
 using System.Threading;
+using EFModels;
 
 
 public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
@@ -29,9 +30,10 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
     int id;
     string v_desc;
     Thread threadObj;
-
+    OutboxContext pm_outbox = new OutboxContext();
     //Session_CS Session_CS = new Session_CS();
-
+    
+    
     protected void Page_Load(object sender, EventArgs e)
     {
         Smart_Search_dept.Show_OrgTree = true;
@@ -676,13 +678,16 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
                 int x = CDataConverter.ConvertToInt(inall["Related_Type"].ToString());
                 int yy = CDataConverter.ConvertToInt(inall["Related_Id"].ToString());
 
-                DataTable dt_direct_related = Inbox_DB.inbox_Direct_Relating(CDataConverter.ConvertToInt(inall["Related_Type"].ToString()), CDataConverter.ConvertToInt(inall["Related_Id"].ToString()));
+                DataTable dt_direct_related = pm_outbox.Outbox_DIrect_Relating(CDataConverter.ConvertToInt(inall["Related_Type"].ToString()), CDataConverter.ConvertToInt(inall["Related_Id"].ToString())).ToDataTable();
                 if (inall["Related_Type"].ToString() == "1")
                 {
 
                     lbl_Inbox_type.Visible = false;
                     lbl_letter.Visible = false;
 
+                    //tr_lnk.Style.Add("dispaly","None");
+                    //lbl_Inbox_type.Style.Add("dispaly", "None");
+                    //lbl_letter.Style.Add("dispaly", "None");
                 }
                 if (inall["Related_Type"].ToString() == "2" || inall["Related_Type"].ToString() == "5")
                 {

@@ -26,6 +26,8 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
     int id;
     string v_desc;
     OutboxContext outboxDBContext = new OutboxContext();
+    OutboxContext pm_outbox = new OutboxContext();
+    InboxContext pm_inbox = new InboxContext();
     //Session_CS Session_CS = new Session_CS();
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -33,9 +35,8 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
         {
             string Div = "div" + hidden_Number.Value;
             string image = "image" + hidden_Number.Value;
-          //  Page.RegisterStartupScript("Sucess", "<script language=javascript>ChangeMeCase('" + Div + "','" + image + "','" + hidden_Number.Value + "');</script>");
 
-            ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "success", "<script language=javascript>ChangeMeCase('" + Div + "','" + image + "','" + hidden_Number.Value + "');</script>", true);
+         //   ScriptManager.RegisterStartupScript(this.Page, this.Page.GetType(), "success", "<script language=javascript>ChangeMeCase('" + Div + "','" + image + "','" + hidden_Number.Value + "');</script>", true);
 
         }
 
@@ -94,13 +95,16 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
 
 
                 DataTable dt_closing = General_Helping.GetDataTable("SELECT   distinct  Outbox.ID, Outbox.pmp_pmp_id, parent_employee.parent_pmp_id, Outbox.foundation_id FROM         Outbox INNER JOIN   parent_employee ON Outbox.pmp_pmp_id = parent_employee.pmp_id where Outbox.id = " + id);
-                if (CDataConverter.ConvertToInt(dt_closing.Rows[0]["parent_pmp_id"].ToString()) == pmp)
+                if (dt_closing.Rows.Count > 0)
                 {
-                    btn_close_Outbox.Visible = true;
-                    btn_end_late.Visible = true;
-                    
-                    
+                    if (CDataConverter.ConvertToInt(dt_closing.Rows[0]["parent_pmp_id"].ToString()) == pmp)
+                    {
+                        btn_close_Outbox.Visible = true;
+                        btn_end_late.Visible = true;
 
+
+
+                    }
                 }
 
 
@@ -128,16 +132,30 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
                 {
                     if (CDataConverter.ConvertToInt(dt.Rows[0]["parent_pmp_id"].ToString()) == CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()))
                     {
-                        Trfollow.Visible = false;
+                      //  Trfollow.Visible = false;
+
+                       // Trfollow.Visible = true ;
+                        Trfollow.Style.Add("display", "block");
+
+
                         TemplateE.Visible = false;
                         TemplateA.Visible = false;
-                        tr_follow_date.Visible = false;
-                        tr_follow_desc.Visible = false;
-                        tr_follow_doc.Visible = false;
-                        tr_follow_person.Visible = false;
-                        tr_follow_save.Visible = false;
-                        tr_follow_proj.Visible = false;
-                        tr_follow_time.Visible = false;
+
+                       // tr_follow_date.Visible = false;
+                      //  tr_follow_desc.Visible = false;
+                   //     tr_follow_doc.Visible = false;
+                 //       tr_follow_person.Visible = false;
+                //        tr_follow_save.Visible = false;
+                //        tr_follow_proj.Visible = false;
+                       
+
+                        tr_follow_date.Style.Add("display", "none");
+                        tr_follow_desc.Style.Add("display", "none");
+                        tr_follow_doc.Style.Add("display", "none");
+                        tr_follow_person.Style.Add("display", "none");
+                        tr_follow_save.Style.Add("display", "none");
+                        tr_follow_proj.Style.Add("display", "none");
+
                         SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["ConnectionString"].ConnectionString);
                         DataTable DT = new DataTable();
                         DT = General_Helping.GetDataTable("select * from Outbox_Track_Manager where Outbox_id = " + id);
@@ -218,12 +236,22 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
                         if (pmp == 70)
                         {
                             //Trfollow.Visible = false;
-                            tr_follow_date.Visible = false;
-                            tr_follow_desc.Visible = false;
-                            tr_follow_doc.Visible = false;
-                            tr_follow_person.Visible = false;
-                            tr_follow_save.Visible = false;
-                            tr_follow_proj.Visible = false;
+
+                            //tr_follow_date.Visible = false;
+                            //tr_follow_desc.Visible = false;
+                            //tr_follow_doc.Visible = false;
+                            //tr_follow_person.Visible = false;
+                            //tr_follow_save.Visible = false;
+                            //tr_follow_proj.Visible = false;
+
+
+                            tr_follow_date.Style.Add("display", "none");
+                            tr_follow_desc.Style.Add("display", "none");
+                            tr_follow_doc.Style.Add("display", "none");
+                            tr_follow_person.Style.Add("display", "none");
+                            tr_follow_save.Style.Add("display", "none");
+                            tr_follow_proj.Style.Add("display", "none");
+
                             //     tr_mngr1.Visible =
                             //tr_mngr2.Visible = true;
                             //     GridView_Visa.Columns[6].Visible = true;
@@ -751,7 +779,7 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
             {
        
 
-                DataTable dt_direct_related = Outbox_DB.Outbox_Direct_Relating(CDataConverter.ConvertToInt(Outall["Related_Type"].ToString()), CDataConverter.ConvertToInt(Outall["Related_Id"].ToString()));
+                DataTable dt_direct_related = pm_inbox.inbox_DIrect_Relating(CDataConverter.ConvertToInt(Outall["Related_Type"].ToString()), CDataConverter.ConvertToInt(Outall["Related_Id"].ToString())).ToDataTable();
                 if (Outall["Related_Type"].ToString() == "1")
                 {
 
@@ -771,6 +799,7 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
 
                     if (dt_direct_related.Rows.Count > 0)
                     {
+                        lbl_letter.Style.Add("Display", "Block");
                         int INid = idrelated;// CDataConverter.ConvertToInt(dt_direct_related.Rows[0]["id"].ToString());
                         string encrypted = Encryption.Encrypt(INid.ToString());
                         lbl_letter.Text = dt_direct_related.Rows[0]["con"].ToString();
@@ -794,6 +823,7 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
                     //DataTable dt = General_Helping.GetDataTable(sql);
                     if (dt_direct_related.Rows.Count > 0)
                     {
+                        lbl_letter.Style.Add("Display", "Block");
                         int Outid = idrelated; //CDataConverter.ConvertToInt(dt.Rows[0]["id"].ToString());
                         string encrypted = Encryption.Encrypt(Outid.ToString());
                         lbl_letter.Text = dt_direct_related.Rows[0]["con"].ToString();
@@ -820,6 +850,32 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
                     if (dt_direct_related.Rows.Count > 0)
                     {
                         lbl_letter.Text = dt_direct_related.Rows[0]["con"].ToString();
+                    }
+                    lbl_letter.Style.Add("Display", "Block");
+                }
+
+
+                if (Outall["Related_Type"].ToString() == "6" )
+                {
+
+
+                    lbl_letter.Style.Add("Display", "block");
+
+                    all = dt_direct_related.Rows[0]["con"].ToString();
+                    string[] res = all.Split('-');
+                    idrelated = CDataConverter.ConvertToInt(res[3].ToString());
+                    lbl_Inbox_type.Text = "وارد لصادر داخلي :";
+
+
+                    if (dt_direct_related.Rows.Count > 0)
+                    {
+
+                        int outid = idrelated;
+                        string encrypted = Encryption.Encrypt(outid.ToString());
+
+
+                        lbl_letter.Text = dt_direct_related.Rows[0]["con"].ToString();
+                        lbl_letter.NavigateUrl = "../mainform/ViewProjectinbox.aspx?id=" + encrypted;
                     }
 
                 }
@@ -858,6 +914,10 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
         catch
         { }
     }
+
+
+
+
     public string Get_Visa_Emp_Dept(object obj)
     {
         string Visa_Id = obj.ToString();

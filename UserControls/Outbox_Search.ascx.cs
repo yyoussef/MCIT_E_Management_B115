@@ -57,6 +57,19 @@ public partial class UserControls_Outbox_Search : System.Web.UI.UserControl
         }
 
     }
+
+    public string Get_Encrypted_ID(object obj)
+    {
+        string str = obj.ToString();
+        if (str != "")
+        {
+            string encrypted = Encryption.Encrypt(str);
+            return encrypted;
+        }
+
+        else return "";
+    }
+
     protected void Fillddl()
     {
 
