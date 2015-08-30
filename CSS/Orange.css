@@ -372,15 +372,16 @@ form.searchform {
         padding: 0;
         float: right;
         font: bold 1.4em 'Trebuchet MS', Tahoma, Arial, Sans-serif;
-           width: 58.3%; /* 775px; */
+           width: 60%; /* 775px; */
         border: 1px solid #808080;
-        border-width: 0 0 4px 0;
+        border-width: 0;
         list-style: none;
         display: -webkit-inline-box;
     }
 
         #menu ul li {
-            display: block;
+            display: inline-block;
+            float: right;
         }
 
             #menu ul li a {
