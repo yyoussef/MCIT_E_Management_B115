@@ -82,6 +82,8 @@ public partial class UserControls_Site_Menu3Copy : System.Web.UI.UserControl
                 if (InsideMCIT != "1")
                 {
                     li_doc_Show.Visible = false;
+                   
+                   
                 }
             //}
             //else if (RoleID != 4 || (RoleID == 4 && ProjectID > 0))

@@ -257,7 +257,7 @@ public partial class UserControls_Employee_data : System.Web.UI.UserControl
         }
         else
         {
-            emp_query += "SELECT     EMPLOYEE.PMP_ID, EMPLOYEE.pmp_name, Departments.sec_sec_id FROM    EMPLOYEE INNER JOIN     Departments ON EMPLOYEE.Dept_Dept_id = Departments.Dept_ID  where EMPLOYEE.foundation_id = '" + Session_CS.foundation_id + "'";
+            emp_query += "SELECT     EMPLOYEE.PMP_ID, EMPLOYEE.pmp_name FROM    EMPLOYEE   where EMPLOYEE.foundation_id = '" + Session_CS.foundation_id + "'";
 
         }
         DataTable dtt = General_Helping.GetDataTable(emp_query);

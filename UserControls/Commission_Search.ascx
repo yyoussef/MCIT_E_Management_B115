@@ -95,7 +95,7 @@
             <div align="center">
                 <asp:Button ID="SaveButton" Text="بحث" OnClick="SaveButton_Click" runat="server"
                     CssClass="Button" />
-                &nbsb
+               
                 
             </div>
         </td>

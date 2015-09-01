@@ -871,7 +871,7 @@
                                                             <ItemTemplate>
                                                                 <%# Eval("time_follow")%></ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText=" ارسال إيميل">
+                                                        <asp:TemplateField HeaderText=" ارسال إيميل" Visible="false" >
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="ImgBtnEdit123" CommandName="SendItem" runat="server" ImageUrl="../Images/Edit.jpg"
                                                                     CommandArgument='<%# Eval("Follow_ID") %>' />

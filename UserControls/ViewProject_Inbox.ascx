@@ -737,7 +737,7 @@
                                         MinimumValue="1" ValidationGroup="VF">*</asp:RangeValidator>
                                 </td>
                             </tr>
-                            <tr id="tr_follow_proj" runat="server">
+                            <tr id="tr_follow_proj" runat="server" visible="False" >
                                 <td colspan="1" class="style32">
                                     <asp:Label ID="Label13" runat="server" CssClass="Label" Text="المشروع :" />
                                 </td>

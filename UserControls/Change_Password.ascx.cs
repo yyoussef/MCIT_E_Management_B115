@@ -28,8 +28,8 @@ public partial class UserControls_Change_Password : System.Web.UI.UserControl
         if (!IsPostBack)
         {
 
-            Label2.Text = Session_CS.pmp_name.ToString();
-
+            Label2.Text = HttpContext.Current.Server.UrlDecode( Session_CS.pmp_name).ToString();
+            
         }
     }
     public static void ShowAlertMessage(string error)

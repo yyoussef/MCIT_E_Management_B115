@@ -31,6 +31,7 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
     string v_desc;
     Thread threadObj;
     OutboxContext pm_outbox = new OutboxContext();
+    string InsideMCIT = System.Configuration.ConfigurationManager.AppSettings["InsideMCIT"].ToString();
     //Session_CS Session_CS = new Session_CS();
     
     
@@ -115,7 +116,11 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
                        // if (CDataConverter.ConvertToInt(dt.Rows[0]["parent_pmp_id"].ToString()) == CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()))
                        // {
                             Trfollow.Visible = true;
-                            tr_follow_proj.Visible = true;
+                            if (InsideMCIT == "1")
+                            {
+                                tr_follow_proj.Visible = true;
+                            }
+
                             //tr_follow_date.Visible = false;
                             //tr_follow_desc.Visible = false;
                             //tr_follow_doc.Visible = false;
@@ -504,9 +509,10 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
         //string Query = "";
 
         Smart_Search_proj.sql_Connection = sql_Connection;
-        string InsideMCIT = System.Configuration.ConfigurationManager.AppSettings["InsideMCIT"].ToString();
+       
         if (InsideMCIT == "1")
         {
+            tr_follow_proj.Visible = true;
 
             string sql = "";
             string Main_sql = " SELECT  dbo.Project.Proj_id, dbo.Project.pmp_pmp_id, dbo.Project.Proj_Title, dbo.EMPLOYEE.pmp_name, dbo.Project.Proj_InitValue, dbo.Project.Proj_Notes,dbo.Protocol_Main_Def.Name, dbo.Protocol_Main_Def.Protocol_ID FROM dbo.Project LEFT OUTER JOIN dbo.Protocol_Main_Def ON dbo.Project.Protocol_ID = dbo.Protocol_Main_Def.Protocol_ID LEFT OUTER JOIN dbo.EMPLOYEE ON dbo.Project.pmp_pmp_id = dbo.EMPLOYEE.PMP_ID where 1=1  ";

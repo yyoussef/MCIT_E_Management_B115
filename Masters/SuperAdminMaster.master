@@ -58,7 +58,7 @@
                             <br />
                             <br />
                             <asp:LinkButton ID="lnklogin" runat="server" Text="خروج" Font-Bold="True" ForeColor="#436485"
-                                BackColor="#F9FDFF" PostBackUrl="~/Default.aspx" Width="44px" valign="bottom"
+                                BackColor="#F9FDFF" PostBackUrl="~/SuperAdmin/Default.aspx" Width="44px" valign="bottom"
                                 Font-Names="arial" Font-Size="16px" />
                             <%-- <asp:LoginStatus ID="MasterLoginStatus" runat="server" LoginText="" LogoutText="خروج"
                                 Font-Bold="True" ForeColor="#436485" BackColor="#F9FDFF" LogoutAction="Redirect"

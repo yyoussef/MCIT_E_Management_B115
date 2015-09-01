@@ -495,8 +495,11 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
             fil_emp2();
             if (obj.Emp_ID > 0)
                 Smart_Emp_ID.SelectedValue = obj.Emp_ID.ToString();
-           // if (obj.Org_Id > 0)
-            //    Smart_Org_ID.SelectedValue = obj.Org_Id.ToString();
+
+           if (obj.Org_Id > 0)
+           Smart_Org_ID.SelectedValue = obj.Org_Id.ToString();
+
+
             // lbl_Org_Name.Text = obj.Org_Name;
             txt_Org_Out_Box_Code.Text = obj.Org_Out_Box_Code;
             txt_Org_Out_Box_DT.Text = obj.Org_Out_Box_DT;
@@ -774,7 +777,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
             else
             {
                 obj.Dept_ID = 0;
-                obj.Org_Id = CDataConverter.ConvertToInt(OrgID.Value);
+                obj.Org_Id = CDataConverter.ConvertToInt(Smart_Org_ID.SelectedValue);
             }
 
             obj.Emp_ID = CDataConverter.ConvertToInt(Smart_Emp_ID.SelectedValue);
