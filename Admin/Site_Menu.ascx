@@ -33,9 +33,9 @@
                             
                         <li style="background-image: url('../new_images/toptany.gif')"><a href="Commitee.aspx">
                             بيانات اللجان</a> </li>
-                        <li style="background-image: url('../new_images/toptany.gif')"><a href="committee_Presidents.aspx">
+                  <%--      <li style="background-image: url('../new_images/toptany.gif')"><a href="committee_Presidents.aspx">
                             رؤساء الأقسام و اللجان</a> </li>
-                      
+                      --%>
                      
                         <li id="Li6" style="background-image: url('../new_images/toptany.gif')" runat="server">
                             <a href="  Add_Org.aspx">مؤسسات متصلة بالجهة</a> </li>

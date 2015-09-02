@@ -51,8 +51,8 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
 
          if (!IsPostBack)
             {
-               
 
+                fill_radlst();
                 if (Request.QueryString["id"] != null)
                 {
                     //string s = Request.Url.ToString();
@@ -294,6 +294,17 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
             }
 
         }
+
+
+    private void fill_radlst()
+    {
+        if (Session_CS.foundation_id != 1)
+        {
+            radlst_Type.Items.RemoveAt(6);
+            radlst_Type.Items.RemoveAt(5);
+        }
+
+    }
 
 
     private void fill_sectors()

@@ -48,7 +48,10 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
             Smart_Search_structure.Show_OrgTree = true;
             Smart_Search_structure2.Show_OrgTree = true;
             tr_link.Style.Add("display","None");
-        
+
+            fill_radlst();
+
+
             //fill_structure();
             //if (CDataConverter.ConvertToInt(Session_CS.Project_id.ToString()) > 0)
             //{
@@ -212,6 +215,17 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
     }
 
 
+
+    private void fill_radlst()
+    {
+        if (Session_CS.foundation_id != 1)
+
+        {
+            radlst_Type.Items.RemoveAt(6);
+            radlst_Type.Items.RemoveAt(5);
+        }
+
+    }
 
     private void Fill__related_Controll(int id)
     {

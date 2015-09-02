@@ -202,14 +202,15 @@ public partial class UserControls_Inbox_Search : System.Web.UI.UserControl
     protected override void OnInit(EventArgs e)
     {
         string Query = "";
+        string Query1 = "";
         int found_id = CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString());
-        //Smrt_Srch_org.sql_Connection = sql_Connection;
-        ////Smrt_Srch_org.Query = "select Org_ID,Org_Desc from Organization where foundation_id = " + found_id;
-        //Query = "select Org_ID,Org_Desc from Organization where foundation_id = " + found_id;
-        //Smrt_Srch_org.datatble = General_Helping.GetDataTable(Query);
-        //Smrt_Srch_org.Value_Field = "Org_ID";
-        //Smrt_Srch_org.Text_Field = "Org_Desc";
-        //Smrt_Srch_org.DataBind();
+        Smrt_Srch_org.sql_Connection = sql_Connection;
+        //Smrt_Srch_org.Query = "select Org_ID,Org_Desc from Organization where foundation_id = " + found_id;
+        Query1 = "select Org_ID,Org_Desc from Organization where foundation_id = " + found_id;
+        Smrt_Srch_org.datatble = General_Helping.GetDataTable(Query1);
+        Smrt_Srch_org.Value_Field = "Org_ID";
+        Smrt_Srch_org.Text_Field = "Org_Desc";
+        Smrt_Srch_org.DataBind();
 
         Smart_Search_depts.sql_Connection = sql_Connection;
         //Smart_Search_depts.Query = "select Dept_ID,Dept_name from Departments inner join dbo.Sectors on Departments.Sec_sec_id=Sectors.Sec_id where Sectors.foundation_id='" + Session_CS.foundation_id + "' ";
