@@ -10,10 +10,14 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
+using System.Data.Entity;
+using EFModels;
 
 public partial class WebForms2_Groups : System.Web.UI.Page
 {
     static long id;
+    ActiveDirectoryContext ADContext = new ActiveDirectoryContext();
+
     //Session_CS Session_CS = new Session_CS();
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -21,13 +25,24 @@ public partial class WebForms2_Groups : System.Web.UI.Page
     }
     protected void ImgBtnDelete_Click(object sender, System.Web.UI.ImageClickEventArgs e)
     {
+        int g_id = CDataConverter.ConvertToInt(((ImageButton)sender).CommandArgument);
 
-        int x = Employee_Groups_DB.Delete(Convert.ToInt32(((ImageButton)sender).CommandArgument));
-        if (x > 0)
+        var emp_group = from emp in ADContext.EMPLOYEEs where emp.Group_id == g_id select emp;
+        DataTable dt_emp = emp_group.ToDataTable();
+        if (dt_emp.Rows.Count > 0)
         {
-            Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('تم الحذف بنجاح')</script>");
-            fillgrid();
-            txt_Group_Name.Text = "";
+            Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('لم يتم الحذف لوجود سجلات مرتبطة')</script>");
+        }
+        else
+        {
+
+            int x = Employee_Groups_DB.Delete(Convert.ToInt32(((ImageButton)sender).CommandArgument));
+            if (x > 0)
+            {
+                Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('تم الحذف بنجاح')</script>");
+                fillgrid();
+                txt_Group_Name.Text = "";
+            }
         }
 
     }

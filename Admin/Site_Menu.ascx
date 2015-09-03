@@ -33,22 +33,22 @@
                             
                         <li style="background-image: url('../new_images/toptany.gif')"><a href="Commitee.aspx">
                             بيانات اللجان</a> </li>
-                        <li style="background-image: url('../new_images/toptany.gif')"><a href="committee_Presidents.aspx">
+                  <%--      <li style="background-image: url('../new_images/toptany.gif')"><a href="committee_Presidents.aspx">
                             رؤساء الأقسام و اللجان</a> </li>
-                      
+                      --%>
                      
                         <li id="Li6" style="background-image: url('../new_images/toptany.gif')" runat="server">
                             <a href="  Add_Org.aspx">مؤسسات متصلة بالجهة</a> </li>
                         <li id="Li133" runat="server" style="background-image: url('../new_images/top2.gif')">
                             <a href="javascript: void(0);">الأرشيف</a>
                             <ul class="newclass">
-                                <li id="Li2" style="background-image: url('../new_images/toptany.gif')" runat="server">
+                                <li id="Li2" style="background-image: url('../new_images/top2.gif')" runat="server">
                                     <a href="Groups.aspx">مجموعات الارشيف</a></li>
-                                <li id="Li3" style="background-image: url('../new_images/toptany.gif')" runat="server">
+                                <li id="Li3" style="background-image: url('../new_images/top2.gif')" runat="server">
                                     <a href="Employees_Group_New.aspx">موظفي مجموعات الارشيف</a> </li>
-                                <li style="background-image: url('../new_images/toptany.gif')"><a href="EmployeesAndCorrParents.aspx">
+                                <li style="background-image: url('../new_images/top2.gif')"><a href="EmployeesAndCorrParents.aspx">
                                     الادارة العليا و السكرتارية </a></li>
-                                <li style="background-image: url('../new_images/bot.gif')"></li>
+                                <li style="background-image: url('../new_images/top2.gif')"></li>
                             </ul>
                         </li>
                         <li style="background-image: url('../new_images/toptany.gif')"><a href="AdminUserPage.aspx">

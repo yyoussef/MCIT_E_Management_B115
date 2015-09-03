@@ -144,14 +144,18 @@
             <asp:Label ID="Label3" runat="server" CssClass="Label" Text="جهة الورود : "></asp:Label>
         </td>
         <td align="right" dir="rtl" colspan="2">
-             <div id="myDiv">  
+
+             <uc1:Smart_Search ID="Smrt_Srch_org" runat="server" />
+
+         <%--    <div id="myDiv">  
                 <ui-select ng-model="organization.selected" theme="select2"  ng-disabled="disabled" style="min-width: 300px;" on-select="setHiddenWithOrg($item)">
                   <ui-select-match placeholder="{{initialSelectedOrganization}}">{{$select.selected.name}}</ui-select-match>
-                  <ui-select-choices repeat="organization in organizations | propsFilter: {name: $select.search}">
-                   <div ng-bind-html="organization.name | highlight: $select.search"></div>                                                                    
-                    </ui-select-choices>
+                 <ui-select-choices repeat="organization in organizations | propsFilter: {name: $select.search}">
+                  <div ng-bind-html="organization.name | highlight: $select.search"></div>                                                                    
+                  </ui-select-choices>                                                                  
+                    
                     </ui-select>  
-                </div>  
+                </div>  --%>
         </td>
     </tr>
     <tr>
@@ -231,7 +235,8 @@
             <div align="center">
                 <asp:Button ID="SaveButton" Text="بحث" OnClick="SaveButton_Click" runat="server"
                     CssClass="Button" />
-                &nbsb
+               
+
                 <%--<asp:Button ID="Button1" runat="server" Text="تصدير الي إكسل" Width="130px" CssClass="Button"
                         OnClick="Button1_Click" />--%>
             </div>

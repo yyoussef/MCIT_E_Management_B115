@@ -107,7 +107,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         if (!IsPostBack)
         {
             fill_txt_data();
-
+            fill_radlst();
 
             // Smrt_Srch_structure.Show_OrgTree = true;
             int grp = CDataConverter.ConvertToInt(Session_CS.group_id.ToString());
@@ -249,6 +249,19 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         }
 
     }
+
+
+    private void fill_radlst()
+    {
+        if (Session_CS.foundation_id != 1)
+        {
+            radlst_Type.Items.RemoveAt(6);
+            radlst_Type.Items.RemoveAt(5);
+        }
+
+    }
+
+
     #endregion
 
 

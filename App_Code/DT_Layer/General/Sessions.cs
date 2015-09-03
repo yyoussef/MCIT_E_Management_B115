@@ -996,7 +996,8 @@ public static  class Session_CS
             {
 
                 //return CDataConverter.ConvertToInt(HttpContext.Current.Session["foundation_id"]);
-                return HttpContext.Current.Request.Cookies["cook_pmp_name"].Value.ToString();
+                return  HttpContext.Current.Request.Cookies["cook_pmp_name"].Value;
+
 
             }
             else

@@ -189,11 +189,18 @@
                             <ItemStyle HorizontalAlign="Center" Width="3px"></ItemStyle>
                         </asp:TemplateField>
                         <asp:BoundField HeaderText=" اسم الجهة" DataField="Foundation_Name" />
-                        <asp:TemplateField HeaderText="كود الأرشيف">
+                        <asp:TemplateField HeaderText="كود الوارد">
                             <ItemTemplate>
                                 <%# Get_Type(Eval("code_archiving"))%>
                             </ItemTemplate>
                         </asp:TemplateField>
+
+                          <asp:TemplateField HeaderText="كود الصادر">
+                            <ItemTemplate>
+                                <%# Get_Type(Eval("code_outbox"))%>
+                            </ItemTemplate>
+                        </asp:TemplateField>
+
                         <asp:TemplateField HeaderText="Port">
                         <ItemTemplate>
                          <%# Eval("Port")%>

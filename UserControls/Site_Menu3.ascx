@@ -590,8 +590,8 @@
                             <a href="Add_Org.aspx">مؤسسات متصلة بالجهة</a>
                             <input type="hidden" runat="server" id="hidden85" value="132" />
                         </li>
-                        <li style="background-image: url('../new_images/top2.gif')"><a href="../MainForm/Training_Plan.aspx">
-                            الإحتياجات التدريبية</a> </li>
+                      <%--  <li style="background-image: url('../new_images/top2.gif')"  runat="server" id="train_need"  ><a href="../MainForm/Training_Plan.aspx" >
+                            الإحتياجات التدريبية</a> </li>--%>
                         <li style="background-image: url('../new_images/top2.gif')"><a href="Open_UserManual.aspx">
                             دليل المستخدم</a> </li>
                         <li id="li_doc_Show" runat="server" visible="true" style="background-image: url('../new_images/top2.gif')">

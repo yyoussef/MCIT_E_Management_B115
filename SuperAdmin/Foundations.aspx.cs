@@ -236,6 +236,15 @@ public partial class SuperAdmin_Foundations : System.Web.UI.Page
                         else
                             chk_code.Checked = false;
 
+
+                        if (found_sel.code_outbox == 1)
+                        {
+                            chk_code_outbox.Checked = true;
+                        }
+                        else
+                            chk_code_outbox.Checked = false;
+
+
                         if (Convert.ToInt32(found_sel.islocal) == 1)
                         {
                             Chk_islocal.Checked = true;

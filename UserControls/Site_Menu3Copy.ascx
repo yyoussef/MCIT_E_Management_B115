@@ -549,7 +549,7 @@
                         <a href="Add_Org.aspx">مؤسسات متصلة بالجهة</a>
                         <input type="hidden" runat="server" id="hidden85" value="132" />
                     </li>
-                    <li><a href="../MainForm/Training_Plan.aspx">الإحتياجات التدريبية</a> </li>
+                   <%-- <li><a href="../MainForm/Training_Plan.aspx"  runat="server" id="train_need" >الإحتياجات التدريبية</a> </li>--%>
                     <li><a href="Open_UserManual.aspx">دليل المستخدم</a> </li>
                     <li id="li_doc_Show" runat="server" visible="true">
                         <a href="../MainForm/Memo_Show.aspx">مذكرات عرض</a>

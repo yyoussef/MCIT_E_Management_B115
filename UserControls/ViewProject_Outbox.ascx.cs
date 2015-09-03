@@ -43,6 +43,7 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
         if (!IsPostBack)
         {
             //fill_sectors();
+            fill_radlst();
 
             Smart_Search_dept.Show_OrgTree = true;
             int pmp = CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString());
@@ -332,6 +333,18 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
         }
         else return "";
     }
+
+    private void fill_radlst()
+    {
+        if (Session_CS.foundation_id != 1)
+        {
+            radlst_Type.Items.RemoveAt(4);
+            radlst_Type.Items.RemoveAt(5);
+        }
+
+    }
+
+
     protected void GrdView_Relation_RowCommand(object sender, GridViewCommandEventArgs e)
     {
         if (e.CommandName == "EditItem")

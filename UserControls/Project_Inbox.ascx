@@ -54,7 +54,7 @@
             </tr>
             <tr>
                 <td align="center" colspan="4" style="height: 5px">
-                    <asp:Label ID="lblErrorMsg" runat="server" Font-Bold="False" ForeColor="#EC981F" font-underline="false" CssClass="Label"></asp:Label>
+                    <asp:Label ID="lblErrorMsg" runat="server" Font-Bold="False" ForeColor="Red" CssClass="Label"></asp:Label>
                 </td>
             </tr>
             <tr>
@@ -871,7 +871,7 @@
                                                             <ItemTemplate>
                                                                 <%# Eval("time_follow")%></ItemTemplate>
                                                         </asp:TemplateField>
-                                                        <asp:TemplateField HeaderText=" ارسال إيميل">
+                                                        <asp:TemplateField HeaderText=" ارسال إيميل" Visible="false" >
                                                             <ItemTemplate>
                                                                 <asp:ImageButton ID="ImgBtnEdit123" CommandName="SendItem" runat="server" ImageUrl="../Images/Edit.jpg"
                                                                     CommandArgument='<%# Eval("Follow_ID") %>' />

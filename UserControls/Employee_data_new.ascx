@@ -53,13 +53,13 @@ padding-top:20%;
                                         </td>
                                         <td align="center">
                                             <asp:Label ID="lbl_success" runat="server" Text="تم الحفظ بنجاح" Visible="false"
-                                                ForeColor="#EC981F" font-underline="false" Font-Bold="true"></asp:Label>
+                                                ForeColor="Red" Font-Bold="true"></asp:Label>
                                                 
                                                   <asp:Label ID="lbl_user" runat="server" Text="برجاء إدخال إسم مستخدم أخر" Visible="false"
-                                                ForeColor="#EC981F" font-underline="false" Font-Bold="true"></asp:Label>
+                                                ForeColor="Red" Font-Bold="true"></asp:Label>
                                                 
                                             <asp:Label ID="Label42" runat="server" Text=" عفوا لا يمكنك التعديل في بيانات هذا القطاع"
-                                                Visible="false" ForeColor="#EC981F" font-underline="false" Font-Bold="true"></asp:Label>
+                                                Visible="false" ForeColor="Red" Font-Bold="true"></asp:Label>
                                         </td>
                                     </tr>
                                     <tr>
@@ -74,7 +74,7 @@ padding-top:20%;
                                     </tr>
                                     <tr>
                                       <td>
-                                            <asp:Label ID="Label6" runat="server" Text="   الإدارة :" CssClass="Label" ForeColor="#808080" font-underline="false"></asp:Label>
+                                            <asp:Label ID="Label6" runat="server" Text="   الإدارة :" CssClass="Label" Font-Underline="False"></asp:Label>
                                         </td>
                                      <td>
                                           <uc1:Smart_Search ID="Smrt_Srch_structure" runat="server"  />
@@ -111,7 +111,7 @@ padding-top:20%;
                                     </tr>
                                     <tr>
                                         <td>
-                                            <asp:Label ID="Label2" runat="server" Text=" إسم الموظف :" CssClass="Label" ForeColor="#808080" font-underline="false"></asp:Label>
+                                            <asp:Label ID="Label2" runat="server" Text=" إسم الموظف :" CssClass="Label" Font-Underline="False"></asp:Label>
                                         </td>
                                         <td>
                                             <uc1:Smart_Search ID="Smart_Search_emp" runat="server" ValidationGroup="A"/>
@@ -201,7 +201,7 @@ padding-top:20%;
                                               
                                               </asp:RequiredFieldValidator>
                                                 <asp:RegularExpressionValidator ID="RegularExpressionValidator7" runat="server" ControlToValidate="txt_username"
-                                                ErrorMessage="أدخل حروف إنجليزية فقط" 
+                                                ErrorMessage="الرجاء ادخال بيانات صحيحه" 
                                                 
                                                 ValidationExpression="[A-Za-z.-_0123456789]*"
                                                 ValidationGroup="A"></asp:RegularExpressionValidator>
@@ -332,7 +332,7 @@ padding-top:20%;
                                         </td>
                                         <td align="center">
                                             <asp:Label ID="lbl_res" runat="server" Text="تم حفظ بيانات مديرين تقييم الاداء بنجاح للموظف  :  "
-                                                Visible="false" ForeColor="#EC981F" font-underline="false" Font-Bold="true"></asp:Label>
+                                                Visible="false" ForeColor="Red" Font-Bold="true"></asp:Label>
                                         </td>
                                     </tr>
                                     <tr>
@@ -421,7 +421,7 @@ padding-top:20%;
                                         </td>
                                         <td align="center">
                                             <asp:Label ID="Label36" runat="server" Text="تم حفظ البيانات العامة بنجاح للموظف  :  "
-                                                Visible="false" ForeColor="#EC981F" font-underline="false" Font-Bold="true"></asp:Label>
+                                                Visible="false" ForeColor="Red" Font-Bold="true"></asp:Label>
                                         </td>
                                     </tr>
                                     <tr>
@@ -520,7 +520,7 @@ padding-top:20%;
                                         </td>
                                         <td align="center">
                                             <asp:Label ID="Label38" runat="server" Text="تم حفظ بيانات الدورات التريبية بنجاح للموظف  :  "
-                                                Visible="false" ForeColor="#EC981F" font-underline="false" Font-Bold="true"></asp:Label>
+                                                Visible="false" ForeColor="Red" Font-Bold="true"></asp:Label>
                                         </td>
                                     </tr>
                                     <tr>
@@ -632,7 +632,7 @@ padding-top:20%;
                                         </td>
                                         <td align="center">
                                             <asp:Label ID="Label37" runat="server" Text="تم حفظ بيانات الخبرات السابقة بنجاح للموظف  :  "
-                                                Visible="false" ForeColor="#EC981F" font-underline="false" Font-Bold="true"></asp:Label>
+                                                Visible="false" ForeColor="Red" Font-Bold="true"></asp:Label>
                                         </td>
                                     </tr>
                                     <tr>

@@ -48,7 +48,10 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
             Smart_Search_structure.Show_OrgTree = true;
             Smart_Search_structure2.Show_OrgTree = true;
             tr_link.Style.Add("display","None");
-        
+
+            fill_radlst();
+
+
             //fill_structure();
             //if (CDataConverter.ConvertToInt(Session_CS.Project_id.ToString()) > 0)
             //{
@@ -212,6 +215,17 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
     }
 
 
+
+    private void fill_radlst()
+    {
+        if (Session_CS.foundation_id != 1)
+
+        {
+            radlst_Type.Items.RemoveAt(6);
+            radlst_Type.Items.RemoveAt(5);
+        }
+
+    }
 
     private void Fill__related_Controll(int id)
     {
@@ -495,8 +509,11 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
             fil_emp2();
             if (obj.Emp_ID > 0)
                 Smart_Emp_ID.SelectedValue = obj.Emp_ID.ToString();
-           // if (obj.Org_Id > 0)
-            //    Smart_Org_ID.SelectedValue = obj.Org_Id.ToString();
+
+           if (obj.Org_Id > 0)
+           Smart_Org_ID.SelectedValue = obj.Org_Id.ToString();
+
+
             // lbl_Org_Name.Text = obj.Org_Name;
             txt_Org_Out_Box_Code.Text = obj.Org_Out_Box_Code;
             txt_Org_Out_Box_DT.Text = obj.Org_Out_Box_DT;
@@ -774,7 +791,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
             else
             {
                 obj.Dept_ID = 0;
-                obj.Org_Id = CDataConverter.ConvertToInt(OrgID.Value);
+                obj.Org_Id = CDataConverter.ConvertToInt(Smart_Org_ID.SelectedValue);
             }
 
             obj.Emp_ID = CDataConverter.ConvertToInt(Smart_Emp_ID.SelectedValue);
