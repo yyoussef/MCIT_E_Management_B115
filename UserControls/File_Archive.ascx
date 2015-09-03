@@ -115,7 +115,7 @@
                 <asp:Button ID="btn_send" runat="server" CssClass="Button" 
                   Text="إرسال الي المدير المختص " 
                 onclick="btn_send_Click" Width="220px" Visible="false" />
-               <asp:Label ID="lbl_result" runat="server" CssClass="Label"  Visible="false" ForeColor="Red" ></asp:Label>
+               <asp:Label ID="lbl_result" runat="server" CssClass="Label"  Visible="false" ForeColor="#EC981F" font-underline="false" ></asp:Label>
 
         </td>
           <td colspan="2" align="center">

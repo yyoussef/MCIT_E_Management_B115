@@ -46,7 +46,7 @@
             border-left: #436485 1px solid;
             padding-top: 5px;
             border-bottom: #436485 1px solid;
-            border-collapse: collapse;
+            border-square_arrow_flipped: square_arrow_flipped;
             direction: rtl;
             border-color: #436485;
         }

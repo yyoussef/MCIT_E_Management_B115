@@ -55,7 +55,7 @@
             </tr>
             <tr>
                 <td align="center" colspan="4" style="height: 5px">
-                    <asp:Label ID="lblErrorMsg" runat="server" Font-Bold="False" ForeColor="Red" CssClass="Label"></asp:Label>
+                    <asp:Label ID="lblErrorMsg" runat="server" Font-Bold="False" ForeColor="#EC981F" font-underline="false" CssClass="Label"></asp:Label>
                 </td>
             </tr>
             <tr>
@@ -151,7 +151,7 @@
                                             <asp:Label ID="Label4" runat="server" CssClass="Label" Text="المدة  :" Width="135px" />
                                         </td>
                                         <td dir="rtl" colspan="3">
-                                            <asp:Label ID="lbl_period" runat="server" CssClass="Label" ForeColor="Red" />
+                                            <asp:Label ID="lbl_period" runat="server" CssClass="Label" ForeColor="#EC981F" font-underline="false" />
                                             <asp:Label ID="Label7" runat="server" CssClass="Label" Text="يوم" />
                                         </td>
                                     </tr>
@@ -176,7 +176,7 @@
                            
                             --%>
                                         <td>
-                                            <asp:Label ID="Label3" runat="server" Text="  الإدارة  :" CssClass="Label" Font-Underline="False"></asp:Label>
+                                            <asp:Label ID="Label3" runat="server" Text="  الإدارة  :" CssClass="Label" ForeColor="#808080" font-underline="false"></asp:Label>
                                         </td>
                                         <td colspan="3">
                                             <uc1:Smart_Search ID="Smart_Search_dept" runat="server" />

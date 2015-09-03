@@ -10,11 +10,11 @@
             var imgsrc = img.src;
 
 
-            if (imgsrc.lastIndexOf('collapse') != -1) {
-                img.src = "../Images/expand.gif";
+            if (imgsrc.lastIndexOf('square_arrow_flipped') != -1) {
+                img.src = "../Images/square_arrow_down.gif";
             }
             else {
-                img.src = "../Images/collapse.gif";
+                img.src = "../Images/square_arrow_flipped.gif";
             }
 
             divname.style.display = divname.style.display == 'none' ? 'block' : 'none';
@@ -23,14 +23,14 @@
 </script>
 
 <table style="width: 100%">
-    <tr bgcolor="#E6F3FF">
+    <tr >
         <td valign="top" align="right" width="95%">
             <table width="100%" cellpadding="0" cellspacing="0" style="height: 50px">
-                <tr bgcolor="#E6F3FF">
+                <tr >
                     <td width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div1000','Img500');">
-                        <img border="0" id="Img500" src="../Images/collapse.gif" />
+                        <img border="0" id="Img500" src="../Images/square_arrow_flipped.gif" />
                     </td>
-                    <td style="font-size: large; color: #0C6AC8; text-decoration: underline blink; font-weight: bold;"
+                    <td 
                         onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div1000','Img500');">
                         <asp:Label ID="Label2" runat="server" Text="نشرات التعميم"></asp:Label>
                     </td>
@@ -44,52 +44,52 @@
                 <table>
                     <tr id="tr_Review_Emp_New" runat="server" >
                         <td align="left" style="width: 368px">
-                            <asp:Image ID="Image52" runat="server" ImageUrl="~/new_images/a1.gif" />
+                            <asp:Image ID="Image52" runat="server" ImageUrl="~/Images/arrow.gif"  style="padding-left:5px" />
                         </td>
                         <td align="right" id="Td3" runat="server">
                             <asp:LinkButton ID="LinkButton74" OnClick="lnkbtn_Review_Emp_New_Click" runat="server"
-                                Font-Underline="True" Font-Size="20px" ForeColor="#275078" CssClass="link" Font-Bold="true"
+                                 Font-Size="20px" ForeColor="#808080" font-underline="false"  Font-Bold="true"
                                 Text="لديك عدد">
                                 <asp:LinkButton ID="lnkbtn_Review_Emp_New" OnClick="lnkbtn_Review_Emp_New_Click"
-                                    runat="server" CssClass="link" Font-Size="20px" Visible="true" Font-Underline="true"
-                                    Text="0" ForeColor="red" />
+                                    runat="server"  Font-Size="20px" Visible="true" 
+                                    Text="0" ForeColor="#EC981F" font-underline="false" />
                                 <asp:LinkButton ID="LinkButton77" OnClick="lnkbtn_Review_Emp_New_Click" runat="server"
-                                    CssClass="link" Visible="true" Font-Underline="true" Text="نشرة جديدة" Font-Size="20px"
-                                    ForeColor="#275078" Font-Bold="true" /></asp:LinkButton>
+                                     Visible="true"  Text="نشرة جديدة" Font-Size="20px"
+                                    ForeColor="#808080" font-underline="false" Font-Bold="true" /></asp:LinkButton>
                             <br />
                         </td>
                     </tr>
                     <tr id="tr_Review_emp_closed" runat="server" >
                         <td align="left" style="width: 368px">
-                            <asp:Image ID="Image55" runat="server" ImageUrl="~/new_images/a1.gif" />
+                            <asp:Image ID="Image55" runat="server" ImageUrl="~/Images/arrow.gif"  style="padding-left:5px" />
                         </td>
                         <td align="right">
                             <asp:LinkButton ID="LinkButton84" OnClick="lnkbtn_Review_emp_closed_Click" runat="server"
-                                Font-Underline="True" Font-Size="20px" ForeColor="#275078" CssClass="link" Font-Bold="true"
+                                 Font-Size="20px" ForeColor="#808080" font-underline="false"  Font-Bold="true"
                                 Text="لديك عدد">
                                 <asp:LinkButton ID="lnkbtn_Review_emp_closed" OnClick="lnkbtn_Review_emp_closed_Click"
-                                    runat="server" CssClass="link" Font-Size="20px" Visible="true" Font-Underline="true"
-                                    Text="0" ForeColor="red" />
+                                    runat="server"  Font-Size="20px" Visible="true" 
+                                    Text="0" ForeColor="#EC981F" font-underline="false" />
                                 <asp:LinkButton ID="LinkButton86" OnClick="lnkbtn_Review_emp_closed_Click" runat="server"
-                                    CssClass="link" Visible="true" Font-Underline="true" Text="نشرة مغلقة" Font-Size="20px"
-                                    ForeColor="#275078" Font-Bold="true" /></asp:LinkButton>
+                                     Visible="true"  Text="نشرة مغلقة" Font-Size="20px"
+                                    ForeColor="#808080" font-underline="false" Font-Bold="true" /></asp:LinkButton>
                             <br />
                         </td>
                     </tr>
                     <tr id="tr_Review_new" runat="server" >
                         <td align="left" style="width: 368px">
-                            <asp:Image ID="Image57" runat="server" ImageUrl="~/new_images/a1.gif" />
+                            <asp:Image ID="Image57" runat="server" ImageUrl="~/Images/arrow.gif"  style="padding-left:5px" />
                         </td>
                         <td align="right" id="Td6" runat="server">
                             <asp:LinkButton ID="lnk_btn_Review_new" OnClick="lnk_btn_Review_new_Click" runat="server"
-                                Font-Underline="True" Font-Size="20px" ForeColor="#275078" CssClass="link" Font-Bold="true"
+                                 Font-Size="20px" ForeColor="#808080" font-underline="false"  Font-Bold="true"
                                 Text="لديك عدد">
                                 <asp:LinkButton ID="link_new_Review" OnClick="lnk_btn_Review_new_Click" runat="server"
-                                    CssClass="link" Font-Size="20px" Visible="true" Font-Underline="true" Text="0"
-                                    ForeColor="red" />
+                                     Font-Size="20px" Visible="true"  Text="0"
+                                    ForeColor="#EC981F" font-underline="false" />
                                 <asp:LinkButton ID="LinkButton92" OnClick="lnk_btn_Review_new_Click" runat="server"
-                                    CssClass="link" Visible="true" Font-Underline="true" Text="نشرة" Font-Size="20px"
-                                    ForeColor="#275078" Font-Bold="true" /></asp:LinkButton>
+                                     Visible="true"  Text="نشرة" Font-Size="20px"
+                                    ForeColor="#808080" font-underline="false" Font-Bold="true" /></asp:LinkButton>
                             <br />
                         </td>
                     </tr>

@@ -13,7 +13,7 @@
         </tr>
         <tr>
             <td align="center">
-                <asp:Label ID="lblerrMsg" runat="server" Font-Bold="True" ForeColor="Red"></asp:Label>
+                <asp:Label ID="lblerrMsg" runat="server" Font-Bold="True" ForeColor="#EC981F" font-underline="false"></asp:Label>
             </td>
         </tr>
         <%-- <tr>

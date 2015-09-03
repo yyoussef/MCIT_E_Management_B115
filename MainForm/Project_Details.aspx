@@ -13,11 +13,11 @@
             var imgsrc = img.src;
 
 
-            if (imgsrc.lastIndexOf('collapse') != -1) {
-                img.src = "../Images/expand.gif";
+            if (imgsrc.lastIndexOf('square_arrow_flipped') != -1) {
+                img.src = "../Images/square_arrow_down.gif";
             }
             else {
-                img.src = "../Images/collapse.gif";
+                img.src = "../Images/square_arrow_flipped.gif";
             }
 
             divname.style.display = divname.style.display == 'none' ? 'block' : 'none';
@@ -47,11 +47,11 @@
               </td>--%>
             <td align="right" dir="rtl">
                 <asp:HyperLink runat="server" ID="hypPrev" Width="200px" Font-Bold="True" Font-Names="Arial"
-                    Font-Size="16px" Font-Underline="False" ForeColor="Blue" Height="20px" Visible="False"></asp:HyperLink>
+                    Font-Size="16px"  font-underline="false" ForeColor="Blue" Height="20px" Visible="False"></asp:HyperLink>
             </td>
             <td align="left" dir="ltr">
                 <asp:HyperLink runat="server" ID="hypNext" Width="200px" Font-Bold="True" Font-Italic="False"
-                    Font-Names="Arial" Font-Size="16px" Font-Underline="False" ForeColor="Blue" Height="20px"
+                    Font-Names="Arial" Font-Size="16px"  font-underline="false" ForeColor="Blue" Height="20px"
                     Visible="False"></asp:HyperLink>
             </td>
             <%-- <td width="37px" align="right" dir="ltr" style="padding: 0px">
@@ -68,21 +68,21 @@
         </tr>
     </table>
     <table width="100%">
-        <tr bgcolor="#E6F3FF">
+        <tr >
             <td valign="top" align="right" width="95%">
                 <table width="100%" cellpadding="0" cellspacing="0" style="height: 50px">
-                    <tr bgcolor="#E6F3FF">
+                    <tr >
                         <td width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div0','image0');">
-                            <img border="0" id="image0" src="../Images/expand.gif" />
+                            <img border="0" id="image0" src="../Images/square_arrow_down.gif" />
                         </td>
-                        <td style="font-size: large; color: #0C6AC8; text-decoration: underline blink; font-weight: bold;"
+                        <td 
                             onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div0','image0');">
                             ملخص المشروع
                         </td>
                     </tr>
                 </table>
             </td>
-            <%-- <td width="5%" bgcolor="#E6F3FF">
+            <%-- <td width="5%" >
                 <asp:ImageButton ID="imgBreifPrinter" src="../Images/Printer-1.jpg" Height="50px"
                     Width="50px" runat="server" OnClick="imgBreifPrinter_Click" />
             </td>--%>
@@ -103,21 +103,21 @@
         </tr>
     </table>
     <table width="100%">
-        <tr bgcolor="#E6F3FF" id="tr_doc_header" runat="server">
+        <tr  id="tr_doc_header" runat="server">
             <td valign="top" align="right" width="95%">
                 <table cellpadding="0" cellspacing="0" style="height: 50px; width: 100%;">
-                    <tr bgcolor="#E6F3FF">
+                    <tr >
                         <td width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div1','image1');">
-                            <img border="0" id="image1" src="../Images/collapse.gif" />
+                            <img border="0" id="image1" src="../Images/square_arrow_flipped.gif" />
                         </td>
-                        <td style="font-size: large; color: #0C6AC8; text-decoration: underline; font-weight: bold;"
+                        <td style="font-size: large;  text-decoration: underline; font-weight: bold;"
                             onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div1','image1');">
                             وثائق المشروع
                         </td>
                     </tr>
                 </table>
             </td>
-            <%--<td width="5%" bgcolor="#E6F3FF">
+            <%--<td width="5%" >
                 <asp:ImageButton ID="Imagedocument" src="../Images/Printer-1.jpg" Height="50px" Width="50px"
                     runat="server" OnClick="Imagedocument_Click" />
             </td>--%>
@@ -160,8 +160,8 @@
                                     dir="rtl" align="right">
                                     <asp:TreeView ID="Tree_Files" ShowCheckBoxes="None" ExpandDepth="FullyExpand" runat="server"
                                         ImageSet="Simple" Font-Bold="True" ForeColor="Black" Height="187px">
-                                        <NodeStyle ForeColor="#808080" Font-Bold="true" Font-Size="Medium" />
-                                        <SelectedNodeStyle BackColor="#C2DDF0" Font-Bold="true" Font-Underline="true" Font-Size="20px"
+                                        <NodeStyle ForeColor="#808080" font-underline="false" Font-Bold="true" Font-Size="Medium" />
+                                        <SelectedNodeStyle BackColor="#C2DDF0" Font-Bold="true"  Font-Size="20px"
                                             Font-Italic="true" ForeColor="Gray" />
                                     </asp:TreeView>
                                 </div>
@@ -173,14 +173,14 @@
         </tr>
     </table>
     <table id="tblTeam" width="100%" runat="server">
-        <tr bgcolor="#E6F3FF">
+        <tr >
             <td valign="top" align="right" width="95%">
                 <table width="100%" cellpadding="0" cellspacing="0" style="height: 50px;">
-                    <tr bgcolor="#E6F3FF">
+                    <tr >
                         <td width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('divteam','image2');">
-                            <img border="0" id="image2" src="../Images/collapse.gif" />
+                            <img border="0" id="image2" src="../Images/square_arrow_flipped.gif" />
                         </td>
-                        <td style="font-size: large; color: #0C6AC8; text-decoration: underline; font-weight: bold;"
+                        <td style="font-size: large;  text-decoration: underline; font-weight: bold;"
                             onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('divteam','image2');">
                             فريق المشروع
                         </td>
@@ -245,14 +245,14 @@
         </tr>
     </table>
     <table id="tblobjs" width="100%" runat="server">
-        <tr bgcolor="#E6F3FF">
+        <tr >
             <td valign="top" align="right" width="95%">
                 <table width="100%" cellpadding="0" cellspacing="0" style="height: 50px;">
-                    <tr bgcolor="#E6F3FF">
+                    <tr >
                         <td width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div3','image3');">
-                            <img border="0" id="image3" src="../Images/collapse.gif" />
+                            <img border="0" id="image3" src="../Images/square_arrow_flipped.gif" />
                         </td>
-                        <td style="font-size: large; color: #0C6AC8; text-decoration: underline; font-weight: bold;"
+                        <td style="font-size: large;  text-decoration: underline; font-weight: bold;"
                             onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div3','image3');">
                             أهداف المشروع
                         </td>
@@ -294,14 +294,14 @@
         </tr>
     </table>
     <table id="tpatt" width="100%" runat="server">
-        <tr bgcolor="#E6F3FF">
+        <tr >
             <td valign="top" align="right" width="95%">
                 <table width="100%" cellpadding="0" cellspacing="0" style="height: 50px;">
-                    <tr bgcolor="#E6F3FF">
+                    <tr >
                         <td width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div9','Img3');">
-                            <img border="0" id="Img3" src="../Images/collapse.gif" />
+                            <img border="0" id="Img3" src="../Images/square_arrow_flipped.gif" />
                         </td>
-                        <td style="font-size: large; color: #0C6AC8; text-decoration: underline; font-weight: bold;"
+                        <td style="font-size: large;  text-decoration: underline; font-weight: bold;"
                             onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div9','Img3');">
                             الموقف التنفيذي للمشروع
                         </td>
@@ -346,14 +346,14 @@
         </tr>
     </table>
     <table id="tpstages" width="100%" runat="server">
-        <tr bgcolor="#E6F3FF">
+        <tr >
             <td valign="top" align="right" width="95%">
                 <table width="100%" cellpadding="0" cellspacing="0" style="height: 50px;">
-                    <tr bgcolor="#E6F3FF">
+                    <tr >
                         <td width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div13','Img4');">
-                            <img border="0" id="Img4" src="../Images/collapse.gif" />
+                            <img border="0" id="Img4" src="../Images/square_arrow_flipped.gif" />
                         </td>
-                        <td style="font-size: large; color: #0C6AC8; text-decoration: underline; font-weight: bold;"
+                        <td style="font-size: large;  text-decoration: underline; font-weight: bold;"
                             onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div13','Img4');">
                             مراحل المشروع
                         </td>
@@ -398,14 +398,14 @@
         </tr>
     </table>
     <table id="tplsuccess" width="100%" runat="server">
-        <tr bgcolor="#E6F3FF">
+        <tr >
             <td valign="top" align="right" width="95%">
                 <table width="100%" cellpadding="0" cellspacing="0" style="height: 50px;">
-                    <tr bgcolor="#E6F3FF">
+                    <tr >
                         <td width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div15','Img6');">
-                            <img border="0" id="Img6" src="../Images/collapse.gif" />
+                            <img border="0" id="Img6" src="../Images/square_arrow_flipped.gif" />
                         </td>
-                        <td style="font-size: large; color: #0C6AC8; text-decoration: underline; font-weight: bold;"
+                        <td style="font-size: large;  text-decoration: underline; font-weight: bold;"
                             onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div15','Img6');">
                             عناصر نجاح المشروع
                         </td>
@@ -450,14 +450,14 @@
         </tr>
     </table>
     <table id="tblneeds" width="100%" runat="server">
-        <tr bgcolor="#E6F3FF">
+        <tr >
             <td valign="top" align="right" width="95%">
                 <table width="100%" cellpadding="0" cellspacing="0" style="height: 50px;">
-                    <tr bgcolor="#E6F3FF">
+                    <tr >
                         <td width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div4','image4');">
-                            <img border="0" id="image4" src="../Images/collapse.gif" />
+                            <img border="0" id="image4" src="../Images/square_arrow_flipped.gif" />
                         </td>
-                        <td style="font-size: large; color: #0C6AC8; text-decoration: underline; font-weight: bold;"
+                        <td style="font-size: large;  text-decoration: underline; font-weight: bold;"
                             onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div4','image4');">
                             احتياجات المشروع
                         </td>
@@ -528,14 +528,14 @@
         </tr>
     </table>
     <table id="tblneedsreceive" width="100%" runat="server">
-        <tr bgcolor="#E6F3FF">
+        <tr >
             <td valign="top" align="right" width="95%">
                 <table width="100%" cellpadding="0" cellspacing="0" style="height: 50px;">
-                    <tr bgcolor="#E6F3FF">
+                    <tr >
                         <td width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div7','image7');">
-                            <img border="0" id="image7" src="../Images/collapse.gif" />
+                            <img border="0" id="image7" src="../Images/square_arrow_flipped.gif" />
                         </td>
-                        <td style="font-size: large; color: #0C6AC8; text-decoration: underline; font-weight: bold;"
+                        <td style="font-size: large;  text-decoration: underline; font-weight: bold;"
                             onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div7','image7');">
                             صرف احتياجات المشروع
                         </td>
@@ -597,14 +597,14 @@
         </tr>
     </table>
     <table id="tblactiv" width="100%" runat="server">
-        <tr bgcolor="#E6F3FF">
+        <tr >
             <td valign="top" align="right" width="95%">
                 <table width="100%" cellpadding="0" cellspacing="0" style="height: 50px;">
-                    <tr bgcolor="#E6F3FF">
+                    <tr >
                         <td width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div8','image8');">
-                            <img border="0" id="image8" src="../Images/collapse.gif" />
+                            <img border="0" id="image8" src="../Images/square_arrow_flipped.gif" />
                         </td>
-                        <td style="font-size: large; color: #0C6AC8; text-decoration: underline; font-weight: bold;"
+                        <td style="font-size: large;  text-decoration: underline; font-weight: bold;"
                             onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div8','image8');">
                             عرض مجمل بأنشطة المشروع
                         </td>
@@ -618,9 +618,9 @@
                     <table id="activities" style="line-height: 2; width: 97%" align="left">
                         <tr style="background: orange">
                             <td align="center">
-                                <asp:Label ID="lbl1" Text="نسبة انجاز المشروع :" runat="server" ForeColor="Red" Font-Bold="true"
+                                <asp:Label ID="lbl1" Text="نسبة انجاز المشروع :" runat="server" ForeColor="#EC981F" font-underline="false" Font-Bold="true"
                                     Font-Size="Large"></asp:Label>
-                                <asp:Label ID="lblProgProgress" runat="server" ForeColor="Red" Font-Bold="true" Font-Size="Large"></asp:Label>
+                                <asp:Label ID="lblProgProgress" runat="server" ForeColor="#EC981F" font-underline="false" Font-Bold="true" Font-Size="Large"></asp:Label>
                             </td>
                         </tr>
                         <tr>
@@ -629,7 +629,7 @@
                                     BackColor="White" BorderColor="#3366CC" BorderStyle="None" BorderWidth="1px"
                                     CellPadding="4" CssClass="mGrid" EmptyDataText="... عفوا لا يوجد بيانات ..."
                                     ForeColor="Black" PagerStyle-CssClass="pgr" Visible="true" Font-Size="10pt" Font-Strikeout="False"
-                                    Font-Underline="False" CaptionAlign="Top">
+                                     font-underline="false" CaptionAlign="Top">
                                     <Columns>
                                         <asp:TemplateField HeaderText="م" ItemStyle-Width="3px" HeaderStyle-Width="3px" HeaderStyle-HorizontalAlign="Center"
                                             ItemStyle-HorizontalAlign="Center">
@@ -719,14 +719,14 @@
         </tr>
     </table>
     <table id="tblind" width="100%" runat="server">
-        <tr bgcolor="#E6F3FF">
+        <tr >
             <td valign="top" align="right" width="95%">
                 <table width="100%" cellpadding="0" cellspacing="0" style="height: 50px;">
-                    <tr bgcolor="#E6F3FF">
+                    <tr >
                         <td width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div5','Img1');">
-                            <img border="0" id="Img1" src="../Images/collapse.gif" />
+                            <img border="0" id="Img1" src="../Images/square_arrow_flipped.gif" />
                         </td>
-                        <td style="font-size: large; color: #0C6AC8; text-decoration: underline; font-weight: bold;"
+                        <td style="font-size: large;  text-decoration: underline; font-weight: bold;"
                             onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div5','Img1');">
                             مؤشرات قياس الأنشطة
                         </td>
@@ -744,7 +744,7 @@
                                     BackColor="White" BorderColor="#3366CC" BorderStyle="None" BorderWidth="1px"
                                     CellPadding="4" CssClass="mGrid" EmptyDataText="... عفوا لا يوجد بيانات ..."
                                     ForeColor="Black" PagerStyle-CssClass="pgr" Visible="true" Font-Size="10pt" Font-Strikeout="False"
-                                    Font-Underline="False" CaptionAlign="Top">
+                                    font-underline="false" CaptionAlign="Top">
                                     <Columns>
                                         <asp:TemplateField HeaderText="م" ItemStyle-Width="3px" HeaderStyle-Width="3px" HeaderStyle-HorizontalAlign="Center"
                                             ItemStyle-HorizontalAlign="Center">
@@ -803,14 +803,14 @@
         </tr>
     </table>
     <table id="tblProjInd" width="100%" runat="server">
-        <tr bgcolor="#E6F3FF">
+        <tr >
             <td valign="top" align="right" width="95%">
                 <table width="100%" cellpadding="0" cellspacing="0" style="height: 50px;">
-                    <tr bgcolor="#E6F3FF">
+                    <tr >
                         <td width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div6','Img2');">
-                            <img border="0" id="Img2" src="../Images/collapse.gif" />
+                            <img border="0" id="Img2" src="../Images/square_arrow_flipped.gif" />
                         </td>
-                        <td style="font-size: large; color: #0C6AC8; text-decoration: underline; font-weight: bold;"
+                        <td style="font-size: large;  text-decoration: underline; font-weight: bold;"
                             onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div6','Img2');">
                             مؤشرات قياس المشروع
                         </td>
@@ -828,7 +828,7 @@
                                     BackColor="White" BorderColor="#3366CC" BorderStyle="None" BorderWidth="1px"
                                     CellPadding="4" CssClass="mGrid" EmptyDataText="... عفوا لا يوجد بيانات ..."
                                     ForeColor="Black" PagerStyle-CssClass="pgr" Visible="true" Font-Size="10pt" Font-Strikeout="False"
-                                    Font-Underline="False" CaptionAlign="Top">
+                                    font-underline="false" CaptionAlign="Top">
                                     <Columns>
                                     
                                         <asp:BoundField DataField="PAI_Desc" HeaderText="اسم المؤشر" HeaderStyle-Width="50%"
@@ -867,21 +867,21 @@
         </tr>
     </table>
     <table id="tblconsts" width="100%" runat="server">
-        <tr bgcolor="#E6F3FF">
+        <tr >
             <td valign="top" align="right" width="95%">
                 <table width="100%" cellpadding="0" cellspacing="0" style="height: 50px;">
-                    <tr bgcolor="#E6F3FF">
+                    <tr >
                         <td width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div10','image10');">
-                            <img border="0" id="image10" src="../Images/collapse.gif" />
+                            <img border="0" id="image10" src="../Images/square_arrow_flipped.gif" />
                         </td>
-                        <td style="font-size: large; color: #0C6AC8; text-decoration: underline; font-weight: bold;"
+                        <td style="font-size: large;  text-decoration: underline; font-weight: bold;"
                             onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div10','image10');">
                             معوقات المشروع
                         </td>
                     </tr>
                 </table>
             </td>
-            <%-- <td width="5%" bgcolor="#E6F3FF">
+            <%-- <td width="5%" >
                 <asp:ImageButton ID="imgprojcons" src="../Images/Printer-1.jpg" Height="50px" Width="50px"
                     runat="server" OnClick="imgprojcons_Click" />
             </td>--%>
@@ -925,14 +925,14 @@
         </tr>
     </table>
     <table id="tblorgs" width="100%" runat="server">
-        <tr bgcolor="#E6F3FF">
+        <tr >
             <td valign="top" align="right" width="95%">
                 <table width="100%" cellpadding="0" cellspacing="0" style="height: 50px;">
-                    <tr bgcolor="#E6F3FF">
+                    <tr >
                         <td width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div11','image11');">
-                            <img border="0" id="image11" src="../Images/collapse.gif" />
+                            <img border="0" id="image11" src="../Images/square_arrow_flipped.gif" />
                         </td>
-                        <td style="font-size: large; color: #0C6AC8; text-decoration: underline; font-weight: bold;"
+                        <td style="font-size: large;  text-decoration: underline; font-weight: bold;"
                             onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div11','image11');">
                             الجهات المستفيدة
                         </td>
@@ -973,14 +973,14 @@
         </tr>
     </table>
     <table id="texctab" width="100%" runat="server">
-        <tr bgcolor="#E6F3FF">
+        <tr >
             <td valign="top" align="right" width="95%">
                 <table width="100%" cellpadding="0" cellspacing="0" style="height: 50px;">
-                    <tr bgcolor="#E6F3FF">
+                    <tr >
                         <td width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div14','Img5');">
-                            <img border="0" id="Img5" src="../Images/collapse.gif" />
+                            <img border="0" id="Img5" src="../Images/square_arrow_flipped.gif" />
                         </td>
-                        <td style="font-size: large; color: #0C6AC8; text-decoration: underline; font-weight: bold;"
+                        <td style="font-size: large;  text-decoration: underline; font-weight: bold;"
                             onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div14','Img5');">
                             الجهات المنفذة
                         </td>
@@ -1021,21 +1021,21 @@
         </tr>
     </table>
     <table width="100%" runat="server" id="TableNotes">
-        <tr bgcolor="#E6F3FF">
+        <tr >
             <td valign="top" align="right" width="95%">
                 <table width="100%" cellpadding="0" cellspacing="0" style="height: 50px;">
-                    <tr bgcolor="#E6F3FF">
+                    <tr >
                         <td width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div12','image12');">
-                            <img border="0" id="image12" src="../Images/expand.gif" />
+                            <img border="0" id="image12" src="../Images/square_arrow_down.gif" />
                         </td>
-                        <td style="font-size: large; color: #0C6AC8; text-decoration: underline; font-weight: bold;"
+                        <td style="font-size: large;  text-decoration: underline; font-weight: bold;"
                             onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div12','image12');">
                             ملاحظات خاصة بالمشروع
                         </td>
                     </tr>
                 </table>
             </td>
-            <%--<td width="5%" bgcolor="#E6F3FF">
+            <%--<td width="5%" >
                 <asp:ImageButton ID="imgProj_notes" src="../Images/Printer-1.jpg" Height="50px" Width="50px"
                     runat="server" OnClick="imgProj_notes_Click" />
             </td>--%>

@@ -31,11 +31,11 @@ function ChangeMeCase(divid, imgid) {
     var imgsrc = img.src;
     
 
-    if (imgsrc.lastIndexOf('collapse') != -1)
-       { img.src = "../Images/expand.gif";
+    if (imgsrc.lastIndexOf('square_arrow_flipped') != -1)
+       { img.src = "../Images/square_arrow_down.gif";
         }
     else
-        {img.src = "../Images/collapse.gif";
+        {img.src = "../Images/square_arrow_flipped.gif";
         }
 
     divname.style.display = divname.style.display == 'none' ? 'block' : 'none';
@@ -135,7 +135,7 @@ function SelectAll(Div_ID,Div_Chk_ID)
             background-color: #fff;
             margin: 5px 5px 10px 0;
             border: solid 1px #A1D4E9;
-            border-collapse: collapse;
+            border-square_arrow_flipped: square_arrow_flipped;
             text-align: right;
         }
         .GridAct .altAct
@@ -369,7 +369,7 @@ function SelectAll(Div_ID,Div_Chk_ID)
                                                                 <tr onclick='ChangeMeCase(&#039;<%#Eval("PActv_ID")%>&#039;,&#039;<%#"ImL" + Eval("PActv_ID")%>&#039;);'
                                                                     onmouseover="this.style.cursor='hand'">
                                                                     <td>
-                                                                        <img id='<%#"ImL" + Eval("PActv_ID")%>' border="0" src="../Images/collapse.gif" />
+                                                                        <img id='<%#"ImL" + Eval("PActv_ID")%>' border="0" src="../Images/square_arrow_flipped.gif" />
                                                                     </td>
                                                                     <td>
                                                                         <%#Eval(" PActv_Desc")%>

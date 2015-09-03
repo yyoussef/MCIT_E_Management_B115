@@ -15,7 +15,7 @@
         </tr>
         <tr>
             <td align="center" colspan="2" style="height: 32px">
-                <asp:Label ID="Label5" runat="server" Font-Bold="false" ForeColor="Red" CssClass="Label"></asp:Label>
+                <asp:Label ID="Label5" runat="server" Font-Bold="false" ForeColor="#EC981F" font-underline="false" CssClass="Label"></asp:Label>
             </td>
         </tr>
         <tr>

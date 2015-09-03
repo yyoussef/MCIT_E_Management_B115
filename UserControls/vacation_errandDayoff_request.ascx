@@ -19,7 +19,7 @@
     </tr>
     <tr>
         <td  align="center" colspan="2" class="style1">
-            <asp:Label ID="lblPageStatus" runat="server" CssClass="Label" ForeColor="Red" Visible="false"></asp:Label>
+            <asp:Label ID="lblPageStatus" runat="server" CssClass="Label" ForeColor="#EC981F" font-underline="false" Visible="false"></asp:Label>
         </td>
     </tr>
     <tr>

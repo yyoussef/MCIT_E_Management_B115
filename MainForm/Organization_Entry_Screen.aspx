@@ -7,7 +7,7 @@
     <table width="" rtl">
          <tr>
         <td colspan="2" align="center" style="height: 27px">
-                <asp:Label ID="lblPageStatus" runat="server" CssClass="Label" ForeColor="Red" Visible="false"></asp:Label>
+                <asp:Label ID="lblPageStatus" runat="server" CssClass="Label" ForeColor="#EC981F" font-underline="false" Visible="false"></asp:Label>
             </td>
         </tr>
          <tr>

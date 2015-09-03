@@ -97,7 +97,7 @@
         background-color: #fff;
         margin: 5px 5px 10px 0;
         border: solid 1px #A1D4E9;
-        border-collapse: collapse;
+        border-square_arrow_flipped: square_arrow_flipped;
     }
     .Grd_Search .altSeearch
     {
@@ -265,7 +265,7 @@
         <tr>
             <td align="center" colspan="4" style="height: 5px">
                 <asp:Literal ID="lASTreeViewThemeCssFile" runat="server"></asp:Literal>
-                <asp:Label ID="lblErrorMsg" runat="server" Font-Bold="False" ForeColor="Red" CssClass="Label"></asp:Label>
+                <asp:Label ID="lblErrorMsg" runat="server" Font-Bold="False" ForeColor="#EC981F" font-underline="false" CssClass="Label"></asp:Label>
                 <div style="display: none">
                     <asp:TextBox ID="txtCurrentNode" runat="server"></asp:TextBox>
                     <asp:TextBox ID="txtNewParentNode" runat="server"></asp:TextBox>

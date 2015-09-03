@@ -62,7 +62,7 @@
                     <asp:TreeView ID="TreeView1" ExpandDepth="1" runat="server" ImageSet="Simple" 
                         BorderColor="Black" Font-Bold="True" ForeColor="Black" Height="154px" 
                         Width="166px">
-                        <NodeStyle ForeColor="#808080" Font-Bold="true" Font-Size="Medium" />
+                        <NodeStyle ForeColor="#808080" font-underline="false" Font-Bold="true" Font-Size="Medium" />
                         <SelectedNodeStyle BackColor="WhiteSmoke" ForeColor="Black" />
                         <ParentNodeStyle CssClass="Label" />
                     </asp:TreeView>

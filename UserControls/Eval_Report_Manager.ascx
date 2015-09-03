@@ -10,7 +10,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image2" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image2" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="eval_empLB" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="eval_empLB_Click">  طباعة تقرير تقييم الأداء الوظيفي</asp:LinkButton>
                         </td>

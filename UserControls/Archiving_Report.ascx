@@ -14,11 +14,11 @@
         var imgsrc = img.src;
 
 
-        if (imgsrc.lastIndexOf('collapse') != -1) {
-            img.src = "../Images/expand.gif";
+        if (imgsrc.lastIndexOf('square_arrow_flipped') != -1) {
+            img.src = "../Images/square_arrow_down.gif";
         }
         else {
-            img.src = "../Images/collapse.gif";
+            img.src = "../Images/square_arrow_flipped.gif";
         }
 
         divname.style.display = divname.style.display == 'none' ? 'block' : 'none';
@@ -33,17 +33,17 @@
             <input type="hidden" runat="server" id="hidden_Rpt_Id" />
             <input type="hidden" runat="server" id="hidden_Report" />
             <input type="hidden" runat="server" id="hidden_manager" />
-            <asp:Label ID="Label1" runat="server" Text="تقارير  " CssClass="PageTitle" Font-Underline="True"></asp:Label>
+            <asp:Label ID="Label1" runat="server" Text="تقارير  " CssClass="PageTitle" ></asp:Label>
         </td>
     </tr>
     <tr id="Tr1" runat="server">
         <td id="Td2" valign="top" align="right">
             <table id="Table1" cellpadding="0" cellspacing="0" style="height: 43px; width: 100%;">
-                <tr id="Tr22" bgcolor="#E6F3FF" runat="server">
+                <tr id="Tr22"  runat="server">
                     <td colspan="1" width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div2','Img2');">
-                        <img border="0" id="Img1" src="../Images/collapse.gif" />
+                        <img border="0" id="Img1" src="../Images/square_arrow_flipped.gif" />
                     </td>
-                    <td style="font-size: large; color: #0C6AC8; text-decoration: underline blink; font-weight: bold;"
+                    <td 
                         onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div1','Img1');"
                         colspan="2">
                         تقارير الأرشيف الالكتروني الوارد
@@ -60,7 +60,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image2" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image2" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="eval_empLB" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="eval_empLB_Click"> تقرير الأرشيف الالكتروني الوارد لموظف</asp:LinkButton>
                         </td>
@@ -69,7 +69,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image1" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image1" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="General_inbox_LB" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="General_inbox_LB_Click"> تقرير  المكلف به خلال فترة - وارد</asp:LinkButton>
                         </td>
@@ -78,7 +78,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image3" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image3" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="Inbox_doneby_periodLB" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="Inbox_doneby_periodLB_Click"> تقرير  المنجز في فترة و المكلف به في هذه الفترة - وارد </asp:LinkButton>
                         </td>
@@ -87,7 +87,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image4" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image4" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="inbox_donebefordateLB" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="inbox_donebefordateLB_Click">  تقرير  المنجز في فترة و المكلف به قبل هذه الفترة - وارد</asp:LinkButton>
                         </td>
@@ -96,7 +96,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image5" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image5" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="LatePeriodLB" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="LatePeriodLB_Click"> تقرير  المتاخر خلال فترة - وارد</asp:LinkButton>
                         </td>
@@ -106,7 +106,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image15" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image15" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="LinkButton1" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="Latedetail_Click"> تقرير  تفصيلي بالوارد المتأخر </asp:LinkButton>
                         </td>
@@ -120,11 +120,11 @@
     <tr id="Tr3" runat="server">
         <td id="Td3" valign="top" align="right">
             <table id="Table2" cellpadding="0" cellspacing="0" style="height: 43px; width: 101%;">
-                <tr id="Tr4" bgcolor="#E6F3FF" runat="server">
+                <tr id="Tr4"  runat="server">
                     <td colspan="1" width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div2','Img2');">
-                        <img border="0" id="Img2" src="../Images/collapse.gif" alt="" />
+                        <img border="0" id="Img2" src="../Images/square_arrow_flipped.gif" alt="" />
                     </td>
-                    <td style="font-size: large; color: #0C6AC8; text-decoration: underline blink; font-weight: bold;"
+                    <td 
                         onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div2','Img2');"
                         colspan="2">
                         تقارير الأرشيف الالكتروني الصادر
@@ -141,7 +141,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image12" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image12" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="LinkButton5" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="LinkButton5_Click" Text="تقرير الأرشيف الالكتروني الصادر لموظف"></asp:LinkButton>
                         </td>
@@ -150,7 +150,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image6" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image6" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="General_Outbox_LB" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="General_Outbox_LB_Click"> تقرير  المكلف به خلال فترة - صادر</asp:LinkButton>
                         </td>
@@ -159,7 +159,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image7" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image7" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="Outbox_doneby_periodLB" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="Outbox_doneby_periodLB_Click"> تقرير  المنجز في فترة و المكلف به في هذه الفترة -صادر</asp:LinkButton>
                         </td>
@@ -168,7 +168,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image8" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image8" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="Outbox_donebefordateLB" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="Outbox_donebefordateLB_Click"> تقرير  المنجز في فترة و المكلف به قبل هذه الفترة- صادر</asp:LinkButton>
                         </td>
@@ -177,7 +177,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image9" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image9" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="LatePeriodOutboxLB" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="LatePeriodOutboxLB_Click"> تقرير  المتاخر خلال فترة-صادر</asp:LinkButton>
                         </td>
@@ -189,11 +189,11 @@
     <tr id="Tr6" runat="server">
         <td id="Td4" valign="top" align="right">
             <table id="Table3" cellpadding="0" cellspacing="0" style="height: 43px; width: 100%;">
-                <tr id="Tr7" bgcolor="#E6F3FF" runat="server">
+                <tr id="Tr7"  runat="server">
                     <td colspan="1" width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div2','Img2');">
-                        <img border="0" id="Img3" src="../Images/collapse.gif" />
+                        <img border="0" id="Img3" src="../Images/square_arrow_flipped.gif" />
                     </td>
-                    <td style="font-size: large; color: #0C6AC8; text-decoration: underline blink; font-weight: bold;"
+                    <td 
                         onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div3','Img3');"
                         colspan="2">
                         تقارير التكليفات
@@ -210,7 +210,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image23" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image23" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="LinkButton16" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="LinkButton16_Click" Text="تقرير التكليفات لموظف"></asp:LinkButton>
                         </td>
@@ -219,7 +219,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image10" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image10" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="General_com_LB" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="General_com_LB_Click"> تقرير  المكلف به خلال فترة - تكليفات</asp:LinkButton>
                         </td>
@@ -228,7 +228,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image11" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image11" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="com_doneby_periodLB" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="com_doneby_periodLB_Click"> تقرير  المنجز في فترة و المكلف به في هذه الفترة -تكليفات</asp:LinkButton>
                         </td>
@@ -237,7 +237,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image13" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image13" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="com_donebefordateLB" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="com_donebefordateLB_Click"> تقرير  المنجز في فترة و المكلف به قبل هذه الفترة- تكليفات</asp:LinkButton>
                         </td>
@@ -246,7 +246,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image14" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image14" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="LatePeriodComLB" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="LatePeriodComLB_Click"> تقرير  المتاخر خلال فترة-تكليفات</asp:LinkButton>
                         </td>
@@ -273,7 +273,7 @@
     </tr>
     <tr>
         <td style="height: 41px" align="center">
-            <asp:Label ID="Label6" runat="server" Font-Bold="True" ForeColor="Red" CssClass="Label"></asp:Label>
+            <asp:Label ID="Label6" runat="server" Font-Bold="True" ForeColor="#EC981F" font-underline="false" CssClass="Label"></asp:Label>
         </td>
     </tr>
     <tr>

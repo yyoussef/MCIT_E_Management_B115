@@ -30,7 +30,7 @@
                                     CellPadding="3" CssClass="mGrid" EmptyDataText="... عفوا لا يوجد بيانات ..."
                                     ForeColor="Black" PagerStyle-CssClass="pgr" 
                     Font-Size="10pt" Font-Strikeout="False"
-                                    Font-Underline="False" CaptionAlign="Top" 
+                                     font-underline="false" CaptionAlign="Top" 
                     onprerender="gvSub_PreRender1" Height="393px" 
                     onrowdatabound="gvSub_RowDataBound" GridLines="Vertical">
                                     <Columns>

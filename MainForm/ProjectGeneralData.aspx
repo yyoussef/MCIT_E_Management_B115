@@ -43,13 +43,13 @@
                 var imgsrc = img.src;
 
 
-                if (imgsrc.lastIndexOf('collapse') != -1) {
-                    img.src = "../Images/expand.gif";
+                if (imgsrc.lastIndexOf('square_arrow_flipped') != -1) {
+                    img.src = "../Images/square_arrow_down.gif";
 
 
                 }
                 else {
-                    img.src = "../Images/collapse.gif";
+                    img.src = "../Images/square_arrow_flipped.gif";
 
                 }
 
@@ -124,7 +124,7 @@
         </tr>
         <tr>
             <td align="center" style="height: 5px">
-                <asp:Label ID="lblErrorMsg" runat="server" Font-Bold="False" ForeColor="Red" CssClass="Label"></asp:Label>
+                <asp:Label ID="lblErrorMsg" runat="server" Font-Bold="False" ForeColor="#EC981F" font-underline="false" CssClass="Label"></asp:Label>
                
             </td>
         </tr>
@@ -228,11 +228,11 @@
                                             <tr id="Tr22" runat="server">
                                                 <td id="Td22" runat="server">
                                                     <table width="100%" cellpadding="0" cellspacing="0" style="height: 14px">
-                                                        <tr bgcolor="#E6F3FF">
+                                                        <tr >
                                                             <td width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div6','image11');">
-                                                                <img border="0" id="image11" src="../Images/expand.gif" />
+                                                                <img border="0" id="image11" src="../Images/square_arrow_down.gif" />
                                                             </td>
-                                                            <td style="font-size: large; color: #0C6AC8; text-decoration: underline blink; font-weight: bold;"
+                                                            <td 
                                                                 onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div6','image11');"
                                                                 colspan="1">
                                                                 الموقف التنفيذي للمشروع
@@ -266,11 +266,11 @@
                                             <tr id="Tr25" runat="server">
                                                 <td id="Td25" runat="server">
                                                     <table width="100%" cellpadding="0" cellspacing="0" style="height: 14px">
-                                                        <tr bgcolor="#E6F3FF">
+                                                        <tr >
                                                             <td width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div7','Img11');">
-                                                                <img border="0" id="Img11" src="../Images/collapse.gif" />
+                                                                <img border="0" id="Img11" src="../Images/square_arrow_flipped.gif" />
                                                             </td>
-                                                            <td style="font-size: large; color: #0C6AC8; text-decoration: underline blink; font-weight: bold;"
+                                                            <td 
                                                                 onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div7','Img11');"
                                                                 colspan="1">
                                                                 مراحل تنفيذ المشروع
@@ -331,11 +331,11 @@
                                             <tr id="Tr7" runat="server">
                                                 <td id="Td7" runat="server">
                                                     <table width="100%" cellpadding="0" cellspacing="0" style="height: 14px">
-                                                        <tr bgcolor="#E6F3FF">
+                                                        <tr >
                                                             <td width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div11','Img00');">
-                                                                <img border="0" id="Img00" src="../Images/expand.gif" />
+                                                                <img border="0" id="Img00" src="../Images/square_arrow_down.gif" />
                                                             </td>
-                                                            <td style="font-size: large; color: #0C6AC8; text-decoration: underline blink; font-weight: bold;"
+                                                            <td 
                                                                 onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div11','Img00');"
                                                                 colspan="1">
                                                                 الجهات المستفيدة
@@ -369,11 +369,11 @@
                                             <tr id="Tr10" runat="server">
                                                 <td id="Td10" runat="server">
                                                     <table width="100%" cellpadding="0" cellspacing="0" style="height: 14px">
-                                                        <tr bgcolor="#E6F3FF">
+                                                        <tr >
                                                             <td width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div2','Img1');">
-                                                                <img border="0" id="Img1" src="../Images/collapse.gif" alt="" />
+                                                                <img border="0" id="Img1" src="../Images/square_arrow_flipped.gif" alt="" />
                                                             </td>
-                                                            <td style="font-size: large; color: #0C6AC8; text-decoration: underline blink; font-weight: bold;"
+                                                            <td 
                                                                 onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div2','Img1');"
                                                                 colspan="1">
                                                                 الجهات المنفذة
@@ -413,11 +413,11 @@
                                             <tr id="Tr13" runat="server">
                                                 <td id="Td13" runat="server">
                                                     <table width="100%" cellpadding="0" cellspacing="0" style="height: 14px">
-                                                        <tr bgcolor="#E6F3FF">
+                                                        <tr >
                                                             <td width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div3','Img2');">
-                                                                <img border="0" id="Img2" src="../Images/expand.gif" />
+                                                                <img border="0" id="Img2" src="../Images/square_arrow_down.gif" />
                                                             </td>
-                                                            <td style="font-size: large; color: #0C6AC8; text-decoration: underline blink; font-weight: bold;"
+                                                            <td 
                                                                 onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div3','Img2');"
                                                                 colspan="1">
                                                                 الإفتراضات
@@ -452,11 +452,11 @@
                                             <tr id="Tr16" runat="server">
                                                 <td id="Td16" runat="server">
                                                     <table width="100%" cellpadding="0" cellspacing="0" style="height: 14px">
-                                                        <tr bgcolor="#E6F3FF">
+                                                        <tr >
                                                             <td width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div4','Img3');">
-                                                                <img border="0" id="Img3" src="../Images/collapse.gif" />
+                                                                <img border="0" id="Img3" src="../Images/square_arrow_flipped.gif" />
                                                             </td>
-                                                            <td style="font-size: large; color: #0C6AC8; text-decoration: underline blink; font-weight: bold;"
+                                                            <td 
                                                                 onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div4','Img3');"
                                                                 colspan="1">
                                                                 النطاق
@@ -484,11 +484,11 @@
                                             <tr id="Tr19" runat="server">
                                                 <td id="Td19" runat="server">
                                                     <table width="100%" cellpadding="0" cellspacing="0" style="height: 14px">
-                                                        <tr bgcolor="#E6F3FF">
+                                                        <tr >
                                                             <td width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div5','Img4');">
-                                                                <img border="0" id="Img4" src="../Images/collapse.gif" />
+                                                                <img border="0" id="Img4" src="../Images/square_arrow_flipped.gif" />
                                                             </td>
-                                                            <td style="font-size: large; color: #0C6AC8; text-decoration: underline blink; font-weight: bold;"
+                                                            <td 
                                                                 onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div5','Img4');"
                                                                 colspan="1">
                                                                 المخرجات
@@ -522,11 +522,11 @@
                                             <tr id="Tr29" runat="server">
                                                 <td id="Td29" runat="server">
                                                     <table width="100%" cellpadding="0" cellspacing="0" style="height: 14px">
-                                                        <tr bgcolor="#E6F3FF">
+                                                        <tr >
                                                             <td width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div9','Img9');">
-                                                                <img border="0" id="Img9" src="../Images/expand.gif" />
+                                                                <img border="0" id="Img9" src="../Images/square_arrow_down.gif" />
                                                             </td>
-                                                            <td style="font-size: large; color: #0C6AC8; text-decoration: underline blink; font-weight: bold;"
+                                                            <td 
                                                                 onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div9','Img9');"
                                                                 colspan="1">
                                                                 عناصر نجاح المشروع
@@ -560,11 +560,11 @@
                                             <tr id="Tr32" runat="server">
                                                 <td id="Td32" runat="server">
                                                     <table width="100%" cellpadding="0" cellspacing="0" style="height: 14px">
-                                                        <tr bgcolor="#E6F3FF">
+                                                        <tr >
                                                             <td width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div10','Img10');">
-                                                                <img border="0" id="Img10" src="../Images/collapse.gif" />
+                                                                <img border="0" id="Img10" src="../Images/square_arrow_flipped.gif" />
                                                             </td>
-                                                            <td style="font-size: large; color: #0C6AC8; text-decoration: underline blink; font-weight: bold;"
+                                                            <td 
                                                                 onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div10','Img10');"
                                                                 colspan="1">
                                                                 النطاق الجغرافي
@@ -598,11 +598,11 @@
                                             <tr id="Tr35" runat="server">
                                                 <td id="Td35" runat="server">
                                                     <table width="100%" cellpadding="0" cellspacing="0" style="height: 14px">
-                                                        <tr bgcolor="#E6F3FF">
+                                                        <tr >
                                                             <td width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div12','Img5');">
-                                                                <img border="0" id="Img5" src="../Images/collapse.gif" />
+                                                                <img border="0" id="Img5" src="../Images/square_arrow_flipped.gif" />
                                                             </td>
-                                                            <td style="font-size: large; color: #0C6AC8; text-decoration: underline blink; font-weight: bold;"
+                                                            <td 
                                                                 onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div12','Img5');"
                                                                 colspan="1">
                                                                 تصنيف المشروع

@@ -46,9 +46,9 @@
         <table width="100%">
             <tr style="background: orange">
                 <td align="center">
-                    <asp:Label ID="lbl1" Text="نسبة انجاز المشروع :" runat="server" ForeColor="Red" Font-Bold="true"
+                    <asp:Label ID="lbl1" Text="نسبة انجاز المشروع :" runat="server" ForeColor="#EC981F" font-underline="false" Font-Bold="true"
                         Font-Size="Large"></asp:Label>
-                    <asp:Label ID="lblProgProgress" runat="server" ForeColor="Red" Font-Bold="true" Font-Size="Large"></asp:Label>
+                    <asp:Label ID="lblProgProgress" runat="server" ForeColor="#EC981F" font-underline="false" Font-Bold="true" Font-Size="Large"></asp:Label>
                 </td>
             </tr>
             <tr>
@@ -59,7 +59,7 @@
             </tr>
             <tr>
                 <td align="center">
-                    <asp:Label ID="lbl_error" runat="server" Visible="false" ForeColor="Red" Text="نسبة الانجاز تتعدى 100 %"
+                    <asp:Label ID="lbl_error" runat="server" Visible="false" ForeColor="#EC981F" font-underline="false" Text="نسبة الانجاز تتعدى 100 %"
                         Font-Bold="true" Font-Size="Large"></asp:Label>
                 </td>
             </tr>
@@ -72,7 +72,7 @@
                                 BackColor="White" BorderColor="#999999" BorderStyle="Solid" BorderWidth="1px"
                                 Width="95%" CellPadding="3" CssClass="mGrid" EmptyDataText="... عفوا لا يوجد بيانات ..."
                                 ForeColor="Black" PagerStyle-CssClass="pgr" Font-Size="10pt" Font-Strikeout="False"
-                                Font-Underline="False" CaptionAlign="Top" 
+                                 font-underline="false" CaptionAlign="Top" 
                         OnPreRender="gvSub_PreRender1" OnRowCommand="GrdView_RowCommand" 
                         GridLines="Vertical">
                                 <Columns>

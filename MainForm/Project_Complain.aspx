@@ -18,7 +18,7 @@
                 <tr>
                     <td align="center" colspan="3" style="height: 29px">
                         <asp:Label ID="lblErrorMsg" runat="server" Font-Bold="False" 
-                            ForeColor="Red" CssClass="Label" ></asp:Label>
+                            ForeColor="#EC981F" font-underline="false" CssClass="Label" ></asp:Label>
                     </td>
                 </tr>
                 <tr>

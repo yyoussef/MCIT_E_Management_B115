@@ -4,7 +4,9 @@ using System.Data;
 using System.Linq;
 using System.Reflection;
 using System.Web;
-
+using System.Web.UI;
+using System.Web.UI.HtmlControls;
+using System.Web.UI.WebControls;
 /// <summary>
 /// Summary description for extentionMethods
 /// </summary>
@@ -33,5 +35,20 @@ public static class extentionMethods
         }
 
         return tb;
+    }
+    public static void DisableLinkButton(LinkButton linkButton)
+    {
+        linkButton.Attributes.Remove("href");
+        linkButton.Attributes.CssStyle[HtmlTextWriterStyle.Color] = "gray";
+        linkButton.Attributes.CssStyle[HtmlTextWriterStyle.Cursor] = "default";
+        if (linkButton.Enabled != false)
+        {
+            linkButton.Enabled = false;
+        }
+
+        if (linkButton.OnClientClick != null)
+        {
+            linkButton.OnClientClick = null;
+        }
     }
 }

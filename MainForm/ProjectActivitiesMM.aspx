@@ -18,7 +18,7 @@
     <tr>
     <td  align="center" colspan="2" style="height: 23px">
         <asp:Label ID="Label5" runat="server" Font-Bold="false" 
-            ForeColor="Red" CssClass="Label"></asp:Label>
+            ForeColor="#EC981F" font-underline="false" CssClass="Label"></asp:Label>
         </td>
     </tr>
 <tr>    
@@ -51,7 +51,7 @@
         <td 
             colspan="2" style="height: 34px" >
         <asp:LinkButton ID="PActivitiesReportLink" runat="server" CssClass="Text" 
-            onclick="PActivitiesReportLink_Click" Font-Underline="False" >تقرير الخطة 
+            onclick="PActivitiesReportLink_Click" ForeColor="#808080" font-underline="false" >تقرير الخطة 
             التنفيذية لمشروع</asp:LinkButton>
         </td>
         

@@ -17,11 +17,11 @@
             var imgsrc = img.src;
 
 
-            if (imgsrc.lastIndexOf('collapse') != -1) {
-                img.src = "../Images/expand.gif";
+            if (imgsrc.lastIndexOf('square_arrow_flipped') != -1) {
+                img.src = "../Images/square_arrow_down.gif";
             }
             else {
-                img.src = "../Images/collapse.gif";
+                img.src = "../Images/square_arrow_flipped.gif";
             }
 
             divname.style.display = divname.style.display == 'none' ? 'block' : 'none';
@@ -40,7 +40,7 @@
         </tr>
         <tr>
             <td align="center" colspan="2" style="height: 29px">
-                <asp:Label ID="lblErrorMsg" runat="server" Font-Bold="False" ForeColor="Red" CssClass="Label" />
+                <asp:Label ID="lblErrorMsg" runat="server" Font-Bold="False" ForeColor="#EC981F" font-underline="false" CssClass="Label" />
             </td>
         </tr>
         <tr>
@@ -59,7 +59,7 @@
                     <asp:TreeView ID="TreeView1" ExpandDepth="1" runat="server" ImageSet="Simple" BorderColor="Black"
                         Font-Bold="True" ForeColor="Black" Height="154px" Width="166px" Style="text-align: right"
                         OnSelectedNodeChanged="TreeView1_SelectedNodeChanged">
-                        <NodeStyle ForeColor="#808080" Font-Bold="true" Font-Size="Medium" />
+                        <NodeStyle ForeColor="#808080" font-underline="false" Font-Bold="true" Font-Size="Medium" />
                         <SelectedNodeStyle BackColor="WhiteSmoke" ForeColor="Black" />
                         <ParentNodeStyle CssClass="Label" />
                     </asp:TreeView>
@@ -134,7 +134,7 @@
                                 BackColor="White" BorderColor="#999999" BorderStyle="Solid" BorderWidth="1px"
                                 CellPadding="3" CssClass="mGrid" 
                                 ForeColor="Black" PagerStyle-CssClass="pgr" Visible="False" Font-Size="10pt"
-                                Font-Strikeout="False" Font-Underline="False" 
+                                Font-Strikeout="False"  font-underline="false" 
                     CaptionAlign="Top" HorizontalAlign="Center"
                                 OnRowCommand="GridView_Indic_RowCommand" GridLines="Vertical">
                                 <Columns>
@@ -187,14 +187,14 @@
             <td valign="top" align="left"  width="40%">
                 &nbsp;</td>
         </tr>
-        <tr bgcolor="#E6F3FF">
+        <tr >
             <td valign="top" align="right" width="95%" colspan="2">
                 <table width="100%" cellpadding="0" cellspacing="0" style="height: 50px">
-                    <tr bgcolor="#E6F3FF">
+                    <tr >
                         <td width="35px" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div1','Img2');">
-                            <img border="0" id="Img2" src="../Images/expand.gif" />
+                            <img border="0" id="Img2" src="../Images/square_arrow_down.gif" />
                         </td>
-                        <td style="font-size: large; color: #0C6AC8; text-decoration: underline blink; font-weight: bold;"
+                        <td 
                             onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div1','Img2');">
                             قياسات المؤشر
                         </td>
@@ -268,7 +268,7 @@
                                 BackColor="White" BorderColor="#999999" BorderStyle="Solid" BorderWidth="1px"
                                 CellPadding="3" CssClass="mGrid" EmptyDataText="... عفوا لا يوجد بيانات ..."
                                 ForeColor="Black" PagerStyle-CssClass="pgr" Visible="False" Font-Size="10pt"
-                                Font-Strikeout="False" Font-Underline="False" CaptionAlign="Top" HorizontalAlign="Center"
+                                Font-Strikeout="False"  font-underline="false" CaptionAlign="Top" HorizontalAlign="Center"
                                 OnRowCommand="GrdView_RowCommand" GridLines="Vertical">
                                 <Columns>
                                     <asp:TemplateField HeaderText="م" ItemStyle-Width="4%" HeaderStyle-Width="4%" HeaderStyle-HorizontalAlign="Center"

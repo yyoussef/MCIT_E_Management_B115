@@ -140,7 +140,7 @@
             <uc1:Smart_Search ID="Smart_Search_depts" runat="server" />
         </td>--%>
           <td>
-                                            <asp:Label ID="Label6" runat="server" Text="  الادارة الصادر له :" CssClass="Label" Font-Underline="False"></asp:Label>
+                                            <asp:Label ID="Label6" runat="server" Text="  الادارة الصادر له :" CssClass="Label" ForeColor="#808080" font-underline="false"></asp:Label>
                                         </td>
                                      <td>
                                           <uc1:Smart_Search ID="Smart_Search_depts" runat="server"  />

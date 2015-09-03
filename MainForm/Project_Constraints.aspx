@@ -18,7 +18,7 @@ CodeFile="Project_Constraints.aspx.vb" Inherits="WebForms_Project_Constraints" t
                 </tr>
                 <tr>
                     <td dir="rtl" align="center" style="height: 33px">
-                        <asp:Label ID="lblPageStatus" runat="server" CssClass="Label" ForeColor="Red" 
+                        <asp:Label ID="lblPageStatus" runat="server" CssClass="Label" ForeColor="#EC981F" font-underline="false" 
                             Visible="false"></asp:Label>
                     </td>
                 </tr>

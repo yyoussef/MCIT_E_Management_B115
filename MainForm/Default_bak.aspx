@@ -19,37 +19,37 @@
                             </tr>
                             <tr id="count" runat="server">
                                 <td align="left" style="width: 368px">
-                                    <asp:Image ID="Image1" runat="server" ImageUrl="~/new_images/a1.gif" />
+                                    <asp:Image ID="Image1" runat="server" ImageUrl="~/Images/arrow.gif"  style="padding-left:5px" />
                                 </td>
                                 <td align="right">
-                                    <%-- <asp:LinkButton runat ="server" id="linkno" Font-Underline="True"
+                                    <%-- <asp:LinkButton runat ="server" id="linkno" 
                                         Font-Size="20px" ForeColor="#314a62" Text="لديك عدد"></asp:LinkButton>  --%>
                                     <%--<asp:Label ID="Label1" runat="server" Font-Bold="False" Font-Size="20px" 
-                                        ForeColor="Blue" Text="لديك عدد" Font-Underline="False"></asp:Label>--%>
+                                        ForeColor="Blue" Text="لديك عدد" ForeColor="#808080" font-underline="false"></asp:Label>--%>
                                     <%-- <asp:Label ID="Label2" runat="server" Font-Bold="False" Font-Size="20px" 
-                                        ForeColor="Blue" Text="مشروع جديد معتمد" Font-Underline="False"></asp:Label>--%>
-                                    <asp:LinkButton ID="LinkButton3" runat="server" Text="لديك عدد" ForeColor="#275078"
+                                        ForeColor="Blue" Text="مشروع جديد معتمد" ForeColor="#808080" font-underline="false"></asp:Label>--%>
+                                    <asp:LinkButton ID="LinkButton3" runat="server" Text="لديك عدد" ForeColor="#808080" font-underline="false"
                                         Font-Bold="True" Font-Size="20px">
-                                        لديك عدد<asp:LinkButton ID="LBtnProj_count" runat="server" ForeColor="Red" Font-Bold="True"
-                                            Font-Size="22px" Visible="true" Font-Underline="true" />
-                                        <asp:LinkButton runat="server" ID="link3" Font-Size="20px" ForeColor="#275078" Font-Bold="True"
-                                            CssClass="link" Text="مشروع جديد معتمد" />
+                                        لديك عدد<asp:LinkButton ID="LBtnProj_count" runat="server" ForeColor="#EC981F" font-underline="false" Font-Bold="True"
+                                            Font-Size="22px" Visible="true"  />
+                                        <asp:LinkButton runat="server" ID="link3" Font-Size="20px" ForeColor="#808080" font-underline="false" Font-Bold="True"
+                                             Text="مشروع جديد معتمد" />
                                     </asp:LinkButton>
                                 </td>
                             </tr>
                             <tr id="Current" runat="server">
                                 <td align="left" style="width: 368px">
-                                    <asp:Image ID="Image2" runat="server" ImageUrl="~/new_images/a1.gif" />
+                                    <asp:Image ID="Image2" runat="server" ImageUrl="~/Images/arrow.gif"  style="padding-left:5px" />
                                 </td>
                                 <td align="right">
                                     <%--<asp:Label ID="Label3" runat="server" Font-Bold="False" Font-Size="20px" 
                                         ForeColor="Blue" Text="لديك عدد"></asp:Label>--%>
-                                    <asp:LinkButton ID="LinkButton1" runat="server" Font-Underline="True" Font-Size="20px"
-                                        ForeColor="#275078" CssClass="link" Font-Bold="true" Text="لديك عدد">
-                                        <asp:LinkButton ID="LBtnCurrentProj" runat="server" CssClass="link" Font-Size="20px"
-                                            Visible="true" Font-Underline="true" ForeColor="red" />
-                                        <asp:LinkButton ID="LinkButton2" runat="server" CssClass="link" Visible="true" Font-Underline="true"
-                                            Text="مشروع جاري" Font-Size="20px" ForeColor="#275078" Font-Bold="true" /></asp:LinkButton>
+                                    <asp:LinkButton ID="LinkButton1" runat="server"  Font-Size="20px"
+                                        ForeColor="#808080" font-underline="false"  Font-Bold="true" Text="لديك عدد">
+                                        <asp:LinkButton ID="LBtnCurrentProj" runat="server"  Font-Size="20px"
+                                            Visible="true"  ForeColor="#EC981F" font-underline="false" />
+                                        <asp:LinkButton ID="LinkButton2" runat="server"  Visible="true" 
+                                            Text="مشروع جاري" Font-Size="20px" ForeColor="#808080" font-underline="false" Font-Bold="true" /></asp:LinkButton>
                                     <%--<asp:Label ID="Label4" runat="server" Font-Bold="False" Font-Size="20px" 
                                         ForeColor="Blue" Text="مشروع جاري"></asp:Label>--%>
                                     <br />
@@ -57,16 +57,16 @@
                             </tr>
                             <tr id="repeadted" runat="server">
                                 <td align="left" class="style7" style="width: 368px">
-                                    <asp:Image ID="Image4" runat="server" ImageUrl="~/new_images/a1.gif" />
+                                    <asp:Image ID="Image4" runat="server" ImageUrl="~/Images/arrow.gif"  style="padding-left:5px" />
                                 </td>
                                 <td align="right">
                                     <%-- <asp:Label ID="Label5" runat="server" Font-Bold="False" Font-Size="20px" 
                                         ForeColor="Blue" Text="لديك عدد"></asp:Label>--%>
-                                    <asp:LinkButton ID="LinkR" runat="server" Font-Bold="true" ForeColor="#275078" Font-Size="20px"
+                                    <asp:LinkButton ID="LinkR" runat="server" Font-Bold="true" ForeColor="#808080" font-underline="false" Font-Size="20px"
                                         Text="لديك عدد">
                                         <asp:LinkButton ID="lbtnProj_repeadted" runat="server" Font-Bold="True" Font-Size="20px"
-                                            Font-Underline="TRUE" ForeColor="Red" Visible="true" />
-                                        <asp:LinkButton runat="server" ID="LinkRep" Font-Bold="true" ForeColor="#275078"
+                                             ForeColor="#EC981F" font-underline="false" Visible="true" />
+                                        <asp:LinkButton runat="server" ID="LinkRep" Font-Bold="true" ForeColor="#808080" font-underline="false"
                                             Font-Size="20px" Text="مشروع مطلوب تعديله" />
                                     </asp:LinkButton>
                                     <%--<asp:Label ID="Label6" runat="server" Font-Bold="False" Font-Size="20px" 
@@ -75,17 +75,17 @@
                             </tr>
                             <tr id="refused" runat="server">
                                 <td align="left" class="style7" style="width: 368px">
-                                    <asp:Image ID="Image3" runat="server" ImageUrl="~/new_images/a1.gif" />
+                                    <asp:Image ID="Image3" runat="server" ImageUrl="~/Images/arrow.gif"  style="padding-left:5px" />
                                 </td>
                                 <td align="right">
                                     <%-- <asp:Label ID="Label7" runat="server" Font-Bold="False" Font-Size="20px" 
                                         ForeColor="Blue" Text="لديك عدد"></asp:Label>--%>
-                                    <asp:LinkButton runat="server" ID="linkRefused" Text="لديك عدد" ForeColor="#275078"
+                                    <asp:LinkButton runat="server" ID="linkRefused" Text="لديك عدد" ForeColor="#808080" font-underline="false"
                                         Font-Size="20px" Font-Bold="true">
                                         <asp:LinkButton ID="lbtnProj_refused" runat="server" Font-Bold="True" Font-Size="20px"
-                                            Font-Underline="TRUE" ForeColor="Red" Visible="true" />
-                                        <asp:LinkButton ID="LinkRef" runat="server" Font-Underline="true" Font-Bold="true"
-                                            ForeColor="#275078" Font-Size="20px" Visible="true" Text="مشروع تم رفضه" />
+                                             ForeColor="#EC981F" font-underline="false" Visible="true" />
+                                        <asp:LinkButton ID="LinkRef" runat="server"  Font-Bold="true"
+                                            ForeColor="#808080" font-underline="false" Font-Size="20px" Visible="true" Text="مشروع تم رفضه" />
                                     </asp:LinkButton>
                                     <%--<asp:Label ID="Label8" runat="server" Font-Bold="False" Font-Size="20px" 
                                         ForeColor="Blue" Text="مشروع تم رفضه"></asp:Label>--%>
@@ -93,17 +93,17 @@
                             </tr>
                             <tr id="done" runat="server">
                                 <td align="left" class="style7" style="width: 368px">
-                                    <asp:Image ID="Image9" runat="server" ImageUrl="~/new_images/a1.gif" />
+                                    <asp:Image ID="Image9" runat="server" ImageUrl="~/Images/arrow.gif"  style="padding-left:5px" />
                                 </td>
                                 <td align="right">
                                     <%-- <asp:Label ID="Label7" runat="server" Font-Bold="False" Font-Size="20px" 
                                         ForeColor="Blue" Text="لديك عدد"></asp:Label>--%>
-                                    <asp:LinkButton runat="server" ID="Lbtdone" Text="لديك عدد" ForeColor="#275078"
+                                    <asp:LinkButton runat="server" ID="Lbtdone" Text="لديك عدد" ForeColor="#808080" font-underline="false"
                                         Font-Size="20px" Font-Bold="true">
                                         <asp:LinkButton ID="lbtnProj_done" runat="server" Font-Bold="True" Font-Size="20px"
-                                            Font-Underline="TRUE" ForeColor="Red" Visible="true" />
-                                        <asp:LinkButton ID="Linkdone" runat="server" Font-Underline="true" Font-Bold="true"
-                                            ForeColor="#275078" Font-Size="20px" Visible="true" Text="مشروع منتهى بنجاح" />
+                                             ForeColor="#EC981F" font-underline="false" Visible="true" />
+                                        <asp:LinkButton ID="Linkdone" runat="server"  Font-Bold="true"
+                                            ForeColor="#808080" font-underline="false" Font-Size="20px" Visible="true" Text="مشروع منتهى بنجاح" />
                                     </asp:LinkButton>
                                     <%--<asp:Label ID="Label8" runat="server" Font-Bold="False" Font-Size="20px" 
                                         ForeColor="Blue" Text="مشروع تم رفضه"></asp:Label>--%>
@@ -111,17 +111,17 @@
                             </tr>
                             <tr id="canceled" runat="server">
                                 <td align="left" class="style7" style="width: 368px">
-                                    <asp:Image ID="Image10" runat="server" ImageUrl="~/new_images/a1.gif" />
+                                    <asp:Image ID="Image10" runat="server" ImageUrl="~/Images/arrow.gif"  style="padding-left:5px" />
                                 </td>
                                 <td align="right">
                                     <%-- <asp:Label ID="Label7" runat="server" Font-Bold="False" Font-Size="20px" 
                                         ForeColor="Blue" Text="لديك عدد"></asp:Label>--%>
-                                    <asp:LinkButton runat="server" ID="Llbtcancel" Text="لديك عدد" ForeColor="#275078"
+                                    <asp:LinkButton runat="server" ID="Llbtcancel" Text="لديك عدد" ForeColor="#808080" font-underline="false"
                                         Font-Size="20px" Font-Bold="true">
                                         <asp:LinkButton ID="lbtnProj_cancel" runat="server" Font-Bold="True" Font-Size="20px"
-                                            Font-Underline="TRUE" ForeColor="Red" Visible="true" />
-                                        <asp:LinkButton ID="Linkcancel" runat="server" Font-Underline="true" Font-Bold="true"
-                                            ForeColor="#275078" Font-Size="20px" Visible="true" Text="مشروع تم إلغائه" />
+                                             ForeColor="#EC981F" font-underline="false" Visible="true" />
+                                        <asp:LinkButton ID="Linkcancel" runat="server"  Font-Bold="true"
+                                            ForeColor="#808080" font-underline="false" Font-Size="20px" Visible="true" Text="مشروع تم إلغائه" />
                                     </asp:LinkButton>
                                     <%--<asp:Label ID="Label8" runat="server" Font-Bold="False" Font-Size="20px" 
                                         ForeColor="Blue" Text="مشروع تم رفضه"></asp:Label>--%>
@@ -129,15 +129,15 @@
                             </tr>
                             <tr id="MeetingWNo" runat="server" visible="false">
                                 <td align="left" class="style7" style="width: 368px">
-                                    <asp:Image ID="Image6" runat="server" ImageUrl="~/new_images/a1.gif" Visible="true" />
+                                    <asp:Image ID="Image6" runat="server" ImageUrl="~/Images/arrow.gif"  style="padding-left:5px" Visible="true" />
                                 </td>
                                 <td align="right" dir="rtl">
-                                    <asp:LinkButton runat="server" ID="LinkMeetingWithout" Text="لديك عدد" ForeColor="#275078"
+                                    <asp:LinkButton runat="server" ID="LinkMeetingWithout" Text="لديك عدد" ForeColor="#808080" font-underline="false"
                                         Font-Size="20px" Font-Bold="true" Visible="true" PostBackUrl="Project_statistics.aspx?show=MeetingWithout">
                                         لديك عدد<asp:LinkButton ID="LinkButton7" runat="server" Text="" Font-Bold="True"
-                                            Font-Size="20px" Font-Underline="TRUE" ForeColor="Red" Visible="true" PostBackUrl="Project_statistics.aspx?show=MeetingWithout" />
+                                            Font-Size="20px"  ForeColor="#EC981F" font-underline="false" Visible="true" PostBackUrl="Project_statistics.aspx?show=MeetingWithout" />
                                         <asp:LinkButton ID="LinkButton8" runat="server" Text="اجتماع لم يتم ارفاق محضر الاجتماع له"
-                                            Font-Bold="True" Font-Size="20px" Font-Underline="TRUE" ForeColor="#275078" Visible="true"
+                                            Font-Bold="True" Font-Size="20px"  ForeColor="#808080" font-underline="false" Visible="true"
                                             PostBackUrl="Project_statistics.aspx?show=MeetingWithout" />
                                     </asp:LinkButton>
                                     &nbsp;&nbsp;&nbsp;&nbsp;
@@ -145,88 +145,88 @@
                             </tr>
                             <tr id="MeetingNo" runat="server" visible="false">
                                 <td align="left" class="style7" style="width: 368px">
-                                    <asp:Image ID="Image5" runat="server" ImageUrl="~/new_images/a1.gif" Visible="true" />
+                                    <asp:Image ID="Image5" runat="server" ImageUrl="~/Images/arrow.gif"  style="padding-left:5px" Visible="true" />
                                 </td>
                                 <td align="right" dir="rtl">
-                                    <asp:LinkButton runat="server" ID="LinkMeeting" Text="لديك عدد" ForeColor="#275078"
+                                    <asp:LinkButton runat="server" ID="LinkMeeting" Text="لديك عدد" ForeColor="#808080" font-underline="false"
                                         Font-Size="20px" Font-Bold="true" Visible="true" PostBackUrl="Project_statistics.aspx?show=Meeting">
                                         لديك عدد<asp:LinkButton ID="LinkButton4" runat="server" Text="" Font-Bold="True"
-                                            Font-Size="20px" Font-Underline="TRUE" ForeColor="Red" Visible="true" PostBackUrl="Project_statistics.aspx?show=Meeting" />
+                                            Font-Size="20px"  ForeColor="#EC981F" font-underline="false" Visible="true" PostBackUrl="Project_statistics.aspx?show=Meeting" />
                                         <asp:LinkButton ID="LinkButton6" runat="server" Text="اجتماع" Font-Bold="True" Font-Size="20px"
-                                            Font-Underline="TRUE" ForeColor="#275078" Visible="true" PostBackUrl="Project_statistics.aspx?show=Meeting" />
+                                             ForeColor="#808080" font-underline="false" Visible="true" PostBackUrl="Project_statistics.aspx?show=Meeting" />
                                     </asp:LinkButton>
                                 </td>
                             </tr>
                             <tr id="nEvents" runat="server" visible="false">
                                 <td align="left" class="style7" style="width: 368px">
-                                    <asp:Image ID="Image7" runat="server" ImageUrl="~/new_images/a1.gif" Visible="true" />
+                                    <asp:Image ID="Image7" runat="server" ImageUrl="~/Images/arrow.gif"  style="padding-left:5px" Visible="true" />
                                 </td>
                                 <td align="right" dir="rtl">
-                                    <asp:LinkButton runat="server" ID="LinkEvents" Text="لديك عدد" ForeColor="#275078"
+                                    <asp:LinkButton runat="server" ID="LinkEvents" Text="لديك عدد" ForeColor="#808080" font-underline="false"
                                         Font-Size="20px" Font-Bold="true" Visible="true" PostBackUrl="Project_statistics.aspx?show=Events">
                                         لديك عدد<asp:LinkButton ID="LinkButton10" runat="server" Text="" Font-Bold="True"
-                                            Font-Size="20px" Font-Underline="TRUE" ForeColor="Red" Visible="true" PostBackUrl="Project_statistics.aspx?show=Events" />
+                                            Font-Size="20px"  ForeColor="#EC981F" font-underline="false" Visible="true" PostBackUrl="Project_statistics.aspx?show=Events" />
                                         <asp:LinkButton ID="LinkButton11" runat="server" Text="حدث" Font-Bold="True" Font-Size="20px"
-                                            Font-Underline="TRUE" ForeColor="#275078" Visible="true" PostBackUrl="Project_statistics.aspx?show=Events" />
+                                             ForeColor="#808080" font-underline="false" Visible="true" PostBackUrl="Project_statistics.aspx?show=Events" />
                                     </asp:LinkButton>
                                 </td>
                             </tr>
                             <tr id="TrProtocol" runat="server" visible="false">
                                 <td align="left" class="style7" style="width: 368px">
-                                    <asp:Image ID="Image8" runat="server" ImageUrl="~/new_images/a1.gif" Visible="true" />
+                                    <asp:Image ID="Image8" runat="server" ImageUrl="~/Images/arrow.gif"  style="padding-left:5px" Visible="true" />
                                 </td>
                                 <td align="right" dir="rtl">
-                                    <asp:LinkButton runat="server" ID="LinkProtocol" Text="لديك عدد" ForeColor="#275078"
+                                    <asp:LinkButton runat="server" ID="LinkProtocol" Text="لديك عدد" ForeColor="#808080" font-underline="false"
                                         Font-Size="20px" Font-Bold="true" Visible="true" PostBackUrl="Project_statistics.aspx?show=Protocol">
                                         لديك عدد<asp:LinkButton ID="LinkButton9" runat="server" Text="" Font-Bold="True"
-                                            Font-Size="20px" Font-Underline="TRUE" ForeColor="Red" Visible="true" PostBackUrl="Project_statistics.aspx?show=Protocol" />
+                                            Font-Size="20px"  ForeColor="#EC981F" font-underline="false" Visible="true" PostBackUrl="Project_statistics.aspx?show=Protocol" />
                                         <asp:LinkButton ID="LinkButton12" runat="server" Text="بروتوكول أوشك على الانتهاء"
-                                            Font-Bold="True" Font-Size="20px" Font-Underline="TRUE" ForeColor="#275078" Visible="true"
+                                            Font-Bold="True" Font-Size="20px"  ForeColor="#808080" font-underline="false" Visible="true"
                                             PostBackUrl="Project_statistics.aspx?show=Protocol" />
                                     </asp:LinkButton>
                                 </td>
                             </tr>
                             <tr id="Tr_Protocol_Active" runat="server" visible="false">
                                 <td align="left" class="style7" style="width: 368px">
-                                    <asp:Image ID="Image11" runat="server" ImageUrl="~/new_images/a1.gif" Visible="true" />
+                                    <asp:Image ID="Image11" runat="server" ImageUrl="~/Images/arrow.gif"  style="padding-left:5px" Visible="true" />
                                 </td>
                                 <td align="right" dir="rtl">
-                                    <asp:LinkButton runat="server" ID="LinkButton5" Text="لديك عدد" ForeColor="#275078"
+                                    <asp:LinkButton runat="server" ID="LinkButton5" Text="لديك عدد" ForeColor="#808080" font-underline="false"
                                         Font-Size="20px" Font-Bold="true" Visible="true" PostBackUrl="Project_statistics.aspx?show=Protocol">
                                         لديك عدد<asp:LinkButton ID="lnk_prot_1" runat="server" Text="" Font-Bold="True"
-                                            Font-Size="20px" Font-Underline="TRUE" ForeColor="Red" Visible="true" PostBackUrl="Project_statistics.aspx?Protocol=1" />
+                                            Font-Size="20px"  ForeColor="#EC981F" font-underline="false" Visible="true" PostBackUrl="Project_statistics.aspx?Protocol=1" />
                                         <asp:LinkButton ID="LinkButton14" runat="server" Text="بروتوكولات / اتفاقيات جارية"
-                                            Font-Bold="True" Font-Size="20px" Font-Underline="TRUE" ForeColor="#275078" Visible="true"
+                                            Font-Bold="True" Font-Size="20px"  ForeColor="#808080" font-underline="false" Visible="true"
                                             PostBackUrl="Project_statistics.aspx?show=Protocol" />
                                     </asp:LinkButton>
                                 </td>
                             </tr>
                              <tr id="Tr_Protocol_Done" runat="server" visible="false">
                                 <td align="left" class="style7" style="width: 368px">
-                                    <asp:Image ID="Image12" runat="server" ImageUrl="~/new_images/a1.gif" Visible="true" />
+                                    <asp:Image ID="Image12" runat="server" ImageUrl="~/Images/arrow.gif"  style="padding-left:5px" Visible="true" />
                                 </td>
                                 <td align="right" dir="rtl">
-                                    <asp:LinkButton runat="server" ID="LinkButton13" Text="لديك عدد" ForeColor="#275078"
+                                    <asp:LinkButton runat="server" ID="LinkButton13" Text="لديك عدد" ForeColor="#808080" font-underline="false"
                                         Font-Size="20px" Font-Bold="true" Visible="true" PostBackUrl="Project_statistics.aspx?show=Protocol">
                                         لديك عدد<asp:LinkButton ID="LinkButton15" runat="server" Text="" Font-Bold="True"
-                                            Font-Size="20px" Font-Underline="TRUE" ForeColor="Red" Visible="true" PostBackUrl="Project_statistics.aspx?Protocol=2" />
+                                            Font-Size="20px"  ForeColor="#EC981F" font-underline="false" Visible="true" PostBackUrl="Project_statistics.aspx?Protocol=2" />
                                         <asp:LinkButton ID="LinkButton16" runat="server" Text="بروتوكولات / اتفاقيات منجزة"
-                                            Font-Bold="True" Font-Size="20px" Font-Underline="TRUE" ForeColor="#275078" Visible="true"
+                                            Font-Bold="True" Font-Size="20px"  ForeColor="#808080" font-underline="false" Visible="true"
                                             PostBackUrl="Project_statistics.aspx?show=Protocol" />
                                     </asp:LinkButton>
                                 </td>
                             </tr>
                             <tr id="Tr_Protocol_Stop" runat="server" visible="false">
                                 <td align="left" class="style7" style="width: 368px">
-                                    <asp:Image ID="Image13" runat="server" ImageUrl="~/new_images/a1.gif" Visible="true" />
+                                    <asp:Image ID="Image13" runat="server" ImageUrl="~/Images/arrow.gif"  style="padding-left:5px" Visible="true" />
                                 </td>
                                 <td align="right" dir="rtl">
-                                    <asp:LinkButton runat="server" ID="LinkButton17" Text="لديك عدد" ForeColor="#275078"
+                                    <asp:LinkButton runat="server" ID="LinkButton17" Text="لديك عدد" ForeColor="#808080" font-underline="false"
                                         Font-Size="20px" Font-Bold="true" Visible="true" PostBackUrl="Project_statistics.aspx?show=Protocol">
                                         لديك عدد<asp:LinkButton ID="LinkButton18" runat="server" Text="" Font-Bold="True"
-                                            Font-Size="20px" Font-Underline="TRUE" ForeColor="Red" Visible="true" PostBackUrl="Project_statistics.aspx?Protocol=3" />
+                                            Font-Size="20px"  ForeColor="#EC981F" font-underline="false" Visible="true" PostBackUrl="Project_statistics.aspx?Protocol=3" />
                                         <asp:LinkButton ID="LinkButton19" runat="server" Text="بروتوكولات / اتفاقيات متوقفة"
-                                            Font-Bold="True" Font-Size="20px" Font-Underline="TRUE" ForeColor="#275078" Visible="true"
+                                            Font-Bold="True" Font-Size="20px"  ForeColor="#808080" font-underline="false" Visible="true"
                                             PostBackUrl="Project_statistics.aspx?show=Protocol" />
                                     </asp:LinkButton>
                                 </td>

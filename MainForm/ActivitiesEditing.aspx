@@ -34,9 +34,9 @@
         <table>
             <tr style="background: orange">
                 <td align="center">
-                    <asp:Label ID="lbl1" Text="نسبة انجاز المشروع :" runat="server" ForeColor="Red" Font-Bold="true"
+                    <asp:Label ID="lbl1" Text="نسبة انجاز المشروع :" runat="server" ForeColor="#EC981F" font-underline="false" Font-Bold="true"
                         Font-Size="Large"></asp:Label>
-                    <asp:Label ID="lblProgProgress" runat="server" ForeColor="Red" Font-Bold="true" Font-Size="Large"></asp:Label>
+                    <asp:Label ID="lblProgProgress" runat="server" ForeColor="#EC981F" font-underline="false" Font-Bold="true" Font-Size="Large"></asp:Label>
                 </td>
             </tr>
            <%-- <tr>
@@ -73,7 +73,7 @@
                         BackColor="White" BorderColor="#999999" BorderStyle="Solid" BorderWidth="1px"
                         Width="1600px" CellPadding="3" CssClass="mGrid" EmptyDataText="... عفوا لا يوجد بيانات ..."
                         ForeColor="Black" PagerStyle-CssClass="pgr" Font-Size="10pt" Font-Strikeout="False"
-                        Font-Underline="False" CaptionAlign="Top" OnPreRender="gvSub_PreRender1" 
+                         font-underline="false" CaptionAlign="Top" OnPreRender="gvSub_PreRender1" 
                         OnRowCommand="GrdView_RowCommand" GridLines="Vertical" 
                         
                         

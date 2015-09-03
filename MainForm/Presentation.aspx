@@ -24,7 +24,7 @@
                 <asp:Label runat="server" ID="Label1" Text="ملف الوثيقة" CssClass="Label"></asp:Label>
             </td>
             <td style="height: 45px">
-                <asp:FileUpload ID="UploadDoc" runat="server" Font-Bold="True" ForeColor="#275078"
+                <asp:FileUpload ID="UploadDoc" runat="server" Font-Bold="True" ForeColor="#808080" font-underline="false"
                     Height="26px" Width="682px" />
             </td>
         </tr>

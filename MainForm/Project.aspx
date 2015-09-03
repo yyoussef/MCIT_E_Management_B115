@@ -32,7 +32,7 @@ function validatePage( A ,B)
         <table width="100%" style="line-height: 2; text-align: right; color: Black">
             <tr>
                 <td>
-                    <asp:Label ID="lblPageStatus" runat="server" CssClass="Label" ForeColor="Red" Visible="False"></asp:Label>
+                    <asp:Label ID="lblPageStatus" runat="server" CssClass="Label" ForeColor="#EC981F" font-underline="false" Visible="False"></asp:Label>
                 </td>
             </tr>
             <tr>

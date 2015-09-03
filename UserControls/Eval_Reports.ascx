@@ -14,11 +14,11 @@
         var imgsrc = img.src;
 
 
-        if (imgsrc.lastIndexOf('collapse') != -1) {
-            img.src = "../Images/expand.gif";
+        if (imgsrc.lastIndexOf('square_arrow_flipped') != -1) {
+            img.src = "../Images/square_arrow_down.gif";
         }
         else {
-            img.src = "../Images/collapse.gif";
+            img.src = "../Images/square_arrow_flipped.gif";
         }
 
         divname.style.display = divname.style.display == 'none' ? 'block' : 'none';
@@ -40,17 +40,17 @@
         <td height="30px" align="center">
             <input type="hidden" runat="server" id="hidden_Rpt_Id" />
             <input type="hidden" runat="server" id="hidden_manager" />
-            <asp:Label ID="Label1" runat="server" Text="تقارير  " CssClass="PageTitle" Font-Underline="True"></asp:Label>
+            <asp:Label ID="Label1" runat="server" Text="تقارير  " CssClass="PageTitle" ></asp:Label>
         </td>
     </tr>
     <tr runat="server" id="tr_empeval">
         <td id="Td2" valign="top" align="right">
             <table id="Table1" cellpadding="0" cellspacing="0" style="height: 43px; width: 100%;">
-                <tr id="Tr2" bgcolor="#E6F3FF" runat="server">
+                <tr id="Tr2"  runat="server">
                     <td colspan="1" width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div2','Img2');">
-                        <img border="0" id="Img1" src="../Images/collapse.gif" />
+                        <img border="0" id="Img1" src="../Images/square_arrow_flipped.gif" />
                     </td>
-                    <td style="font-size: large; color: #0C6AC8; text-decoration: underline blink; font-weight: bold;"
+                    <td 
                         onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div2','Img2');"
                         colspan="2">
         تقارير تقييم موظف
@@ -67,7 +67,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image2" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image2" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="eval_empLB" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="eval_empLB_Click">  تقييم الأداء الوظيفي</asp:LinkButton>
                         </td>
@@ -76,7 +76,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image11" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image11" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="eval_emp_groupedLB" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="eval_emp_groupedLB_Click">  تقييم الأداء الوظيفي مجمع بالقيم</asp:LinkButton>
                         </td>
@@ -86,7 +86,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image1" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right"   />
+                            <asp:Image ID="Image1" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px"   />
                             <asp:LinkButton ID="eval_statusLB" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="eval_statusLB_Click"  > الموظفين ما تم تقييمهم وما لم يتم تقييمهم</asp:LinkButton>
                         </td>
@@ -95,7 +95,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image4" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image4" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="direct_mng_finishedLB" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="direct_mng_finishedLB_Click"> الموظفين الذين تم تقييمهم من المديرين المباشرين</asp:LinkButton>
                         </td>
@@ -104,7 +104,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image5" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image5" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="top_mng_finishedLB" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="top_mng_finishedLB_Click"> الموظفين الذين تم تقييمهم من المدير الاعلي</asp:LinkButton>
                         </td>
@@ -113,7 +113,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image6" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image6" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="dept_empLB" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="dept_empLB_Click">تقرير بموظفي الإدارات</asp:LinkButton>
                         </td>
@@ -122,7 +122,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image7" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image7" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="LinkButton1" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="emp_statisticsLB_Click">إحصائية بموقف تقييم موظفي الإدارات</asp:LinkButton>
                         </td>
@@ -131,7 +131,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image8" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image8" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="LinkButton2" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="direct_mgr_emp_not_evalLB_Click">تقرير بالموظفين الذين لم يتم الانتهاء من تقييمهم من المديرين المباشرين</asp:LinkButton>
                         </td>
@@ -140,7 +140,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image9" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image9" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="LinkButton3" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="top_mgr_emp_not_evalLB_Click">تقرير بالموظفين الذين لم يتم الانتهاء من تقييمهم من المديرين الأعلى</asp:LinkButton>
                         </td>
@@ -149,7 +149,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image4" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image4" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="LinkButton1" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="Dept_Emp_Click">تقرير بموظفي الإدارات</asp:LinkButton>
                         </td>
@@ -158,7 +158,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image1" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image1" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="eval_emp_strengthLB" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="eval_emp_strengthLB_Click">التقييم بتحديد نقاط القوة و الضعف</asp:LinkButton>
                         </td>
@@ -167,7 +167,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image3" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image3" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="eval_emp_needsLB" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="eval_emp_needsLB_Click">التقييم بتحديد الاحتياجات التدريبية</asp:LinkButton>
                         </td>
@@ -176,7 +176,7 @@
                         <td width="28">
                             &nbsp;</td>
                          <td style="height: 30px">
-                            <asp:Image ID="Image10" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image10" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="emplDataLinkButton" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="emp_dept_sector_Click">بيانات جميع الموظفين</asp:LinkButton>
                         </td>
@@ -189,11 +189,11 @@
         <td id="Td3" valign="top" align="right">
             <table id="Table2" cellpadding="0" cellspacing="0" 
                 style="height: 43px; width: 101%;">
-                <tr id="Tr4" bgcolor="#E6F3FF" runat="server">
+                <tr id="Tr4"  runat="server">
                     <td colspan="1" width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div2','Img2');">
-                        <img border="0" id="Img2" src="../Images/collapse.gif" />
+                        <img border="0" id="Img2" src="../Images/square_arrow_flipped.gif" />
                     </td>
-                    <td style="font-size: large; color: #0C6AC8; text-decoration: underline blink; font-weight: bold;"
+                    <td 
                         onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div2','Img2');"
                         colspan="2">
         تقارير تقييم مديرين
@@ -210,7 +210,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image12" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image12" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="LinkButton5" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="eval_empLB_Click">  تقييم الأداء الوظيفي</asp:LinkButton>
                         </td>
@@ -219,7 +219,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image13" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image13" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="LinkButton6" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="eval_emp_groupedLB_Click">  تقييم الأداء الوظيفي مجمع بالقيم</asp:LinkButton>
                         </td>
@@ -228,7 +228,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image3" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image3" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="LinkButton4" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="eval_mange_groupedLB_Click"> تقييم الأداء الوظيفي للمديرين </asp:LinkButton>
                         </td>
@@ -237,7 +237,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image15" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image15" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="LinkButton8" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="eval_statusLB_Click"> الموظفين ما تم تقييمهم وما لم يتم تقييمهم</asp:LinkButton>
                         </td>
@@ -246,7 +246,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image16" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image16" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="LinkButton9" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="direct_mng_finishedLB_Click"> الموظفين الذين تم تقييمهم من المديرين المباشرين</asp:LinkButton>
                         </td>
@@ -255,7 +255,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image17" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image17" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="LinkButton10" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="top_mng_finishedLB_Click"> الموظفين الذين تم تقييمهم من المدير الاعلي</asp:LinkButton>
                         </td>
@@ -264,7 +264,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image18" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image18" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="LinkButton11" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="dept_empLB_Click">تقرير بموظفي الإدارات</asp:LinkButton>
                         </td>
@@ -273,7 +273,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image19" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image19" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="LinkButton12" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="emp_statisticsLB_Click">إحصائية بموقف تقييم موظفي الإدارات</asp:LinkButton>
                         </td>
@@ -282,7 +282,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image20" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image20" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="LinkButton13" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="direct_mgr_emp_not_evalLB_Click">تقرير بالموظفين الذين لم يتم الانتهاء من تقييمهم من المديرين المباشرين</asp:LinkButton>
                         </td>
@@ -291,7 +291,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image21" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image21" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="LinkButton14" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="top_mgr_emp_not_evalLB_Click">تقرير بالموظفين الذين لم يتم الانتهاء من تقييمهم من المديرين الأعلى</asp:LinkButton>
                         </td>
@@ -300,7 +300,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image4" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image4" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="LinkButton1" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="Dept_Emp_Click">تقرير بموظفي الإدارات</asp:LinkButton>
                         </td>
@@ -309,7 +309,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image1" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image1" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="eval_emp_strengthLB" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="eval_emp_strengthLB_Click">التقييم بتحديد نقاط القوة و الضعف</asp:LinkButton>
                         </td>
@@ -318,7 +318,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image3" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image3" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="eval_emp_needsLB" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="eval_emp_needsLB_Click">التقييم بتحديد الاحتياجات التدريبية</asp:LinkButton>
                         </td>
@@ -327,7 +327,7 @@
                         <td width="28">
                             &nbsp;</td>
                          <td style="height: 30px">
-                            <asp:Image ID="Image22" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image22" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="LinkButton15" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="emp_dept_sector_Click">بيانات جميع الموظفين</asp:LinkButton>
                         </td>
@@ -339,11 +339,11 @@
     <tr id="Tr6" runat="server">
         <td id="Td4" valign="top" align="right">
             <table id="Table3" cellpadding="0" cellspacing="0" style="height: 43px; width: 100%;">
-                <tr id="Tr7" bgcolor="#E6F3FF" runat="server">
+                <tr id="Tr7"  runat="server">
                     <td colspan="1" width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div2','Img2');">
-                        <img border="0" id="Img3" src="../Images/collapse.gif" />
+                        <img border="0" id="Img3" src="../Images/square_arrow_flipped.gif" />
                     </td>
-                    <td style="font-size: large; color: #0C6AC8; text-decoration: underline blink; font-weight: bold;"
+                    <td 
                         onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div2','Img2');"
                         colspan="2">
         تقارير عامة
@@ -360,7 +360,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image23" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image23" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="LinkButton16" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="eval_empLB_Click">  تقييم الأداء الوظيفي</asp:LinkButton>
                         </td>
@@ -369,7 +369,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image24" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image24" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="LinkButton17" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="eval_emp_groupedLB_Click">  تقييم الأداء الوظيفي مجمع بالقيم</asp:LinkButton>
                         </td>
@@ -378,7 +378,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image25" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image25" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="LinkButton18" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="eval_mange_groupedLB_Click"> تقييم الأداء الوظيفي للمديرين </asp:LinkButton>
                         </td>
@@ -387,7 +387,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image26" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image26" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="LinkButton19" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="eval_statusLB_Click"> الموظفين ما تم تقييمهم وما لم يتم تقييمهم</asp:LinkButton>
                         </td>
@@ -396,7 +396,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image27" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image27" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="LinkButton20" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="direct_mng_finishedLB_Click"> الموظفين الذين تم تقييمهم من المديرين المباشرين</asp:LinkButton>
                         </td>
@@ -405,7 +405,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image28" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image28" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="LinkButton21" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="top_mng_finishedLB_Click"> الموظفين الذين تم تقييمهم من المدير الاعلي</asp:LinkButton>
                         </td>
@@ -414,7 +414,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image29" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image29" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="LinkButton22" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="dept_empLB_Click">تقرير بموظفي الإدارات</asp:LinkButton>
                         </td>
@@ -423,7 +423,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image30" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image30" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="LinkButton23" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="emp_statisticsLB_Click">إحصائية بموقف تقييم موظفي الإدارات</asp:LinkButton>
                         </td>
@@ -432,7 +432,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image31" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image31" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="LinkButton24" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="direct_mgr_emp_not_evalLB_Click">تقرير بالموظفين الذين لم يتم الانتهاء من تقييمهم من المديرين المباشرين</asp:LinkButton>
                         </td>
@@ -441,7 +441,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image32" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image32" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="LinkButton25" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="top_mgr_emp_not_evalLB_Click">تقرير بالموظفين الذين لم يتم الانتهاء من تقييمهم من المديرين الأعلى</asp:LinkButton>
                         </td>
@@ -450,7 +450,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image4" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image4" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="LinkButton1" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="Dept_Emp_Click">تقرير بموظفي الإدارات</asp:LinkButton>
                         </td>
@@ -459,7 +459,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image1" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image1" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="eval_emp_strengthLB" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="eval_emp_strengthLB_Click">التقييم بتحديد نقاط القوة و الضعف</asp:LinkButton>
                         </td>
@@ -468,7 +468,7 @@
                         <td width="28">
                         </td>
                         <td style="height: 30px">
-                            <asp:Image ID="Image3" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image3" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="eval_emp_needsLB" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="eval_emp_needsLB_Click">التقييم بتحديد الاحتياجات التدريبية</asp:LinkButton>
                         </td>
@@ -477,7 +477,7 @@
                         <td width="28">
                             &nbsp;</td>
                          <td style="height: 30px">
-                            <asp:Image ID="Image33" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                            <asp:Image ID="Image33" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                             <asp:LinkButton ID="LinkButton26" runat="server" CssClass="Text" Font-Bold="False"
                                 OnClick="emp_dept_sector_Click">بيانات جميع الموظفين</asp:LinkButton>
                         </td>
@@ -505,7 +505,7 @@
     </tr>
     <tr>
         <td style="height: 41px" align="center">
-            <asp:Label ID="Label6" runat="server" Font-Bold="True" ForeColor="Red" CssClass="Label"></asp:Label>
+            <asp:Label ID="Label6" runat="server" Font-Bold="True" ForeColor="#EC981F" font-underline="false" CssClass="Label"></asp:Label>
         </td>
     </tr>
     <tr>

@@ -17,7 +17,7 @@
         </tr>
     <tr>
         <td>
-            <asp:Label ID="Label1" runat="server" Text="Label" CssClass="PageTitle" ForeColor="Red"></asp:Label>
+            <asp:Label ID="Label1" runat="server" Text="Label" CssClass="PageTitle" ForeColor="#EC981F" font-underline="false"></asp:Label>
         </td>
        
         <td>

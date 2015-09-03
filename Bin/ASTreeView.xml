@@ -2332,15 +2332,15 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Geekees.Common.Controls.ASTreeView.GetCollapseAllScript">
+        <member name="M:Geekees.Common.Controls.ASTreeView.Getsquare_arrow_flippedAllScript">
             <summary>
-            Gets the collapse all client side script.
+            Gets the square_arrow_flipped all client side script.
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Geekees.Common.Controls.ASTreeView.GetToggleExpandCollapseAllScript">
+        <member name="M:Geekees.Common.Controls.ASTreeView.GetToggleExpandsquare_arrow_flippedAllScript">
             <summary>
-            Gets the toggle expand collapse all client side script.
+            Gets the toggle expand square_arrow_flipped all client side script.
             </summary>
             <returns></returns>
         </member>
@@ -2410,9 +2410,9 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:Geekees.Common.Controls.ASTreeView.CollapseAll">
+        <member name="M:Geekees.Common.Controls.ASTreeView.square_arrow_flippedAll">
             <summary>
-            Collapses all tree nodes.
+            square_arrow_flippeds all tree nodes.
             </summary>
         </member>
         <member name="M:Geekees.Common.Controls.ASTreeView.ExpandAll">

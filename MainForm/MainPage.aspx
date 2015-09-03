@@ -24,11 +24,11 @@
             var imgsrc = img.src;
 
 
-            if (imgsrc.lastIndexOf('collapse') != -1) {
-                img.src = "../Images/expand.gif";
+            if (imgsrc.lastIndexOf('square_arrow_flipped') != -1) {
+                img.src = "../Images/square_arrow_down.gif";
             }
             else {
-                img.src = "../Images/collapse.gif";
+                img.src = "../Images/square_arrow_flipped.gif";
             }
 
             divname.style.display = divname.style.display == 'none' ? 'block' : 'none';

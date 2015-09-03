@@ -13,11 +13,11 @@
             var imgsrc = img.src;
 
 
-            if (imgsrc.lastIndexOf('collapse') != -1) {
-                img.src = "../Images/expand.gif";
+            if (imgsrc.lastIndexOf('square_arrow_flipped') != -1) {
+                img.src = "../Images/square_arrow_down.gif";
             }
             else {
-                img.src = "../Images/collapse.gif";
+                img.src = "../Images/square_arrow_flipped.gif";
             }
 
             divname.style.display = divname.style.display == 'none' ? 'block' : 'none';
@@ -71,7 +71,7 @@
             </td> </tr>
             <tr>
                 <td dir="rtl" align="center">
-                    <asp:Label ID="lblPageStatus" runat="server" CssClass="Label" ForeColor="Red" Visible="false"></asp:Label>
+                    <asp:Label ID="lblPageStatus" runat="server" CssClass="Label" ForeColor="#EC981F" font-underline="false" Visible="false"></asp:Label>
                     
                 </td>
             </tr>
@@ -112,7 +112,7 @@
                                 <ItemTemplate>
                                     <asp:TextBox ID="txtApprove" runat="server" Enabled="true" Text='<%# Eval("approved_amount") %>'
                                         Width="65" />
-                                    <asp:Label ID="astrisk" runat="server" Visible="false" Text="*" ForeColor="red" Width="10px" />
+                                    <asp:Label ID="astrisk" runat="server" Visible="false" Text="*" ForeColor="#EC981F" font-underline="false" Width="10px" />
                                     <cc1:FilteredTextBoxExtender ID="txtApproveFiltered" runat="server" FilterType="Numbers"
                                         TargetControlID="txtApprove">
                                     </cc1:FilteredTextBoxExtender>
@@ -144,14 +144,14 @@
             <tr>
                 <td dir="rtl" align="right">
                     <table id="tbl_doc" runat="server" visible="false">
-                        <tr bgcolor="#E6F3FF" runat="server" id="TRdoc">
+                        <tr  runat="server" id="TRdoc">
                             <td valign="top" align="right" width="100%">
                                 <table width="100%" cellpadding="0" cellspacing="0" style="height: 50px">
-                                    <tr bgcolor="#E6F3FF">
+                                    <tr >
                                         <td width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div1','image0');">
-                                            <img border="0" id="image0" src="../Images/expand.gif" />
+                                            <img border="0" id="image0" src="../Images/square_arrow_down.gif" />
                                         </td>
-                                        <td style="font-size: large; color: #0C6AC8; text-decoration: underline blink; font-weight: bold;"
+                                        <td 
                                             onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div1','image0');">
                                             وثيقة تصديق احتياجات المشروع
                                         </td>

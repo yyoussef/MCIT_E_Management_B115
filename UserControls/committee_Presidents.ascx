@@ -13,7 +13,7 @@
     </tr>
     <tr>
         <td>
-            <asp:Label ID="Label2" runat="server" Text=" إسم الموظف :" CssClass="Label" Font-Underline="False"></asp:Label>
+            <asp:Label ID="Label2" runat="server" Text=" إسم الموظف :" CssClass="Label" ForeColor="#808080" font-underline="false"></asp:Label>
         </td>
         <td>
             <uc1:Smart_Search ID="Smart_Search_emp" runat="server" />

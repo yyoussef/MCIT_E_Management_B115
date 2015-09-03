@@ -48,7 +48,7 @@ CodeFile="AssignedActivities.aspx.cs" Inherits="MainForm_AssignedActivities" Tit
                     CellPadding="3" CssClass="mGrid" EmptyDataText="... عفوا لا يوجد بيانات ..."
                     ForeColor="Black" PagerStyle-CssClass="pgr" Visible="False" 
                     Font-Size="10pt" Font-Strikeout="False"
-                    Font-Underline="False" CaptionAlign="Top" OnPreRender="gvSub_PreRender1" 
+                     font-underline="false" CaptionAlign="Top" OnPreRender="gvSub_PreRender1" 
                     GridLines="Vertical" >
                     <Columns>
                         <asp:TemplateField HeaderText="م" ItemStyle-Width="3px" HeaderStyle-Width="3px" HeaderStyle-HorizontalAlign="Center"

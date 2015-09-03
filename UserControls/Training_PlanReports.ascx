@@ -13,7 +13,7 @@
     </tr>
     <tr>
         <td style="height: 30px; text-align: right;">
-            <asp:Image ID="Image35" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+            <asp:Image ID="Image35" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
             <asp:LinkButton ID="Training_emp" runat="server" CssClass="Text" Font-Bold="False"
                 OnClick="Training_emp_Click">  تقرير الخطة التدريبية  </asp:LinkButton>
         </td>
@@ -23,7 +23,7 @@
     </tr>
       <tr>
         <td style="height: 30px; text-align: right;">
-            <asp:Image ID="Image1" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+            <asp:Image ID="Image1" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
             <asp:LinkButton ID="LinkButton1" runat="server" CssClass="Text" Font-Bold="False"
                 OnClick="Training_emp_count_Click">  تقرير بأعداد المتقدمين في الخطة التدريبية  </asp:LinkButton>
         </td>

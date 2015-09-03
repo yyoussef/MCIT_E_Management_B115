@@ -53,13 +53,13 @@ function ChangeMeCase(divid, imgid) {
     var imgsrc = img.src;
     
 
-    if (imgsrc.lastIndexOf('collapse') != -1)
+    if (imgsrc.lastIndexOf('square_arrow_flipped') != -1)
     { 
-        img.src = "../Images/expand.gif";
+        img.src = "../Images/square_arrow_down.gif";
     }
     else
     {
-        img.src = "../Images/collapse.gif";
+        img.src = "../Images/square_arrow_flipped.gif";
     }
 
     divname.style.display = divname.style.display == 'none' ? 'block' : 'none';
@@ -132,7 +132,7 @@ function SelectAll(Div_ID,Div_Chk_ID)
         <tr>
             <td dir="rtl" align="center" colspan="4">
                 <asp:HiddenField ID="Protocol_ID" runat="server" Value="0" />
-                <asp:Label ID="lblPageStatus" runat="server" CssClass="Label" ForeColor="Red" Visible="false"></asp:Label>
+                <asp:Label ID="lblPageStatus" runat="server" CssClass="Label" ForeColor="#EC981F" font-underline="false" Visible="false"></asp:Label>
                 <br />
                 <asp:Label ID="lblID" runat="server" CssClass="Label" Visible="False"></asp:Label>
             </td>

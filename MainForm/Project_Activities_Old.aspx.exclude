@@ -23,7 +23,7 @@
                 </tr>
                 <tr>
                     <td dir="rtl" align="center">
-                        <asp:Label ID="lblPageStatus" runat="server" CssClass="Label" ForeColor="Red" Visible="false"></asp:Label>
+                        <asp:Label ID="lblPageStatus" runat="server" CssClass="Label" ForeColor="#EC981F" font-underline="false" Visible="false"></asp:Label>
                     </td>
                 </tr>
                 <tr>
@@ -288,7 +288,7 @@
                                         dir="rtl" align="right">
                                         <asp:TreeView ID="TreeView1" ExpandDepth="1" runat="server" ImageSet="Simple" Font-Bold="True"
                                             ForeColor="Black" ShowCheckBoxes="None" Height="187px">
-                                            <NodeStyle ForeColor="#808080" Font-Bold="true" Font-Size="Medium" />
+                                            <NodeStyle ForeColor="#808080" font-underline="false" Font-Bold="true" Font-Size="Medium" />
                                             <SelectedNodeStyle BackColor="WhiteSmoke" ForeColor="Black" />
                                             <ParentNodeStyle CssClass="Label" />
                                         </asp:TreeView>
@@ -618,7 +618,7 @@
                             AutoGenerateColumns="False" BackColor="White" BorderColor="#999999" 
                             BorderStyle="Solid" BorderWidth="1px" CaptionAlign="Top" CellPadding="3" 
                             CssClass="mGrid" EmptyDataText="... عفوا لا يوجد بيانات ..." Font-Size="10pt" 
-                            Font-Strikeout="False" Font-Underline="False" ForeColor="Black" 
+                            Font-Strikeout="False" ForeColor="#808080" font-underline="false" ForeColor="Black" 
                             GridLines="Vertical" PagerStyle-CssClass="pgr" Visible="False" Width="100%">
                             <Columns>
                                 <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderStyle-Width="3px" 

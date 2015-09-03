@@ -69,16 +69,32 @@ public partial class UserControls_OutboxUserControl : System.Web.UI.UserControl
         dt_Outbox_follow = Outbox_class.follow_Outbox_all(parent,group, pmp,0);
       
         /////////////////////// new Outbox ///////////
-        link_new_Outbox_forall.Text = dt_Outbox_new.Rows.Count.ToString();
 
-        /////////////// old Outbox 
-        link_old_Outbox_forall.Text = dt_Outbox_old.Rows.Count.ToString();
+        link_new_Outbox_forall.Text = "لديك عدد (" + dt_Outbox_new.Rows.Count.ToString() + ") صادر جديد";
+        if (dt_Outbox_new.Rows.Count < 1)
+            extentionMethods.DisableLinkButton(link_new_Outbox_forall);
+      
+        /////////////// old Outbox link_old_Outbox_forall
+        link_old_Outbox_forall.Text = "لديك عدد (" + dt_Outbox_old.Rows.Count.ToString() + ") صادر جارى";
+        if (dt_Outbox_old.Rows.Count < 1)
+            extentionMethods.DisableLinkButton(link_old_Outbox_forall);
+      
+      
         /////////////// late outbox
-        link_late_Outbox_forall.Text = dt_Outbox_late.Rows.Count.ToString();
+       
+        link_late_Outbox_forall.Text = "لديك عدد (" + dt_Outbox_late.Rows.Count.ToString() + ") صادر متأخر";
+        if (dt_Outbox_late.Rows.Count < 1)
+            extentionMethods.DisableLinkButton(link_late_Outbox_forall);
         //////////// closed Outbox
-        link_closed_Outbox_forall.Text = dt_Outbox_closed.Rows.Count.ToString();
+       
+        link_closed_Outbox_forall.Text = "لديك عدد (" + dt_Outbox_closed.Rows.Count.ToString() + ") صادر منتهى";
+        if (dt_Outbox_closed.Rows.Count < 1)
+            extentionMethods.DisableLinkButton(link_closed_Outbox_forall);
         //////////// follow Outbox
-        link_Outbox_have_follow_forall.Text = dt_Outbox_follow.Rows.Count.ToString();
+       
+        link_Outbox_have_follow_forall.Text = "لديك عدد (" + dt_Outbox_follow.Rows.Count.ToString() + ") صادر له متابعة";
+        if (dt_Outbox_follow.Rows.Count < 1)
+            extentionMethods.DisableLinkButton(link_Outbox_have_follow_forall);
 
 
         ///////////// have visa inbox
@@ -88,8 +104,8 @@ public partial class UserControls_OutboxUserControl : System.Web.UI.UserControl
     {
 
 
-        if (CDataConverter.ConvertToInt(link_new_Outbox_forall.Text) > 0 || CDataConverter.ConvertToInt(link_Outbox_have_follow_forall.Text) > 0 || CDataConverter.ConvertToInt(link_late_Outbox_forall.Text)>0)
-            lbl_archive_forall.ForeColor = System.Drawing.Color.Red;
+        //if (CDataConverter.ConvertToInt(link_new_Outbox_forall.Text) > 0 || CDataConverter.ConvertToInt(link_Outbox_have_follow_forall.Text) > 0 || CDataConverter.ConvertToInt(link_late_Outbox_forall.Text)>0)
+        //    lbl_archive_forall.ForeColor = System.Drawing.Color.Red;
 
         //chnage the BgColor for archiving
         if (CDataConverter.ConvertToInt(link_new_Outbox_forall.Text) > 0)

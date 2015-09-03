@@ -24,7 +24,7 @@
                 <table dir="rtl" style="line-height: 2; width: 99%;">
                     <tr>
                         <td align="center" colspan="3" style="height: 29px">
-                            <asp:Label ID="lblErrorMsg" runat="server" Font-Bold="False" ForeColor="Red" CssClass="Label"></asp:Label>
+                            <asp:Label ID="lblErrorMsg" runat="server" Font-Bold="False" ForeColor="#EC981F" font-underline="false" CssClass="Label"></asp:Label>
                         </td>
                     </tr>
                     <tr>
@@ -32,7 +32,7 @@
                             <asp:Label ID="Label4" runat="server" CssClass="Label" Text="اسم الاجتماع:" />
                         </td>
                         <td style="width: 10px;">
-                            <asp:Label ID="Label7" runat="server" Font-Bold="False" ForeColor="Red" CssClass="Label">*</asp:Label>
+                            <asp:Label ID="Label7" runat="server" Font-Bold="False" ForeColor="#EC981F" font-underline="false" CssClass="Label">*</asp:Label>
                         </td> 
                         <td>
                             <asp:TextBox runat="server" CssClass="Text" ID="Meeting_name" Width="300px"></asp:TextBox>
@@ -55,7 +55,7 @@
                             <asp:Label ID="Label5" runat="server" CssClass="Label" Text="تاريخ الاجتماع:" />
                         </td>
                         <td style="width: 10px; height: 44px;">
-                            <asp:Label ID="Label10" runat="server" Font-Bold="False" ForeColor="Red" CssClass="Label">*</asp:Label>
+                            <asp:Label ID="Label10" runat="server" Font-Bold="False" ForeColor="#EC981F" font-underline="false" CssClass="Label">*</asp:Label>
                         </td>
                         <td>
                             <asp:TextBox ID="Meeting_date" runat="server" Width="138px" Height="35px" Font-Bold="True"
@@ -115,7 +115,7 @@
                 <table dir="rtl" style="line-height: 2; width: 99%;">
                     <tr>
                         <td align="center" colspan="3" style="height: 29px">
-                            <asp:Label ID="lblErrorMsg2" runat="server" Font-Bold="False" ForeColor="Red" CssClass="Label"></asp:Label>
+                            <asp:Label ID="lblErrorMsg2" runat="server" Font-Bold="False" ForeColor="#EC981F" font-underline="false" CssClass="Label"></asp:Label>
                         </td>
                     </tr>
                     <tr>
@@ -123,7 +123,7 @@
                             <asp:Label ID="Label9" runat="server" CssClass="Label" Text="جهة الاجتماع:" />
                         </td>
                         <td>
-                            <asp:Label ID="Label11" runat="server" Font-Bold="False" ForeColor="Red" CssClass="Label">*</asp:Label>
+                            <asp:Label ID="Label11" runat="server" Font-Bold="False" ForeColor="#EC981F" font-underline="false" CssClass="Label">*</asp:Label>
                             <asp:TextBox ID="txt_side_Name" runat="server" CssClass="Text" Height="30px" TextMode="SingleLine"
                                 Width="700px"></asp:TextBox>
                         </td>
@@ -194,7 +194,7 @@
                 <table dir="rtl" style="line-height: 2; width: 99%;" border="0">
                     <tr>
                         <td align="center" colspan="2" style="height: 29px">
-                            <asp:Label ID="lblErrorMsg3" runat="server" Font-Bold="False" ForeColor="Red" CssClass="Label"></asp:Label>
+                            <asp:Label ID="lblErrorMsg3" runat="server" Font-Bold="False" ForeColor="#EC981F" font-underline="false" CssClass="Label"></asp:Label>
                         </td>
                     </tr>
                     <tr>

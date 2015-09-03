@@ -13,7 +13,7 @@
         </tr>
         <tr>
             <td colspan="2" align="center">
-                <asp:Label ID="Label1" runat="server" Visible="false" ForeColor="red" Font-Size="12px"></asp:Label>
+                <asp:Label ID="Label1" runat="server" Visible="false" ForeColor="#EC981F" font-underline="false" Font-Size="12px"></asp:Label>
             </td>
         </tr>
         <tr>
@@ -92,7 +92,7 @@
                         AutoGenerateColumns="False" BackColor="White" BorderColor="#999999" 
                         BorderStyle="Solid" BorderWidth="1px" CaptionAlign="Top" CellPadding="3" 
                         CssClass="mGrid" EmptyDataText="... عفوا لا يوجد بيانات ..." Font-Size="10pt" 
-                        Font-Strikeout="False" Font-Underline="False" ForeColor="Black" 
+                        Font-Strikeout="False"  font-underline="false" ForeColor="Black" 
                         PagerStyle-CssClass="pgr"  
                     OnRowCommand="GrdView_RowCommand" onprerender="gvAchievements_PreRender" 
                     GridLines="Vertical" >

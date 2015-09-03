@@ -35,7 +35,7 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                     </tr>
                     <tr>
                         <td align="center" colspan="2" style="height: 29px">
-                            <asp:Label ID="lblErrorMsg" runat="server" Font-Bold="False" ForeColor="Red" CssClass="Label" />
+                            <asp:Label ID="lblErrorMsg" runat="server" Font-Bold="False" ForeColor="#EC981F" font-underline="false" CssClass="Label" />
                         </td>
                     </tr>
                     <tr>

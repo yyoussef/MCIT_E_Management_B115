@@ -26,11 +26,11 @@
     var imgsrc = img.src;
     
 
-    if (imgsrc.lastIndexOf('collapse') != -1)
-       { img.src = "../Images/expand.gif";
+    if (imgsrc.lastIndexOf('square_arrow_flipped') != -1)
+       { img.src = "../Images/square_arrow_down.gif";
         }
     else
-        {img.src = "../Images/collapse.gif";
+        {img.src = "../Images/square_arrow_flipped.gif";
         }
 
     divname.style.display = divname.style.display == 'none' ? 'block' : 'none';
@@ -45,18 +45,18 @@
         <tr>
             <td height="30px" align="center">
                 <asp:Label ID="Label1" runat="server" Text="تقارير البروتوكولات " CssClass="PageTitle"
-                    Font-Underline="True"></asp:Label>
+                    ></asp:Label>
             </td>
         </tr>
         <tr style="width: 100%">
             <td valign="top" align="right">
                 <table id="first_table_reports" cellpadding="0" cellspacing="0" style="height: 43px;
                     width: 100%;">
-                    <tr id="firstreports" bgcolor="#E6F3FF">
+                    <tr id="firstreports" >
                         <td colspan="1" width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div0','image0');">
-                            <img border="0" id="image0" src="../Images/expand.gif" />
+                            <img border="0" id="image0" src="../Images/square_arrow_down.gif" />
                         </td>
-                        <td style="font-size: large; color: #0C6AC8; text-decoration: underline blink; font-weight: bold;"
+                        <td 
                             onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div0','image0');"
                             colspan="2">
                             البروتوكولات المنتهية
@@ -73,7 +73,7 @@
                             <td width="28">
                             </td>
                             <td colspan="2" style="height: 30px" width="600px">
-                                <asp:Image ID="Image16" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                                <asp:Image ID="Image16" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                                 <asp:LinkButton ID="Ended_protocol_cont_proj" runat="server" Font-Bold="False" OnClick="Ended_protocol_cont_proj_Click"
                                     CssClass="Text"> البروتوكولات المنتهية تحتوي مشروعات جارية</asp:LinkButton>
                                 <br />
@@ -83,7 +83,7 @@
                             <td width="28">
                             </td>
                             <td colspan="2" style="height: 30px"  width="600px">
-                                <asp:Image ID="Image1" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+                                <asp:Image ID="Image1" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
                                 <asp:LinkButton ID="Ended_protocol_ended_proj" runat="server" Font-Bold="False" OnClick="Ended_protocol_ended_proj_Click"
                                     CssClass="Text"> البروتوكولات المنتهية لمشروعات منتهية</asp:LinkButton>
                                 <br />
@@ -112,7 +112,7 @@
         </tr>
         <tr>
             <td style="height: 41px" align="center">
-                <asp:Label ID="Label6" runat="server" Font-Bold="True" ForeColor="Red" CssClass="Label"></asp:Label>
+                <asp:Label ID="Label6" runat="server" Font-Bold="True" ForeColor="#EC981F" font-underline="false" CssClass="Label"></asp:Label>
             </td>
         </tr>
         <tr>

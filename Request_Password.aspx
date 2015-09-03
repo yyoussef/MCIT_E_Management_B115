@@ -39,7 +39,7 @@
                         <td colspan="2" align="center" bgcolor="#f9fdff" dir="rtl">
                             &nbsp;
                             <asp:Label runat="server" Text="ارسال ايميل بكلمة المرور" ID="enterlab" ForeColor="#990000"
-                                Font-Bold="False" Font-Names="Arial" Font-Underline="False" Font-Size="24px"></asp:Label>
+                                Font-Bold="False" Font-Names="Arial"  font-underline="false" Font-Size="24px"></asp:Label>
                         </td>
                     </tr>
                    

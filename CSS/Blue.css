@@ -317,12 +317,12 @@ form.searchform input.button {
 }
 #menu ul li a:hover{
 	color: black;
-	background-color: #F3F3F3; 
+	background-color: #808080; 
 	border-bottom: 4px solid #3791D7;
 }
 #menu ul li#current a{
 	color: #333;
-	background-color: #F3F3F3; 
+	background-color: #808080; 
 	border-bottom: 4px solid #3791D7;
 }
 

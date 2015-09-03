@@ -79,36 +79,65 @@ public partial class UserControls_inboxUserControl : System.Web.UI.UserControl
        dt_inbox_closed = Inbox_class.closed_inbox_all(parent, group, pmp,0);
        dt_inbox_follow = Inbox_class.follow_inbox_all(parent, pmp,0);
        dt_inbox_understudy = Inbox_class.understudy_inbox_all(group,0);
-        //////////////////// late inbox //////////////////        
-        link_late_inbox_forall.Text = dt_inbox_late.Rows.Count.ToString();
+        
         /////////////////////// new inbox ///////////
-        link_new_inbox_forall.Text = dt_inbox_new.Rows.Count.ToString();
 
+
+       link_new_inbox_forall.Text = "لديك عدد (" + dt_inbox_new.Rows.Count.ToString() + ") وارد جديد";
+       if (dt_inbox_new.Rows.Count <1)
+           extentionMethods.DisableLinkButton(link_new_inbox_forall) ;
+       
         /////////////// old inbox 
-      link_old_inbox_forall.Text = dt_inbox_old.Rows.Count.ToString();
+
+       link_old_inbox_forall.Text = "لديك عدد (" + dt_inbox_old.Rows.Count.ToString() + ") وارد جارى";
+        if (dt_inbox_old.Rows.Count < 1)
+           extentionMethods.DisableLinkButton(link_old_inbox_forall);
+        
+       //////////////////// late inbox //////////////////        
+
+        link_late_inbox_forall.Text = "لديك عدد (" + dt_inbox_late.Rows.Count.ToString() + ") وارد متأخر"; 
+        if (dt_inbox_late.Rows.Count < 1)
+           extentionMethods.DisableLinkButton(link_late_inbox_forall);
+       
         //////////// closed inbox6
-        link_closed_inbox_forall.Text = dt_inbox_closed.Rows.Count.ToString();
+
+        link_closed_inbox_forall.Text = "لديك عدد (" + dt_inbox_closed.Rows.Count.ToString() + ") وارد منتهى";
+        if (dt_inbox_closed.Rows.Count < 1)
+            extentionMethods.DisableLinkButton(link_closed_inbox_forall);
+       
         //////////// follow inbox
-        link_inbox_have_follow_forall.Text = dt_inbox_follow.Rows.Count.ToString();
+        link_inbox_have_follow_forall.Text = "لديك عدد (" + dt_inbox_follow.Rows.Count.ToString() + ") وارد له متابعة";
+        if (dt_inbox_follow.Rows.Count < 1)
+            extentionMethods.DisableLinkButton(link_inbox_have_follow_forall);
+        
+        
         //////////under study inbox
-        lnkBtnUnderStudyCount_forall.Text = dt_inbox_understudy.Rows.Count.ToString();
+        lnkBtnUnderStudyCount_forall.Text = "لديك عدد (" + dt_inbox_understudy.Rows.Count.ToString() + ") وارد تحت الدراسة";
+        if (dt_inbox_understudy.Rows.Count < 1)
+            extentionMethods.DisableLinkButton(lnkBtnUnderStudyCount_forall);
+        
+        
         ///////////// have visa inbox
-        lnk_btn_inboxhavevisa.Text = dt_inbox_not_sent_visa.Rows.Count.ToString();
+
+        lnk_btn_inboxhavevisa.Text = "لديك عدد (" + dt_inbox_not_sent_visa.Rows.Count.ToString() + ") وارد له تأشيرة";
+        if (dt_inbox_not_sent_visa.Rows.Count < 1)
+            extentionMethods.DisableLinkButton(lnk_btn_inboxhavevisa);
+       
     }
     void Show_Hide_Catagerios_inbox()
     {
 
 
-        if (CDataConverter.ConvertToInt(link_new_inbox_forall.Text) > 0 || CDataConverter.ConvertToInt(link_inbox_have_follow_forall.Text) > 0)
-            lbl_archive_forall.ForeColor = System.Drawing.Color.Red;
+       // if (CDataConverter.ConvertToInt(link_new_inbox_forall.Text) > 0 || CDataConverter.ConvertToInt(link_inbox_have_follow_forall.Text) > 0)
+            //lbl_archive_forall.ForeColor = System.Drawing.Color.Red;
 
         //chnage the BgColor for archiving
-        if (CDataConverter.ConvertToInt(link_new_inbox_forall.Text) > 0)
-            td_link_new_inbox_forall.BgColor = "#FCFBB2";
+        //if (CDataConverter.ConvertToInt(link_new_inbox_forall.Text) > 0)
+            //td_link_new_inbox_forall.BgColor = "#FCFBB2";
 
 
-        if (CDataConverter.ConvertToInt(link_inbox_have_follow_forall.Text) > 0)
-            td_link_inbox_have_follow_forall.BgColor = "#FCFBB2";
+        //if (CDataConverter.ConvertToInt(link_inbox_have_follow_forall.Text) > 0)
+            //td_link_inbox_have_follow_forall.BgColor = "#FCFBB2";
 
 
 
@@ -214,4 +243,6 @@ public partial class UserControls_inboxUserControl : System.Web.UI.UserControl
          
         }
     }
+
+   
 }

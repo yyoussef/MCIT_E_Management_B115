@@ -38,7 +38,7 @@
                 </tr>
                 <tr>
                     <td dir="rtl" align="center" colspan="2">
-                        <asp:Label ID="lblPageStatus" runat="server" CssClass="Label" ForeColor="Red" Visible="false"></asp:Label>
+                        <asp:Label ID="lblPageStatus" runat="server" CssClass="Label" ForeColor="#EC981F" font-underline="false" Visible="false"></asp:Label>
                     </td>
                 </tr>
                 <tr>
@@ -289,7 +289,7 @@
                                                         AutoGenerateColumns="False" BackColor="White" BorderColor="#999999" BorderStyle="Solid"
                                                         BorderWidth="1px" Width="500px" CellPadding="3" CssClass="mGrid" EmptyDataText="... عفوا لا يوجد بيانات ..."
                                                         ForeColor="Black" PagerStyle-CssClass="pgr" Font-Size="10pt" Font-Strikeout="False"
-                                                        Font-Underline="False" CaptionAlign="Top" OnPreRender="gvSub_PreRender1" 
+                                                         font-underline="false" CaptionAlign="Top" OnPreRender="gvSub_PreRender1" 
                                                         GridLines="Vertical">
                                                         <Columns>
                                                             <asp:BoundField DataField="PActv_Desc" HeaderText="النشاط " HeaderStyle-Width="350px"

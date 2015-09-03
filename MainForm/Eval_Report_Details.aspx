@@ -33,7 +33,7 @@
         background-color: #fff;
         margin: 5px 5px 10px 0;
         border: solid 1px #A1D4E9;
-        border-collapse: collapse;
+        border-square_arrow_flipped: square_arrow_flipped;
         text-align: right;
     }
     .style1

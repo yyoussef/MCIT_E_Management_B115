@@ -76,7 +76,7 @@
         </tr>
         <tr align="center">
             <td colspan="2" class="style3">
-                <asp:Label runat="server" ID="lblMessage" Font-Bold="true" ForeColor="Red" Font-Size="Large" />
+                <asp:Label runat="server" ID="lblMessage" Font-Bold="true" ForeColor="#EC981F" font-underline="false" Font-Size="Large" />
             </td>
         </tr>
         <tr align="center">

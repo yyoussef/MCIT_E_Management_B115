@@ -49,7 +49,7 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
             </tr>
             <tr>
                 <td align="center" colspan="4" style="height: 5px">
-                    <asp:Label ID="lblErrorMsg" runat="server" Font-Bold="False" ForeColor="Red" CssClass="Label"></asp:Label>
+                    <asp:Label ID="lblErrorMsg" runat="server" Font-Bold="False" ForeColor="#EC981F" font-underline="false" CssClass="Label"></asp:Label>
                 </td>
             </tr>
             <tr>
@@ -216,7 +216,7 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                             <table>
                                                 <tr>
                                                     <td>
-                                                        <asp:Label ID="Label6" runat="server" Text="  الادارة :" CssClass="Label" Font-Underline="False"></asp:Label>
+                                                        <asp:Label ID="Label6" runat="server" Text="  الادارة :" CssClass="Label" ForeColor="#808080" font-underline="false"></asp:Label>
                                                     </td>
                                                     <td>
                                                         <uc1:Smart_Search ID="Smrt_Srch_structure2" runat="server" />
@@ -502,7 +502,7 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                     <asp:Label ID="txt_Dept_ID_Txt" runat="server" CssClass="Label" Width="293px"></asp:Label>
                                 </td>--%>
                                         <td>
-                                            <asp:Label ID="Label15" runat="server" Text="  الادارة :" CssClass="Label" Font-Underline="False"></asp:Label>
+                                            <asp:Label ID="Label15" runat="server" Text="  الادارة :" CssClass="Label" ForeColor="#808080" font-underline="false"></asp:Label>
                                         </td>
                                         <td colspan="3">
                                             <uc1:Smart_Search ID="Smrt_Srch_structure" runat="server" />

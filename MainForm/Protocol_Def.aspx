@@ -16,11 +16,11 @@
     var imgsrc = img.src;
     
 
-    if (imgsrc.lastIndexOf('collapse') != -1)
-       { img.src = "../Images/expand.gif";
+    if (imgsrc.lastIndexOf('square_arrow_flipped') != -1)
+       { img.src = "../Images/square_arrow_down.gif";
         }
     else
-        {img.src = "../Images/collapse.gif";
+        {img.src = "../Images/square_arrow_flipped.gif";
         }
 
     divname.style.display = divname.style.display == 'none' ? 'block' : 'none';
@@ -51,7 +51,7 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
         </tr>
         <tr>
             <td dir="rtl" align="center">
-                <asp:Label ID="lblPageStatus" runat="server" CssClass="Label" ForeColor="Red" Visible="false"></asp:Label>
+                <asp:Label ID="lblPageStatus" runat="server" CssClass="Label" ForeColor="#EC981F" font-underline="false" Visible="false"></asp:Label>
                 <input type="hidden" runat="server" id="hidden_Protocol_ID" />
                 <input type="hidden" runat="server" id="hidden_Status" value="1" />
             </td>
@@ -247,11 +247,11 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
             <td valign="top" align="right">
                 <table id="first_table_reports" cellpadding="0" cellspacing="0" style="height: 27px;
                     width: 100%;">
-                    <tr id="firstreports" bgcolor="#E6F3FF">
+                    <tr id="firstreports" >
                         <td colspan="1" width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div0','img0');">
-                            <img border="0" id="img0" src="../Images/expand.gif" />
+                            <img border="0" id="img0" src="../Images/square_arrow_down.gif" />
                         </td>
-                        <td style="font-size: large; color: #0C6AC8; text-decoration: underline blink; font-weight: bold;"
+                        <td 
                             onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div0','img0');"
                             colspan="2">
                             الميزانية
@@ -379,11 +379,11 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
         <tr style="width: 100%">
             <td valign="top" align="right">
                 <table id="Table1" cellpadding="0" cellspacing="0" style="height: 27px; width: 100%;">
-                    <tr id="Tr1" bgcolor="#E6F3FF">
+                    <tr id="Tr1" >
                         <td colspan="1" width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div1','img1');">
-                            <img border="0" id="img1" src="../Images/expand.gif" />
+                            <img border="0" id="img1" src="../Images/square_arrow_down.gif" />
                         </td>
-                        <td style="font-size: large; color: #0C6AC8; text-decoration: underline blink; font-weight: bold;"
+                        <td 
                             onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div1','img1');"
                             colspan="2">
                             الملفات
@@ -411,7 +411,7 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                             <asp:TreeView ID="Tree_Files" ExpandDepth="1" runat="server" ImageSet="Simple" 
                                                 Font-Bold="True" ForeColor="Black" 
                                                 ShowCheckBoxes="None" Height="187px">
-                                                <NodeStyle ForeColor="#808080" Font-Bold="true" Font-Size="Medium" />
+                                                <NodeStyle ForeColor="#808080" font-underline="false" Font-Bold="true" Font-Size="Medium" />
                                                 <SelectedNodeStyle BackColor="WhiteSmoke" ForeColor="Black" />
                                                 <ParentNodeStyle CssClass="Label" />
                                             </asp:TreeView>

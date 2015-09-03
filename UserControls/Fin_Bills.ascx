@@ -27,7 +27,7 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
     </tr>
     <tr>
         <td dir="rtl" align="center" colspan="2">
-            <asp:Label ID="lblPageStatus" runat="server" CssClass="Label" ForeColor="Red" Visible="false"></asp:Label>
+            <asp:Label ID="lblPageStatus" runat="server" CssClass="Label" ForeColor="#EC981F" font-underline="false" Visible="false"></asp:Label>
             <input type="hidden" runat="server" id="hidden_Bil_ID" />
             <asp:Label ID="lbl_Work_Total_Value" Visible="false" runat="server"></asp:Label>
         </td>
@@ -393,7 +393,7 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                     <tr>
                         <td align="left">
                         <asp:Label ID="Label12" runat="server" CssClass="Label" Text="   الباقي من قيمة امر التوريد: " Visible="false" />
-                        <asp:Label ID="lblval" runat="server" CssClass="Label" ForeColor="Red" Visible="false" Text='<%# Eval("sub")%>'  />
+                        <asp:Label ID="lblval" runat="server" CssClass="Label" ForeColor="#EC981F" font-underline="false" Visible="false" Text='<%# Eval("sub")%>'  />
                         </td>
                     </tr>
                     <tr>

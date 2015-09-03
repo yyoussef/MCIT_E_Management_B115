@@ -17,7 +17,7 @@
                 <tr>
                     <td align="center" colspan="3" style="height: 29px">
                         <asp:Label ID="lblErrorMsg" runat="server" Font-Bold="False" 
-                            ForeColor="Red" CssClass="Label" ></asp:Label>
+                            ForeColor="#EC981F" font-underline="false" CssClass="Label" ></asp:Label>
                     </td>
                 </tr>
                 <tr>
@@ -26,7 +26,7 @@
                             Text="الحدث:" />
                     </td>
                     <td style="width:10px;">
-                        <asp:Label ID="Label7" runat="server" Font-Bold="False" ForeColor="Red" CssClass="Label" >*</asp:Label>
+                        <asp:Label ID="Label7" runat="server" Font-Bold="False" ForeColor="#EC981F" font-underline="false" CssClass="Label" >*</asp:Label>
                     </td>
                     <td>
                         <asp:TextBox runat="server" CssClass="Text" ID="Event_name" 
@@ -64,7 +64,7 @@
                         <asp:Label ID="Label5" runat="server" CssClass="Label" Text="تاريخ الحدث:" />
                     </td>
                      <td style="width:10px;">
-                        <asp:Label ID="Label10" runat="server" Font-Bold="False" ForeColor="Red" CssClass="Label" >*</asp:Label>
+                        <asp:Label ID="Label10" runat="server" Font-Bold="False" ForeColor="#EC981F" font-underline="false" CssClass="Label" >*</asp:Label>
                     </td>
                     <td>
                             <asp:TextBox ID="Event_date" runat="server" CssClass="Text" 

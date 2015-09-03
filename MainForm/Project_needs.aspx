@@ -19,7 +19,7 @@
                 </tr>
                 <tr>
                     <td align="center" dir="rtl" colspan="3" style="height: 31px">
-                        <asp:Label ID="lblPageStatus" runat="server" CssClass="Label" ForeColor="Red" Visible="false"></asp:Label>
+                        <asp:Label ID="lblPageStatus" runat="server" CssClass="Label" ForeColor="#EC981F" font-underline="false" Visible="false"></asp:Label>
                     </td>
                 </tr>
                 <tr>
@@ -159,7 +159,7 @@
                                 BackColor="White" BorderColor="#999999" BorderStyle="Solid" BorderWidth="1px" 
                                 CaptionAlign="Top" CellPadding="3" CssClass="mGrid" 
                                 EmptyDataText="... عفوا لا يوجد بيانات ..." Font-Size="10pt" 
-                                Font-Strikeout="False" Font-Underline="False" ForeColor="Black" 
+                                Font-Strikeout="False"  font-underline="false" ForeColor="Black" 
                                 GridLines="Vertical" OnPreRender="gvSub_PreRender1" PagerStyle-CssClass="pgr" 
                                 Width="607px">
                                 <Columns>

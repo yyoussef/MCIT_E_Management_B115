@@ -15,11 +15,11 @@
             var imgsrc = img.src;
 
 
-            if (imgsrc.lastIndexOf('collapse') != -1) {
-                img.src = "../Images/expand.gif";
+            if (imgsrc.lastIndexOf('square_arrow_flipped') != -1) {
+                img.src = "../Images/square_arrow_down.gif";
             }
             else {
-                img.src = "../Images/collapse.gif";
+                img.src = "../Images/square_arrow_flipped.gif";
             }
 
             divname.style.display = divname.style.display == 'none' ? 'block' : 'none';
@@ -42,7 +42,7 @@
                 </tr>
                 <tr>
                     <td dir="rtl" align="center" colspan="2">
-                        <asp:Label ID="lblPageStatus" runat="server" CssClass="Label" ForeColor="Red" Visible="false"></asp:Label>
+                        <asp:Label ID="lblPageStatus" runat="server" CssClass="Label" ForeColor="#EC981F" font-underline="false" Visible="false"></asp:Label>
                     </td>
                 </tr>
                 <tr>
@@ -217,7 +217,7 @@
                                         <asp:TextBox ID="txtnewAvailbleAmount" runat="server" Width="80px" MaxLength="9"></asp:TextBox>
                                         <cc1:FilteredTextBoxExtender ID="FilteredtxtAvailalbeAmnt" runat="server" FilterType="Numbers"
                             TargetControlID="txtnewAvailbleAmount" />
-                                        <asp:Label ID="lblError" runat="server" Text="*" Visible="False" ForeColor="Red"></asp:Label>  
+                                        <asp:Label ID="lblError" runat="server" Text="*" Visible="False" ForeColor="#EC981F" font-underline="false"></asp:Label>  
                                     </ItemTemplate>
                                     <ItemStyle Width="100px" />
                                 </asp:TemplateField>
@@ -232,7 +232,7 @@
                                     <ItemTemplate>
                                        <asp:TextBox ID="txtAvailbleDate" runat="server"  Height="26px"
                                             CssClass="Text" Width="90px" Text='<%#System.DateTime.Now.ToString("dd/MM/yyyy") %>'/>
-                                             <asp:Label ID="lblError2" runat="server" Text="*" Visible="False" ForeColor="Red"></asp:Label>  
+                                             <asp:Label ID="lblError2" runat="server" Text="*" Visible="False" ForeColor="#EC981F" font-underline="false"></asp:Label>  
                                         <cc1:CalendarExtender ID="txtAvailbleDate_CalendarExtender" runat="server" TargetControlID="txtAvailbleDate"
                                             PopupButtonID="ImageButton3" Format="dd/MM/yyyy">
                                         </cc1:CalendarExtender>
@@ -294,14 +294,14 @@
                 <tr>
                                 <td dir="rtl" align="center" colspan="2">
                                     <table id="tbl_doc" runat="server" visible="false" style="border: 1px solid #C2DDF0">
-                                        <tr bgcolor="#E6F3FF" runat="server" id="TRdoc">
+                                        <tr  runat="server" id="TRdoc">
                                             <td valign="top" align="right" width="100%">
                                                 <table width="100%" cellpadding="0" cellspacing="0" style="height: 50px">
-                                                    <tr bgcolor="#E6F3FF">
+                                                    <tr >
                                                         <td width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div2','image0');">
-                                                            <img border="0" id="image0" src="../Images/expand.gif" />
+                                                            <img border="0" id="image0" src="../Images/square_arrow_down.gif" />
                                                         </td>
-                                                        <td style="font-size: large; color: #0C6AC8; text-decoration: underline blink; font-weight: bold;"
+                                                        <td 
                                                             onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div2','image0');">
                                                             وثيقة إتاحة احتياجات المشروع
                                                         </td>
@@ -404,17 +404,17 @@
                     <br />
                     <br />
                     </tr>
-                    <tr ID="TR2" runat="server" bgcolor="#E6F3FF">
+                    <tr ID="TR2" runat="server" >
                         <td align="right" colspan="2" valign="top" width="100%">
                             <table cellpadding="0" cellspacing="0" style="height: 50px" width="100%">
-                                <tr bgcolor="#E6F3FF">
+                                <tr >
                                     <td onclick="ChangeMeCase('div3','image0');" 
                                         onmouseover="this.style.cursor='hand'" width="35">
-                                        <img ID="Img1" border="0" src="../Images/expand.gif" />
+                                        <img ID="Img1" border="0" src="../Images/square_arrow_down.gif" />
                                     </td>
                                     <td onclick="ChangeMeCase('div3','image0');" 
                                         onmouseover="this.style.cursor='hand'" 
-                                        style="font-size: large; color: #0C6AC8; text-decoration: underline blink; font-weight: bold;">
+                                        >
                                         تفاصيل إتاحة إحتياج المشروع
                                     </td>
                                 </tr>
@@ -448,7 +448,7 @@
                                             <ItemTemplate>
                                                 <asp:TextBox ID="txtAvailble_Amount" runat="server" ReadOnly="true" 
                                                     Text='<%# Eval("Availble_Amount") %>' Width="75px"></asp:TextBox>
-                                                <asp:Label ID="lblError" runat="server" ForeColor="Red" Text="*" 
+                                                <asp:Label ID="lblError" runat="server" ForeColor="#EC981F" font-underline="false" Text="*" 
                                                     Visible="False"></asp:Label>
                                             </ItemTemplate>
                                         </asp:TemplateField>
@@ -456,7 +456,7 @@
                                             <ItemTemplate>
                                                 <asp:TextBox ID="txtavailble_amount_date" runat="server" ReadOnly="true" 
                                                     Text='<%# Eval("Availble_Amount_Date") %>' Width="75px"></asp:TextBox>
-                                                <asp:Label ID="lblError2" runat="server" ForeColor="Red" Text="*" 
+                                                <asp:Label ID="lblError2" runat="server" ForeColor="#EC981F" font-underline="false" Text="*" 
                                                     Visible="False"></asp:Label>
                                                 <cc1:CalendarExtender ID="txtavailble_amount_date_CalendarExtender" 
                                                     runat="server" Format="dd/MM/yyyy" PopupButtonID="ImageButton3" 

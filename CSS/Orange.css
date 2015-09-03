@@ -90,7 +90,8 @@ ul, ol {
 
 /* images */
 img {
-    border: 2px solid #CCC;
+    border: 0;
+    padding-top:5px;
 }
 
     img.float-right {
@@ -397,13 +398,13 @@ form.searchform {
 
                 #menu ul li a:hover {
                     color: black;
-                    background-color: #F3F3F3;
+                    background-color: #808080;
                     border-bottom: 4px solid #FFA600;
                 }
 
             #menu ul li#current a {
                 color: #333;
-                background-color: #F3F3F3;
+                background-color: #808080;
                 border-bottom: 4px solid #FFA600;
             }
 

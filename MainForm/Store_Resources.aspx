@@ -17,7 +17,7 @@
    <tr>
     <td colspan="3" style="height: 60px; text-align: center;"> 
    <asp:Label ID="labcheck" runat="server" Visible="False" CssClass="Label" 
-           ForeColor="Red" style="text-align: center" ></asp:Label>
+           ForeColor="#EC981F" font-underline="false" style="text-align: center" ></asp:Label>
        <br />
        <asp:RegularExpressionValidator ID="RegularExp" runat="server" 
            ControlToValidate="txtdate" CssClass="Label" Display="Dynamic" 
@@ -135,7 +135,7 @@
 <td  colspan="3" style="height: 43px">
 <asp:Button runat="server" ID="SaveBtn" text="حفظ" onclick="SaveBtn_Click" 
         CssClass="Button" Font-Overline="False" Font-Size="19px" 
-        Font-Strikeout="False" Font-Underline="False" Width="81px" />
+        Font-Strikeout="False" ForeColor="#808080" font-underline="false" Width="81px" />
     <br />
 <asp:Button runat="server" ID="AnotherSaveBtn" text="إضافة موارد أخري" onclick="AnotherSaveBtn_Click" 
         CssClass="Button" Visible="False" Width="134px" />

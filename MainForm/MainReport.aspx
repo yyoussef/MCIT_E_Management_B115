@@ -17,11 +17,11 @@
     var imgsrc = img.src;
     
 
-    if (imgsrc.lastIndexOf('collapse') != -1)
-       { img.src = "../Images/expand.gif";
+    if (imgsrc.lastIndexOf('square_arrow_flipped') != -1)
+       { img.src = "../Images/square_arrow_down.gif";
         }
     else
-        {img.src = "../Images/collapse.gif";
+        {img.src = "../Images/square_arrow_flipped.gif";
         }
 
     divname.style.display = divname.style.display == 'none' ? 'block' : 'none';
@@ -39,7 +39,7 @@
     <tr>
                         <td align="center" colspan="2" dir="rtl" style="height: 39px">
                         <asp:Label ID="Label4" runat="server" Font-Bold="false" 
-                            ForeColor="Red" CssClass="Label"></asp:Label>
+                            ForeColor="#EC981F" font-underline="false" CssClass="Label"></asp:Label>
                          </td>
     </tr>
 <tr>
@@ -71,7 +71,7 @@
  
 <tr>
  <td style="height: 54px" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div0','image0');">
-        <img alt="ashskd" border="0" id="image0" src="../Images/expand.gif" /></td>
+        <img alt="ashskd" border="0" id="image0" src="../Images/square_arrow_down.gif" /></td>
 <td onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div0','image0');">jksvbhkshvslkvhhv</td>
 </tr>
 

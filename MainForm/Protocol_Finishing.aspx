@@ -16,7 +16,7 @@
         </tr>
         <tr>
             <td align="center">
-                <asp:Label ID="lblPageStatus" runat="server" CssClass="Label" ForeColor="Red" Visible="false"></asp:Label>
+                <asp:Label ID="lblPageStatus" runat="server" CssClass="Label" ForeColor="#EC981F" font-underline="false" Visible="false"></asp:Label>
                 <input type="hidden" runat="server" id="hidden_ID" />
                 <input type="hidden" runat="server" id="hidden_Status" value="1" />
             </td>

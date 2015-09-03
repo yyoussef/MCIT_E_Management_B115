@@ -58,7 +58,7 @@
         <tr>
             <td align="center" colspan="4" style="height: 5px">
                 <asp:Literal ID="lASTreeViewThemeCssFile" runat="server"></asp:Literal>
-                <asp:Label ID="lblErrorMsg" runat="server" Font-Bold="False" ForeColor="Red" CssClass="Label"></asp:Label>
+                <asp:Label ID="lblErrorMsg" runat="server" Font-Bold="False" ForeColor="#EC981F" font-underline="false" CssClass="Label"></asp:Label>
                 <div style="display: none">
                     <asp:TextBox ID="txtCurrentNode" runat="server"></asp:TextBox>
                     <asp:TextBox ID="txtNewParentNode" runat="server"></asp:TextBox>
@@ -369,8 +369,8 @@
             <td colspan="3">
             </td>
             <td colspan="1" align="center" style="background:orange">
-                <asp:Label ID="lbl1" Text="نسبة انجاز المشروع :" runat="server" ForeColor="Red" Font-Bold="true" Font-Size="Large"></asp:Label>
-                 <asp:Label ID="lblProgProgress" runat="server"  ForeColor="Red" Font-Bold="true" Font-Size="Large"></asp:Label>
+                <asp:Label ID="lbl1" Text="نسبة انجاز المشروع :" runat="server" ForeColor="#EC981F" font-underline="false" Font-Bold="true" Font-Size="Large"></asp:Label>
+                 <asp:Label ID="lblProgProgress" runat="server"  ForeColor="#EC981F" font-underline="false" Font-Bold="true" Font-Size="Large"></asp:Label>
             </td>
            
         </tr>
@@ -380,7 +380,7 @@
                         AutoGenerateColumns="False" BackColor="White" BorderColor="#999999" 
                         BorderStyle="Solid" BorderWidth="1px" CaptionAlign="Top" CellPadding="3" 
                         CssClass="mGrid" EmptyDataText="... عفوا لا يوجد بيانات ..." Font-Size="10pt" 
-                        Font-Strikeout="False" Font-Underline="False" ForeColor="Black" 
+                        Font-Strikeout="False"  font-underline="false" ForeColor="Black" 
                         OnPreRender="gvSub_PreRender1" PagerStyle-CssClass="pgr" 
                      GridLines="Vertical">
                         <Columns>

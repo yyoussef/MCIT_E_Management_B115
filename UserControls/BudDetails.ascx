@@ -18,13 +18,13 @@ function ChangeMeCase(divid, imgid) {
     var imgsrc = img.src;
     
 
-    if (imgsrc.lastIndexOf('collapse') != -1)
+    if (imgsrc.lastIndexOf('square_arrow_flipped') != -1)
     { 
-        img.src = "../Images/expand.gif";
+        img.src = "../Images/square_arrow_down.gif";
     }
     else
     {
-        img.src = "../Images/collapse.gif";
+        img.src = "../Images/square_arrow_flipped.gif";
     }
 
     divname.style.display = divname.style.display == 'none' ? 'block' : 'none';
@@ -96,7 +96,7 @@ function SelectAll(Div_ID,Div_Chk_ID)
         <tr>
             <td dir="rtl" align="center" colspan="4">
                 <asp:HiddenField ID="Protocol_ID" runat="server" Value="0" />
-                <asp:Label ID="lblPageStatus" runat="server" CssClass="Label" ForeColor="Red" Visible="false"></asp:Label>
+                <asp:Label ID="lblPageStatus" runat="server" CssClass="Label" ForeColor="#EC981F" font-underline="false" Visible="false"></asp:Label>
                 <br />
                 <asp:Label ID="lblID" runat="server" CssClass="Label" Visible="False"></asp:Label>
             </td>
@@ -113,11 +113,11 @@ function SelectAll(Div_ID,Div_Chk_ID)
                                             <tr>
                                                 <td valign="top" align="right" colspan="2">
                                                     <table width="100%" cellpadding="0" cellspacing="0" style="height: 14px">
-                                                        <tr bgcolor="#E6F3FF">
+                                                        <tr >
                                                             <td width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div1','image1');">
-                                                                <img border="0" id="image1" src="../Images/expand.gif" />
+                                                                <img border="0" id="image1" src="../Images/square_arrow_down.gif" />
                                                             </td>
-                                                            <td style="font-size: large; color: #0C6AC8; text-decoration: underline blink; font-weight: bold;"
+                                                            <td 
                                                                 onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div1','image1');"
                                                                 colspan="1">
                                                                 تفاصيل الميزانية
@@ -208,7 +208,7 @@ function SelectAll(Div_ID,Div_Chk_ID)
                                                                                                     <tr onclick="ChangeMeCase('<%#"DV" & Eval("Sources_ID")%>','<%#"Src" & Eval("Sources_ID")%>');"
                                                                                                         onmouseover="this.style.cursor='hand'">
                                                                                                         <td align="right" style="width: 5%">
-                                                                                                            <img border="0" id='<%#"Src" & Eval("Sources_ID")%>' src="../Images/collapse.gif" />
+                                                                                                            <img border="0" id='<%#"Src" & Eval("Sources_ID")%>' src="../Images/square_arrow_flipped.gif" />
                                                                                                         </td>
                                                                                                         <td align="right" style="width: 85%">
                                                                                                             <%#Eval("Source_Name")%>

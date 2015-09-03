@@ -30,11 +30,11 @@ document.getElementById('<%= TextBox3.ClientID %>').value = name;
     var imgsrc = img.src;
     
 
-    if (imgsrc.lastIndexOf('collapse') != -1)
-       { img.src = "../Images/expand.gif";
+    if (imgsrc.lastIndexOf('square_arrow_flipped') != -1)
+       { img.src = "../Images/square_arrow_down.gif";
         }
     else
-        {img.src = "../Images/collapse.gif";
+        {img.src = "../Images/square_arrow_flipped.gif";
         }
 
     divname.style.display = divname.style.display == 'none' ? 'block' : 'none';
@@ -54,7 +54,7 @@ document.getElementById('<%= TextBox3.ClientID %>').value = name;
         </tr>
         <tr>
             <td align="center" colspan="2" style="height: 29px">
-                <asp:Label ID="lblErrorMsg" runat="server" Font-Bold="False" ForeColor="Red" CssClass="Label"></asp:Label>
+                <asp:Label ID="lblErrorMsg" runat="server" Font-Bold="False" ForeColor="#EC981F" font-underline="false" CssClass="Label"></asp:Label>
             </td>
         </tr>
         <tr>
@@ -112,12 +112,12 @@ document.getElementById('<%= TextBox3.ClientID %>').value = name;
         <tr>
             <td valign="top" align="right" width="95%" colspan="2">
                 <table width="100%" cellpadding="0" cellspacing="0" style="height: 50px">
-                    <tr bgcolor="#E6F3FF" align="center">
+                    <tr  align="center">
                         <td onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div1','Img1');"
                             align="right" dir="rtl" style="width: 37px">
-                            <img border="0" id="Img1" alt="" src="../Images/expand.gif" />
+                            <img border="0" id="Img1" alt="" src="../Images/square_arrow_down.gif" />
                         </td>
-                        <td style="font-size: large; color: #0C6AC8; text-decoration: underline blink; font-weight: bold;
+                        <td style="font-size: large;  text-decoration: underline blink; font-weight: bold;
                             direction: rtl" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div1','Img1');"
                             align="right" dir="rtl">
                             تحميل الوثيقة

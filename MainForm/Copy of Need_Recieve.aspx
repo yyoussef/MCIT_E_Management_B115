@@ -40,11 +40,11 @@
             var imgsrc = img.src;
 
 
-            if (imgsrc.lastIndexOf('collapse') != -1) {
-                img.src = "../Images/expand.gif";
+            if (imgsrc.lastIndexOf('square_arrow_flipped') != -1) {
+                img.src = "../Images/square_arrow_down.gif";
             }
             else {
-                img.src = "../Images/collapse.gif";
+                img.src = "../Images/square_arrow_flipped.gif";
             }
 
             divname.style.display = divname.style.display == 'none' ? 'block' : 'none';
@@ -86,7 +86,7 @@
         <br />
          <asp:Label ID="Label15" runat="server" CssClass="Label" Text="الانشطة المرتبطة" />
          <br />
-         <asp:Label ID="lblpopupStatus" runat="server" CssClass="Label" ForeColor="Red" Visible="false"></asp:Label>
+         <asp:Label ID="lblpopupStatus" runat="server" CssClass="Label" ForeColor="#EC981F" font-underline="false" Visible="false"></asp:Label>
         <%--OnPreRender="gvSub_PreRender1" OnDataBinding="get_gvActivities" --%>                     
         <div id="div1" style="overflow: auto; width: 690px; height: 350px">
       
@@ -94,7 +94,7 @@
                 AutoGenerateColumns="False" BackColor="White" BorderColor="#3366CC" BorderStyle="None"
                 BorderWidth="1px" Width="500px" CellPadding="4" CssClass="mGrid" EmptyDataText="... عفوا لا يوجد بيانات ..."
                 ForeColor="Black" PagerStyle-CssClass="pgr" Visible="true" Font-Size="10pt" Font-Strikeout="False"
-                Font-Underline="False" CaptionAlign="Top" >
+                 font-underline="false" CaptionAlign="Top" >
                 <Columns>
                     <asp:BoundField DataField="PActv_Desc" HeaderText="النشاط " HeaderStyle-Width="350px"
                         HeaderStyle-HorizontalAlign="Center" ItemStyle-Width="350px">
@@ -151,7 +151,7 @@
                 </tr>
                 <tr>
                     <td dir="rtl" align="center">
-                        <asp:Label ID="lblPageStatus" runat="server" CssClass="Label" ForeColor="Red" Visible="false"></asp:Label>
+                        <asp:Label ID="lblPageStatus" runat="server" CssClass="Label" ForeColor="#EC981F" font-underline="false" Visible="false"></asp:Label>
                     </td>
                 </tr>
              
@@ -208,7 +208,7 @@
                                             AutoGenerateColumns="False" BackColor="White" BorderColor="#3366CC" BorderStyle="None"
                                             BorderWidth="1px" Width="500px" CellPadding="4" CssClass="mGrid" EmptyDataText="... عفوا لا يوجد بيانات ..."
                                             ForeColor="Black" PagerStyle-CssClass="pgr" Visible="true" Font-Size="10pt" Font-Strikeout="False"
-                                            Font-Underline="False" CaptionAlign="Top" OnPreRender="gvSub_PreRender1" OnDataBinding="get_gvActivities">
+                                            ForeColor="#808080" font-underline="false" CaptionAlign="Top" OnPreRender="gvSub_PreRender1" OnDataBinding="get_gvActivities">
                                             <Columns>
                                                 <asp:BoundField DataField="PActv_Desc" HeaderText="النشاط " HeaderStyle-Width="350px"
                                                     HeaderStyle-HorizontalAlign="Center" ItemStyle-Width="350px">
@@ -320,7 +320,7 @@
                                     <asp:TextBox ID="txtnewrecievedAmount" runat="server" Width="75px" MaxLength="9"></asp:TextBox>
                                     <cc1:FilteredTextBoxExtender ID="FilteredtxtnewrecievedAmount" runat="server" FilterType="Numbers"
                                          TargetControlID="txtnewrecievedAmount" />
-                                    <asp:Label ID="lblError" runat="server" Text="*" Visible="False" ForeColor="Red"></asp:Label> 
+                                    <asp:Label ID="lblError" runat="server" Text="*" Visible="False" ForeColor="#EC981F" font-underline="false"></asp:Label> 
                         </ItemTemplate>
                         <ItemStyle />
                     </asp:TemplateField>
@@ -342,7 +342,7 @@
                         <ItemTemplate>
                            <asp:TextBox ID="txtRecieveDate" runat="server"  Height="26px"
                                 CssClass="Text" Width="90px" Text='<%#System.DateTime.Now.ToString("dd/MM/yyyy") %>'/>
-                                 <asp:Label ID="lblError2" runat="server" Text="*" Visible="False" ForeColor="Red"></asp:Label>  
+                                 <asp:Label ID="lblError2" runat="server" Text="*" Visible="False" ForeColor="#EC981F" font-underline="false"></asp:Label>  
                             <cc1:CalendarExtender ID="txtRecieveDate_CalendarExtender" runat="server" TargetControlID="txtRecieveDate"
                                 PopupButtonID="ImageButton3" Format="dd/MM/yyyy">
                             </cc1:CalendarExtender>
@@ -416,14 +416,14 @@
                             <tr>
                                 <td dir="rtl" align="right">
                                     <table id="tbl_doc" runat="server" visible="true" style="border: 1px solid #C2DDF0">
-                                        <tr bgcolor="#E6F3FF" runat="server" id="TRdoc">
+                                        <tr  runat="server" id="TRdoc">
                                             <td valign="top" align="right" width="100%">
                                                 <table width="100%" cellpadding="0" cellspacing="0" style="height: 50px">
-                                                    <tr bgcolor="#E6F3FF">
+                                                    <tr >
                                                         <td width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div2','image0');">
-                                                            <img border="0" id="image0" src="../Images/expand.gif" />
+                                                            <img border="0" id="image0" src="../Images/square_arrow_down.gif" />
                                                         </td>
-                                                        <td style="font-size: large; color: #0C6AC8; text-decoration: underline blink; font-weight: bold;"
+                                                        <td 
                                                             onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div2','image0');">
                                                             وثيقة صرف احتياجات المشروع
                                                         </td>
@@ -567,14 +567,14 @@
                                     <asp:Button ID="BtnSave" runat="server" CssClass="Button" Text=" حفــــظ الصرف "  Width="150px" />
                                 </td>
                             </tr>
-                             <tr bgcolor="#E6F3FF" runat="server" id="TR2">
+                             <tr  runat="server" id="TR2">
                                             <td valign="top" align="right" width="100%" colspan="2">
                                                 <table width="100%" cellpadding="0" cellspacing="0" style="height: 50px">
-                                                    <tr bgcolor="#E6F3FF">
+                                                    <tr >
                                                         <td width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div3','Img1');">
-                                                            <img border="0" id="Img1" src="../Images/expand.gif" />
+                                                            <img border="0" id="Img1" src="../Images/square_arrow_down.gif" />
                                                         </td>
-                                                        <td style="font-size: large; color: #0C6AC8; text-decoration: underline blink; font-weight: bold;"
+                                                        <td 
                                                             onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div3','Img1');">
                                                             تفاصيل صرف إحتياج المشروع
                                                         </td>
@@ -604,7 +604,7 @@
                                 <ItemTemplate>
                                     <asp:TextBox ID="txtRecieve_amount" runat="server" ReadOnly="true" Width="145px"
                                      Text='<%# Eval("recieved_amount") %>'></asp:TextBox>
-                                     <asp:Label ID="lblError" runat="server" Text="*" Visible="False" ForeColor="Red"></asp:Label>  
+                                     <asp:Label ID="lblError" runat="server" Text="*" Visible="False" ForeColor="#EC981F" font-underline="false"></asp:Label>  
                                 </ItemTemplate>
                             </asp:TemplateField>
                              <asp:TemplateField HeaderText="مبلغ الصرف الفعلي" ItemStyle-Width="150px">
@@ -618,7 +618,7 @@
                                 <ItemTemplate>
                                     <asp:TextBox ID="txtrecieved_amount_date" runat="server" ReadOnly="true" Width="75px"
                                      Text='<%# Eval("recieved_amount_date") %>'></asp:TextBox>
-                                     <asp:Label ID="lblError2" runat="server" Text="*" Visible="False" ForeColor="Red"></asp:Label>  
+                                     <asp:Label ID="lblError2" runat="server" Text="*" Visible="False" ForeColor="#EC981F" font-underline="false"></asp:Label>  
                                 <cc1:CalendarExtender ID="txtrecieved_amount_date_CalendarExtender" runat="server" TargetControlID="txtrecieved_amount_date"
                                     PopupButtonID="ImageButton3" Format="dd/MM/yyyy">
                                 </cc1:CalendarExtender>
@@ -689,7 +689,7 @@
                 AutoGenerateColumns="False" BackColor="White" BorderColor="#3366CC" BorderStyle="None"
                 BorderWidth="1px" Width="700px" CellPadding="4" CssClass="mGrid" EmptyDataText="... عفوا لا توجد أنشطة مرتبطة بهذا الإحتياج..."
                 ForeColor="Black" PagerStyle-CssClass="pgr"   Font-Strikeout="False"
-                Font-Underline="False" CaptionAlign="Top" Visible="False" >
+                 font-underline="false" CaptionAlign="Top" Visible="False" >
                 <Columns>
                     <asp:BoundField DataField="PActv_Desc" HeaderText="النشاط " HeaderStyle-Width="350px"
                         HeaderStyle-HorizontalAlign="Center" ItemStyle-Width="350px">
@@ -702,7 +702,7 @@
                             </asp:TextBox>
                             <cc1:FilteredTextBoxExtender ID="Filteredtxtamount" runat="server" FilterType="Numbers"
                                          TargetControlID="txtamount" />
-                                    <asp:Label ID="lblError" runat="server" Text="*" Visible="False" ForeColor="Red"></asp:Label> 
+                                    <asp:Label ID="lblError" runat="server" Text="*" Visible="False" ForeColor="#EC981F" font-underline="false"></asp:Label> 
                         </ItemTemplate>
                     </asp:TemplateField>
                     <asp:TemplateField ItemStyle-Width="120px" HeaderStyle-HorizontalAlign="Center" ItemStyle-HorizontalAlign="Center"

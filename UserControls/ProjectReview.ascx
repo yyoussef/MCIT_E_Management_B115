@@ -33,7 +33,7 @@ var name = file_Upload.substring(slashindex + 1, dotindex);
     </tr>
     <tr>
         <td align="center" colspan="4" style="height: 5px">
-            <asp:Label ID="lblErrorMsg" runat="server" Font-Bold="False" ForeColor="Red" CssClass="Label"></asp:Label>
+            <asp:Label ID="lblErrorMsg" runat="server" Font-Bold="False" ForeColor="#EC981F" font-underline="false" CssClass="Label"></asp:Label>
         </td>
     </tr>
     <tr>

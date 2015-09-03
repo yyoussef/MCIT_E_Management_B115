@@ -6,7 +6,7 @@
     <tr>
         <td height="30px" align="center" colspan="2">
             <asp:Label ID="Label1" runat="server" Text="إدارة الأجازات والمأموريات" CssClass="PageTitle"
-                Font-Underline="True"></asp:Label>
+                ></asp:Label>
             <br />
             <br />
         </td>

@@ -181,22 +181,22 @@
                     <asp:Label ID="Label11" runat="server" CssClass="Label" Text=" كيفية التقييم : "   />
                     </td>
                    <td>
-                    <asp:Label ID="Label6" runat="server" CssClass="Label" Text=" 100:90  ممتاز"  ForeColor="Red" />
+                    <asp:Label ID="Label6" runat="server" CssClass="Label" Text=" 100:90  ممتاز"  ForeColor="#EC981F" font-underline="false" />
                     </td>
                     <td>
-                      <asp:Label ID="Label7" runat="server" CssClass="Label" Text=" 80 : أقل من 90 جيد جدا    " ForeColor="Red"  />
+                      <asp:Label ID="Label7" runat="server" CssClass="Label" Text=" 80 : أقل من 90 جيد جدا    " ForeColor="#EC981F" font-underline="false"  />
 
                     </td>
                     <td>
-                      <asp:Label ID="Label8" runat="server" CssClass="Label" Text=" 70 : أقل من 80 جيد " ForeColor="Red" />
+                      <asp:Label ID="Label8" runat="server" CssClass="Label" Text=" 70 : أقل من 80 جيد " ForeColor="#EC981F" font-underline="false" />
 
                     </td>
                     <td>
-                      <asp:Label ID="Label9" runat="server" CssClass="Label" Text=" 60 : أقل من 70  متوسط " ForeColor="Red"  />
+                      <asp:Label ID="Label9" runat="server" CssClass="Label" Text=" 60 : أقل من 70  متوسط " ForeColor="#EC981F" font-underline="false"  />
 
                     </td>
                     <td>
-                      <asp:Label ID="Label10" runat="server" CssClass="Label" Text=" أقل من 60 ضعيف  " ForeColor="Red" />
+                      <asp:Label ID="Label10" runat="server" CssClass="Label" Text=" أقل من 60 ضعيف  " ForeColor="#EC981F" font-underline="false" />
 
                     </td>
              </tr> 

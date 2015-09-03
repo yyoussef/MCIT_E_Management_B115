@@ -46,7 +46,7 @@
     <tr>
         <td class="style1">
             <asp:Label ID="lbl_employeeName" runat="server" Text="  مدخل بيانات الخطاب:" CssClass="Label"
-                Font-Underline="False" AssociatedControlID="Smart_Search_Employee"></asp:Label>
+                ForeColor="#808080" font-underline="false" AssociatedControlID="Smart_Search_Employee"></asp:Label>
         </td>
         <td>
             <uc2:Smart_Search ID="Smart_Search_Employee" runat="server" />

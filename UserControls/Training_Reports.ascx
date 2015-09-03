@@ -14,11 +14,11 @@
     var imgsrc = img.src;
     
 
-    if (imgsrc.lastIndexOf('collapse') != -1)
-       { img.src = "../Images/expand.gif";
+    if (imgsrc.lastIndexOf('square_arrow_flipped') != -1)
+       { img.src = "../Images/square_arrow_down.gif";
         }
     else
-        {img.src = "../Images/collapse.gif";
+        {img.src = "../Images/square_arrow_flipped.gif";
         }
 
     divname.style.display = divname.style.display == 'none' ? 'block' : 'none';
@@ -36,7 +36,7 @@
     </tr>
     <tr>
         <td style="height: 30px; text-align: right;">
-            <asp:Image ID="Image35" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+            <asp:Image ID="Image35" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
             <asp:LinkButton ID="Training_emp" runat="server" CssClass="Text" Font-Bold="False"
                 OnClick="Training_emp_Click">الدورات المسجل بها الموظف</asp:LinkButton>
         </td>
@@ -46,14 +46,14 @@
     </tr>
     <tr>
         <td style="height: 30px; text-align: right;">
-            <asp:Image ID="Image1" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+            <asp:Image ID="Image1" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
             <asp:LinkButton ID="emptraining" runat="server" CssClass="Text" Font-Bold="False"
                 OnClick="Emp_Training_Click">الدورات التدريبية للموظفين</asp:LinkButton>
         </td>
     </tr>
     <tr>
         <td style="height: 30px; text-align: right;">
-            <asp:Image ID="Image2" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+            <asp:Image ID="Image2" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
             <asp:LinkButton ID="Emp_Approved_Training" runat="server" CssClass="Text" Font-Bold="False"
                 OnClick="Emp_Approved_Training_Click">
                                 الموظفين الذين تمت الموافقة عليهم  من قبل المدير المختص</asp:LinkButton>
@@ -61,7 +61,7 @@
     </tr>
     <tr>
         <td style="height: 30px; text-align: right;">
-            <asp:Image ID="Image3" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+            <asp:Image ID="Image3" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
             <asp:LinkButton ID="Emp_Passed_Training" runat="server" CssClass="Text" Font-Bold="False"
                 OnClick="Emp_Passed_Training_Click">
                                  الموظفين المجتازين للدورات بنجاح</asp:LinkButton>
@@ -69,7 +69,7 @@
     </tr>
      <tr>
         <td style="height: 30px; text-align: right;">
-            <asp:Image ID="Image4" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+            <asp:Image ID="Image4" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
             <asp:LinkButton ID="Emp_total_no_Training" runat="server" CssClass="Text" Font-Bold="False"
                 OnClick="Emp_total_no_Training_Click">
                                 احصاء  للدورات التدريبية</asp:LinkButton>
@@ -77,7 +77,7 @@
     </tr>
     <%-- <tr>
         <td style="height: 30px; text-align: right;">
-            <asp:Image ID="Image5" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+            <asp:Image ID="Image5" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
             <asp:LinkButton ID="Emp_total_no_Training_drow" runat="server" CssClass="Text" Font-Bold="False"
                 OnClick="Emp_total_no_Training_drow_Click">
                                 احصاء بياني  للدورات التدريبية</asp:LinkButton>
@@ -85,8 +85,7 @@
     </tr>--%>
     <tr>
         <td style="height: 30px; text-align: right;">
-            <asp:Image ID="Image36" runat="server" ImageUrl="~/new_images/a1.gif" 
-                Style="text-align: right" />
+            <asp:Image ID="Image36" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
             <asp:LinkButton ID="CompletedCourse" runat="server" CssClass="Text" Font-Bold="False"
                 OnClick="CompletedCourse_Click">الدورات التدريبية التي تمت وأسماء 
             المتقدمين للدورات التدريبية من قطاع البنية المعلوماتية</asp:LinkButton>
@@ -94,8 +93,7 @@
     </tr>
       <tr>
         <td style="height: 30px; text-align: right;">
-            <asp:Image ID="Image7" runat="server" ImageUrl="~/new_images/a1.gif" 
-                Style="text-align: right" />
+            <asp:Image ID="Image7" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
             <asp:LinkButton ID="ITInfra_Courses" runat="server" CssClass="Text" 
                 Font-Bold="False" onclick="ITInfra_Courses_Click"
                 >الدورات التدريبية المعلن عنها للعاملين بقطاع البنية المعلوماتية  
@@ -104,7 +102,7 @@
     </tr>
      <tr>
         <td style="height: 30px; text-align: right;">
-            <asp:Image ID="Image5" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+            <asp:Image ID="Image5" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
             <asp:LinkButton ID="hr_approved_courses" runat="server" CssClass="Text" Font-Bold="False" OnClick="Emp_HR_Approved_Training_Click">
                                 الموظفين الذين تمت الموافقة عليهم من قبل إدارة الموارد البشرية</asp:LinkButton>
         </td>
@@ -112,7 +110,7 @@
     
      <tr>
         <td style="height: 30px; text-align: right;">
-            <asp:Image ID="Image6" runat="server" ImageUrl="~/new_images/a1.gif" Style="text-align: right" />
+            <asp:Image ID="Image6" runat="server" ImageUrl="~/Images/arrow.gif"  Style="text-align: right;padding-left:5px" />
             <asp:LinkButton ID="lnk_results" runat="server" CssClass="Text" Font-Bold="False" OnClick="Course_Results_Click">
                                            النتائج النهائية للدورات </asp:LinkButton>
         </td>

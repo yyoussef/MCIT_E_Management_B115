@@ -17,7 +17,7 @@
     </tr>
     <tr>
         <td align="center" colspan="2">
-            <asp:Label ID="lblPageStatus" runat="server" CssClass="Label" ForeColor="Red" Visible="false"></asp:Label>
+            <asp:Label ID="lblPageStatus" runat="server" CssClass="Label" ForeColor="#EC981F" font-underline="false" Visible="false"></asp:Label>
            
         </td>
     </tr>
@@ -31,7 +31,7 @@
                 Height="25px" DataTextField="vacation_title" DataValueField="id" OnDataBinding="DDLVacationType_DataBinding"
                 AutoPostBack="false" />
             &nbsp;
-            <asp:Label ID="lblPageStatus0" runat="server" CssClass="Label" ForeColor="Red">الأجازة 
+            <asp:Label ID="lblPageStatus0" runat="server" CssClass="Label" ForeColor="#EC981F" font-underline="false">الأجازة 
             الإعتيادية يجب أن تقدم قبلها بيومين </asp:Label>
             &nbsp;<asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:ConnectionString %>"
                 SelectCommand="SELECT id, vacation_title FROM Vacations"></asp:SqlDataSource>
