@@ -91,7 +91,7 @@ ul, ol {
 /* images */
 img {
     border: 0;
-    padding-top:5px;
+    padding-top:0;
 }
 
     img.float-right {
@@ -398,13 +398,13 @@ form.searchform {
 
                 #menu ul li a:hover {
                     color: black;
-                    background-color: #808080;
+                    background-color: #f3f3f3;
                     border-bottom: 4px solid #FFA600;
                 }
 
             #menu ul li#current a {
                 color: #333;
-                background-color: #808080;
+                background-color: #f3f3f3;
                 border-bottom: 4px solid #FFA600;
             }
 

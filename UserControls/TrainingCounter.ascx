@@ -26,12 +26,12 @@
         <td valign="top" align="right" width="95%">
             <table width="100%" cellpadding="0" cellspacing="0" style="height: 50px">
                 <tr >
-                    <td width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('trainingDiv','trainingImage');">
+                    <td width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('trainingDiv','trainingImage');"  style="padding-top:7px;">
                         <img border="0" id="trainingImage" src="../Images/square_arrow_down.gif"  />
                     </td>
                     <td 
                         onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('trainingDiv','trainingImage');">
-                        <asp:Label ID="lblTraining" runat="server" Text=" التدريب"></asp:Label>
+                       <h1><asp:Label ID="lblTraining" runat="server" Text=" التدريب"></asp:Label></h1> 
                     </td>
                 </tr>
             </table>
@@ -46,15 +46,10 @@
                             <asp:Image ID="Image50" runat="server" ImageUrl="~/Images/arrow.gif"  style="padding-left:5px" />
                         </td>
                         <td align="right" id="td" runat="server">
-                            <asp:LinkButton ID="LinkButton68" OnClick="lnk_Tran_Request_Click" runat="server"
-                                 Font-Size="20px" ForeColor="#808080" font-underline="false"  Font-Bold="true"
-                                Text="لديك عدد">
+                            
                                 <asp:LinkButton ID="lnk_Tran_Request" OnClick="lnk_Tran_Request_Click" runat="server"
-                                     Font-Size="20px" Visible="true"  Text="0"
-                                    ForeColor="#EC981F" font-underline="false" />
-                                <asp:LinkButton ID="LinkButton73" OnClick="lnk_Tran_Request_Click" runat="server"
-                                     Visible="true"  Text="طلب تدريب" Font-Size="20px"
-                                    ForeColor="#808080" font-underline="false" Font-Bold="true" /></asp:LinkButton>
+                                     Font-Size="18px"  font-underline="false" />
+                              
                             <br />
                         </td>
                     </tr>
@@ -63,13 +58,10 @@
                             <asp:Image ID="Image51" runat="server" ImageUrl="~/Images/arrow.gif"  style="padding-left:5px" />
                         </td>
                         <td align="right" id="td2" runat="server">
-                            <asp:LinkButton ID="LinkButton71" OnClick="lnk_Tran_New_Click" runat="server" 
-                                Font-Size="20px" ForeColor="#808080" font-underline="false"  Font-Bold="true" Text="لديك عدد">
+                            
                                 <asp:LinkButton ID="lnk_Tran_New" OnClick="lnk_Tran_New_Click" runat="server" 
-                                    Font-Size="20px" Visible="true"  Text="0" ForeColor="#EC981F" font-underline="false" />
-                                <asp:LinkButton ID="LinkButton75" OnClick="lnk_Tran_New_Click" runat="server" 
-                                    Visible="true"  Text=" تدريب جديد" Font-Size="20px" ForeColor="#808080" font-underline="false"
-                                    Font-Bold="true" /></asp:LinkButton>
+                                    Font-Size="18px"  font-underline="false" />
+                               
                             <br />
                         </td>
                     </tr>
@@ -80,13 +72,10 @@
                             <asp:Image ID="Image1" runat="server" ImageUrl="~/Images/arrow.gif"  style="padding-left:5px" />
                         </td>
                         <td align="right" id="td1" runat="server">
-                            <asp:LinkButton ID="LinkButton1" OnClick="lnk_Trainplan_New_Click" runat="server" 
-                                Font-Size="20px" ForeColor="#808080" font-underline="false"  Font-Bold="true" Text="لديك عدد">
+                            
                                 <asp:LinkButton ID="lnk_trainplan" OnClick="lnk_Trainplan_New_Click" runat="server" 
-                                    Font-Size="20px" Visible="true"  Text="0" ForeColor="#EC981F" font-underline="false" />
-                                <asp:LinkButton ID="LinkButton3" OnClick="lnk_Trainplan_New_Click" runat="server" 
-                                    Visible="true"  Text="  خطط تدريبية" Font-Size="20px" ForeColor="#808080" font-underline="false"
-                                    Font-Bold="true" /></asp:LinkButton>
+                                    Font-Size="18px"  font-underline="false" />
+                               
                             <br />
                         </td>
                     </tr>

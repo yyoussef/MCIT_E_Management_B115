@@ -26,7 +26,7 @@
         <td valign="top" align="right" width="95%">
             <table width="100%" cellpadding="0" cellspacing="0" style="height: 50px">
                 <tr >
-                    <td width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div10','Img10');" style="vertical-align:middle">
+                    <td width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div10','Img10');" style="padding-top:7px;">
                         <img border="0" id="Img10" src="../Images/square_arrow_down.gif" />
                     </td>
                     <td 

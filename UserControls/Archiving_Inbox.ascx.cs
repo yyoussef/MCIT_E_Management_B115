@@ -30,21 +30,22 @@ public partial class UserControls_Archiving_Inbox : System.Web.UI.UserControl
         {
             string sql = "select * from Files inner join  File_Archive_Status on File_Archive_Status.file_id = Files.Files_id and  File_Archive_Status.status = 0";
             DataTable dt_files = General_Helping.GetDataTable(sql);
-            if (dt_files.Rows.Count > 0)
-            {
-                lnk_files_count.Text = dt_files.Rows.Count.ToString();
-            }
-            else
-                lnk_files_count.Text = "0";
+           
+                //lnk_files_count.Text = dt_files.Rows.Count.ToString();
+                lnk_files_count.Text = "لديك عدد (" + dt_files.Rows.Count.ToString() + ") ملفات لم يتم الاطلاع عليها";
+                if (dt_files.Rows.Count < 1)
+                    extentionMethods.DisableLinkButton(lnk_files_count);
+            
 
             sql = "select * from Files inner join  File_Archive_Status on File_Archive_Status.file_id = Files.Files_id and  File_Archive_Status.status = 1";
             dt_files = General_Helping.GetDataTable(sql);
-            if (dt_files.Rows.Count > 0)
-            {
-                lnk_archive_count.Text = dt_files.Rows.Count.ToString();
-            }
-            else
-                lnk_archive_count.Text = "0";
+           
+                //lnk_archive_count.Text = dt_files.Rows.Count.ToString();
+                lnk_archive_count.Text = "لديك عدد (" + dt_files.Rows.Count.ToString() + ") ملفات تم الاطلاع عليها";
+                if (dt_files.Rows.Count < 1)
+                    extentionMethods.DisableLinkButton(lnk_archive_count);
+           
+           
         }
         catch (Exception ex)
         { }

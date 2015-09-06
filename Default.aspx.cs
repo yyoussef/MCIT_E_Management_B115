@@ -364,7 +364,7 @@ public partial class _Default : System.Web.UI.Page
 
         //if (dt.Rows[0]["PMP_ID"].ToString() == "436" || dt.Rows[0]["PMP_ID"].ToString() == "1965" || dt.Rows[0]["PMP_ID"].ToString() == "383" || dt.Rows[0]["PMP_ID"].ToString() == "62" || dt.Rows[0]["PMP_ID"].ToString() == "450" || dt.Rows[0]["PMP_ID"].ToString() == "37" || Session_CS.group_id.ToString() == "15")
         //{
-        Response.Redirect("~/MainForm");
+        Response.Redirect("~/MainForm/Default.aspx");
         //}
 
 

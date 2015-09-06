@@ -43,10 +43,16 @@ public partial class UserControls_ReviewUserControl : System.Web.UI.UserControl
         //else
         //{
         dt_new = Bulliten_View.new_bulliten(CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()), 2);
-        lnkbtn_Review_Emp_New.Text = dt_new.Rows.Count.ToString();
+        //lnkbtn_Review_Emp_New.Text = dt_new.Rows.Count.ToString();
+        lnkbtn_Review_Emp_New.Text = "لديك عدد (" + dt_new.Rows.Count.ToString() + ") نشرة جديدة";
+        if (dt_new.Rows.Count < 1)
+            extentionMethods.DisableLinkButton(lnkbtn_Review_Emp_New);
 
         dt_closed = Bulliten_View.closed_bulliten(CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()), 3);
-        lnkbtn_Review_emp_closed.Text = dt_closed.Rows.Count.ToString();
+        //lnkbtn_Review_emp_closed.Text = dt_closed.Rows.Count.ToString();
+        lnkbtn_Review_emp_closed.Text = "لديك عدد (" + dt_closed.Rows.Count.ToString() + ") نشرة تم قراءتها";
+        if (dt_closed.Rows.Count < 1)
+            extentionMethods.DisableLinkButton(lnkbtn_Review_emp_closed);
 
         tr_Review_emp_closed.Visible = true;
         tr_Review_Emp_New.Visible = true;

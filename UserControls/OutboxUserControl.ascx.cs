@@ -121,7 +121,7 @@ public partial class UserControls_OutboxUserControl : System.Web.UI.UserControl
 
     protected void lnk_btn_Outbox_new_forall_Click(object sender, EventArgs e)
     {
-        if (CDataConverter.ConvertToInt(link_new_Outbox_forall.Text) > 0)
+        if (link_new_Outbox_forall.Enabled)
         {
 
             //lblMain.Text = "قائمة الوارد الجديد";
@@ -138,7 +138,7 @@ public partial class UserControls_OutboxUserControl : System.Web.UI.UserControl
     }
     protected void lnk_btn_have_follow_forall_Click(object sender, EventArgs e)
     {
-        if (CDataConverter.ConvertToInt(link_Outbox_have_follow_forall.Text) > 0)
+        if (link_Outbox_have_follow_forall.Enabled)
         {
 
            // lblMain.Text = "قائمة الوارد له متابعة";
@@ -152,7 +152,7 @@ public partial class UserControls_OutboxUserControl : System.Web.UI.UserControl
     }
     protected void lnk_btn_Outbox_old_forall_Click(object sender, EventArgs e)
     {
-        if (CDataConverter.ConvertToInt(link_old_Outbox_forall.Text) > 0)
+        if (link_old_Outbox_forall.Enabled)
         {
 
            // lblMain.Text = "قائمة الوارد القديم";
@@ -167,7 +167,7 @@ public partial class UserControls_OutboxUserControl : System.Web.UI.UserControl
     }
     protected void lnk_btn_Outbox_late_forall_Click(object sender, EventArgs e)
     {
-        if (CDataConverter.ConvertToInt(link_late_Outbox_forall.Text) > 0)
+        if (link_late_Outbox_forall.Enabled)
         {
 
             // lblMain.Text = "قائمة الصادر المتاخر";
@@ -182,7 +182,7 @@ public partial class UserControls_OutboxUserControl : System.Web.UI.UserControl
     }
     protected void lnk_btn_Outbox_closed_forall_Click(object sender, EventArgs e)
     {
-        if (CDataConverter.ConvertToInt(link_closed_Outbox_forall.Text) > 0)
+        if (link_closed_Outbox_forall.Enabled)
         {
 
             //lblMain.Text = "قائمة الوارد المنتهي";

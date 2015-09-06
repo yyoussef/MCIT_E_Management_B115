@@ -71,32 +71,52 @@ public partial class UserControls_ProjectsUserControl : System.Web.UI.UserContro
 
         ///////////////// assign data counts  to links
         ///////// active projects
-        lnk_btn_Active_proj_2.Text = dt_avtive_proj.Rows.Count.ToString();
+        lnk_btn_Active_proj_2.Text = "لديك عدد (" + dt_avtive_proj.Rows.Count.ToString() + ") مشروع جاري";
+        if (dt_avtive_proj.Rows.Count < 1)
+            extentionMethods.DisableLinkButton(lnk_btn_Active_proj_2);
         /////////ended projects
-        lbtnProj_done_2.Text = dt_Ended_proj.Rows.Count.ToString();
+        lbtnProj_done_2.Text = "لديك عدد (" + dt_Ended_proj.Rows.Count.ToString() + ") مشروع منتهى";
+        if (dt_Ended_proj.Rows.Count < 1)
+            extentionMethods.DisableLinkButton(lbtnProj_done_2);
         /////////under follow Projects
-        Lb_Lbdonefollow_2.Text = dt_underfollow_proj.Rows.Count.ToString();
+        Lb_Lbdonefollow_2.Text = "لديك عدد (" + dt_underfollow_proj.Rows.Count.ToString() + ") مشروع منتهى تحت المتابعة";
+        if (dt_underfollow_proj.Rows.Count < 1)
+            extentionMethods.DisableLinkButton(Lb_Lbdonefollow_2);
         //Stopped Projects
-        lbtnProj_stopped_2.Text = dt_stopped_proj.Rows.Count.ToString();
+        lbtnProj_stopped_2.Text = "لديك عدد (" + dt_stopped_proj.Rows.Count.ToString() + ") مشروع متوقف";
+        if (dt_stopped_proj.Rows.Count < 1)
+            extentionMethods.DisableLinkButton(lbtnProj_stopped_2);
         /////// suggest  projects
-        LBtnProj_ٍSuggest_2.Text = dt_suggest_proj.Rows.Count.ToString();
+        LBtnProj_Suggest_2.Text = "لديك عدد (" + dt_suggest_proj.Rows.Count.ToString() + ") مشروع جديد مقترح";
+        if (dt_suggest_proj.Rows.Count < 1)
+            extentionMethods.DisableLinkButton(LBtnProj_Suggest_2);
         /////// suggest approved projects
-        lbtnProj_Approved_2.Text = dt_suggest_approved_proj.Rows.Count.ToString();
+        lbtnProj_Approved_2.Text = "لديك عدد (" + dt_suggest_approved_proj.Rows.Count.ToString() + ") مشروع جديد معتمد";
+        if (dt_suggest_approved_proj.Rows.Count < 1)
+            extentionMethods.DisableLinkButton(lbtnProj_Approved_2);
         ////////Repeated Projects
-        lbtnProj_Repeted_2.Text = dt_Repeated_proj.Rows.Count.ToString();
+        lbtnProj_Repeted_2.Text = "لديك عدد (" + dt_Repeated_proj.Rows.Count.ToString() + ") مشروع مطلوب إعادته";
+        if (dt_Repeated_proj.Rows.Count < 1)
+            extentionMethods.DisableLinkButton(lbtnProj_Repeted_2);
         //////////////////// Refused projects
-        lbtnProj_refused_2.Text = dt_Refused_proj.Rows.Count.ToString();
+        lbtnProj_refused_2.Text = "لديك عدد (" + dt_Refused_proj.Rows.Count.ToString() + ") مشروع تم رفضه";
+        if (dt_Refused_proj.Rows.Count < 1)
+            extentionMethods.DisableLinkButton(lbtnProj_refused_2);
         //////////////////// Canceled projects
-        lnkProj_Canceled_2.Text = dt_Canceled_proj.Rows.Count.ToString();
+        lnkProj_Canceled_2.Text = "لديك عدد (" + dt_Canceled_proj.Rows.Count.ToString() + ") مشروع تم إلغائه";
+        if (dt_Canceled_proj.Rows.Count < 1)
+            extentionMethods.DisableLinkButton(lnkProj_Canceled_2);
         //////////////////////////////////Project Constraints//////////////////////////
-        lnk_const_count.Text = dt_project_Constraints.Rows.Count.ToString();
+        lnk_const_count.Text = "لديك عدد (" + dt_project_Constraints.Rows.Count.ToString() + ") مشروعات بها معوقات وتحتاج لتدخل إدارة عليا";
+        if (dt_project_Constraints.Rows.Count < 1)
+            extentionMethods.DisableLinkButton(lnk_const_count);
     }
     void Show_Hide_Catagerios_inbox()
     {
-        if (CDataConverter.ConvertToInt(LBtnProj_ٍSuggest_2.Text) > 0)
-            tr_LBtnProj_ٍSuggest_2.BgColor = "#FCFBB2";
-        if (CDataConverter.ConvertToInt(LBtnProj_ٍSuggest_2.Text) > 0)
-            lbl_Project.ForeColor = System.Drawing.Color.Red;
+        //if (CDataConverter.ConvertToInt(LBtnProj_Suggest_2.Text) > 0)
+        //    tr_LBtnProj_ٍSuggest_2.BgColor = "#FCFBB2";
+        //if (CDataConverter.ConvertToInt(LBtnProj_Suggest_2.Text) > 0)
+        //    lbl_Project.ForeColor = System.Drawing.Color.Red;
         //if (CDataConverter.ConvertToInt(link_new_inbox_forall.Text) > 0 || CDataConverter.ConvertToInt(link_inbox_have_follow_forall.Text) > 0)
         //    lbl_archive_forall.ForeColor = System.Drawing.Color.Red;
 
@@ -121,9 +141,9 @@ public partial class UserControls_ProjectsUserControl : System.Web.UI.UserContro
 
         }
     }
-    protected void LBtnProj_ٍSuggest_2_Click(object sender, EventArgs e)
+    protected void LBtnProj_Suggest_2_Click(object sender, EventArgs e)
     {
-        if (CDataConverter.ConvertToInt(LBtnProj_ٍSuggest_2.Text) > 0)
+        if (CDataConverter.ConvertToInt(LBtnProj_Suggest_2.Text) > 0)
         {
 
             Response.Redirect("Projects_Grid_Page.aspx?Type=suggest_proj");

@@ -145,7 +145,7 @@ public partial class UserControls_inboxUserControl : System.Web.UI.UserControl
    
     protected void lnk_btn_inbox_new_forall_Click(object sender, EventArgs e)
     {
-        if (CDataConverter.ConvertToInt(link_new_inbox_forall.Text) > 0)
+        if (link_new_inbox_forall.Enabled)
         {
 
             //lblMain.Text = "قائمة الوارد الجديد";

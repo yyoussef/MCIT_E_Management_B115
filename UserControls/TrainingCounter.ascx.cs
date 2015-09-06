@@ -21,23 +21,32 @@ public partial class UserControls_TrainingCounter : System.Web.UI.UserControl
             tr_lnk_Tran_Request.Visible = true;
        // }
         DataTable DT_train_New = course_DB.SelectAll_Cource_Not_Registered(CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()));
-        if (DT_train_New != null && DT_train_New.Rows.Count > 0)
+        if (DT_train_New != null )
         {
             //tr_Train_New.Visible = true;
-            lnk_Tran_New.Text = DT_train_New.Rows.Count.ToString();
-            lblTraining.ForeColor = System.Drawing.Color.Red;
+           // lnk_Tran_New.Text = DT_train_New.Rows.Count.ToString();
+            lnk_Tran_New.Text = "لديك عدد (" + DT_train_New.Rows.Count.ToString() + ") تدريب جديد";
+            if (DT_train_New.Rows.Count < 1)
+                extentionMethods.DisableLinkButton(lnk_Tran_New);
+           // lblTraining.ForeColor = System.Drawing.Color.Red;
         }
         DataTable DT_Course_emp = course_DB.Select_Courses_Emlployee_Manager(CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()), "3");
-        if (DT_Course_emp != null && DT_Course_emp.Rows.Count > 0)
+        if (DT_Course_emp != null)
         {
-            lnk_Tran_Request.Text = DT_Course_emp.Rows.Count.ToString();
+            //lnk_Tran_Request.Text = DT_Course_emp.Rows.Count.ToString();
+            lnk_Tran_Request.Text = "لديك عدد (" + DT_Course_emp.Rows.Count.ToString() + ") طلب تدريب";
+            if (DT_Course_emp.Rows.Count < 1)
+                extentionMethods.DisableLinkButton(lnk_Tran_Request);
             
         }
 
         DataTable dt_train_plan=Training_Plan_DB.Training_Plan_mangerselect(CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()));
-        if (dt_train_plan != null && dt_train_plan.Rows.Count > 0)
+        if (dt_train_plan != null )
         {
-            lnk_trainplan.Text = dt_train_plan.Rows.Count.ToString();
+            //lnk_trainplan.Text = dt_train_plan.Rows.Count.ToString();
+            lnk_trainplan.Text = "لديك عدد (" + dt_train_plan.Rows.Count.ToString() + ") خطط تدريبية";
+            if (dt_train_plan.Rows.Count < 1)
+                extentionMethods.DisableLinkButton(lnk_trainplan);
         }
 
         if (Session_CS.sec_id.ToString() != "1")

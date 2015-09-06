@@ -46,7 +46,7 @@
 
     <asp:UpdatePanel ID="UpdatePanel1" runat="server">
         <ContentTemplate>
-            <asp:Timer ID="Timer1" runat="server" Interval="10000">
+            <asp:Timer ID="Timer1" runat="server" Interval="300000">
             </asp:Timer>
             <input id="proj_id" runat="server" type="hidden" />
             <table width="100%" style="line-height: 2;" align="center" id="table1" runat="server">

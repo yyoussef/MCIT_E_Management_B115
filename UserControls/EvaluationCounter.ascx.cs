@@ -19,20 +19,29 @@ public partial class UserControls_EvaluationCounter : System.Web.UI.UserControl
        // if (!IsPostBack)
        // {
             DataTable dt_mng = SqlHelper.ExecuteDataset(Database.ConnectionString, "Evaluation_For_HR_Manage", 0, 0).Tables[0];
-            lnkEvalMng.Text = dt_mng.Rows.Count.ToString();
+           // lnkEvalMng.Text = dt_mng.Rows.Count.ToString();
+            lnkEvalMng.Text = "لديك عدد (" + dt_mng.Rows.Count.ToString() + ") تم تقيمه من المدير المباشر";
+            if (dt_mng.Rows.Count < 1)
+                extentionMethods.DisableLinkButton(lnkEvalMng);
 
             DataTable dt_top = SqlHelper.ExecuteDataset(Database.ConnectionString, "Evaluation_For_HR_Top", 0, 0).Tables[0];
-            lnkEvalTop.Text = dt_top.Rows.Count.ToString();
+            //lnkEvalTop.Text = dt_top.Rows.Count.ToString();
+            lnkEvalTop.Text = "لديك عدد (" + dt_top.Rows.Count.ToString() + ") تم تقيمه من المدير الأعلى";
+            if (dt_top.Rows.Count < 1)
+                extentionMethods.DisableLinkButton(lnkEvalTop);
 
             DataTable dt_Not_Eval = SqlHelper.ExecuteDataset(Database.ConnectionString, "Evaluation_For_dt_Not_Eval", 0, 0).Tables[0];
-            lnkNotEval.Text = dt_Not_Eval.Rows.Count.ToString();
+            //lnkNotEval.Text = dt_Not_Eval.Rows.Count.ToString();
+            lnkNotEval.Text = "لديك عدد (" + dt_Not_Eval.Rows.Count.ToString() + ") لم يتم تقييمه";
+            if (dt_Not_Eval.Rows.Count < 1)
+                extentionMethods.DisableLinkButton(lnkNotEval);
 
-            if (CDataConverter.ConvertToInt(dt_mng.Rows.Count) > 0
-                || CDataConverter.ConvertToInt(dt_top.Rows.Count) > 0
-                || CDataConverter.ConvertToInt(dt_Not_Eval.Rows.Count) > 0)
-            {
-                lblEvaluation.ForeColor = System.Drawing.Color.Red;
-            }
+            //if (CDataConverter.ConvertToInt(dt_mng.Rows.Count) > 0
+            //    || CDataConverter.ConvertToInt(dt_top.Rows.Count) > 0
+            //    || CDataConverter.ConvertToInt(dt_Not_Eval.Rows.Count) > 0)
+            //{
+            //    lblEvaluation.ForeColor = System.Drawing.Color.Red;
+            //}
        // }
     }
 

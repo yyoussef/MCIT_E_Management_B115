@@ -27,12 +27,12 @@
         <td valign="top" align="right" width="95%">
             <table width="100%" cellpadding="0" cellspacing="0" style="height: 50px">
                 <tr >
-                    <td width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div1000','Img500');">
+                    <td width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div1000','Img500');"  style="padding-top:7px;">
                         <img border="0" id="Img500" src="../Images/square_arrow_flipped.gif" />
                     </td>
                     <td 
                         onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div1000','Img500');">
-                        <asp:Label ID="Label2" runat="server" Text="نشرات التعميم"></asp:Label>
+                       <h1> <asp:Label ID="Label2" runat="server" Text="نشرات التعميم"></asp:Label></h1>
                     </td>
                 </tr>
             </table>
@@ -47,15 +47,10 @@
                             <asp:Image ID="Image52" runat="server" ImageUrl="~/Images/arrow.gif"  style="padding-left:5px" />
                         </td>
                         <td align="right" id="Td3" runat="server">
-                            <asp:LinkButton ID="LinkButton74" OnClick="lnkbtn_Review_Emp_New_Click" runat="server"
-                                 Font-Size="20px" ForeColor="#808080" font-underline="false"  Font-Bold="true"
-                                Text="لديك عدد">
+                           
                                 <asp:LinkButton ID="lnkbtn_Review_Emp_New" OnClick="lnkbtn_Review_Emp_New_Click"
-                                    runat="server"  Font-Size="20px" Visible="true" 
-                                    Text="0" ForeColor="#EC981F" font-underline="false" />
-                                <asp:LinkButton ID="LinkButton77" OnClick="lnkbtn_Review_Emp_New_Click" runat="server"
-                                     Visible="true"  Text="نشرة جديدة" Font-Size="20px"
-                                    ForeColor="#808080" font-underline="false" Font-Bold="true" /></asp:LinkButton>
+                                    runat="server"  Font-Size="18px"  font-underline="false" />
+                              
                             <br />
                         </td>
                     </tr>
@@ -64,15 +59,10 @@
                             <asp:Image ID="Image55" runat="server" ImageUrl="~/Images/arrow.gif"  style="padding-left:5px" />
                         </td>
                         <td align="right">
-                            <asp:LinkButton ID="LinkButton84" OnClick="lnkbtn_Review_emp_closed_Click" runat="server"
-                                 Font-Size="20px" ForeColor="#808080" font-underline="false"  Font-Bold="true"
-                                Text="لديك عدد">
+                            
                                 <asp:LinkButton ID="lnkbtn_Review_emp_closed" OnClick="lnkbtn_Review_emp_closed_Click"
-                                    runat="server"  Font-Size="20px" Visible="true" 
-                                    Text="0" ForeColor="#EC981F" font-underline="false" />
-                                <asp:LinkButton ID="LinkButton86" OnClick="lnkbtn_Review_emp_closed_Click" runat="server"
-                                     Visible="true"  Text="نشرة تم قراءتها" Font-Size="20px"
-                                    ForeColor="#808080" font-underline="false" Font-Bold="true" /></asp:LinkButton>
+                                    runat="server"  Font-Size="18px" font-underline="false" />
+                               
                             <br />
                         </td>
                     </tr>

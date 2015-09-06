@@ -27,7 +27,7 @@
         <td valign="top" align="right" width="95%">
             <table width="100%" cellpadding="0" cellspacing="0" style="height: 50px">
                 <tr >
-                    <td width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('divoutbox','Imgoutbox');">
+                    <td width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('divoutbox','Imgoutbox');" style="padding-top:7px;">
                         <img border="0" id="Imgoutbox" src="../Images/square_arrow_flipped.gif" />
                     </td>
                     <td 

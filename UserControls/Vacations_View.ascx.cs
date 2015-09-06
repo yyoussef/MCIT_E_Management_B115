@@ -20,11 +20,11 @@ public partial class UserControls_Vacations_View : System.Web.UI.UserControl
 
         //if (!IsPostBack)
         //{
-            if (Session_CS.pmp_id != null && CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()) > 0)
-            {
-                load_counter();
-                Show_Hide_Catagerios_vac();
-            }
+        if (Session_CS.pmp_id != null && CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()) > 0)
+        {
+            load_counter();
+            Show_Hide_Catagerios_vac();
+        }
         //}
     }
 
@@ -37,60 +37,64 @@ public partial class UserControls_Vacations_View : System.Web.UI.UserControl
 
     }
     private void load_counter()
-   { 
+    {
 
-       //if (Session_CS.is_vacation_mng.ToString() == "1")
-       // {
-           trVoc.Visible = true;
-            trErrand.Visible = true;
-            trVocE.Visible = true;
-       
-
-            DataTable AllVacDT = Vacations_View_class.new_vacations_requests(CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()));
-            if (AllVacDT.Rows.Count > 0)
-            {
-                lnkVocationsNo.Text = AllVacDT.Rows.Count.ToString();
-            }
-
-       
-                DataTable AllVacErgDT = Vacations_View_class.new_vacations_requests_dept(CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()));
-                if (AllVacErgDT.Rows.Count > 0)
-                {
-                    lnkVocationsErgentNo.Text = AllVacErgDT.Rows.Count.ToString();
-                }
+        //if (Session_CS.is_vacation_mng.ToString() == "1")
+        // {
       
 
 
+        DataTable AllVacDT = Vacations_View_class.new_vacations_requests(CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()));
 
-            Vacations_errand_DT VacObj2 = new Vacations_errand_DT();
-            DataTable AllVacDT2 = Vacations_View_class.new_Errand_requests(CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()));
-           if (AllVacDT2.Rows.Count > 0)
-            {
+        //lnkVocationsNo.Text = AllVacDT.Rows.Count.ToString();
+        lnkVocationsNo.Text = "لديك عدد (" + AllVacDT.Rows.Count.ToString() + ") طلب أجازة";
+        if (AllVacDT.Rows.Count < 1)
+            extentionMethods.DisableLinkButton(lnkVocationsNo);
 
-                lnkErrandNo.Text = AllVacDT2.Rows.Count.ToString();
-            }
 
-            Vacations_Dayoff_DT VacObj3 = new Vacations_Dayoff_DT();
-            DataTable AllVacDT3 = Vacations_View_class.new_dayoff_requests(CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()));
-            if (AllVacDT3.Rows.Count > 0)
-            {
-                trDayOff.Visible = true;
-                lnkDayOffNo.Text = AllVacDT3.Rows.Count.ToString();
-            }
+        DataTable AllVacErgDT = Vacations_View_class.new_vacations_requests_dept(CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()));
 
-            Vocations_permission_DT VacPerm = new Vocations_permission_DT();
-            DataTable AllVacPerm = Vacations_View_class.new_permissions_requests(CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()));
-            if (AllVacPerm.Rows.Count > 0)
-            {
-                tr_permission.Visible = true;
-                lnkpermNo.Text = AllVacPerm.Rows.Count.ToString();
-            }
+        //lnkVocationsErgentNo.Text = AllVacErgDT.Rows.Count.ToString();
+        lnkVocationsErgentNo.Text = "لديك عدد (" + AllVacErgDT.Rows.Count.ToString() + ") طلب أجازة عاجلة";
+        if (AllVacErgDT.Rows.Count < 1)
+            extentionMethods.DisableLinkButton(lnkVocationsErgentNo);
 
-          
-         
-       // }
 
-}
+
+
+        Vacations_errand_DT VacObj2 = new Vacations_errand_DT();
+        DataTable AllVacDT2 = Vacations_View_class.new_Errand_requests(CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()));
+
+
+        //lnkErrandNo.Text = AllVacDT2.Rows.Count.ToString();
+        lnkErrandNo.Text = "لديك عدد (" + AllVacDT2.Rows.Count.ToString() + ") طلب مأمورية";
+        if (AllVacDT2.Rows.Count < 1)
+            extentionMethods.DisableLinkButton(lnkErrandNo);
+
+        Vacations_Dayoff_DT VacObj3 = new Vacations_Dayoff_DT();
+        DataTable AllVacDT3 = Vacations_View_class.new_dayoff_requests(CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()));
+
+      
+
+        //lnkDayOffNo.Text = AllVacDT3.Rows.Count.ToString();
+        lnkDayOffNo.Text = "لديك عدد (" + AllVacDT3.Rows.Count.ToString() + ") طلب يوم عطلة";
+        if (AllVacDT3.Rows.Count < 1)
+            extentionMethods.DisableLinkButton(lnkDayOffNo);
+
+        Vocations_permission_DT VacPerm = new Vocations_permission_DT();
+        DataTable AllVacPerm = Vacations_View_class.new_permissions_requests(CDataConverter.ConvertToInt(Session_CS.pmp_id.ToString()));
+        
+            
+            //lnkpermNo.Text = AllVacPerm.Rows.Count.ToString();
+            lnkpermNo.Text = "لديك عدد (" + AllVacPerm.Rows.Count.ToString() + ") طلب إذن";
+            if (AllVacPerm.Rows.Count < 1)
+                extentionMethods.DisableLinkButton(lnkpermNo);
+
+
+
+        // }
+
+    }
 
 
 

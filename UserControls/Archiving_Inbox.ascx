@@ -27,12 +27,12 @@
         <td valign="top" align="right" width="95%">
             <table width="100%" cellpadding="0" cellspacing="0" style="height: 50px">
                 <tr >
-                    <td width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div_archive','image236');">
+                    <td width="35" onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div_archive','image236');"  style="padding-top:7px;">
                         <img border="0" id="Img3" src="../Images/square_arrow_down.gif" />
                     </td>
                     <td 
                         onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div_archive','image236');">
-                        <asp:Label ID="Label4" runat="server" Text="أرشيف الملفات "></asp:Label>
+                      <h1>  <asp:Label ID="Label4" runat="server" Text="أرشيف الملفات "></asp:Label></h1>
                     </td>
                 </tr>
             </table>
@@ -45,13 +45,10 @@
                                     <asp:Image ID="Image27" runat="server" ImageUrl="~/Images/arrow.gif"  style="padding-left:5px" />
                                 </td>
                                 <td align="right">
-                                    <asp:LinkButton ID="lnk_files" runat="server"  Font-Size="20px"
-                                        ForeColor="#808080" font-underline="false"  Font-Bold="true" Text="لديك عدد" OnClick="lnk_files_Click" />
-                                        <asp:LinkButton ID="lnk_files_count" runat="server"  Font-Size="20px"
-                                            Visible="true"  Text="0" ForeColor="#EC981F" font-underline="false" OnClick="lnk_files_Click" />
-                                        <asp:LinkButton ID="lnk_files1" runat="server"  Visible="true" 
-                                            Text="  ملفات لم يتم الاطلاع عليها " Font-Size="20px" ForeColor="#808080" font-underline="false" Font-Bold="true"
-                                            OnClick="lnk_files_Click" />
+                                   
+                                        <asp:LinkButton ID="lnk_files_count" runat="server"  Font-Size="18px"
+                                             font-underline="false" OnClick="lnk_files_Click" />
+                                       
                                     <br />
                                 </td>
                             </tr>
@@ -60,13 +57,10 @@
                                     <asp:Image ID="Image32" runat="server" ImageUrl="~/Images/arrow.gif"  style="padding-left:5px" />
                                 </td>
                                 <td align="right">
-                                    <asp:LinkButton ID="lnk_archive" runat="server"  Font-Size="20px"
-                                        ForeColor="#808080" font-underline="false"  Font-Bold="true" Text="لديك عدد" OnClick="lnk_archive_Click"/>
-                                        <asp:LinkButton ID="lnk_archive_count" runat="server"  Font-Size="20px"
-                                            Visible="true"  Text="0" ForeColor="#EC981F" font-underline="false" OnClick="lnk_archive_Click" />
-                                        <asp:LinkButton ID="lnk_archive_view" runat="server"  Visible="true"
-                                             Text="  ملفات تم الاطلاع عليها  " Font-Size="20px" ForeColor="#808080" font-underline="false"
-                                            Font-Bold="true" OnClick="lnk_archive_Click" />
+                                   
+                                        <asp:LinkButton ID="lnk_archive_count" runat="server"  Font-Size="18px"
+                                            font-underline="false" OnClick="lnk_archive_Click" />
+                                       
                                     <br />
                                 </td>
                             </tr>

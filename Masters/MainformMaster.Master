@@ -35,7 +35,14 @@
     <script type="text/javascript"  src="../Script/smartSearch.js"></script>
       
     <script type="text/javascript" src="../Script/jquery-1.2.6.min.js"></script> 
-
+    <script >
+        
+        $(function () {
+            $('a').filter(function () {
+                return (this.href == location.href);
+            }).parent('li').attr('id','current');
+        });
+    </script>
         
 
     
@@ -52,19 +59,19 @@
     </div>
     <table width="100%">
         <tr>
-            <td width="990px" bgcolor="#f3f3f3">
+            <td width="990px"  style="background: url(../images/headerbg-orange.gif) repeat-x; ">
                 <table id="Table_01" border="0" align="right" dir="rtl" cellpadding="0" cellspacing="0">
                     <tr>
-                        <td align="right" dir="rtl">
-                            <asp:Image ID="headerImage" runat="server" Height="120px" Width="1000px" />
+                        <td align="right" dir="rtl" style="vertical-align:top">
+                            <asp:Image ID="headerImage" runat="server" Height="100px" Width="1000px" />
                         </td>
-                        <td dir="rtl" align="center" valign="top">
+                        <td dir="rtl" align="right" valign="top">
                                 <h1>
-                                    <asp:Label ID="lblUserName" align="right" runat="server"></asp:Label></h1>
+                                    <asp:Label ID="lblUserName" align="right" runat="server" ForeColor="#f3f3f3"></asp:Label></h1>
 
                                 <br />
                                 <h1>
-                                    <asp:Label ID="lblDepts" align="right" runat="server"></asp:Label>
+                                    <asp:Label ID="lblDepts" align="right" runat="server" ForeColor="#f3f3f3"></asp:Label>
                                 </h1>
 
                             </td>
@@ -94,20 +101,20 @@
 
 
 
-                                        <li id="current"><a href="Default.aspx">الرئيسية</a></li>
-                                        <li>
+                                        <li ><a href="Default.aspx">الرئيسية</a></li>
+                                        <li >
                                             <a href="Inbox_Search.aspx">بحث في الخطابات الواردة</a>
 
                                         </li>
-                                        <li>
+                                        <li >
                                             <a href="Outbox_Search.aspx">بحث في الخطابات الصادرة</a>
 
                                         </li>
-                                        <li>
+                                        <li >
                                             <a href="Commission_Search.aspx">بحث في التكليفات </a>
 
                                         </li>
-                                        <li>
+                                        <li >
                                             <a href="Add_fav.aspx">إضافة للمفضلة</a>
 
                                         </li>

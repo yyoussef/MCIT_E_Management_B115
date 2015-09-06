@@ -44,6 +44,7 @@ Partial Public Class Masters_MainformMaster
                 lblDepts.Text = Server.UrlDecode(Session_CS.dept)
 
             End If
+           
             'Else
             '    'Session.Clear()
             '    Sticker1.Visible = False

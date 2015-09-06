@@ -53,16 +53,31 @@ public partial class UserControls_CommissionUserControl : System.Web.UI.UserCont
         dt_com_follow = Commission_DB.follow_com_all(parent, pmp);
 
         //////////////////// late com //////////////////        
-        link_late_com.Text = dt_com_late.Rows.Count.ToString();
+       // link_late_com.Text = dt_com_late.Rows.Count.ToString();
+        link_late_com.Text = "لديك عدد (" + dt_com_late.Rows.Count.ToString() + ") تكليف متأخر";
+        if (dt_com_late.Rows.Count < 1)
+            extentionMethods.DisableLinkButton(link_late_com);
         /////////////////////// new com ///////////
-        link_new_com.Text = dt_com_new.Rows.Count.ToString();
+        //link_new_com.Text = dt_com_new.Rows.Count.ToString();
+        link_new_com.Text = "لديك عدد (" + dt_com_new.Rows.Count.ToString() + ") تكليف جديد";
+        if (dt_com_new.Rows.Count < 1)
+            extentionMethods.DisableLinkButton(link_new_com);
 
         /////////////// old com 
-        link_old_com.Text = dt_com_old.Rows.Count.ToString();
+        //link_old_com.Text = dt_com_old.Rows.Count.ToString();
+        link_old_com.Text = "لديك عدد (" + dt_com_old.Rows.Count.ToString() + ") تكليف جاري";
+        if (dt_com_old.Rows.Count < 1)
+            extentionMethods.DisableLinkButton(link_old_com);
         //////////// closed com
-        link_closed_com.Text = dt_com_closed.Rows.Count.ToString();
+        //link_closed_com.Text = dt_com_closed.Rows.Count.ToString();
+        link_closed_com.Text = "لديك عدد (" + dt_com_closed.Rows.Count.ToString() + ") تكليف منتهي";
+        if (dt_com_closed.Rows.Count < 1)
+            extentionMethods.DisableLinkButton(link_closed_com);
         //////////// follow com
-        link_com_have_follow.Text = dt_com_follow.Rows.Count.ToString();
+        //link_com_have_follow.Text = dt_com_follow.Rows.Count.ToString();
+        link_com_have_follow.Text = "لديك عدد (" + dt_com_follow.Rows.Count.ToString() + ") تكليف له متابعة";
+        if (dt_com_follow.Rows.Count < 1)
+            extentionMethods.DisableLinkButton(link_com_have_follow);
     }
     void Show_Hide_Catagerios_inbox()
     {
