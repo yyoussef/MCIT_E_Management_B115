@@ -19,7 +19,8 @@
 body {
     margin: 0;
     padding: 0;
-    font: 71%/1.5em Verdana, 'Trebuchet MS', Arial, Sans-serif;
+    font: 71%/1.5em 'lucida grande',tahoma,verdana,arial,sans-serif;
+    /*Verdana, 'Trebuchet MS', Arial, Sans-serif;*/
     /*background: url(../images/headerbg-orange.gif) repeat-x;*/
     color: #666666;
     text-align: right;
@@ -316,9 +317,9 @@ form.searchform {
 
               border-bottom: 1px solid #EFF0F1;
   
-  padding: 3px 5px 2px 2px;
+  padding: 5px 0px 5px 0px;
    direction: rtl;
-   font-size: 18px;
+   /*font-size: 18px;*/
    list-style-type: square;
    display:list-item;
         }
@@ -330,11 +331,13 @@ form.searchform {
 }
 
 #sidebar ul.sidemenu a {
-    font-weight: bold;
+ 
     background-image: none;
     text-decoration: none;
+    font-size: 18px;
    
 }
+
 
 /* rightbar */
 #rightbar {
@@ -363,7 +366,7 @@ form.searchform {
     clear: both;
     margin: 0;
     padding: 0;
-      font-size: 12px;
+      font-size: 18px;
 }
 
     #menu ul {
@@ -372,8 +375,9 @@ form.searchform {
         margin: 0;
         padding: 0;
         float: right;
-        font: bold 1.4em 'Trebuchet MS', Tahoma, Arial, Sans-serif;
-           width: 60%; /* 775px; */
+        /*font:  1.4em ;*/
+        /*'Trebuchet MS', Tahoma, Arial, Sans-serif;*/
+         width: 60%; /* 775px; */
         border: 1px solid #808080;
         border-width: 0;
         list-style: none;
@@ -390,7 +394,7 @@ form.searchform {
                 bottom: -4px;
                 float: left;
                 color: #808080;
-                padding: 0px 10px;
+                padding: 0px 5px 5px;
                 text-decoration: none;
                 background: white url(../images/menudivide.gif) repeat-y right top;
                 border-bottom: 4px solid #808080;
