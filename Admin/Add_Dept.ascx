@@ -23,7 +23,7 @@
             </asp:DropDownList>
         </td>
     </tr>
-    ddd
+    
     <tr>
         <td style="width: 80px; height: 71px;">
             <asp:Label ID="lbl2" runat="server" Text="اسم الادارة" CssClass="Label"></asp:Label>
