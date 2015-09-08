@@ -137,7 +137,7 @@
                         <tr>
                             <td colspan="2" align="center" bgcolor="#f9fdff" dir="rtl">
                                 &nbsp;
-                               <h1><asp:Label runat="server" Text="دخـــول المسـتخــــدميـن    " ID="enterlab" ></asp:Label></h1> 
+                               <h1 runat="server" ID="enterlab" >دخـــول المسـتخــــدميـن</h1> 
                                 <br />
                                 <br />
                             </td>
@@ -150,7 +150,7 @@
                         </tr>
                         <tr align="center">
                             <td dir="rtl" align="right" rowspan="1"  >
-                               <h2><asp:TextBox ID="UserName" runat="server"  CausesValidation="True"></asp:TextBox></h2> 
+                               <asp:TextBox ID="UserName" runat="server"  CausesValidation="True"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="UserNameRequired" runat="server" ControlToValidate="UserName"
                                     ErrorMessage="من فضلك ادخل اسم المستخدم" ValidationGroup="a" SetFocusOnError="True"
                                     Display="Dynamic">*</asp:RequiredFieldValidator>
@@ -159,14 +159,14 @@
                  onfocus="if(value == 'اسم المستخدم'){value=''}" onblur="if (value == '') {value='اسم المستخدم'}"
                   dir="rtl" size="20" /></td>--%>
                             <td  dir="rtl" align="left">
-                              <h2><asp:Label ID="userlbl" runat="server" Text="اسم المستخدم:" ></asp:Label></h2> 
+                              <asp:Label ID="userlbl" runat="server" Text="اسم المستخدم:" ></asp:Label>
                                
                             </td>
                         </tr>
                         <tr align="center">
                             <td dir="rtl" bgcolor="#f9fdff" align="right" valign="baseline" class="style7">
-                                <h2><asp:TextBox ID="Password" runat="server" TextMode="Password"
-                                    CausesValidation="True" ValidationGroup="a" autocomplete="off"></asp:TextBox></h2>
+                                <asp:TextBox ID="Password" runat="server" TextMode="Password"
+                                    CausesValidation="True" ValidationGroup="a" autocomplete="off"></asp:TextBox>
                                 <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ControlToValidate="Password"
                                     ErrorMessage="من فضلك ادخل كلمة المرور" ValidationGroup="a" 
                                     Display="Dynamic">*</asp:RequiredFieldValidator>
@@ -175,7 +175,7 @@
                             </td>
                             <td  dir="rtl" align="left" valign="baseline">
                                 <%--/*   onFocus="if (value == 'your@email.com') {value=''}" onBlur="if (value== '') {value='your@email.com'}" */--%>
-                            <h2><asp:Label ID="passlbl" runat="server" Text="كلمة المرور:"></asp:Label></h2>
+                            <asp:Label ID="passlbl" runat="server" Text="كلمة المرور:"></asp:Label>
                                
                             </td>
                         </tr>

@@ -42,26 +42,26 @@ a {
 
 /* headers */
 h1, h2, h3 {
-    font: bold 1em Sans-serif;
+    font-family:  Sans-serif;
     text-transform: uppercase;
     color: #555;
 }
 
 h1 {
-    font-size: 1.8em;
+    font-size: 24px;
 }
 
 h2{
-    font-size: 1.5em;
+    font-size: 18px;
 }
 
 h3 {
-    font-size: 1.2em;
+    font-size: 16px;
     text-transform: none;
 }
 span{
      
-     font: bold 1.1em Sans-serif;
+     font: bold 18px Sans-serif;
      margin: 0 0 0 0px;
 }
 #main h1, #rightbar h1 {
@@ -79,7 +79,7 @@ span{
 }
 
 p, h1, h2, h3 {
-    margin: 10px 15px;
+    margin: 15px 15px;
 }
 
 ul, ol {
@@ -158,8 +158,9 @@ label {
 input , select {
 	padding: 4px;
 	border:1px solid #555;
-	font: normal 1.2em Verdana, sans-serif;
+	font: normal 18px Verdana, sans-serif;
 	color:#555;
+    margin: 10px 10px 10px 10px;
 }
 textarea {
 	width:350px;

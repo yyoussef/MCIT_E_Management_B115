@@ -66,9 +66,9 @@
                             <asp:Image ID="headerImage" runat="server" Height="100px" Width="1000px" />
                         </td>
                         <td dir="rtl" align="right" valign="top">
-                                <h1>
-                                    <asp:Label ID="lblUserName" align="right" runat="server" ForeColor="#f3f3f3"></asp:Label></h1>
-
+                                
+                                   <h1>  <asp:Label ID="lblUserName" align="right" runat="server" ForeColor="#f3f3f3"></asp:Label>
+</h1>
                               
                                 <h1>
                                     <asp:Label ID="lblDepts" align="right" runat="server" ForeColor="#f3f3f3"></asp:Label>
