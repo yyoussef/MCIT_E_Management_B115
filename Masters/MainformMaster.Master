@@ -69,7 +69,7 @@
                                 <h1>
                                     <asp:Label ID="lblUserName" align="right" runat="server" ForeColor="#f3f3f3"></asp:Label></h1>
 
-                                <br />
+                              
                                 <h1>
                                     <asp:Label ID="lblDepts" align="right" runat="server" ForeColor="#f3f3f3"></asp:Label>
                                 </h1>

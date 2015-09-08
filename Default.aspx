@@ -4,27 +4,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>نظام التراسل الإلكترونى</title>
-    <link rel="stylesheet" href="CSS/style (2).css" type="text/css" />
-    <style type="text/css">
-        .style5
-        {
-            height: 20px;
-        }
-        .style7
-        {
-            width: 299px;
-            height: 30px;
-        }
-        .style11
-        {
-            width: 299px;
-            height: 39px;
-        }
-        .style15
-        {
-            height: 23px;
-        }
-    </style>
+    <link rel="stylesheet" href="CSS/Orange.css" type="text/css" />
+    
 
     <script type="text/javascript" language="javascript">
 
@@ -139,9 +120,9 @@
         <input type="hidden" id="hdn_attempts" runat="server" value="0" />
         <table border="0" align="center" cellpadding="0" cellspacing="0" width="99%" style="height: 320px"
             dir="ltr" id="tbl_login" runat="server" visible="false">
-            <tr align="center" bgcolor="#C2DDF0">
-                <td dir="rtl" width="100%">
-                    <img id="headerImage" runat="server" style="height: 120px; width: 1000px" src="~/Images/New_Banner.jpg" />
+            <tr align="center" >
+                <td dir="rtl" width="100%" style="background: url(../Images/E-man-banner.png) center no-repeat;height: 120px; width: 1000px">
+                    <%--<img id="headerImage" runat="server" style="height: 120px; width: 1000px" src="~/Images/E-man-banner.png" />--%>
                     <asp:Label runat="server" Text=" " ID="lbl1" ForeColor="#990000"></asp:Label>
                 </td>
             </tr>
@@ -156,8 +137,7 @@
                         <tr>
                             <td colspan="2" align="center" bgcolor="#f9fdff" dir="rtl">
                                 &nbsp;
-                                <asp:Label runat="server" Text="دخـــول المسـتخــــدميـن    " ID="enterlab" ForeColor="#990000"
-                                    Font-Bold="False" Font-Names="Arial"  font-underline="false" Font-Size="24px"></asp:Label>
+                               <h1><asp:Label runat="server" Text="دخـــول المسـتخــــدميـن    " ID="enterlab" ></asp:Label></h1> 
                                 <br />
                                 <br />
                             </td>
@@ -169,9 +149,8 @@
                             </td>
                         </tr>
                         <tr align="center">
-                            <td dir="rtl" bgcolor="#f9fdff" align="right" rowspan="1" valign="baseline" class="style11">
-                                <asp:TextBox ID="UserName" runat="server" Width="200px" Font-Bold="True" Font-Size="17px"
-                                    Style="margin-bottom: 0px" CausesValidation="True"></asp:TextBox>
+                            <td dir="rtl" align="right" rowspan="1"  >
+                               <h2><asp:TextBox ID="UserName" runat="server"  CausesValidation="True"></asp:TextBox></h2> 
                                 <asp:RequiredFieldValidator ID="UserNameRequired" runat="server" ControlToValidate="UserName"
                                     ErrorMessage="من فضلك ادخل اسم المستخدم" ValidationGroup="a" SetFocusOnError="True"
                                     Display="Dynamic">*</asp:RequiredFieldValidator>
@@ -179,25 +158,25 @@
                             <%--<input type="text" id="UserName" name="Textbox2" value="اسم المستخدم" 
                  onfocus="if(value == 'اسم المستخدم'){value=''}" onblur="if (value == '') {value='اسم المستخدم'}"
                   dir="rtl" size="20" /></td>--%>
-                            <td bgcolor="#f9fdff" dir="rtl" align="center">
-                                <asp:Label ID="userlbl" runat="server" Text="اسم المستخدم:" Font-Size="13pt" AssociatedControlID="Password"
-                                    ForeColor="#244A6F" Height="25px" Width="95px" Font-Bold="True"></asp:Label>
+                            <td  dir="rtl" align="left">
+                              <h2><asp:Label ID="userlbl" runat="server" Text="اسم المستخدم:" ></asp:Label></h2> 
+                               
                             </td>
                         </tr>
                         <tr align="center">
                             <td dir="rtl" bgcolor="#f9fdff" align="right" valign="baseline" class="style7">
-                                <asp:TextBox ID="Password" runat="server" TextMode="Password" Width="200px" Font-Size="16px"
-                                    CausesValidation="True" ValidationGroup="a" autocomplete="off"></asp:TextBox>
+                                <h2><asp:TextBox ID="Password" runat="server" TextMode="Password"
+                                    CausesValidation="True" ValidationGroup="a" autocomplete="off"></asp:TextBox></h2>
                                 <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ControlToValidate="Password"
                                     ErrorMessage="من فضلك ادخل كلمة المرور" ValidationGroup="a" 
                                     Display="Dynamic">*</asp:RequiredFieldValidator>
                                 <%-- <input type="text" id="Password1" name="Textbox1" value="كلمة المرور" onfocus="if(value == 'كلمة المرور'){value=''}" onblur="if (value== '') {value='كلمة المرور'}"
            dir="rtl"  />--%>
                             </td>
-                            <td bgcolor="#f9fdff" dir="rtl" align="center" valign="baseline">
-                                <%--/*   onFocus="if (value == 'your@email.com') {value=''}" onBlur="if (value== '') {value='your@email.com'}" */--%>&nbsp;
-                                <asp:Label ID="passlbl" runat="server" Text="كلمة المرور:" Font-Bold="True" Font-Size="12pt"
-                                    ForeColor="#244A6F"></asp:Label>
+                            <td  dir="rtl" align="left" valign="baseline">
+                                <%--/*   onFocus="if (value == 'your@email.com') {value=''}" onBlur="if (value== '') {value='your@email.com'}" */--%>
+                            <h2><asp:Label ID="passlbl" runat="server" Text="كلمة المرور:"></asp:Label></h2>
+                               
                             </td>
                         </tr>
                         <tr>
@@ -206,17 +185,15 @@
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="2" align="center" bgcolor="#f9fdff" valign="middle" height="35px">
-                                <asp:Button ID="Button1" runat="server" BackColor="#C2DDF0" Font-Bold="True" Font-Size="Medium"
-                                    ForeColor="#244A6F" Height="26px" Text="دخـــــــول" Width="71px" BorderStyle="None"
-                                    OnClick="Button1_Click" ValidationGroup="a" />
+                            <td colspan="2" align="center" valign="middle" >
+                                <h2><asp:Button ID="Button1" runat="server" 
+                                    Text="دخـــــــول" 
+                                    OnClick="Button1_Click" ValidationGroup="a" /></h2>
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="2" align="center" bgcolor="#f9fdff" valign="middle" height="35px">
-                                <asp:LinkButton ID="LinkButton1" runat="server" Text="نسيت كلمة المرور" Font-Bold="True"
-                                    ForeColor="#436485" align="right" PostBackUrl="Request_Password.aspx" Width="130px"
-                                    valign="bottom" Font-Names="arial" Font-Size="16px" />
+                            <td colspan="2" align="center"  valign="middle" >
+                             <asp:LinkButton ID="LinkButton1" runat="server" Text="نسيت كلمة المرور"  PostBackUrl="Request_Password.aspx"  />
                             </td>
                         </tr>
                     </table>
@@ -241,16 +218,18 @@
                 </td>
             </tr>
         </table>
-        <table width="99%" id="tbl_footer" runat="server" border="0" visible="false" align="center"
-            bgcolor="#C2DDF0" style="height: 25px">
-            <tr>
-                <td align="center" bgcolor="#C2DDF0" valign="top">
-                    <asp:Label runat="server" ID="Footerlab" Text="حقوق النسخ محفوظة للإدارة المركزية للإستشارات الفنية وتطوير النظم بقطاع البنية المعلوماتية بوزارة الاتصالات وتكنولوجيا المعلومات  ... "
-                        ForeColor="#244A6F" Width="100%" Font-Size="12pt" Height="16px" Font-Bold="True"
-                        Font-Names="Times New Roman"></asp:Label>
-                </td>
-            </tr>
-        </table>
+       
+        <table id="tbl_footer" runat="server" border="0" align="center" cellpadding="0" cellspacing="0" style="width: 100%;">
+                    <tr align="center">
+                        <td valign="top" dir="ltr" bgcolor="#f3f3f3">
+                            <marquee behavior="scroll" direction="right">
+                        <asp:Label  runat="server" ID="Footerlab" Text="حقوق النسخ محفوظة للإدارة المركزية للإستشارات الفنية وتطوير النظم بقطاع البنية المعلوماتية بوزارة الاتصالات وتكنولوجيا المعلومات  ... "
+                            Style="text-align: center" ForeColor="#555" Width="100%" Font-Size="12pt"
+                            Font-Bold="True" Font-Names="Times New Roman"></asp:Label></marquee>
+                        </td>
+                    </tr>
+                </table>
+        
     </div>
     <div id="div_test2" runat="server" visible="false">
         <asp:Label runat="server" Text="    جاري الان عمل تحديث للنظام برجاء الانتظار لحين الانتهاء من إجراءات التحديث وشكرا "

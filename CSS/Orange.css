@@ -30,6 +30,9 @@ body {
 a {
     background: inherit;
     color: #EC981F ;
+     font-size: 18px;
+         text-decoration: none;
+}
 }
 
     a:hover {
@@ -45,11 +48,11 @@ h1, h2, h3 {
 }
 
 h1 {
-    font-size: 1.5em;
+    font-size: 1.8em;
 }
 
 h2{
-    font-size: 1.3em;
+    font-size: 1.5em;
 }
 
 h3 {
@@ -154,9 +157,9 @@ label {
 }
 input , select {
 	padding: 4px;
-	border:1px solid #eee;
-	font: normal 1em/1.5em Verdana, sans-serif;
-	color:#777;
+	border:1px solid #555;
+	font: normal 1.2em Verdana, sans-serif;
+	color:#555;
 }
 textarea {
 	width:350px;
@@ -169,11 +172,11 @@ textarea {
 }
 input.button { 
 	margin: 0; 
-	font: bold 1em Arial, Sans-serif; 
+	font: bold 1.5em Arial, Sans-serif; 
 	border: 1px solid #CCC;
 	background: #FFF; 
 	padding: 2px 3px; 
-	color: #333;	
+	color: #555;	
 }
 
 /* search form */

@@ -32,7 +32,7 @@
                     <td 
                         onmouseover="this.style.cursor='hand'" onclick="ChangeMeCase('div10','Img10');">
                        
-                        <h1><asp:Label ID="lbl_archive_forall" runat="server" Text="  الأرشيف الإلكترونى - وارد"></asp:Label></h1> 
+                        <h2><asp:Label ID="lbl_archive_forall" runat="server" Text="  الأرشيف الإلكترونى - وارد"></asp:Label></h2> 
                     </td>
                 </tr>
             </table>
@@ -49,8 +49,7 @@
                         <td align="right" id="td_link_new_inbox_forall" runat="server">
                          
                             <asp:LinkButton ID="link_new_inbox_forall" OnClick="lnk_btn_inbox_new_forall_Click"
-                                    runat="server"   Font-Size="18px" 
-                                     font-underline="false" />
+                                    runat="server"    />
                           
                            
                             <br />
@@ -63,7 +62,7 @@
                         <td align="right">
                          
                                 <asp:LinkButton ID="link_old_inbox_forall" OnClick="lnk_btn_inbox_old_forall_Click"
-                                    runat="server"  Font-Size="18px"  font-underline="false" />
+                                    runat="server"   />
                                
                             <br />
                         </td>
@@ -100,7 +99,7 @@
                         <td align="right" id="td_link_inbox_have_follow_forall" runat="server">
                            
                                 <asp:LinkButton ID="link_inbox_have_follow_forall" OnClick="lnk_btn_have_follow_forall_Click"
-                                    runat="server"  Font-Size="18px"  font-underline="false" />
+                                    runat="server"   />
                                
                             <br />
                         </td>
@@ -112,7 +111,7 @@
                         <td align="right">
                            
                                 <asp:LinkButton ID="lnkBtnUnderStudyCount_forall" OnClick="lnkBtnUnderStudy_forall_Click"
-                                    runat="server"  Font-Size="18px"  font-underline="false" />
+                                    runat="server"   />
                               
                             <br />
                         </td>
@@ -124,7 +123,7 @@
                         <td align="right" id="tr_lnk_btn_inboxhavevisa" runat="server">
                             
                                 <asp:LinkButton ID="lnk_btn_inboxhavevisa" OnClick="lnk_btn_inbox_have_visa_Click"
-                                    runat="server"  Font-Size="18px"  font-underline="false" />
+                                    runat="server"   />
                                
                             <br />
                         </td>
