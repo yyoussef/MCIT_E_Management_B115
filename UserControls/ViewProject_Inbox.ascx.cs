@@ -675,8 +675,8 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
                 if (inall["Related_Type"].ToString() == "5")
                 { lblRelatedType.Text = "أخري"; }
 
-                if (inall["Related_Type"].ToString() == "6")
-                { lblRelatedType.Text = "وارد لصادر داخلي"; }
+                //if (inall["Related_Type"].ToString() == "6")
+                //{ lblRelatedType.Text = "وارد لصادر داخلي"; }
             }
 
             txt_Visa_Desc.Text = inall["Visa_Desc"].ToString();
@@ -748,25 +748,25 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
 
                 }
 
-                if (inall["Related_Type"].ToString() == "6")
-                {
-                    all = dt_direct_related.Rows[0]["con"].ToString();
-                    string[] res = all.Split('-');
-                    idrelated = CDataConverter.ConvertToInt(res[3].ToString());
-                    lbl_Inbox_type.Text = "وارد لصادر داخلي :";
+                //if (inall["Related_Type"].ToString() == "6")
+                //{
+                //    all = dt_direct_related.Rows[0]["con"].ToString();
+                //    string[] res = all.Split('-');
+                //    idrelated = CDataConverter.ConvertToInt(res[3].ToString());
+                //    lbl_Inbox_type.Text = "وارد لصادر داخلي :";
 
 
-                    if (dt_direct_related.Rows.Count > 0)
-                    {
+                //    if (dt_direct_related.Rows.Count > 0)
+                //    {
 
-                        int outid = idrelated;
-                        string encrypted = Encryption.Encrypt(outid.ToString());
+                //        int outid = idrelated;
+                //        string encrypted = Encryption.Encrypt(outid.ToString());
 
 
-                        lbl_letter.Text = dt_direct_related.Rows[0]["con"].ToString();
-                        lbl_letter.NavigateUrl = "../mainform/ViewProjectOutbox.aspx?id=" + encrypted;
-                    }
-                }
+                //        lbl_letter.Text = dt_direct_related.Rows[0]["con"].ToString();
+                //        lbl_letter.NavigateUrl = "../mainform/ViewProjectOutbox.aspx?id=" + encrypted;
+                //    }
+                //}
 
 
             }
@@ -839,11 +839,11 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
             string encrypted = Encryption.Encrypt(e.CommandArgument.ToString());
             if (R2 == "2")
             {
-                Response.Redirect("ViewProjectOutbox.aspx?id=" + encrypted);
+                Response.Redirect("ViewProjectoutbox.aspx?id=" + encrypted);
             }
             else if (R2 == "1")
             {
-                Response.Redirect("ViewProjectInbox.aspx?id=" + encrypted);
+                Response.Redirect("ViewProjectinbbox.aspx?id=" + encrypted);
             }
 
             //if (resss.Length>0)

@@ -276,7 +276,7 @@ padding-top:20%;
                                                 <asp:ListItem Value="0" Selected="True">-- اختر--</asp:ListItem>
                                                 <asp:ListItem Value="1">دكتواره</asp:ListItem>
                                                 <asp:ListItem Value="2">ماجيستير</asp:ListItem>
-                                                <asp:ListItem Value="3">بكالريوس</asp:ListItem>
+                                                <asp:ListItem Value="3">بكالوريوس</asp:ListItem>
                                                 <asp:ListItem Value="4">ليسانس</asp:ListItem>
                                                 <asp:ListItem Value="5">دبلوم</asp:ListItem>
                                                 <asp:ListItem Value="8">ثانوية عامة</asp:ListItem>
