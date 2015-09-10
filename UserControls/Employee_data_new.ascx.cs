@@ -594,7 +594,7 @@ public partial class UserControls_Employee_data : System.Web.UI.UserControl
             uobj.USR_Name = user_name;
         }
         int emp_id = CDataConverter.ConvertToInt(Smart_Search_emp.SelectedValue);
-        dt_users = Users_data_DB.Select_UsersData(emp_id , user_name);
+        dt_users = Users_data_DB.Select_UsersData(emp_id, user_name);
 
         if (dt_users.Rows.Count <= 0)
         {

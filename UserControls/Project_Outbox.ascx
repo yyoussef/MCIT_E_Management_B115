@@ -45,14 +45,14 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
         <table dir="rtl" style="width: 99%;">
             <tr>
                 <td align="center" colspan="4" style="height: 33px">
-                  <h2>الخطابات الصادرة
+                  <h1><asp:Label ID="Label2" runat="server" Text="الخطابات الصادرة" />
                     
-                      </h2>  
+                      </h1>  
                 </td>
             </tr>
             <tr>
                 <td align="center" colspan="4" style="height: 5px">
-                    <asp:Label ID="lblErrorMsg" runat="server" Font-Bold="False" ForeColor="#EC981F" font-underline="false" ></asp:Label>
+                    <asp:Label ID="lblErrorMsg" runat="server" Font-Bold="False" ForeColor="#EC981F" font-underline="false" CssClass="Label"></asp:Label>
                 </td>
             </tr>
             <tr>
@@ -60,7 +60,7 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                     <cc1:TabContainer runat="server" ID="TabPanel_All" Height="1500px">
                         <cc1:TabPanel ID="TabPanel_dtl" runat="server">
                             <HeaderTemplate>
-                                <asp:Label ID="Label14" runat="server"   Text="تفاصيل الخطاب" />
+                                <asp:Label ID="Label14" runat="server" CssClass="Label"  Text="تفاصيل الخطاب" />
                                 <input type="hidden" runat="server" id="hidden_Id"/>  
                                     <input id="hidden_Proj_id" runat="server" type="hidden"/>
                                      <input id="Outbox_ID" runat="server" type="hidden"  />
@@ -70,9 +70,9 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                             <ContentTemplate>
                                 <table>
                                     <tr>
-                                        <td style="width:120px">
+                                        <td>
                                           
-                                            <asp:Label ID="Label12" runat="server"  Text="نوع الخطاب:" />
+                                            <asp:Label ID="Label12" runat="server" CssClass="Label" Text="نوع الخطاب:" />
                                                 
                                         </td>
                                         <td>
@@ -83,7 +83,7 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                             </asp:DropDownList>
                                         </td>
                                         <td>
-                                            <asp:Label ID="Label27" runat="server"  Text="مرسل بواسطة :" />
+                                            <asp:Label ID="Label27" runat="server" CssClass="Label" Text="مرسل بواسطة :" />
                                         </td>
                                         <td>
                                             <asp:DropDownList ID="ddl_Source_Type" runat="server" CssClass="drop" Width="319px">
@@ -95,24 +95,24 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                     </tr>
                                     <tr>
                                         <td>
-                                            <asp:Label ID="Label22" runat="server"  Text="الكود :" />
+                                            <asp:Label ID="Label22" runat="server" CssClass="Label" Text="الكود :" />
                                         </td>
                                         <td>
-                                            <asp:TextBox runat="server"  ID="txt_Code" Width="319px"></asp:TextBox>
+                                            <asp:TextBox runat="server" CssClass="Text" ID="txt_Code" Width="319px"></asp:TextBox>
                                             <%--<asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="txt_Code"
                                                 runat="server" Text="*" ValidationGroup="A" ErrorMessage="يجب ادخال الكود "></asp:RequiredFieldValidator>--%>
                                         </td>
                                         <td>
-                                            <asp:Label ID="Label8" runat="server"  Text="التاريخ :" />
+                                            <asp:Label ID="Label8" runat="server" CssClass="Label" Text="التاريخ :" />
                                         </td>
                                         <td>
-                                            <asp:TextBox ID="txt_Date" runat="server"   Width="105px"></asp:TextBox>
+                                            <asp:TextBox ID="txt_Date" runat="server" CssClass="Text" Width="293px"></asp:TextBox>
                                             <cc1:FilteredTextBoxExtender ID="FilteredTextBoxExtender1" runat="server" TargetControlID="txt_Date"
                                                 ValidChars="0987654321/\" Enabled="True" />
                                             <cc1:CalendarExtender ID="CalendarExtender1" runat="server" Format="dd/MM/yyyy" PopupButtonID="ImageButton1"
                                                 TargetControlID="txt_Date" Enabled="True">
                                             </cc1:CalendarExtender>
-                                            <asp:ImageButton ID="ImageButton1" runat="server" AlternateText="اضغط لعرض النتيجة"  style="vertical-align: bottom;"
+                                            <asp:ImageButton ID="ImageButton1" runat="server" AlternateText="اضغط لعرض النتيجة"
                                                 Height="23px" ImageUrl="~/images/Calendar_scheduleHS.png" Width="23px" ToolTip="تقويم" />
                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="txt_Date"
                                                 runat="server" Text="*" ValidationGroup="A" ErrorMessage="يجب ادخال التاريخ "></asp:RequiredFieldValidator>
@@ -123,17 +123,17 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                     </tr>
                                     <tr>
                                         <td>
-                                            <asp:Label ID="Label9" runat="server"  Text="نوع الارتباط:" />
-                                            <asp:TextBox runat="server"  ID="txt_Name" Visible="False" Width="319px"></asp:TextBox>
+                                            <asp:Label ID="Label9" runat="server" CssClass="Label" Text="نوع الارتباط" />
+                                            <asp:TextBox runat="server" CssClass="Text" ID="txt_Name" Visible="False" Width="319px"></asp:TextBox>
                                         </td>
                                         <td>
                                             <asp:DropDownList ID="ddl_Related_Type" runat="server" CssClass="drop" Width="319px"
                                                 AutoPostBack="True" OnSelectedIndexChanged="ddl_Related_Type_SelectedIndexChanged">
                                                 <asp:ListItem Text="صادر جديد" Value="1" Selected="True"></asp:ListItem>
                                                 <asp:ListItem Text="رد على وارد" Value="2"></asp:ListItem>
-                                                <asp:ListItem Text="رد على تأشيرة وزير" Value="4"></asp:ListItem>
+                                               <%-- <asp:ListItem Text="رد على تأشيرة وزير" Value="4"></asp:ListItem>--%>
                                                 <asp:ListItem Text="استعجال صادر" Value="3"></asp:ListItem>
-                                                  <asp:ListItem Text="وارد لصادر داخلي " Value="6"></asp:ListItem>
+                                              <%--    <asp:ListItem Text="وارد لصادر داخلي " Value="6"></asp:ListItem>--%>
                                                 <asp:ListItem Text="أخري.." Value="5"></asp:ListItem>
                                             </asp:DropDownList>
                                             &nbsp;&nbsp;&nbsp;&nbsp;
@@ -146,7 +146,7 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                             <table>
                                                 <tr>
                                                     <td>
-                                                        <asp:Label ID="lbl_Inbox_type" runat="server"  Text="رد او استعجال للخطاب:" />
+                                                        <asp:Label ID="lbl_Inbox_type" runat="server" CssClass="Label" Text="رد او استعجال للخطاب:" />
                                                     </td>
                                                     <td>
                                                         <uc1:Smart_Search ID="Smart_Related_Id" runat="server" />
@@ -157,10 +157,10 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                     </tr>
                                       <tr id="tr_link" runat="server" style="display:none">
                                            <td>
-                                                        <asp:Label ID="Label31" runat="server"  Text="وارد لصادر داخلي :" />
+                                                        <asp:Label ID="Label31" runat="server" CssClass="Label" Text="وارد لصادر داخلي :" />
                                              </td>
                                             <td >
-                                                <asp:HyperLink ID="lbl_letter" runat="server"  Font-Bold="False"
+                                                <asp:HyperLink ID="lbl_letter" runat="server" CssClass="Label" Font-Bold="False"
                                                     ForeColor="Black">HyperLink</asp:HyperLink>
                                             </td>
                                        </tr>
@@ -169,7 +169,7 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                             <table>
                                                 <tr>
                                                     <td>
-                                                        <asp:Label ID="Label7" runat="server"  Text="الجهة الصادر لها :" />
+                                                        <asp:Label ID="Label7" runat="server" CssClass="Label" Text="الجهة الصادر لها :" />
                                                     </td>
                                                     <td>
                                                         <uc1:Smart_Search ID="Smart_Org_ID" runat="server" />
@@ -179,16 +179,16 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                                 </tr>
                                                 <tr style="display: none">
                                                     <td>
-                                                        <asp:Label ID="Label10" runat="server"  Text="رقم صادر الجهة :" />
+                                                        <asp:Label ID="Label10" runat="server" CssClass="Label" Text="رقم صادر الجهة :" />
                                                     </td>
                                                     <td>
-                                                        <asp:TextBox ID="txt_Org_Out_Box_Code" runat="server"  Width="270px"></asp:TextBox>
+                                                        <asp:TextBox ID="txt_Org_Out_Box_Code" runat="server" CssClass="Text" Width="270px"></asp:TextBox>
                                                     </td>
                                                     <td>
-                                                        <asp:Label ID="Label11" runat="server"  Text="تاريخ صادر الجهة :" />
+                                                        <asp:Label ID="Label11" runat="server" CssClass="Label" Text="تاريخ صادر الجهة :" />
                                                     </td>
                                                     <td>
-                                                        <asp:TextBox ID="txt_Org_Out_Box_DT" runat="server"   Width="105px"></asp:TextBox>
+                                                        <asp:TextBox ID="txt_Org_Out_Box_DT" runat="server" CssClass="Text" Width="270px"></asp:TextBox>
                                                         <cc1:FilteredTextBoxExtender ID="FilteredTextBoxExtender2" runat="server" TargetControlID="txt_Org_Out_Box_DT"
                                                             ValidChars="0987654321/\" Enabled="True" />
                                                         <cc1:CalendarExtender ID="CalendarExtender2" runat="server" Format="dd/MM/yyyy" PopupButtonID="ImageButton2"
@@ -203,16 +203,16 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <asp:Label ID="Label4" runat="server"  Text="الإدارة داخل الجهة :" />
+                                                        <asp:Label ID="Label4" runat="server" CssClass="Label" Text="الإدارة داخل الجهة :" />
                                                     </td>
                                                     <td>
-                                                        <asp:TextBox ID="txt_Org_Dept_Name" runat="server"  Width="293px"></asp:TextBox>
+                                                        <asp:TextBox ID="txt_Org_Dept_Name" runat="server" CssClass="Text" Width="293px"></asp:TextBox>
                                                     </td>
                                                     <td>
-                                                        <asp:Label ID="Label26" runat="server"  Text="المرسل اليه داخل الجهة ( صفته / شخصه ) :" />
+                                                        <asp:Label ID="Label26" runat="server" CssClass="Label" Text="المرسل اليه داخل الجهة ( صفته / شخصه ) :" />
                                                     </td>
                                                     <td>
-                                                        <asp:TextBox ID="txt_Org_Out_Box_Person" runat="server"  Width="293px"></asp:TextBox>
+                                                        <asp:TextBox ID="txt_Org_Out_Box_Person" runat="server" CssClass="Text" Width="293px"></asp:TextBox>
                                                     </td>
                                                 </tr>
                                             </table>
@@ -223,10 +223,10 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                             <table>
                                                 <tr>
                                                      <td colspan="2">
-                                                     <asp:Label ID="txt_Dept_ID_Txt" runat="server"  Width="293px"></asp:Label>
+                                                     <asp:Label ID="txt_Dept_ID_Txt" runat="server" CssClass="Label" Width="293px"></asp:Label>
                                                          </td>
                                                     <td>
-                                                        <asp:Label ID="Label6" runat="server" Text="  الادارة :"  ForeColor="#808080" font-underline="false"></asp:Label>
+                                                        <asp:Label ID="Label6" runat="server" Text="  الادارة :" CssClass="Label" ForeColor="#808080" font-underline="false"></asp:Label>
                                                     </td>
                                                     <td>
                                                         <uc1:Smart_Search ID="Smrt_Srch_structure2" runat="server" />
@@ -234,15 +234,15 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <asp:Label ID="Label35" runat="server"  Text="وصف:" />
+                                                        <asp:Label ID="Label35" runat="server" CssClass="Label" Text="وصف:" />
                                                     </td>
                                                     <td>
-                                                        <asp:TextBox ID="txt_Dept_Desc" runat="server"  Width="293px"></asp:TextBox>
+                                                        <asp:TextBox ID="txt_Dept_Desc" runat="server" CssClass="Text" Width="293px"></asp:TextBox>
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td>
-                                                        <asp:Label ID="Label16" runat="server"  Text="الموظف :" />
+                                                        <asp:Label ID="Label16" runat="server" CssClass="Label" Text="الموظف :" />
                                                     </td>
                                                     <td>
                                                         <uc1:Smart_Search ID="Smart_Emp_ID" runat="server" />
@@ -255,13 +255,13 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                     </tr>
                                     <tr>
                                         <td>
-                                            <asp:Label ID="Label36" runat="server"  Text="التصنيف الرئيسي  :"></asp:Label>
+                                            <asp:Label ID="Label36" runat="server" CssClass="Label" Text="التصنيف الرئيسي  :"></asp:Label>
                                         </td>
                                         <td colspan="3">
-                                            <div style="overflow: scroll; background-color: #F9fdff; color: #000000; height: 100px;border: 1px solid #bbb;margin:7px"
+                                            <div style="overflow: scroll; background-color: #F9fdff; color: #000000; height: 100px"
                                                 dir="rtl" class="borderControl">
                                                 <asp:CheckBoxList ID="Chk_main_cat" runat="server" CellPadding="5" CellSpacing="5"
-                                                      RepeatColumns="6" RepeatDirection="Horizontal"
+                                                    CssClass="Label" Font-Size="Small" RepeatColumns="6" RepeatDirection="Horizontal"
                                                     AutoPostBack="True" DataTextField="Name" DataValueField="id" OnSelectedIndexChanged="Chk_main_cat_SelectedIndexChanged">
                                                 </asp:CheckBoxList>
                                             </div>
@@ -269,23 +269,20 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                     </tr>
                                     <tr>
                                         <td>
-                                            <asp:Label ID="Label37" runat="server"  Text="التصنيف الفرعى :"></asp:Label>
+                                            <asp:Label ID="Label37" runat="server" CssClass="Label" Text="التصنيف الفرعى :"></asp:Label>
                                         </td>
                                         <td colspan="3">
-                                            <div style="overflow: scroll; background-color: #F9fdff; color: #000000; height: 100px;border: 1px solid #bbb;margin:7px"
-                                                dir="rtl" class="borderControl">
                                             <asp:CheckBoxList ID="Chk_sub_cat" runat="server" CellPadding="5" CellSpacing="5"
-                                                 RepeatColumns="6" RepeatDirection="Horizontal">
+                                                CssClass="Label" Font-Size="Small" RepeatColumns="6" RepeatDirection="Horizontal">
                                             </asp:CheckBoxList>
-                                                </div>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <asp:Label ID="Label5" runat="server"  Text="الموضوع :"></asp:Label>
+                                            <asp:Label ID="Label5" runat="server" CssClass="Label" Text="الموضوع :"></asp:Label>
                                         </td>
                                         <td colspan="3">
-                                            <asp:TextBox ID="txt_Subject" runat="server"  Height="70px" Rows="6"
+                                            <asp:TextBox ID="txt_Subject" runat="server" CssClass="Text" Height="70px" Rows="6"
                                                 TextMode="MultiLine" Width="90%"></asp:TextBox>
                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="txt_Subject"
                                                 ErrorMessage="يجب ادخال الموضوع " Text="*" ValidationGroup="A"></asp:RequiredFieldValidator>
@@ -293,24 +290,24 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                     </tr>
                                     <tr>
                                         <td>
-                                            <asp:Label ID="Label23" runat="server"  Text="عدد الاوراق :" />
+                                            <asp:Label ID="Label23" runat="server" CssClass="Label" Text="عدد الاوراق :" />
                                         </td>
                                         <td>
-                                            <asp:TextBox ID="txt_Paper_No" runat="server"  Width="293px"></asp:TextBox>
+                                            <asp:TextBox ID="txt_Paper_No" runat="server" CssClass="Text" Width="293px"></asp:TextBox>
                                         </td>
                                         <td>
-                                            <asp:Label ID="Label25" runat="server"  Text="عدد المرفقات :" />
+                                            <asp:Label ID="Label25" runat="server" CssClass="Label" Text="عدد المرفقات :" />
                                         </td>
                                         <td>
-                                            <asp:TextBox ID="txt_Paper_Attached" runat="server"  Width="293px"></asp:TextBox>
+                                            <asp:TextBox ID="txt_Paper_Attached" runat="server" CssClass="Text" Width="293px"></asp:TextBox>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <asp:Label ID="Label17" runat="server"  Text="ملاحظات :" />
+                                            <asp:Label ID="Label17" runat="server" CssClass="Label" Text="ملاحظات :" />
                                         </td>
                                         <td colspan="3">
-                                            <asp:TextBox ID="txt_Notes" runat="server"  Height="70px" Width="90%"
+                                            <asp:TextBox ID="txt_Notes" runat="server" CssClass="Text" Height="70px" Width="90%"
                                                 Rows="6" TextMode="MultiLine"></asp:TextBox>
                                         </td>
                                     </tr>
@@ -334,13 +331,13 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                         </cc1:TabPanel>
                         <cc1:TabPanel ID="TabPanel_Files" runat="server">
                             <HeaderTemplate>
-                                <asp:Label ID="Label18" runat="server"   Text="ملفات الخطاب" />
+                                <asp:Label ID="Label18" runat="server" CssClass="Label"  Text="ملفات الخطاب" />
                             </HeaderTemplate>
                             <ContentTemplate>
                                 <table width="100%">
                                     <tr>
-                                        <td align="right" width="145px">
-                                            <asp:Label ID="Label19" runat="server"  Text="الوثيقة:" Width="140px" />
+                                        <td align="right" width="150px">
+                                            <asp:Label ID="Label19" runat="server" CssClass="Label" Text="الوثيقة:" Width="135px" />
                                             <input type="hidden" runat="server" id="hidden_Inbox_OutBox_File_ID"></input>
                                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         </td>
@@ -351,15 +348,15 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                     </tr>
                                     <tr>
                                         <td align="right" dir="rtl">
-                                            <asp:Label ID="Label20" runat="server"  Text="اسم الوثيقــــــــة: " />
+                                            <asp:Label ID="Label20" runat="server" CssClass="Label" Text="اسم الوثيقــــــــة: " />
                                         </td>
                                         <td>
-                                            <asp:TextBox runat="server"  ID="txtFileName" Width="700px"></asp:TextBox>
+                                            <asp:TextBox runat="server" CssClass="Text" ID="txtFileName" Width="700px"></asp:TextBox>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td align="right" dir="rtl">
-                                            <asp:Label ID="Label21" runat="server"  Text="نوع الوثيقــــــــة: " />
+                                            <asp:Label ID="Label21" runat="server" CssClass="Label" Text="نوع الوثيقــــــــة: " />
                                         </td>
                                         <td>
                                             <asp:DropDownList ID="ddl_Original_Or_Attached" runat="server" CssClass="drop" Width="319px">
@@ -419,33 +416,33 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                         </cc1:TabPanel>
                         <cc1:TabPanel ID="TabPanel_Visa" runat="server">
                             <HeaderTemplate>
-                                <asp:Label ID="Label24" runat="server"   Text="التأشيرات" />
+                                <asp:Label ID="Label24" runat="server" CssClass="Label"  Text="التأشيرات" />
                             </HeaderTemplate>
                             <ContentTemplate>
                                 <table width="100%">
                                     <tr id="tr_dr_hesham_Visa" runat="server" visible="False">
                                         <td id="Td1" runat="server">
-                                            <asp:Label ID="Label41" runat="server"  Text="  نص تأشيرة المدير المختص" />
+                                            <asp:Label ID="Label41" runat="server" CssClass="Label" Text="  نص تأشيرة المدير المختص" />
                                         </td>
                                         <td id="Td2" colspan="3" runat="server">
-                                            <asp:TextBox runat="server"  Height="70px" Width="50%" Rows="5" ID="txt_dr_hesham_visa"
+                                            <asp:TextBox runat="server" CssClass="Text" Height="70px" Width="50%" Rows="5" ID="txt_dr_hesham_visa"
                                                 TextMode="MultiLine" ReadOnly="True"></asp:TextBox>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td align="right" width="145px">
-                                            <asp:Label ID="Label28" runat="server"  Text="تاريخ التاشيرة :" Width="140px" />
+                                        <td align="right" width="150px">
+                                            <asp:Label ID="Label28" runat="server" CssClass="Label" Text="تاريخ التاشيرة :" Width="135px" />
                                             <input type="hidden" runat="server" id="hidden_Visa_Id"></input>
-                                           
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                         </td>
                                         <td dir="rtl">
-                                            <asp:TextBox ID="txt_Visa_date" runat="server"  Width="105px"></asp:TextBox>
+                                            <asp:TextBox ID="txt_Visa_date" runat="server" CssClass="Text" Width="270px"></asp:TextBox>
                                             <cc1:FilteredTextBoxExtender ID="FilteredTextBoxExtender3" runat="server" TargetControlID="txt_Visa_date"
                                                 ValidChars="0987654321/\" Enabled="True" />
                                             <cc1:CalendarExtender ID="CalendarExtender3" runat="server" Format="dd/MM/yyyy" PopupButtonID="ImageButton3"
                                                 TargetControlID="txt_Visa_date" Enabled="True">
                                             </cc1:CalendarExtender>
-                                            <asp:ImageButton ID="ImageButton3" runat="server" AlternateText="اضغط لعرض النتيجة"  Style="vertical-align: bottom;"
+                                            <asp:ImageButton ID="ImageButton3" runat="server" AlternateText="اضغط لعرض النتيجة"
                                                 Height="23px" ImageUrl="~/images/Calendar_scheduleHS.png" Width="23px" ToolTip="تقويم" />
                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator6" ControlToValidate="txt_Visa_date"
                                                 runat="server" Text="*" ValidationGroup="B" ErrorMessage="يجب ادخال تاريخ التاشيرة "></asp:RequiredFieldValidator>
@@ -454,41 +451,41 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                                 ValidationGroup="B" ErrorMessage=" برجاء إدخال صيغة التاريخ بطريقة صحيحة "></asp:RegularExpressionValidator>
                                         </td>
                                         <td align="right" dir="rtl">
-                                            <asp:Label ID="Label3" runat="server"  Text="درجة الأهمية: " Width="100px" />
+                                            <asp:Label ID="Label3" runat="server" CssClass="Label" Text="درجة الأهمية: " Width="100px" />
                                         </td>
                                         <td>
-                                           
+                                            <br />
                                             <asp:DropDownList ID="ddl_Important_Degree" runat="server" CssClass="drop" Width="150px">
                                                 <asp:ListItem Text="هام" Value="1" Selected="True"></asp:ListItem>
                                                 <asp:ListItem Text="عاجل" Value="2"></asp:ListItem>
                                                 <asp:ListItem Text="عادى" Value="3"></asp:ListItem>
                                             </asp:DropDownList>
-                                            <asp:Label ID="txt_Important_Degree_Txt" runat="server"  Width="293px"></asp:Label>
+                                            <asp:Label ID="txt_Important_Degree_Txt" runat="server" CssClass="Label" Width="293px"></asp:Label>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td align="right" >
-                                            <asp:Label ID="Label42" runat="server"  Text="اخر تاريخ مسموح به  :"
-                                                Width="140px" />
+                                        <td align="right" width="150px">
+                                            <asp:Label ID="Label42" runat="server" CssClass="Label" Text="اخر تاريخ مسموح به  :"
+                                                Width="135px" />
                                         </td>
                                         <td dir="rtl">
-                                            <asp:TextBox ID="txt_Dead_Line_DT" runat="server"  Width="105px"></asp:TextBox>
+                                            <asp:TextBox ID="txt_Dead_Line_DT" runat="server" CssClass="Text" Width="270px"></asp:TextBox>
                                             <cc1:FilteredTextBoxExtender ID="FilteredTextBoxExtender5" runat="server" TargetControlID="txt_Dead_Line_DT"
                                                 ValidChars="0987654321/\" Enabled="True" />
                                             <cc1:CalendarExtender ID="CalendarExtender5" runat="server" Format="dd/MM/yyyy" PopupButtonID="ImageButton33"
                                                 TargetControlID="txt_Dead_Line_DT" Enabled="True">
                                             </cc1:CalendarExtender>
-                                            <asp:ImageButton ID="ImageButton33" runat="server" AlternateText="اضغط لعرض النتيجة"  Style="vertical-align: bottom;"
+                                            <asp:ImageButton ID="ImageButton33" runat="server" AlternateText="اضغط لعرض النتيجة"
                                                 Height="23px" ImageUrl="~/images/Calendar_scheduleHS.png" Width="23px" ToolTip="تقويم" />
                                             <asp:RegularExpressionValidator ID="RegularExpressionValidator4" runat="server" ControlToValidate="txt_Dead_Line_DT"
                                                 Text="*" ValidationExpression="^(([0-2]\d|[3][0-1])\/([0]\d|[1][0-2])\/[2][0]\d{2})$|^(([0-2]\d|[3][0-1])\/([0]\d|[1][0-2])\/[2][0]\d{2}\s([0-1]\d|[2][0-3])\:[0-5]\d\:[0-5]\d)$"
                                                 ValidationGroup="B" ErrorMessage=" برجاء إدخال صيغة التاريخ بطريقة صحيحة "></asp:RegularExpressionValidator>
                                         </td>
                                         <td align="right" dir="rtl">
-                                            <asp:Label ID="Label43" runat="server"  Text="غرض التاشيرة: " Width="100px" />
+                                            <asp:Label ID="Label43" runat="server" CssClass="Label" Text="غرض التاشيرة: " Width="100px" />
                                         </td>
                                         <td>
-                                           
+                                            <br />
                                             <asp:DropDownList ID="ddl_Visa_Goal_ID" runat="server" CssClass="drop" Width="150px">
                                                 <asp:ListItem Text="للدراسة" Value="1" Selected="True"></asp:ListItem>
                                                 <asp:ListItem Text="للعرض" Value="2"></asp:ListItem>
@@ -497,7 +494,7 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                     </tr>
                                     <tr>
                                         <%--<td>
-                                    <asp:Label ID="Label50" runat="server"  Text="القطاع :" />
+                                    <asp:Label ID="Label50" runat="server" CssClass="Label" Text="القطاع :" />
                                </td>
                                <td colspan="3">
                                     <asp:DropDownList ID="ddl_sectors2" AutoPostBack="True" OnSelectedIndexChanged="ddl_sectors2_SelectedIndexChanged"
@@ -508,16 +505,16 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                             
                             <tr>
                                 <td>
-                                    <asp:Label ID="Label30" runat="server"  Text="الإدارة التابع لها :" />
+                                    <asp:Label ID="Label30" runat="server" CssClass="Label" Text="الإدارة التابع لها :" />
                                 </td>
                                 <td>
                                     <uc1:Smart_Search ID="Smart_Search_dept" runat="server" />
                                 </td>
                                 <td colspan="2">
-                                    <asp:Label ID="txt_Dept_ID_Txt" runat="server"  Width="293px"></asp:Label>
+                                    <asp:Label ID="txt_Dept_ID_Txt" runat="server" CssClass="Label" Width="293px"></asp:Label>
                                 </td>--%>
                                         <td>
-                                            <asp:Label ID="Label15" runat="server" Text="  الادارة :"  ForeColor="#808080" font-underline="false"></asp:Label>
+                                            <asp:Label ID="Label15" runat="server" Text="  الادارة :" CssClass="Label" ForeColor="#808080" font-underline="false"></asp:Label>
                                         </td>
                                         <td colspan="3">
                                             <uc1:Smart_Search ID="Smrt_Srch_structure" runat="server" />
@@ -525,11 +522,11 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                     </tr>
                                     <tr>
                                         <td>
-                                            <asp:Label ID="Label46" runat="server"  Text="النوع :" />
+                                            <asp:Label ID="Label46" runat="server" CssClass="Label" Text="النوع :" />
                                         </td>
                                         <td align="right" colspan="3">
                                             <asp:RadioButtonList ID="radlst_Type" runat="server" OnSelectedIndexChanged="radlst_Type_SelectedIndexChanged"
-                                                AutoPostBack="True"  Font-Bold="True" CellPadding="2" CellSpacing="1" Style="border: 1px solid #bbb;"
+                                                AutoPostBack="True" CssClass="Label" Font-Bold="True" CellPadding="2" CellSpacing="1"
                                                 RepeatColumns="6" RepeatDirection="Horizontal">
                                                  <asp:ListItem Text="اختر" Value="7" Selected="True"></asp:ListItem>
                                                 <asp:ListItem Text="المفضلة" Value="1" ></asp:ListItem>
@@ -543,41 +540,42 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                     </tr>
                                     <tr id="tr_emp_list" runat="server">
                                         <td id="Td3" runat="server">
-                                            <asp:Label ID="Label47" runat="server"  Text="الموظف المسئول  :" />
+                                            <asp:Label ID="Label47" runat="server" CssClass="Label" Text="الموظف المسئول  :" />
                                         </td>
                                         <td id="Td4" align="right" runat="server">
-                                            <div style="overflow: scroll; background-color: #F9fdff; color: #000000; height: 289px;border: 1px solid #bbb;"
+                                            <div style="overflow: scroll; background-color: #F9fdff; color: #000000; height: 289px"
                                                 dir="rtl" class="borderControl">
-                                                <asp:CheckBox ID="chk_ALL"  Font-Size="Small" RepeatDirection="Horizontal"
+                                                <asp:CheckBox ID="chk_ALL" CssClass="Label" Font-Size="Small" RepeatDirection="Horizontal"
                                                     Text="اختر الكل" AutoPostBack="True" runat="server" OnCheckedChanged="chk_ALL_CheckedChanged">
                                                 </asp:CheckBox>
                                                 <asp:CheckBoxList ID="chklst_Visa_Emp_All" CellPadding="5" CellSpacing="5" RepeatColumns="2"
-                                                     RepeatDirection="Horizontal" DataTextField="pmp_name"
+                                                    CssClass="Label" Font-Size="Small" RepeatDirection="Horizontal" DataTextField="pmp_name"
                                                     DataValueField="PMP_ID" runat="server">
                                                 </asp:CheckBoxList>
                                             </div>
                                         </td>
-                                        <td id="Td5" runat="server" align="center">
+                                        <td id="Td5" runat="server">
                                             <asp:Button ID="btn_add" OnClick="btn_add_Click" Text="إضافة" runat="server" CssClass="Button" />
                                             <asp:Button ID="btn_delete" OnClick="btn_delete_Click" Text="مسح" runat="server"
                                                 CssClass="Button" />
                                         </td>
                                         <td id="Td6" runat="server">
-                                          
-                                                <asp:ListBox ID="lst_emp" runat="server"  Height="289px" Width="390px" Style="background-color: #F9fdff;">
+                                            <div style="overflow: scroll; background-color: #F9fdff; color: #000000; height: 289px"
+                                                dir="rtl" class="borderControl">
+                                                <asp:ListBox ID="lst_emp" runat="server" Height="270px" Width="300px" Font-Size="Small">
                                                 </asp:ListBox>
-                                            
+                                            </div>
                                         </td>
                                     </tr>
                                     <%--<tr id="tr_old_emp" runat="server">
                                         <td id="Td7" runat="server">
-                                            <asp:Label ID="Label31" runat="server"  Text="المسئول عن التنفيذ :" />
+                                            <asp:Label ID="Label31" runat="server" CssClass="Label" Text="المسئول عن التنفيذ :" />
                                         </td>
                                         <td id="Td8" align="right" colspan="3" runat="server">
                                             <div style="overflow: scroll; background-color: #F9fdff; color: #000000; height: 289px"
                                                 dir="rtl">
                                                 <asp:CheckBoxList ID="chklst_Visa_Emp" CellPadding="5" CellSpacing="5" RepeatColumns="6"
-                                                     Font-Size="Small" RepeatDirection="Horizontal" DataTextField="pmp_name"
+                                                    CssClass="Label" Font-Size="Small" RepeatDirection="Horizontal" DataTextField="pmp_name"
                                                     DataValueField="PMP_ID" runat="server">
                                                 </asp:CheckBoxList>
                                             </div>
@@ -585,38 +583,38 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                     </tr>--%>
                                     <tr>
                                         <td colspan="4">
-                                            <asp:Label ID="Label29" runat="server"  Width="293px"></asp:Label>
+                                            <asp:Label ID="Label29" runat="server" CssClass="Label" Width="293px"></asp:Label>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td colspan="4">
-                                            <asp:Label ID="txt_Emp_ID_Txt" runat="server"  Width="293px"></asp:Label>
+                                            <asp:Label ID="txt_Emp_ID_Txt" runat="server" CssClass="Label" Width="293px"></asp:Label>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="vertical-align: top;">
-                                            <asp:Label ID="Label32" runat="server"  Text="نص التاشيرة :" />
+                                        <td>
+                                            <asp:Label ID="Label32" runat="server" CssClass="Label" Text="نص التاشيرة :" />
                                         </td>
                                         <td>
-                                            <asp:TextBox ID="txt_Visa_Desc" runat="server"  Height="70px" Width="90%"
+                                            <asp:TextBox ID="txt_Visa_Desc" runat="server" CssClass="Text" Height="70px" Width="90%"
                                                 Rows="6" TextMode="MultiLine"></asp:TextBox>
                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator5" ControlToValidate="txt_Visa_Desc"
                                                 runat="server" Text="*" ValidationGroup="B" ErrorMessage="يجب ادخال وصف التاشيرة "></asp:RequiredFieldValidator>
                                         </td>
-                                        <td colspan="2" style="vertical-align: top;">
-                                            <asp:Label ID="Label323" runat="server"  Text="ملف الحفظ :" />
-                                            <asp:TextBox ID="txt_saving_file" runat="server"  Width="200px"></asp:TextBox>
+                                        <td colspan="2">
+                                            <asp:Label ID="Label323" runat="server" CssClass="Label" Text="ملف الحفظ :" />
+                                            <asp:TextBox ID="txt_saving_file" runat="server" CssClass="Text" Width="200px"></asp:TextBox>
                                         </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <asp:Label ID="Label33" runat="server"  Text="مدة التاشيرة :" />
+                                            <asp:Label ID="Label33" runat="server" CssClass="Label" Text="مدة التاشيرة :" />
                                         </td>
                                         <td>
-                                            <asp:TextBox ID="txt_Visa_Period" runat="server"  Width="293px"></asp:TextBox>
+                                            <asp:TextBox ID="txt_Visa_Period" runat="server" CssClass="Text" Width="293px"></asp:TextBox>
                                         </td>
                                         <td>
-                                            <asp:Label ID="Label34" runat="server"  Text="حالة التاشيرة :" />
+                                            <asp:Label ID="Label34" runat="server" CssClass="Label" Text="حالة التاشيرة :" />
                                         </td>
                                         <td>
                                             <asp:DropDownList ID="ddl_Visa_Satus" runat="server" CssClass="drop" Width="319px">
@@ -628,14 +626,14 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                     </tr>
                                     <tr>
                                         <td colspan="4">
-                                            <asp:Label ID="Label1" runat="server"  Text="المتابعة" Visible="false" />
+                                            <asp:Label ID="Label1" runat="server" CssClass="Label" Text="المتابعة" Visible="false" />
                                             <table>
                                                 <tr>
                                                     <td>
-                                                        <asp:Label ID="Label13" runat="server"  Text="موقف المتابعة :" Visible="false" />
+                                                        <asp:Label ID="Label13" runat="server" CssClass="Label" Text="موقف المتابعة :" Visible="false" />
                                                     </td>
                                                     <td>
-                                                        <asp:TextBox ID="txt_Follow_Up_Notes" runat="server"  Width="293px"
+                                                        <asp:TextBox ID="txt_Follow_Up_Notes" runat="server" CssClass="Text" Width="293px"
                                                             Visible="false"></asp:TextBox>
                                                     </td>
                                                     <td>
@@ -649,11 +647,11 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
 
                                       <tr>
                                         <td align="right" width="150px">
-                                            <asp:Label ID="Label30" runat="server"  Text="الوثيقة:" Width="135px" />
+                                            <asp:Label ID="Label30" runat="server" CssClass="Label" Text="الوثيقة:" Width="135px" />
                                         </td>
                                         <td dir="rtl" colspan="3">
                                             <asp:FileUpload ID="FileUpload_Visa" runat="server" ForeColor="Maroon" Width="700px" />
-                                           
+                                            <br />
                                         </td>
                                     </tr>
 
@@ -752,15 +750,15 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                         </cc1:TabPanel>
                         <cc1:TabPanel ID="TabPanel_Visa_Folow" runat="server">
                             <HeaderTemplate>
-                                <asp:Label ID="Label38" runat="server"   Text="المسير" />
+                                <asp:Label ID="Label38" runat="server" CssClass="Label"  Text="المسير" />
                             </HeaderTemplate>
                             <ContentTemplate>
                                 <table width="100%">
                                     <tr>
-                                        <td align="right" width="140px">
-                                            <asp:Label ID="Label39" runat="server"  Text="المسئول عن التنفيذ:"
+                                        <td align="right" width="150px">
+                                            <asp:Label ID="Label39" runat="server" CssClass="Label" Text="المسئول عن التنفيذ:"
                                                 Width="135px" />
-                                            <input type="hidden" runat="server" id="hidden_Follow_ID"> 
+                                            <input type="hidden" runat="server" id="hidden_Follow_ID"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                             </input>
                                         </td>
                                         <td dir="rtl">
@@ -775,30 +773,30 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                     </tr>
                                     <tr>
                                         <td align="right" dir="rtl">
-                                            <asp:Label ID="Label40" runat="server"  Text="وصف المتابعة: " />
+                                            <asp:Label ID="Label40" runat="server" CssClass="Label" Text="وصف المتابعة: " />
                                         </td>
                                         <td>
-                                            <asp:TextBox ID="txt_Descrption" runat="server"  Height="70px" Width="90%"
+                                            <asp:TextBox ID="txt_Descrption" runat="server" CssClass="Text" Height="70px" Width="90%"
                                                 Rows="6" TextMode="MultiLine"></asp:TextBox>
                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator7" ControlToValidate="txt_Descrption"
                                                 runat="server" Text="*" ValidationGroup="VF" ErrorMessage="يجب ادخال وصف المتابعة "></asp:RequiredFieldValidator>
                                         </td>
                                         <td colspan="2">
-                                            <asp:Label ID="Label44" runat="server"  Width="293px"></asp:Label>
+                                            <asp:Label ID="Label44" runat="server" CssClass="Label" Width="293px"></asp:Label>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td align="right" width="140px">
-                                            <asp:Label ID="Label45" runat="server"  Text="تاريخ المتابعة :" Width="135px" />
+                                        <td align="right" width="150px">
+                                            <asp:Label ID="Label45" runat="server" CssClass="Label" Text="تاريخ المتابعة :" Width="135px" />
                                         </td>
                                         <td dir="rtl">
-                                            <asp:TextBox ID="txt_Follow_Date" runat="server"  Width="105px"></asp:TextBox>
+                                            <asp:TextBox ID="txt_Follow_Date" runat="server" CssClass="Text" Width="270px"></asp:TextBox>
                                             <cc1:FilteredTextBoxExtender ID="FilteredTextBoxExtender4" runat="server" TargetControlID="txt_Follow_Date"
                                                 ValidChars="0987654321/\" Enabled="True" />
                                             <cc1:CalendarExtender ID="CalendarExtender4" runat="server" Format="dd/MM/yyyy" PopupButtonID="ImageButton4"
                                                 TargetControlID="txt_Follow_Date" Enabled="True">
                                             </cc1:CalendarExtender>
-                                            <asp:ImageButton ID="ImageButton4" runat="server" AlternateText="اضغط لعرض النتيجة"  Style="vertical-align: bottom;"
+                                            <asp:ImageButton ID="ImageButton4" runat="server" AlternateText="اضغط لعرض النتيجة"
                                                 Height="23px" ImageUrl="~/images/Calendar_scheduleHS.png" Width="23px" ToolTip="تقويم" />
                                             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="txt_Follow_Date"
                                                 runat="server" Text="*" ValidationGroup="VF" ErrorMessage="يجب ادخال تاريخ المتابعة "></asp:RequiredFieldValidator>
@@ -810,8 +808,8 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td align="right" width="140px">
-                                            <asp:Label ID="Label48" runat="server"  Text="الوثيقة:" Width="135px" />
+                                        <td align="right" width="150px">
+                                            <asp:Label ID="Label48" runat="server" CssClass="Label" Text="الوثيقة:" Width="135px" />
                                         </td>
                                         <td dir="rtl" colspan="3">
                                             <asp:FileUpload ID="FileUpload_Visa_Follow" runat="server" ForeColor="Maroon" Width="700px" />

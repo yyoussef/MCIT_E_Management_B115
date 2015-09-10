@@ -895,92 +895,30 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
             }
 
             int found = Session_CS.foundation_id;
+
             if (obj.ID > 0)
             {
 
                 string sql_related = "";
-             
-               ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('لقد تم الحفظ بنجاح');", true);
 
-                var inboxContext = new InboxContext();
+                ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('لقد تم الحفظ بنجاح');", true);
 
 
                 if (ddl_Related_Type.SelectedValue == "2")
                 {
 
-                    int selected = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue);
+                    //sql_related = "insert into Inbox_Relations values ( " + obj.ID + "," + CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue) + ",2,1," + found + " )";
+                    sql_related = "insert into Inbox_Relations (inbox_id,inbox_id_type,Related_ID,Related_ID_Type,foundation_id)values ( " + obj.ID + ",1," + CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue) + ",2," + found + " )";
+                    sql_related += " ; insert into Inbox_Relations (inbox_id,inbox_id_type,Related_ID,Related_ID_Type,foundation_id) values ( " + CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue) + ",2," + obj.ID + ",1," + found + " )";
 
-                    //sql_related = "insert into Inbox_Relations values ( " + obj.ID + ",1," + CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue) + ",2," + found + " )";
-                    //sql_related += ", values ( " + CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue) + ",2," + obj.ID + ",1," + found + " )";
 
-              
-                    //General_Helping.ExcuteQuery(sql_related);
-
-                    //Inbox_Relations inb_relations = new Inbox_Relations();
-                    //inb_relations.ID = obj.ID;
-                    //inb_relations.inbox_id_type = 1;
-                    //inb_relations.Related_ID = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue);
-                    //inb_relations.Related_ID_Type = 2;
-                    //inb_relations.foundation_id = found;
-                    //InsertOrUpdate_InboxRelations(inb_relations);
-                    //inb_relations.ID = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue);
-                    //inb_relations.inbox_id_type = 2;
-                    //inb_relations.Related_ID = obj.ID ;
-                    //inb_relations.Related_ID_Type = 1;
-                    //inb_relations.foundation_id = found;
-                    //InsertOrUpdate_InboxRelations(inb_relations);
-
-                    if (Request["id"] == null &&Request["id"] == "" )
-                    {
-
-                    
-
-                    Inbox_Relations InboxRelation1 = new Inbox_Relations
-                    {
-                        inbox_id = obj.ID,
-
-                       // inbox_id = CDataConverter.ConvertToInt(Inbox_ID.Value),
-                        inbox_id_type = 1,
-                        Related_ID = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue),
-                        Related_ID_Type = 2,
-                        foundation_id = found
-                    };
-
-                    inboxContext.Inbox_Relations.Add(InboxRelation1);
-                    inboxContext.SaveChanges();
-                  }
-                  
-
-                    //Inbox_Relations InboxRelation2 = new Inbox_Relations
-                    //{
-                    //    ID = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue),
-                    //    inbox_id_type = 2,
-                    //    Related_ID = obj.ID ,
-                    //    Related_ID_Type = 1,
-                    //    foundation_id = found
-                    //};
-
-                   
-
+                    General_Helping.ExcuteQuery(sql_related);
                 }
                 else if (ddl_Related_Type.SelectedValue == "3" || ddl_Related_Type.SelectedValue == "4")
                 {
-
-                    //sql_related = "insert into Inbox_Relations values ( " + obj.ID + ",1," + CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue) + ",1," + found + " )";
-                    //General_Helping.ExcuteQuery(sql_related);
-
-                    Inbox_Relations inb_relations = new Inbox_Relations();
-                    inb_relations.ID = obj.ID;
-                    inb_relations.inbox_id_type = 1;
-                    inb_relations.Related_ID = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue);
-                    inb_relations.Related_ID_Type = 1;
-                    inb_relations.foundation_id = found;
-
-                   // InsertOrUpdate_InboxRelations(inb_relations);
-                    pm_inbox.Inbox_Relations.Add(inb_relations);
-                    pm_inbox.SaveChanges();
-
-
+                    // sql_related = "insert into Inbox_Relations values ( " + obj.ID + "," + CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue) + ",1,1," + found + " )";
+                    sql_related = "insert into Inbox_Relations (inbox_id,inbox_id_type,Related_ID,Related_ID_Type,foundation_id) values ( " + obj.ID + ",1," + CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue) + ",1," + found + " )";
+                    General_Helping.ExcuteQuery(sql_related);
                 }
 
 
@@ -994,27 +932,139 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
             }
             if (ddl_Related_Type.SelectedValue == "2")
             {
-                //string sql = "update Outbox set Related_Type =5 , Related_Id = " + hidden_Id.Value + " where ID = " + Smart_Related_Id.SelectedValue + " and Related_Type=1";
-                //General_Helping.ExcuteQuery(sql);
-
-                int smartValue = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue);
-                IEnumerable<Outbox> outboxObjs = outboxDBContext.Outboxes.Where(x => x.ID == smartValue && x.Related_Type == 1);
-                foreach (Outbox outboxObj in outboxObjs)
-                {
-                    outboxObj.Related_Type = 5;
-                    outboxObj.Related_Id = CDataConverter.ConvertToInt(hidden_Id.Value);
-                }
-                outboxDBContext.SaveChanges();
+                string sql = "update Outbox set Related_Type =5 , Related_Id = " + hidden_Id.Value + " where ID = " + Smart_Related_Id.SelectedValue + " and Related_Type=1";
+                General_Helping.ExcuteQuery(sql);
             }
 
         }
         else
         {
-           // Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('يجب إختيار جهة الورورد')</script>");
+            // Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('يجب إختيار جهة الورورد')</script>");
             ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('يجب إختيار جهة الورورد');", true);
 
 
         }
+        //    if (obj.ID > 0)
+        //    {
+
+        //        string sql_related = "";
+             
+        //       ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('لقد تم الحفظ بنجاح');", true);
+
+        //        var inboxContext = new InboxContext();
+
+
+        //        if (ddl_Related_Type.SelectedValue == "2")
+        //        {
+
+        //            int selected = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue);
+
+        //            //sql_related = "insert into Inbox_Relations values ( " + obj.ID + ",1," + CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue) + ",2," + found + " )";
+        //            //sql_related += ", values ( " + CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue) + ",2," + obj.ID + ",1," + found + " )";
+
+              
+        //            //General_Helping.ExcuteQuery(sql_related);
+
+        //            //Inbox_Relations inb_relations = new Inbox_Relations();
+        //            //inb_relations.ID = obj.ID;
+        //            //inb_relations.inbox_id_type = 1;
+        //            //inb_relations.Related_ID = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue);
+        //            //inb_relations.Related_ID_Type = 2;
+        //            //inb_relations.foundation_id = found;
+        //            //InsertOrUpdate_InboxRelations(inb_relations);
+        //            //inb_relations.ID = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue);
+        //            //inb_relations.inbox_id_type = 2;
+        //            //inb_relations.Related_ID = obj.ID ;
+        //            //inb_relations.Related_ID_Type = 1;
+        //            //inb_relations.foundation_id = found;
+        //            //InsertOrUpdate_InboxRelations(inb_relations);
+
+        //            if (Request["id"] == null &&Request["id"] == "" )
+        //            {
+
+                    
+
+        //            Inbox_Relations InboxRelation1 = new Inbox_Relations
+        //            {
+        //                inbox_id = obj.ID,
+
+        //               // inbox_id = CDataConverter.ConvertToInt(Inbox_ID.Value),
+        //                inbox_id_type = 1,
+        //                Related_ID = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue),
+        //                Related_ID_Type = 2,
+        //                foundation_id = found
+        //            };
+
+        //            inboxContext.Inbox_Relations.Add(InboxRelation1);
+        //            inboxContext.SaveChanges();
+        //          }
+                  
+
+        //            //Inbox_Relations InboxRelation2 = new Inbox_Relations
+        //            //{
+        //            //    ID = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue),
+        //            //    inbox_id_type = 2,
+        //            //    Related_ID = obj.ID ,
+        //            //    Related_ID_Type = 1,
+        //            //    foundation_id = found
+        //            //};
+
+                   
+
+        //        }
+        //        else if (ddl_Related_Type.SelectedValue == "3" || ddl_Related_Type.SelectedValue == "4")
+        //        {
+
+        //            //sql_related = "insert into Inbox_Relations values ( " + obj.ID + ",1," + CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue) + ",1," + found + " )";
+        //            //General_Helping.ExcuteQuery(sql_related);
+
+        //            Inbox_Relations inb_relations = new Inbox_Relations();
+        //            inb_relations.ID = obj.ID;
+        //            inb_relations.inbox_id_type = 1;
+        //            inb_relations.Related_ID = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue);
+        //            inb_relations.Related_ID_Type = 1;
+        //            inb_relations.foundation_id = found;
+
+        //           // InsertOrUpdate_InboxRelations(inb_relations);
+        //            pm_inbox.Inbox_Relations.Add(inb_relations);
+        //            pm_inbox.SaveChanges();
+
+
+        //        }
+
+
+        //    }
+
+        //    else
+        //    {
+
+        //        ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('لم يتم الحفظ يرجى التأكد من البيانات ');", true);
+
+        //    }
+        //    if (ddl_Related_Type.SelectedValue == "2")
+        //    {
+        //        //string sql = "update Outbox set Related_Type =5 , Related_Id = " + hidden_Id.Value + " where ID = " + Smart_Related_Id.SelectedValue + " and Related_Type=1";
+        //        //General_Helping.ExcuteQuery(sql);
+
+        //        int smartValue = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue);
+        //        IEnumerable<Outbox> outboxObjs = outboxDBContext.Outboxes.Where(x => x.ID == smartValue && x.Related_Type == 1);
+        //        foreach (Outbox outboxObj in outboxObjs)
+        //        {
+        //            outboxObj.Related_Type = 5;
+        //            outboxObj.Related_Id = CDataConverter.ConvertToInt(hidden_Id.Value);
+        //        }
+  
+        //        outboxDBContext.SaveChanges();
+        //    }
+
+        //}
+        //else
+        //{
+        //   // Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('يجب إختيار جهة الورورد')</script>");
+        //    ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('يجب إختيار جهة الورورد');", true);
+
+
+        //}
         Fil_Smrt_From_InBox();
         ///////////////// to make the related outbox with related type "اخري" \\\\\
 
@@ -1563,15 +1613,15 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
             tr_link.Style.Add("Display", "None");
         }
 
-        else if (ddl_Related_Type.SelectedValue == "6")
-        {
+        //else if (ddl_Related_Type.SelectedValue == "6")
+        //{
 
-            //trSmart.Visible = true;
-            trSmart.Style.Add("display", "block");
-            tr_link.Style.Add("Display", "none");
-            lbl_Inbox_type.Text = "وارد لصادر داخلي";
-            Fil_Smrt_From_OutBox();
-        }
+        //    //trSmart.Visible = true;
+        //    trSmart.Style.Add("display", "block");
+        //    tr_link.Style.Add("Display", "none");
+        //    lbl_Inbox_type.Text = "وارد لصادر داخلي";
+        //    Fil_Smrt_From_OutBox();
+        //}
 
         TabPanel_All.ActiveTab = TabPanel_dtl;
     }

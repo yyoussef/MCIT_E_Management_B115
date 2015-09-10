@@ -339,7 +339,7 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
         if (Session_CS.foundation_id != 1)
         {
             radlst_Type.Items.RemoveAt(4);
-            radlst_Type.Items.RemoveAt(5);
+           // radlst_Type.Items.RemoveAt(5);
         }
 
     }
@@ -777,8 +777,8 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
                 if (Outall["Related_Type"].ToString() == "5")
                 { lblRelatedType.Text = "أخري"; }
 
-                if (Outall["Related_Type"].ToString() == "6")
-                { lblRelatedType.Text = "وارد لصادر داخلي"; }
+                //if (Outall["Related_Type"].ToString() == "6")
+                //{ lblRelatedType.Text = "وارد لصادر داخلي"; }
 
             }
             GrdView_Relation.DataSource = Inbox_DB.SelectRelated(id, 2);
@@ -868,30 +868,30 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
                 }
 
 
-                if (Outall["Related_Type"].ToString() == "6" )
-                {
+                //if (Outall["Related_Type"].ToString() == "6" )
+                //{
 
 
-                    lbl_letter.Style.Add("Display", "block");
+                //    lbl_letter.Style.Add("Display", "block");
 
-                    all = dt_direct_related.Rows[0]["con"].ToString();
-                    string[] res = all.Split('-');
-                    idrelated = CDataConverter.ConvertToInt(res[3].ToString());
-                    lbl_Inbox_type.Text = "وارد لصادر داخلي :";
-
-
-                    if (dt_direct_related.Rows.Count > 0)
-                    {
-
-                        int outid = idrelated;
-                        string encrypted = Encryption.Encrypt(outid.ToString());
+                //    all = dt_direct_related.Rows[0]["con"].ToString();
+                //    string[] res = all.Split('-');
+                //    idrelated = CDataConverter.ConvertToInt(res[3].ToString());
+                //    lbl_Inbox_type.Text = "وارد لصادر داخلي :";
 
 
-                        lbl_letter.Text = dt_direct_related.Rows[0]["con"].ToString();
-                        lbl_letter.NavigateUrl = "../mainform/ViewProjectinbox.aspx?id=" + encrypted;
-                    }
+                //    if (dt_direct_related.Rows.Count > 0)
+                //    {
 
-                }
+                //        int outid = idrelated;
+                //        string encrypted = Encryption.Encrypt(outid.ToString());
+
+
+                //        lbl_letter.Text = dt_direct_related.Rows[0]["con"].ToString();
+                //        lbl_letter.NavigateUrl = "../mainform/ViewProjectinbox.aspx?id=" + encrypted;
+                //    }
+
+                //}
 
 
 

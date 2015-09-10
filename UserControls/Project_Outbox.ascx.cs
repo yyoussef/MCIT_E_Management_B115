@@ -2037,17 +2037,17 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         }
 
 
-        else if (ddl_Related_Type.SelectedValue == "6")
-        {
+        //else if (ddl_Related_Type.SelectedValue == "6")
+        //{
 
        
-            trSmart.Style.Add("display", "block");
-            lbl_Inbox_type.Text = " وارد لصادر داخلي رقم ";
-            Fil_Smrt_From_InBox();
+        //    trSmart.Style.Add("display", "block");
+        //    lbl_Inbox_type.Text = " وارد لصادر داخلي رقم ";
+        //    Fil_Smrt_From_InBox();
 
 
 
-        }
+        //}
 
         TabPanel_All.ActiveTab = TabPanel_dtl;
     }
@@ -3167,9 +3167,14 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                     inboxObj.Org_Out_Box_DT = txt_Org_Out_Box_DT.Text;
                     inboxObj.Org_Out_Box_Person = txt_Org_Out_Box_Person.Text;
                     inboxObj.Subject = txt_Subject.Text;
-                   // inboxObj.Related_Type = CDataConverter.ConvertToInt(ddl_Related_Type.SelectedValue);
-                     inboxObj.Related_Type = 6;
-                    inboxObj.Related_Id = CDataConverter.ConvertToInt(Outbox_ID.Value);
+                   //// inboxObj.Related_Type = CDataConverter.ConvertToInt(ddl_Related_Type.SelectedValue);
+                   //  inboxObj.Related_Type = 6;
+
+                    inboxObj.Related_Type = CDataConverter.ConvertToInt(ddl_Related_Type.SelectedValue);
+                    inboxObj.Related_Id = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue);
+
+                   // inboxObj.Related_Id = CDataConverter.ConvertToInt(Outbox_ID.Value);
+
                     inboxObj.Notes = txt_Notes.Text;
                     inboxObj.Paper_No = txt_Paper_No.Text;
                     inboxObj.Paper_Attached = txt_Paper_Attached.Text;
@@ -3186,17 +3191,31 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                     // context.SaveChanges();
                     inbx_id = InsertOrUpdate_Inbox(inboxObj);
 
+                    //////////////////////////////////////////   insert record in inbox_relations table  //////////////////////////////////////
+
+                    int found = Session_CS.foundation_id;
+
+               
+
+                        string sql_related = "";
+
+                        sql_related = "insert into Inbox_Relations (inbox_id,inbox_id_type,Related_ID,Related_ID_Type,foundation_id)values ( " + inbx_id + ",1," + CDataConverter.ConvertToInt(Outbox_ID.Value) + ",2," + found + " )";
+                        sql_related += " ; insert into Inbox_Relations (inbox_id,inbox_id_type,Related_ID,Related_ID_Type,foundation_id) values ( " + CDataConverter.ConvertToInt(Outbox_ID.Value) + ",2," + inbx_id + ",1," + found + " )";
+
+
+                            General_Helping.ExcuteQuery(sql_related);
+
+
+                            ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('لقد تم الحفظ بنجاح');", true);
+
+                  
+                 
+
 
                     ////////////////////////////////update outbox status to 6 ///////////////////////////////////
-                    //int idd;
-                    //Outbox outbx = new Outbox();
-                    //outbx.ID = CDataConverter.ConvertToInt(Outbox_ID.Value);
-                    //outbx.Related_Type = 6;
-                    //outbx.Related_Id = inbx_id;
+             
 
-                    //idd = InsertOrUpdate_Outbox(outbx);
-
-                    pm_outbox.update_outbox_relatedtype(CDataConverter.ConvertToInt(Outbox_ID.Value), 6, inbx_id);
+                  //  pm_outbox.update_outbox_relatedtype(CDataConverter.ConvertToInt(Outbox_ID.Value), 6, inbx_id);
 
 
                     //////////////////////////////////////////update outbox related type to 6   وارد لصادر داخلي  /////////////////////////////////////////////////
