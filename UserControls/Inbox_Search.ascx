@@ -29,7 +29,7 @@
     </tr>
         <tr>
             <td >
-                <asp:Label ID="Label8" runat="server"  Text="اسم المجموعة" ></asp:Label>
+                <asp:Label ID="Label8" runat="server"  Text="اسم المجموعة:" ></asp:Label>
             </td>
             <td>
                 <asp:DropDownList ID="ddl_Groups" runat="server"  Width="279px" AutoPostBack="True"  onselectedindexchanged="ddl_Groups_SelectedIndexChanged" >
@@ -107,7 +107,7 @@
     
         <tr runat="server" id="tr_Related_Type">
                                 <td id="Td1" runat="server">
-                                    <asp:Label ID="Label14" runat="server"  Text=" نوع الارتباط المباشر" />
+                                    <asp:Label ID="Label14" runat="server"  Text=" نوع الارتباط المباشر:" />
                                     <asp:TextBox runat="server"  ID="txt_Name" Visible="False" Width="319px"></asp:TextBox>
                                 </td>
                                 <td id="Td2" runat="server">
@@ -187,7 +187,7 @@
             <cc1:CalendarExtender ID="txtdate_CalendarExtender" runat="server" Format="dd/MM/yyyy"
                 PopupButtonID="Image1" TargetControlID="Inbox_date_from">
             </cc1:CalendarExtender>
-            <asp:ImageButton ID="Image1" runat="Server" AlternateText="اضغط لعرض النتيجة" Height="23px"
+            <asp:ImageButton ID="Image1" runat="Server" AlternateText="اضغط لعرض النتيجة" Height="23px"    style="vertical-align: bottom;"
                 ImageUrl="~/images/Calendar_scheduleHS.png" Width="23px" ToolTip="تقويم" />
             &nbsp;&nbsp;&nbsp;&nbsp;
             <asp:Label ID="Label111" runat="server"  Text="الى:" />
@@ -197,7 +197,7 @@
             <cc1:CalendarExtender ID="CalendarExtender1" runat="server" Format="dd/MM/yyyy" PopupButtonID="Image2"
                 TargetControlID="Inbox_date_to">
             </cc1:CalendarExtender>
-            <asp:ImageButton ID="Image2" runat="Server" AlternateText="اضغط لعرض النتيجة" Height="23px"
+            <asp:ImageButton ID="Image2" runat="Server" AlternateText="اضغط لعرض النتيجة" Height="23px"  style="vertical-align: bottom;"
                 ImageUrl="~/images/Calendar_scheduleHS.png" Width="23px" ToolTip="تقويم" />
         </td>
         
@@ -214,7 +214,7 @@
             <cc1:CalendarExtender ID="CalendarExtender2" runat="server" Format="dd/MM/yyyy" PopupButtonID="ImageButton1"
                 TargetControlID="Outbox_date_from">
             </cc1:CalendarExtender>
-            <asp:ImageButton ID="ImageButton1" runat="Server" AlternateText="اضغط لعرض النتيجة"
+            <asp:ImageButton ID="ImageButton1" runat="Server" AlternateText="اضغط لعرض النتيجة"  style="vertical-align: bottom;"
                 Height="23px" ImageUrl="~/images/Calendar_scheduleHS.png" Width="23px" ToolTip="تقويم" />
             &nbsp;&nbsp;&nbsp;&nbsp;
             <asp:Label ID="Label7" runat="server"  Text="الى:" />
@@ -224,7 +224,7 @@
             <cc1:CalendarExtender ID="CalendarExtender3" runat="server" Format="dd/MM/yyyy" PopupButtonID="ImageButton2"
                 TargetControlID="Outbox_date_to">
             </cc1:CalendarExtender>
-            <asp:ImageButton ID="ImageButton2" runat="Server" AlternateText="اضغط لعرض النتيجة"
+            <asp:ImageButton ID="ImageButton2" runat="Server" AlternateText="اضغط لعرض النتيجة"  style="vertical-align: bottom;"
                 Height="23px" ImageUrl="~/images/Calendar_scheduleHS.png" Width="23px" ToolTip="تقويم" />
         </td>
        

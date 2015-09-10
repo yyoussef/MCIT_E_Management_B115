@@ -19,16 +19,13 @@
 <table dir="rtl" style="line-height: 2; width: 99%;">
     <tr>
         <td align="center" colspan="3" style="height: 33px">
-            <asp:Label ID="Label2" runat="server" CssClass="PageTitle" Text="الصادر" />
+           <h2>بحث في الخطابات الصادرة</h2>
         </td>
     </tr>
-    <tr>
-        <td align="center" colspan="3" class="style1">
-        </td>
-    </tr>
+   
       <tr>
             <td >
-                <asp:Label ID="Label8" runat="server"  Text="اسم المجموعة" CssClass="Label"></asp:Label>
+                <asp:Label ID="Label8" runat="server"  Text="اسم المجموعة:" CssClass="Label"></asp:Label>
             </td>
             <td>
                 <asp:DropDownList ID="ddl_Groups" runat="server" CssClass="ddl" Width="279px" AutoPostBack="True" onselectedindexchanged="ddl_Groups_SelectedIndexChanged">
@@ -89,7 +86,7 @@
     </tr>
     <tr runat="server" id="tr_Related_Type">
         <td id="Td1" runat="server">
-            <asp:Label ID="Label14" runat="server" CssClass="Label" Text=" نوع الارتباط المباشر" />
+            <asp:Label ID="Label14" runat="server" CssClass="Label" Text=" نوع الارتباط المباشر:" />
             <asp:TextBox runat="server" CssClass="Text" ID="txt_Name" Visible="False" Width="319px"></asp:TextBox>
         </td>
         <td id="Td2" runat="server">
@@ -148,7 +145,7 @@
     </tr>
     <tr>
         <td align="right" dir="rtl" style="width: 142px; height: 35px;">
-            <asp:Label ID="Label5" runat="server" CssClass="Label" Text="تاريخ الصادر:" />
+            <asp:Label ID="Label5" runat="server" Text="تاريخ الصادر:" />
         </td>
         <td>
             <asp:Label ID="Label13" runat="server" CssClass="Label" Text="من:" />
@@ -158,7 +155,7 @@
             <cc1:CalendarExtender ID="txtdate_CalendarExtender" runat="server" Format="dd/MM/yyyy"
                 PopupButtonID="Image1" TargetControlID="Inbox_date_from">
             </cc1:CalendarExtender>
-            <asp:ImageButton ID="Image1" runat="Server" AlternateText="اضغط لعرض النتيجة" Height="23px"
+            <asp:ImageButton ID="Image1" runat="Server" AlternateText="اضغط لعرض النتيجة" Height="23px" style="vertical-align: bottom;"
                 ImageUrl="~/images/Calendar_scheduleHS.png" Width="23px" ToolTip="تقويم" />
             <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="Inbox_date_from"
 
@@ -172,7 +169,7 @@
             <cc1:CalendarExtender ID="CalendarExtender1" runat="server" Format="dd/MM/yyyy" PopupButtonID="Image2"
                 TargetControlID="Inbox_date_to">
             </cc1:CalendarExtender>
-            <asp:ImageButton ID="Image2" runat="Server" AlternateText="اضغط لعرض النتيجة" Height="23px"
+            <asp:ImageButton ID="Image2" runat="Server" AlternateText="اضغط لعرض النتيجة" Height="23px" style="vertical-align: bottom;"
                 ImageUrl="~/images/Calendar_scheduleHS.png" Width="23px" ToolTip="تقويم" />
             <asp:RegularExpressionValidator ID="RegularExpressionValidator2" runat="server" ControlToValidate="Inbox_date_to"
 
