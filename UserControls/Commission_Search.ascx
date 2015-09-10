@@ -5,13 +5,10 @@
 <table dir="rtl" style="line-height: 2; width: 99%;">
     <tr>
         <td align="center" colspan="3" style="height: 33px">
-            <asp:Label ID="Label2" runat="server" CssClass="PageTitle" Text="التكليفات" />
+           <h2>بحث في التكليفات </h2>
         </td>
     </tr>
-    <tr>
-        <td align="center" colspan="3" style="height: 29px">
-        </td>
-    </tr>
+   
     <%--<tr>
         <td align="right" dir="rtl" style="width: 142px; height: 35px;">
             <asp:Label ID="Label1" runat="server" CssClass="Label" Text="كلمة في الكود:" />
@@ -63,27 +60,27 @@
     
     <tr>
         <td align="right" dir="rtl" style="width: 142px; height: 35px;">
-            <asp:Label ID="Label5" runat="server" CssClass="Label" Text="تاريخ التكليف:" />
+            <asp:Label ID="Label5" runat="server"  Text="تاريخ التكليف:" />
         </td>
         <td >
-            <asp:Label ID="Label13" runat="server" CssClass="Label" Text="من:" />
+            <asp:Label ID="Label13" runat="server"  Text="من:" />
                 <asp:TextBox ID="Com_date_from" runat="server" CssClass="Text"></asp:TextBox>
             <cc1:FilteredTextBoxExtender ID="txtdate_filtered" runat="server" FilterType="Custom"
                 TargetControlID="Com_date_from" ValidChars="0987654321/\" />
             <cc1:CalendarExtender ID="txtdate_CalendarExtender" runat="server" Format="dd/MM/yyyy"
                 PopupButtonID="Image1" TargetControlID="Com_date_from">
             </cc1:CalendarExtender>
-            <asp:ImageButton ID="Image1" runat="Server" AlternateText="اضغط لعرض النتيجة" Height="23px"
+            <asp:ImageButton ID="Image1" runat="Server" AlternateText="اضغط لعرض النتيجة" Height="23px" style="vertical-align: bottom;"
                 ImageUrl="~/images/Calendar_scheduleHS.png" Width="23px" ToolTip="تقويم" />
             &nbsp;&nbsp;&nbsp;&nbsp;
-            <asp:Label ID="Label111" runat="server" CssClass="Label" Text="الى:" />
+            <asp:Label ID="Label111" runat="server"  Text="الى:" />
             <asp:TextBox ID="Com_date_to" runat="server" CssClass="Text"></asp:TextBox>
             <cc1:FilteredTextBoxExtender ID="FilteredTextBoxExtender1" runat="server" FilterType="Custom"
                 TargetControlID="Com_date_to" ValidChars="0987654321/\" />
             <cc1:CalendarExtender ID="CalendarExtender1" runat="server" Format="dd/MM/yyyy" PopupButtonID="Image2"
                 TargetControlID="Com_date_to">
             </cc1:CalendarExtender>
-            <asp:ImageButton ID="Image2" runat="Server" AlternateText="اضغط لعرض النتيجة" Height="23px"
+            <asp:ImageButton ID="Image2" runat="Server" AlternateText="اضغط لعرض النتيجة" Height="23px" style="vertical-align: bottom;"
                 ImageUrl="~/images/Calendar_scheduleHS.png" Width="23px" ToolTip="تقويم" />
         </td>
        

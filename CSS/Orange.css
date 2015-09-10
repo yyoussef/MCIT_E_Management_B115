@@ -48,11 +48,11 @@ h1, h2, h3 {
 }
 
 h1 {
-    font-size: 24px;
+    font-size: 28px;
 }
 
 h2{
-    font-size: 18px;
+    font-size: 24px;
 }
 
 h3 {
@@ -156,21 +156,92 @@ label {
 	margin:5px 0;
 }
 input , select {
-	padding: 4px;
-	border:1px solid #555;
+	padding: 7px;
+	border:1px solid #bbb;
 	font: normal 18px Verdana, sans-serif;
 	color:#555;
-    margin: 10px 10px 10px 10px;
+    
+    margin: 7px;
 }
 textarea {
 	width:350px;
-	padding:4px;
-	font: normal 1em/1.5em Verdana, sans-serif;
-	border:1px solid #eee;
+	padding:7px;
+    margin: 7px;
+	    font: normal 18px Verdana, sans-serif;
+	border:1px solid #bbb;
 	height:100px;
 	display:block;
-	color:#777;
+	color:#555;
 }
+.mGrid {
+    width: 100%;
+    background-color: #fff;
+    margin: 5px 5px 10px 0;
+    border: solid 1px #A1D4E9;
+    text-align: right;
+}
+
+
+.mGrid td
+{
+	padding: 2px;
+	border: solid 1px #bbb;
+	color: #555;
+	text-align:center;
+	
+	
+	
+	
+}
+/* border header */
+.mGrid th
+{
+	padding: 4px 2px;
+	    color: #333;
+	background: #eee;
+	border: solid 1px #bbb;
+	font-size: 0.9em;
+	text-align:center;
+	
+}
+.mGrid .alt
+{
+	/*background-color: #EEEEEE;*/ background: #ffffff url(../grd_alt.png) repeat-x top;
+}
+
+.mGrid .pgr
+{
+	background: #C2DDF0  url(../grd_pgr.png) repeat-x top;
+	text-align:center;
+	
+}
+.mGrid .pgr table
+{
+	margin: 5px 0;
+	background-color:#F9fdff;
+}
+.mGrid .pgr td
+{
+	border-width: 0;
+	padding: 0 6px;
+	border: solid 1px #3A5976;
+	color: #C2DDF0;
+	line-height: 12px;
+	
+}
+
+.mGrid .pgr a
+{
+	color: #C2DDF0;
+	text-decoration: none;
+	
+}
+.mGrid .pgr a:hover
+{
+	color: #C2DDF0;
+	text-decoration: none;
+}
+/*D0D9DB*/
 input.button { 
 	margin: 0; 
 	font: bold 1.5em Arial, Sans-serif; 
