@@ -227,6 +227,24 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
     }
 
+    public string Get_Type_2(object obj)
+    {
+        string str = obj.ToString();
+        if (str == "1")
+        {
+            //hidden1.Value = "inbox";
+            return "وارد";
+        }
+        else if (str == "2")
+        {
+            //hidden1.Value = "Outbox";
+            return "صادر";
+        }
+        else return "";
+    }
+
+
+
     private void Fill__related_Controll(int id)
     {
         try
@@ -467,10 +485,20 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
             return ip;
         }
     }
+
+    private void fill_grid_relations()
+
+{
+        GrdView_Relation.DataSource = Inbox_DB.SelectRelated(id, 1);
+
+         GrdView_Relation.DataBind();
+}
+
     private void Fill_Controll(int id)
     {
         try
         {
+            fill_grid_relations();
             //DataTable dt_inboxinside = Inbox_DB.inbox_inside_data(id);
 
             DataTable dt_inboxinside = pm_inbox.inboxinside_data(id).ToDataTable();
@@ -904,22 +932,47 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                 ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('لقد تم الحفظ بنجاح');", true);
 
 
-                if (ddl_Related_Type.SelectedValue == "2")
+                //sql_related = "insert into Inbox_Relations values ( " + obj.ID + "," + CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue) + ",1,2," + found + " )";
+                Inbox_Relations InboxRelation1 = new Inbox_Relations
                 {
-
-                    //sql_related = "insert into Inbox_Relations values ( " + obj.ID + "," + CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue) + ",2,1," + found + " )";
-                    sql_related = "insert into Inbox_Relations (inbox_id,inbox_id_type,Related_ID,Related_ID_Type,foundation_id)values ( " + obj.ID + ",1," + CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue) + ",2," + found + " )";
-                    sql_related += " ; insert into Inbox_Relations (inbox_id,inbox_id_type,Related_ID,Related_ID_Type,foundation_id) values ( " + CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue) + ",2," + obj.ID + ",1," + found + " )";
-
-
-                    General_Helping.ExcuteQuery(sql_related);
-                }
-                else if (ddl_Related_Type.SelectedValue == "3" || ddl_Related_Type.SelectedValue == "4")
+                    inbox_id = obj.ID ,
+                    inbox_id_type = 1,
+                    Related_ID = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue),
+                    Related_ID_Type = 2,
+                    foundation_id = found
+                };
+                Inbox_Relations InboxRelation2 = new Inbox_Relations
                 {
-                    // sql_related = "insert into Inbox_Relations values ( " + obj.ID + "," + CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue) + ",1,1," + found + " )";
-                    sql_related = "insert into Inbox_Relations (inbox_id,inbox_id_type,Related_ID,Related_ID_Type,foundation_id) values ( " + obj.ID + ",1," + CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue) + ",1," + found + " )";
-                    General_Helping.ExcuteQuery(sql_related);
-                }
+                    inbox_id = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue),
+                    inbox_id_type = 2,
+                    Related_ID = obj.ID ,
+                    Related_ID_Type = 1,
+                    foundation_id = found
+                };
+
+                pm_inbox.Inbox_Relations.Add(InboxRelation1);
+                pm_inbox.Inbox_Relations.Add(InboxRelation2);
+                pm_inbox.SaveChanges();
+
+
+                //if (ddl_Related_Type.SelectedValue == "2")
+                //{
+
+                //    //sql_related = "insert into Inbox_Relations values ( " + obj.ID + "," + CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue) + ",2,1," + found + " )";
+                //    sql_related = "insert into Inbox_Relations (inbox_id,inbox_id_type,Related_ID,Related_ID_Type,foundation_id)values ( " + obj.ID + ",1," + CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue) + ",2," + found + " )";
+                //    sql_related += " ; insert into Inbox_Relations (inbox_id,inbox_id_type,Related_ID,Related_ID_Type,foundation_id) values ( " + CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue) + ",2," + obj.ID + ",1," + found + " )";
+
+
+                //    General_Helping.ExcuteQuery(sql_related);
+                //}
+
+
+                //else if (ddl_Related_Type.SelectedValue == "3" || ddl_Related_Type.SelectedValue == "4")
+                //{
+                //    // sql_related = "insert into Inbox_Relations values ( " + obj.ID + "," + CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue) + ",1,1," + found + " )";
+                //    sql_related = "insert into Inbox_Relations (inbox_id,inbox_id_type,Related_ID,Related_ID_Type,foundation_id) values ( " + obj.ID + ",1," + CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue) + ",1," + found + " )";
+                //    General_Helping.ExcuteQuery(sql_related);
+                //}
 
 
             }
@@ -932,8 +985,17 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
             }
             if (ddl_Related_Type.SelectedValue == "2")
             {
-                string sql = "update Outbox set Related_Type =5 , Related_Id = " + hidden_Id.Value + " where ID = " + Smart_Related_Id.SelectedValue + " and Related_Type=1";
-                General_Helping.ExcuteQuery(sql);
+
+                int smartValue = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue);
+                IEnumerable<Inbox> inboxObjs = pm_inbox.Inboxes.Where(x => x.ID == smartValue && x.Related_Type == 1);
+                foreach (Inbox inboxObj in inboxObjs)
+                {
+                    inboxObj.Related_Type = 5;
+                    inboxObj.Related_Id = obj.ID ;
+                }
+                pm_inbox.SaveChanges();
+                ////string sql = "update inbox set Related_Type =5 , Related_Id = " + Outbox_ID.Value + " where ID = " + Smart_Related_Id.SelectedValue + " and Related_Type=1";
+                ////General_Helping.ExcuteQuery(sql);
             }
 
         }

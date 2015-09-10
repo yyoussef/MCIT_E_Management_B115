@@ -512,10 +512,30 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
         }
 
     }
+
+    public string Get_Type_2(object obj)
+    {
+        string str = obj.ToString();
+        if (str == "1")
+        {
+            //hidden1.Value = "inbox";
+            return "وارد";
+        }
+        else if (str == "2")
+        {
+            //hidden1.Value = "Outbox";
+            return "صادر";
+        }
+        else return "";
+    }
+
     private void Fill_Controll(int id)
     {
         try
         {
+          
+            fill_grid_relations();
+
             using (var context = new OutboxContext())
             {
                 Outbox OutboxObj = context.Outboxes.Where(x => x.ID == id).SingleOrDefault();
@@ -858,6 +878,15 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
 
         }
     }
+
+    private void fill_grid_relations()
+    {
+        GrdView_Relation.DataSource = Inbox_DB.SelectRelated(id, 1);
+
+        GrdView_Relation.DataBind();
+    }
+
+
     private void Fil_Grid_Visa()
         {
 
@@ -1783,6 +1812,10 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                             //// sql_related = "insert into Inbox_Relations values ( " + obj.ID + ",2," + CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue) + ",2," + found + " )";
                             //// General_Helping.ExcuteQuery(sql_related);
                         }
+
+                   
+
+
 
                         // Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('لقد تم الحفظ بنجاح')</script>");
 
@@ -3170,8 +3203,8 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                    //// inboxObj.Related_Type = CDataConverter.ConvertToInt(ddl_Related_Type.SelectedValue);
                    //  inboxObj.Related_Type = 6;
 
-                    inboxObj.Related_Type = CDataConverter.ConvertToInt(ddl_Related_Type.SelectedValue);
-                    inboxObj.Related_Id = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue);
+                    //////inboxObj.Related_Type = CDataConverter.ConvertToInt(ddl_Related_Type.SelectedValue);
+                    //////inboxObj.Related_Id = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue);
 
                    // inboxObj.Related_Id = CDataConverter.ConvertToInt(Outbox_ID.Value);
 

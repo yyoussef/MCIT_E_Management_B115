@@ -218,6 +218,48 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                             </table>
                                         </td>
                                     </tr>
+                                        <tr>
+                                     <td id="Td7" runat="server">
+                                            <asp:Label ID="Label49" runat="server" CssClass="Label" Text="الخطابات المرتبطة :" />
+                                        </td>
+                                        <td>
+
+                                              <asp:GridView ID="GrdView_Relation" runat="server" AutoGenerateColumns="False" CellPadding="3"
+                                        Width="100%" BackColor="White" ForeColor="Black" BorderColor="#999999" BorderStyle="Solid"
+                                        BorderWidth="1px" CssClass="mGrid" EmptyDataText="... عفوا لا يوجد بيانات ..."
+                                        PagerStyle-CssClass="pgr" AlternatingRowStyle-CssClass="alt" Font-Size="17px"
+                                        GridLines="Vertical" >
+                                        <Columns>
+                                            <asp:TemplateField HeaderText="النوع ">
+                                                <ItemTemplate>
+                                                    <input type="hidden" runat="server" id="input_type" value='<%# Eval("Related_ID_Type")%>' />
+                                                    <%# Get_Type_2(Eval("Related_ID_Type"))%>
+                                                    <%-- <%# Eval("inbox_outbox")%>--%>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                            <asp:TemplateField HeaderText="الموضوع">
+                                                <ItemTemplate>
+                                                    <%# Eval("Subject")%>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                      <%--      <asp:TemplateField HeaderText="عرض ">
+                                                <ItemTemplate>
+                                                    <asp:ImageButton ID="ImgBtnEdit" CommandName="EditItem" runat="server" ImageUrl="../Images/Edit.jpg"
+                                                        CommandArgument='<%# Eval("id") %>' />
+                                                </ItemTemplate>
+                                            </asp:TemplateField>--%>
+                                        </Columns>
+                                        <FooterStyle BackColor="#CCCCCC" />
+                                        <PagerStyle CssClass="pgr" BackColor="#999999" ForeColor="Black" HorizontalAlign="Center" />
+                                        <SelectedRowStyle BackColor="#000099" Font-Bold="True" ForeColor="White" />
+                                        <AlternatingRowStyle CssClass="alt" BackColor="#CCCCCC" />
+                                    </asp:GridView>
+
+                                        </td>
+
+                                    </tr>
+
+
                                     <tr runat="server" id="tr_Inbox_In" style="display: none;width:10px">
                                         <td colspan="4" align="right" runat="server">
                                             <table>
