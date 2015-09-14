@@ -6,35 +6,33 @@
 <table dir="rtl" style="line-height: 2; width: 99%;">
     <tr>
         <td colspan="2" align="center" style="height: 82px">
-            <asp:Label ID="lbl1" runat="server" Text="ادخل التصنيفات الرئيسية" Font-Size="17pt"
-                ForeColor="Black"></asp:Label>
+            <h2>ادخل التصنيفات الرئيسية</h2>
         </td>
     </tr>
     <tr>
         <td colspan="2" align="center">
-            <asp:Label ID="lblPageStatus" runat="server" CssClass="Label" ForeColor="#EC981F" font-underline="false" Visible="false"></asp:Label>
+            <asp:Label ID="lblPageStatus" runat="server"  ForeColor="#EC981F" font-underline="false" Visible="false"></asp:Label>
         </td>
     </tr>
     <tr>
         <td style="width: 80px; height: 71px;">
-            <asp:Label ID="lbl2" runat="server" Text="اسم التصنيف :" Width="103px" Font-Size="15pt"
-                ForeColor="Black"></asp:Label>
+            <asp:Label ID="lbl2" runat="server" Text="اسم التصنيف :" Width="103px" ></asp:Label>
         </td>
         <td class="style14" style="height: 71px">
-            <asp:TextBox ID="txtCatName" runat="server" Width="750px" Height="35px"></asp:TextBox>
+            <asp:TextBox ID="txtCatName" runat="server" Width="90%" ></asp:TextBox>
         </td>
     </tr>
     <tr>
         <td colspan="2" align="center">
-            <asp:Button ID="btnSave" runat="server" Text="حفظ" Font-Size="12pt" Width="61px"
+            <asp:Button ID="btnSave" runat="server" Text="حفظ"  Width="61px"
                 OnClick="btnSave_Click" />
         </td>
     </tr>
     <tr>
         <td colspan="2" align="center">
             <asp:GridView ID="gvMain" runat="server" AutoGenerateColumns="False" CellPadding="3"
-                Width="100%" BackColor="White" ForeColor="Black" BorderColor="#999999" BorderStyle="Solid"
-                BorderWidth="1px" EmptyDataText="... عفوا لا يوجد بيانات ..." CssClass="mGrid"
+                
+                BorderWidth="1px" EmptyDataText="... عفوا لا يوجد بيانات ..." CssClass="mGrid"  
                 PagerStyle-CssClass="pgr" AlternatingRowStyle-CssClass="alt" GridLines="Vertical">
                 <Columns>
                     <asp:TemplateField HeaderStyle-HorizontalAlign="Center" HeaderStyle-Width="3px" HeaderText="م"

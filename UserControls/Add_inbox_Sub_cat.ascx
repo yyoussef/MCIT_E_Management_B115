@@ -7,8 +7,7 @@
 <table dir="rtl" style="line-height: 2; width: 99%;">
     <tr>
         <td colspan="2" align="center" style="height: 82px">
-            <asp:Label ID="lbl1" runat="server" Text="ادخل التصنيفات الفرعيه" Font-Size="17pt"
-                ForeColor="Black"></asp:Label>
+            <h2>ادخل التصنيفات الفرعيه</h2>
         </td>
     </tr>
     <tr>
@@ -19,8 +18,7 @@
    
     <tr>
         <td>
-            <asp:Label ID="Label1" runat="server" Text=" اسم التصنيف الرئيسى : " Width="163px"
-                Font-Size="15pt" ForeColor="Black"></asp:Label>
+            <asp:Label ID="Label1" runat="server" Text=" اسم التصنيف الرئيسى : " Width="140px"></asp:Label>
         </td>
         <td>
             <asp:DropDownList ID="ddlMainCat" runat="server" CssClass="Button" AutoPostBack="true"
@@ -30,24 +28,23 @@
     </tr>
     <tr>
         <td style="width: 80px; height: 71px;">
-            <asp:Label ID="lbl2" runat="server" Text="اسم التصنيف الفرعى :" Width="160px" Font-Size="15pt"
-                ForeColor="Black"></asp:Label>
+            <asp:Label ID="lbl2" runat="server" Text="اسم التصنيف الفرعى :"  ></asp:Label>
         </td>
-        <td class="style14" style="height: 71px">
-            <asp:TextBox ID="txtCatName" runat="server" Width="700px" Height="35px"></asp:TextBox>
+        <td >
+            <asp:TextBox ID="txtCatName" runat="server" Width="700px" ></asp:TextBox>
         </td>
     </tr>
     <tr>
         <td colspan="2" align="center">
-            <asp:Button ID="btnSave" runat="server" Text="حفظ" Font-Size="12pt" Width="61px"
+            <asp:Button ID="btnSave" runat="server" Text="حفظ" Width="61px"
                 OnClick="btnSave_Click" />
         </td>
     </tr>
     <tr>
         <td colspan="2" align="center">
-            <asp:GridView ID="gvSub" runat="server" AutoGenerateColumns="False" CellPadding="3"
-                Width="100%" BackColor="White" ForeColor="Black" BorderColor="#999999" BorderStyle="Solid"
-                BorderWidth="1px" EmptyDataText="... عفوا لا يوجد بيانات ..." CssClass="mGrid"
+            <asp:GridView ID="gvSub" runat="server" AutoGenerateColumns="False" 
+               
+                EmptyDataText="... عفوا لا يوجد بيانات ..." CssClass="mGrid"
                 PagerStyle-CssClass="pgr" AlternatingRowStyle-CssClass="alt" 
                 GridLines="Vertical">
                 <Columns>
