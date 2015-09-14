@@ -951,7 +951,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                 };
 
                 pm_inbox.Inbox_Relations.Add(InboxRelation1);
-                pm_inbox.Inbox_Relations.Add(InboxRelation2);
+              //  pm_inbox.Inbox_Relations.Add(InboxRelation2);
                 pm_inbox.SaveChanges();
 
 

@@ -766,12 +766,12 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                     // lbl_Inbox_type.Visible = false;
                     // lbl_letter.Visible = false;
 
-                    tr_link.Style.Add("Display", "None");
+                  //  tr_link.Style.Add("Display", "None");
 
                 }
                 if (inall["Related_Type"].ToString() == "2" || inall["Related_Type"].ToString() == "5")
                 {
-                    tr_link.Style.Add("Display", "block");
+                  //  tr_link.Style.Add("Display", "block");
 
                     all = dt_direct_related.Rows[0]["con"].ToString();
                     string[] res = all.Split('-');
@@ -786,13 +786,13 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                         string encrypted = Encryption.Encrypt(outid.ToString());
 
 
-                        lbl_letter.Text = dt_direct_related.Rows[0]["con"].ToString();
-                        lbl_letter.NavigateUrl = "../mainform/Project_inbox.aspx?id=" + encrypted;
+                       // lbl_letter.Text = dt_direct_related.Rows[0]["con"].ToString();
+                      //  lbl_letter.NavigateUrl = "../mainform/Project_inbox.aspx?id=" + encrypted;
                     }
                 }
                 if (inall["Related_Type"].ToString() == "3" || inall["Related_Type"].ToString() == "4")
                 {
-                    tr_link.Style.Add("Display", "block");
+                  //  tr_link.Style.Add("Display", "block");
 
                     all = dt_direct_related.Rows[0]["con"].ToString();
                     string[] res = all.Split('-');
@@ -807,8 +807,8 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                         string encrypted = Encryption.Encrypt(INid.ToString());
 
 
-                        lbl_letter.Text = dt_direct_related.Rows[0]["con"].ToString();
-                        lbl_letter.NavigateUrl = "../mainform/Project_inbox.aspx?id=" + encrypted;
+                   //     lbl_letter.Text = dt_direct_related.Rows[0]["con"].ToString();
+                 //       lbl_letter.NavigateUrl = "../mainform/Project_inbox.aspx?id=" + encrypted;
 
 
                     }
@@ -817,7 +817,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
 
                 if (inall["Related_Type"].ToString() == "6")
                 {
-                    tr_link.Style.Add("Display", "block");
+              //      tr_link.Style.Add("Display", "block");
 
                     all = dt_direct_related.Rows[0]["con"].ToString();
                     string[] res = all.Split('-');
@@ -832,8 +832,8 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                         string encrypted = Encryption.Encrypt(outid.ToString());
 
 
-                        lbl_letter.Text = dt_direct_related.Rows[0]["con"].ToString();
-                        lbl_letter.NavigateUrl = "../mainform/Project_inbox.aspx?id=" + encrypted;
+                   //     lbl_letter.Text = dt_direct_related.Rows[0]["con"].ToString();
+                      //  lbl_letter.NavigateUrl = "../mainform/Project_inbox.aspx?id=" + encrypted;
                     }
                 }
 
@@ -1654,8 +1654,8 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                     OutboxObj.Org_Out_Box_DT = txt_Org_Out_Box_DT.Text;
                     OutboxObj.Org_Out_Box_Person = txt_Org_Out_Box_Person.Text;
                     OutboxObj.Subject = txt_Subject.Text;
-                    OutboxObj.Related_Type = CDataConverter.ConvertToInt(ddl_Related_Type.SelectedValue);
-                    OutboxObj.Related_Id = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue);
+                   // OutboxObj.Related_Type = CDataConverter.ConvertToInt(ddl_Related_Type.SelectedValue);
+                   // OutboxObj.Related_Id = CDataConverter.ConvertToInt(Smart_Related_Id.SelectedValue);
                     OutboxObj.Notes = txt_Notes.Text;
                     OutboxObj.Paper_No = txt_Paper_No.Text;
                     OutboxObj.Paper_Attached = txt_Paper_Attached.Text;
@@ -3230,13 +3230,41 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
 
                
 
-                        string sql_related = "";
+                        //string sql_related = "";
 
-                        sql_related = "insert into Inbox_Relations (inbox_id,inbox_id_type,Related_ID,Related_ID_Type,foundation_id)values ( " + inbx_id + ",1," + CDataConverter.ConvertToInt(Outbox_ID.Value) + ",2," + found + " )";
-                        sql_related += " ; insert into Inbox_Relations (inbox_id,inbox_id_type,Related_ID,Related_ID_Type,foundation_id) values ( " + CDataConverter.ConvertToInt(Outbox_ID.Value) + ",2," + inbx_id + ",1," + found + " )";
+                        //sql_related = "insert into Inbox_Relations (inbox_id,inbox_id_type,Related_ID,Related_ID_Type,foundation_id)values ( " + inbx_id + ",1," + CDataConverter.ConvertToInt(Outbox_ID.Value) + ",2," + found + " )";
+                        //sql_related += " ; insert into Inbox_Relations (inbox_id,inbox_id_type,Related_ID,Related_ID_Type,foundation_id) values ( " + CDataConverter.ConvertToInt(Outbox_ID.Value) + ",2," + inbx_id + ",1," + found + " )";
 
 
-                            General_Helping.ExcuteQuery(sql_related);
+                        //    General_Helping.ExcuteQuery(sql_related);
+
+
+
+
+                            Inbox_Relations InboxRelation1 = new Inbox_Relations
+                            {
+                                inbox_id = inbx_id,
+                                inbox_id_type = 1,
+                                Related_ID = CDataConverter.ConvertToInt(Outbox_ID.Value),
+                                Related_ID_Type = 2,
+                                foundation_id = found
+                            };
+                            Inbox_Relations InboxRelation2 = new Inbox_Relations
+                            {
+                                inbox_id = CDataConverter.ConvertToInt(Outbox_ID.Value),
+                                inbox_id_type = 1,
+                                Related_ID = inbx_id,
+                                Related_ID_Type = 1,
+                                foundation_id = found
+                            };
+
+                            pm_inbox.Inbox_Relations.Add(InboxRelation1);
+                            pm_inbox.Inbox_Relations.Add(InboxRelation2);
+                            pm_inbox.SaveChanges();
+
+
+
+
 
 
                             ScriptManager.RegisterClientScriptBlock(this.Page, this.Page.GetType(), "alert", "alert('لقد تم الحفظ بنجاح');", true);

@@ -796,8 +796,8 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
                 if (Outall["Related_Type"].ToString() == "1")
                 {
 
-                    lbl_Inbox_type.Visible = false;
-                    lbl_letter.Visible = false;
+                   // lbl_Inbox_type.Visible = false;
+                   // lbl_letter.Visible = false;
 
                 }
 
@@ -807,16 +807,16 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
                     string[] res = all.Split('-');
                     idrelated = CDataConverter.ConvertToInt(res[3].ToString());
 
-                    lbl_Inbox_type.Text = "موضوع الخطاب الوارد :";
+                 //   lbl_Inbox_type.Text = "موضوع الخطاب الوارد :";
 
 
                     if (dt_direct_related.Rows.Count > 0)
                     {
-                        lbl_letter.Style.Add("Display", "Block");
+                     //   lbl_letter.Style.Add("Display", "Block");
                         int INid = idrelated;// CDataConverter.ConvertToInt(dt_direct_related.Rows[0]["id"].ToString());
                         string encrypted = Encryption.Encrypt(INid.ToString());
-                        lbl_letter.Text = dt_direct_related.Rows[0]["con"].ToString();
-                        lbl_letter.NavigateUrl = "../mainform/ViewProjectInbox.aspx?id=" + encrypted;
+                  //      lbl_letter.Text = dt_direct_related.Rows[0]["con"].ToString();
+                  //      lbl_letter.NavigateUrl = "../mainform/ViewProjectInbox.aspx?id=" + encrypted;
                     }
                 }
                 if (obj.Related_Type == 3)
@@ -824,7 +824,7 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
                     all = dt_direct_related.Rows[0]["con"].ToString();
                     string[] res = all.Split('-');
                     idrelated = CDataConverter.ConvertToInt(res[3].ToString());
-                    lbl_Inbox_type.Text = "موضوع الخطاب الصادر :";
+                 //   lbl_Inbox_type.Text = "موضوع الخطاب الصادر :";
 
                     //string sql = "SELECT * from vw_outbox_DateString ";
                     //sql += " where  ID='" + CDataConverter.ConvertToInt(obj.Related_Id.ToString()) + "' ";
@@ -836,11 +836,11 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
                     //DataTable dt = General_Helping.GetDataTable(sql);
                     if (dt_direct_related.Rows.Count > 0)
                     {
-                        lbl_letter.Style.Add("Display", "Block");
+                    //    lbl_letter.Style.Add("Display", "Block");
                         int Outid = idrelated; //CDataConverter.ConvertToInt(dt.Rows[0]["id"].ToString());
                         string encrypted = Encryption.Encrypt(Outid.ToString());
-                        lbl_letter.Text = dt_direct_related.Rows[0]["con"].ToString();
-                        lbl_letter.NavigateUrl = "../mainform/ViewProjectOutbox.aspx?id=" + encrypted;
+                  //      lbl_letter.Text = dt_direct_related.Rows[0]["con"].ToString();
+                //        lbl_letter.NavigateUrl = "../mainform/ViewProjectOutbox.aspx?id=" + encrypted;
                     }
 
                 }
@@ -850,7 +850,7 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
                     all = dt_direct_related.Rows[0]["con"].ToString();
                     string[] res = all.Split('-');
                     idrelated = CDataConverter.ConvertToInt(res[2].ToString());
-                    lbl_Inbox_type.Text = "موضوع التأشيرة  :";
+                //    lbl_Inbox_type.Text = "موضوع التأشيرة  :";
 
                     //string sql = "SELECT * from vw_inbox_minister_DateSubject ";
                     //sql += " where  ID='" + CDataConverter.ConvertToInt(obj.Related_Id.ToString()) + "' ";
@@ -862,9 +862,9 @@ public partial class UserControls_ViewProject_Outbox : System.Web.UI.UserControl
                     //DataTable dt = General_Helping.GetDataTable(sql);
                     if (dt_direct_related.Rows.Count > 0)
                     {
-                        lbl_letter.Text = dt_direct_related.Rows[0]["con"].ToString();
+                 //       lbl_letter.Text = dt_direct_related.Rows[0]["con"].ToString();
                     }
-                    lbl_letter.Style.Add("Display", "Block");
+                 //   lbl_letter.Style.Add("Display", "Block");
                 }
 
 
