@@ -118,7 +118,7 @@
     <form id="form1" runat="server" autocomplete="off">
     <div id="div_test" runat="server">
         <input type="hidden" id="hdn_attempts" runat="server" value="0" />
-        <table border="0" align="center" cellpadding="0" cellspacing="0" width="99%" style="height: 320px"
+        <table border="0" align="center" cellpadding="0" cellspacing="0" width="99%" style="height: 700px"
             dir="ltr" id="tbl_login" runat="server" visible="false">
             <tr align="center" >
                 <td dir="rtl" width="100%" style="background: url(../Images/E-man-banner.png) center no-repeat;height: 120px; width: 1000px">
@@ -126,12 +126,9 @@
                     <asp:Label runat="server" Text=" " ID="lbl1" ForeColor="#990000"></asp:Label>
                 </td>
             </tr>
+           
             <tr align="center">
-                <td width="99%" style="height: -15px" align="char" dir="rtl">
-                </td>
-            </tr>
-            <tr align="center">
-                <td align="center" class="border" valign="middle" bgcolor="#f9fdff" height="400px"
+                <td align="center" class="border" valign="middle" bgcolor="#f9fdff" height="600px"
                     width="50%">
                     <table border="0" align="center" cellpadding="0" cellspacing="0" " " style="height: 184px">
                         <tr>
