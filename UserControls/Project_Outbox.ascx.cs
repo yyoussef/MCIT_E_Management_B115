@@ -881,9 +881,22 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
 
     private void fill_grid_relations()
     {
-        GrdView_Relation.DataSource = Inbox_DB.SelectRelated(id, 1);
+        DataTable dt = Inbox_DB.SelectRelated(id, 2);
 
-        GrdView_Relation.DataBind();
+        if (dt.Rows.Count > 0 )
+        {
+            GrdView_Relation.DataSource = dt;
+
+            GrdView_Relation.DataBind();
+
+            tr_related.Style.Add("display", "Block");
+        }
+        else 
+        {
+            tr_related.Style.Add("display","None"); 
+
+        }
+    
     }
 
 
@@ -3252,7 +3265,7 @@ public partial class UserControls_Project_Outbox : System.Web.UI.UserControl
                             Inbox_Relations InboxRelation2 = new Inbox_Relations
                             {
                                 inbox_id = CDataConverter.ConvertToInt(Outbox_ID.Value),
-                                inbox_id_type = 1,
+                                inbox_id_type = 2,
                                 Related_ID = inbx_id,
                                 Related_ID_Type = 1,
                                 foundation_id = found

@@ -489,9 +489,21 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
     private void fill_grid_relations()
 
 {
-        GrdView_Relation.DataSource = Inbox_DB.SelectRelated(id, 1);
+    DataTable dt = Inbox_DB.SelectRelated(id, 1);
 
-         GrdView_Relation.DataBind();
+    if (dt.Rows.Count > 0)
+    {
+        GrdView_Relation.DataSource = dt;
+
+        GrdView_Relation.DataBind();
+
+        tr_related.Style.Add("display", "Block");
+    }
+    else
+    {
+        tr_related.Style.Add("display", "None");
+
+    }
 }
 
     private void Fill_Controll(int id)

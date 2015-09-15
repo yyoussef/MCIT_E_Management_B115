@@ -48,7 +48,7 @@
         <table dir="rtl" style="line-height: 2; width: 99%;">
             <tr>
                 <td align="center" colspan="4" style="height: 33px">
-                    <h2>الخطابات الواردة</h2>
+                    <h2>الخطابات الصادرة</h2>
                 </td>
             </tr>
             <tr>
@@ -251,7 +251,7 @@
                                             </asp:CompareValidator>
                                         </td>
                                     </tr>
-                                          <tr runat="server" id="tr_related" style="display:none">
+                                     <tr>
                                      <td id="Td1" runat="server">
                                             <asp:Label ID="Label49" runat="server" CssClass="Label" Text="الخطابات المرتبطة :" />
                                         </td>
@@ -291,6 +291,8 @@
                                         </td>
 
                                     </tr>
+
+
                                     <tr id="main_cat_subj" runat="server">
                                         <td runat="server">
                                             <asp:Label ID="Label44" runat="server" Text="التصنيف الرئيسي  :" />

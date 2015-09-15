@@ -218,7 +218,7 @@ document.getElementById('<%= txtFileName.ClientID %>').value = name;
                                             </table>
                                         </td>
                                     </tr>
-                                        <tr>
+                                        <tr runat="server" id="tr_related" style="display:none">
                                      <td id="Td7" runat="server">
                                             <asp:Label ID="Label49" runat="server" CssClass="Label" Text="الخطابات المرتبطة :" />
                                         </td>
