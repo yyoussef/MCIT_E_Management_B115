@@ -5,7 +5,7 @@
 <table dir="rtl" style="line-height: 2; width: 99%;">
     <tr>
         <td colspan="2" align="center" style="height: 82px">
-            <asp:Label ID="lbl1" runat="server" Text="ادخل الجهات" Font-Size="17pt" ForeColor="Black"></asp:Label>
+            <h2>ادخل الجهات</h2>
         </td>
     </tr>
     <tr>
@@ -15,10 +15,10 @@
     </tr>
     <tr>
         <td style="width: 80px; height: 71px;">
-            <asp:Label ID="lbl2" runat="server" Text="اسم الجهة" CssClass="Label"></asp:Label>
+            <asp:Label ID="lbl2" runat="server" Text="إسم الجهة:" ></asp:Label>
         </td>
         <td style="height: 71px">
-            <asp:TextBox ID="txtCatName" runat="server" CssClass="Text" Width="314px"></asp:TextBox>
+            <asp:TextBox ID="txtCatName" runat="server" CssClass="Text" Width="500px"></asp:TextBox>
         </td>
     </tr>
     <tr>
