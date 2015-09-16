@@ -121,7 +121,7 @@
         <table border="0" align="center" cellpadding="0" cellspacing="0" width="99%" style="height: 700px"
             dir="ltr" id="tbl_login" runat="server" visible="false">
             <tr align="center" >
-                <td dir="rtl" width="100%" style="background: url(../Images/E-man-banner.png) center no-repeat;height: 120px; width: 1000px">
+                <td dir="rtl" width="100%" style="background: url(Images/E-man-banner.png) center no-repeat;height: 120px; width: 1000px">
                     <%--<img id="headerImage" runat="server" style="height: 120px; width: 1000px" src="~/Images/E-man-banner.png" />--%>
                     <asp:Label runat="server" Text=" " ID="lbl1" ForeColor="#990000"></asp:Label>
                 </td>
