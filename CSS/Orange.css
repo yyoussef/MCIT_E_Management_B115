@@ -29,15 +29,16 @@ body {
 /* links */
 a {
     background: inherit;
-    color: #EC981F ;
+     
+    color:#3182C0 ;
      font-size: 18px;
          text-decoration: none;
 }
-}
+
 
     a:hover {
         background: inherit;
-        color: #806B4D;
+        color: #72A545;
     }
 
 /* headers */
@@ -86,7 +87,7 @@ p, h1, h2, h3 {
 ul, ol {
     margin: 5px;
     padding: 0;
-    color: #EC981F;
+    color: #3182C0;	
 }
 
     ul span, ol span {
@@ -126,7 +127,7 @@ code {
     /* white-space: pre; */
     background: #FAFAFA;
     border: 1px solid #f2f2f2;
-    border-left: 3px solid #EC981F;
+    border-left: 3px solid #3182C0;
 }
 
 acronym {
@@ -140,7 +141,7 @@ blockquote {
     background: #FAFAFA url(quote.gif) no-repeat 5px 10px !important;
     background-position: 8px 10px;
     border: 1px solid #f2f2f2;
-    border-left: 3px solid #EC981F;
+    border-left: 3px solid #3182C0;
     font-weight: bold;
 }
 
@@ -480,13 +481,13 @@ form.searchform {
                 #menu ul li a:hover {
                     color: black;
                     background-color: #f3f3f3;
-                    border-bottom: 4px solid #FFA600;
+                    border-bottom: 4px solid #3791D7;
                 }
 
             #menu ul li#current a {
                 color: #333;
                 background-color: #f3f3f3;
-                border-bottom: 4px solid #FFA600;
+                border-bottom: 4px solid #3791D7;
             }
 
 /* Alignment classes */

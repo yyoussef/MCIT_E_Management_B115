@@ -1647,26 +1647,26 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
         {
 
             //trSmart.Visible = true;
-            trSmart.Style.Add("display", "block");
+            trSmart.Style.Add("display", "table-row");
             tr_link.Style.Add("Display", "None");
-            lbl_Inbox_type.Text = "رد على الصادر رقم";
+            lbl_Inbox_type.Text = "رد على الصادر رقم:";
             Fil_Smrt_From_OutBox();
         }
         else if (ddl_Related_Type.SelectedValue == "3")
         {
 
-            trSmart.Style.Add("display", "block");
+            trSmart.Style.Add("display", "table-row");
             tr_link.Style.Add("Display", "None");
            // trSmart.Visible = true;
-            lbl_Inbox_type.Text = " استعجال الوارد للوارد رقم";
+            lbl_Inbox_type.Text = " استعجال الوارد للوارد رقم:";
             Fil_Smrt_From_InBox();
         }
         else if (ddl_Related_Type.SelectedValue == "4")
         {
-            trSmart.Style.Add("display", "block");
+            trSmart.Style.Add("display", "table-row");
             tr_link.Style.Add("Display", "None");
             //trSmart.Visible = true;
-            lbl_Inbox_type.Text = " استكمال الوارد للوارد رقم";
+            lbl_Inbox_type.Text = " استكمال الوارد للوارد رقم:";
             Fil_Smrt_From_InBox();
         }
         else if (ddl_Related_Type.SelectedValue == "5")
