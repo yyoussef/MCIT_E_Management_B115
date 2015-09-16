@@ -76,7 +76,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="width:120px">
+                                        <td style="width:160px">
                                             <asp:Label ID="Label12" runat="server" Text="نوع الخطاب:" />
                                         </td>
                                         <td>
@@ -157,25 +157,20 @@
                                         <td colspan="2" runat="server"></td>
                                     </tr>
                                     <tr runat="server" id="trSmart" style="display: none">
-                                        <td colspan="4" runat="server">
-                                            <table>
-                                                <tr>
-                                                    <td>
+                                        
+                                                    <td colspan="1">
                                                         <asp:Label ID="lbl_Inbox_type" runat="server" Text="رد او استعجال للخطاب:" />
                                                     </td>
-                                                    <td>
+                                                        <td colspan="3">
                                                         <uc1:Smart_Search ID="Smart_Related_Id" runat="server" />
-                                                    </td>
-                                                </tr>
-                                            </table>
+                                               
                                         </td>
                                     </tr>
-                                    <tr id="tr_link" runat="server" style="display: block">
-                                        <td>
+                                    <tr id="tr_link" runat="server" style="display: table-row">
+                                        <td  colspan="1">
                                             <asp:Label ID="Label35" runat="server" Text="وارد لصادر داخلي :" />
-                                        </td>
-
-                                        <td>
+                                       </td>
+                                            <td colspan="3">
                                             <asp:HyperLink ID="lbl_letter" runat="server" Font-Bold="False"
                                                 ForeColor="Black">HyperLink</asp:HyperLink>
                                         </td>
