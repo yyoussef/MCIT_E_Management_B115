@@ -1,44 +1,30 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="Change_Password.ascx.cs"
     Inherits="UserControls_Change_Password" %>
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="cc1" %>
-<style type="text/css">
-    .style1
-    {
-        width: 369px;
-        height: 35px;
-    }
-    .style2
-    {
-        height: 35px;
-    }
-    .style3
-    {
-        height: 39px;
-    }
-</style>
-<table dir="rtl" style="line-height: 2; width: 85%;">
+
+<table dir="rtl" style="line-height: 2; width: 100%;">
     <tr align="center">
-        <td dir="rtl" align="left" style="width: 369px; height: 35px;">
-            <asp:Label ID="Label1" runat="server" CssClass="Label" Text="اسم المستخدم:" />
+        <td dir="rtl" align="left" style="width: 550px; height: 35px;">
+            <asp:Label ID="Label1" runat="server"  Text="اسم المستخدم: " />
         </td>
         <td align="right">
-            <asp:Label ID="Label2" runat="server" CssClass="Label" />
+          &nbsp;  <asp:Label ID="Label2" runat="server"  />
         </td>
     </tr>
     <tr align="center">
-        <td dir="rtl" style="width: 369px; height: 35px;" align="left">
-            <asp:Label ID="Label3" runat="server" CssClass="Label" Text="كلمة السر الحالية:" />
+        <td dir="rtl" style="width: 550px; height: 35px;" align="left">
+            <asp:Label ID="Label3" runat="server"  Text="كلمة السر الحالية:" />
         </td>
         <td align="right">
-            <asp:TextBox runat="server" CssClass="Text" ID="TxtRecentPass" Width="200px" TextMode="Password" autocomplete="off"></asp:TextBox>
+            <asp:TextBox runat="server" CssClass="Text" ID="TxtRecentPass" Width="300px" TextMode="Password" autocomplete="off"></asp:TextBox>
         </td>
     </tr>
     <tr align="center">
-        <td dir="rtl" style="width: 369px; height: 35px;" align="left">
-            <asp:Label ID="Label4" runat="server" CssClass="Label" Text="كلمة السر الجديدة:" />
+        <td dir="rtl" style="width: 550px; height: 35px;" align="left">
+            <asp:Label ID="Label4" runat="server"  Text="كلمة السر الجديدة:" />
         </td>
         <td align="right">
-            <asp:TextBox runat="server" CssClass="Text" ID="TxtNewPassword" Width="200px" 
+            <asp:TextBox runat="server" CssClass="Text" ID="TxtNewPassword" Width="300px" 
                 TextMode="Password" autocomplete="off" ></asp:TextBox>
             <asp:RegularExpressionValidator ID="RegularExpressionValidator1" runat="server" ControlToValidate="TxtNewPassword"
                 Display="None" ValidationExpression="^.*(?=.{8,})(?=.*[a-z])(?=.*[\d\W]).*$"
@@ -52,15 +38,15 @@
         </td>
     </tr>
     <tr align="center">
-        <td dir="rtl" align="left" class="style1">
-            <asp:Label ID="Label5" runat="server" CssClass="Label" Text="أعد كتابة كلمة السر الجديدة:" />
+        <td dir="rtl" align="left" style="width: 550px; height: 35px;" align="left">
+            <asp:Label ID="Label5" runat="server"  Text="أعد كتابة كلمة السر الجديدة:" />
         </td>
-        <td align="right" class="style2">
-            <asp:TextBox runat="server" CssClass="Text" ID="TxtRetype_Pass"  Width="200px" TextMode="Password" autocomplete="off"></asp:TextBox>
+        <td align="right" >
+            <asp:TextBox runat="server" CssClass="Text" ID="TxtRetype_Pass"  Width="300px" TextMode="Password" autocomplete="off"></asp:TextBox>
         </td>
     </tr>
     <tr align="center">
-        <td colspan="2" class="style3">
+        <td colspan="2" 3>
             <br />
             <asp:Button ID="SaveButton" Text="حفظ" runat="server" CssClass="Button" OnClick="SaveButton_Click"
                 ValidationGroup="change" />

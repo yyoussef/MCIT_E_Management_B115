@@ -2,19 +2,15 @@
 <%@ Register Src="Smart_Search.ascx" TagName="Smart_Search" TagPrefix="uc1" %>
  <table style="width: 100%">
  
-<%--  <tr>
-        <td>
-            <asp:Label ID="Label30" runat="server" CssClass="Label" Text="القطاع :" />
-        </td>
-        <td colspan="2">
-            <uc1:Smart_Search ID="smart_Search_sector" runat="server" />
-        </td>
-        
- </tr>--%>
+ <tr>
+                <td align="center" colspan="4" style="height: 33px">
+                    <h2>إدارة مذكرات العرض</h2>
+                </td>
+            </tr>
  
  <tr>
-            <td style="width: 227px">
-                <asp:Label ID="lbl_logo" runat="server" CssClass="Label" Text="تحميل ملف الوثيقة  :  "></asp:Label>
+            <td style="width: 130px">
+                <asp:Label ID="lbl_logo" runat="server"  Text="تحميل ملف الوثيقة  :  "></asp:Label>
             </td>
             <td>
                 <asp:FileUpload ID="SiteUploadlogo" runat="server" Width="280px" Style="margin-right: 4px"  />
@@ -23,11 +19,11 @@
  </tr>
 <tr>
             <td>
-                 <asp:Label ID="Label1" runat="server" CssClass="Label" Text="عنوان الوثيقة  :  "></asp:Label>
+                 <asp:Label ID="Label1" runat="server"  Text="عنوان الوثيقة  :  "></asp:Label>
   
             </td>
             <td>
-                <asp:TextBox ID="txt_name" runat="server" TextMode="MultiLine" ></asp:TextBox>
+                <asp:TextBox ID="txt_name" runat="server" Width="500px" ></asp:TextBox>
                 <asp:RequiredFieldValidator ID="req_adress" runat="server" ControlToValidate="txt_name" ValidationGroup="A"  ErrorMessage="*"  Text="*">
                 
                 </asp:RequiredFieldValidator>
@@ -37,7 +33,7 @@
  <tr>
             <td colspan="4" align="center">
                 <asp:Button ID="btnSave" runat="server" CssClass="Button" Text="حفظ" ValidationGroup="A"
-                    OnClick="btnSave_Click" Height="41px" />
+                    OnClick="btnSave_Click" Height="41px" width="60px"/>
             </td>
 </tr>
 
