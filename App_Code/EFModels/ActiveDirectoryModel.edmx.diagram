@@ -19,6 +19,9 @@
         <EntityTypeShape EntityType="ActiveDirectory.Admin_Users" Width="1.5" PointX="9.75" PointY="3.75" />
         <AssociationConnector Association="ActiveDirectory.FK_Admin_Module_Admin_Module" />
         <EntityTypeShape EntityType="ActiveDirectory.super_admin" Width="1.5" PointX="5.375" PointY="10.75" />
+        <EntityTypeShape EntityType="ActiveDirectory.EmployeeAndCorrParentEmplName" Width="1.5" PointX="10.375" PointY="6.75" />
+        <EntityTypeShape EntityType="ActiveDirectory.EmployeeNames_ParentEmplTable" Width="1.5" PointX="7.375" PointY="10.75" />
+        <EntityTypeShape EntityType="ActiveDirectory.Employee_Groups" Width="1.5" PointX="9.375" PointY="10.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
