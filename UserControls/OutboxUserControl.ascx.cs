@@ -198,11 +198,12 @@ public partial class UserControls_OutboxUserControl : System.Web.UI.UserControl
     protected void lnk_btn_Outbox_have_visa_Click(object sender, EventArgs e)
     {
 
+        if (lnk_btn_Outboxhavevisa.Enabled)
+        {
+            //lblMain.Text = "قائمة الوارد له تأشيرة";
+            Response.Redirect("Outbox_Grid_Page.aspx?Type=visa");
 
-        //lblMain.Text = "قائمة الوارد له تأشيرة";
-        Response.Redirect("Outbox_Grid_Page.aspx?Type=visa");
-        
-
+        }
 
     }
     
