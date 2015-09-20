@@ -94,7 +94,8 @@ public partial class UserControls_EmployeeDirectParent : System.Web.UI.UserContr
     private void fillGrid()
     {
         //load the values in the grid
-        string sqlSelectSt = "SELECT * FROM EmployeeAndCorrParentEmplNames where foundation_id='" + CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString()) + "' and Group_id !='"+ DBNull.Value+"'";//Retrieve data from the View
+
+     //   string sqlSelectSt = "SELECT * FROM EmployeeAndCorrParentEmplNames where foundation_id='" + CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString()) + "' and Group_id !='"+ DBNull.Value+"'";//Retrieve data from the View
 
         DataTable dt = (from emppar in ADContext.EmployeeAndCorrParentEmplNames where emppar.foundation_id == found_id && emppar.Group_id != null  select emppar).ToDataTable() ;
 
@@ -118,6 +119,27 @@ public partial class UserControls_EmployeeDirectParent : System.Web.UI.UserContr
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="e"></param>
+    /// 
+
+    public int InsertOrUpdate_parentemployee(parent_employee blog)
+    {
+
+
+        using (var context = new ActiveDirectoryContext())
+        {
+
+            context.Entry(blog).State = blog.ID == 0 ?
+                                      System.Data.Entity.EntityState.Added :
+                                      System.Data.Entity.EntityState.Modified;
+
+            context.SaveChanges();
+            return blog.ID;
+        }
+    }
+
+
+
+
     protected void btn_Save_Click(object sender, EventArgs e)
     {
         if (Smart_Search_Direct_Manager.SelectedValue != "" && Smart_Search_Employee.SelectedValue != "" && Smart_Search_Employee.SelectedValue!= Smart_Search_Direct_Manager.SelectedValue )
@@ -125,62 +147,100 @@ public partial class UserControls_EmployeeDirectParent : System.Web.UI.UserContr
             int selectedEmplID = CDataConverter.ConvertToInt(Smart_Search_Employee.SelectedValue);
             int selectedDirManagerID = CDataConverter.ConvertToInt(Smart_Search_Direct_Manager.SelectedValue);
             int type = CDataConverter.ConvertToInt(ddl_Type.SelectedValue);
+           int group_id =  CDataConverter.ConvertToInt( ddl_Groups.SelectedValue);
             //Check first if a record with those values is available in database
-            //string checkSqlComm = "SELECT * FROM parent_employee WHERE pmp_id=" + selectedEmplID.ToString() + " AND parent_pmp_id=" + selectedDirManagerID.ToString() + " AND Type=" + type.ToString();
-            string checkSqlComm = "SELECT * FROM parent_employee WHERE pmp_id=" + selectedEmplID.ToString() + " AND Type=" + type.ToString();
+
+         //   string checkSqlComm = "SELECT * FROM parent_employee WHERE pmp_id=" + selectedEmplID.ToString() + " AND Type=" + type.ToString();
+            
+           DataTable dts   = ( from paremp in ADContext.parent_employee where paremp.pmp_id == selectedEmplID && paremp.Type == type select paremp ).ToDataTable() ;
+
+             
             try
             {
-                SqlDataReader reader = SqlHelper.ExecuteReader(sql_Connection, CommandType.Text, checkSqlComm);
-                if (reader.HasRows)
+                if (dts.Rows.Count > 0)
                 {
-                    //this means that this record does exist before
-                    //Page.RegisterStartupScript("Error", "<script language=javascript>alert('هذه البيانات توجد بالفعل،الرجاء التأكد من البيانات المدخلة')</script>");
                     Page.RegisterStartupScript("Error", "<script language=javascript>alert('يوجد مدير مباشر لنفس نوع الخطاب للموظف')</script>");
                     return;
                 }
-                //Else, this record doesn't exist before, so go ahead to save or update it
-
-                DataTable dt = General_Helping.GetDataTable("select ParentEmpID from EmployeeAndCorrParentEmplNames where foundation_id='" + CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString()) + "'and type_id='" + CDataConverter.ConvertToInt( type) + "' and Group_id='" +CDataConverter.ConvertToInt(ddl_Groups.SelectedValue) + "' ");
-                if (dt.Rows.Count > 0)
+                else
                 {
-                    Page.RegisterStartupScript("Error", "<script language=javascript>alert('  يوجد مدير مباشر لنفس  المجموعة ونفس نوع الخطاب')</script>");
-                    return;
+                    var dtable = (from empcorr in ADContext.EmployeeAndCorrParentEmplNames where empcorr.foundation_id == found_id && empcorr.type_id == type && empcorr.Group_id == group_id  select empcorr).ToDataTable();
+
+                    if (dtable.Rows.Count > 0)
+                    {
+                        Page.RegisterStartupScript("Error", "<script language=javascript>alert('  يوجد مدير مباشر لنفس  المجموعة ونفس نوع الخطاب')</script>");
+                        return;
+                    }
                 }
 
+                //SqlDataReader reader = SqlHelper.ExecuteReader(sql_Connection, CommandType.Text, checkSqlComm);
+                //if (reader.HasRows)
+                //{
+                //    //this means that this record does exist before
+
+                //    Page.RegisterStartupScript("Error", "<script language=javascript>alert('يوجد مدير مباشر لنفس نوع الخطاب للموظف')</script>");
+                //    return;
+                //}
+
+                ////Else, this record doesn't exist before, so go ahead to save or update it
+
+                //DataTable dt = General_Helping.GetDataTable("select ParentEmpID from EmployeeAndCorrParentEmplNames where foundation_id='" + CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString()) + "'and type_id='" + CDataConverter.ConvertToInt(type) + "' and Group_id='" + CDataConverter.ConvertToInt(ddl_Groups.SelectedValue) + "' ");
+                //if (dt.Rows.Count > 0)
+                //{
+                //    Page.RegisterStartupScript("Error", "<script language=javascript>alert('  يوجد مدير مباشر لنفس  المجموعة ونفس نوع الخطاب')</script>");
+                //    return;
+                //}
+
             }
+
+
             catch(Exception ex )
             {
                 Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('حدث خطأ في قاعدة البيانات حاول مرة أخري')</script>");
             }
-            if (CDataConverter.ConvertToInt(currRow_id.Value) == 0)//user wants to save
-            {
+
+            //if (CDataConverter.ConvertToInt(currRow_id.Value) == 0)//user wants to save
+
+            //{
                 //User has supplied values for both the employee and his manager
-                string sqlInsertCommand = "INSERT INTO parent_employee VALUES(" + selectedEmplID.ToString() + "," + selectedDirManagerID.ToString() + "," + type.ToString() + ")";
+              //  string sqlInsertCommand = "INSERT INTO parent_employee VALUES(" + selectedEmplID.ToString() + "," + selectedDirManagerID.ToString() + "," + type.ToString() + ")";
+
+
+
                 //Write the values read in the database
                 try
                 {
-                    SqlHelper.ExecuteScalar(sql_Connection, CommandType.Text, sqlInsertCommand);
-                    //message to notify the user that the insert has benn done successfully
+                  //  SqlHelper.ExecuteScalar(sql_Connection, CommandType.Text, sqlInsertCommand);
+
+
+                    parent_employee parempobj = new parent_employee();
+
+                    parempobj.pmp_id = selectedEmplID;
+                    parempobj.parent_pmp_id = selectedDirManagerID;
+                    parempobj.Type = type;
+                    InsertOrUpdate_parentemployee(parempobj);
+
                     Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('تم الحفظ بنجاح')</script>");
                 }
                 catch
                 {
                     Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('غير قادر علي الحفظ في قاعدة البيانات حاول مرة أخري')</script>");
                 }
-            }
-            else//user wants to update certain row 
-            {
-                string sqlUpdateCommand = "UPDATE parent_employee SET pmp_id=" + selectedEmplID.ToString() + ",parent_pmp_id=" + selectedDirManagerID.ToString() + ",type=" + type.ToString() + " WHERE ID=" + currRow_id.Value;
-                try
-                {
-                    SqlHelper.ExecuteNonQuery(sql_Connection, CommandType.Text, sqlUpdateCommand);
-                    Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('تم التعديل بنجاح')</script>");
-                }
-                catch
-                {
-                    Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('غير قادر علي التعديل في قاعدة البيانات حاول مرة أخري')</script>");
-                }
-            }
+         //   }
+
+            //else//user wants to update certain row 
+            //{
+            //    string sqlUpdateCommand = "UPDATE parent_employee SET pmp_id=" + selectedEmplID.ToString() + ",parent_pmp_id=" + selectedDirManagerID.ToString() + ",type=" + type.ToString() + " WHERE ID=" + currRow_id.Value;
+            //    try
+            //    {
+            //        SqlHelper.ExecuteNonQuery(sql_Connection, CommandType.Text, sqlUpdateCommand);
+            //        Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('تم التعديل بنجاح')</script>");
+            //    }
+            //    catch
+            //    {
+            //        Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('غير قادر علي التعديل في قاعدة البيانات حاول مرة أخري')</script>");
+            //    }
+            //}
         }
         else
         {
@@ -204,26 +264,41 @@ public partial class UserControls_EmployeeDirectParent : System.Web.UI.UserContr
     {
         //Read the ID of the row against which certain action will be taken ,either to delete or to edit
         currRow_id.Value = (e.CommandArgument).ToString();
+        int currRow = CDataConverter.ConvertToInt(currRow_id);
         if (e.CommandName == "show")//then the Edit button is clicked against certain row in grid
         {
             //get its data from database
-            string sqlSelectSt = "SELECT * FROM EmployeeAndCorrParentEmplNames WHERE ID=" + currRow_id.Value;
+
+           // string sqlSelectSt = "SELECT * FROM EmployeeAndCorrParentEmplNames WHERE ID=" + currRow_id.Value;
+
+            DataTable dtselect = (from emp in ADContext.EmployeeAndCorrParentEmplNames where emp.ID == currRow select emp).ToDataTable();
             try
             {
-                SqlDataReader reader = SqlHelper.ExecuteReader(sql_Connection, CommandType.Text, sqlSelectSt);
-                if (reader.HasRows)
+                //SqlDataReader reader = SqlHelper.ExecuteReader(sql_Connection, CommandType.Text, sqlSelectSt);
+                //if (reader.HasRows)
+                //{
+                //    while (reader.Read())
+                //    {
+                      
+                //        this.Smart_Search_Employee.SelectedValue = reader.GetInt32(4).ToString();
+                //        this.Smart_Search_Direct_Manager.SelectedValue = reader.GetInt32(5).ToString();
+                      
+                //        this.ddl_Type.SelectedValue = reader.GetString(0);
+                    
+                //    }
+                //}
+
+
+                if( dtselect.Rows.Count > 0 )
+
                 {
-                    while (reader.Read())
-                    {
-                        //this.Smart_Search_Employee.SelectedValue= reader.GetInt32(4).ToString();
-                        this.Smart_Search_Employee.SelectedValue = reader.GetInt32(4).ToString();
-                        this.Smart_Search_Direct_Manager.SelectedValue = reader.GetInt32(5).ToString();
-                        //this.Smart_Search_Direct_Manager.SelectedValue = reader.GetInt32(5).ToString();
-                        this.ddl_Type.SelectedValue = reader.GetString(0);
-                        //Put the value of the updated row in the hidden field to be used in updating this field when the button save is clicked
-                        //               currRow_id.Value = reader.GetInt32(3).ToString();
-                    }
+                    this.Smart_Search_Employee.SelectedValue = dtselect.Rows[0]["pmp_id"].ToString();
+                    this.Smart_Search_Direct_Manager.SelectedValue = dtselect.Rows[0]["parent_pmp_id"].ToString();
+
+                     this.ddl_Type.SelectedValue = dtselect.Rows[0]["type"].ToString();
+
                 }
+
             }
             catch
             {
@@ -239,6 +314,19 @@ public partial class UserControls_EmployeeDirectParent : System.Web.UI.UserContr
             {
                 SqlHelper.ExecuteNonQuery(sql_Connection, CommandType.Text, deletComm);
                 Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('تم الحذف بنجاح')</script>");
+
+                
+
+              parent_employee paremm = new parent_employee ();
+                {
+                    ID = e.CommandArgument.ToString();
+                };
+             
+                ADContext.parent_employee.Attach(paremm);
+                ADContext.parent_employee.Remove (paremm);
+             
+                ADContext.SaveChanges();
+
             }
             catch
             {
