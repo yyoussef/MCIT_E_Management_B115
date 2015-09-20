@@ -48,7 +48,7 @@
         <table dir="rtl" style="line-height: 2; width: 99%;">
             <tr>
                 <td align="center" colspan="4" style="height: 33px">
-                    <h2>الخطابات الواردة</h2>
+                    <h2>الخطابات الصادرة</h2>
                 </td>
             </tr>
             <tr>
@@ -76,7 +76,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="width:160px">
+                                        <td style="width:120px">
                                             <asp:Label ID="Label12" runat="server" Text="نوع الخطاب:" />
                                         </td>
                                         <td>
@@ -157,26 +157,44 @@
                                         <td colspan="2" runat="server"></td>
                                     </tr>
                                     <tr runat="server" id="trSmart" style="display: none">
-                                        
-                                                    <td colspan="1">
+                                        <td colspan="4" runat="server">
+                                            <table>
+                                                <tr>
+                                                    <td>
                                                         <asp:Label ID="lbl_Inbox_type" runat="server" Text="رد او استعجال للخطاب:" />
                                                     </td>
-                                                        <td colspan="3">
+                                                    <td>
                                                         <uc1:Smart_Search ID="Smart_Related_Id" runat="server" />
-                                               
-                                        </td>
-                                    </tr>
-                                    <tr id="tr_link" runat="server" style="display: table-row">
-                                        <td  colspan="1">
-                                            <asp:Label ID="Label35" runat="server" Text="وارد لصادر داخلي :" />
-                                       </td>
-                                            <td colspan="3">
-                                            <asp:HyperLink ID="lbl_letter" runat="server" Font-Bold="False"
-                                                ForeColor="Black">HyperLink</asp:HyperLink>
+                                                    </td>
+                                                </tr>
+                                            </table>
                                         </td>
                                     </tr>
 
+                                   <tr id="tr_link" runat="server" style="display:none">
+                                           <td>
+                                                        <asp:Label ID="Label31" runat="server" CssClass="Label" Text="وارد لصادر داخلي :" />
+                                             </td>
+                                            <td >
+                                                <asp:HyperLink ID="lbl_letter" runat="server" CssClass="Label" Font-Bold="False"
+                                                    ForeColor="Black">HyperLink</asp:HyperLink>
+                                            </td>
+                                       </tr>
+                                    <tr runat="server" id="tr_Inbox_out">
+
+                   <%--            <tr id="tr_link" runat="server" style="display: block">
+                                        <td>
+                                            <asp:Label ID="Label35" runat="server" Text="وارد لصادر داخلي :" />
+                                        </td>
+
+                                        <td>
+                                            <asp:HyperLink ID="lbl_letter" runat="server" Font-Bold="False"
+                                                ForeColor="Black">HyperLink</asp:HyperLink>
+                                        </td>
+                                    </tr>--%>
+
                                     <tr runat="server" id="tr_Inbox_out" style="width: 10px">
+
                                         <td colspan="4" align="right" runat="server">
                                             <table>
                                                 <tr>
@@ -246,7 +264,7 @@
                                             </asp:CompareValidator>
                                         </td>
                                     </tr>
-                                          <tr runat="server" id="tr_related" style="display:none">
+                                     <tr>
                                      <td id="Td1" runat="server">
                                             <asp:Label ID="Label49" runat="server" CssClass="Label" Text="الخطابات المرتبطة :" />
                                         </td>
@@ -286,6 +304,8 @@
                                         </td>
 
                                     </tr>
+
+
                                     <tr id="main_cat_subj" runat="server">
                                         <td runat="server">
                                             <asp:Label ID="Label44" runat="server" Text="التصنيف الرئيسي  :" />

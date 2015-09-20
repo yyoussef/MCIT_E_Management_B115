@@ -137,6 +137,54 @@ namespace EFModels
         public Nullable<int> job_title_id { get; set; }
         public string LastName { get; set; }
         public Nullable<int> foundation_id { get; set; }
+        public Nullable<bool> Is_Finished { get; set; }
+        public string Finish_DT { get; set; }
+        public string Finish_Reason { get; set; }
+    }
+}
+namespace EFModels
+{
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class Employee_Groups
+    {
+        public long ID { get; set; }
+        public string Name { get; set; }
+        public Nullable<int> foundation_id { get; set; }
+    }
+}
+namespace EFModels
+{
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class EmployeeAndCorrParentEmplName
+    {
+        public string Type { get; set; }
+        public string EmployeeName { get; set; }
+        public string ParentEmployeeName { get; set; }
+        public int ID { get; set; }
+        public int EmployeeID { get; set; }
+        public int ParentEmpID { get; set; }
+        public Nullable<int> Group_id { get; set; }
+        public Nullable<int> foundation_id { get; set; }
+        public int type_id { get; set; }
+    }
+}
+namespace EFModels
+{
+    using System;
+    using System.Collections.Generic;
+    
+    public partial class EmployeeNames_ParentEmplTable
+    {
+        public int ID { get; set; }
+        public int Type { get; set; }
+        public string pmp_name { get; set; }
+        public int EmployeeID { get; set; }
+        public Nullable<int> Group_id { get; set; }
+        public Nullable<int> foundation_id { get; set; }
     }
 }
 namespace EFModels

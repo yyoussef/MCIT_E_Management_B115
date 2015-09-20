@@ -5,6 +5,8 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="ActiveDirectory.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Projects_Management_TEDATA.dbo.Admin_Module' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Admin_Module">
           <Key>
             <PropertyRef Name="pk_ID" />
@@ -13,6 +15,8 @@
           <Property Name="Name" Type="nchar" MaxLength="100" />
           <Property Name="Active" Type="bit" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Projects_Management_TEDATA.dbo.Admin_Module_Found' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Admin_Module_Found">
           <Key>
             <PropertyRef Name="ID" />
@@ -39,11 +43,13 @@
           <Property Name="Active" Type="bit" />
           <Property Name="PageFile" Type="nvarchar" MaxLength="500" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Projects_Management_TEDATA.dbo.Admin_RoleModule' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Admin_RoleModule">
           <Key>
             <PropertyRef Name="pk_ID" />
           </Key>
-          <Property Name="pk_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pk_ID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="fk_RoleID" Type="bigint" />
           <Property Name="fk_ModuleID" Type="int" />
         </EntityType>
@@ -89,6 +95,9 @@
           <Property Name="job_no" Type="nvarchar" MaxLength="100" />
           <Property Name="direct_manager" Type="int" />
           <Property Name="higher_manager" Type="int" />
+          <Property Name="Is_Finished" Type="bit" />
+          <Property Name="Finish_DT" Type="nvarchar" MaxLength="50" />
+          <Property Name="Finish_Reason" Type="nvarchar" MaxLength="500" />
           <Property Name="Report_dept_manage" Type="int" />
           <Property Name="workstatus" Type="int" />
           <Property Name="category" Type="int" />
@@ -99,7 +108,15 @@
           <Property Name="national_id" Type="int" />
           <Property Name="qualification_date" Type="nvarchar" MaxLength="50" />
           <Property Name="job_title_id" Type="int" />
-          <Property Name="LastName" Type="varchar" MaxLength="50" />
+          <Property Name="foundation_id" Type="int" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="Employee_Groups">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="150" />
           <Property Name="foundation_id" Type="int" />
         </EntityType>
         <EntityType Name="Foundations">
@@ -114,7 +131,7 @@
           <Property Name="UserName_mail" Type="nvarchar(max)" />
           <Property Name="Password" Type="nvarchar(max)" />
           <Property Name="FromAddress" Type="nvarchar(max)" />
-          <Property Name="connection_string" Type="nvarchar(max)" />
+          <Property Name="connection_string" Type="nvarchar" MaxLength="250" />
           <Property Name="islocal" Type="bit" />
           <Property Name="code_outbox" Type="int" />
         </EntityType>
@@ -150,28 +167,52 @@
           <Property Name="e_signature" Type="nvarchar" MaxLength="150" />
           <Property Name="foundation_id" Type="int" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Projects_Management_TEDATA.dbo.super_admin' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="super_admin">
           <Key>
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="int" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="250" />
-          <Property Name="User_name" Type="nvarchar" MaxLength="250" />
-          <Property Name="Password" Type="nvarchar" MaxLength="250" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="User_name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="50" />
           <Property Name="account_active" Type="bit" />
         </EntityType>
-        <Association Name="FK_Admin_Module_Admin_Module">
-          <End Role="Admin_Module" Type="Self.Admin_Module" Multiplicity="1" />
-          <End Role="Admin_Module1" Type="Self.Admin_Module" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="Admin_Module">
-              <PropertyRef Name="pk_ID" />
-            </Principal>
-            <Dependent Role="Admin_Module1">
-              <PropertyRef Name="pk_ID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Projects_Management_TEDATA.dbo.EmployeeAndCorrParentEmplNames' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="EmployeeAndCorrParentEmplNames">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="EmployeeID" />
+            <PropertyRef Name="ParentEmpID" />
+            <PropertyRef Name="type_id" />
+          </Key>
+          <Property Name="Type" Type="varchar" MaxLength="7" />
+          <Property Name="EmployeeName" Type="nvarchar" MaxLength="255" />
+          <Property Name="ParentEmployeeName" Type="nvarchar" MaxLength="255" />
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="EmployeeID" Type="int" Nullable="false" />
+          <Property Name="ParentEmpID" Type="int" Nullable="false" />
+          <Property Name="Group_id" Type="int" />
+          <Property Name="foundation_id" Type="int" />
+          <Property Name="type_id" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Projects_Management_TEDATA.dbo.EmployeeNames_ParentEmplTable' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="EmployeeNames_ParentEmplTable">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Type" />
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="ID" Type="int" Nullable="false" />
+          <Property Name="Type" Type="int" Nullable="false" />
+          <Property Name="pmp_name" Type="nvarchar" MaxLength="255" />
+          <Property Name="EmployeeID" Type="int" Nullable="false" />
+          <Property Name="Group_id" Type="int" />
+          <Property Name="foundation_id" Type="int" />
+        </EntityType>
         <Function Name="Admin_Users_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID" Type="int" Mode="In" />
           <Parameter Name="foundation_id" Type="int" Mode="In" />
@@ -208,23 +249,70 @@
           <Parameter Name="User_name" Type="nvarchar" Mode="In" />
         </Function>
         <EntityContainer Name="ActiveDirectoryStoreContainer">
-          <EntitySet Name="Admin_Module" EntityType="Self.Admin_Module" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Admin_Module_Found" EntityType="Self.Admin_Module_Found" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Admin_ModulePage" EntityType="Self.Admin_ModulePage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Admin_Page" EntityType="Self.Admin_Page" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Admin_RoleModule" EntityType="Self.Admin_RoleModule" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Admin_Users" EntityType="Self.Admin_Users" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Departments" EntityType="Self.Departments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EMPLOYEE" EntityType="Self.EMPLOYEE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Employee_Groups" EntityType="Self.Employee_Groups" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Foundations" EntityType="Self.Foundations" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Organization" EntityType="Self.Organization" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="parent_employee" EntityType="Self.parent_employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Site_Upload" EntityType="Self.Site_Upload" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="super_admin" EntityType="Self.super_admin" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK_Admin_Module_Admin_Module" Association="Self.FK_Admin_Module_Admin_Module">
-            <End Role="Admin_Module" EntitySet="Admin_Module" />
-            <End Role="Admin_Module1" EntitySet="Admin_Module" />
-          </AssociationSet>
+          <EntitySet Name="Admin_Module" EntityType="Self.Admin_Module" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Admin_Module].[pk_ID] AS [pk_ID], 
+    [Admin_Module].[Name] AS [Name], 
+    [Admin_Module].[Active] AS [Active]
+    FROM [dbo].[Admin_Module] AS [Admin_Module]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Admin_Module_Found" EntityType="Self.Admin_Module_Found" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Admin_Module_Found].[ID] AS [ID], 
+    [Admin_Module_Found].[Mod_ID] AS [Mod_ID], 
+    [Admin_Module_Found].[Mod_status] AS [Mod_status], 
+    [Admin_Module_Found].[found_id] AS [found_id]
+    FROM [dbo].[Admin_Module_Found] AS [Admin_Module_Found]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Admin_RoleModule" EntityType="Self.Admin_RoleModule" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Admin_RoleModule].[pk_ID] AS [pk_ID], 
+    [Admin_RoleModule].[fk_RoleID] AS [fk_RoleID], 
+    [Admin_RoleModule].[fk_ModuleID] AS [fk_ModuleID]
+    FROM [dbo].[Admin_RoleModule] AS [Admin_RoleModule]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="super_admin" EntityType="Self.super_admin" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [super_admin].[ID] AS [ID], 
+    [super_admin].[Name] AS [Name], 
+    [super_admin].[User_name] AS [User_name], 
+    [super_admin].[Password] AS [Password], 
+    [super_admin].[account_active] AS [account_active]
+    FROM [dbo].[super_admin] AS [super_admin]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="EmployeeAndCorrParentEmplNames" EntityType="Self.EmployeeAndCorrParentEmplNames" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [EmployeeAndCorrParentEmplNames].[Type] AS [Type], 
+    [EmployeeAndCorrParentEmplNames].[EmployeeName] AS [EmployeeName], 
+    [EmployeeAndCorrParentEmplNames].[ParentEmployeeName] AS [ParentEmployeeName], 
+    [EmployeeAndCorrParentEmplNames].[ID] AS [ID], 
+    [EmployeeAndCorrParentEmplNames].[EmployeeID] AS [EmployeeID], 
+    [EmployeeAndCorrParentEmplNames].[ParentEmpID] AS [ParentEmpID], 
+    [EmployeeAndCorrParentEmplNames].[Group_id] AS [Group_id], 
+    [EmployeeAndCorrParentEmplNames].[foundation_id] AS [foundation_id], 
+    [EmployeeAndCorrParentEmplNames].[type_id] AS [type_id]
+    FROM [dbo].[EmployeeAndCorrParentEmplNames] AS [EmployeeAndCorrParentEmplNames]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="EmployeeNames_ParentEmplTable" EntityType="Self.EmployeeNames_ParentEmplTable" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [EmployeeNames_ParentEmplTable].[ID] AS [ID], 
+    [EmployeeNames_ParentEmplTable].[Type] AS [Type], 
+    [EmployeeNames_ParentEmplTable].[pmp_name] AS [pmp_name], 
+    [EmployeeNames_ParentEmplTable].[EmployeeID] AS [EmployeeID], 
+    [EmployeeNames_ParentEmplTable].[Group_id] AS [Group_id], 
+    [EmployeeNames_ParentEmplTable].[foundation_id] AS [foundation_id]
+    FROM [dbo].[EmployeeNames_ParentEmplTable] AS [EmployeeNames_ParentEmplTable]</DefiningQuery>
+          </EntitySet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -271,8 +359,11 @@
           <Property Name="national_id" Type="Int32" />
           <Property Name="qualification_date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="job_title_id" Type="Int32" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="foundation_id" Type="Int32" />
+          <Property Name="Is_Finished" Type="Boolean" />
+          <Property Name="Finish_DT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Finish_Reason" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Foundation">
           <Key>
@@ -286,7 +377,7 @@
           <Property Name="UserName_mail" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="FromAddress" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="connection_string" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="connection_string" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="islocal" Type="Boolean" />
           <Property Name="code_outbox" Type="Int32" />
         </EntityType>
@@ -341,8 +432,11 @@
           <Parameter Name="User_name" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="get_pmp_by_dept" ReturnType="Collection(ActiveDirectory.get_pmp_by_dept)">
-            <Parameter Name="dept_id" Mode="In" Type="Int32" />
+          <Parameter Name="dept_id" Mode="In" Type="Int32" />
           </FunctionImport>
+          <EntitySet Name="EmployeeAndCorrParentEmplNames" EntityType="ActiveDirectory.EmployeeAndCorrParentEmplName" />
+          <EntitySet Name="EmployeeNames_ParentEmplTable" EntityType="ActiveDirectory.EmployeeNames_ParentEmplTable" />
+          <EntitySet Name="Employee_Groups" EntityType="ActiveDirectory.Employee_Groups" />
         </EntityContainer>
         <ComplexType Name="Foundations_Followup_Result">
           <Property Type="Int32" Name="Inbox_count" Nullable="true" />
@@ -511,9 +605,9 @@
             <PropertyRef Name="ID" />
           </Key>
           <Property Name="ID" Type="Int32" Nullable="false" />
-          <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="User_name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="Password" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="User_name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="account_active" Type="Boolean" />
         </EntityType>
         <ComplexType Name="SuperAdminUsers_SelectName_Result">
@@ -527,6 +621,44 @@
           <Property Type="Int64" Name="PMP_ID" Nullable="false" />
           <Property Type="String" Name="pmp_name" Nullable="true" MaxLength="255" />
         </ComplexType>
+        <EntityType Name="EmployeeAndCorrParentEmplName">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="EmployeeID" />
+            <PropertyRef Name="ParentEmpID" />
+            <PropertyRef Name="type_id" />
+          </Key>
+          <Property Name="Type" Type="String" MaxLength="7" FixedLength="false" Unicode="false" />
+          <Property Name="EmployeeName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ParentEmployeeName" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="ParentEmpID" Type="Int32" Nullable="false" />
+          <Property Name="Group_id" Type="Int32" />
+          <Property Name="foundation_id" Type="Int32" />
+          <Property Name="type_id" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EmployeeNames_ParentEmplTable">
+          <Key>
+            <PropertyRef Name="ID" />
+            <PropertyRef Name="Type" />
+            <PropertyRef Name="EmployeeID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" />
+          <Property Name="Type" Type="Int32" Nullable="false" />
+          <Property Name="pmp_name" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="EmployeeID" Type="Int32" Nullable="false" />
+          <Property Name="Group_id" Type="Int32" />
+          <Property Name="foundation_id" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Employee_Groups">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="foundation_id" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -548,6 +680,9 @@
           <EntitySetMapping Name="EMPLOYEEs">
             <EntityTypeMapping TypeName="ActiveDirectory.EMPLOYEE">
               <MappingFragment StoreEntitySet="EMPLOYEE">
+                <ScalarProperty Name="Finish_Reason" ColumnName="Finish_Reason" />
+                <ScalarProperty Name="Finish_DT" ColumnName="Finish_DT" />
+                <ScalarProperty Name="Is_Finished" ColumnName="Is_Finished" />
                 <ScalarProperty Name="PMP_ID" ColumnName="PMP_ID" />
                 <ScalarProperty Name="Dept_Dept_id" ColumnName="Dept_Dept_id" />
                 <ScalarProperty Name="pmp_name" ColumnName="pmp_name" />
@@ -819,6 +954,42 @@
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="EmployeeAndCorrParentEmplNames">
+            <EntityTypeMapping TypeName="ActiveDirectory.EmployeeAndCorrParentEmplName">
+              <MappingFragment StoreEntitySet="EmployeeAndCorrParentEmplNames">
+                <ScalarProperty Name="type_id" ColumnName="type_id" />
+                <ScalarProperty Name="foundation_id" ColumnName="foundation_id" />
+                <ScalarProperty Name="Group_id" ColumnName="Group_id" />
+                <ScalarProperty Name="ParentEmpID" ColumnName="ParentEmpID" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="ParentEmployeeName" ColumnName="ParentEmployeeName" />
+                <ScalarProperty Name="EmployeeName" ColumnName="EmployeeName" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeNames_ParentEmplTable">
+            <EntityTypeMapping TypeName="ActiveDirectory.EmployeeNames_ParentEmplTable">
+              <MappingFragment StoreEntitySet="EmployeeNames_ParentEmplTable">
+                <ScalarProperty Name="foundation_id" ColumnName="foundation_id" />
+                <ScalarProperty Name="Group_id" ColumnName="Group_id" />
+                <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
+                <ScalarProperty Name="pmp_name" ColumnName="pmp_name" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Employee_Groups">
+            <EntityTypeMapping TypeName="ActiveDirectory.Employee_Groups">
+              <MappingFragment StoreEntitySet="Employee_Groups">
+                <ScalarProperty Name="foundation_id" ColumnName="foundation_id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

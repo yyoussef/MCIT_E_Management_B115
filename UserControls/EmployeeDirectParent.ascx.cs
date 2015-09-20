@@ -11,11 +11,18 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Xml.Linq;
 using System.Data.SqlClient;
+using System.Data.Entity;
+using EFModels;
+
 
 public partial class UserControls_EmployeeDirectParent : System.Web.UI.UserControl
 {
     //Session_CS Session_CS = new Session_CS();
     private string sql_Connection = Database.ConnectionString;
+
+    ActiveDirectoryContext ADContext = new ActiveDirectoryContext();
+    int found_id = CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString());
+
     protected void Page_Load(object sender, EventArgs e)
     {
 
@@ -32,20 +39,38 @@ public partial class UserControls_EmployeeDirectParent : System.Web.UI.UserContr
     /// 
     protected void ddl_Groups_SelectedIndexChanged(object sender, EventArgs e)
     {
-        string sql = "select * from employee where group_id = " + ddl_Groups.SelectedValue;
+        //string sql = "select * from employee where group_id = " + ddl_Groups.SelectedValue;
 
-        DataTable dtdirectmng = General_Helping.GetDataTable(sql);
+        int x = CDataConverter.ConvertToInt(ddl_Groups.SelectedValue);
+
+        var query = from emp in ADContext.EMPLOYEEs where emp.Group_id == x select emp;
+
+
+        DataTable dtdirectmng = query.ToDataTable();
 
         Smart_Search_Direct_Manager.sql_Connection = Smart_Search_Employee.sql_Connection = sql_Connection;
-        Smart_Search_Direct_Manager.datatble = Smart_Search_Employee.datatble = General_Helping.GetDataTable(sql);
+
+        Smart_Search_Direct_Manager.datatble = dtdirectmng;
+        Smart_Search_Employee.datatble = dtdirectmng;
+
         Smart_Search_Direct_Manager.Value_Field = Smart_Search_Employee.Value_Field = "PMP_ID";
+
         Smart_Search_Direct_Manager.Text_Field = Smart_Search_Employee.Text_Field = "pmp_name";
 
 
         Smart_Search_Direct_Manager.DataBind();
+
         Smart_Search_Employee.DataBind();
 
-        DataTable dt = General_Helping.GetDataTable("select * from EmployeeAndCorrParentEmplNames where foundation_id = "+CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString()) +" and group_id= " +CDataConverter.ConvertToInt( ddl_Groups.SelectedValue));
+        int g_id = CDataConverter.ConvertToInt( ddl_Groups.SelectedValue);
+
+      
+
+
+       var query2 = from empcorr in ADContext.EmployeeAndCorrParentEmplNames where empcorr.foundation_id == found_id && empcorr.Group_id== g_id select empcorr  ;
+        DataTable dt = query2.ToDataTable();
+
+      //  DataTable dt = General_Helping.GetDataTable("select * from EmployeeAndCorrParentEmplNames where foundation_id = "+CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString()) +" and group_id= " +CDataConverter.ConvertToInt( ddl_Groups.SelectedValue));
         gvMain.DataSource = dt;
         gvMain.DataBind();
 
@@ -53,22 +78,31 @@ public partial class UserControls_EmployeeDirectParent : System.Web.UI.UserContr
   
     private void Fill_Groups()
     {
-        string sql = "select * from Employee_Groups where foundation_id="+CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString());
-        DataTable dt = General_Helping.GetDataTable(sql);
+        //string sql = "select * from Employee_Groups where foundation_id="+CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString());
+
+        //DataTable dt = General_Helping.GetDataTable(sql);
+
+       DataTable dt = (from empgroup in ADContext.Employee_Groups  where empgroup.foundation_id == found_id select empgroup).ToDataTable();
+
         ddl_Groups.DataSource = dt;
         ddl_Groups.DataValueField = "ID";
         ddl_Groups.DataTextField = "Name";
         ddl_Groups.DataBind();
         ddl_Groups.Items.Insert(0, new ListItem("اختر المجموعة......", "0"));
     }
+
     private void fillGrid()
     {
         //load the values in the grid
         string sqlSelectSt = "SELECT * FROM EmployeeAndCorrParentEmplNames where foundation_id='" + CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString()) + "' and Group_id !='"+ DBNull.Value+"'";//Retrieve data from the View
+
+        DataTable dt = (from emppar in ADContext.EmployeeAndCorrParentEmplNames where emppar.foundation_id == found_id && emppar.Group_id != null  select emppar).ToDataTable() ;
+
         try
         {
-            DataSet set = SqlHelper.ExecuteDataset(sql_Connection, CommandType.Text, sqlSelectSt);
-            gvMain.DataSource = set;
+          //  DataSet set = SqlHelper.ExecuteDataset(sql_Connection, CommandType.Text, sqlSelectSt);
+
+            gvMain.DataSource = dt ;
             gvMain.DataBind();
         }
         catch

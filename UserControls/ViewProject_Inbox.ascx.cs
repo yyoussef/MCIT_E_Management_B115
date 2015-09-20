@@ -699,8 +699,8 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
                 if (inall["Related_Type"].ToString() == "1")
                 {
 
-                    lbl_Inbox_type.Visible = false;
-                    lbl_letter.Visible = false;
+                    //lbl_Inbox_type.Visible = false;
+                   // lbl_letter.Visible = false;
 
                     //tr_lnk.Style.Add("dispaly","None");
                     //lbl_Inbox_type.Style.Add("dispaly", "None");
@@ -711,7 +711,7 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
                     all = dt_direct_related.Rows[0]["con"].ToString();
                     string[] res = all.Split('-');
                     idrelated = CDataConverter.ConvertToInt(res[3].ToString());
-                    lbl_Inbox_type.Text = "موضوع الخطاب الصادر :";
+                //    lbl_Inbox_type.Text = "موضوع الخطاب الصادر :";
 
 
                     if (dt_direct_related.Rows.Count > 0)
@@ -721,8 +721,8 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
                         string encrypted = Encryption.Encrypt(outid.ToString());
 
 
-                        lbl_letter.Text = dt_direct_related.Rows[0]["con"].ToString();
-                        lbl_letter.NavigateUrl = "../mainform/ViewProjectOutbox.aspx?id=" + encrypted;
+                    //    lbl_letter.Text = dt_direct_related.Rows[0]["con"].ToString();
+                     //   lbl_letter.NavigateUrl = "../mainform/ViewProjectOutbox.aspx?id=" + encrypted;
                     }
                 }
                 if (inall["Related_Type"].ToString() == "3" || inall["Related_Type"].ToString() == "4")
@@ -730,7 +730,7 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
                     all = dt_direct_related.Rows[0]["con"].ToString();
                     string[] res = all.Split('-');
                     idrelated = CDataConverter.ConvertToInt(res[3].ToString());
-                    lbl_Inbox_type.Text = "موضوع الخطاب الوارد :";
+               //     lbl_Inbox_type.Text = "موضوع الخطاب الوارد :";
 
 
                     if (dt_direct_related.Rows.Count > 0)
@@ -740,8 +740,8 @@ public partial class UserControls_ViewProject_Inbox : System.Web.UI.UserControl
                         string encrypted = Encryption.Encrypt(INid.ToString());
 
 
-                        lbl_letter.Text = dt_direct_related.Rows[0]["con"].ToString();
-                        lbl_letter.NavigateUrl = "../mainform/ViewProjectInbox.aspx?id=" + encrypted;
+                   //     lbl_letter.Text = dt_direct_related.Rows[0]["con"].ToString();
+                  //      lbl_letter.NavigateUrl = "../mainform/ViewProjectInbox.aspx?id=" + encrypted;
 
 
                     }

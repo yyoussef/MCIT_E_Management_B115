@@ -40,6 +40,9 @@ namespace EFModels
         public virtual DbSet<Admin_RoleModule> Admin_RoleModule { get; set; }
         public virtual DbSet<Admin_Users> Admin_Users { get; set; }
         public virtual DbSet<super_admin> super_admin { get; set; }
+        public virtual DbSet<EmployeeAndCorrParentEmplName> EmployeeAndCorrParentEmplNames { get; set; }
+        public virtual DbSet<EmployeeNames_ParentEmplTable> EmployeeNames_ParentEmplTable { get; set; }
+        public virtual DbSet<Employee_Groups> Employee_Groups { get; set; }
     
         public virtual ObjectResult<Foundations_Followup_Result> Foundations_Followup(Nullable<int> foundation_id)
         {
