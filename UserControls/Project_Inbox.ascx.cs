@@ -888,7 +888,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
           //  obj.ID = Inbox_DB.Save(obj);
 
-              obj.ID = InsertOrUpdate_Inbox(obj);
+               obj.ID = InsertOrUpdate_Inbox(obj);
 
 
             
@@ -2230,7 +2230,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
                     Fil_Emp_Visa_Follow();
                     ///////////////////////// update have visa = 1/////////////////////////////////////////////
 
-                    Update_Have_Visa_all_emp(CDataConverter.ConvertToInt( obj.Inbox_ID));
+                     Update_Have_Visa_all_emp(CDataConverter.ConvertToInt( obj.Inbox_ID));
 
                     lst_emp.Items.Clear();
                 }
@@ -3046,10 +3046,10 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
                 if (dt1.Rows.Count > 0)
                 {
+                    int hid = CDataConverter.ConvertToInt(hidden_Id.Value);
+                    int emp = CDataConverter.ConvertToInt(item["Emp_ID"].ToString());
 
-
-
-                    var result = pm_inbox.Inbox_Track_Emp.SingleOrDefault(b => b.inbox_id == CDataConverter.ConvertToInt(hidden_Id.Value) && b.Emp_ID == CDataConverter.ConvertToInt(item["Emp_ID"].ToString()));
+                    var result = pm_inbox.Inbox_Track_Emp.SingleOrDefault(b => b.inbox_id == hid && b.Emp_ID == emp);
                     if (result != null)
                     {
                         result.Inbox_Status = 2;
@@ -3557,7 +3557,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
     }
 
     protected void btnSend_Click(object sender, EventArgs e)
-    {
+       {
         if (CDataConverter.ConvertToInt(hidden_Id.Value) > 0)
         {
             if (Session_CS.pmp_id != null)
