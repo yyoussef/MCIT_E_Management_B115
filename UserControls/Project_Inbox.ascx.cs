@@ -3067,7 +3067,7 @@ public partial class UserControls_Project_Inbox : System.Web.UI.UserControl
 
                     inbemp.inbox_id = CDataConverter.ConvertToInt(hidden_Id.Value);
                     inbemp.Emp_ID = CDataConverter.ConvertToInt(item["Emp_ID"].ToString());
-                    inbemp.Inbox_Status = 2;
+                    inbemp.Inbox_Status = 1;
                     inbemp.Type_Track_emp = 1;
                     //pm_inbox.Inbox_Track_Emp.Add(inbemp);
                     //pm_inbox.SaveChanges();
