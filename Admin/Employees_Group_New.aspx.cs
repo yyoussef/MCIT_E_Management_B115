@@ -134,27 +134,46 @@ public partial class WebForms2_Employees_Group : System.Web.UI.Page
     }
     protected void btnSave_Click(object sender, EventArgs e)
     {
-        string sql = "";
-        string Sql_Delete = "update EMPLOYEE set Group_id=Null where Group_id ='" + CDataConverter.ConvertToInt(ddl_Groups.SelectedValue) + "' ";
-     
-        General_Helping.ExcuteQuery(Sql_Delete);
-  
-        foreach (ListItem item in cbl_Employees.Items)
-        {
-            if (item.Selected)
-            {
-                sql = "update employee set group_id=" + ddl_Groups.SelectedValue + " where  pmp_id ="
-                    + item.Value;
-                if(Smart_Search_Dept.SelectedValue!="")
-                {
-                   sql+=" and Dept_Dept_id='" + Smart_Search_Dept.SelectedValue + "'";
-                }
-                General_Helping.ExcuteQuery(sql);
-            }
-        }
-        Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('تم الحفظ بنجاح')</script>");
 
-        Get_Emp();
+        string Sql_select = "  select pmp_id from parent_employee  where pmp_id in (select pmp_id from employee where  Group_id ='" + CDataConverter.ConvertToInt(ddl_Groups.SelectedValue)+"' ) ";
+        int pmpid;
+        DataTable dt = General_Helping.GetDataTable(Sql_select);
+        if (dt.Rows.Count > 0)
+        {
+            //pmpid = CDataConverter.ConvertToInt( dt.Rows[0]["pmp_id"].ToString());
+
+            //string Sql_del = " delete from parent_employee where pmp_id = '"+pmpid +"' ";
+            //General_Helping.ExcuteQuery(Sql_del);
+            Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('لم يتم التعديل لوجود سجلات مرتبطة بين الادارة العليا والسكرتارية ... برجاء حذف السجلات المرتبطة والقيام بالتعديل')</script>");
+        }
+
+        else
+        {
+
+
+
+            string sql = "";
+            string Sql_Delete = "update EMPLOYEE set Group_id=Null where Group_id ='" + CDataConverter.ConvertToInt(ddl_Groups.SelectedValue) + "' ";
+
+            General_Helping.ExcuteQuery(Sql_Delete);
+
+            foreach (ListItem item in cbl_Employees.Items)
+            {
+                if (item.Selected)
+                {
+                    sql = "update employee set group_id=" + ddl_Groups.SelectedValue + " where  pmp_id ="
+                        + item.Value;
+                    if (Smart_Search_Dept.SelectedValue != "")
+                    {
+                        sql += " and Dept_Dept_id='" + Smart_Search_Dept.SelectedValue + "'";
+                    }
+                    General_Helping.ExcuteQuery(sql);
+                }
+            }
+            Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('تم الحفظ بنجاح')</script>");
+
+            Get_Emp();
+        }
     }
     protected void ddl_Groups_SelectedIndexChanged(object sender, EventArgs e)
     {

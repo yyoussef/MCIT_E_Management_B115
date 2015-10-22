@@ -308,6 +308,25 @@ namespace EFModels
 {
     using System;
     
+    public partial class foundation_check_exist
+    {
+        public int Foundation_ID { get; set; }
+        public string Foundation_Name { get; set; }
+        public Nullable<int> code_archiving { get; set; }
+        public Nullable<int> Port { get; set; }
+        public string Host { get; set; }
+        public string UserName_mail { get; set; }
+        public string Password { get; set; }
+        public string FromAddress { get; set; }
+        public string connection_string { get; set; }
+        public Nullable<bool> islocal { get; set; }
+        public Nullable<int> code_outbox { get; set; }
+    }
+}
+namespace EFModels
+{
+    using System;
+    
     public partial class Foundations_Followup_Result
     {
         public Nullable<int> Inbox_count { get; set; }
@@ -318,6 +337,25 @@ namespace EFModels
         public Nullable<int> Follows_count { get; set; }
         public Nullable<int> Visaoutbox_count { get; set; }
         public Nullable<int> Followsoutbox_count { get; set; }
+    }
+}
+namespace EFModels
+{
+    using System;
+    
+    public partial class foundations_selectall
+    {
+        public int Foundation_ID { get; set; }
+        public string Foundation_Name { get; set; }
+        public Nullable<int> code_archiving { get; set; }
+        public Nullable<int> Port { get; set; }
+        public string Host { get; set; }
+        public string UserName_mail { get; set; }
+        public string Password { get; set; }
+        public string FromAddress { get; set; }
+        public string connection_string { get; set; }
+        public Nullable<bool> islocal { get; set; }
+        public Nullable<int> code_outbox { get; set; }
     }
 }
 namespace EFModels

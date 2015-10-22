@@ -150,5 +150,27 @@ namespace EFModels
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<get_pmp_by_dept>("get_pmp_by_dept", dept_idParameter);
         }
+    
+        public virtual ObjectResult<foundations_selectall> foundations_selectall(Nullable<int> foundation_id)
+        {
+            var foundation_idParameter = foundation_id.HasValue ?
+                new ObjectParameter("foundation_id", foundation_id) :
+                new ObjectParameter("foundation_id", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<foundations_selectall>("foundations_selectall", foundation_idParameter);
+        }
+    
+        public virtual ObjectResult<foundation_check_exist> foundation_check_exist(Nullable<int> id, string name)
+        {
+            var idParameter = id.HasValue ?
+                new ObjectParameter("id", id) :
+                new ObjectParameter("id", typeof(int));
+    
+            var nameParameter = name != null ?
+                new ObjectParameter("name", name) :
+                new ObjectParameter("name", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<foundation_check_exist>("foundation_check_exist", idParameter, nameParameter);
+        }
     }
 }

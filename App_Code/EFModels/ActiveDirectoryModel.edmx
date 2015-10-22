@@ -224,7 +224,14 @@ warning 6002: The table/view 'Projects_Management_TEDATA.dbo.EmployeeNames_Paren
         <Function Name="fill_employee2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Dept_id" Type="int" Mode="In" />
         </Function>
+        <Function Name="foundation_check_exist" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="id" Type="int" Mode="In" />
+          <Parameter Name="name" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="Foundations_Followup" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="foundation_id" Type="int" Mode="In" />
+        </Function>
+        <Function Name="foundations_selectall" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="foundation_id" Type="int" Mode="In" />
         </Function>
         <Function Name="get_dept_by_found" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -437,6 +444,13 @@ warning 6002: The table/view 'Projects_Management_TEDATA.dbo.EmployeeNames_Paren
           <EntitySet Name="EmployeeAndCorrParentEmplNames" EntityType="ActiveDirectory.EmployeeAndCorrParentEmplName" />
           <EntitySet Name="EmployeeNames_ParentEmplTable" EntityType="ActiveDirectory.EmployeeNames_ParentEmplTable" />
           <EntitySet Name="Employee_Groups" EntityType="ActiveDirectory.Employee_Groups" />
+          <FunctionImport Name="foundations_selectall" ReturnType="Collection(ActiveDirectory.foundations_selectall)">
+          <Parameter Name="foundation_id" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="foundation_check_exist" ReturnType="Collection(ActiveDirectory.foundation_check_exist)">
+            <Parameter Name="id" Mode="In" Type="Int32" />
+            <Parameter Name="name" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="Foundations_Followup_Result">
           <Property Type="Int32" Name="Inbox_count" Nullable="true" />
@@ -659,6 +673,32 @@ warning 6002: The table/view 'Projects_Management_TEDATA.dbo.EmployeeNames_Paren
           <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="foundation_id" Type="Int32" />
         </EntityType>
+        <ComplexType Name="foundations_selectall" >
+          <Property Type="Int32" Name="Foundation_ID" Nullable="false" />
+          <Property Type="String" Name="Foundation_Name" Nullable="true" />
+          <Property Type="Int32" Name="code_archiving" Nullable="true" />
+          <Property Type="Int32" Name="Port" Nullable="true" />
+          <Property Type="String" Name="Host" Nullable="true" />
+          <Property Type="String" Name="UserName_mail" Nullable="true" />
+          <Property Type="String" Name="Password" Nullable="true" />
+          <Property Type="String" Name="FromAddress" Nullable="true" />
+          <Property Type="String" Name="connection_string" Nullable="true" MaxLength="250" />
+          <Property Type="Boolean" Name="islocal" Nullable="true" />
+          <Property Type="Int32" Name="code_outbox" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="foundation_check_exist" >
+          <Property Type="Int32" Name="Foundation_ID" Nullable="false" />
+          <Property Type="String" Name="Foundation_Name" Nullable="true" />
+          <Property Type="Int32" Name="code_archiving" Nullable="true" />
+          <Property Type="Int32" Name="Port" Nullable="true" />
+          <Property Type="String" Name="Host" Nullable="true" />
+          <Property Type="String" Name="UserName_mail" Nullable="true" />
+          <Property Type="String" Name="Password" Nullable="true" />
+          <Property Type="String" Name="FromAddress" Nullable="true" />
+          <Property Type="String" Name="connection_string" Nullable="true" MaxLength="250" />
+          <Property Type="Boolean" Name="islocal" Nullable="true" />
+          <Property Type="Int32" Name="code_outbox" Nullable="true" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -990,6 +1030,40 @@ warning 6002: The table/view 'Projects_Management_TEDATA.dbo.EmployeeNames_Paren
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="foundations_selectall" FunctionName="ActiveDirectory.Store.foundations_selectall">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ActiveDirectory.foundations_selectall">
+                <ScalarProperty Name="Foundation_ID" ColumnName="Foundation_ID" />
+                <ScalarProperty Name="Foundation_Name" ColumnName="Foundation_Name" />
+                <ScalarProperty Name="code_archiving" ColumnName="code_archiving" />
+                <ScalarProperty Name="Port" ColumnName="Port" />
+                <ScalarProperty Name="Host" ColumnName="Host" />
+                <ScalarProperty Name="UserName_mail" ColumnName="UserName_mail" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="FromAddress" ColumnName="FromAddress" />
+                <ScalarProperty Name="connection_string" ColumnName="connection_string" />
+                <ScalarProperty Name="islocal" ColumnName="islocal" />
+                <ScalarProperty Name="code_outbox" ColumnName="code_outbox" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="foundation_check_exist" FunctionName="ActiveDirectory.Store.foundation_check_exist">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="ActiveDirectory.foundation_check_exist">
+                <ScalarProperty Name="Foundation_ID" ColumnName="Foundation_ID" />
+                <ScalarProperty Name="Foundation_Name" ColumnName="Foundation_Name" />
+                <ScalarProperty Name="code_archiving" ColumnName="code_archiving" />
+                <ScalarProperty Name="Port" ColumnName="Port" />
+                <ScalarProperty Name="Host" ColumnName="Host" />
+                <ScalarProperty Name="UserName_mail" ColumnName="UserName_mail" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="FromAddress" ColumnName="FromAddress" />
+                <ScalarProperty Name="connection_string" ColumnName="connection_string" />
+                <ScalarProperty Name="islocal" ColumnName="islocal" />
+                <ScalarProperty Name="code_outbox" ColumnName="code_outbox" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

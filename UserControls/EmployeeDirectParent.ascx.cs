@@ -70,7 +70,7 @@ public partial class UserControls_EmployeeDirectParent : System.Web.UI.UserContr
        var query2 = from empcorr in ADContext.EmployeeAndCorrParentEmplNames where empcorr.foundation_id == found_id && empcorr.Group_id== g_id select empcorr  ;
         DataTable dt = query2.ToDataTable();
 
-      //  DataTable dt = General_Helping.GetDataTable("select * from EmployeeAndCorrParentEmplNames where foundation_id = "+CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString()) +" and group_id= " +CDataConverter.ConvertToInt( ddl_Groups.SelectedValue));
+     //  DataTable dts = General_Helping.GetDataTable("select * from EmployeeAndCorrParentEmplNames where foundation_id = "+CDataConverter.ConvertToInt(Session_CS.foundation_id.ToString()) +" and group_id= " +CDataConverter.ConvertToInt( ddl_Groups.SelectedValue));
         gvMain.DataSource = dt;
         gvMain.DataBind();
 

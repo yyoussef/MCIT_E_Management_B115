@@ -104,13 +104,13 @@
             <asp:BoundField HeaderText=" اسم الموظف" DataField="EmployeeName" />
             <asp:BoundField HeaderText=" اسم المدير المباشر" DataField="ParentEmployeeName" />
             <asp:BoundField HeaderText=" النوع" DataField="Type" />
-            <asp:TemplateField HeaderText="تعديل" HeaderStyle-Width="25px">
+        <%--    <asp:TemplateField HeaderText="تعديل" HeaderStyle-Width="25px">
                 <ItemTemplate>
                     <asp:ImageButton ID="ImgBtnEdit" runat="server" ImageUrl="../Images/Edit.jpg" CommandArgument='<%# Eval("ID") %>'
                         CommandName="show" />
                 </ItemTemplate>
                 <HeaderStyle Width="25px" />
-            </asp:TemplateField>
+            </asp:TemplateField>--%>
             <asp:TemplateField HeaderText="حذف" HeaderStyle-Width="25px">
                 <ItemTemplate>
                     <asp:ImageButton ID="ImgBtnDelete" runat="server" ImageUrl="../Images/delete.gif"

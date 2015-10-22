@@ -91,8 +91,12 @@ public partial class SuperAdmin_Foundations : System.Web.UI.Page
 
         using (var ADContext = new ActiveDirectoryContext())
         {
-            string temp = getNormalizedName(txtBox_FoundName.Text.Trim());
-            if (ADContext.Foundations.Any(o => o.Foundation_Name == temp))
+                 string temp = getNormalizedName(txtBox_FoundName.Text.Trim());
+
+                 DataTable dts = ADContext.foundation_check_exist(CDataConverter.ConvertToInt(found_id.Value), temp).ToDataTable();
+          
+       
+            if ( dts.Rows.Count > 0 )
             {
                 Page.RegisterStartupScript("Sucess", "<script language=javascript>alert('اسم الجهة موجود من فضلك ادخل اسم أخر')</script>");
                 return;
