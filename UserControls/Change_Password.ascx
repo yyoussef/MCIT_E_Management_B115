@@ -30,10 +30,10 @@
                 Display="None" ValidationExpression="^.*(?=.{8,})(?=.*[a-z])(?=.*[\d\W]).*$"
                 ValidationGroup="change" ErrorMessage=" برجاء عدم استخدام الأسماء او الكلمات.استخدم خليط من الحروف و الأرقام و العلامات "></asp:RegularExpressionValidator>
             <cc1:PasswordStrength ID="txtPassword_PasswordStrength" runat="server" TargetControlID="TxtNewPassword"
-                DisplayPosition="BelowRight" PrefixText="Your password is " StrengthIndicatorType="Text"
+                DisplayPosition="LeftSide" PrefixText="Your password is " StrengthIndicatorType="Text"
                 MinimumNumericCharacters="1" MinimumSymbolCharacters="1" PreferredPasswordLength="8"
                 RequiresUpperAndLowerCaseCharacters="true" TextStrengthDescriptions="Weak; Not Good; Good"
-                TextStrengthDescriptionStyles="TextStrengthWeak; TextStrengthNotGood; TextStrengthGood" >
+                TextStrengthDescriptionStyles="TextStrengthWeak; TextStrengthNotGood; TextStrengthGood"   >
             </cc1:PasswordStrength>
         </td>
     </tr>
