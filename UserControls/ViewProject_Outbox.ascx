@@ -172,16 +172,17 @@
                                             <td valign="top" width="20">
                                             </td>
                                         </tr>
-                                  <%--      <tr>
+                                  <%-- <tr>
                                             <td colspan="2">
                                                 <asp:Label ID="lbl_Inbox_type" runat="server" CssClass="Label" Text="عنوان الخطاب " />
                                             </td>
                                             <td colspan="15">
                                                 <asp:HyperLink ID="lbl_letter" runat="server" CssClass="Label" Font-Bold="False"
                                                     ForeColor="Black">HyperLink</asp:HyperLink>
-                                                <%--<asp:Label ID="lbl_letter" runat="server"  Text=" " CssClass="Label" Font-Bold="False" ForeColor="Black"  />--%>
-                                            </--%>td>
-                                        </tr>
+                                      </td>
+                                                
+                                        
+                                        </tr>--%>
                                     </table>
                                 </td>
                             </tr>

@@ -31,8 +31,8 @@
                         <li style="background-image: url('../new_images/toptany.gif')"><a href="Emp_Search.aspx">
                             بحث عن الموظفين</a> </li>
                             
-                        <li style="background-image: url('../new_images/toptany.gif')"><a href="Commitee.aspx">
-                            بيانات اللجان</a> </li>
+                    <%--    <li style="background-image: url('../new_images/toptany.gif')"><a href="Commitee.aspx">
+                            بيانات اللجان</a> </li>--%>
                   <%--      <li style="background-image: url('../new_images/toptany.gif')"><a href="committee_Presidents.aspx">
                             رؤساء الأقسام و اللجان</a> </li>
                       --%>

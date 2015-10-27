@@ -4,25 +4,27 @@
 <head>
 <title>متابعة الجهات </title>
  <script language="javascript" type="text/javascript">
-        function printDiv(divID) {
 
-            var divElements = document.getElementById(divID);
+        function printGrid() {
+            var gridData = document.getElementById('<%= gv_count.ClientID %>');
+            var windowUrl = 'about:blank';
+            var uniqueName = new Date();
+            var windowName = 'Print_' + uniqueName.getTime();
 
-            var oldPage = document.body.innerHTML;
-
-
-            document.body.innerHTML =
-              "<html><head><title></title></head><body>" +
-              divElements + "</body>";
-
-
-            window.print();
-
-
-            document.body.innerHTML = oldPage;
-
-
+            var prtWindow = window.open(windowUrl, windowName,
+            'left=100,top=100,right=100,bottom=100,width=700,height=500');
+            prtWindow.document.write('<html><head></head>');
+            prtWindow.document.write('<body style="background:none !important">');
+            prtWindow.document.write(gridData.outerHTML);
+            prtWindow.document.write('</body></html>');
+            prtWindow.document.close();
+            prtWindow.focus();
+            prtWindow.print();
+            prtWindow.close();
         }
+
+
+
  </script>
  </head> 
 <table style="width: 100%">
@@ -47,7 +49,7 @@
      
         
     <div id="div_grid" runat="server" align="center">
-    <table > 
+    <table  id="tbl_grid"> 
     <tr> 
     <td>
     
@@ -77,10 +79,17 @@
      </td>
     </tr>
     <tr>
-    <td>
-        <input type="button" value="طباعة" onclick="javascript:printDiv('div_grid')"  class="Button"  runat="server" id="btn_print"/>
+  <%--  <td>
+        <input type="button" value="طباعة" OnClientClick="printGrid()"   class="Button"  runat="server" id="btn_print" ToolTip="Click to Print All Records"/>
 
-    </td>
+    </td>--%>
+        <td align="center"  style="align-content:center">
+
+               <asp:Button runat="server" Text="طـــبــاعــة" ValidationGroup="A" CssClass="Button"
+                     ID="btn_print"  OnClientClick="printGrid()"   ></asp:Button>
+
+        </td>
+      
     </tr>
      </table>
      </div> 
