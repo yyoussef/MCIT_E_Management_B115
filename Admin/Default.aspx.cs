@@ -45,7 +45,9 @@ public partial class Admin_Default : System.Web.UI.Page
 
                     Session_CS.e_signature = obj.e_signature.ToString();
                     Session_CS.Site_Name = obj.Site_Name;
-                    Page.Title = obj.Site_Name;
+
+                  //  Page.Title = obj.Site_Name;
+
                     //load the values into the page controls
                     string newPath = "";
                     newPath = "~/Uploads/SitesPics/" + obj.File_Name + "." + obj.File_Ext;

@@ -33,12 +33,10 @@ public partial class WebForms_AdminUserPage : System.Web.UI.Page
             DropModule.DataBind();
             //DropModule.Items.Add(new ListItem("اختر الموديول......", "0"));
             DropModule.Items.Insert(0, new ListItem("اختر الصلاحية......", "0"));
-
-      
-
-           
+         
         }
     }
+
     protected override void OnInit(EventArgs e)
     {
         SmartEmployee.sql_Connection = SqlConnection;
@@ -73,6 +71,12 @@ public partial class WebForms_AdminUserPage : System.Web.UI.Page
             {
                 gvUserPages.DataSource = dt;
                 gvUserPages.DataBind();
+            }
+            else
+            {
+                gvUserPages.DataSource = null;
+                gvUserPages.DataBind();
+
             }
         
         }
